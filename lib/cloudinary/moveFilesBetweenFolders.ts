@@ -8,9 +8,9 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Cloudinary ENV variables
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string,
+  api_secret: process.env.CLOUDINARY_API_SECRET as string,
   secure: true,
 });
 
@@ -23,7 +23,7 @@ export async function moveFilesBetweenFolders({
 }): Promise<string | string[]> {
   try {
     // Define upload preset (Project identifier)
-    const uploadPreset = "restaurant-pos";
+    const uploadPreset = "health";
 
     // Cloudinary expects full folder path, including project prefix
     const fullOldFolder = `${uploadPreset}/${oldFolder}`;

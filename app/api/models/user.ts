@@ -5,11 +5,10 @@ import {
   newsletterFrequencies,
   roles,
 } from "@/lib/constants";
-import { isValidUrl } from "@/app/api/utils/validators";
 
 const categoryInterests = new Schema({
   type: { type: String, enum: mainCategories },
-  newsletterSubscription: { type: Boolean, default: true },
+  articlesletterSubscription: { type: Boolean, default: true },
   subscriptionFrequencies: { type: String, enum: newsletterFrequencies },
 });
 
@@ -47,69 +46,52 @@ export const userSchema = new Schema(
     birthDate: {
       type: Date,
       required: true,
-      validate: {
-        validator: function (v: Date) {
-          return v < new Date();
-        },
-        message: "Birth date cannot be in the future",
-      },
     },
     imageUrl: {
       type: String,
-      validate: {
-        validator: function (v: string) {
-          return isValidUrl(v);
-        },
-        message: (props: { value: string }) =>
-          `${props.value} is not a valid URL!`,
-      },
     },
     preferences: {
       language: { type: String, required: true },
       region: { type: String, required: true },
       contentLanguage: { type: String, required: true },
     },
-    likedNews: [{ type: Schema.Types.ObjectId, ref: "News" }],
-    commentedNews: [{ type: Schema.Types.ObjectId, ref: "News" }],
+    likedArticles: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Articles" }],
+      default: undefined
+    },
+    commentedArticles: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Articles" }],
+      default: undefined
+    },
     categoryInterests: {
       type: [categoryInterests],
       required: true,
-      validate: {
-        validator: function (v: { type: string }[]) {
-          const types = v.map((interest) => interest.type);
-          return new Set(types).size === types.length;
-        },
-        message: "Category interests must be unique",
-      },
     },
     readingHistory: {
       type: [
         {
-          newsId: { type: Schema.Types.ObjectId, ref: "News", required: true },
+          articlesId: {
+            type: Schema.Types.ObjectId,
+            ref: "Articles",
+            required: true,
+          },
           readAt: { type: Date, default: Date.now },
         },
       ],
       default: undefined,
     },
-    lastLogin: { type: Date, default: Date.now },
+    lastLogin: { type: Date, required: true },
     isActive: { type: Boolean, default: true },
     emailVerified: { type: Boolean, default: false },
-    verificationToken: String,
-    resetPasswordToken: String,
-    resetPasswordExpires: Date,
+    verificationToken: { type: String },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
   },
   {
     timestamps: true,
     trim: true,
   }
 );
-
-// Create indexes
-userSchema.index({ email: 1 }, { unique: true });
-userSchema.index({ username: 1 });
-userSchema.index({ "categoryInterests.type": 1 });
-userSchema.index({ isActive: 1 });
-userSchema.index({ emailVerified: 1 });
 
 const User = models.User || model("User", userSchema);
 export default User;

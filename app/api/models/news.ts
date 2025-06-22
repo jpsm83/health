@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
-import { mainCategories, newsStatus } from "@/lib/constants";
-import { isValidUrl } from "@/app/api/utils/validators";
+import { mainCategories, articleStatus } from "@/lib/constants";
+import { isValidUrl } from "@/lib/utils/isValidUrl";
 
 const contentSchema = new Schema({
   language: { type: String, required: true },
@@ -98,7 +98,7 @@ export const newsSchema = new Schema(
     },
     status: {
       type: String,
-      enum: newsStatus,
+      enum: articleStatus,
       default: "draft",
     },
     socialMetrics: {

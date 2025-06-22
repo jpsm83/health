@@ -2,9 +2,9 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Cloudinary ENV variables
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string,
+  api_secret: process.env.CLOUDINARY_API_SECRET as string,
   secure: true,
 });
 
@@ -17,8 +17,7 @@ export default async function uploadFilesCloudinary({
   filesArr: File[];
   onlyImages?: boolean;
 }): Promise<string | string[]> {
-  
-  const uploadPreset = "restaurant-pos";
+  const uploadPreset = "health";
 
   // Validate file types
   if (onlyImages) {

@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { mainCategories, newsStatus } from "@/lib/constants";
+import { mainCategories, articleStatus } from "@/lib/constants";
 
 export interface ISeoTags {
   metaTitle: string;
@@ -54,7 +54,7 @@ export interface INews {
   imageUrl: string;
   category: typeof mainCategories;
   sourceUrl: string;
-  status: typeof newsStatus;
+  status: typeof articleStatus;
   socialMetrics: {
     shares: ISocialShares;
     engagementDetails: {

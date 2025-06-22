@@ -1,15 +1,9 @@
 import { Types } from 'mongoose';
-import { 
-  genders, 
-  mainCategories, 
-  newsletterFrequencies, 
-  roles 
-} from '@/lib/constants';
 
 export interface ICategoryInterest {
-  type: typeof mainCategories;
+  type: string;
   newsletterSubscription?: boolean;
-  subscriptionFrequencies?: typeof newsletterFrequencies;
+  subscriptionFrequencies?: string;
 }
 
 export interface IUserPreferences {
@@ -28,8 +22,8 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
-  roles: typeof roles;
-  gender: typeof genders;
+  role: string;
+  gender: string;
   birthDate: Date;
   imageUrl?: string;
   preferences: IUserPreferences;
