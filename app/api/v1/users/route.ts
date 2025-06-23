@@ -59,7 +59,7 @@ export const POST = async (req: Request) => {
     const role = formData.get("role") as string;
     const gender = formData.get("gender") as string;
     const birthDate = formData.get("birthDate") as string;
-    const imageUrl = formData.get("imageUrl") as File | undefined;
+    const imageFile = formData.get("imageFile") as File | undefined;
 
     // Preferences
     const language = formData.get("language") as string;
@@ -163,13 +163,13 @@ export const POST = async (req: Request) => {
 
     // check for duplicates username and email
     const duplicateUser = await User.findOne({
-      email,
+          email,
     });
 
     if (duplicateUser) {
       return new NextResponse(
-        JSON.stringify({
-          message: "User with email already exists!",
+            JSON.stringify({
+                  message: "User with email already exists!",
         }),
         {
           status: 409,
@@ -177,14 +177,14 @@ export const POST = async (req: Request) => {
         }
       );
     }
-
+    
     // Hash password asynchronously
     const hashedPassword = await hash(password, 10);
 
     const userId = new mongoose.Types.ObjectId();
 
     const newUser: IUser = {
-      _id: userId,
+        _id: userId,
       username,
       email,
       password: hashedPassword,
@@ -195,14 +195,14 @@ export const POST = async (req: Request) => {
       categoryInterests,
       lastLogin: new Date(),
     };
-
+    
     // upload image to cloudinary
-    if (imageUrl && imageUrl instanceof File && imageUrl.size > 0) {
+    if (imageFile && imageFile instanceof File && imageFile.size > 0) {
       const folder = `/users/${userId}`;
 
       const cloudinaryUploadResponse = await uploadFilesCloudinary({
         folder,
-        filesArr: [imageUrl], // only one image
+        filesArr: [imageFile], // only one image
         onlyImages: true,
       });
 
@@ -221,6 +221,7 @@ export const POST = async (req: Request) => {
       }
 
       newUser.imageUrl = cloudinaryUploadResponse[0];
+      newUser.imageFile = imageFile.name;
     }
 
     await User.create(newUser);

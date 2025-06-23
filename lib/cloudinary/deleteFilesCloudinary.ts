@@ -13,12 +13,12 @@ export default async function deleteFilesCloudinary(
 ): Promise<boolean | string> {
   try {
     // example of a cloudinary image url
-    // "https://res.cloudinary.com/jpsm83/image/upload/v1742636639/restaurant-pos/business/66e169a709901431386c97cb/suppliers/67de865e17261dbaf2ec3ee3/dexnymwfq0bivflousfl.png"
+    // https://res.cloudinary.com/jpsm83/image/upload/v1750673781/health/users/685921b62c6db61122c9302b/uowx3qxhiyns1j7j69jf.jpg
     if (imageUrl) {
       // Extract cloudinaryPublicId using regex
       // example of a publicId
-      // "restaurant-pos/business/66e169a709901431386c97cb/suppliers/67de865e17261dbaf2ec3ee3/dexnymwfq0bivflousfl.png"
-      const cloudinaryPublicId = imageUrl.match(/restaurant-pos\/[^.]+/);
+      // health/users/685921b62c6db61122c9302b/uowx3qxhiyns1j7j69jf.jpg
+      const cloudinaryPublicId = imageUrl.match(/health\/[^.]+/);
 
       const deletionResponse = await cloudinary.uploader.destroy(
         cloudinaryPublicId?.[0] ?? "",
@@ -33,7 +33,7 @@ export default async function deleteFilesCloudinary(
     }
     return true;
   } catch (error) {
-    return `Error trying to upload image: ${
+    return `Error trying to delete image: ${
       error instanceof Error ? error.message : "Unknown error"
     }`;
   }

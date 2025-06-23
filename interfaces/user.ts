@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 
 export interface ICategoryInterest {
+  _id?: Types.ObjectId;
   type: string;
   newsletterSubscription?: boolean;
   subscriptionFrequencies?: string;
@@ -25,6 +26,7 @@ export interface IUser {
   role: string;
   gender: string;
   birthDate: Date;
+  imageFile?: string;
   imageUrl?: string;
   preferences: IUserPreferences;
   likedNews?: Types.ObjectId[];

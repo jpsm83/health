@@ -8,7 +8,7 @@ import {
 
 const categoryInterests = new Schema({
   type: { type: String, enum: mainCategories },
-  articlesletterSubscription: { type: Boolean, default: true },
+  newsletterSubscription: { type: Boolean, default: true },
   subscriptionFrequencies: { type: String, enum: newsletterFrequencies },
 });
 
@@ -46,6 +46,9 @@ export const userSchema = new Schema(
     birthDate: {
       type: Date,
       required: true,
+    },
+    imageFile: {
+      type: String,
     },
     imageUrl: {
       type: String,
