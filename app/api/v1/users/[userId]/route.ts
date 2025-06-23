@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import { isValidUrl } from "@/lib/utils/isValidUrl";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 
 // imported models
