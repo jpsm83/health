@@ -57,7 +57,7 @@ export const POST = async (req: Request) => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const role = formData.get("role") as string;
-    const gender = formData.get("gender") as (typeof genders)[number];
+    const gender = formData.get("gender") as string;
     const birthDate = formData.get("birthDate") as string;
     const imageUrl = formData.get("imageUrl") as File | undefined;
 
