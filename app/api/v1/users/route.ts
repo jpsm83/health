@@ -29,7 +29,7 @@ export const GET = async () => {
     const users = await User.find().select("-password").lean();
 
     return !users?.length
-      ? new NextResponse(JSON.stringify({ message: "No users found" }), {
+      ? new NextResponse(JSON.stringify({ message: "No users found!" }), {
           status: 404,
           headers: { "Content-Type": "application/json" },
         })
@@ -103,8 +103,6 @@ export const POST = async (req: Request) => {
     ];
 
     // Validate category interests
-    let categoryInterestsValidation: string | boolean = true;
-
     if (categoryInterests && categoryInterests.length > 0) {
       for (const interest of categoryInterests) {
         const validationResult = objDefaultValidation(
@@ -118,21 +116,14 @@ export const POST = async (req: Request) => {
         );
 
         if (validationResult !== true) {
-          categoryInterestsValidation = validationResult;
-          break;
+          return new NextResponse(
+            JSON.stringify({
+              message: validationResult,
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
         }
       }
-    } else {
-      categoryInterestsValidation = false;
-    }
-
-    if (categoryInterestsValidation !== true) {
-      return new NextResponse(
-        JSON.stringify({
-          message: categoryInterestsValidation || "Invalid category interests",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
     }
 
     // Validate roles
@@ -163,13 +154,13 @@ export const POST = async (req: Request) => {
 
     // check for duplicates username and email
     const duplicateUser = await User.findOne({
-          email,
+      email,
     });
 
     if (duplicateUser) {
       return new NextResponse(
-            JSON.stringify({
-                  message: "User with email already exists!",
+        JSON.stringify({
+          message: "User with email already exists!",
         }),
         {
           status: 409,
@@ -177,14 +168,14 @@ export const POST = async (req: Request) => {
         }
       );
     }
-    
+
     // Hash password asynchronously
     const hashedPassword = await hash(password, 10);
 
     const userId = new mongoose.Types.ObjectId();
 
     const newUser: IUser = {
-        _id: userId,
+      _id: userId,
       username,
       email,
       password: hashedPassword,
@@ -195,7 +186,7 @@ export const POST = async (req: Request) => {
       categoryInterests,
       lastLogin: new Date(),
     };
-    
+
     // upload image to cloudinary
     if (imageFile && imageFile instanceof File && imageFile.size > 0) {
       const folder = `/users/${userId}`;

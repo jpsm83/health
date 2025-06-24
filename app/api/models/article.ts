@@ -36,24 +36,13 @@ const seoSchema = new Schema({
   type: { type: String, required: true, default: "article" },
 });
 
-const contentSchema = new Schema({
+const contentsByLanguageSchema = new Schema({
   language: { type: String, required: true },
   mainTitle: { type: String, required: true, trim: true, maxlength: 200 },
-  content: [
+  articleContents: [
     {
       subTitle: { type: String, required: true, trim: true, maxlength: 200 },
       list: { type: [String], default: undefined },
-      imageUrl: {
-        type: String,
-        required: true,
-        validate: {
-          validator: function (v: string) {
-            return isValidUrl(v);
-          },
-          message: (props: { value: string }) =>
-            `${props.value} is not a valid URL!`,
-        },
-      },
       articleParagraphs: { type: [String], required: true },
     },
   ],
@@ -62,7 +51,7 @@ const contentSchema = new Schema({
 
 export const articleSchema = new Schema(
   {
-    content: { type: [contentSchema], required: true },
+    contentsByLanguage: { type: [contentsByLanguageSchema], required: true },
     category: {
       type: String,
       enum: mainCategories,
@@ -79,39 +68,47 @@ export const articleSchema = new Schema(
           `${props.value} is not a valid URL!`,
       },
     }, // article source url that was used to create this article
+    articleImages: {
+      type: [String],
+      required: true,
+      validate: {
+        validator: function (v: string) {
+          return isValidUrl(v);
+        },
+        message: (props: { value: string }) =>
+          `${props.value} is not a valid URL!`,
+      },
+    },
     status: {
       type: String,
       enum: articleStatus,
       default: "published",
     },
-    socialMetrics: {
-      engagementDetails: {
-        likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
-        comments: {
-          type: [
-            {
-              userId: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-                required: true,
-              },
-              comment: {
-                type: String,
-                required: true,
-                trim: true,
-                maxlength: 1000,
-              },
-              createdAt: { type: Date, default: Date.now },
-              updatedAt: { type: Date, default: Date.now },
-            },
-          ],
-          default: undefined,
+    likes: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: undefined,
+    },
+    comments: {
+      type: [
+        {
+          userId: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+          },
+          comment: {
+            type: String,
+            required: true,
+            trim: true,
+            maxlength: 1000,
+          },
+          createdAt: { type: Date, default: Date.now },
+          updatedAt: { type: Date, default: Date.now },
         },
-      },
+      ],
+      default: undefined,
     },
-    analytics: {
-      views: { type: Number, default: 0 },
-    },
+    views: { type: Number, default: 0 },
     unpublishedAt: { type: Date, default: undefined },
   },
   {
