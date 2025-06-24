@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import equal from "fast-deep-equal";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -16,7 +17,7 @@ import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 
 // imported constants
 import { mainCategories } from "@/lib/constants";
-import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
+import deleteFolderCloudinary from "@/lib/cloudinary/deleteFolderCloudinary";
 
 // @desc    Get all articles
 // @route   GET /articles
@@ -235,10 +236,7 @@ export const PATCH = async (
 
     if (article.category !== category) updateData.category = category;
     if (article.sourceUrl !== sourceUrl) updateData.sourceUrl = sourceUrl;
-    if (
-      JSON.stringify(article.contentsByLanguage) !==
-      JSON.stringify(contentsByLanguage)
-    )
+    if (!equal(article.contentsByLanguage, contentsByLanguage))
       updateData.contentsByLanguage = contentsByLanguage;
 
     // Update article
@@ -336,18 +334,21 @@ export const DELETE = async (
       );
     }
 
-    for (const imageUrl of article.articleImages) {
-      const cloudinaryDeleteResponse = await deleteFilesCloudinary(imageUrl);
-      if (cloudinaryDeleteResponse !== true) {
-        await session.abortTransaction();
-        return new NextResponse(
-          JSON.stringify({ message: cloudinaryDeleteResponse }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-      }
+    const cloudinaryFolderToDelete = `health/${article.category}/${article._id}`;
+
+    // Delete article folder from cloudinary
+    const cloudinaryDeleteResponse = await deleteFolderCloudinary(
+      cloudinaryFolderToDelete
+    );
+    if (cloudinaryDeleteResponse !== true) {
+      await session.abortTransaction();
+      return new NextResponse(
+        JSON.stringify({ message: cloudinaryDeleteResponse }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     await session.commitTransaction();
