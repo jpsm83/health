@@ -1,6 +1,5 @@
 import { Schema, model, models } from "mongoose";
 import { mainCategories, articleStatus } from "@/lib/constants";
-import { isValidUrl } from "@/lib/utils/isValidUrl";
 
 const seoSchema = new Schema({
   metaTitle: { type: String, required: true, trim: true, maxlength: 500 },
@@ -15,23 +14,9 @@ const seoSchema = new Schema({
   canonicalUrl: {
     type: String,
     required: true,
-    validate: {
-      validator: function (v: string) {
-        return isValidUrl(v);
-      },
-      message: (props: { value: string }) =>
-        `${props.value} is not a valid URL!`,
-    },
   },
   imagesUrl: {
     type: [String],
-    validate: {
-      validator: function (v: string) {
-        return isValidUrl(v);
-      },
-      message: (props: { value: string }) =>
-        `${props.value} is not a valid URL!`,
-    },
   },
   type: { type: String, required: true, default: "article" },
 });
@@ -60,24 +45,10 @@ export const articleSchema = new Schema(
     sourceUrl: {
       type: String,
       required: true,
-      validate: {
-        validator: function (v: string) {
-          return isValidUrl(v);
-        },
-        message: (props: { value: string }) =>
-          `${props.value} is not a valid URL!`,
-      },
     }, // article source url that was used to create this article
     articleImages: {
       type: [String],
       required: true,
-      validate: {
-        validator: function (v: string) {
-          return isValidUrl(v);
-        },
-        message: (props: { value: string }) =>
-          `${props.value} is not a valid URL!`,
-      },
     },
     status: {
       type: String,

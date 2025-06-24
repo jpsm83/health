@@ -90,7 +90,7 @@ export const POST = async (req: Request) => {
     // Parse contentsByLanguage from formData
     const contentsByLanguage: IContentsByLanguage[] = JSON.parse(
       contentsByLanguageRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-    );
+    ) as IContentsByLanguage[];
 
     // Validate contentsByLanguage structure
     if (!Array.isArray(contentsByLanguage) || contentsByLanguage.length === 0) {
@@ -260,3 +260,64 @@ export const POST = async (req: Request) => {
     );
   }
 };
+
+// [
+//   {
+//     "language": "en",
+//     "mainTitle": "10 Essential Health Tips for Women",
+//     "articleContents": [
+//       {
+//         "subTitle": "Nutrition Basics",
+//         "articleParagraphs": [
+//           "Maintaining a balanced diet is crucial for overall health.",
+//           "Focus on whole foods, lean proteins, and plenty of vegetables."
+//         ],
+//         "list": ["Fruits", "Vegetables", "Whole Grains", "Lean Proteins"]
+//       },
+//       {
+//         "subTitle": "Exercise Fundamentals",
+//         "articleParagraphs": [
+//           "Regular physical activity is key to maintaining good health.",
+//           "Aim for at least 150 minutes of moderate exercise per week."
+//         ]
+//       }
+//     ],
+//     "seo": {
+//       "metaTitle": "10 Essential Health Tips for Women - Your Guide to Wellness",
+//       "metaDescription": "Discover expert health advice tailored specifically for women. Learn about nutrition, exercise, and holistic wellness strategies.",
+//       "keywords": ["women's health", "nutrition", "fitness", "wellness"],
+//       "slug": "10-essential-health-tips-women",
+//       "canonicalUrl": "https://example.com/articles/10-essential-health-tips-women",
+//       "type": "article"
+//     }
+//   },
+//   {
+//     "language": "pt",
+//     "mainTitle": "10 Dicas Essenciais de Saúde para Mulheres",
+//     "articleContents": [
+//       {
+//         "subTitle": "Fundamentos da Nutrição",
+//         "articleParagraphs": [
+//           "Manter uma dieta equilibrada é crucial para a saúde geral.",
+//           "Concentre-se em alimentos integrais, proteínas magras e muitos vegetais."
+//         ],
+//         "list": ["Frutas", "Vegetais", "Grãos Integrais", "Proteínas Magras"]
+//       },
+//       {
+//         "subTitle": "Fundamentos do Exercício",
+//         "articleParagraphs": [
+//           "A atividade física regular é fundamental para manter uma boa saúde.",
+//           "Procure fazer pelo menos 150 minutos de exercício moderado por semana."
+//         ]
+//       }
+//     ],
+//     "seo": {
+//       "metaTitle": "10 Dicas Essenciais de Saúde para Mulheres - Seu Guia de Bem-Estar",
+//       "metaDescription": "Descubra conselhos de saúde de especialistas especificamente para mulheres. Aprenda sobre nutrição, exercícios e estratégias de bem-estar holístico.",
+//       "keywords": ["saúde feminina", "nutrição", "fitness", "bem-estar"],
+//       "slug": "10-dicas-essenciais-saude-mulheres",
+//       "canonicalUrl": "https://example.com/articles/10-dicas-essenciais-saude-mulheres",
+//       "type": "article"
+//     }
+//   }
+// ]
