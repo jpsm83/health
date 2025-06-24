@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
+import objDefaultValidation from "@/lib/utils/objDefaultValidation";
+import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
+import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -13,9 +16,6 @@ import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
 import { roles, genders } from "@/lib/constants";
-import objDefaultValidation from "@/lib/utils/objDefaultValidation";
-import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
-import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 
 // @desc    Get user by userId
 // @route   GET /users/[userId]
@@ -59,7 +59,7 @@ export const GET = async (
 };
 
 // @desc    Update user
-// @route   PATCH /users/:userId
+// @route   PATCH /users/[userId]
 // @access  Private
 export const PATCH = async (
   req: Request,
@@ -343,7 +343,7 @@ export const PATCH = async (
 };
 
 // @desc    Deactivate user
-// @route   DELETE /users/:userId
+// @route   DELETE /users/[userId]
 // @access  Private
 export const DELETE = async (
   req: Request,
@@ -355,7 +355,7 @@ export const DELETE = async (
     // Validate ObjectId
     if (!isObjectIdValid([userId])) {
       return new NextResponse(
-        JSON.stringify({ message: "Invalid user ID format" }),
+        JSON.stringify({ message: "Invalid user ID format!" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -367,7 +367,7 @@ export const DELETE = async (
     const user = await User.findById(userId);
 
     if (!user) {
-      return new NextResponse(JSON.stringify({ message: "User not found" }), {
+      return new NextResponse(JSON.stringify({ message: "User not found!" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
       });

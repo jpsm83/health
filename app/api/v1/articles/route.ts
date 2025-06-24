@@ -1,13 +1,21 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import Article from "@/app/api/models/article";
+
+// imported utils
 import connectDb from "@/app/api/db/connectDb";
-import { handleApiError } from "../../utils/handleApiError";
-import { mainCategories } from "@/lib/constants";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
-import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
+import { handleApiError } from "@/app/api/utils/handleApiError";
+
+// imported models
+import Article from "@/app/api/models/article";
+
+// imported interfaces
+import { IArticle, IContentsByLanguage } from "@/interfaces/article";
+
+// imported constants
+import { mainCategories } from "@/lib/constants";
 
 // @desc    Get all articles
 // @route   GET /articles
@@ -52,10 +60,10 @@ export const POST = async (req: Request) => {
       .filter((entry): entry is File => entry instanceof File);
 
     // Validate required fields
-    if (!category || !sourceUrl) {
+    if (!category || !sourceUrl || !contentsByLanguageRaw) {
       return new NextResponse(
         JSON.stringify({
-          message: "Category and sourceUrl are required!",
+          message: "Category, sourceUrl, and contentsByLanguage are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -73,16 +81,6 @@ export const POST = async (req: Request) => {
     if (!isValidUrl(sourceUrl)) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid source URL!" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate contentsByLanguage
-    if (!contentsByLanguageRaw) {
-      return new NextResponse(
-        JSON.stringify({
-          message: "ContentsByLanguage is required!",
-        }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -260,64 +258,3 @@ export const POST = async (req: Request) => {
     );
   }
 };
-
-// [
-//   {
-//     "language": "en",
-//     "mainTitle": "10 Essential Health Tips for Women",
-//     "articleContents": [
-//       {
-//         "subTitle": "Nutrition Basics",
-//         "articleParagraphs": [
-//           "Maintaining a balanced diet is crucial for overall health.",
-//           "Focus on whole foods, lean proteins, and plenty of vegetables."
-//         ],
-//         "list": ["Fruits", "Vegetables", "Whole Grains", "Lean Proteins"]
-//       },
-//       {
-//         "subTitle": "Exercise Fundamentals",
-//         "articleParagraphs": [
-//           "Regular physical activity is key to maintaining good health.",
-//           "Aim for at least 150 minutes of moderate exercise per week."
-//         ]
-//       }
-//     ],
-//     "seo": {
-//       "metaTitle": "10 Essential Health Tips for Women - Your Guide to Wellness",
-//       "metaDescription": "Discover expert health advice tailored specifically for women. Learn about nutrition, exercise, and holistic wellness strategies.",
-//       "keywords": ["women's health", "nutrition", "fitness", "wellness"],
-//       "slug": "10-essential-health-tips-women",
-//       "canonicalUrl": "https://example.com/articles/10-essential-health-tips-women",
-//       "type": "article"
-//     }
-//   },
-//   {
-//     "language": "pt",
-//     "mainTitle": "10 Dicas Essenciais de Saúde para Mulheres",
-//     "articleContents": [
-//       {
-//         "subTitle": "Fundamentos da Nutrição",
-//         "articleParagraphs": [
-//           "Manter uma dieta equilibrada é crucial para a saúde geral.",
-//           "Concentre-se em alimentos integrais, proteínas magras e muitos vegetais."
-//         ],
-//         "list": ["Frutas", "Vegetais", "Grãos Integrais", "Proteínas Magras"]
-//       },
-//       {
-//         "subTitle": "Fundamentos do Exercício",
-//         "articleParagraphs": [
-//           "A atividade física regular é fundamental para manter uma boa saúde.",
-//           "Procure fazer pelo menos 150 minutos de exercício moderado por semana."
-//         ]
-//       }
-//     ],
-//     "seo": {
-//       "metaTitle": "10 Dicas Essenciais de Saúde para Mulheres - Seu Guia de Bem-Estar",
-//       "metaDescription": "Descubra conselhos de saúde de especialistas especificamente para mulheres. Aprenda sobre nutrição, exercícios e estratégias de bem-estar holístico.",
-//       "keywords": ["saúde feminina", "nutrição", "fitness", "bem-estar"],
-//       "slug": "10-dicas-essenciais-saude-mulheres",
-//       "canonicalUrl": "https://example.com/articles/10-dicas-essenciais-saude-mulheres",
-//       "type": "article"
-//     }
-//   }
-// ]

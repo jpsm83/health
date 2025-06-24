@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
+import objDefaultValidation from "@/lib/utils/objDefaultValidation";
+import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -15,8 +17,6 @@ import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
 import { roles, genders } from "@/lib/constants";
-import objDefaultValidation from "@/lib/utils/objDefaultValidation";
-import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 
 // @desc    Get all users
 // @route   GET /users
