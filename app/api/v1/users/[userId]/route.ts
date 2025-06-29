@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -7,6 +8,7 @@ import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
+import { verifyJWT } from "@/app/api/middleware/verifyJWT";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -21,9 +23,18 @@ import { roles, genders } from "@/lib/constants";
 // @route   GET /users/[userId]
 // @access  Private
 export const GET = async (
-  req: Request,
+  req: NextRequest,
   context: { params: { userId: string } }
 ) => {
+  const result = await verifyJWT(req);
+
+  // If result is a NextResponse, it's an error
+  if (result instanceof NextResponse) return result;
+
+  // At this point, the token is valid
+  const tokenEmail = result.UserInfo.email;
+  const tokenRoles = result.UserInfo.roles;
+
   try {
     const { userId } = await context.params;
 
@@ -39,17 +50,36 @@ export const GET = async (
     await connectDb();
 
     // Check if user exists
-    const user = await User.findById(userId).select("-password").lean();
+    const user = await User.findById(userId).select("-password").lean() as Partial<IUser>;
 
-    return !user
-      ? new NextResponse(JSON.stringify({ message: "User not found" }), {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        })
-      : new NextResponse(JSON.stringify(user), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
+    // Additional authorization check
+    if (!user) {
+      return new NextResponse(JSON.stringify({ message: "User not found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Check if the authenticated user has permission to access this user's data
+    // This could be based on roles or if the user is accessing their own profile
+    const isAuthorized = 
+      tokenRoles.includes("admin") || // Admins can access any user
+      user.email === tokenEmail; // User can access their own profile
+
+    if (!isAuthorized) {
+      return new NextResponse(
+        JSON.stringify({ message: "Unauthorized to access this user's data" }),
+        { 
+          status: 403, 
+          headers: { "Content-Type": "application/json" } 
+        }
+      );
+    }
+
+    return new NextResponse(JSON.stringify(user), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     return handleApiError(
       "Get user by userId failed!",
