@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import { auth } from "../auth/[...nextauth]/route";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -47,6 +48,18 @@ export const GET = async () => {
 // @route   POST /articles
 // @access  Private
 export const POST = async (req: Request) => {
+  // validate session
+  const session = await auth();
+
+  if (!session) {
+    return new NextResponse(
+      JSON.stringify({
+        message: "You must be signed in to create an article",
+      }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     // Parse FORM DATA instead of JSON because we might have image files
     const formData = await req.formData();
@@ -208,6 +221,7 @@ export const POST = async (req: Request) => {
       category,
       articleImages: [],
       sourceUrl,
+      createdBy: session.user.id,
     };
 
     // upload image

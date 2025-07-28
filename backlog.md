@@ -1,5 +1,4 @@
-verifyJWT been created
-must be implemented on the auth
-auth been created but still building
-it has been applied only on user[userId].GET
-musta apply every where else
+all rotes been created
+they been tested long time ago
+test again to be sure
+them you are ready for the front

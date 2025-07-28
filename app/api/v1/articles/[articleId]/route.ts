@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import equal from "fast-deep-equal";
+import { auth } from "../../auth/[...nextauth]/route";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -65,6 +66,18 @@ export const PATCH = async (
   req: Request,
   context: { params: { articleId: string } }
 ) => {
+  // validate session
+  const session = await auth();
+
+  if (!session) {
+    return new NextResponse(
+      JSON.stringify({
+        message: "You must be signed in to update an article",
+      }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   const { articleId } = await context.params;
 
   // Validate ObjectId
@@ -221,6 +234,16 @@ export const PATCH = async (
       );
     }
 
+    // check if the article is created by the user
+    if (article.createdBy !== session.user.id) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "You are not authorized to update this article!",
+        }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     // Validate fileEntries
     if (article.articleImages.length !== contentsByLanguage.length) {
       return new NextResponse(
@@ -284,6 +307,16 @@ export const DELETE = async (
   req: Request,
   context: { params: { articleId: string } }
 ) => {
+  // validate session
+  const authSession = await auth();
+
+  if (!authSession) {
+    return new NextResponse(
+      JSON.stringify({ message: "You must be signed in to delete an article" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   const { articleId } = await context.params;
 
   // Validate ObjectId
@@ -314,6 +347,16 @@ export const DELETE = async (
           status: 404,
           headers: { "Content-Type": "application/json" },
         }
+      );
+    }
+
+    // check if the article is created by the user
+    if (article.createdBy !== authSession.user.id) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "You are not authorized to delete this article!",
+        }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
       );
     }
 

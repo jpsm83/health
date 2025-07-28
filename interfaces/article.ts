@@ -42,6 +42,7 @@ export interface IArticle {
   comments?: IArticleComment[];
   views?: number;
   unpublishedAt?: Date;
+  createdBy: Types.ObjectId | string;
   createdAt?: Date;
   updatedAt?: Date;
 }

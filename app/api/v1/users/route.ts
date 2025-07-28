@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import mongoose from "mongoose";
-// import { getServerSession } from "next-auth/next";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -18,25 +17,12 @@ import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
 import { roles, genders } from "@/lib/constants";
-// import { authOptions } from "../auth/[...nextauth]/route";
 
 // @desc    Get all users
 // @route   GET /users
-// @access  Private
+// @access  Public
 export const GET = async () => {
   try {
-    // // validate session
-    // const session = await getServerSession(authOptions);
-
-    // if (!session) {
-    //   return new NextResponse(
-    //     JSON.stringify({
-    //       message: "You must be signed in to view this content",
-    //     }),
-    //     { status: 401 }
-    //   );
-    // }
-
     // connect before first call to DB
     await connectDb();
 
@@ -60,7 +46,7 @@ export const GET = async () => {
 
 // @desc    Create new user
 // @route   POST /users
-// @access  Private
+// @access  Public
 export const POST = async (req: Request) => {
   try {
     // Parse FORM DATA instead of JSON because we might have an image file
