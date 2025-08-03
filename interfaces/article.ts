@@ -6,22 +6,21 @@ export interface ISeoTags {
   metaDescription: string;
   keywords: string[];
   slug: string;
+  hreflang: string; // Single source of truth for language/locale
+  urlPattern: string; // e.g., "articles", "artigos", "articulos"
   canonicalUrl: string;
-  imagesUrl?: string[];
   type?: string;
 }
 
 export interface IArticleContent {
   subTitle: string;
-  list?: string[];
   articleParagraphs: string[];
 }
 
 export interface IContentsByLanguage {
-  language: string;
   mainTitle: string;
   articleContents: IArticleContent[];
-  seo: ISeoTags;
+  seo: ISeoTags; // hreflang contains language/locale info
 }
 
 export interface IArticleComment {
@@ -35,7 +34,6 @@ export interface IArticle {
   _id?: Types.ObjectId;
   contentsByLanguage: IContentsByLanguage[];
   category: (typeof mainCategories)[number];
-  sourceUrl: string;
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
@@ -46,3 +44,4 @@ export interface IArticle {
   createdAt?: Date;
   updatedAt?: Date;
 }
+

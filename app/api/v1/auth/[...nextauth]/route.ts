@@ -107,20 +107,21 @@ const authConfig = NextAuth({
       if (account) {
         token.accessToken = account.access_token;
       }
-      if (user && "role" in user) {
+      if (user) {
+        token.id = user.id;
         token.role = (user as IUser).role;
       }
       return token;
     },
     async session({ session, token }) {
       // Send properties to the client
-      if (token.role && session.user) {
+      if (session.user) {
         session.user = {
           ...session.user,
+          id: token.id as string,
           role: token.role as string,
           email: token.email as string,
           name: token.name as string,
-          id: token.id as string,
         };
       }
       return session;

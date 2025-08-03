@@ -5,7 +5,6 @@ import { auth } from "../auth/[...nextauth]/route";
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
-import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
@@ -16,7 +15,7 @@ import Article from "@/app/api/models/article";
 import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 
 // imported constants
-import { mainCategories } from "@/lib/constants";
+import { mainCategories, languageConfig } from "@/lib/constants";
 
 // @desc    Get all articles
 // @route   GET /articles
@@ -66,17 +65,16 @@ export const POST = async (req: Request) => {
 
     // Extract basic article fields
     const category = formData.get("category") as string;
-    const sourceUrl = formData.get("sourceUrl") as string;
     const contentsByLanguageRaw = formData.get("contentsByLanguage") as string;
     const fileEntries = formData
       .getAll("articleImages")
       .filter((entry): entry is File => entry instanceof File);
-
+      
     // Validate required fields
-    if (!category || !sourceUrl || !contentsByLanguageRaw) {
+    if (!category || !contentsByLanguageRaw) {
       return new NextResponse(
         JSON.stringify({
-          message: "Category, sourceUrl, and contentsByLanguage are required!",
+          message: "Category and contentsByLanguage are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -86,14 +84,6 @@ export const POST = async (req: Request) => {
     if (!mainCategories.includes(category)) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid category!" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate source URL
-    if (!isValidUrl(sourceUrl)) {
-      return new NextResponse(
-        JSON.stringify({ message: "Invalid source URL!" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -120,7 +110,7 @@ export const POST = async (req: Request) => {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["language", "mainTitle", "articleContents", "seo"],
+          reqFields: ["mainTitle", "articleContents", "seo"],
           nonReqFields: [],
         }
       );
@@ -142,7 +132,7 @@ export const POST = async (req: Request) => {
           },
           {
             reqFields: ["subTitle", "articleParagraphs"],
-            nonReqFields: ["list"],
+            nonReqFields: [],
           }
         );
 
@@ -167,10 +157,12 @@ export const POST = async (req: Request) => {
             "metaDescription",
             "keywords",
             "slug",
+            "hreflang",
+            "urlPattern",
             "canonicalUrl",
             "type",
           ],
-          nonReqFields: ["imagesUrl"],
+          nonReqFields: [],
         }
       );
 
@@ -178,6 +170,30 @@ export const POST = async (req: Request) => {
         return new NextResponse(
           JSON.stringify({
             message: seoValidationResult,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate hreflang is supported
+      if (!(content.seo.hreflang in languageConfig)) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Unsupported hreflang: ${
+              content.seo.hreflang
+            }. Supported values: ${Object.keys(languageConfig).join(", ")}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate urlPattern matches the hreflang configuration
+      const config =
+        languageConfig[content.seo.hreflang as keyof typeof languageConfig];
+      if (content.seo.urlPattern !== config.urlPattern) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `URL pattern '${content.seo.urlPattern}' does not match the expected pattern '${config.urlPattern}' for hreflang '${content.seo.hreflang}'`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
@@ -202,12 +218,19 @@ export const POST = async (req: Request) => {
     // Connect to database
     await connectDb();
 
-    // check for duplicates sourceUrl
-    const duplicateArticle = await Article.findOne({ sourceUrl });
+    // Check for duplicate slugs across all languages
+    const slugs = contentsByLanguage.map(content => content.seo.slug);
+    
+    // Check if any of the slugs already exist in the database
+    const duplicateArticle = await Article.findOne({
+      'contentsByLanguage.seo.slug': { $in: slugs }
+    });
 
     if (duplicateArticle) {
       return new NextResponse(
-        JSON.stringify({ message: "Article with sourceUrl already exists!" }),
+        JSON.stringify({ 
+          message: `Article with slug(s) already exists: ${slugs.join(', ')}` 
+        }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -218,13 +241,12 @@ export const POST = async (req: Request) => {
     const newArticle: IArticle = {
       _id: articleId,
       contentsByLanguage,
-      category,
+      category: category,
       articleImages: [],
-      sourceUrl,
       createdBy: session.user.id,
     };
 
-    // upload image
+    // Upload images to Cloudinary
     if (
       fileEntries?.every((file) => file instanceof File && file.size > 0) &&
       fileEntries.length > 0

@@ -7,8 +7,8 @@ import { auth } from "../../auth/[...nextauth]/route";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
-import { isValidUrl } from "@/lib/utils/isValidUrl";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
+import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 
 // imported models
 import Article from "@/app/api/models/article";
@@ -17,7 +17,7 @@ import Article from "@/app/api/models/article";
 import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 
 // imported constants
-import { mainCategories } from "@/lib/constants";
+import { mainCategories, languageConfig } from "@/lib/constants";
 import deleteFolderCloudinary from "@/lib/cloudinary/deleteFolderCloudinary";
 
 // @desc    Get all articles
@@ -94,14 +94,16 @@ export const PATCH = async (
 
     // Extract basic article fields
     const category = formData.get("category") as string;
-    const sourceUrl = formData.get("sourceUrl") as string;
     const contentsByLanguageRaw = formData.get("contentsByLanguage") as string;
+    const fileEntries = formData
+      .getAll("articleImages")
+      .filter((entry): entry is File => entry instanceof File);
 
     // Validate required fields
-    if (!category || !sourceUrl || !contentsByLanguageRaw) {
+    if (!category || !contentsByLanguageRaw) {
       return new NextResponse(
         JSON.stringify({
-          message: "Category, sourceUrl, and contentsByLanguage are required!",
+          message: "Category and contentsByLanguage are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -111,14 +113,6 @@ export const PATCH = async (
     if (!mainCategories.includes(category)) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid category!" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate source URL
-    if (!isValidUrl(sourceUrl)) {
-      return new NextResponse(
-        JSON.stringify({ message: "Invalid source URL!" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -145,7 +139,7 @@ export const PATCH = async (
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["language", "mainTitle", "articleContents", "seo"],
+          reqFields: ["mainTitle", "articleContents", "seo"],
           nonReqFields: [],
         }
       );
@@ -167,7 +161,7 @@ export const PATCH = async (
           },
           {
             reqFields: ["subTitle", "articleParagraphs"],
-            nonReqFields: ["list"],
+            nonReqFields: [],
           }
         );
 
@@ -192,10 +186,12 @@ export const PATCH = async (
             "metaDescription",
             "keywords",
             "slug",
+            "hreflang",
+            "urlPattern",
             "canonicalUrl",
             "type",
           ],
-          nonReqFields: ["imagesUrl"],
+          nonReqFields: [],
         }
       );
 
@@ -207,21 +203,31 @@ export const PATCH = async (
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
+
+      // Validate hreflang is supported
+      if (!(content.seo.hreflang in languageConfig)) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Unsupported hreflang: ${content.seo.hreflang}. Supported values: ${Object.keys(languageConfig).join(', ')}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate urlPattern matches the hreflang configuration
+      const config = languageConfig[content.seo.hreflang as keyof typeof languageConfig];
+      if (content.seo.urlPattern !== config.urlPattern) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `URL pattern '${content.seo.urlPattern}' does not match the expected pattern '${config.urlPattern}' for hreflang '${content.seo.hreflang}'`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
     }
 
     // Connect to database
     await connectDb();
-
-    const duplicateArticle = await Article.findOne({
-      sourceUrl,
-      _id: { $ne: articleId },
-    });
-    if (duplicateArticle) {
-      return new NextResponse(
-        JSON.stringify({ message: "Article with sourceUrl already exists!" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
 
     const article = (await Article.findById(
       articleId
@@ -244,23 +250,71 @@ export const PATCH = async (
       );
     }
 
-    // Validate fileEntries
-    if (article.articleImages.length !== contentsByLanguage.length) {
+    // Check for duplicate slugs across all languages (excluding current article)
+    const slugs = contentsByLanguage.map(content => content.seo.slug);
+    
+    // Check if any of the slugs already exist in other articles
+    const duplicateArticle = await Article.findOne({
+      'contentsByLanguage.seo.slug': { $in: slugs },
+      _id: { $ne: articleId } // Exclude current article
+    });
+
+    if (duplicateArticle) {
       return new NextResponse(
-        JSON.stringify({
-          message:
-            "Number of image files does not match the number of contentsByLanguage!",
+        JSON.stringify({ 
+          message: `Article with slug(s) already exists: ${slugs.join(', ')}` 
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
+    // Handle image uploads if new files are provided
+    let newArticleImages: string[] = [];
+    if (fileEntries.length > 0) {
+      // Validate fileEntries
+      if (
+        fileEntries.length !== contentsByLanguage.length ||
+        fileEntries.some((file) => file.size === 0)
+      ) {
+        return new NextResponse(
+          JSON.stringify({
+            message:
+              "Number of image files does not match the number of contentsByLanguage!",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      const folder = `/${category}/${articleId}`;
+
+      const cloudinaryUploadResponse = await uploadFilesCloudinary({
+        folder,
+        filesArr: fileEntries,
+        onlyImages: true,
+      });
+
+      if (
+        typeof cloudinaryUploadResponse === "string" ||
+        cloudinaryUploadResponse.length === 0 ||
+        !cloudinaryUploadResponse.every((str) => str.includes("https://"))
+      ) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Error uploading image: ${cloudinaryUploadResponse}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      newArticleImages = cloudinaryUploadResponse;
+    }
+
     const updateData: Partial<IArticle> = {};
 
     if (article.category !== category) updateData.category = category;
-    if (article.sourceUrl !== sourceUrl) updateData.sourceUrl = sourceUrl;
     if (!equal(article.contentsByLanguage, contentsByLanguage))
       updateData.contentsByLanguage = contentsByLanguage;
+    if (newArticleImages.length > 0) updateData.articleImages = newArticleImages;
 
     // Update article
     const updatedArticle = await Article.findByIdAndUpdate(

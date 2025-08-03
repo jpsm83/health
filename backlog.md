@@ -1,4 +1,3 @@
-all rotes been created
-they been tested long time ago
-test again to be sure
-them you are ready for the front
+USER routes all checked
+ARTICLE routes - only POST checked
+AUTH routes - only SIGNIN checked

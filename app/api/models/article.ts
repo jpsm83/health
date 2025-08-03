@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import { mainCategories, articleStatus } from "@/lib/constants";
+import { mainCategories, articleStatus, languageConfig } from "@/lib/constants";
 
 const seoSchema = new Schema({
   metaTitle: { type: String, required: true, trim: true, maxlength: 500 },
@@ -10,24 +10,31 @@ const seoSchema = new Schema({
     maxlength: 1000,
   },
   keywords: { type: [String], required: true },
-  slug: { type: String, required: true },
+  slug: { type: String, required: true }, // Removed unique: true since we handle it with compound index
+  hreflang: { 
+    type: String, 
+    required: true,
+    enum: Object.keys(languageConfig) // Use hreflang as the single source of truth
+  },
+  urlPattern: { 
+    type: String, 
+    required: true,
+    enum: ["articles", "artigos", "articulos", "articles", "artikel", "articoli", "artikelen", "מאמרים"],
+    default: "articles"
+  },
   canonicalUrl: {
     type: String,
     required: true,
-  },
-  imagesUrl: {
-    type: [String],
   },
   type: { type: String, required: true, default: "article" },
 });
 
 const contentsByLanguageSchema = new Schema({
-  language: { type: String, required: true },
+  // Remove duplicate language and locale fields - use hreflang from SEO instead
   mainTitle: { type: String, required: true, trim: true, maxlength: 200 },
   articleContents: [
     {
       subTitle: { type: String, required: true, trim: true, maxlength: 200 },
-      list: { type: [String], default: undefined },
       articleParagraphs: { type: [String], required: true },
     },
   ],
@@ -42,10 +49,6 @@ export const articleSchema = new Schema(
       enum: mainCategories,
       required: true,
     },
-    sourceUrl: {
-      type: String,
-      required: true,
-    }, // article source url that was used to create this article
     articleImages: {
       type: [String],
       required: true,
@@ -87,6 +90,9 @@ export const articleSchema = new Schema(
     trim: true,
   }
 );
+
+// Add compound index to ensure slug uniqueness across all languages
+articleSchema.index({ "contentsByLanguage.seo.slug": 1 }, { unique: true });
 
 const Article = models.Article || model("Article", articleSchema);
 export default Article;

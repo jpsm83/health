@@ -1,18 +1,17 @@
-// app/news/[lang]/[slug]/page.tsx
-import { Metadata } from 'next';
-import Article from '@/app/api/models/article';
-import connectDb from '@/app/api/db/connectDb';
-
-interface ContentItem {
-  imageUrl: string;
-  subTitle: string;
-  articleParagraphs: string[];
-}
+import { Metadata } from "next";
+import connectDb from "@/app/api/db/connectDb";
+import Article from "@/app/api/models/article";
+import { 
+  generateAlternateUrls, 
+  generateArticleStructuredData,
+  isSupportedLocale,
+  SupportedLocale 
+} from "@/app/api/utils/languageUtils";
 
 export async function generateDynamicMetadata({ 
-  params 
+  params
 }: { 
-  params: { lang: string, slug: string } 
+  params: { lang: string, slug: string }
 }): Promise<Metadata> {
   const { lang, slug } = params;
   
@@ -20,10 +19,17 @@ export async function generateDynamicMetadata({
     // Connect to database
     await connectDb();
     
-    // Fetch the article by language and slug
+    // Validate locale
+    if (!isSupportedLocale(lang)) {
+      return {
+        title: 'Invalid Language',
+        description: 'The requested language is not supported.'
+      };
+    }
+    
+    // Fetch the article by slug (since slug should be unique across languages)
     const article = await Article.findOne({
-      'content.language': lang,
-      'content.seo.slug': slug
+      'contentsByLanguage.seo.slug': slug
     });
     
     if (!article) {
@@ -32,8 +38,12 @@ export async function generateDynamicMetadata({
         description: 'The requested article could not be found.'
       };
     }
-    // Find the content for the specific language
-    const contentForLang = article.content.find((c: { language: string }) => c.language === lang);
+
+    // Find the content for the specific language using hreflang
+    const contentForLang = article.contentsByLanguage.find(
+      (c: { seo: { hreflang: string } }) => c.seo.hreflang === lang
+    );
+    
     if (!contentForLang) {
       return {
         title: 'Language Not Available',
@@ -43,32 +53,29 @@ export async function generateDynamicMetadata({
 
     const seo = contentForLang.seo;
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com';
+    
+    // Generate alternate URLs for all supported languages in the article
+    const supportedLocales = article.contentsByLanguage.map((c: { seo: { hreflang: string } }) => c.seo.hreflang) as SupportedLocale[];
+    const alternates = generateAlternateUrls(slug, supportedLocales, baseUrl);
+    
+    // Generate structured data
+    const structuredData = generateArticleStructuredData(article, lang as SupportedLocale, baseUrl);
 
-    return {
+    const metadata: Metadata = {
       metadataBase: new URL(baseUrl),
       title: seo.metaTitle,
       description: seo.metaDescription,
       keywords: seo.keywords,
       alternates: {
         canonical: seo.canonicalUrl,
-        languages: {
-          'en': `/article/en/${seo.slug}`,
-          'pt': `/article/pt/${seo.slug}`,
-          'es': `/article/es/${seo.slug}`,
-          'fr': `/article/fr/${seo.slug}`,
-          'de': `/article/de/${seo.slug}`,
-          'it': `/article/it/${seo.slug}`,
-          'nl': `/article/nl/${seo.slug}`,
-          'he': `/article/he/${seo.slug}`,
-          'de-DE': `/article/de-DE/${seo.slug}`,
-        }
+        languages: alternates
       },
       openGraph: {
         title: seo.metaTitle,
         description: seo.metaDescription,
-        images: seo.imagesUrl || contentForLang.content.map((c: ContentItem) => c.imageUrl),
-        type: seo.type,
-        locale: lang,
+        images: article.articleImages, // Use articleImages directly
+        type: seo.type || 'article',
+        locale: seo.hreflang,
         url: seo.canonicalUrl,
         siteName: 'Health',
       },
@@ -76,9 +83,18 @@ export async function generateDynamicMetadata({
         card: 'summary_large_image',
         title: seo.metaTitle,
         description: seo.metaDescription,
-        images: seo.imagesUrl?.[0] || contentForLang.content[0]?.imageUrl,
-      },
+        images: article.articleImages?.[0], // Use articleImages directly
+      }
     };
+
+    // Add hreflang and structured data if available
+    if (structuredData) {
+      metadata.other = {
+        'application/ld+json': JSON.stringify(structuredData)
+      };
+    }
+
+    return metadata;
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
