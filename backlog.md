@@ -1,6 +1,6 @@
 USER routes all checked
 ARTICLE routes - all checked
-AUTH routes - only SIGNIN checked
+AUTH routes - all checked
 
 BACKEND / FRONTEND
 - create logic to verify user email

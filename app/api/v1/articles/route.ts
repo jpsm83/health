@@ -203,7 +203,7 @@ export const POST = async (req: Request) => {
     // Validate fileEntries
     if (
       !fileEntries.length ||
-      fileEntries.length !== contentsByLanguage.length ||
+      fileEntries.length !== contentsByLanguage[0].articleContents.length ||
       fileEntries.some((file) => file.size === 0)
     ) {
       return new NextResponse(

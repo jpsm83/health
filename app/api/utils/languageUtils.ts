@@ -1,3 +1,29 @@
+// This is a comprehensive internationalization utility module that handles all language-related functionality for your health application. Here's what it does:
+
+// Middleware Integration
+// Works with your middleware.ts to automatically route users to correct language versions
+// Provides the language detection logic for automatic redirects
+
+// Article System
+// Generates proper URLs for articles in different languages
+// Ensures SEO-friendly URLs with language prefixes
+// Creates hreflang relationships between language versions
+
+// Database Validation
+// Used in your article API routes to validate language configurations
+// Ensures URL patterns match language settings
+// Prevents mismatched language/URL combinations
+
+// Why It's Essential
+// This utility is the backbone of your multilingual health platform because it:
+// Automates language detection for better user experience
+// Ensures SEO compliance with proper hreflang tags
+// Maintains consistency across all language versions
+// Scales easily when adding new languages
+// Provides type safety with TypeScript
+
+// It's essentially the "language brain" that makes your health content accessible to users worldwide in their preferred language!
+
 import { languageConfig } from "@/lib/constants";
 
 export type SupportedLocale = keyof typeof languageConfig;

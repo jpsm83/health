@@ -26,6 +26,7 @@ export interface IContentsByLanguage {
 export interface IArticleComment {
   userId: Types.ObjectId;
   comment: string;
+  commentsikes?: Types.ObjectId[];
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,3 +1,39 @@
+// This is a Next.js metadata generator that creates dynamic, SEO-optimized metadata for your health articles. Here's what it does:
+
+// Purpose
+// This function automatically generates complete SEO metadata for each article page, including titles, descriptions, Open Graph tags, Twitter cards, and structured data - all tailored to the specific language and content.
+
+// How It Works
+// Step 1: Language Validation
+// Checks if the requested language is supported
+// Returns error metadata if language is invalid
+
+// Step 2: Article Lookup
+// Finds the article by slug across all languages
+// Ensures the article exists
+
+// Step 3: Language-Specific Content
+// Extracts content for the specific requested language
+// Handles cases where content isn't available in that language
+
+// Step 4: Metadata Assembly
+// Combines all SEO data into Next.js Metadata format
+// Generates alternate language URLs for hreflang
+// Creates structured data for search engines
+
+// Why It's Important
+// This file is crucial for SEO success because it:
+// Automates metadata generation - no manual work needed
+// Ensures consistency across all articles and languages
+// Optimizes social sharing with proper Open Graph tags
+// Improves search rankings with structured data
+// Handles multilingual SEO with proper hreflang tags
+// Scales automatically as you add more articles
+
+// Integration with Your App
+// This function is typically used in your article page components
+// It's essentially the SEO automation engine that makes every article page search-engine and social-media friendly! 
+
 import { Metadata } from "next";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";

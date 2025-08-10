@@ -76,6 +76,10 @@ export const articleSchema = new Schema(
             trim: true,
             maxlength: 1000,
           },
+          commentLikes: {
+            type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+            default: undefined,
+          },      
           createdAt: { type: Date, default: Date.now },
           updatedAt: { type: Date, default: Date.now },
         },
