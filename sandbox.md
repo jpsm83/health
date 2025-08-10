@@ -24,7 +24,7 @@
       "slug": "10-essential-health-tips-women",
       "hreflang": "en-US",
       "urlPattern": "articles",
-      "canonicalUrl": "https://example.com/articles/10-essential-health-tips-women",
+      "canonicalUrl": "https://example.com/en/articles/10-essential-health-tips-women",
       "type": "article"
     }
   },
@@ -53,7 +53,7 @@
       "slug": "10-dicas-essenciais-saude-mulheres",
       "hreflang": "pt-BR",
       "urlPattern": "artigos",
-      "canonicalUrl": "https://example.com/articles/10-dicas-essenciais-saude-mulheres",
+      "canonicalUrl": "https://example.com/pt/articles/10-dicas-essenciais-saude-mulheres",
       "type": "article"
     }
   }

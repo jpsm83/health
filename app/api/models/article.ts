@@ -84,6 +84,7 @@ export const articleSchema = new Schema(
     },
     views: { type: Number, default: 0 },
     unpublishedAt: { type: Date, default: undefined },
+    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
   {
     timestamps: true,
