@@ -84,6 +84,13 @@ export const languageConfig = {
     urlPattern: "מאמרים",
     hreflang: "he-IL",
     country: "IL"
+  },
+  "ru-RU": {
+    language: "ru",
+    locale: "ru-RU",
+    urlPattern: "статьи",
+    hreflang: "ru-RU",
+    country: "RU"
   }
 };
 

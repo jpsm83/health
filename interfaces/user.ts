@@ -24,7 +24,6 @@ export interface IUser {
   email: string;
   password: string;
   role: string;
-  gender: string;
   birthDate: Date;
   imageFile?: string;
   imageUrl?: string;

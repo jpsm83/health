@@ -17,6 +17,7 @@
     "mongoose": "^8.15.2",
     "next": "15.3.3",
     "next-auth": "^5.0.0-beta.29",
+    "next-intl": "^4.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -1,6 +1,5 @@
 import { Schema, model, models } from "mongoose";
 import {
-  genders,
   mainCategories,
   newsletterFrequencies,
   roles,
@@ -42,7 +41,6 @@ export const userSchema = new Schema(
       minlength: [8, "Password must be at least 8 characters long"],
     },
     role: { type: String, enum: roles, required: true },
-    gender: { type: String, enum: genders, required: true },
     birthDate: {
       type: Date,
       required: true,

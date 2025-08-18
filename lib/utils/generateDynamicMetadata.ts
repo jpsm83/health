@@ -42,7 +42,7 @@ import {
   generateArticleStructuredData,
   isSupportedLocale,
   SupportedLocale 
-} from "@/app/api/utils/languageUtils";
+} from "@/lib/utils/languageUtils";
 
 export async function generateDynamicMetadata({ 
   params

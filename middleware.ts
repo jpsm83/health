@@ -30,51 +30,57 @@
 // It's essentially the "traffic controller" that makes sure users land on the correct language version of your health content without manual intervention.
 
 import { NextRequest, NextResponse } from 'next/server';
-import { detectUserLanguage, isSupportedLocale } from '@/app/api/utils/languageUtils';
+import { getAllLanguageCodes, detectUserLanguage } from '@/lib/utils/languageUtils';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
   // Skip middleware for API routes and static files
-  if (
-    pathname.startsWith('/api/') ||
-    pathname.startsWith('/_next/') ||
-    pathname.startsWith('/favicon.ico') ||
-    pathname.includes('.')
-  ) {
+  if (pathname.startsWith('/api/') || 
+      pathname.startsWith('/_next/') || 
+      pathname.includes('.')) {
     return NextResponse.next();
   }
 
-  // Check if the path already has a language prefix
-  const pathnameHasLocale = /^\/(?:en|pt|es|fr|de|it|nl|he)\//.test(pathname);
-  
-  if (pathnameHasLocale) {
-    // Extract the locale from the path
-    const locale = pathname.split('/')[1];
+  // If user is on the root path, detect language and redirect
+  if (pathname === '/') {
+    const preferredLanguage = detectUserLanguage(request.headers);
     
-    // Validate the locale
-    if (!isSupportedLocale(locale)) {
-      // Redirect to default locale if invalid
-      const defaultLocale = detectUserLanguage(request.headers);
-      const newUrl = new URL(`/${defaultLocale}${pathname}`, request.url);
-      return NextResponse.redirect(newUrl);
+    // Extract language code from locale (e.g., 'pt-BR' -> 'pt')
+    const langCode = preferredLanguage.split('-')[0];
+    
+    // Redirect to language-specific route
+    const url = request.nextUrl.clone();
+    url.pathname = `/${langCode}`;
+    return NextResponse.redirect(url);
+  }
+
+  // Validate that the locale is supported
+  if (pathname.startsWith('/') && pathname.split('/').length > 1) {
+    const lang = pathname.split('/')[1];
+    if (getAllLanguageCodes().includes(lang)) {
+      // Valid language route, continue
+      return NextResponse.next();
+    } else if (lang !== 'api' && lang !== '_next' && lang !== 'favicon.ico') {
+      // Invalid route, redirect to default language
+      const url = request.nextUrl.clone();
+      url.pathname = '/en';
+      return NextResponse.redirect(url);
     }
-    
-    return NextResponse.next();
   }
 
-  // If no locale in path, detect user's preferred language
-  const userLocale = detectUserLanguage(request.headers);
-  
-  // Create new URL with locale prefix
-  const newUrl = new URL(`/${userLocale}${pathname}`, request.url);
-  
-  return NextResponse.redirect(newUrl);
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next|api|favicon.ico).*)',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }; 

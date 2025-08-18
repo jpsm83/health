@@ -17,7 +17,7 @@ import User from "@/app/api/models/user";
 import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
-import { roles, genders } from "@/lib/constants";
+import { roles } from "@/lib/constants";
 
 // @desc    Get user by userId
 // @route   GET /users/[userId]
@@ -101,7 +101,6 @@ export const PATCH = async (
     const username = formData.get("username") as string;
     const email = formData.get("email") as string;
     const role = formData.get("role") as string;
-    const gender = formData.get("gender") as string;
     const birthDate = formData.get("birthDate") as string;
     const imageFile = formData.get("imageFile") as File;
 
@@ -118,7 +117,6 @@ export const PATCH = async (
       !username ||
       !email ||
       !role ||
-      !gender ||
       !birthDate ||
       !language ||
       !region ||
@@ -128,7 +126,7 @@ export const PATCH = async (
       return new NextResponse(
         JSON.stringify({
           message:
-            "Username, email, role, gender, birthDate, language, region, contentLanguage, and categoryInterestsRaw are required!",
+            "Username, email, role, birthDate, language, region, contentLanguage, and categoryInterestsRaw are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -185,16 +183,8 @@ export const PATCH = async (
         headers: { "Content-Type": "application/json" },
       });
     }
+    
     if (user.role !== role) updateData.role = role;
-
-    // Validate and update gender
-    if (!genders.includes(gender)) {
-      return new NextResponse(JSON.stringify({ message: "Invalid gender" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-    if (user.gender !== gender) updateData.gender = gender;
 
     // Update birth date
     const parsedBirthDate = new Date(birthDate);

@@ -1,0 +1,31 @@
+{
+  "home": {
+    "title": "Welcome to Health",
+    "subtitle": "Your comprehensive health and wellness platform",
+    "description": "Discover articles, tips, and resources to improve your health and well-being.",
+    "features": {
+      "articles": "Health Articles",
+      "dashboard": "Personal Dashboard",
+      "profile": "User Profile",
+      "createArticle": "Create Content"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Your health overview and insights",
+    "stats": {
+      "articles": "Articles Read",
+      "goals": "Health Goals",
+      "progress": "Progress",
+      "streak": "Current Streak"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "createArticle": "Create Article",
+    "articles": "Articles",
+    "language": "Language"
+  }
+}

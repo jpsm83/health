@@ -16,7 +16,7 @@ import User from "@/app/api/models/user";
 import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
-import { roles, genders } from "@/lib/constants";
+import { roles } from "@/lib/constants";
 
 // @desc    Get all users
 // @route   GET /users
@@ -57,7 +57,6 @@ export const POST = async (req: Request) => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const role = formData.get("role") as string;
-    const gender = formData.get("gender") as string;
     const birthDate = formData.get("birthDate") as string;
     const imageFile = formData.get("imageFile") as File | undefined;
 
@@ -75,7 +74,6 @@ export const POST = async (req: Request) => {
       !email ||
       !password ||
       !role ||
-      !gender ||
       !birthDate ||
       !language ||
       !region ||
@@ -85,7 +83,7 @@ export const POST = async (req: Request) => {
       return new NextResponse(
         JSON.stringify({
           message:
-            "Username, email, password, role, gender, birthDate, language, region, contentLanguage, and categoryInterestsRaw are required!",
+            "Username, email, password, role, birthDate, language, region, contentLanguage, and categoryInterestsRaw are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -134,14 +132,6 @@ export const POST = async (req: Request) => {
       });
     }
 
-    // Validate gender
-    if (!genders.includes(gender)) {
-      return new NextResponse(JSON.stringify({ message: "Invalid gender" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
     // Create preferences object
     const preferences: IUserPreferences = {
       language,
@@ -180,7 +170,6 @@ export const POST = async (req: Request) => {
       email,
       password: hashedPassword,
       role,
-      gender,
       birthDate: new Date(birthDate),
       preferences,
       categoryInterests,

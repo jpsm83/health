@@ -1,0 +1,31 @@
+{
+  "home": {
+    "title": "Bem-vindo à Saúde",
+    "subtitle": "Sua plataforma abrangente de saúde e bem-estar",
+    "description": "Descubra artigos, dicas e recursos para melhorar sua saúde e bem-estar.",
+    "features": {
+      "articles": "Artigos de Saúde",
+      "dashboard": "Painel Pessoal",
+      "profile": "Perfil do Usuário",
+      "createArticle": "Criar Conteúdo"
+    }
+  },
+  "dashboard": {
+    "title": "Painel",
+    "subtitle": "Sua visão geral de saúde e insights",
+    "stats": {
+      "articles": "Artigos Lidos",
+      "goals": "Metas de Saúde",
+      "progress": "Progresso",
+      "streak": "Sequência Atual"
+    }
+  },
+  "navigation": {
+    "home": "Início",
+    "dashboard": "Painel",
+    "profile": "Perfil",
+    "createArticle": "Criar Artigo",
+    "articles": "Artigos",
+    "language": "Idioma"
+  }
+}
