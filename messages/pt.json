@@ -8,6 +8,15 @@
       "dashboard": "Painel Pessoal",
       "profile": "Perfil do Usuário",
       "createArticle": "Criar Conteúdo"
+    },
+    "featureDescriptions": {
+      "articles": "Acesse artigos de saúde abrangentes e pesquisas",
+      "dashboard": "Acompanhe suas metas de saúde e progresso",
+      "profile": "Gerencie suas informações pessoais de saúde",
+      "createArticle": "Compartilhe seu conhecimento sobre saúde com outros"
+    },
+    "languageInfo": {
+      "currentLanguage": "Idioma Atual"
     }
   },
   "dashboard": {
@@ -18,6 +27,9 @@
       "goals": "Metas de Saúde",
       "progress": "Progresso",
       "streak": "Sequência Atual"
+    },
+    "languageInfo": {
+      "language": "Idioma"
     }
   },
   "navigation": {
@@ -27,5 +39,89 @@
     "createArticle": "Criar Artigo",
     "articles": "Artigos",
     "language": "Idioma"
+  },
+  "profile": {
+    "title": "Perfil do Usuário",
+    "subtitle": "Gerencie suas configurações de conta e preferências",
+    "sections": {
+      "personal": "Informações Pessoais",
+      "preferences": "Preferências",
+      "security": "Segurança"
+    },
+    "fields": {
+      "name": "Nome Completo",
+      "email": "Endereço de Email",
+      "language": "Idioma Preferido",
+      "timezone": "Fuso Horário",
+      "notifications": "Notificações"
+    },
+    "buttons": {
+      "save": "Salvar Alterações",
+      "cancel": "Cancelar"
+    },
+    "languageInfo": {
+      "language": "Idioma"
+    },
+    "options": {
+      "english": "English",
+      "portuguese": "Português",
+      "spanish": "Español",
+      "french": "Français",
+      "german": "Deutsch",
+      "italian": "Italiano",
+      "dutch": "Nederlands",
+      "hebrew": "עברית",
+      "russian": "Русский",
+      "utc": "UTC",
+      "easternTime": "Horário do Leste",
+      "pacificTime": "Horário do Pacífico",
+      "greenwichMeanTime": "Horário de Greenwich"
+    }
+  },
+  "createArticle": {
+    "title": "Criar Novo Artigo",
+    "subtitle": "Compartilhe seu conhecimento sobre saúde com a comunidade",
+    "form": {
+      "title": "Título do Artigo",
+      "content": "Conteúdo do Artigo",
+      "category": "Categoria",
+      "selectCategory": "Selecione uma categoria",
+      "categories": {
+        "health": "Saúde",
+        "fitness": "Fitness",
+        "nutrition": "Nutrição",
+        "wellness": "Bem-estar"
+      },
+      "tags": "Tags",
+      "tagsPlaceholder": "saúde, fitness, dicas",
+      "submit": "Criar Artigo",
+      "cancel": "Cancelar"
+    },
+    "languageInfo": {
+      "language": "Idioma"
+    }
+  },
+  "article": {
+    "title": "Artigo de Saúde de Exemplo",
+    "subtitle": "Este é um artigo de exemplo sobre saúde e bem-estar",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "Editar Artigo",
+      "delete": "Excluir Artigo",
+      "backToList": "Voltar aos Artigos"
+    },
+    "info": {
+      "published": "Publicado",
+      "author": "Autor",
+      "category": "Categoría",
+      "healthCategory": "Saúde",
+      "language": "Idioma",
+      "slug": "Slug",
+      "date": "Data"
+    }
   }
 }

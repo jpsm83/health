@@ -1,4 +1,4 @@
-import { auth } from "../../../../auth/[...nextauth]/route";
+import { auth } from "../../../../auth/[...nextauth]/auth";
 import { NextResponse } from "next/server";
 import isObjectIdValid from "../../../../../utils/isObjectIdValid";
 import { toggleCommentLike } from "@/app/actions/commentLikes";
@@ -8,7 +8,7 @@ import { toggleCommentLike } from "@/app/actions/commentLikes";
 // @access  Private
 export const POST = async (
   req: Request,
-  context: { params: { articleId: string; commentId: string } }
+  context: { params: Promise<{ articleId: string; commentId: string }> }
 ) => {
   const { articleId, commentId } = await context.params;
 

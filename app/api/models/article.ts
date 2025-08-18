@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import { mainCategories, articleStatus, languageConfig } from "@/lib/constants";
+import { mainCategories, articleStatus } from "@/lib/constants";
 
 const seoSchema = new Schema({
   metaTitle: { type: String, required: true, trim: true, maxlength: 500 },
@@ -14,7 +14,7 @@ const seoSchema = new Schema({
   hreflang: { 
     type: String, 
     required: true,
-    enum: Object.keys(languageConfig) // Use hreflang as the single source of truth
+    enum: ['en', 'pt', 'es', 'fr', 'de', 'it', 'nl', 'he', 'ru'] // Simplified locale list
   },
   urlPattern: { 
     type: String, 

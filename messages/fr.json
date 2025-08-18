@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "Bienvenue à la Santé",
+    "subtitle": "Votre plateforme complète de santé et de bien-être",
+    "description": "Découvrez des articles, des conseils et des ressources pour améliorer votre santé et votre bien-être.",
+    "features": {
+      "articles": "Articles de Santé",
+      "dashboard": "Tableau de Bord Personnel",
+      "profile": "Profil Utilisateur",
+      "createArticle": "Créer du Contenu"
+    },
+    "featureDescriptions": {
+      "articles": "Accédez à des articles de santé complets et à des recherches",
+      "dashboard": "Suivez vos objectifs de santé et vos progrès",
+      "profile": "Gérez vos informations personnelles de santé",
+      "createArticle": "Partagez vos connaissances en santé avec les autres"
+    },
+    "languageInfo": {
+      "currentLanguage": "Langue actuelle"
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "subtitle": "Votre aperçu de santé et insights",
+    "stats": {
+      "articles": "Articles Lus",
+      "goals": "Objectifs de Santé",
+      "progress": "Progrès",
+      "streak": "Série Actuelle"
+    },
+    "languageInfo": {
+      "language": "Langue"
+    }
+  },
+  "navigation": {
+    "home": "Accueil",
+    "dashboard": "Tableau de Bord",
+    "profile": "Profil",
+    "createArticle": "Créer un Article",
+    "articles": "Articles",
+    "language": "Langue"
+  },
+  "profile": {
+    "title": "Profil Utilisateur",
+    "subtitle": "Gérez vos paramètres de compte et préférences",
+    "sections": {
+      "personal": "Informations Personnelles",
+      "preferences": "Préférences",
+      "security": "Sécurité"
+    },
+    "fields": {
+      "name": "Nom Complet",
+      "email": "Adresse Email",
+      "language": "Langue Préférée",
+      "timezone": "Fuseau Horaire",
+      "notifications": "Notifications"
+    },
+    "buttons": {
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    }
+  },
+  "createArticle": {
+    "title": "Créer un Nouvel Article",
+    "subtitle": "Partagez vos connaissances en santé avec la communauté",
+    "form": {
+      "title": "Titre de l'Article",
+      "content": "Contenu de l'Article",
+      "category": "Catégorie",
+      "selectCategory": "Sélectionnez une catégorie",
+      "categories": {
+        "health": "Santé",
+        "fitness": "Fitness",
+        "nutrition": "Nutrition",
+        "wellness": "Bien-être"
+      },
+      "tags": "Tags",
+      "tagsPlaceholder": "santé, fitness, conseils",
+      "submit": "Créer l'Article",
+      "cancel": "Annuler"
+    },
+    "languageInfo": {
+      "language": "Langue"
+    }
+  }
+}

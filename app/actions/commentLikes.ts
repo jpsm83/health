@@ -1,9 +1,9 @@
 "use server";
 
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
+import { revalidatePath } from "next/cache";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
-import { revalidatePath } from "next/cache";
 
 export const toggleCommentLike = async (
   articleId: string,

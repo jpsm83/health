@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "ברוכים הבאים לבריאות",
+    "subtitle": "פלטפורמת הבריאות והרווחה המקיפה שלכם",
+    "description": "גלו מאמרים, טיפים ומשאבים לשיפור הבריאות והרווחה שלכם.",
+    "features": {
+      "articles": "מאמרי בריאות",
+      "dashboard": "לוח מחוונים אישי",
+      "profile": "פרופיל משתמש",
+      "createArticle": "צור תוכן"
+    },
+    "featureDescriptions": {
+      "articles": "גשו למאמרי בריאות מקיפים ומחקר",
+      "dashboard": "עקבו אחר יעדי הבריאות וההתקדמות שלכם",
+      "profile": "נהלו את המידע הבריאותי האישי שלכם",
+      "createArticle": "שתפו את הידע הבריאותי שלכם עם אחרים"
+    },
+    "languageInfo": {
+      "currentLanguage": "שפה נוכחית"
+    }
+  },
+  "dashboard": {
+    "title": "לוח מחוונים",
+    "subtitle": "סקירת הבריאות והתובנות שלכם",
+    "stats": {
+      "articles": "מאמרים שנקראו",
+      "goals": "מטרות בריאות",
+      "progress": "התקדמות",
+      "streak": "רצף נוכחי"
+    },
+    "languageInfo": {
+      "language": "שפה"
+    }
+  },
+  "navigation": {
+    "home": "בית",
+    "dashboard": "לוח מחוונים",
+    "profile": "פרופיל",
+    "createArticle": "צור מאמר",
+    "articles": "מאמרים",
+    "language": "שפה"
+  },
+  "profile": {
+    "title": "פרופיל משתמש",
+    "subtitle": "נהל את הגדרות החשבון והעדפות שלך",
+    "sections": {
+      "personal": "מידע אישי",
+      "preferences": "העדפות",
+      "security": "אבטחה"
+    },
+    "fields": {
+      "name": "שם מלא",
+      "email": "כתובת אימייל",
+      "language": "שפה מועדפת",
+      "timezone": "אזור זמן",
+      "notifications": "התראות"
+    },
+    "buttons": {
+      "save": "שמור שינויים",
+      "cancel": "ביטול"
+    }
+  },
+  "createArticle": {
+    "title": "צור מאמר חדש",
+    "subtitle": "שתף את הידע שלך על בריאות עם הקהילה",
+    "form": {
+      "title": "כותרת המאמר",
+      "content": "תוכן המאמר",
+      "category": "קטגוריה",
+      "selectCategory": "בחר קטגוריה",
+      "categories": {
+        "health": "בריאות",
+        "fitness": "כושר",
+        "nutrition": "תזונה",
+        "wellness": "רווחה"
+      },
+      "tags": "תגיות",
+      "tagsPlaceholder": "בריאות, כושר, טיפים",
+      "submit": "צור מאמר",
+      "cancel": "ביטול"
+    },
+    "languageInfo": {
+      "language": "שפה"
+    }
+  }
+}

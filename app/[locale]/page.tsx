@@ -1,12 +1,11 @@
 'use client';
 
-import { getLanguageConfig } from '@/lib/utils/languageUtils';
 import Navigation from '@/components/Navigation';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function HomePage() {
-  const { t, currentLanguage } = useTranslation();
-  const langConfig = getLanguageConfig(currentLanguage);
+  const t = useTranslations('home');
+  const locale = useLocale();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -16,13 +15,13 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            {t('home.title')}
+            {t('title')}
           </h1>
           <p className="text-xl text-gray-600 mb-6">
-            {t('home.subtitle')}
+            {t('subtitle')}
           </p>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            {t('home.description')}
+            {t('description')}
           </p>
         </div>
 
@@ -31,40 +30,40 @@ export default function HomePage() {
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <div className="text-4xl mb-4">📚</div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {t('home.features.articles')}
+              {t('features.articles')}
             </h3>
             <p className="text-gray-600">
-              Access comprehensive health articles and research
+              {t('featureDescriptions.articles')}
             </p>
           </div>
           
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <div className="text-4xl mb-4">📊</div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {t('home.features.dashboard')}
+              {t('features.dashboard')}
             </h3>
             <p className="text-gray-600">
-              Track your health goals and progress
+              {t('featureDescriptions.dashboard')}
             </p>
           </div>
           
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <div className="text-4xl mb-4">👤</div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {t('home.features.profile')}
+              {t('features.profile')}
             </h3>
             <p className="text-gray-600">
-              Manage your personal health information
+              {t('featureDescriptions.profile')}
             </p>
           </div>
           
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <div className="text-4xl mb-4">✍️</div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {t('home.features.createArticle')}
+              {t('features.createArticle')}
             </h3>
             <p className="text-gray-600">
-              Share your health knowledge with others
+              {t('featureDescriptions.createArticle')}
             </p>
           </div>
         </div>
@@ -73,24 +72,22 @@ export default function HomePage() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
           <div className="flex items-center justify-center space-x-2 mb-2">
             <span className="text-2xl">
-              {langConfig.country === 'US' ? '🇺🇸' :
-               langConfig.country === 'BR' ? '🇧🇷' :
-               langConfig.country === 'PT' ? '🇵🇹' :
-               langConfig.country === 'ES' ? '🇪🇸' :
-               langConfig.country === 'MX' ? '🇲🇽' :
-               langConfig.country === 'FR' ? '🇫🇷' :
-               langConfig.country === 'DE' ? '🇩🇪' :
-               langConfig.country === 'IT' ? '🇮🇹' :
-               langConfig.country === 'NL' ? '🇳🇱' :
-               langConfig.country === 'IL' ? '🇮🇱' :
-               langConfig.country === 'RU' ? '🇷🇺' : '🌐'}
+              {locale === 'en' ? '🇺🇸' :
+               locale === 'pt' ? '🇧🇷' :
+               locale === 'es' ? '🇪🇸' :
+               locale === 'fr' ? '🇫🇷' :
+               locale === 'de' ? '🇩🇪' :
+               locale === 'it' ? '🇮🇹' :
+               locale === 'nl' ? '🇳🇱' :
+               locale === 'he' ? '🇮🇱' :
+               locale === 'ru' ? '🇷🇺' : '🌐'}
             </span>
             <span className="text-lg font-medium text-blue-900">
-              {langConfig.language.toUpperCase()} - {langConfig.country}
+              {locale.toUpperCase()}
             </span>
           </div>
           <p className="text-blue-700">
-            Current Language: {langConfig.language.toUpperCase()}
+            {t('languageInfo.currentLanguage')}: {locale.toUpperCase()}
           </p>
         </div>
       </main>

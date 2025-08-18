@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import equal from "fast-deep-equal";
-import { auth } from "../../auth/[...nextauth]/route";
+import { auth } from "../../auth/[...nextauth]/auth";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -17,7 +17,7 @@ import Article from "@/app/api/models/article";
 import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 
 // imported constants
-import { mainCategories, languageConfig } from "@/lib/constants";
+import { mainCategories } from "@/lib/constants";
 import deleteFolderCloudinary from "@/lib/cloudinary/deleteFolderCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 
@@ -26,7 +26,7 @@ import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 // @access  Public
 export const GET = async (
   req: Request,
-  context: { params: { articleId: string } }
+  context: { params: Promise<{ articleId: string }> }
 ) => {
   try {
     const { articleId } = await context.params;
@@ -65,7 +65,7 @@ export const GET = async (
 // @access  Private
 export const PATCH = async (
   req: Request,
-  context: { params: { articleId: string } }
+  context: { params: Promise<{ articleId: string }> }
 ) => {
   // validate session
   const session = await auth();
@@ -206,24 +206,24 @@ export const PATCH = async (
       }
 
       // Validate hreflang is supported
-      if (!(content.seo.hreflang in languageConfig)) {
+      const supportedLocales = ['en', 'pt', 'es', 'fr', 'de', 'it', 'nl', 'he', 'ru'];
+      if (!supportedLocales.includes(content.seo.hreflang)) {
         return new NextResponse(
           JSON.stringify({
             message: `Unsupported hreflang: ${
               content.seo.hreflang
-            }. Supported values: ${Object.keys(languageConfig).join(", ")}`,
+            }. Supported values: ${supportedLocales.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
 
-      // Validate urlPattern matches the hreflang configuration
-      const config =
-        languageConfig[content.seo.hreflang as keyof typeof languageConfig];
-      if (content.seo.urlPattern !== config.urlPattern) {
+      // Validate urlPattern is valid
+      const validUrlPatterns = ["articles", "artigos", "articulos", "articles", "artikel", "articoli", "artikelen", "מאמרים"];
+      if (!validUrlPatterns.includes(content.seo.urlPattern)) {
         return new NextResponse(
           JSON.stringify({
-            message: `URL pattern '${content.seo.urlPattern}' does not match the expected pattern '${config.urlPattern}' for hreflang '${content.seo.hreflang}'`,
+            message: `Invalid URL pattern: ${content.seo.urlPattern}. Supported patterns: ${validUrlPatterns.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
@@ -491,7 +491,7 @@ export const PATCH = async (
 // @access  Private
 export const DELETE = async (
   req: Request,
-  context: { params: { articleId: string } }
+  context: { params: Promise<{ articleId: string }> }
 ) => {
   // authSession is the USER session logged in
   // session is the MONGOOSE session to handle all transactions at once
@@ -499,7 +499,9 @@ export const DELETE = async (
 
   if (!authSession) {
     return new NextResponse(
-      JSON.stringify({ message: "You must be signed in to delete an article" }),
+      JSON.stringify({
+        message: "You must be signed in to delete an article",
+      }),
       { status: 401, headers: { "Content-Type": "application/json" } }
     );
   }

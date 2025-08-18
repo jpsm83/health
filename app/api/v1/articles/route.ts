@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { auth } from "../auth/[...nextauth]/route";
+import { auth } from "../auth/[...nextauth]/auth";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -15,7 +15,7 @@ import Article from "@/app/api/models/article";
 import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 
 // imported constants
-import { mainCategories, languageConfig } from "@/lib/constants";
+import { mainCategories } from "@/lib/constants";
 
 // @desc    Get all articles
 // @route   GET /articles
@@ -125,6 +125,16 @@ export const POST = async (req: Request) => {
       }
 
       // Validate articleContents
+      if (!Array.isArray(content.articleContents) || content.articleContents.length === 0) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "ArticleContents must be a non-empty array!",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate each articleContent
       for (const articleContent of content.articleContents) {
         const articleContentValidation = objDefaultValidation(
           articleContent as unknown as {
@@ -144,25 +154,26 @@ export const POST = async (req: Request) => {
             { status: 400, headers: { "Content-Type": "application/json" } }
           );
         }
+
+        // Validate articleParagraphs
+        if (!Array.isArray(articleContent.articleParagraphs) || articleContent.articleParagraphs.length === 0) {
+          return new NextResponse(
+            JSON.stringify({
+              message: "ArticleParagraphs must be a non-empty array!",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
       }
 
-      // Validate seo
+      // Validate SEO
       const seoValidationResult = objDefaultValidation(
         content.seo as unknown as {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: [
-            "metaTitle",
-            "metaDescription",
-            "keywords",
-            "slug",
-            "hreflang",
-            "urlPattern",
-            "canonicalUrl",
-            "type",
-          ],
-          nonReqFields: [],
+          reqFields: ["metaTitle", "metaDescription", "keywords", "slug", "hreflang", "urlPattern", "canonicalUrl"],
+          nonReqFields: ["type"],
         }
       );
 
@@ -176,24 +187,24 @@ export const POST = async (req: Request) => {
       }
 
       // Validate hreflang is supported
-      if (!(content.seo.hreflang in languageConfig)) {
+      const supportedLocales = ['en', 'pt', 'es', 'fr', 'de', 'it', 'nl', 'he', 'ru'];
+      if (!supportedLocales.includes(content.seo.hreflang)) {
         return new NextResponse(
           JSON.stringify({
             message: `Unsupported hreflang: ${
               content.seo.hreflang
-            }. Supported values: ${Object.keys(languageConfig).join(", ")}`,
+            }. Supported values: ${supportedLocales.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
 
-      // Validate urlPattern matches the hreflang configuration
-      const config =
-        languageConfig[content.seo.hreflang as keyof typeof languageConfig];
-      if (content.seo.urlPattern !== config.urlPattern) {
+      // Validate urlPattern is valid
+      const validUrlPatterns = ["articles", "artigos", "articulos", "articles", "artikel", "articoli", "artikelen", "מאמרים"];
+      if (!validUrlPatterns.includes(content.seo.urlPattern)) {
         return new NextResponse(
           JSON.stringify({
-            message: `URL pattern '${content.seo.urlPattern}' does not match the expected pattern '${config.urlPattern}' for hreflang '${content.seo.hreflang}'`,
+            message: `Invalid URL pattern: ${content.seo.urlPattern}. Supported patterns: ${validUrlPatterns.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
@@ -268,7 +279,7 @@ export const POST = async (req: Request) => {
           JSON.stringify({
             message: `Error uploading image: ${cloudinaryUploadResponse}`,
           }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+          { status: 500, headers: { "Content-Type": "application/json" } }
         );
       }
 
@@ -276,21 +287,16 @@ export const POST = async (req: Request) => {
     }
 
     // Create article in database
-    await Article.create(newArticle);
+    const createdArticle = await Article.create(newArticle);
 
     return new NextResponse(
       JSON.stringify({
-        message: "New article created successfully",
+        message: "Article created successfully!",
+        article: createdArticle,
       }),
-      {
-        status: 201,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 201, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return handleApiError(
-      "Create article failed!",
-      error instanceof Error ? error.message : "Unknown error"
-    );
+    return handleApiError("Create article failed!", error as string);
   }
 };

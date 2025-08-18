@@ -1,4 +1,4 @@
-import { signIn, signOut, auth } from "@/app/api/v1/auth/[...nextauth]/route";
+import { signIn, signOut, auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 
 export default async function SignIn() {
   const session = await auth();

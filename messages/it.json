@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "Benvenuto alla Salute",
+    "subtitle": "La tua piattaforma completa per la salute e il benessere",
+    "description": "Scopri articoli, consigli e risorse per migliorare la tua salute e il tuo benessere.",
+    "features": {
+      "articles": "Articoli di Salute",
+      "dashboard": "Dashboard Personale",
+      "profile": "Profilo Utente",
+      "createArticle": "Crea Contenuto"
+    },
+    "featureDescriptions": {
+      "articles": "Accedi ad articoli di salute completi e ricerche",
+      "dashboard": "Monitora i tuoi obiettivi di salute e i progressi",
+      "profile": "Gestisci le tue informazioni sanitarie personali",
+      "createArticle": "Condividi le tue conoscenze sulla salute con gli altri"
+    },
+    "languageInfo": {
+      "currentLanguage": "Lingua attuale"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "La tua panoramica sulla salute e approfondimenti",
+    "stats": {
+      "articles": "Articoli Letti",
+      "goals": "Obiettivi di Salute",
+      "progress": "Progresso",
+      "streak": "Serie Attuale"
+    },
+    "languageInfo": {
+      "language": "Lingua"
+    }
+  },
+  "navigation": {
+    "home": "Inizio",
+    "dashboard": "Dashboard",
+    "profile": "Profilo",
+    "createArticle": "Crea Articolo",
+    "articles": "Articoli",
+    "language": "Lingua"
+  },
+  "profile": {
+    "title": "Profilo Utente",
+    "subtitle": "Gestisci le impostazioni del tuo account e le preferenze",
+    "sections": {
+      "personal": "Informazioni Personali",
+      "preferences": "Preferenze",
+      "security": "Sicurezza"
+    },
+    "fields": {
+      "name": "Nome Completo",
+      "email": "Indirizzo Email",
+      "language": "Lingua Preferita",
+      "timezone": "Fuso Orario",
+      "notifications": "Notifiche"
+    },
+    "buttons": {
+      "save": "Salva Modifiche",
+      "cancel": "Annulla"
+    }
+  },
+  "createArticle": {
+    "title": "Crea Nuovo Articolo",
+    "subtitle": "Condividi le tue conoscenze sulla salute con la comunità",
+    "form": {
+      "title": "Titolo Articolo",
+      "content": "Contenuto Articolo",
+      "category": "Categoria",
+      "selectCategory": "Seleziona una categoria",
+      "categories": {
+        "health": "Salute",
+        "fitness": "Fitness",
+        "nutrition": "Nutrizione",
+        "wellness": "Benessere"
+      },
+      "tags": "Tag",
+      "tagsPlaceholder": "salute, fitness, consigli",
+      "submit": "Crea Articolo",
+      "cancel": "Annulla"
+    },
+    "languageInfo": {
+      "language": "Lingua"
+    }
+  }
+}

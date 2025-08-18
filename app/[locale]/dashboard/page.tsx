@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import { getLanguageConfig } from '@/lib/utils/languageUtils';
 import Navigation from '@/components/Navigation';
 
 export default async function DashboardPage({ 
@@ -9,7 +8,6 @@ export default async function DashboardPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations('dashboard');
-  const langConfig = getLanguageConfig(locale);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -63,7 +61,7 @@ export default async function DashboardPage({
         {/* Language Info */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <p className="text-sm text-blue-700">
-            Language: {langConfig.language.toUpperCase()} | Locale: {langConfig.locale}
+            {t('languageInfo.language')}: {locale.toUpperCase()}
           </p>
         </div>
       </main>

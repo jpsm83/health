@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "Welkom bij Gezondheid",
+    "subtitle": "Jouw uitgebreide platform voor gezondheid en welzijn",
+    "description": "Ontdek artikelen, tips en hulpbronnen om je gezondheid en welzijn te verbeteren.",
+    "features": {
+      "articles": "Gezondheidsartikelen",
+      "dashboard": "Persoonlijk Dashboard",
+      "profile": "Gebruikersprofiel",
+      "createArticle": "Inhoud Maken"
+    },
+    "featureDescriptions": {
+      "articles": "Toegang tot uitgebreide gezondheidsartikelen en onderzoek",
+      "dashboard": "Volg je gezondheidsdoelen en voortgang",
+      "profile": "Beheer je persoonlijke gezondheidsinformatie",
+      "createArticle": "Deel je gezondheidskennis met anderen"
+    },
+    "languageInfo": {
+      "currentLanguage": "Huidige taal"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Jouw gezondheidsoverzicht en inzichten",
+    "stats": {
+      "articles": "Gelezen Artikelen",
+      "goals": "Gezondheidsdoelen",
+      "progress": "Voortgang",
+      "streak": "Huidige Reeks"
+    },
+    "languageInfo": {
+      "language": "Taal"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profiel",
+    "createArticle": "Artikel Maken",
+    "articles": "Artikelen",
+    "language": "Taal"
+  },
+  "profile": {
+    "title": "Gebruikersprofiel",
+    "subtitle": "Beheer uw accountinstellingen en voorkeuren",
+    "sections": {
+      "personal": "Persoonlijke Informatie",
+      "preferences": "Voorkeuren",
+      "security": "Beveiliging"
+    },
+    "fields": {
+      "name": "Volledige Naam",
+      "email": "E-mailadres",
+      "language": "Voorkeurstaal",
+      "timezone": "Tijdzone",
+      "notifications": "Meldingen"
+    },
+    "buttons": {
+      "save": "Wijzigingen Opslaan",
+      "cancel": "Annuleren"
+    }
+  },
+  "createArticle": {
+    "title": "Nieuw Artikel Maken",
+    "subtitle": "Deel uw gezondheidskennis met de gemeenschap",
+    "form": {
+      "title": "Artikeltitel",
+      "content": "Artikelinhoud",
+      "category": "Categorie",
+      "selectCategory": "Selecteer een categorie",
+      "categories": {
+        "health": "Gezondheid",
+        "fitness": "Fitness",
+        "nutrition": "Voeding",
+        "wellness": "Welzijn"
+      },
+      "tags": "Tags",
+      "tagsPlaceholder": "gezondheid, fitness, tips",
+      "submit": "Artikel Maken",
+      "cancel": "Annuleren"
+    },
+    "languageInfo": {
+      "language": "Taal"
+    }
+  }
+}

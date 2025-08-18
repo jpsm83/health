@@ -1,12 +1,12 @@
 import { createComment, deleteComment } from "@/app/actions/comments";
-import { auth } from "../../../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
+import { auth } from "../../../auth/[...nextauth]/auth";
 import isObjectIdValid from "../../../../utils/isObjectIdValid";
 
 // @desc    Create or delete a comment to an article
 // @route   POST /test-actions/comments/[articleId]
 // @access  Private
-export const POST = async (req: Request, context: { params: { articleId: string } }) => {
+export const POST = async (req: Request, context: { params: Promise<{ articleId: string }> }) => {
   const { action, comment, commentId } = await req.json();
 
   const { articleId } = await context.params;

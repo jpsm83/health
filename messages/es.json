@@ -1,0 +1,127 @@
+{
+  "home": {
+    "title": "Bienvenido a Salud",
+    "subtitle": "Tu plataforma integral de salud y bienestar",
+    "description": "Descubre artículos, consejos y recursos para mejorar tu salud y bienestar.",
+    "features": {
+      "articles": "Artículos de Salud",
+      "dashboard": "Panel Personal",
+      "profile": "Perfil de Usuario",
+      "createArticle": "Crear Contenido"
+    },
+    "featureDescriptions": {
+      "articles": "Accede a artículos de salud integrales e investigaciones",
+      "dashboard": "Rastrea tus metas de salud y progreso",
+      "profile": "Gestiona tu información personal de salud",
+      "createArticle": "Comparte tu conocimiento sobre salud con otros"
+    },
+    "languageInfo": {
+      "currentLanguage": "Idioma Actual"
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "subtitle": "Tu visión general de salud e insights",
+    "stats": {
+      "articles": "Artículos Leídos",
+      "goals": "Metas de Salud",
+      "progress": "Progreso",
+      "streak": "Racha Actual"
+    },
+    "languageInfo": {
+      "language": "Idioma"
+    }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "profile": "Perfil",
+    "createArticle": "Crear Artículo",
+    "articles": "Artículos",
+    "language": "Idioma"
+  },
+  "profile": {
+    "title": "Perfil de Usuario",
+    "subtitle": "Gestiona la configuración de tu cuenta y preferencias",
+    "sections": {
+      "personal": "Información Personal",
+      "preferences": "Preferencias",
+      "security": "Seguridad"
+    },
+    "fields": {
+      "name": "Nombre Completo",
+      "email": "Dirección de Email",
+      "language": "Idioma Preferido",
+      "timezone": "Zona Horaria",
+      "notifications": "Notificaciones"
+    },
+    "buttons": {
+      "save": "Guardar Cambios",
+      "cancel": "Cancelar"
+    },
+    "languageInfo": {
+      "language": "Idioma"
+    },
+    "options": {
+      "english": "English",
+      "portuguese": "Português",
+      "spanish": "Español",
+      "french": "Français",
+      "german": "Deutsch",
+      "italian": "Italiano",
+      "dutch": "Nederlands",
+      "hebrew": "עברית",
+      "russian": "Русский",
+      "utc": "UTC",
+      "easternTime": "Hora del Este",
+      "pacificTime": "Hora del Pacífico",
+      "greenwichMeanTime": "Hora de Greenwich"
+    }
+  },
+  "createArticle": {
+    "title": "Crear Nuevo Artículo",
+    "subtitle": "Comparte tu conocimiento sobre salud con la comunidad",
+    "form": {
+      "title": "Título del Artículo",
+      "content": "Contenido del Artículo",
+      "category": "Categoría",
+      "selectCategory": "Selecciona una categoría",
+      "categories": {
+        "health": "Salud",
+        "fitness": "Fitness",
+        "nutrition": "Nutrición",
+        "wellness": "Bienestar"
+      },
+      "tags": "Etiquetas",
+      "tagsPlaceholder": "salud, fitness, consejos",
+      "submit": "Crear Artículo",
+      "cancel": "Cancelar"
+    },
+    "languageInfo": {
+      "language": "Idioma"
+    }
+  },
+  "article": {
+    "title": "Artículo de Salud de Ejemplo",
+    "subtitle": "Este es un artículo de ejemplo sobre salud y bienestar",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "Editar Artículo",
+      "delete": "Eliminar Artículo",
+      "backToList": "Volver a Artículos"
+    },
+    "info": {
+      "published": "Publicado",
+      "author": "Autor",
+      "category": "Categoría",
+      "healthCategory": "Salud",
+      "language": "Idioma",
+      "slug": "Slug",
+      "date": "Fecha"
+    }
+  }
+}

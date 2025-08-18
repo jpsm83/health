@@ -1,0 +1,86 @@
+{
+  "home": {
+    "title": "Willkommen bei Gesundheit",
+    "subtitle": "Ihre umfassende Gesundheits- und Wellness-Plattform",
+    "description": "Entdecken Sie Artikel, Tipps und Ressourcen zur Verbesserung Ihrer Gesundheit und Ihres Wohlbefindens.",
+    "features": {
+      "articles": "Gesundheitsartikel",
+      "dashboard": "Persönliches Dashboard",
+      "profile": "Benutzerprofil",
+      "createArticle": "Inhalt erstellen"
+    },
+    "featureDescriptions": {
+      "articles": "Greifen Sie auf umfassende Gesundheitsartikel und Forschung zu",
+      "dashboard": "Verfolgen Sie Ihre Gesundheitsziele und Fortschritte",
+      "profile": "Verwalten Sie Ihre persönlichen Gesundheitsinformationen",
+      "createArticle": "Teilen Sie Ihr Gesundheitswissen mit anderen"
+    },
+    "languageInfo": {
+      "currentLanguage": "Aktuelle Sprache"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Ihr Gesundheitsüberblick und Einblicke",
+    "stats": {
+      "articles": "Gelesene Artikel",
+      "goals": "Gesundheitsziele",
+      "progress": "Fortschritt",
+      "streak": "Aktuelle Serie"
+    },
+    "languageInfo": {
+      "language": "Sprache"
+    }
+  },
+  "navigation": {
+    "home": "Startseite",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "createArticle": "Artikel erstellen",
+    "articles": "Artikel",
+    "language": "Sprache"
+  },
+  "profile": {
+    "title": "Benutzerprofil",
+    "subtitle": "Verwalten Sie Ihre Kontoeinstellungen und Präferenzen",
+    "sections": {
+      "personal": "Persönliche Informationen",
+      "preferences": "Präferenzen",
+      "security": "Sicherheit"
+    },
+    "fields": {
+      "name": "Vollständiger Name",
+      "email": "E-Mail-Adresse",
+      "language": "Bevorzugte Sprache",
+      "timezone": "Zeitzone",
+      "notifications": "Benachrichtigungen"
+    },
+    "buttons": {
+      "save": "Änderungen Speichern",
+      "cancel": "Abbrechen"
+    }
+  },
+  "createArticle": {
+    "title": "Neuen Artikel Erstellen",
+    "subtitle": "Teilen Sie Ihr Gesundheitswissen mit der Community",
+    "form": {
+      "title": "Artikeltitel",
+      "content": "Artikelinhalt",
+      "category": "Kategorie",
+      "selectCategory": "Wählen Sie eine Kategorie",
+      "categories": {
+        "health": "Gesundheit",
+        "fitness": "Fitness",
+        "nutrition": "Ernährung",
+        "wellness": "Wohlbefinden"
+      },
+      "tags": "Tags",
+      "tagsPlaceholder": "Gesundheit, Fitness, Tipps",
+      "submit": "Artikel Erstellen",
+      "cancel": "Abbrechen"
+    },
+    "languageInfo": {
+      "language": "Sprache"
+    }
+  }
+}

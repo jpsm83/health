@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -24,7 +24,7 @@ import { roles } from "@/lib/constants";
 // @access  Public
 export const GET = async (
   req: NextRequest,
-  context: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) => {
   try {
     const { userId } = await context.params;
@@ -69,7 +69,7 @@ export const GET = async (
 // @access  Private
 export const PATCH = async (
   req: Request,
-  context: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) => {
   try {
     // validate session
@@ -365,7 +365,7 @@ export const PATCH = async (
 // @access  Private
 export const DELETE = async (
   req: Request,
-  context: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) => {
   try {
     // validate session

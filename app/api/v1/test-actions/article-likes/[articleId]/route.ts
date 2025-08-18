@@ -1,6 +1,6 @@
 import { toggleArticleLike } from "@/app/actions/articleLikes";
-import { auth } from "../../../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
+import { auth } from "../../../auth/[...nextauth]/auth";
 import isObjectIdValid from "../../../../utils/isObjectIdValid";
 
 // @desc    Toggle article like (add if not liked, remove if already liked)
@@ -8,7 +8,7 @@ import isObjectIdValid from "../../../../utils/isObjectIdValid";
 // @access  Private
 export const POST = async (
   req: Request,
-  context: { params: { articleId: string } }
+  context: { params: Promise<{ articleId: string }> }
 ) => {
   const { articleId } = await context.params;
 
