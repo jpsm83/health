@@ -1,10 +1,4 @@
-import type { Metadata } from "next";
 import "./globals.css";
-
-export const metadata: Metadata = {
-	title: "Health App",
-	description: "Your comprehensive health and wellness platform",
-};
 
 export default function RootLayout({
 	children,
@@ -12,7 +6,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html>
 			<body>
 				{children}
 			</body>

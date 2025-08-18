@@ -10,9 +10,17 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
 	const { locale } = await params;
+	
+	// Basic fallback metadata - articles will override this with their own SEO data
 	return {
 		title: `Health App - ${locale.toUpperCase()}`,
 		description: 'Your comprehensive health and wellness platform',
+		robots: 'index, follow',
+		alternates: {
+			languages: Object.fromEntries(
+				locales.map(lang => [lang, `https://yourdomain.com/${lang}`])
+			),
+		},
 	};
 }
 
@@ -33,8 +41,12 @@ export default async function LocaleLayout({
 	const messages = await getMessages({ locale });
 
 	return (
-		<NextIntlClientProvider messages={messages} locale={locale}>
-			{children}
-		</NextIntlClientProvider>
+		<html lang={locale}>
+			<body>
+				<NextIntlClientProvider messages={messages} locale={locale}>
+					{children}
+				</NextIntlClientProvider>
+			</body>
+		</html>
 	);
 }

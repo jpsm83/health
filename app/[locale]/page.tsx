@@ -2,6 +2,7 @@
 
 import Navigation from '@/components/Navigation';
 import { useTranslations, useLocale } from 'next-intl';
+import { Metadata } from 'next';
 
 export default function HomePage() {
   const t = useTranslations('home');
