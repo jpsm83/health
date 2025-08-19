@@ -1,8 +1,10 @@
+'use client';
+
 import Navigation from '@/components/Navigation';
 import DashboardContent from '@/pages/DashboardPage';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

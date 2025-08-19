@@ -109,7 +109,7 @@
   "SignUp": {
     "createAccount": "Maak je account aan",
     "alreadyHaveAccount": "Heb je al een account?",
-    "signIn": "Inloggen",
+    "signUp": "Inloggen",
     "username": "Gebruikersnaam",
     "enterUsername": "Voer je gebruikersnaam in",
     "emailAddress": "E-mailadres",

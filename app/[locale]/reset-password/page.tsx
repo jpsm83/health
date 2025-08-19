@@ -1,7 +1,9 @@
+'use client';
+
 import Navigation from '@/components/Navigation';
 import ResetPasswordContent from '@/pages/ResetPasswordPage';
 
-export default async function ResetPasswordPage() {
+export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

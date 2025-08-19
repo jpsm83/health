@@ -109,7 +109,7 @@
   "SignUp": {
     "createAccount": "Создайте свой аккаунт",
     "alreadyHaveAccount": "У вас уже есть аккаунт?",
-    "signIn": "Войти",
+    "signUp": "Войти",
     "username": "Имя пользователя",
     "enterUsername": "Введите ваше имя пользователя",
     "emailAddress": "Адрес электронной почты",

@@ -1,7 +1,9 @@
+'use client';
+
 import Navigation from '@/components/Navigation';
 import ProfileContent from '@/pages/ProfilePage';
 
-export default async function ProfilePage() {
+export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

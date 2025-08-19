@@ -7,12 +7,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html>
-			<body>
-				<AuthProvider>
-					{children}
-				</AuthProvider>
-			</body>
-		</html>
+		<AuthProvider>
+			{children}
+		</AuthProvider>
 	);
 }

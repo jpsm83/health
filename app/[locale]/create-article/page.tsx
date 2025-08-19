@@ -1,7 +1,9 @@
+'use client';
+
 import Navigation from '@/components/Navigation';
 import CreateArticleContent from '@/pages/CreateArticlePage';
 
-export default async function CreateArticlePage() {
+export default function CreateArticlePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

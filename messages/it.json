@@ -109,7 +109,7 @@
   "SignUp": {
     "createAccount": "Crea il tuo account",
     "alreadyHaveAccount": "Hai già un account?",
-    "signIn": "Accedi",
+    "signUp": "Accedi",
     "username": "Nome utente",
     "enterUsername": "Inserisci il tuo nome utente",
     "emailAddress": "Indirizzo email",

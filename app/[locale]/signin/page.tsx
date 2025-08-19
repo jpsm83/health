@@ -1,7 +1,9 @@
+'use client';
+
 import Navigation from '@/components/Navigation';
 import SignInContent from '@/pages/SignInPage';
 
-export default async function SignInPage() {
+export default function SignInPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

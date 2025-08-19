@@ -1,9 +1,9 @@
+import {NextConfig} from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin('./i18n.ts');
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
 	turbopack: {
 		rules: {
 			'*.svg': {
@@ -11,6 +11,11 @@ const nextConfig = {
 				as: '*.js',
 			},
 		},
+	},
+	// Skip static optimization during build
+	trailingSlash: false,
+	generateBuildId: async () => {
+		return 'build-' + Date.now()
 	},
 };
 

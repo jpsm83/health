@@ -1,7 +1,9 @@
+'use client';
+
 import Navigation from '@/components/Navigation';
 import Home from '@/pages/HomePage';
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

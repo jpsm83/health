@@ -109,7 +109,7 @@
   "SignUp": {
     "createAccount": "צור את החשבון שלך",
     "alreadyHaveAccount": "יש לך כבר חשבון?",
-    "signIn": "התחבר",
+    "signUp": "התחבר",
     "username": "שם משתמש",
     "enterUsername": "הכנס את שם המשתמש שלך",
     "emailAddress": "כתובת אימייל",

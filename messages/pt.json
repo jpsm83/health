@@ -127,7 +127,7 @@
   "SignUp": {
     "createAccount": "Crie sua conta",
     "alreadyHaveAccount": "Já tem uma conta?",
-    "signIn": "Entrar",
+    "signUp": "Entrar",
     "username": "Nome de usuário",
     "enterUsername": "Digite seu nome de usuário",
     "emailAddress": "Endereço de email",
