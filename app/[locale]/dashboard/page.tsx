@@ -1,9 +1,26 @@
-'use client';
-
+import { Metadata } from 'next';
+import { generatePrivateMetadata } from '@/lib/utils/metadata';
 import Navigation from '@/components/Navigation';
 import DashboardContent from '@/pages/DashboardPage';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}): Promise<Metadata> {
+  const { locale } = await params;
+  
+  return generatePrivateMetadata(
+    locale,
+    '/dashboard',
+    'metadata.dashboard.title',
+    'metadata.dashboard.description',
+    'metadata.dashboard.keywords'
+  );
+}
+
+// Server Component - handles metadata generation
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">

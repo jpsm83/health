@@ -1,8 +1,25 @@
-'use client';
-
+import { Metadata } from 'next';
+import { generatePrivateMetadata } from '@/lib/utils/metadata';
 import Navigation from '@/components/Navigation';
 import SignUpContent from '@/pages/SignUpPage';
 
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}): Promise<Metadata> {
+  const { locale } = await params;
+  
+  return generatePrivateMetadata(
+    locale,
+    '/signup',
+    'metadata.signup.title',
+    'metadata.signup.description',
+    'metadata.signup.keywords'
+  );
+}
+
+// Server Component - handles metadata generation
 export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-gray-50">

@@ -193,5 +193,47 @@
     "resetLinkInvalidOrExpired": "This password reset link is invalid or has expired.",
     "requestNewPasswordReset": "Request a new password reset",
     "backToSignIn": "Back to Sign In"
+  },
+  "metadata": {
+    "home": {
+      "title": "Health App - Your Comprehensive Health and Wellness Platform",
+      "description": "Discover articles, tips, and resources to improve your health and well-being. Access comprehensive health content in multiple languages.",
+      "keywords": "health, wellness, fitness, nutrition, articles, tips, resources, multilingual"
+    },
+    "signin": {
+      "title": "Sign In - Health App",
+      "description": "Sign in to your Health App account to access your personalized health dashboard, articles, and wellness resources.",
+      "keywords": "sign in, login, health app, account, authentication, health dashboard"
+    },
+    "signup": {
+      "title": "Sign Up - Health App",
+      "description": "Create your Health App account to access personalized health content, track your wellness journey, and join our health community.",
+      "keywords": "sign up, register, create account, health app, health community, wellness tracking"
+    },
+    "dashboard": {
+      "title": "Dashboard - Health App",
+      "description": "Your personalized health overview and insights. Track your health goals, progress, and access your health articles and resources.",
+      "keywords": "health dashboard, health goals, progress tracking, health insights, personal health, wellness tracking"
+    },
+    "profile": {
+      "title": "Profile - Health App",
+      "description": "Manage your Health App account settings, preferences, and personal information. Customize your health experience and language preferences.",
+      "keywords": "user profile, account settings, preferences, personal information, health app settings, language preferences"
+    },
+    "createArticle": {
+      "title": "Create Article - Health App",
+      "description": "Share your health knowledge with the community. Create and publish health articles, tips, and wellness content in multiple languages.",
+      "keywords": "create article, write health content, publish health tips, wellness articles, health knowledge sharing, content creation"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password - Health App",
+      "description": "Reset your Health App password. Enter your email address and we'll send you a secure link to reset your password.",
+      "keywords": "forgot password, reset password, password recovery, health app login, account recovery"
+    },
+    "resetPassword": {
+      "title": "Reset Password - Health App",
+      "description": "Set your new password for your Health App account. Enter your new password below to complete the password reset process.",
+      "keywords": "reset password, new password, password change, health app security, account security"
+    }
   }
 }

@@ -193,5 +193,47 @@
     "resetLinkInvalidOrExpired": "Este enlace de restablecimiento de contraseña es inválido o ha expirado.",
     "requestNewPasswordReset": "Solicitar nuevo restablecimiento de contraseña",
     "backToSignIn": "Volver a iniciar sesión"
+  },
+  "metadata": {
+    "home": {
+      "title": "Health App - Tu Plataforma Integral de Salud y Bienestar",
+      "description": "Descubre artículos, consejos y recursos para mejorar tu salud y bienestar. Accede a contenido de salud integral en múltiples idiomas.",
+      "keywords": "salud, bienestar, fitness, nutrición, artículos, consejos, recursos, multilingüe"
+    },
+    "signin": {
+      "title": "Iniciar Sesión - Health App",
+      "description": "Inicia sesión en tu cuenta Health App para acceder a tu panel de salud personalizado, artículos y recursos de bienestar.",
+      "keywords": "iniciar sesión, login, health app, cuenta, autenticación, panel de salud"
+    },
+    "signup": {
+      "title": "Registrarse - Health App",
+      "description": "Crea tu cuenta Health App para acceder a contenido de salud personalizado, rastrear tu viaje de bienestar y unirte a nuestra comunidad de salud.",
+      "keywords": "registrarse, crear cuenta, health app, comunidad de salud, seguimiento de bienestar"
+    },
+    "dashboard": {
+      "title": "Panel - Health App",
+      "description": "Tu vista general de salud personalizada e insights. Rastrea tus metas de salud, progreso y accede a tus artículos y recursos de salud.",
+      "keywords": "panel de salud, metas de salud, seguimiento de progreso, insights de salud, salud personal, seguimiento de bienestar"
+    },
+    "profile": {
+      "title": "Perfil - Health App",
+      "description": "Gestiona la configuración de tu cuenta Health App, preferencias e información personal. Personaliza tu experiencia de salud y preferencias de idioma.",
+      "keywords": "perfil de usuario, configuración de cuenta, preferencias, información personal, configuración de health app, preferencias de idioma"
+    },
+    "createArticle": {
+      "title": "Crear Artículo - Health App",
+      "description": "Comparte tu conocimiento sobre salud con la comunidad. Crea y publica artículos de salud, consejos y contenido de bienestar en múltiples idiomas.",
+      "keywords": "crear artículo, escribir contenido de salud, publicar consejos de salud, artículos de bienestar, compartir conocimiento de salud, creación de contenido"
+    },
+    "forgotPassword": {
+      "title": "Olvidé mi Contraseña - Health App",
+      "description": "Restablece tu contraseña Health App. Ingresa tu dirección de correo y te enviaremos un enlace seguro para restablecer tu contraseña.",
+      "keywords": "olvidé contraseña, restablecer contraseña, recuperación de contraseña, login health app, recuperación de cuenta"
+    },
+    "resetPassword": {
+      "title": "Restablecer Contraseña - Health App",
+      "description": "Establece tu nueva contraseña para tu cuenta Health App. Ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento de contraseña.",
+      "keywords": "restablecer contraseña, nueva contraseña, cambio de contraseña, seguridad health app, seguridad de cuenta"
+    }
   }
 }

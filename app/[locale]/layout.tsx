@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
+import { generatePublicMetadata } from "@/lib/utils/metadata";
 import "../globals.css";
 import AuthProvider from "@/components/AuthProvider";
 
@@ -13,16 +14,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  // Basic fallback metadata - articles will override this with their own SEO data
+  // Base metadata for the locale - individual pages will override this with their own SEO data
   return {
-    title: `Health App - ${locale.toUpperCase()}`,
-    description: "Your comprehensive health and wellness platform",
-    robots: "index, follow",
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((lang) => [lang, `https://yourdomain.com/${lang}`])
-      ),
-    },
+    ...await generatePublicMetadata(
+      locale,
+      '',
+      'metadata.home.title',
+      'metadata.home.description',
+      'metadata.home.keywords'
+    ),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   };
 }
 

@@ -175,5 +175,47 @@
     "resetLinkInvalidOrExpired": "Dieser Link zum Zurücksetzen des Passworts ist ungültig oder abgelaufen.",
     "requestNewPasswordReset": "Neuen Link zum Zurücksetzen des Passworts anfordern",
     "backToSignIn": "Zurück zur Anmeldung"
+  },
+  "metadata": {
+    "home": {
+      "title": "Health App - Ihre Umfassende Gesundheits- und Wohlbefinden-Plattform",
+      "description": "Entdecken Sie Artikel, Tipps und Ressourcen zur Verbesserung Ihrer Gesundheit und Ihres Wohlbefindens. Greifen Sie auf umfassende Gesundheitsinhalte in mehreren Sprachen zu.",
+      "keywords": "Gesundheit, Wohlbefinden, Fitness, Ernährung, Artikel, Tipps, Ressourcen, mehrsprachig"
+    },
+    "signin": {
+      "title": "Anmelden - Health App",
+      "description": "Melden Sie sich in Ihrem Health App-Konto an, um auf Ihr personalisiertes Gesundheits-Dashboard, Artikel und Wohlbefinden-Ressourcen zuzugreifen.",
+      "keywords": "anmelden, login, health app, konto, authentifizierung, gesundheits-dashboard"
+    },
+    "signup": {
+      "title": "Registrieren - Health App",
+      "description": "Erstellen Sie Ihr Health App-Konto, um auf personalisierte Gesundheitsinhalte zuzugreifen, Ihre Wohlbefinden-Reise zu verfolgen und sich unserer Gesundheitsgemeinschaft anzuschließen.",
+      "keywords": "registrieren, konto erstellen, health app, gesundheitsgemeinschaft, wohlbefinden-verfolgung"
+    },
+    "dashboard": {
+      "title": "Dashboard - Health App",
+      "description": "Ihr personalisierter Gesundheitsüberblick und Einblicke. Verfolgen Sie Ihre Gesundheitsziele, Fortschritte und greifen Sie auf Ihre Gesundheitsartikel und -ressourcen zu.",
+      "keywords": "gesundheits-dashboard, gesundheitsziele, fortschrittsverfolgung, gesundheitseinblicke, persönliche gesundheit, wohlbefinden-verfolgung"
+    },
+    "profile": {
+      "title": "Profil - Health App",
+      "description": "Verwalten Sie Ihre Health App-Kontoeinstellungen, Präferenzen und persönlichen Informationen. Passen Sie Ihre Gesundheitsexperience und Sprachpräferenzen an.",
+      "keywords": "benutzerprofil, kontoeinstellungen, präferenzen, persönliche informationen, health app-einstellungen, sprachpräferenzen"
+    },
+    "createArticle": {
+      "title": "Artikel Erstellen - Health App",
+      "description": "Teilen Sie Ihr Gesundheitswissen mit der Gemeinschaft. Erstellen und veröffentlichen Sie Gesundheitsartikel, Tipps und Wohlbefinden-Inhalte in mehreren Sprachen.",
+      "keywords": "artikel erstellen, gesundheitsinhalte schreiben, gesundheitstipps veröffentlichen, wohlbefinden-artikel, gesundheitswissen teilen, inhaltserstellung"
+    },
+    "forgotPassword": {
+      "title": "Passwort Vergessen - Health App",
+      "description": "Setzen Sie Ihr Health App-Passwort zurück. Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen sicheren Link zum Zurücksetzen Ihres Passworts.",
+      "keywords": "passwort vergessen, passwort zurücksetzen, passwortwiederherstellung, health app login, kontowiederherstellung"
+    },
+    "resetPassword": {
+      "title": "Passwort Zurücksetzen - Health App",
+      "description": "Legen Sie Ihr neues Passwort für Ihr Health App-Konto fest. Geben Sie Ihr neues Passwort unten ein, um den Passwort-Reset-Prozess abzuschließen.",
+      "keywords": "passwort zurücksetzen, neues passwort, passwortänderung, health app sicherheit, kontosicherheit"
+    }
   }
 }

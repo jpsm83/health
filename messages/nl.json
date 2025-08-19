@@ -175,5 +175,47 @@
     "resetLinkInvalidOrExpired": "Deze wachtwoord-reset-link is ongeldig of verlopen.",
     "requestNewPasswordReset": "Nieuwe wachtwoord-reset aanvragen",
     "backToSignIn": "Terug naar inloggen"
+  },
+  "metadata": {
+    "home": {
+      "title": "Health App - Je Uitgebreide Gezondheids- en Welzijnsplatform",
+      "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren. Krijg toegang tot uitgebreide gezondheidsinhoud in meerdere talen.",
+      "keywords": "gezondheid, welzijn, fitness, voeding, artikelen, tips, bronnen, meertalig"
+    },
+    "signin": {
+      "title": "Inloggen - Health App",
+      "description": "Log in op je Health App-account om toegang te krijgen tot je gepersonaliseerde gezondheidsdashboard, artikelen en welzijnsbronnen.",
+      "keywords": "inloggen, login, health app, account, authenticatie, gezondheidsdashboard"
+    },
+    "signup": {
+      "title": "Registreren - Health App",
+      "description": "Maak je Health App-account aan om toegang te krijgen tot gepersonaliseerde gezondheidsinhoud, je welzijnsreis bij te houden en je aan te sluiten bij onze gezondheidsgemeenschap.",
+      "keywords": "registreren, account aanmaken, health app, gezondheidsgemeenschap, welzijnsvolging"
+    },
+    "dashboard": {
+      "title": "Dashboard - Health App",
+      "description": "Je gepersonaliseerde gezondheidsoverzicht en inzichten. Houd je gezondheidsdoelen, voortgang bij en krijg toegang tot je gezondheidsartikelen en -bronnen.",
+      "keywords": "gezondheidsdashboard, gezondheidsdoelen, voortgangsvolging, gezondheidsinzichten, persoonlijke gezondheid, welzijnsvolging"
+    },
+    "profile": {
+      "title": "Profiel - Health App",
+      "description": "Beheer je Health App-accountinstellingen, voorkeuren en persoonlijke informatie. Pas je gezondheidservaring en taalvoorkeuren aan.",
+      "keywords": "gebruikersprofiel, accountinstellingen, voorkeuren, persoonlijke informatie, health app-instellingen, taalvoorkeuren"
+    },
+    "createArticle": {
+      "title": "Artikel Maken - Health App",
+      "description": "Deel je gezondheidskennis met de gemeenschap. Maak en publiceer gezondheidsartikelen, tips en welzijnsinhoud in meerdere talen.",
+      "keywords": "artikel maken, gezondheidsinhoud schrijven, gezondheidstips publiceren, welzijnsartikelen, gezondheidskennis delen, inhoud maken"
+    },
+    "forgotPassword": {
+      "title": "Wachtwoord Vergeten - Health App",
+      "description": "Reset je Health App-wachtwoord. Voer je e-mailadres in en we sturen je een veilige link om je wachtwoord te resetten.",
+      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, health app login, accountherstel"
+    },
+    "resetPassword": {
+      "title": "Wachtwoord Resetten - Health App",
+      "description": "Stel je nieuwe wachtwoord in voor je Health App-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
+      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, health app beveiliging, accountbeveiliging"
+    }
   }
 }

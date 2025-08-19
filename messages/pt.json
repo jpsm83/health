@@ -177,21 +177,63 @@
     "dontHaveAccount": "Não tem uma conta? Cadastre-se"
   },
   "ResetPassword": {
-    "resetYourPassword": "Redefina sua senha",
+    "resetYourPassword": "Redefinir sua senha",
     "enterNewPasswordBelow": "Digite sua nova senha abaixo.",
-    "newPassword": "Nova senha",
+    "newPassword": "Nova Senha",
     "enterNewPassword": "Digite sua nova senha",
-    "confirmNewPassword": "Confirmar nova senha",
-    "resetPassword": "Redefinir senha",
-    "resetTokenMissing": "Token de redefinição ausente",
+    "confirmNewPassword": "Confirmar Nova Senha",
+    "resetPassword": "Redefinir Senha",
+    "resetTokenMissing": "Token de redefinição está faltando",
     "bothPasswordsRequired": "Ambos os campos de senha são obrigatórios",
     "passwordsDoNotMatch": "As senhas não coincidem",
     "passwordTooShort": "A senha deve ter pelo menos 6 caracteres",
-    "failedToResetPassword": "Erro ao redefinir senha",
+    "failedToResetPassword": "Falha ao redefinir a senha",
     "unexpectedError": "Ocorreu um erro inesperado",
-    "invalidResetLink": "Link de redefinição inválido",
+    "invalidResetLink": "Link de Redefinição Inválido",
     "resetLinkInvalidOrExpired": "Este link de redefinição de senha é inválido ou expirou.",
-    "requestNewPasswordReset": "Solicitar nova redefinição de senha",
-    "backToSignIn": "Voltar para entrar"
+    "requestNewPasswordReset": "Solicitar uma nova redefinição de senha",
+    "backToSignIn": "Voltar para Entrar"
+  },
+  "metadata": {
+    "home": {
+      "title": "Health App - Sua Plataforma Abrangente de Saúde e Bem-estar",
+      "description": "Descubra artigos, dicas e recursos para melhorar sua saúde e bem-estar. Acesse conteúdo de saúde abrangente em vários idiomas.",
+      "keywords": "saúde, bem-estar, fitness, nutrição, artigos, dicas, recursos, multilíngue"
+    },
+    "signin": {
+      "title": "Entrar - Health App",
+      "description": "Entre na sua conta Health App para acessar seu painel de saúde personalizado, artigos e recursos de bem-estar.",
+      "keywords": "entrar, login, health app, conta, autenticação, painel de saúde"
+    },
+    "signup": {
+      "title": "Cadastrar - Health App",
+      "description": "Crie sua conta Health App para acessar conteúdo de saúde personalizado, acompanhar sua jornada de bem-estar e se juntar à nossa comunidade de saúde.",
+      "keywords": "cadastrar, registrar, criar conta, health app, comunidade de saúde, acompanhamento de bem-estar"
+    },
+    "dashboard": {
+      "title": "Painel - Health App",
+      "description": "Sua visão geral de saúde personalizada e insights. Acompanhe suas metas de saúde, progresso e acesse seus artigos e recursos de saúde.",
+      "keywords": "painel de saúde, metas de saúde, acompanhamento de progresso, insights de saúde, saúde pessoal, acompanhamento de bem-estar"
+    },
+    "profile": {
+      "title": "Perfil - Health App",
+      "description": "Gerencie as configurações da sua conta Health App, preferências e informações pessoais. Personalize sua experiência de saúde e preferências de idioma.",
+      "keywords": "perfil do usuário, configurações da conta, preferências, informações pessoais, configurações do health app, preferências de idioma"
+    },
+    "createArticle": {
+      "title": "Criar Artigo - Health App",
+      "description": "Compartilhe seu conhecimento sobre saúde com a comunidade. Crie e publique artigos de saúde, dicas e conteúdo de bem-estar em vários idiomas.",
+      "keywords": "criar artigo, escrever conteúdo de saúde, publicar dicas de saúde, artigos de bem-estar, compartilhamento de conhecimento sobre saúde, criação de conteúdo"
+    },
+    "forgotPassword": {
+      "title": "Esqueceu a Senha - Health App",
+      "description": "Redefina sua senha Health App. Digite seu endereço de email e enviaremos um link seguro para redefinir sua senha.",
+      "keywords": "esqueceu a senha, redefinir senha, recuperação de senha, login health app, recuperação de conta"
+    },
+    "resetPassword": {
+      "title": "Redefinir Senha - Health App",
+      "description": "Defina sua nova senha para sua conta Health App. Digite sua nova senha abaixo para completar o processo de redefinição de senha.",
+      "keywords": "redefinir senha, nova senha, alteração de senha, segurança health app, segurança da conta"
+    }
   }
 }

@@ -175,5 +175,47 @@
     "resetLinkInvalidOrExpired": "Ce lien de réinitialisation de mot de passe est invalide ou a expiré.",
     "requestNewPasswordReset": "Demander une nouvelle réinitialisation de mot de passe",
     "backToSignIn": "Retour à la connexion"
+  },
+  "metadata": {
+    "home": {
+      "title": "Health App - Votre Plateforme Complète de Santé et de Bien-être",
+      "description": "Découvrez des articles, conseils et ressources pour améliorer votre santé et votre bien-être. Accédez à du contenu de santé complet en plusieurs langues.",
+      "keywords": "santé, bien-être, fitness, nutrition, articles, conseils, ressources, multilingue"
+    },
+    "signin": {
+      "title": "Se Connecter - Health App",
+      "description": "Connectez-vous à votre compte Health App pour accéder à votre tableau de bord de santé personnalisé, articles et ressources de bien-être.",
+      "keywords": "se connecter, login, health app, compte, authentification, tableau de bord de santé"
+    },
+    "signup": {
+      "title": "S'inscrire - Health App",
+      "description": "Créez votre compte Health App pour accéder à du contenu de santé personnalisé, suivre votre parcours de bien-être et rejoindre notre communauté de santé.",
+      "keywords": "s'inscrire, créer compte, health app, communauté de santé, suivi de bien-être"
+    },
+    "dashboard": {
+      "title": "Tableau de Bord - Health App",
+      "description": "Votre aperçu de santé personnalisé et vos insights. Suivez vos objectifs de santé, votre progression et accédez à vos articles et ressources de santé.",
+      "keywords": "tableau de bord de santé, objectifs de santé, suivi de progression, insights de santé, santé personnelle, suivi de bien-être"
+    },
+    "profile": {
+      "title": "Profil - Health App",
+      "description": "Gérez les paramètres de votre compte Health App, vos préférences et vos informations personnelles. Personnalisez votre expérience de santé et vos préférences linguistiques.",
+      "keywords": "profil utilisateur, paramètres de compte, préférences, informations personnelles, paramètres health app, préférences linguistiques"
+    },
+    "createArticle": {
+      "title": "Créer un Article - Health App",
+      "description": "Partagez vos connaissances en santé avec la communauté. Créez et publiez des articles de santé, conseils et contenu de bien-être en plusieurs langues.",
+      "keywords": "créer article, écrire contenu de santé, publier conseils de santé, articles de bien-être, partage de connaissances en santé, création de contenu"
+    },
+    "forgotPassword": {
+      "title": "Mot de Passe Oublié - Health App",
+      "description": "Réinitialisez votre mot de passe Health App. Entrez votre adresse e-mail et nous vous enverrons un lien sécurisé pour réinitialiser votre mot de passe.",
+      "keywords": "mot de passe oublié, réinitialiser mot de passe, récupération de mot de passe, connexion health app, récupération de compte"
+    },
+    "resetPassword": {
+      "title": "Réinitialiser le Mot de Passe - Health App",
+      "description": "Définissez votre nouveau mot de passe pour votre compte Health App. Entrez votre nouveau mot de passe ci-dessous pour compléter le processus de réinitialisation.",
+      "keywords": "réinitialiser mot de passe, nouveau mot de passe, changement de mot de passe, sécurité health app, sécurité de compte"
+    }
   }
 }
