@@ -82,5 +82,98 @@
     "languageInfo": {
       "language": "Язык"
     }
+  },
+  "article": {
+    "title": "Пример Статьи о Здоровье",
+    "subtitle": "Это пример статьи о здоровье и благополучии",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "Редактировать Статью",
+      "delete": "Удалить Статью",
+      "backToList": "Вернуться к Статьям"
+    },
+    "info": {
+      "published": "Опубликовано",
+      "author": "Автор",
+      "category": "Категория",
+      "healthCategory": "Здоровье",
+      "language": "Язык",
+      "slug": "Slug",
+      "date": "Дата"
+    }
+  },
+  "SignUp": {
+    "createAccount": "Создайте свой аккаунт",
+    "alreadyHaveAccount": "У вас уже есть аккаунт?",
+    "signIn": "Войти",
+    "username": "Имя пользователя",
+    "enterUsername": "Введите ваше имя пользователя",
+    "emailAddress": "Адрес электронной почты",
+    "enterEmail": "Введите вашу электронную почту",
+    "birthDate": "Дата рождения",
+    "password": "Пароль",
+    "enterPassword": "Введите ваш пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "passwordsDoNotMatch": "Пароли не совпадают",
+    "passwordTooShort": "Пароль должен содержать не менее 6 символов",
+    "birthDateRequired": "Дата рождения обязательна",
+    "accountCreatedSuccess": "Аккаунт успешно создан! Теперь вы можете войти.",
+    "failedToCreateAccount": "Ошибка при создании аккаунта",
+    "unexpectedError": "Произошла непредвиденная ошибка",
+    "backToHome": "Вернуться на главную"
+  },
+  "SignIn": {
+    "signInToAccount": "Войдите в свой аккаунт",
+    "createAccount": "Создайте свой аккаунт",
+    "dontHaveAccount": "У вас нет аккаунта?",
+    "alreadyHaveAccount": "У вас уже есть аккаунт?",
+    "signUp": "Зарегистрироваться",
+    "signIn": "Войти",
+    "continueWithGoogle": "Продолжить с Google",
+    "orContinueWith": "Или продолжить с",
+    "emailAddress": "Адрес электронной почты",
+    "enterEmail": "Введите вашу электронную почту",
+    "password": "Пароль",
+    "enterPassword": "Введите ваш пароль",
+    "authenticationFailed": "Ошибка аутентификации",
+    "googleSignInFailed": "Ошибка входа через Google",
+    "unexpectedError": "Произошла непредвиденная ошибка",
+    "forgotPassword": "Забыли пароль?",
+    "backToHome": "Вернуться на главную"
+  },
+  "ForgotPassword": {
+    "forgotPassword": "Забыли пароль?",
+    "enterEmailForReset": "Введите ваш адрес электронной почты, и мы отправим вам ссылку для сброса пароля.",
+    "emailAddress": "Адрес электронной почты",
+    "enterEmail": "Введите вашу электронную почту",
+    "emailRequired": "Электронная почта обязательна",
+    "sendResetLink": "Отправить ссылку для сброса",
+    "failedToSendResetEmail": "Ошибка при отправке письма для сброса",
+    "testingMessage": "Для тестирования вы можете использовать эту ссылку",
+    "unexpectedError": "Произошла непредвиденная ошибка",
+    "backToSignIn": "Вернуться к входу",
+    "dontHaveAccount": "У вас нет аккаунта? Зарегистрируйтесь"
+  },
+  "ResetPassword": {
+    "resetYourPassword": "Сбросьте ваш пароль",
+    "enterNewPasswordBelow": "Введите ваш новый пароль ниже.",
+    "newPassword": "Новый пароль",
+    "enterNewPassword": "Введите ваш новый пароль",
+    "confirmNewPassword": "Подтвердите новый пароль",
+    "resetPassword": "Сбросить пароль",
+    "resetTokenMissing": "Отсутствует токен сброса",
+    "bothPasswordsRequired": "Оба поля пароля обязательны",
+    "passwordsDoNotMatch": "Пароли не совпадают",
+    "passwordTooShort": "Пароль должен содержать не менее 6 символов",
+    "failedToResetPassword": "Ошибка при сбросе пароля",
+    "unexpectedError": "Произошла непредвиденная ошибка",
+    "invalidResetLink": "Недействительная ссылка для сброса",
+    "resetLinkInvalidOrExpired": "Эта ссылка для сброса пароля недействительна или истекла.",
+    "requestNewPasswordReset": "Запросить новую ссылку для сброса пароля",
+    "backToSignIn": "Вернуться к входу"
   }
 }

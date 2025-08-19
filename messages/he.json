@@ -82,5 +82,98 @@
     "languageInfo": {
       "language": "שפה"
     }
+  },
+  "article": {
+    "title": "מאמר בריאות לדוגמה",
+    "subtitle": "זהו מאמר לדוגמה על בריאות ורווחה",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "ערוך מאמר",
+      "delete": "מחק מאמר",
+      "backToList": "חזור למאמרים"
+    },
+    "info": {
+      "published": "פורסם",
+      "author": "מחבר",
+      "category": "קטגוריה",
+      "healthCategory": "בריאות",
+      "language": "שפה",
+      "slug": "Slug",
+      "date": "תאריך"
+    }
+  },
+  "SignUp": {
+    "createAccount": "צור את החשבון שלך",
+    "alreadyHaveAccount": "יש לך כבר חשבון?",
+    "signIn": "התחבר",
+    "username": "שם משתמש",
+    "enterUsername": "הכנס את שם המשתמש שלך",
+    "emailAddress": "כתובת אימייל",
+    "enterEmail": "הכנס את האימייל שלך",
+    "birthDate": "תאריך לידה",
+    "password": "סיסמה",
+    "enterPassword": "הכנס את הסיסמה שלך",
+    "confirmPassword": "אימות סיסמה",
+    "passwordsDoNotMatch": "הסיסמאות אינן תואמות",
+    "passwordTooShort": "הסיסמה חייבת להיות באורך של לפחות 6 תווים",
+    "birthDateRequired": "תאריך לידה נדרש",
+    "accountCreatedSuccess": "החשבון נוצר בהצלחה! עכשיו אתה יכול להתחבר.",
+    "failedToCreateAccount": "שגיאה ביצירת החשבון",
+    "unexpectedError": "אירעה שגיאה בלתי צפויה",
+    "backToHome": "חזור לבית"
+  },
+  "SignIn": {
+    "signInToAccount": "התחבר לחשבון שלך",
+    "createAccount": "צור את החשבון שלך",
+    "dontHaveAccount": "אין לך חשבון?",
+    "alreadyHaveAccount": "יש לך כבר חשבון?",
+    "signUp": "הירשם",
+    "signIn": "התחבר",
+    "continueWithGoogle": "המשך עם Google",
+    "orContinueWith": "או המשך עם",
+    "emailAddress": "כתובת אימייל",
+    "enterEmail": "הכנס את האימייל שלך",
+    "password": "סיסמה",
+    "enterPassword": "הכנס את הסיסמה שלך",
+    "authenticationFailed": "האימות נכשל",
+    "googleSignInFailed": "ההתחברות עם Google נכשלה",
+    "unexpectedError": "אירעה שגיאה בלתי צפויה",
+    "forgotPassword": "שכחת את הסיסמה?",
+    "backToHome": "חזור לבית"
+  },
+  "ForgotPassword": {
+    "forgotPassword": "שכחת את הסיסמה?",
+    "enterEmailForReset": "הכנס את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.",
+    "emailAddress": "כתובת אימייל",
+    "enterEmail": "הכנס את האימייל שלך",
+    "emailRequired": "אימייל נדרש",
+    "sendResetLink": "שלח קישור איפוס",
+    "failedToSendResetEmail": "שגיאה בשליחת אימייל האיפוס",
+    "testingMessage": "לצורך בדיקה, אתה יכול להשתמש בקישור זה",
+    "unexpectedError": "אירעה שגיאה בלתי צפויה",
+    "backToSignIn": "חזור להתחברות",
+    "dontHaveAccount": "אין לך חשבון? הירשם"
+  },
+  "ResetPassword": {
+    "resetYourPassword": "אפס את הסיסמה שלך",
+    "enterNewPasswordBelow": "הכנס את הסיסמה החדשה שלך למטה.",
+    "newPassword": "סיסמה חדשה",
+    "enterNewPassword": "הכנס את הסיסמה החדשה שלך",
+    "confirmNewPassword": "אימות סיסמה חדשה",
+    "resetPassword": "אפס סיסמה",
+    "resetTokenMissing": "אסימון האיפוס חסר",
+    "bothPasswordsRequired": "שני שדות הסיסמה נדרשים",
+    "passwordsDoNotMatch": "הסיסמאות אינן תואמות",
+    "passwordTooShort": "הסיסמה חייבת להיות באורך של לפחות 6 תווים",
+    "failedToResetPassword": "שגיאה באיפוס הסיסמה",
+    "unexpectedError": "אירעה שגיאה בלתי צפויה",
+    "invalidResetLink": "קישור איפוס לא תקין",
+    "resetLinkInvalidOrExpired": "קישור איפוס הסיסמה הזה לא תקין או פג תוקף.",
+    "requestNewPasswordReset": "בקש קישור איפוס חדש",
+    "backToSignIn": "חזור להתחברות"
   }
 }

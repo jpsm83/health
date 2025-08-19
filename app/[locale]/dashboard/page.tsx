@@ -1,5 +1,6 @@
 import Navigation from '@/components/Navigation';
 import DashboardContent from '@/pages/DashboardPage';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 export default async function DashboardPage() {
   return (
@@ -7,7 +8,9 @@ export default async function DashboardPage() {
       <Navigation />
       
       <main className="container mx-auto px-4 py-8">
-        <DashboardContent />
+        <ProtectedRoute>
+          <DashboardContent />
+        </ProtectedRoute>
       </main>
     </div>
   );

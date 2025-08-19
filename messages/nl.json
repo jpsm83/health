@@ -82,5 +82,98 @@
     "languageInfo": {
       "language": "Taal"
     }
+  },
+  "article": {
+    "title": "Voorbeeld Gezondheidsartikel",
+    "subtitle": "Dit is een voorbeeldartikel over gezondheid en welzijn",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "Artikel Bewerken",
+      "delete": "Artikel Verwijderen",
+      "backToList": "Terug naar Artikelen"
+    },
+    "info": {
+      "published": "Gepubliceerd",
+      "author": "Auteur",
+      "category": "Categorie",
+      "healthCategory": "Gezondheid",
+      "language": "Taal",
+      "slug": "Slug",
+      "date": "Datum"
+    }
+  },
+  "SignUp": {
+    "createAccount": "Maak je account aan",
+    "alreadyHaveAccount": "Heb je al een account?",
+    "signIn": "Inloggen",
+    "username": "Gebruikersnaam",
+    "enterUsername": "Voer je gebruikersnaam in",
+    "emailAddress": "E-mailadres",
+    "enterEmail": "Voer je e-mail in",
+    "birthDate": "Geboortedatum",
+    "password": "Wachtwoord",
+    "enterPassword": "Voer je wachtwoord in",
+    "confirmPassword": "Bevestig wachtwoord",
+    "passwordsDoNotMatch": "Wachtwoorden komen niet overeen",
+    "passwordTooShort": "Wachtwoord moet minimaal 6 tekens lang zijn",
+    "birthDateRequired": "Geboortedatum is verplicht",
+    "accountCreatedSuccess": "Account succesvol aangemaakt! Je kunt nu inloggen.",
+    "failedToCreateAccount": "Fout bij het aanmaken van account",
+    "unexpectedError": "Er is een onverwachte fout opgetreden",
+    "backToHome": "Terug naar home"
+  },
+  "SignIn": {
+    "signInToAccount": "Log in op je account",
+    "createAccount": "Maak je account aan",
+    "dontHaveAccount": "Heb je geen account?",
+    "alreadyHaveAccount": "Heb je al een account?",
+    "signUp": "Registreren",
+    "signIn": "Inloggen",
+    "continueWithGoogle": "Doorgaan met Google",
+    "orContinueWith": "Of doorgaan met",
+    "emailAddress": "E-mailadres",
+    "enterEmail": "Voer je e-mail in",
+    "password": "Wachtwoord",
+    "enterPassword": "Voer je wachtwoord in",
+    "authenticationFailed": "Authenticatie mislukt",
+    "googleSignInFailed": "Google-inloggen mislukt",
+    "unexpectedError": "Er is een onverwachte fout opgetreden",
+    "forgotPassword": "Wachtwoord vergeten?",
+    "backToHome": "Terug naar home"
+  },
+  "ForgotPassword": {
+    "forgotPassword": "Wachtwoord vergeten?",
+    "enterEmailForReset": "Voer je e-mailadres in en we sturen je een link om je wachtwoord te resetten.",
+    "emailAddress": "E-mailadres",
+    "enterEmail": "Voer je e-mail in",
+    "emailRequired": "E-mail is verplicht",
+    "sendResetLink": "Reset-link verzenden",
+    "failedToSendResetEmail": "Fout bij het verzenden van reset-e-mail",
+    "testingMessage": "Voor testdoeleinden kun je deze link gebruiken",
+    "unexpectedError": "Er is een onverwachte fout opgetreden",
+    "backToSignIn": "Terug naar inloggen",
+    "dontHaveAccount": "Heb je geen account? Registreer je"
+  },
+  "ResetPassword": {
+    "resetYourPassword": "Reset je wachtwoord",
+    "enterNewPasswordBelow": "Voer je nieuwe wachtwoord hieronder in.",
+    "newPassword": "Nieuw wachtwoord",
+    "enterNewPassword": "Voer je nieuwe wachtwoord in",
+    "confirmNewPassword": "Bevestig nieuw wachtwoord",
+    "resetPassword": "Wachtwoord resetten",
+    "resetTokenMissing": "Reset-token ontbreekt",
+    "bothPasswordsRequired": "Beide wachtwoordvelden zijn verplicht",
+    "passwordsDoNotMatch": "Wachtwoorden komen niet overeen",
+    "passwordTooShort": "Wachtwoord moet minimaal 6 tekens lang zijn",
+    "failedToResetPassword": "Fout bij het resetten van wachtwoord",
+    "unexpectedError": "Er is een onverwachte fout opgetreden",
+    "invalidResetLink": "Ongeldige reset-link",
+    "resetLinkInvalidOrExpired": "Deze wachtwoord-reset-link is ongeldig of verlopen.",
+    "requestNewPasswordReset": "Nieuwe wachtwoord-reset aanvragen",
+    "backToSignIn": "Terug naar inloggen"
   }
 }

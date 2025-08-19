@@ -21,5 +21,11 @@ export default async function RootPage() {
     }
   }
   
+  // Ensure we always redirect to a valid locale
+  if (!locales.includes(preferredLocale)) {
+    preferredLocale = defaultLocale;
+  }
+  
+  // Force redirect to the preferred locale
   redirect(`/${preferredLocale}`);
 }

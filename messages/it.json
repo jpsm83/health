@@ -82,5 +82,98 @@
     "languageInfo": {
       "language": "Lingua"
     }
+  },
+  "article": {
+    "title": "Articolo di Salute Esempio",
+    "subtitle": "Questo è un articolo esempio sulla salute e il benessere",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "Modifica Articolo",
+      "delete": "Elimina Articolo",
+      "backToList": "Torna agli Articoli"
+    },
+    "info": {
+      "published": "Pubblicato",
+      "author": "Autore",
+      "category": "Categoria",
+      "healthCategory": "Salute",
+      "language": "Lingua",
+      "slug": "Slug",
+      "date": "Data"
+    }
+  },
+  "SignUp": {
+    "createAccount": "Crea il tuo account",
+    "alreadyHaveAccount": "Hai già un account?",
+    "signIn": "Accedi",
+    "username": "Nome utente",
+    "enterUsername": "Inserisci il tuo nome utente",
+    "emailAddress": "Indirizzo email",
+    "enterEmail": "Inserisci la tua email",
+    "birthDate": "Data di nascita",
+    "password": "Password",
+    "enterPassword": "Inserisci la tua password",
+    "confirmPassword": "Conferma password",
+    "passwordsDoNotMatch": "Le password non coincidono",
+    "passwordTooShort": "La password deve essere di almeno 6 caratteri",
+    "birthDateRequired": "La data di nascita è obbligatoria",
+    "accountCreatedSuccess": "Account creato con successo! Ora puoi accedere.",
+    "failedToCreateAccount": "Errore nella creazione dell'account",
+    "unexpectedError": "Si è verificato un errore imprevisto",
+    "backToHome": "Torna alla home"
+  },
+  "SignIn": {
+    "signInToAccount": "Accedi al tuo account",
+    "createAccount": "Crea il tuo account",
+    "dontHaveAccount": "Non hai un account?",
+    "alreadyHaveAccount": "Hai già un account?",
+    "signUp": "Registrati",
+    "signIn": "Accedi",
+    "continueWithGoogle": "Continua con Google",
+    "orContinueWith": "Oppure continua con",
+    "emailAddress": "Indirizzo email",
+    "enterEmail": "Inserisci la tua email",
+    "password": "Password",
+    "enterPassword": "Inserisci la tua password",
+    "authenticationFailed": "Autenticazione fallita",
+    "googleSignInFailed": "Accesso con Google fallito",
+    "unexpectedError": "Si è verificato un errore imprevisto",
+    "forgotPassword": "Password dimenticata?",
+    "backToHome": "Torna alla home"
+  },
+  "ForgotPassword": {
+    "forgotPassword": "Password dimenticata?",
+    "enterEmailForReset": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la tua password.",
+    "emailAddress": "Indirizzo email",
+    "enterEmail": "Inserisci la tua email",
+    "emailRequired": "L'email è obbligatoria",
+    "sendResetLink": "Invia link di reimpostazione",
+    "failedToSendResetEmail": "Errore nell'invio dell'email di reimpostazione",
+    "testingMessage": "A scopo di test, puoi usare questo link",
+    "unexpectedError": "Si è verificato un errore imprevisto",
+    "backToSignIn": "Torna all'accesso",
+    "dontHaveAccount": "Non hai un account? Registrati"
+  },
+  "ResetPassword": {
+    "resetYourPassword": "Reimposta la tua password",
+    "enterNewPasswordBelow": "Inserisci la tua nuova password qui sotto.",
+    "newPassword": "Nuova password",
+    "enterNewPassword": "Inserisci la tua nuova password",
+    "confirmNewPassword": "Conferma nuova password",
+    "resetPassword": "Reimposta password",
+    "resetTokenMissing": "Token di reimpostazione mancante",
+    "bothPasswordsRequired": "Entrambi i campi password sono obbligatori",
+    "passwordsDoNotMatch": "Le password non coincidono",
+    "passwordTooShort": "La password deve essere di almeno 6 caratteri",
+    "failedToResetPassword": "Errore nella reimpostazione della password",
+    "unexpectedError": "Si è verificato un errore imprevisto",
+    "invalidResetLink": "Link di reimpostazione non valido",
+    "resetLinkInvalidOrExpired": "Questo link di reimpostazione password non è valido o è scaduto.",
+    "requestNewPasswordReset": "Richiedi nuovo reset password",
+    "backToSignIn": "Torna all'accesso"
   }
 }

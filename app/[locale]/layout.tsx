@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { locales, type Locale } from '@/i18n';
+import { locales, defaultLocale, type Locale } from '@/i18n';
 import type { Metadata } from 'next';
 import '../globals.css';
 
@@ -33,20 +33,57 @@ export default async function LocaleLayout({
 }) {
 	const { locale } = await params;
 	
-	// Validate locale and get messages
-	if (!locales.includes(locale as Locale)) {
-		throw new Error(`Invalid locale: ${locale}`);
+	// For static files like sw.js, use a default locale and empty messages
+	if (locale.includes('.') || locale === 'sw.js') {
+		const defaultMessages = {};
+		return (
+			<NextIntlClientProvider messages={defaultMessages} locale="en">
+				{children}
+			</NextIntlClientProvider>
+		);
 	}
 	
-	const messages = await getMessages({ locale });
-
-	return (
-		<html lang={locale}>
-			<body>
-				<NextIntlClientProvider messages={messages} locale={locale}>
+	// Validate locale and get messages
+	if (!locales.includes(locale as Locale)) {
+		console.error(`Invalid locale detected: ${locale}, falling back to ${defaultLocale}`);
+		// Instead of throwing an error, redirect to default locale
+		const defaultMessages = await getMessages({ locale: defaultLocale });
+		return (
+			<NextIntlClientProvider messages={defaultMessages} locale={defaultLocale}>
+				{children}
+			</NextIntlClientProvider>
+		);
+	}
+	
+	try {
+		console.log(`Loading messages for locale: ${locale}`);
+		const messages = await getMessages({ locale });
+		
+		console.log(`Messages loaded:`, Object.keys(messages || {}));
+		
+		if (!messages || Object.keys(messages).length === 0) {
+			console.error(`No messages loaded for locale: ${locale}, falling back to ${defaultLocale}`);
+			const defaultMessages = await getMessages({ locale: defaultLocale });
+			return (
+				<NextIntlClientProvider messages={defaultMessages} locale={defaultLocale}>
 					{children}
 				</NextIntlClientProvider>
-			</body>
-		</html>
-	);
+			);
+		}
+		
+		return (
+			<NextIntlClientProvider messages={messages} locale={locale}>
+				{children}
+			</NextIntlClientProvider>
+		);
+	} catch (error) {
+		console.error(`Error loading messages for locale ${locale}:`, error);
+		// Fallback to default locale
+		const defaultMessages = await getMessages({ locale: defaultLocale });
+		return (
+			<NextIntlClientProvider messages={defaultMessages} locale={defaultLocale}>
+				{children}
+			</NextIntlClientProvider>
+		);
+	}
 }

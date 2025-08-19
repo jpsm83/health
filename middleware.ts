@@ -12,7 +12,10 @@ export default createMiddleware({
   localePrefix: 'always',
   
   // Detect user's preferred language from Accept-Language header
-  localeDetection: true
+  localeDetection: true,
+  
+  // Ensure proper fallback
+  alternateLinks: true
 });
 
 export const config = {

@@ -82,5 +82,98 @@
     "languageInfo": {
       "language": "Sprache"
     }
+  },
+  "article": {
+    "title": "Beispiel-Gesundheitsartikel",
+    "subtitle": "Dies ist ein Beispielartikel über Gesundheit und Wohlbefinden",
+    "content": {
+      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    },
+    "actions": {
+      "edit": "Artikel Bearbeiten",
+      "delete": "Artikel Löschen",
+      "backToList": "Zurück zu Artikeln"
+    },
+    "info": {
+      "published": "Veröffentlicht",
+      "author": "Autor",
+      "category": "Kategorie",
+      "healthCategory": "Gesundheit",
+      "language": "Sprache",
+      "slug": "Slug",
+      "date": "Datum"
+    }
+  },
+  "SignUp": {
+    "createAccount": "Konto erstellen",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "signIn": "Anmelden",
+    "username": "Benutzername",
+    "enterUsername": "Geben Sie Ihren Benutzernamen ein",
+    "emailAddress": "E-Mail-Adresse",
+    "enterEmail": "Geben Sie Ihre E-Mail ein",
+    "birthDate": "Geburtsdatum",
+    "password": "Passwort",
+    "enterPassword": "Geben Sie Ihr Passwort ein",
+    "confirmPassword": "Passwort bestätigen",
+    "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+    "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein",
+    "birthDateRequired": "Geburtsdatum ist erforderlich",
+    "accountCreatedSuccess": "Konto erfolgreich erstellt! Sie können sich jetzt anmelden.",
+    "failedToCreateAccount": "Fehler beim Erstellen des Kontos",
+    "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+    "backToHome": "Zurück zur Startseite"
+  },
+  "SignIn": {
+    "signInToAccount": "Melden Sie sich in Ihrem Konto an",
+    "createAccount": "Konto erstellen",
+    "dontHaveAccount": "Haben Sie kein Konto?",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "signUp": "Registrieren",
+    "signIn": "Anmelden",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "orContinueWith": "Oder fortfahren mit",
+    "emailAddress": "E-Mail-Adresse",
+    "enterEmail": "Geben Sie Ihre E-Mail ein",
+    "password": "Passwort",
+    "enterPassword": "Geben Sie Ihr Passwort ein",
+    "authenticationFailed": "Authentifizierung fehlgeschlagen",
+    "googleSignInFailed": "Google-Anmeldung fehlgeschlagen",
+    "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+    "forgotPassword": "Passwort vergessen?",
+    "backToHome": "Zurück zur Startseite"
+  },
+  "ForgotPassword": {
+    "forgotPassword": "Passwort vergessen?",
+    "enterEmailForReset": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+    "emailAddress": "E-Mail-Adresse",
+    "enterEmail": "Geben Sie Ihre E-Mail ein",
+    "emailRequired": "E-Mail ist erforderlich",
+    "sendResetLink": "Link zum Zurücksetzen senden",
+    "failedToSendResetEmail": "Fehler beim Senden der E-Mail zum Zurücksetzen",
+    "testingMessage": "Zu Testzwecken können Sie diesen Link verwenden",
+    "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+    "backToSignIn": "Zurück zur Anmeldung",
+    "dontHaveAccount": "Haben Sie kein Konto? Registrieren Sie sich"
+  },
+  "ResetPassword": {
+    "resetYourPassword": "Setzen Sie Ihr Passwort zurück",
+    "enterNewPasswordBelow": "Geben Sie Ihr neues Passwort unten ein.",
+    "newPassword": "Neues Passwort",
+    "enterNewPassword": "Geben Sie Ihr neues Passwort ein",
+    "confirmNewPassword": "Neues Passwort bestätigen",
+    "resetPassword": "Passwort zurücksetzen",
+    "resetTokenMissing": "Token zum Zurücksetzen fehlt",
+    "bothPasswordsRequired": "Beide Passwortfelder sind erforderlich",
+    "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+    "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein",
+    "failedToResetPassword": "Fehler beim Zurücksetzen des Passworts",
+    "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+    "invalidResetLink": "Ungültiger Link zum Zurücksetzen",
+    "resetLinkInvalidOrExpired": "Dieser Link zum Zurücksetzen des Passworts ist ungültig oder abgelaufen.",
+    "requestNewPasswordReset": "Neuen Link zum Zurücksetzen des Passworts anfordern",
+    "backToSignIn": "Zurück zur Anmeldung"
   }
 }
