@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import "../globals.css";
+import Navigation from "@/components/Navbar";
 import AuthContext from "@/app/context/AuthContext";
 
 export async function generateMetadata({
@@ -16,12 +16,10 @@ export async function generateMetadata({
 
   // Base metadata for the locale - individual pages will override this with their own SEO data
   return {
-    ...await generatePublicMetadata(
-      locale,
-      '',
-      'metadata.home.title'
+    ...(await generatePublicMetadata(locale, "", "metadata.home.title")),
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
     ),
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   };
 }
 
@@ -43,10 +41,15 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body className="h-full w-full bg-violet-50">
         <AuthContext>
           <NextIntlClientProvider messages={messages}>
-            {children}
+            <div className="h-full w-full flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                {children}
+              </main>
+            </div>
           </NextIntlClientProvider>
         </AuthContext>
       </body>

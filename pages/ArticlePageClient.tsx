@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Navigation from '@/components/Navigation';
 import { IArticle } from '@/interfaces/article';
 import Image from 'next/image';
 
@@ -38,7 +37,6 @@ export default function ArticlePageClient({
   if (!content) {
     return (
       <>
-        <Navigation />
         <div className="text-center py-8">
           <p className="text-red-600">Content not available in this language</p>
         </div>
@@ -48,8 +46,6 @@ export default function ArticlePageClient({
   
   return (
     <>
-      <Navigation />
-      
       <article className="prose prose-lg max-w-none">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">

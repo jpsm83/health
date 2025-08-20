@@ -1,8 +1,8 @@
 {
   "home": {
-    "title": "Welkom bij Gezondheid",
+    "title": "Welkom bij Health",
     "subtitle": "Jouw uitgebreide platform voor gezondheid en welzijn",
-    "description": "Ontdek artikelen, tips en hulpbronnen om je gezondheid en welzijn te verbeteren.",
+    "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren.",
     "features": {
       "articles": "Gezondheidsartikelen",
       "dashboard": "Persoonlijk Dashboard",
@@ -16,7 +16,7 @@
       "createArticle": "Deel je gezondheidskennis met anderen"
     },
     "languageInfo": {
-      "currentLanguage": "Huidige taal"
+      "currentLanguage": "Huidige Taal"
     }
   },
   "dashboard": {
@@ -37,12 +37,34 @@
     "dashboard": "Dashboard",
     "profile": "Profiel",
     "createArticle": "Artikel Maken",
+    "editArticle": "Artikel Bewerken",
     "articles": "Artikelen",
-    "language": "Taal"
+    "language": "Taal",
+    "searchArticles": "Zoek artikelen...",
+    "articleCategories": "Artikelcategorieën",
+    "signIn": "Inloggen",
+    "signUp": "Registreren",
+    "signOut": "Uitloggen",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "Zoek artikelen...",
+    "categories": {
+      "health": "Gezondheid",
+      "fitness": "Fitness",
+      "nutrition": "Voeding",
+      "sex": "Seks & Relaties",
+      "gymwear": "Sportsporten",
+      "beauty": "Schoonheid",
+      "fashion": "Mode",
+      "lifestyle": "Levensstijl",
+      "travel": "Reizen",
+      "decor": "Huis & Decoratie",
+      "productivity": "Productiviteit",
+      "parenting": "Ouderschap"
+    }
   },
   "profile": {
     "title": "Gebruikersprofiel",
-    "subtitle": "Beheer uw accountinstellingen en voorkeuren",
+    "subtitle": "Beheer je accountinstellingen en voorkeuren",
     "sections": {
       "personal": "Persoonlijke Informatie",
       "preferences": "Voorkeuren",
@@ -58,11 +80,29 @@
     "buttons": {
       "save": "Wijzigingen Opslaan",
       "cancel": "Annuleren"
+    },
+    "languageInfo": {
+      "language": "Taal"
+    },
+    "options": {
+      "english": "English",
+      "portuguese": "Português",
+      "spanish": "Español",
+      "french": "Français",
+      "german": "Deutsch",
+      "italian": "Italiano",
+      "dutch": "Nederlands",
+      "hebrew": "עברית",
+      "russian": "Русский",
+      "utc": "UTC",
+      "easternTime": "Eastern Time",
+      "pacificTime": "Pacific Time",
+      "greenwichMeanTime": "Greenwich Mean Time"
     }
   },
   "createArticle": {
     "title": "Nieuw Artikel Maken",
-    "subtitle": "Deel uw gezondheidskennis met de gemeenschap",
+    "subtitle": "Deel je gezondheidskennis met de gemeenschap",
     "form": {
       "title": "Artikeltitel",
       "content": "Artikelinhoud",
@@ -109,7 +149,7 @@
   "SignUp": {
     "createAccount": "Maak je account aan",
     "alreadyHaveAccount": "Heb je al een account?",
-    "signUp": "Inloggen",
+    "signUp": "Registreren",
     "username": "Gebruikersnaam",
     "enterUsername": "Voer je gebruikersnaam in",
     "emailAddress": "E-mailadres",
@@ -117,14 +157,14 @@
     "birthDate": "Geboortedatum",
     "password": "Wachtwoord",
     "enterPassword": "Voer je wachtwoord in",
-    "confirmPassword": "Bevestig wachtwoord",
+    "confirmPassword": "Wachtwoord Bevestigen",
     "passwordsDoNotMatch": "Wachtwoorden komen niet overeen",
     "passwordTooShort": "Wachtwoord moet minimaal 6 tekens lang zijn",
     "birthDateRequired": "Geboortedatum is verplicht",
     "accountCreatedSuccess": "Account succesvol aangemaakt! Je kunt nu inloggen.",
-    "failedToCreateAccount": "Fout bij het aanmaken van account",
+    "failedToCreateAccount": "Account aanmaken mislukt",
     "unexpectedError": "Er is een onverwachte fout opgetreden",
-    "backToHome": "Terug naar home"
+    "backToHome": "Terug naar Home"
   },
   "SignIn": {
     "signInToAccount": "Log in op je account",
@@ -140,10 +180,10 @@
     "password": "Wachtwoord",
     "enterPassword": "Voer je wachtwoord in",
     "authenticationFailed": "Authenticatie mislukt",
-    "googleSignInFailed": "Google-inloggen mislukt",
+    "googleSignInFailed": "Google-inlog mislukt",
     "unexpectedError": "Er is een onverwachte fout opgetreden",
     "forgotPassword": "Wachtwoord vergeten?",
-    "backToHome": "Terug naar home"
+    "backToHome": "Terug naar Home"
   },
   "ForgotPassword": {
     "forgotPassword": "Wachtwoord vergeten?",
@@ -151,35 +191,35 @@
     "emailAddress": "E-mailadres",
     "enterEmail": "Voer je e-mail in",
     "emailRequired": "E-mail is verplicht",
-    "sendResetLink": "Reset-link verzenden",
-    "failedToSendResetEmail": "Fout bij het verzenden van reset-e-mail",
+    "sendResetLink": "Resetlink Versturen",
+    "failedToSendResetEmail": "Reset-e-mail versturen mislukt",
     "testingMessage": "Voor testdoeleinden kun je deze link gebruiken",
     "unexpectedError": "Er is een onverwachte fout opgetreden",
-    "backToSignIn": "Terug naar inloggen",
+    "backToSignIn": "Terug naar Inloggen",
     "dontHaveAccount": "Heb je geen account? Registreer je"
   },
   "ResetPassword": {
     "resetYourPassword": "Reset je wachtwoord",
     "enterNewPasswordBelow": "Voer je nieuwe wachtwoord hieronder in.",
-    "newPassword": "Nieuw wachtwoord",
+    "newPassword": "Nieuw Wachtwoord",
     "enterNewPassword": "Voer je nieuwe wachtwoord in",
-    "confirmNewPassword": "Bevestig nieuw wachtwoord",
-    "resetPassword": "Wachtwoord resetten",
+    "confirmNewPassword": "Bevestig Nieuw Wachtwoord",
+    "resetPassword": "Wachtwoord Resetten",
     "resetTokenMissing": "Reset-token ontbreekt",
     "bothPasswordsRequired": "Beide wachtwoordvelden zijn verplicht",
     "passwordsDoNotMatch": "Wachtwoorden komen niet overeen",
     "passwordTooShort": "Wachtwoord moet minimaal 6 tekens lang zijn",
-    "failedToResetPassword": "Fout bij het resetten van wachtwoord",
+    "failedToResetPassword": "Wachtwoord resetten mislukt",
     "unexpectedError": "Er is een onverwachte fout opgetreden",
-    "invalidResetLink": "Ongeldige reset-link",
-    "resetLinkInvalidOrExpired": "Deze wachtwoord-reset-link is ongeldig of verlopen.",
+    "invalidResetLink": "Ongeldige Resetlink",
+    "resetLinkInvalidOrExpired": "Deze wachtwoord-resetlink is ongeldig of verlopen.",
     "requestNewPasswordReset": "Nieuwe wachtwoord-reset aanvragen",
-    "backToSignIn": "Terug naar inloggen"
+    "backToSignIn": "Terug naar Inloggen"
   },
   "metadata": {
     "home": {
-      "title": "Women Spot - Je Uitgebreide Gezondheids- en Welzijnsplatform",
-      "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren. Krijg toegang tot uitgebreide gezondheidsinhoud in meerdere talen.",
+      "title": "Women Spot - Jouw Uitgebreide Platform voor Gezondheid en Welzijn",
+      "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren. Toegang tot uitgebreide gezondheidsinhoud in meerdere talen.",
       "keywords": "gezondheid, welzijn, fitness, voeding, artikelen, tips, bronnen, meertalig"
     },
     "signin": {
@@ -194,28 +234,28 @@
     },
     "dashboard": {
       "title": "Dashboard - Women Spot",
-      "description": "Je gepersonaliseerde gezondheidsoverzicht en inzichten. Houd je gezondheidsdoelen, voortgang bij en krijg toegang tot je gezondheidsartikelen en -bronnen.",
+      "description": "Jouw gepersonaliseerde gezondheidsoverzicht en inzichten. Volg je gezondheidsdoelen, voortgang en toegang tot je gezondheidsartikelen en -bronnen.",
       "keywords": "gezondheidsdashboard, gezondheidsdoelen, voortgangsvolging, gezondheidsinzichten, persoonlijke gezondheid, welzijnsvolging"
     },
     "profile": {
       "title": "Profiel - Women Spot",
-      "description": "Beheer je Women Spot-accountinstellingen, voorkeuren en persoonlijke informatie. Pas je gezondheidservaring en taalvoorkeuren aan.",
+      "description": "Beheer je Women Spot-accountinstellingen, voorkeuren en persoonlijke informatie. Personaliseer je gezondheidservaring en taalvoorkeuren.",
       "keywords": "gebruikersprofiel, accountinstellingen, voorkeuren, persoonlijke informatie, Women Spot-instellingen, taalvoorkeuren"
     },
     "createArticle": {
       "title": "Artikel Maken - Women Spot",
       "description": "Deel je gezondheidskennis met de gemeenschap. Maak en publiceer gezondheidsartikelen, tips en welzijnsinhoud in meerdere talen.",
-      "keywords": "artikel maken, gezondheidsinhoud schrijven, gezondheidstips publiceren, welzijnsartikelen, gezondheidskennis delen, inhoud maken"
+      "keywords": "artikel maken, gezondheidsinhoud schrijven, gezondheidstips publiceren, welzijnsartikelen, gezondheidskennis delen, inhoudscreatie"
     },
     "forgotPassword": {
       "title": "Wachtwoord Vergeten - Women Spot",
       "description": "Reset je Women Spot-wachtwoord. Voer je e-mailadres in en we sturen je een veilige link om je wachtwoord te resetten.",
-      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, Women Spot login, accountherstel"
+      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, Women Spot-login, accountherstel"
     },
     "resetPassword": {
       "title": "Wachtwoord Resetten - Women Spot",
       "description": "Stel je nieuwe wachtwoord in voor je Women Spot-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
-      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women Spot beveiliging, accountbeveiliging"
+      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women Spot-beveiliging, accountbeveiliging"
     }
   }
 }

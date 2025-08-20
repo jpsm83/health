@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Bienvenido a Salud",
+    "title": "Bienvenido a Health",
     "subtitle": "Tu plataforma integral de salud y bienestar",
     "description": "Descubre artículos, consejos y recursos para mejorar tu salud y bienestar.",
     "features": {
@@ -11,9 +11,9 @@
     },
     "featureDescriptions": {
       "articles": "Accede a artículos de salud integrales e investigaciones",
-      "dashboard": "Rastrea tus metas de salud y progreso",
+      "dashboard": "Rastrea tus objetivos de salud y progreso",
       "profile": "Gestiona tu información personal de salud",
-      "createArticle": "Comparte tu conocimiento sobre salud con otros"
+      "createArticle": "Comparte tu conocimiento de salud con otros"
     },
     "languageInfo": {
       "currentLanguage": "Idioma Actual"
@@ -24,7 +24,7 @@
     "subtitle": "Tu visión general de salud e insights",
     "stats": {
       "articles": "Artículos Leídos",
-      "goals": "Metas de Salud",
+      "goals": "Objetivos de Salud",
       "progress": "Progreso",
       "streak": "Racha Actual"
     },
@@ -37,12 +37,34 @@
     "dashboard": "Panel",
     "profile": "Perfil",
     "createArticle": "Crear Artículo",
+    "editArticle": "Editar Artículo",
     "articles": "Artículos",
-    "language": "Idioma"
+    "language": "Idioma",
+    "searchArticles": "Buscar artículos...",
+    "articleCategories": "Categorías de Artículos",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "Buscar artículos...",
+    "categories": {
+      "health": "Salud",
+      "fitness": "Fitness",
+      "nutrition": "Nutrición",
+      "sex": "Sexo y Relaciones",
+      "gymwear": "Ropa de Gimnasio",
+      "beauty": "Belleza",
+      "fashion": "Moda",
+      "lifestyle": "Estilo de Vida",
+      "travel": "Viajes",
+      "decor": "Hogar y Decoración",
+      "productivity": "Productividad",
+      "parenting": "Paternidad"
+    }
   },
   "profile": {
     "title": "Perfil de Usuario",
-    "subtitle": "Gestiona la configuración de tu cuenta y preferencias",
+    "subtitle": "Gestiona la configuración y preferencias de tu cuenta",
     "sections": {
       "personal": "Información Personal",
       "preferences": "Preferencias",
@@ -73,14 +95,14 @@
       "hebrew": "עברית",
       "russian": "Русский",
       "utc": "UTC",
-      "easternTime": "Hora del Este",
-      "pacificTime": "Hora del Pacífico",
-      "greenwichMeanTime": "Hora de Greenwich"
+      "easternTime": "Eastern Time",
+      "pacificTime": "Pacific Time",
+      "greenwichMeanTime": "Greenwich Mean Time"
     }
   },
   "createArticle": {
     "title": "Crear Nuevo Artículo",
-    "subtitle": "Comparte tu conocimiento sobre salud con la comunidad",
+    "subtitle": "Comparte tu conocimiento de salud con la comunidad",
     "form": {
       "title": "Título del Artículo",
       "content": "Contenido del Artículo",
@@ -112,7 +134,7 @@
     "actions": {
       "edit": "Editar Artículo",
       "delete": "Eliminar Artículo",
-      "backToList": "Volver a Artículos"
+      "backToList": "Volver a los Artículos"
     },
     "info": {
       "published": "Publicado",
@@ -127,22 +149,22 @@
   "SignUp": {
     "createAccount": "Crea tu cuenta",
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-    "signUp": "Iniciar sesión",
+    "signUp": "Registrarse",
     "username": "Nombre de usuario",
     "enterUsername": "Ingresa tu nombre de usuario",
-    "emailAddress": "Dirección de correo",
-    "enterEmail": "Ingresa tu correo",
-    "birthDate": "Fecha de nacimiento",
+    "emailAddress": "Dirección de email",
+    "enterEmail": "Ingresa tu email",
+    "birthDate": "Fecha de Nacimiento",
     "password": "Contraseña",
     "enterPassword": "Ingresa tu contraseña",
-    "confirmPassword": "Confirmar contraseña",
+    "confirmPassword": "Confirmar Contraseña",
     "passwordsDoNotMatch": "Las contraseñas no coinciden",
     "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
     "birthDateRequired": "La fecha de nacimiento es obligatoria",
     "accountCreatedSuccess": "¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.",
     "failedToCreateAccount": "Error al crear la cuenta",
     "unexpectedError": "Ocurrió un error inesperado",
-    "backToHome": "Volver al inicio"
+    "backToHome": "Volver al Inicio"
   },
   "SignIn": {
     "signInToAccount": "Inicia sesión en tu cuenta",
@@ -150,49 +172,49 @@
     "dontHaveAccount": "¿No tienes una cuenta?",
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "signUp": "Registrarse",
-    "signIn": "Iniciar sesión",
+    "signIn": "Iniciar Sesión",
     "continueWithGoogle": "Continuar con Google",
     "orContinueWith": "O continuar con",
-    "emailAddress": "Dirección de correo",
-    "enterEmail": "Ingresa tu correo",
+    "emailAddress": "Dirección de email",
+    "enterEmail": "Ingresa tu email",
     "password": "Contraseña",
     "enterPassword": "Ingresa tu contraseña",
     "authenticationFailed": "Error de autenticación",
     "googleSignInFailed": "Error al iniciar sesión con Google",
     "unexpectedError": "Ocurrió un error inesperado",
     "forgotPassword": "¿Olvidaste tu contraseña?",
-    "backToHome": "Volver al inicio"
+    "backToHome": "Volver al Inicio"
   },
   "ForgotPassword": {
     "forgotPassword": "¿Olvidaste tu contraseña?",
-    "enterEmailForReset": "Ingresa tu dirección de correo y te enviaremos un enlace para restablecer tu contraseña.",
-    "emailAddress": "Dirección de correo",
-    "enterEmail": "Ingresa tu correo",
-    "emailRequired": "El correo es obligatorio",
-    "sendResetLink": "Enviar enlace de restablecimiento",
-    "failedToSendResetEmail": "Error al enviar el correo de restablecimiento",
+    "enterEmailForReset": "Ingresa tu dirección de email y te enviaremos un enlace para restablecer tu contraseña.",
+    "emailAddress": "Dirección de email",
+    "enterEmail": "Ingresa tu email",
+    "emailRequired": "El email es obligatorio",
+    "sendResetLink": "Enviar Enlace de Restablecimiento",
+    "failedToSendResetEmail": "Error al enviar email de restablecimiento",
     "testingMessage": "Para propósitos de prueba, puedes usar este enlace",
     "unexpectedError": "Ocurrió un error inesperado",
-    "backToSignIn": "Volver a iniciar sesión",
+    "backToSignIn": "Volver a Iniciar Sesión",
     "dontHaveAccount": "¿No tienes una cuenta? Regístrate"
   },
   "ResetPassword": {
     "resetYourPassword": "Restablece tu contraseña",
     "enterNewPasswordBelow": "Ingresa tu nueva contraseña a continuación.",
-    "newPassword": "Nueva contraseña",
+    "newPassword": "Nueva Contraseña",
     "enterNewPassword": "Ingresa tu nueva contraseña",
-    "confirmNewPassword": "Confirmar nueva contraseña",
-    "resetPassword": "Restablecer contraseña",
+    "confirmNewPassword": "Confirmar Nueva Contraseña",
+    "resetPassword": "Restablecer Contraseña",
     "resetTokenMissing": "Falta el token de restablecimiento",
     "bothPasswordsRequired": "Ambos campos de contraseña son obligatorios",
     "passwordsDoNotMatch": "Las contraseñas no coinciden",
     "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
     "failedToResetPassword": "Error al restablecer la contraseña",
     "unexpectedError": "Ocurrió un error inesperado",
-    "invalidResetLink": "Enlace de restablecimiento inválido",
+    "invalidResetLink": "Enlace de Restablecimiento Inválido",
     "resetLinkInvalidOrExpired": "Este enlace de restablecimiento de contraseña es inválido o ha expirado.",
     "requestNewPasswordReset": "Solicitar nuevo restablecimiento de contraseña",
-    "backToSignIn": "Volver a iniciar sesión"
+    "backToSignIn": "Volver a Iniciar Sesión"
   },
   "metadata": {
     "home": {
@@ -207,28 +229,28 @@
     },
     "signup": {
       "title": "Registrarse - Women Spot",
-      "description": "Crea tu cuenta Women Spot para acceder a contenido de salud personalizado, rastrear tu viaje de bienestar y unirte a nuestra comunidad de salud.",
+      "description": "Crea tu cuenta Women Spot para acceder a contenido de salud personalizado, rastrear tu jornada de bienestar y unirte a nuestra comunidad de salud.",
       "keywords": "registrarse, crear cuenta, Women Spot, comunidad de salud, seguimiento de bienestar"
     },
     "dashboard": {
       "title": "Panel - Women Spot",
-      "description": "Tu vista general de salud personalizada e insights. Rastrea tus metas de salud, progreso y accede a tus artículos y recursos de salud.",
-      "keywords": "panel de salud, metas de salud, seguimiento de progreso, insights de salud, salud personal, seguimiento de bienestar"
+      "description": "Tu visión general de salud personalizada e insights. Rastrea tus objetivos de salud, progreso y accede a tus artículos y recursos de salud.",
+      "keywords": "panel de salud, objetivos de salud, seguimiento de progreso, insights de salud, salud personal, seguimiento de bienestar"
     },
     "profile": {
       "title": "Perfil - Women Spot",
       "description": "Gestiona la configuración de tu cuenta Women Spot, preferencias e información personal. Personaliza tu experiencia de salud y preferencias de idioma.",
-      "keywords": "perfil de usuario, configuración de cuenta, preferencias, información personal, configuración de Women Spot, preferencias de idioma"
+      "keywords": "perfil de usuario, configuración de cuenta, preferencias, información personal, configuración Women Spot, preferencias de idioma"
     },
     "createArticle": {
       "title": "Crear Artículo - Women Spot",
-      "description": "Comparte tu conocimiento sobre salud con la comunidad. Crea y publica artículos de salud, consejos y contenido de bienestar en múltiples idiomas.",
+      "description": "Comparte tu conocimiento de salud con la comunidad. Crea y publica artículos de salud, consejos y contenido de bienestar en múltiples idiomas.",
       "keywords": "crear artículo, escribir contenido de salud, publicar consejos de salud, artículos de bienestar, compartir conocimiento de salud, creación de contenido"
     },
     "forgotPassword": {
-      "title": "Olvidé mi Contraseña - Women Spot",
-      "description": "Restablece tu contraseña Women Spot. Ingresa tu dirección de correo y te enviaremos un enlace seguro para restablecer tu contraseña.",
-      "keywords": "olvidé contraseña, restablecer contraseña, recuperación de contraseña, login Women Spot, recuperación de cuenta"
+      "title": "Olvidaste la Contraseña - Women Spot",
+      "description": "Restablece tu contraseña Women Spot. Ingresa tu dirección de email y te enviaremos un enlace seguro para restablecer tu contraseña.",
+      "keywords": "olvidaste contraseña, restablecer contraseña, recuperación de contraseña, login Women Spot, recuperación de cuenta"
     },
     "resetPassword": {
       "title": "Restablecer Contraseña - Women Spot",

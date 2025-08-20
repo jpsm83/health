@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Bem-vindo à Saúde",
+    "title": "Bem-vindo ao Health",
     "subtitle": "Sua plataforma abrangente de saúde e bem-estar",
     "description": "Descubra artigos, dicas e recursos para melhorar sua saúde e bem-estar.",
     "features": {
@@ -11,9 +11,9 @@
     },
     "featureDescriptions": {
       "articles": "Acesse artigos de saúde abrangentes e pesquisas",
-      "dashboard": "Acompanhe suas metas de saúde e progresso",
+      "dashboard": "Acompanhe seus objetivos de saúde e progresso",
       "profile": "Gerencie suas informações pessoais de saúde",
-      "createArticle": "Compartilhe seu conhecimento sobre saúde com outros"
+      "createArticle": "Compartilhe seu conhecimento de saúde com outros"
     },
     "languageInfo": {
       "currentLanguage": "Idioma Atual"
@@ -24,7 +24,7 @@
     "subtitle": "Sua visão geral de saúde e insights",
     "stats": {
       "articles": "Artigos Lidos",
-      "goals": "Metas de Saúde",
+      "goals": "Objetivos de Saúde",
       "progress": "Progresso",
       "streak": "Sequência Atual"
     },
@@ -37,12 +37,34 @@
     "dashboard": "Painel",
     "profile": "Perfil",
     "createArticle": "Criar Artigo",
+    "editArticle": "Editar Artigo",
     "articles": "Artigos",
-    "language": "Idioma"
+    "language": "Idioma",
+    "searchArticles": "Pesquisar artigos...",
+    "articleCategories": "Categorias de Artigos",
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "signOut": "Sair",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "Pesquisar artigos...",
+    "categories": {
+      "health": "Saúde",
+      "fitness": "Fitness",
+      "nutrition": "Nutrição",
+      "sex": "Sexo e Relacionamentos",
+      "gymwear": "Roupas de Academia",
+      "beauty": "Beleza",
+      "fashion": "Moda",
+      "lifestyle": "Estilo de Vida",
+      "travel": "Viagem",
+      "decor": "Casa e Decoração",
+      "productivity": "Produtividade",
+      "parenting": "Paternidade"
+    }
   },
   "profile": {
     "title": "Perfil do Usuário",
-    "subtitle": "Gerencie suas configurações de conta e preferências",
+    "subtitle": "Gerencie as configurações e preferências da sua conta",
     "sections": {
       "personal": "Informações Pessoais",
       "preferences": "Preferências",
@@ -73,14 +95,14 @@
       "hebrew": "עברית",
       "russian": "Русский",
       "utc": "UTC",
-      "easternTime": "Horário do Leste",
-      "pacificTime": "Horário do Pacífico",
-      "greenwichMeanTime": "Horário de Greenwich"
+      "easternTime": "Eastern Time",
+      "pacificTime": "Pacific Time",
+      "greenwichMeanTime": "Greenwich Mean Time"
     }
   },
   "createArticle": {
     "title": "Criar Novo Artigo",
-    "subtitle": "Compartilhe seu conhecimento sobre saúde com a comunidade",
+    "subtitle": "Compartilhe seu conhecimento de saúde com a comunidade",
     "form": {
       "title": "Título do Artigo",
       "content": "Conteúdo do Artigo",
@@ -107,7 +129,7 @@
     "content": {
       "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae dicta sunt explicabo."
+      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
     },
     "actions": {
       "edit": "Editar Artigo",
@@ -117,7 +139,7 @@
     "info": {
       "published": "Publicado",
       "author": "Autor",
-      "category": "Categoría",
+      "category": "Categoria",
       "healthCategory": "Saúde",
       "language": "Idioma",
       "slug": "Slug",
@@ -127,22 +149,22 @@
   "SignUp": {
     "createAccount": "Crie sua conta",
     "alreadyHaveAccount": "Já tem uma conta?",
-    "signUp": "Entrar",
+    "signUp": "Cadastrar",
     "username": "Nome de usuário",
     "enterUsername": "Digite seu nome de usuário",
     "emailAddress": "Endereço de email",
     "enterEmail": "Digite seu email",
-    "birthDate": "Data de nascimento",
+    "birthDate": "Data de Nascimento",
     "password": "Senha",
     "enterPassword": "Digite sua senha",
-    "confirmPassword": "Confirmar senha",
+    "confirmPassword": "Confirmar Senha",
     "passwordsDoNotMatch": "As senhas não coincidem",
     "passwordTooShort": "A senha deve ter pelo menos 6 caracteres",
-    "birthDateRequired": "A data de nascimento é obrigatória",
-    "accountCreatedSuccess": "Conta criada com sucesso! Agora você pode entrar.",
-    "failedToCreateAccount": "Erro ao criar conta",
+    "birthDateRequired": "Data de nascimento é obrigatória",
+    "accountCreatedSuccess": "Conta criada com sucesso! Agora você pode fazer login.",
+    "failedToCreateAccount": "Falha ao criar conta",
     "unexpectedError": "Ocorreu um erro inesperado",
-    "backToHome": "Voltar ao início"
+    "backToHome": "Voltar ao Início"
   },
   "SignIn": {
     "signInToAccount": "Entre na sua conta",
@@ -152,32 +174,32 @@
     "signUp": "Cadastrar",
     "signIn": "Entrar",
     "continueWithGoogle": "Continuar com Google",
-    "orContinueWith": "Ou continuar com",
+    "orContinueWith": "Ou continue com",
     "emailAddress": "Endereço de email",
     "enterEmail": "Digite seu email",
     "password": "Senha",
     "enterPassword": "Digite sua senha",
     "authenticationFailed": "Falha na autenticação",
-    "googleSignInFailed": "Erro ao entrar com Google",
+    "googleSignInFailed": "Falha no login com Google",
     "unexpectedError": "Ocorreu um erro inesperado",
     "forgotPassword": "Esqueceu sua senha?",
-    "backToHome": "Voltar ao início"
+    "backToHome": "Voltar ao Início"
   },
   "ForgotPassword": {
     "forgotPassword": "Esqueceu sua senha?",
     "enterEmailForReset": "Digite seu endereço de email e enviaremos um link para redefinir sua senha.",
     "emailAddress": "Endereço de email",
     "enterEmail": "Digite seu email",
-    "emailRequired": "O email é obrigatório",
-    "sendResetLink": "Enviar link de redefinição",
-    "failedToSendResetEmail": "Erro ao enviar email de redefinição",
+    "emailRequired": "Email é obrigatório",
+    "sendResetLink": "Enviar Link de Redefinição",
+    "failedToSendResetEmail": "Falha ao enviar email de redefinição",
     "testingMessage": "Para fins de teste, você pode usar este link",
     "unexpectedError": "Ocorreu um erro inesperado",
-    "backToSignIn": "Voltar para entrar",
+    "backToSignIn": "Voltar ao Login",
     "dontHaveAccount": "Não tem uma conta? Cadastre-se"
   },
   "ResetPassword": {
-    "resetYourPassword": "Redefinir sua senha",
+    "resetYourPassword": "Redefina sua senha",
     "enterNewPasswordBelow": "Digite sua nova senha abaixo.",
     "newPassword": "Nova Senha",
     "enterNewPassword": "Digite sua nova senha",
@@ -187,17 +209,17 @@
     "bothPasswordsRequired": "Ambos os campos de senha são obrigatórios",
     "passwordsDoNotMatch": "As senhas não coincidem",
     "passwordTooShort": "A senha deve ter pelo menos 6 caracteres",
-    "failedToResetPassword": "Falha ao redefinir a senha",
+    "failedToResetPassword": "Falha ao redefinir senha",
     "unexpectedError": "Ocorreu um erro inesperado",
     "invalidResetLink": "Link de Redefinição Inválido",
     "resetLinkInvalidOrExpired": "Este link de redefinição de senha é inválido ou expirou.",
-    "requestNewPasswordReset": "Solicitar uma nova redefinição de senha",
-    "backToSignIn": "Voltar para Entrar"
+    "requestNewPasswordReset": "Solicitar nova redefinição de senha",
+    "backToSignIn": "Voltar ao Login"
   },
   "metadata": {
     "home": {
       "title": "Women Spot - Sua Plataforma Abrangente de Saúde e Bem-estar",
-      "description": "Descubra artigos, dicas e recursos para melhorar sua saúde e bem-estar. Acesse conteúdo de saúde abrangente em vários idiomas.",
+      "description": "Descubra artigos, dicas e recursos para melhorar sua saúde e bem-estar. Acesse conteúdo de saúde abrangente em múltiplos idiomas.",
       "keywords": "saúde, bem-estar, fitness, nutrição, artigos, dicas, recursos, multilíngue"
     },
     "signin": {
@@ -212,23 +234,23 @@
     },
     "dashboard": {
       "title": "Painel - Women Spot",
-      "description": "Sua visão geral de saúde personalizada e insights. Acompanhe suas metas de saúde, progresso e acesse seus artigos e recursos de saúde.",
-      "keywords": "painel de saúde, metas de saúde, acompanhamento de progresso, insights de saúde, saúde pessoal, acompanhamento de bem-estar"
+      "description": "Sua visão geral de saúde personalizada e insights. Acompanhe seus objetivos de saúde, progresso e acesse seus artigos e recursos de saúde.",
+      "keywords": "painel de saúde, objetivos de saúde, acompanhamento de progresso, insights de saúde, saúde pessoal, acompanhamento de bem-estar"
     },
     "profile": {
       "title": "Perfil - Women Spot",
       "description": "Gerencie as configurações da sua conta Women Spot, preferências e informações pessoais. Personalize sua experiência de saúde e preferências de idioma.",
-      "keywords": "perfil do usuário, configurações da conta, preferências, informações pessoais, configurações do Women Spot, preferências de idioma"
+      "keywords": "perfil do usuário, configurações da conta, preferências, informações pessoais, configurações Women Spot, preferências de idioma"
     },
     "createArticle": {
       "title": "Criar Artigo - Women Spot",
-      "description": "Compartilhe seu conhecimento sobre saúde com a comunidade. Crie e publique artigos de saúde, dicas e conteúdo de bem-estar em vários idiomas.",
-      "keywords": "criar artigo, escrever conteúdo de saúde, publicar dicas de saúde, artigos de bem-estar, compartilhamento de conhecimento sobre saúde, criação de conteúdo"
+      "description": "Compartilhe seu conhecimento de saúde com a comunidade. Crie e publique artigos de saúde, dicas e conteúdo de bem-estar em múltiplos idiomas.",
+      "keywords": "criar artigo, escrever conteúdo de saúde, publicar dicas de saúde, artigos de bem-estar, compartilhamento de conhecimento de saúde, criação de conteúdo"
     },
     "forgotPassword": {
       "title": "Esqueceu a Senha - Women Spot",
       "description": "Redefina sua senha Women Spot. Digite seu endereço de email e enviaremos um link seguro para redefinir sua senha.",
-      "keywords": "esqueceu a senha, redefinir senha, recuperação de senha, login Women Spot, recuperação de conta"
+      "keywords": "esqueceu senha, redefinir senha, recuperação de senha, login Women Spot, recuperação de conta"
     },
     "resetPassword": {
       "title": "Redefinir Senha - Women Spot",

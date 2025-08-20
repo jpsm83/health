@@ -89,23 +89,19 @@ export const useAuth = () => {
     }
   }, [router, update]);
 
-  // Sign out using custom endpoint (bypasses CSRF issues)
+  // Sign out using NextAuth directly
   const logout = useCallback(async () => {
     try {
-      // Use custom signout endpoint to bypass CSRF issues
-      const response = await fetch('/api/v1/auth/signout', {
-        method: 'POST',
-        credentials: 'include',
+      // Clear the session using NextAuth (handles both client and server)
+      await signOut({ 
+        redirect: false,
+        callbackUrl: '/'
       });
       
-      if (response.ok) {
-        // Clear the session on the client side
-        await signOut({ redirect: false });
-        router.push('/');
-        return { success: true };
-      } else {
-        throw new Error('Signout failed');
-      }
+      // Navigate to home page
+      router.push('/');
+      
+      return { success: true };
     } catch (error) {
       console.error('Logout error:', error);
       return { success: false, error: 'Logout failed' };

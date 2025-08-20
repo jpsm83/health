@@ -1,22 +1,22 @@
 {
   "home": {
-    "title": "Benvenuto alla Salute",
-    "subtitle": "La tua piattaforma completa per la salute e il benessere",
+    "title": "Benvenuto su Health",
+    "subtitle": "La tua piattaforma completa per salute e benessere",
     "description": "Scopri articoli, consigli e risorse per migliorare la tua salute e il tuo benessere.",
     "features": {
       "articles": "Articoli di Salute",
       "dashboard": "Dashboard Personale",
       "profile": "Profilo Utente",
-      "createArticle": "Crea Contenuto"
+      "createArticle": "Crea Contenuti"
     },
     "featureDescriptions": {
       "articles": "Accedi ad articoli di salute completi e ricerche",
-      "dashboard": "Monitora i tuoi obiettivi di salute e i progressi",
-      "profile": "Gestisci le tue informazioni sanitarie personali",
-      "createArticle": "Condividi le tue conoscenze sulla salute con gli altri"
+      "dashboard": "Traccia i tuoi obiettivi di salute e progressi",
+      "profile": "Gestisci le tue informazioni personali di salute",
+      "createArticle": "Condividi le tue conoscenze di salute con altri"
     },
     "languageInfo": {
-      "currentLanguage": "Lingua attuale"
+      "currentLanguage": "Lingua Attuale"
     }
   },
   "dashboard": {
@@ -25,7 +25,7 @@
     "stats": {
       "articles": "Articoli Letti",
       "goals": "Obiettivi di Salute",
-      "progress": "Progresso",
+      "progress": "Progressi",
       "streak": "Serie Attuale"
     },
     "languageInfo": {
@@ -33,16 +33,38 @@
     }
   },
   "navigation": {
-    "home": "Inizio",
+    "home": "Home",
     "dashboard": "Dashboard",
     "profile": "Profilo",
     "createArticle": "Crea Articolo",
+    "editArticle": "Modifica Articolo",
     "articles": "Articoli",
-    "language": "Lingua"
+    "language": "Lingua",
+    "searchArticles": "Cerca articoli...",
+    "articleCategories": "Categorie di Articoli",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "signOut": "Esci",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "Cerca articoli...",
+    "categories": {
+      "health": "Salute",
+      "fitness": "Fitness",
+      "nutrition": "Nutrizione",
+      "sex": "Sesso e Relazioni",
+      "gymwear": "Abbigliamento Sportivo",
+      "beauty": "Bellezza",
+      "fashion": "Moda",
+      "lifestyle": "Stile di Vita",
+      "travel": "Viaggi",
+      "decor": "Casa e Decorazione",
+      "productivity": "Produttività",
+      "parenting": "Genitorialità"
+    }
   },
   "profile": {
     "title": "Profilo Utente",
-    "subtitle": "Gestisci le impostazioni del tuo account e le preferenze",
+    "subtitle": "Gestisci le impostazioni e preferenze del tuo account",
     "sections": {
       "personal": "Informazioni Personali",
       "preferences": "Preferenze",
@@ -58,11 +80,29 @@
     "buttons": {
       "save": "Salva Modifiche",
       "cancel": "Annulla"
+    },
+    "languageInfo": {
+      "language": "Lingua"
+    },
+    "options": {
+      "english": "English",
+      "portuguese": "Português",
+      "spanish": "Español",
+      "french": "Français",
+      "german": "Deutsch",
+      "italian": "Italiano",
+      "dutch": "Nederlands",
+      "hebrew": "עברית",
+      "russian": "Русский",
+      "utc": "UTC",
+      "easternTime": "Eastern Time",
+      "pacificTime": "Pacific Time",
+      "greenwichMeanTime": "Greenwich Mean Time"
     }
   },
   "createArticle": {
     "title": "Crea Nuovo Articolo",
-    "subtitle": "Condividi le tue conoscenze sulla salute con la comunità",
+    "subtitle": "Condividi le tue conoscenze di salute con la comunità",
     "form": {
       "title": "Titolo Articolo",
       "content": "Contenuto Articolo",
@@ -84,8 +124,8 @@
     }
   },
   "article": {
-    "title": "Articolo di Salute Esempio",
-    "subtitle": "Questo è un articolo esempio sulla salute e il benessere",
+    "title": "Articolo di Salute di Esempio",
+    "subtitle": "Questo è un articolo di esempio su salute e benessere",
     "content": {
       "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -109,22 +149,22 @@
   "SignUp": {
     "createAccount": "Crea il tuo account",
     "alreadyHaveAccount": "Hai già un account?",
-    "signUp": "Accedi",
+    "signUp": "Registrati",
     "username": "Nome utente",
     "enterUsername": "Inserisci il tuo nome utente",
     "emailAddress": "Indirizzo email",
     "enterEmail": "Inserisci la tua email",
-    "birthDate": "Data di nascita",
+    "birthDate": "Data di Nascita",
     "password": "Password",
     "enterPassword": "Inserisci la tua password",
-    "confirmPassword": "Conferma password",
+    "confirmPassword": "Conferma Password",
     "passwordsDoNotMatch": "Le password non coincidono",
     "passwordTooShort": "La password deve essere di almeno 6 caratteri",
     "birthDateRequired": "La data di nascita è obbligatoria",
     "accountCreatedSuccess": "Account creato con successo! Ora puoi accedere.",
-    "failedToCreateAccount": "Errore nella creazione dell'account",
+    "failedToCreateAccount": "Impossibile creare l'account",
     "unexpectedError": "Si è verificato un errore imprevisto",
-    "backToHome": "Torna alla home"
+    "backToHome": "Torna alla Home"
   },
   "SignIn": {
     "signInToAccount": "Accedi al tuo account",
@@ -143,7 +183,7 @@
     "googleSignInFailed": "Accesso con Google fallito",
     "unexpectedError": "Si è verificato un errore imprevisto",
     "forgotPassword": "Password dimenticata?",
-    "backToHome": "Torna alla home"
+    "backToHome": "Torna alla Home"
   },
   "ForgotPassword": {
     "forgotPassword": "Password dimenticata?",
@@ -151,34 +191,34 @@
     "emailAddress": "Indirizzo email",
     "enterEmail": "Inserisci la tua email",
     "emailRequired": "L'email è obbligatoria",
-    "sendResetLink": "Invia link di reimpostazione",
-    "failedToSendResetEmail": "Errore nell'invio dell'email di reimpostazione",
-    "testingMessage": "A scopo di test, puoi usare questo link",
+    "sendResetLink": "Invia Link di Reset",
+    "failedToSendResetEmail": "Impossibile inviare l'email di reset",
+    "testingMessage": "Per scopi di test, puoi usare questo link",
     "unexpectedError": "Si è verificato un errore imprevisto",
-    "backToSignIn": "Torna all'accesso",
+    "backToSignIn": "Torna all'Accesso",
     "dontHaveAccount": "Non hai un account? Registrati"
   },
   "ResetPassword": {
     "resetYourPassword": "Reimposta la tua password",
     "enterNewPasswordBelow": "Inserisci la tua nuova password qui sotto.",
-    "newPassword": "Nuova password",
+    "newPassword": "Nuova Password",
     "enterNewPassword": "Inserisci la tua nuova password",
-    "confirmNewPassword": "Conferma nuova password",
-    "resetPassword": "Reimposta password",
-    "resetTokenMissing": "Token di reimpostazione mancante",
+    "confirmNewPassword": "Conferma Nuova Password",
+    "resetPassword": "Reimposta Password",
+    "resetTokenMissing": "Token di reset mancante",
     "bothPasswordsRequired": "Entrambi i campi password sono obbligatori",
     "passwordsDoNotMatch": "Le password non coincidono",
     "passwordTooShort": "La password deve essere di almeno 6 caratteri",
-    "failedToResetPassword": "Errore nella reimpostazione della password",
+    "failedToResetPassword": "Impossibile reimpostare la password",
     "unexpectedError": "Si è verificato un errore imprevisto",
-    "invalidResetLink": "Link di reimpostazione non valido",
-    "resetLinkInvalidOrExpired": "Questo link di reimpostazione password non è valido o è scaduto.",
+    "invalidResetLink": "Link di Reset Non Valido",
+    "resetLinkInvalidOrExpired": "Questo link per reimpostare la password non è valido o è scaduto.",
     "requestNewPasswordReset": "Richiedi nuovo reset password",
-    "backToSignIn": "Torna all'accesso"
+    "backToSignIn": "Torna all'Accesso"
   },
   "metadata": {
     "home": {
-      "title": "Women Spot - La Tua Piattaforma Completa di Salute e Benessere",
+      "title": "Women Spot - La Tua Piattaforma Completa per Salute e Benessere",
       "description": "Scopri articoli, consigli e risorse per migliorare la tua salute e il tuo benessere. Accedi a contenuti di salute completi in più lingue.",
       "keywords": "salute, benessere, fitness, nutrizione, articoli, consigli, risorse, multilingue"
     },
@@ -189,13 +229,13 @@
     },
     "signup": {
       "title": "Registrati - Women Spot",
-      "description": "Crea il tuo account Women Spot per accedere a contenuti di salute personalizzati, traccia il tuo percorso di benessere e unisciti alla nostra comunità di salute.",
+      "description": "Crea il tuo account Women Spot per accedere a contenuti di salute personalizzati, tracciare il tuo percorso di benessere e unirti alla nostra comunità di salute.",
       "keywords": "registrati, crea account, Women Spot, comunità di salute, tracciamento benessere"
     },
     "dashboard": {
       "title": "Dashboard - Women Spot",
-      "description": "La tua panoramica di salute personalizzata e approfondimenti. Traccia i tuoi obiettivi di salute, progressi e accedi ai tuoi articoli e risorse di salute.",
-      "keywords": "dashboard di salute, obiettivi di salute, tracciamento progressi, approfondimenti di salute, salute personale, tracciamento benessere"
+      "description": "La tua panoramica sulla salute personalizzata e approfondimenti. Traccia i tuoi obiettivi di salute, progressi e accedi ai tuoi articoli e risorse di salute.",
+      "keywords": "dashboard di salute, obiettivi di salute, tracciamento progressi, approfondimenti salute, salute personale, tracciamento benessere"
     },
     "profile": {
       "title": "Profilo - Women Spot",
@@ -204,8 +244,8 @@
     },
     "createArticle": {
       "title": "Crea Articolo - Women Spot",
-      "description": "Condividi la tua conoscenza sulla salute con la comunità. Crea e pubblica articoli di salute, consigli e contenuti di benessere in più lingue.",
-      "keywords": "crea articolo, scrivi contenuti di salute, pubblica consigli di salute, articoli di benessere, condivisione conoscenza salute, creazione contenuti"
+      "description": "Condividi le tue conoscenze di salute con la comunità. Crea e pubblica articoli di salute, consigli e contenuti di benessere in più lingue.",
+      "keywords": "crea articolo, scrivi contenuti di salute, pubblica consigli di salute, articoli di benessere, condivisione conoscenze di salute, creazione contenuti"
     },
     "forgotPassword": {
       "title": "Password Dimenticata - Women Spot",
@@ -214,7 +254,7 @@
     },
     "resetPassword": {
       "title": "Reimposta Password - Women Spot",
-      "description": "Imposta la tua nuova password per il tuo account Women Spot. Inserisci la tua nuova password qui sotto per completare il processo di reimpostazione password.",
+      "description": "Imposta la tua nuova password per il tuo account Women Spot. Inserisci la tua nuova password qui sotto per completare il processo di reset password.",
       "keywords": "reimposta password, nuova password, cambio password, sicurezza Women Spot, sicurezza account"
     }
   }

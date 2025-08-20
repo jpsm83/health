@@ -37,8 +37,30 @@
     "dashboard": "Dashboard",
     "profile": "Profile",
     "createArticle": "Create Article",
+    "editArticle": "Edit Article",
     "articles": "Articles",
-    "language": "Language"
+    "language": "Language",
+    "searchArticles": "Search articles...",
+    "articleCategories": "Article Categories",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign out",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "Search articles...",
+    "categories": {
+      "health": "Health",
+      "fitness": "Fitness",
+      "nutrition": "Nutrition",
+      "sex": "Sex & Relationships",
+      "gymwear": "Gym Wear",
+      "beauty": "Beauty",
+      "fashion": "Fashion",
+      "lifestyle": "Lifestyle",
+      "travel": "Travel",
+      "decor": "Home & Decor",
+      "productivity": "Productivity",
+      "parenting": "Parenting"
+    }
   },
   "profile": {
     "title": "User Profile",

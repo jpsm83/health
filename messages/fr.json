@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Bienvenue à la Santé",
+    "title": "Bienvenue sur Health",
     "subtitle": "Votre plateforme complète de santé et de bien-être",
     "description": "Découvrez des articles, des conseils et des ressources pour améliorer votre santé et votre bien-être.",
     "features": {
@@ -13,15 +13,15 @@
       "articles": "Accédez à des articles de santé complets et à des recherches",
       "dashboard": "Suivez vos objectifs de santé et vos progrès",
       "profile": "Gérez vos informations personnelles de santé",
-      "createArticle": "Partagez vos connaissances en santé avec les autres"
+      "createArticle": "Partagez vos connaissances en santé avec d'autres"
     },
     "languageInfo": {
-      "currentLanguage": "Langue actuelle"
+      "currentLanguage": "Langue Actuelle"
     }
   },
   "dashboard": {
     "title": "Tableau de Bord",
-    "subtitle": "Votre aperçu de santé et insights",
+    "subtitle": "Votre aperçu de santé et vos insights",
     "stats": {
       "articles": "Articles Lus",
       "goals": "Objectifs de Santé",
@@ -37,12 +37,34 @@
     "dashboard": "Tableau de Bord",
     "profile": "Profil",
     "createArticle": "Créer un Article",
+    "editArticle": "Modifier l'Article",
     "articles": "Articles",
-    "language": "Langue"
+    "language": "Langue",
+    "searchArticles": "Rechercher des articles...",
+    "articleCategories": "Catégories d'Articles",
+    "signIn": "Se Connecter",
+    "signUp": "S'inscrire",
+    "signOut": "Se Déconnecter",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "Rechercher des articles...",
+    "categories": {
+      "health": "Santé",
+      "fitness": "Fitness",
+      "nutrition": "Nutrition",
+      "sex": "Sexe et Relations",
+      "gymwear": "Vêtements de Gym",
+      "beauty": "Beauté",
+      "fashion": "Mode",
+      "lifestyle": "Style de Vie",
+      "travel": "Voyage",
+      "decor": "Maison et Décoration",
+      "productivity": "Productivité",
+      "parenting": "Parentalité"
+    }
   },
   "profile": {
     "title": "Profil Utilisateur",
-    "subtitle": "Gérez vos paramètres de compte et préférences",
+    "subtitle": "Gérez les paramètres et préférences de votre compte",
     "sections": {
       "personal": "Informations Personnelles",
       "preferences": "Préférences",
@@ -56,8 +78,26 @@
       "notifications": "Notifications"
     },
     "buttons": {
-      "save": "Enregistrer",
+      "save": "Sauvegarder les Modifications",
       "cancel": "Annuler"
+    },
+    "languageInfo": {
+      "language": "Langue"
+    },
+    "options": {
+      "english": "English",
+      "portuguese": "Português",
+      "spanish": "Español",
+      "french": "Français",
+      "german": "Deutsch",
+      "italian": "Italiano",
+      "dutch": "Nederlands",
+      "hebrew": "עברית",
+      "russian": "Русский",
+      "utc": "UTC",
+      "easternTime": "Eastern Time",
+      "pacificTime": "Pacific Time",
+      "greenwichMeanTime": "Greenwich Mean Time"
     }
   },
   "createArticle": {
@@ -109,22 +149,22 @@
   "SignUp": {
     "createAccount": "Créez votre compte",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
-    "signUp": "Se connecter",
+    "signUp": "S'inscrire",
     "username": "Nom d'utilisateur",
     "enterUsername": "Entrez votre nom d'utilisateur",
-    "emailAddress": "Adresse e-mail",
-    "enterEmail": "Entrez votre e-mail",
-    "birthDate": "Date de naissance",
+    "emailAddress": "Adresse email",
+    "enterEmail": "Entrez votre email",
+    "birthDate": "Date de Naissance",
     "password": "Mot de passe",
     "enterPassword": "Entrez votre mot de passe",
-    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPassword": "Confirmer le Mot de Passe",
     "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
     "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
     "birthDateRequired": "La date de naissance est requise",
     "accountCreatedSuccess": "Compte créé avec succès ! Vous pouvez maintenant vous connecter.",
     "failedToCreateAccount": "Échec de la création du compte",
     "unexpectedError": "Une erreur inattendue s'est produite",
-    "backToHome": "Retour à l'accueil"
+    "backToHome": "Retour à l'Accueil"
   },
   "SignIn": {
     "signInToAccount": "Connectez-vous à votre compte",
@@ -132,90 +172,90 @@
     "dontHaveAccount": "Vous n'avez pas de compte ?",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "signUp": "S'inscrire",
-    "signIn": "Se connecter",
+    "signIn": "Se Connecter",
     "continueWithGoogle": "Continuer avec Google",
     "orContinueWith": "Ou continuer avec",
-    "emailAddress": "Adresse e-mail",
-    "enterEmail": "Entrez votre e-mail",
+    "emailAddress": "Adresse email",
+    "enterEmail": "Entrez votre email",
     "password": "Mot de passe",
     "enterPassword": "Entrez votre mot de passe",
     "authenticationFailed": "Échec de l'authentification",
     "googleSignInFailed": "Échec de la connexion avec Google",
     "unexpectedError": "Une erreur inattendue s'est produite",
     "forgotPassword": "Mot de passe oublié ?",
-    "backToHome": "Retour à l'accueil"
+    "backToHome": "Retour à l'Accueil"
   },
   "ForgotPassword": {
     "forgotPassword": "Mot de passe oublié ?",
-    "enterEmailForReset": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
-    "emailAddress": "Adresse e-mail",
-    "enterEmail": "Entrez votre e-mail",
-    "emailRequired": "L'e-mail est requis",
-    "sendResetLink": "Envoyer le lien de réinitialisation",
-    "failedToSendResetEmail": "Échec de l'envoi de l'e-mail de réinitialisation",
+    "enterEmailForReset": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "emailAddress": "Adresse email",
+    "enterEmail": "Entrez votre email",
+    "emailRequired": "L'email est requis",
+    "sendResetLink": "Envoyer le Lien de Réinitialisation",
+    "failedToSendResetEmail": "Échec de l'envoi de l'email de réinitialisation",
     "testingMessage": "À des fins de test, vous pouvez utiliser ce lien",
     "unexpectedError": "Une erreur inattendue s'est produite",
-    "backToSignIn": "Retour à la connexion",
+    "backToSignIn": "Retour à la Connexion",
     "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous"
   },
   "ResetPassword": {
     "resetYourPassword": "Réinitialisez votre mot de passe",
     "enterNewPasswordBelow": "Entrez votre nouveau mot de passe ci-dessous.",
-    "newPassword": "Nouveau mot de passe",
+    "newPassword": "Nouveau Mot de Passe",
     "enterNewPassword": "Entrez votre nouveau mot de passe",
-    "confirmNewPassword": "Confirmer le nouveau mot de passe",
-    "resetPassword": "Réinitialiser le mot de passe",
-    "resetTokenMissing": "Jeton de réinitialisation manquant",
+    "confirmNewPassword": "Confirmer le Nouveau Mot de Passe",
+    "resetPassword": "Réinitialiser le Mot de Passe",
+    "resetTokenMissing": "Le jeton de réinitialisation est manquant",
     "bothPasswordsRequired": "Les deux champs de mot de passe sont requis",
     "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
     "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
     "failedToResetPassword": "Échec de la réinitialisation du mot de passe",
     "unexpectedError": "Une erreur inattendue s'est produite",
-    "invalidResetLink": "Lien de réinitialisation invalide",
+    "invalidResetLink": "Lien de Réinitialisation Invalide",
     "resetLinkInvalidOrExpired": "Ce lien de réinitialisation de mot de passe est invalide ou a expiré.",
     "requestNewPasswordReset": "Demander une nouvelle réinitialisation de mot de passe",
-    "backToSignIn": "Retour à la connexion"
+    "backToSignIn": "Retour à la Connexion"
   },
   "metadata": {
     "home": {
       "title": "Women Spot - Votre Plateforme Complète de Santé et de Bien-être",
-      "description": "Découvrez des articles, conseils et ressources pour améliorer votre santé et votre bien-être. Accédez à du contenu de santé complet en plusieurs langues.",
+      "description": "Découvrez des articles, des conseils et des ressources pour améliorer votre santé et votre bien-être. Accédez à du contenu de santé complet en plusieurs langues.",
       "keywords": "santé, bien-être, fitness, nutrition, articles, conseils, ressources, multilingue"
     },
     "signin": {
       "title": "Se Connecter - Women Spot",
-      "description": "Connectez-vous à votre compte Women Spot pour accéder à votre tableau de bord de santé personnalisé, articles et ressources de bien-être.",
-      "keywords": "se connecter, login, Women Spot, compte, authentification, tableau de bord de santé"
+      "description": "Connectez-vous à votre compte Women Spot pour accéder à votre tableau de bord de santé personnalisé, vos articles et vos ressources de bien-être.",
+      "keywords": "se connecter, connexion, Women Spot, compte, authentification, tableau de bord de santé"
     },
     "signup": {
       "title": "S'inscrire - Women Spot",
       "description": "Créez votre compte Women Spot pour accéder à du contenu de santé personnalisé, suivre votre parcours de bien-être et rejoindre notre communauté de santé.",
-      "keywords": "s'inscrire, créer compte, Women Spot, communauté de santé, suivi de bien-être"
+      "keywords": "s'inscrire, créer un compte, Women Spot, communauté de santé, suivi du bien-être"
     },
     "dashboard": {
       "title": "Tableau de Bord - Women Spot",
-      "description": "Votre aperçu de santé personnalisé et vos insights. Suivez vos objectifs de santé, votre progression et accédez à vos articles et ressources de santé.",
-      "keywords": "tableau de bord de santé, objectifs de santé, suivi de progression, insights de santé, santé personnelle, suivi de bien-être"
+      "description": "Votre aperçu de santé personnalisé et vos insights. Suivez vos objectifs de santé, vos progrès et accédez à vos articles et ressources de santé.",
+      "keywords": "tableau de bord de santé, objectifs de santé, suivi des progrès, insights de santé, santé personnelle, suivi du bien-être"
     },
     "profile": {
       "title": "Profil - Women Spot",
-      "description": "Gérez les paramètres de votre compte Women Spot, vos préférences et vos informations personnelles. Personnalisez votre expérience de santé et vos préférences linguistiques.",
-      "keywords": "profil utilisateur, paramètres de compte, préférences, informations personnelles, paramètres Women Spot, préférences linguistiques"
+      "description": "Gérez les paramètres de votre compte Women Spot, vos préférences et vos informations personnelles. Personnalisez votre expérience de santé et vos préférences de langue.",
+      "keywords": "profil utilisateur, paramètres de compte, préférences, informations personnelles, paramètres Women Spot, préférences de langue"
     },
     "createArticle": {
       "title": "Créer un Article - Women Spot",
-      "description": "Partagez vos connaissances en santé avec la communauté. Créez et publiez des articles de santé, conseils et contenu de bien-être en plusieurs langues.",
-      "keywords": "créer article, écrire contenu de santé, publier conseils de santé, articles de bien-être, partage de connaissances en santé, création de contenu"
+      "description": "Partagez vos connaissances en santé avec la communauté. Créez et publiez des articles de santé, des conseils et du contenu de bien-être en plusieurs langues.",
+      "keywords": "créer un article, écrire du contenu de santé, publier des conseils de santé, articles de bien-être, partage de connaissances en santé, création de contenu"
     },
     "forgotPassword": {
       "title": "Mot de Passe Oublié - Women Spot",
-      "description": "Réinitialisez votre mot de passe Women Spot. Entrez votre adresse e-mail et nous vous enverrons un lien sécurisé pour réinitialiser votre mot de passe.",
-      "keywords": "mot de passe oublié, réinitialiser mot de passe, récupération de mot de passe, connexion Women Spot, récupération de compte"
+      "description": "Réinitialisez votre mot de passe Women Spot. Entrez votre adresse email et nous vous enverrons un lien sécurisé pour réinitialiser votre mot de passe.",
+      "keywords": "mot de passe oublié, réinitialiser le mot de passe, récupération de mot de passe, connexion Women Spot, récupération de compte"
     },
     "resetPassword": {
       "title": "Réinitialiser le Mot de Passe - Women Spot",
-      "description": "Définissez votre nouveau mot de passe pour votre compte Women Spot. Entrez votre nouveau mot de passe ci-dessous pour compléter le processus de réinitialisation.",
-      "keywords": "réinitialiser mot de passe, nouveau mot de passe, changement de mot de passe, sécurité Women Spot, sécurité de compte"
+      "description": "Définissez votre nouveau mot de passe pour votre compte Women Spot. Entrez votre nouveau mot de passe ci-dessous pour compléter le processus de réinitialisation de mot de passe.",
+      "keywords": "réinitialiser le mot de passe, nouveau mot de passe, changement de mot de passe, sécurité Women Spot, sécurité du compte"
     }
   }
 }

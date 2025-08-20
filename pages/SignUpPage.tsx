@@ -82,15 +82,15 @@ export default function SignUpContent() {
   };
 
   return (
-    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {t('createAccount')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {t('alreadyHaveAccount')}{' '}
-            <Link href={`/${locale}/signin`} className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link href={`/${locale}/signin`} className="font-medium text-violet-600 hover:text-violet-500">
               {t('signUp')}
             </Link>
           </p>
@@ -98,8 +98,8 @@ export default function SignUpContent() {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">{error}</div>
+            <div className="rounded-md bg-rose-50 p-4">
+              <div className="text-sm text-rose-700">{error}</div>
             </div>
           )}
 
@@ -136,15 +136,15 @@ export default function SignUpContent() {
                   setValue('username', e.target.value);
                   handleInputChange('username');
                 }}
-                className={`mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.username
-                    ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
-                    : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
+                    ? 'border-rose-500 focus:ring-rose-500 focus:border-rose-500'
+                    : 'border-gray-300 focus:ring-violet-500 focus:border-violet-500'
                 } placeholder-gray-500 text-gray-900`}
                 placeholder={t('enterUsername')}
               />
               {errors.username && (
-                <p className="mt-1 text-sm text-red-600">{errors.username.message}</p>
+                <p className="mt-1 text-sm text-rose-600">{errors.username.message}</p>
               )}
             </div>
 
@@ -167,15 +167,15 @@ export default function SignUpContent() {
                   setValue('email', e.target.value);
                   handleInputChange('email');
                 }}
-                className={`mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.email
-                    ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
-                    : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
+                    ? 'border-rose-500 focus:ring-rose-500 focus:border-rose-500'
+                    : 'border-gray-300 focus:ring-violet-500 focus:border-violet-500'
                 } placeholder-gray-500 text-gray-900`}
                 placeholder={t('enterEmail')}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                <p className="mt-1 text-sm text-rose-600">{errors.email.message}</p>
               )}
             </div>
 
@@ -193,14 +193,14 @@ export default function SignUpContent() {
                   setValue('birthDate', e.target.value);
                   handleInputChange('birthDate');
                 }}
-                className={`mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.birthDate
-                    ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
-                    : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
+                    ? 'border-rose-500 focus:ring-rose-500 focus:border-rose-500'
+                    : 'border-gray-300 focus:ring-violet-500 focus:border-violet-500'
                 } placeholder-gray-500 text-gray-900`}
               />
               {errors.birthDate && (
-                <p className="mt-1 text-sm text-red-600">{errors.birthDate.message}</p>
+                <p className="mt-1 text-sm text-rose-600">{errors.birthDate.message}</p>
               )}
             </div>
 
@@ -226,10 +226,10 @@ export default function SignUpContent() {
                     setValue('password', e.target.value);
                     handleInputChange('password');
                   }}
-                  className={`mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                  className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.password
-                      ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
+                      ? 'border-rose-500 focus:ring-rose-500 focus:border-rose-500'
+                      : 'border-gray-300 focus:ring-violet-500 focus:border-violet-500'
                   } placeholder-gray-500 text-gray-900`}
                   placeholder={t('enterPassword')}
                 />
@@ -251,7 +251,7 @@ export default function SignUpContent() {
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+                <p className="mt-1 text-sm text-rose-600">{errors.password.message}</p>
               )}
             </div>
 
@@ -272,10 +272,10 @@ export default function SignUpContent() {
                     setValue('confirmPassword', e.target.value);
                     handleInputChange('confirmPassword');
                   }}
-                  className={`mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                  className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.confirmPassword
-                      ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
+                      ? 'border-rose-500 focus:ring-rose-500 focus:border-rose-500'
+                      : 'border-gray-300 focus:ring-violet-500 focus:border-violet-500'
                   } placeholder-gray-500 text-gray-900`}
                   placeholder={t('confirmPassword')}
                 />
@@ -297,7 +297,7 @@ export default function SignUpContent() {
                 </button>
               </div>
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
+                <p className="mt-1 text-sm text-rose-600">{errors.confirmPassword.message}</p>
               )}
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function SignUpContent() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -320,7 +320,7 @@ export default function SignUpContent() {
         </form>
 
         <div className="text-center">
-          <Link href={`/${locale}`} className="font-medium text-indigo-600 hover:text-indigo-500">
+          <Link href={`/${locale}`} className="font-medium text-violet-600 hover:text-violet-500">
             {t('backToHome')}
           </Link>
         </div>

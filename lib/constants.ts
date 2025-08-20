@@ -12,7 +12,7 @@ export const mainCategories = [
   "lifestyle",
   "travel",
   "decor",
-  "procuctivity",
+  "productivity",
   "parenting",
 ];
 

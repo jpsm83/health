@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "ברוכים הבאים לבריאות",
-    "subtitle": "פלטפורמת הבריאות והרווחה המקיפה שלכם",
+    "title": "ברוכים הבאים ל-Health",
+    "subtitle": "הפלטפורמה המקיפה שלכם לבריאות ורווחה",
     "description": "גלו מאמרים, טיפים ומשאבים לשיפור הבריאות והרווחה שלכם.",
     "features": {
       "articles": "מאמרי בריאות",
@@ -10,7 +10,7 @@
       "createArticle": "צור תוכן"
     },
     "featureDescriptions": {
-      "articles": "גשו למאמרי בריאות מקיפים ומחקר",
+      "articles": "גש למאמרי בריאות מקיפים ומחקר",
       "dashboard": "עקבו אחר יעדי הבריאות וההתקדמות שלכם",
       "profile": "נהלו את המידע הבריאותי האישי שלכם",
       "createArticle": "שתפו את הידע הבריאותי שלכם עם אחרים"
@@ -21,7 +21,7 @@
   },
   "dashboard": {
     "title": "לוח מחוונים",
-    "subtitle": "סקירת הבריאות והתובנות שלכם",
+    "subtitle": "הסקירה הכללית שלך על בריאות ותובנות",
     "stats": {
       "articles": "מאמרים שנקראו",
       "goals": "מטרות בריאות",
@@ -37,8 +37,30 @@
     "dashboard": "לוח מחוונים",
     "profile": "פרופיל",
     "createArticle": "צור מאמר",
+    "editArticle": "ערוך מאמר",
     "articles": "מאמרים",
-    "language": "שפה"
+    "language": "שפה",
+    "searchArticles": "חפש מאמרים...",
+    "articleCategories": "קטגוריות מאמרים",
+    "signIn": "התחבר",
+    "signUp": "הירשם",
+    "signOut": "התנתק",
+    "brandName": "Women Spot",
+    "searchPlaceholder": "חפש מאמרים...",
+    "categories": {
+      "health": "בריאות",
+      "fitness": "כושר",
+      "nutrition": "תזונה",
+      "sex": "מין ויחסים",
+      "gymwear": "בגדי כושר",
+      "beauty": "יופי",
+      "fashion": "אופנה",
+      "lifestyle": "אורח חיים",
+      "travel": "נסיעות",
+      "decor": "בית ועיצוב",
+      "productivity": "פרודוקטיביות",
+      "parenting": "הורות"
+    }
   },
   "profile": {
     "title": "פרופיל משתמש",
@@ -58,6 +80,24 @@
     "buttons": {
       "save": "שמור שינויים",
       "cancel": "ביטול"
+    },
+    "languageInfo": {
+      "language": "שפה"
+    },
+    "options": {
+      "english": "English",
+      "portuguese": "Português",
+      "spanish": "Español",
+      "french": "Français",
+      "german": "Deutsch",
+      "italian": "Italiano",
+      "dutch": "Nederlands",
+      "hebrew": "עברית",
+      "russian": "Русский",
+      "utc": "UTC",
+      "easternTime": "Eastern Time",
+      "pacificTime": "Pacific Time",
+      "greenwichMeanTime": "Greenwich Mean Time"
     }
   },
   "createArticle": {
@@ -108,8 +148,8 @@
   },
   "SignUp": {
     "createAccount": "צור את החשבון שלך",
-    "alreadyHaveAccount": "יש לך כבר חשבון?",
-    "signUp": "התחבר",
+    "alreadyHaveAccount": "כבר יש לך חשבון?",
+    "signUp": "הירשם",
     "username": "שם משתמש",
     "enterUsername": "הכנס את שם המשתמש שלך",
     "emailAddress": "כתובת אימייל",
@@ -117,12 +157,12 @@
     "birthDate": "תאריך לידה",
     "password": "סיסמה",
     "enterPassword": "הכנס את הסיסמה שלך",
-    "confirmPassword": "אימות סיסמה",
-    "passwordsDoNotMatch": "הסיסמאות אינן תואמות",
+    "confirmPassword": "אישר סיסמה",
+    "passwordsDoNotMatch": "הסיסמאות לא תואמות",
     "passwordTooShort": "הסיסמה חייבת להיות באורך של לפחות 6 תווים",
     "birthDateRequired": "תאריך לידה נדרש",
     "accountCreatedSuccess": "החשבון נוצר בהצלחה! עכשיו אתה יכול להתחבר.",
-    "failedToCreateAccount": "שגיאה ביצירת החשבון",
+    "failedToCreateAccount": "יצירת החשבון נכשלה",
     "unexpectedError": "אירעה שגיאה בלתי צפויה",
     "backToHome": "חזור לבית"
   },
@@ -130,7 +170,7 @@
     "signInToAccount": "התחבר לחשבון שלך",
     "createAccount": "צור את החשבון שלך",
     "dontHaveAccount": "אין לך חשבון?",
-    "alreadyHaveAccount": "יש לך כבר חשבון?",
+    "alreadyHaveAccount": "כבר יש לך חשבון?",
     "signUp": "הירשם",
     "signIn": "התחבר",
     "continueWithGoogle": "המשך עם Google",
@@ -152,8 +192,8 @@
     "enterEmail": "הכנס את האימייל שלך",
     "emailRequired": "אימייל נדרש",
     "sendResetLink": "שלח קישור איפוס",
-    "failedToSendResetEmail": "שגיאה בשליחת אימייל האיפוס",
-    "testingMessage": "לצורך בדיקה, אתה יכול להשתמש בקישור זה",
+    "failedToSendResetEmail": "שליחת אימייל האיפוס נכשלה",
+    "testingMessage": "למטרות בדיקה, אתה יכול להשתמש בקישור זה",
     "unexpectedError": "אירעה שגיאה בלתי צפויה",
     "backToSignIn": "חזור להתחברות",
     "dontHaveAccount": "אין לך חשבון? הירשם"
@@ -163,39 +203,39 @@
     "enterNewPasswordBelow": "הכנס את הסיסמה החדשה שלך למטה.",
     "newPassword": "סיסמה חדשה",
     "enterNewPassword": "הכנס את הסיסמה החדשה שלך",
-    "confirmNewPassword": "אימות סיסמה חדשה",
+    "confirmNewPassword": "אישר סיסמה חדשה",
     "resetPassword": "אפס סיסמה",
     "resetTokenMissing": "אסימון האיפוס חסר",
     "bothPasswordsRequired": "שני שדות הסיסמה נדרשים",
-    "passwordsDoNotMatch": "הסיסמאות אינן תואמות",
+    "passwordsDoNotMatch": "הסיסמאות לא תואמות",
     "passwordTooShort": "הסיסמה חייבת להיות באורך של לפחות 6 תווים",
-    "failedToResetPassword": "שגיאה באיפוס הסיסמה",
+    "failedToResetPassword": "איפוס הסיסמה נכשל",
     "unexpectedError": "אירעה שגיאה בלתי צפויה",
     "invalidResetLink": "קישור איפוס לא תקין",
     "resetLinkInvalidOrExpired": "קישור איפוס הסיסמה הזה לא תקין או פג תוקף.",
-    "requestNewPasswordReset": "בקש קישור איפוס חדש",
+    "requestNewPasswordReset": "בקש איפוס סיסמה חדש",
     "backToSignIn": "חזור להתחברות"
   },
   "metadata": {
     "home": {
-      "title": "Women Spot - פלטפורמת הבריאות והרווחה המקיפה שלך",
-      "description": "גלה מאמרים, טיפים ומשאבים לשיפור הבריאות והרווחה שלך. גש לתוכן בריאות מקיף במספר שפות.",
+      "title": "Women Spot - הפלטפורמה המקיפה שלכם לבריאות ורווחה",
+      "description": "גלו מאמרים, טיפים ומשאבים לשיפור הבריאות והרווחה שלכם. גש לתוכן בריאות מקיף במספר שפות.",
       "keywords": "בריאות, רווחה, כושר, תזונה, מאמרים, טיפים, משאבים, רב-לשוני"
     },
     "signin": {
-      "title": "התחבר - Women Spot",
-      "description": "התחבר לחשבון Women Spot שלך כדי לגשת ללוח הבקרה האישי שלך, מאמרים ומשאבי רווחה.",
-      "keywords": "התחברות, כניסה, Women Spot, חשבון, אימות, לוח בקרה בריאות"
+      "title": "התחברות - Women Spot",
+      "description": "התחבר לחשבון Women Spot שלך כדי לגשת ללוח המחוונים האישי שלך לבריאות, מאמרים ומשאבי רווחה.",
+      "keywords": "התחברות, כניסה, Women Spot, חשבון, אימות, לוח מחוונים לבריאות"
     },
     "signup": {
-      "title": "הירשם - Women Spot",
-      "description": "צור את חשבון Women Spot שלך כדי לגשת לתוכן בריאות אישי, עקוב אחר מסע הרווחה שלך והצטרף לקהילת הבריאות שלנו.",
-      "keywords": "הרשמה, יצירת חשבון, Women Spot, קהילת בריאות, מעקב רווחה"
+      "title": "הרשמה - Women Spot",
+      "description": "צור את חשבון Women Spot שלך כדי לגשת לתוכן בריאות אישי, לעקוב אחר מסע הרווחה שלך ולהצטרף לקהילת הבריאות שלנו.",
+      "keywords": "הרשמה, צור חשבון, Women Spot, קהילת בריאות, מעקב רווחה"
     },
     "dashboard": {
-      "title": "לוח בקרה - Women Spot",
-      "description": "הסקירה האישית שלך על הבריאות ותובנות. עקוב אחר יעדי הבריאות שלך, התקדמות וגש למאמרי הבריאות והמשאבים שלך.",
-      "keywords": "לוח בקרה בריאות, יעדי בריאות, מעקב התקדמות, תובנות בריאות, בריאות אישית, מעקב רווחה"
+      "title": "לוח מחוונים - Women Spot",
+      "description": "הסקירה הכללית האישית שלך על בריאות ותובנות. עקוב אחר מטרות הבריאות, ההתקדמות וגש למאמרי הבריאות והמשאבים שלך.",
+      "keywords": "לוח מחוונים לבריאות, מטרות בריאות, מעקב התקדמות, תובנות בריאות, בריאות אישית, מעקב רווחה"
     },
     "profile": {
       "title": "פרופיל - Women Spot",
@@ -205,17 +245,17 @@
     "createArticle": {
       "title": "צור מאמר - Women Spot",
       "description": "שתף את הידע שלך על בריאות עם הקהילה. צור ופרסם מאמרי בריאות, טיפים ותוכן רווחה במספר שפות.",
-      "keywords": "יצירת מאמר, כתיבת תוכן בריאות, פרסום טיפי בריאות, מאמרי רווחה, שיתוף ידע בריאות, יצירת תוכן"
+      "keywords": "צור מאמר, כתוב תוכן בריאות, פרסם טיפי בריאות, מאמרי רווחה, שיתוף ידע בריאות, יצירת תוכן"
     },
     "forgotPassword": {
-      "title": "שכחתי סיסמה - Women Spot",
+      "title": "שכחת סיסמה - Women Spot",
       "description": "אפס את סיסמת Women Spot שלך. הכנס את כתובת האימייל שלך ונשלח לך קישור בטוח לאיפוס הסיסמה.",
-      "keywords": "שכחתי סיסמה, איפוס סיסמה, שחזור סיסמה, כניסה Women Spot, שחזור חשבון"
+      "keywords": "שכחת סיסמה, אפס סיסמה, שחזור סיסמה, כניסה Women Spot, שחזור חשבון"
     },
     "resetPassword": {
       "title": "אפס סיסמה - Women Spot",
-      "description": "הגדר את הסיסמה החדשה שלך עבור חשבון Women Spot שלך. הכנס את הסיסמה החדשה שלך למטה כדי להשלים את תהליך איפוס הסיסמה.",
-      "keywords": "איפוס סיסמה, סיסמה חדשה, שינוי סיסמה, אבטחה Women Spot, אבטחת חשבון"
+      "description": "הגדר את הסיסמה החדשה שלך לחשבון Women Spot שלך. הכנס את הסיסמה החדשה שלך למטה כדי להשלים את תהליך איפוס הסיסמה.",
+      "keywords": "אפס סיסמה, סיסמה חדשה, שינוי סיסמה, אבטחה Women Spot, אבטחת חשבון"
     }
   }
 }

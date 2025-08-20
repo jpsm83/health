@@ -1,14 +1,9 @@
 import "./globals.css";
-import AuthContext from "@/app/context/AuthContext";
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<AuthContext>
-			{children}
-		</AuthContext>
-	);
+  return <>{children}</>;
 }
