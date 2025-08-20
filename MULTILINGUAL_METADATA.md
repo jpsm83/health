@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Health App now supports **true multilingual metadata** for all pages, not just articles. This means that when a user visits a page in Portuguese, they'll see Portuguese metadata (title, description, keywords) instead of English.
+The Women Spot now supports **true multilingual metadata** for all pages, not just articles. This means that when a user visits a page in Portuguese, they'll see Portuguese metadata (title, description, keywords) instead of English.
 
 ## How It Works
 
@@ -13,7 +13,7 @@ Each page now has metadata defined in the translation files:
 // messages/en.json
 "metadata": {
   "home": {
-    "title": "Health App - Your Comprehensive Health and Wellness Platform",
+    "title": "Women Spot - Your Comprehensive Health and Wellness Platform",
     "description": "Discover articles, tips, and resources...",
     "keywords": "health, wellness, fitness..."
   }
@@ -22,7 +22,7 @@ Each page now has metadata defined in the translation files:
 // messages/pt.json
 "metadata": {
   "home": {
-    "title": "Health App - Sua Plataforma Abrangente de Saúde e Bem-estar",
+    "title": "Women Spot - Sua Plataforma Abrangente de Saúde e Bem-estar",
     "description": "Descubra artigos, dicas e recursos...",
     "keywords": "saúde, bem-estar, fitness..."
   }
@@ -74,7 +74,7 @@ To add metadata for a new language (e.g., Spanish):
 ```json
 "metadata": {
   "home": {
-    "title": "Health App - Tu Plataforma Integral de Salud y Bienestar",
+    "title": "Women Spot - Tu Plataforma Integral de Salud y Bienestar",
     "description": "Descubre artículos, consejos y recursos...",
     "keywords": "salud, bienestar, fitness..."
   }

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/metadata';
+import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import Navigation from '@/components/Navigation';
 import ForgotPasswordContent from '@/pages/ForgotPasswordPage';
 
@@ -13,9 +13,7 @@ export async function generateMetadata({
   return generatePrivateMetadata(
     locale,
     '/forgot-password',
-    'metadata.forgotPassword.title',
-    'metadata.forgotPassword.description',
-    'metadata.forgotPassword.keywords'
+    'metadata.forgotPassword.title'
   );
 }
 

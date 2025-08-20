@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/metadata';
+import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import Navigation from '@/components/Navigation';
 import SignUpContent from '@/pages/SignUpPage';
 
@@ -13,9 +13,7 @@ export async function generateMetadata({
   return generatePrivateMetadata(
     locale,
     '/signup',
-    'metadata.signup.title',
-    'metadata.signup.description',
-    'metadata.signup.keywords'
+    'metadata.signup.title'
   );
 }
 

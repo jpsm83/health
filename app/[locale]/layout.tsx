@@ -3,7 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
-import { generatePublicMetadata } from "@/lib/utils/metadata";
+import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import "../globals.css";
 import AuthProvider from "@/components/AuthProvider";
 
@@ -19,9 +19,7 @@ export async function generateMetadata({
     ...await generatePublicMetadata(
       locale,
       '',
-      'metadata.home.title',
-      'metadata.home.description',
-      'metadata.home.keywords'
+      'metadata.home.title'
     ),
     metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   };

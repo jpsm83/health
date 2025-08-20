@@ -178,44 +178,44 @@
   },
   "metadata": {
     "home": {
-      "title": "Health App - Je Uitgebreide Gezondheids- en Welzijnsplatform",
+      "title": "Women Spot - Je Uitgebreide Gezondheids- en Welzijnsplatform",
       "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren. Krijg toegang tot uitgebreide gezondheidsinhoud in meerdere talen.",
       "keywords": "gezondheid, welzijn, fitness, voeding, artikelen, tips, bronnen, meertalig"
     },
     "signin": {
-      "title": "Inloggen - Health App",
-      "description": "Log in op je Health App-account om toegang te krijgen tot je gepersonaliseerde gezondheidsdashboard, artikelen en welzijnsbronnen.",
-      "keywords": "inloggen, login, health app, account, authenticatie, gezondheidsdashboard"
+      "title": "Inloggen - Women Spot",
+      "description": "Log in op je Women Spot-account om toegang te krijgen tot je gepersonaliseerde gezondheidsdashboard, artikelen en welzijnsbronnen.",
+      "keywords": "inloggen, login, Women Spot, account, authenticatie, gezondheidsdashboard"
     },
     "signup": {
-      "title": "Registreren - Health App",
-      "description": "Maak je Health App-account aan om toegang te krijgen tot gepersonaliseerde gezondheidsinhoud, je welzijnsreis bij te houden en je aan te sluiten bij onze gezondheidsgemeenschap.",
-      "keywords": "registreren, account aanmaken, health app, gezondheidsgemeenschap, welzijnsvolging"
+      "title": "Registreren - Women Spot",
+      "description": "Maak je Women Spot-account aan om toegang te krijgen tot gepersonaliseerde gezondheidsinhoud, je welzijnsreis bij te houden en je aan te sluiten bij onze gezondheidsgemeenschap.",
+      "keywords": "registreren, account aanmaken, Women Spot, gezondheidsgemeenschap, welzijnsvolging"
     },
     "dashboard": {
-      "title": "Dashboard - Health App",
+      "title": "Dashboard - Women Spot",
       "description": "Je gepersonaliseerde gezondheidsoverzicht en inzichten. Houd je gezondheidsdoelen, voortgang bij en krijg toegang tot je gezondheidsartikelen en -bronnen.",
       "keywords": "gezondheidsdashboard, gezondheidsdoelen, voortgangsvolging, gezondheidsinzichten, persoonlijke gezondheid, welzijnsvolging"
     },
     "profile": {
-      "title": "Profiel - Health App",
-      "description": "Beheer je Health App-accountinstellingen, voorkeuren en persoonlijke informatie. Pas je gezondheidservaring en taalvoorkeuren aan.",
-      "keywords": "gebruikersprofiel, accountinstellingen, voorkeuren, persoonlijke informatie, health app-instellingen, taalvoorkeuren"
+      "title": "Profiel - Women Spot",
+      "description": "Beheer je Women Spot-accountinstellingen, voorkeuren en persoonlijke informatie. Pas je gezondheidservaring en taalvoorkeuren aan.",
+      "keywords": "gebruikersprofiel, accountinstellingen, voorkeuren, persoonlijke informatie, Women Spot-instellingen, taalvoorkeuren"
     },
     "createArticle": {
-      "title": "Artikel Maken - Health App",
+      "title": "Artikel Maken - Women Spot",
       "description": "Deel je gezondheidskennis met de gemeenschap. Maak en publiceer gezondheidsartikelen, tips en welzijnsinhoud in meerdere talen.",
       "keywords": "artikel maken, gezondheidsinhoud schrijven, gezondheidstips publiceren, welzijnsartikelen, gezondheidskennis delen, inhoud maken"
     },
     "forgotPassword": {
-      "title": "Wachtwoord Vergeten - Health App",
-      "description": "Reset je Health App-wachtwoord. Voer je e-mailadres in en we sturen je een veilige link om je wachtwoord te resetten.",
-      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, health app login, accountherstel"
+      "title": "Wachtwoord Vergeten - Women Spot",
+      "description": "Reset je Women Spot-wachtwoord. Voer je e-mailadres in en we sturen je een veilige link om je wachtwoord te resetten.",
+      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, Women Spot login, accountherstel"
     },
     "resetPassword": {
-      "title": "Wachtwoord Resetten - Health App",
-      "description": "Stel je nieuwe wachtwoord in voor je Health App-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
-      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, health app beveiliging, accountbeveiliging"
+      "title": "Wachtwoord Resetten - Women Spot",
+      "description": "Stel je nieuwe wachtwoord in voor je Women Spot-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
+      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women Spot beveiliging, accountbeveiliging"
     }
   }
 }

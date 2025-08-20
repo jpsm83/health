@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/metadata';
+import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import Navigation from '@/components/Navigation';
 import ProfileContent from '@/pages/ProfilePage';
 
@@ -13,9 +13,7 @@ export async function generateMetadata({
   return generatePrivateMetadata(
     locale,
     '/profile',
-    'metadata.profile.title',
-    'metadata.profile.description',
-    'metadata.profile.keywords'
+    'metadata.profile.title'
   );
 }
 

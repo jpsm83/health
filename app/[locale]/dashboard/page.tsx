@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/metadata';
+import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import Navigation from '@/components/Navigation';
 import DashboardContent from '@/pages/DashboardPage';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return generatePrivateMetadata(
     locale,
     '/dashboard',
-    'metadata.dashboard.title',
-    'metadata.dashboard.description',
-    'metadata.dashboard.keywords'
+    'metadata.dashboard.title'
   );
 }
 

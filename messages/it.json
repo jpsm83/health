@@ -178,44 +178,44 @@
   },
   "metadata": {
     "home": {
-      "title": "Health App - La Tua Piattaforma Completa di Salute e Benessere",
+      "title": "Women Spot - La Tua Piattaforma Completa di Salute e Benessere",
       "description": "Scopri articoli, consigli e risorse per migliorare la tua salute e il tuo benessere. Accedi a contenuti di salute completi in più lingue.",
       "keywords": "salute, benessere, fitness, nutrizione, articoli, consigli, risorse, multilingue"
     },
     "signin": {
-      "title": "Accedi - Health App",
-      "description": "Accedi al tuo account Health App per accedere alla tua dashboard di salute personalizzata, articoli e risorse di benessere.",
-      "keywords": "accedi, login, health app, account, autenticazione, dashboard di salute"
+      "title": "Accedi - Women Spot",
+      "description": "Accedi al tuo account Women Spot per accedere alla tua dashboard di salute personalizzata, articoli e risorse di benessere.",
+      "keywords": "accedi, login, Women Spot, account, autenticazione, dashboard di salute"
     },
     "signup": {
-      "title": "Registrati - Health App",
-      "description": "Crea il tuo account Health App per accedere a contenuti di salute personalizzati, traccia il tuo percorso di benessere e unisciti alla nostra comunità di salute.",
-      "keywords": "registrati, crea account, health app, comunità di salute, tracciamento benessere"
+      "title": "Registrati - Women Spot",
+      "description": "Crea il tuo account Women Spot per accedere a contenuti di salute personalizzati, traccia il tuo percorso di benessere e unisciti alla nostra comunità di salute.",
+      "keywords": "registrati, crea account, Women Spot, comunità di salute, tracciamento benessere"
     },
     "dashboard": {
-      "title": "Dashboard - Health App",
+      "title": "Dashboard - Women Spot",
       "description": "La tua panoramica di salute personalizzata e approfondimenti. Traccia i tuoi obiettivi di salute, progressi e accedi ai tuoi articoli e risorse di salute.",
       "keywords": "dashboard di salute, obiettivi di salute, tracciamento progressi, approfondimenti di salute, salute personale, tracciamento benessere"
     },
     "profile": {
-      "title": "Profilo - Health App",
-      "description": "Gestisci le impostazioni del tuo account Health App, preferenze e informazioni personali. Personalizza la tua esperienza di salute e preferenze linguistiche.",
-      "keywords": "profilo utente, impostazioni account, preferenze, informazioni personali, impostazioni health app, preferenze linguistiche"
+      "title": "Profilo - Women Spot",
+      "description": "Gestisci le impostazioni del tuo account Women Spot, preferenze e informazioni personali. Personalizza la tua esperienza di salute e preferenze linguistiche.",
+      "keywords": "profilo utente, impostazioni account, preferenze, informazioni personali, impostazioni Women Spot, preferenze linguistiche"
     },
     "createArticle": {
-      "title": "Crea Articolo - Health App",
+      "title": "Crea Articolo - Women Spot",
       "description": "Condividi la tua conoscenza sulla salute con la comunità. Crea e pubblica articoli di salute, consigli e contenuti di benessere in più lingue.",
       "keywords": "crea articolo, scrivi contenuti di salute, pubblica consigli di salute, articoli di benessere, condivisione conoscenza salute, creazione contenuti"
     },
     "forgotPassword": {
-      "title": "Password Dimenticata - Health App",
-      "description": "Reimposta la tua password Health App. Inserisci il tuo indirizzo email e ti invieremo un link sicuro per reimpostare la tua password.",
-      "keywords": "password dimenticata, reimposta password, recupero password, login health app, recupero account"
+      "title": "Password Dimenticata - Women Spot",
+      "description": "Reimposta la tua password Women Spot. Inserisci il tuo indirizzo email e ti invieremo un link sicuro per reimpostare la tua password.",
+      "keywords": "password dimenticata, reimposta password, recupero password, login Women Spot, recupero account"
     },
     "resetPassword": {
-      "title": "Reimposta Password - Health App",
-      "description": "Imposta la tua nuova password per il tuo account Health App. Inserisci la tua nuova password qui sotto per completare il processo di reimpostazione password.",
-      "keywords": "reimposta password, nuova password, cambio password, sicurezza health app, sicurezza account"
+      "title": "Reimposta Password - Women Spot",
+      "description": "Imposta la tua nuova password per il tuo account Women Spot. Inserisci la tua nuova password qui sotto per completare il processo di reimpostazione password.",
+      "keywords": "reimposta password, nuova password, cambio password, sicurezza Women Spot, sicurezza account"
     }
   }
 }

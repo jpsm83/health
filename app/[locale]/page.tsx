@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePublicMetadata } from '@/lib/utils/metadata';
+import { generatePublicMetadata } from '@/lib/utils/genericMetadata';
 import Navigation from '@/components/Navigation';
 import Home from '@/pages/HomePage';
 
@@ -13,9 +13,7 @@ export async function generateMetadata({
   return generatePublicMetadata(
     locale,
     '',
-    'metadata.home.title',
-    'metadata.home.description',
-    'metadata.home.keywords'
+    'metadata.home.title'
   );
 }
 

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/metadata';
+import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import Navigation from '@/components/Navigation';
 import ResetPasswordContent from '@/pages/ResetPasswordPage';
 
@@ -13,9 +13,7 @@ export async function generateMetadata({
   return generatePrivateMetadata(
     locale,
     '/reset-password',
-    'metadata.resetPassword.title',
-    'metadata.resetPassword.description',
-    'metadata.resetPassword.keywords'
+    'metadata.resetPassword.title'
   );
 }
 

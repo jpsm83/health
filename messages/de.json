@@ -178,44 +178,44 @@
   },
   "metadata": {
     "home": {
-      "title": "Health App - Ihre Umfassende Gesundheits- und Wohlbefinden-Plattform",
+      "title": "Women Spot - Ihre Umfassende Gesundheits- und Wohlbefinden-Plattform",
       "description": "Entdecken Sie Artikel, Tipps und Ressourcen zur Verbesserung Ihrer Gesundheit und Ihres Wohlbefindens. Greifen Sie auf umfassende Gesundheitsinhalte in mehreren Sprachen zu.",
       "keywords": "Gesundheit, Wohlbefinden, Fitness, Ernährung, Artikel, Tipps, Ressourcen, mehrsprachig"
     },
     "signin": {
-      "title": "Anmelden - Health App",
-      "description": "Melden Sie sich in Ihrem Health App-Konto an, um auf Ihr personalisiertes Gesundheits-Dashboard, Artikel und Wohlbefinden-Ressourcen zuzugreifen.",
-      "keywords": "anmelden, login, health app, konto, authentifizierung, gesundheits-dashboard"
+      "title": "Anmelden - Women Spot",
+      "description": "Melden Sie sich in Ihrem Women Spot-Konto an, um auf Ihr personalisiertes Gesundheits-Dashboard, Artikel und Wohlbefinden-Ressourcen zuzugreifen.",
+      "keywords": "anmelden, login, Women Spot, konto, authentifizierung, gesundheits-dashboard"
     },
     "signup": {
-      "title": "Registrieren - Health App",
-      "description": "Erstellen Sie Ihr Health App-Konto, um auf personalisierte Gesundheitsinhalte zuzugreifen, Ihre Wohlbefinden-Reise zu verfolgen und sich unserer Gesundheitsgemeinschaft anzuschließen.",
-      "keywords": "registrieren, konto erstellen, health app, gesundheitsgemeinschaft, wohlbefinden-verfolgung"
+      "title": "Registrieren - Women Spot",
+      "description": "Erstellen Sie Ihr Women Spot-Konto, um auf personalisierte Gesundheitsinhalte zuzugreifen, Ihre Wohlbefinden-Reise zu verfolgen und sich unserer Gesundheitsgemeinschaft anzuschließen.",
+      "keywords": "registrieren, konto erstellen, Women Spot, gesundheitsgemeinschaft, wohlbefinden-verfolgung"
     },
     "dashboard": {
-      "title": "Dashboard - Health App",
+      "title": "Dashboard - Women Spot",
       "description": "Ihr personalisierter Gesundheitsüberblick und Einblicke. Verfolgen Sie Ihre Gesundheitsziele, Fortschritte und greifen Sie auf Ihre Gesundheitsartikel und -ressourcen zu.",
       "keywords": "gesundheits-dashboard, gesundheitsziele, fortschrittsverfolgung, gesundheitseinblicke, persönliche gesundheit, wohlbefinden-verfolgung"
     },
     "profile": {
-      "title": "Profil - Health App",
-      "description": "Verwalten Sie Ihre Health App-Kontoeinstellungen, Präferenzen und persönlichen Informationen. Passen Sie Ihre Gesundheitsexperience und Sprachpräferenzen an.",
-      "keywords": "benutzerprofil, kontoeinstellungen, präferenzen, persönliche informationen, health app-einstellungen, sprachpräferenzen"
+      "title": "Profil - Women Spot",
+      "description": "Verwalten Sie Ihre Women Spot-Kontoeinstellungen, Präferenzen und persönlichen Informationen. Passen Sie Ihre Gesundheitsexperience und Sprachpräferenzen an.",
+      "keywords": "benutzerprofil, kontoeinstellungen, präferenzen, persönliche informationen, Women Spot-einstellungen, sprachpräferenzen"
     },
     "createArticle": {
-      "title": "Artikel Erstellen - Health App",
+      "title": "Artikel Erstellen - Women Spot",
       "description": "Teilen Sie Ihr Gesundheitswissen mit der Gemeinschaft. Erstellen und veröffentlichen Sie Gesundheitsartikel, Tipps und Wohlbefinden-Inhalte in mehreren Sprachen.",
       "keywords": "artikel erstellen, gesundheitsinhalte schreiben, gesundheitstipps veröffentlichen, wohlbefinden-artikel, gesundheitswissen teilen, inhaltserstellung"
     },
     "forgotPassword": {
-      "title": "Passwort Vergessen - Health App",
-      "description": "Setzen Sie Ihr Health App-Passwort zurück. Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen sicheren Link zum Zurücksetzen Ihres Passworts.",
-      "keywords": "passwort vergessen, passwort zurücksetzen, passwortwiederherstellung, health app login, kontowiederherstellung"
+      "title": "Passwort Vergessen - Women Spot",
+      "description": "Setzen Sie Ihr Women Spot-Passwort zurück. Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen sicheren Link zum Zurücksetzen Ihres Passworts.",
+      "keywords": "passwort vergessen, passwort zurücksetzen, passwortwiederherstellung, Women Spot login, kontowiederherstellung"
     },
     "resetPassword": {
-      "title": "Passwort Zurücksetzen - Health App",
-      "description": "Legen Sie Ihr neues Passwort für Ihr Health App-Konto fest. Geben Sie Ihr neues Passwort unten ein, um den Passwort-Reset-Prozess abzuschließen.",
-      "keywords": "passwort zurücksetzen, neues passwort, passwortänderung, health app sicherheit, kontosicherheit"
+      "title": "Passwort Zurücksetzen - Women Spot",
+      "description": "Legen Sie Ihr neues Passwort für Ihr Women Spot-Konto fest. Geben Sie Ihr neues Passwort unten ein, um den Passwort-Reset-Prozess abzuschließen.",
+      "keywords": "passwort zurücksetzen, neues passwort, passwortänderung, Women Spot sicherheit, kontosicherheit"
     }
   }
 }
