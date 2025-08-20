@@ -158,6 +158,21 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return NextResponse.json({ error: "User not found" }, { status: 404 });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatch) {
+        return NextResponse.json(
+          { error: "Invalid password" },
+          { status: 401 }
+        );
+      }
+
       // Use NextAuth's signIn function
       const result = await signIn("credentials", {
         email,
