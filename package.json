@@ -19,7 +19,8 @@
     "next-auth": "^5.0.0-beta.29",
     "next-intl": "^4.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.62.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

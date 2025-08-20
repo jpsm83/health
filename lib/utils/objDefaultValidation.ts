@@ -27,7 +27,7 @@ const objDefaultValidation = (
     }
 
     // Check required fields have a value
-    if (reqFields.includes(key) && !obj[key]) {
+    if (reqFields.includes(key) && (obj[key] === undefined || obj[key] === null || obj[key] === '')) {
       return `${key} must have a value!`;
     }
 

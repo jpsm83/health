@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+
 import {
   mainCategories,
   newsletterFrequencies,
@@ -17,7 +18,7 @@ export const userSchema = new Schema(
       type: String,
       required: [true, "Username is required!"],
       trim: true,
-      minlength: [5, "Username must be at least 3 characters long"],
+      minlength: [5, "Username must be at least 5 characters long"],
       maxlength: [30, "Username cannot exceed 30 characters"],
       match: [
         /^[a-zA-Z0-9_-]+$/,
@@ -29,7 +30,7 @@ export const userSchema = new Schema(
       required: [true, "Email is required!"],
       unique: true,
       match: [
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         "Please enter a valid email address!",
       ],
       lowercase: true,
@@ -38,9 +39,8 @@ export const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required!"],
-      minlength: [8, "Password must be at least 8 characters long"],
     },
-    role: { type: String, enum: roles, required: true },
+    role: { type: String, enum: roles, default: "user" },
     birthDate: {
       type: Date,
       required: true,

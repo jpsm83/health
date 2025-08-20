@@ -8,6 +8,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
+import passwordValidation from "@/lib/utils/passwordValidation";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -16,7 +17,7 @@ import User from "@/app/api/models/user";
 import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
-import { roles } from "@/lib/constants";
+import { roles, mainCategories, newsletterFrequencies } from "@/lib/constants";
 
 // @desc    Get all users
 // @route   GET /users
@@ -65,10 +66,17 @@ export const POST = async (req: Request) => {
     const region = formData.get("region") as string;
     const contentLanguage = formData.get("contentLanguage") as string;
 
-    // Category Interests (parse as JSON)
+    // Category Interests - use default categories if not provided
     const categoryInterestsRaw = formData.get("categoryInterests") as string;
+    
+    // Default category interests with all categories from constants
+    const defaultCategoryInterests = mainCategories.map(category => ({
+      type: category,
+      newsletterSubscription: false,
+      subscriptionFrequencies: newsletterFrequencies[1] // 'weekly' (index 1)
+    }));
 
-    // Validate required fields
+    // Validate required fields (categoryInterests is no longer required since we have defaults)
     if (
       !username ||
       !email ||
@@ -77,22 +85,40 @@ export const POST = async (req: Request) => {
       !birthDate ||
       !language ||
       !region ||
-      !contentLanguage ||
-      !categoryInterestsRaw
+      !contentLanguage
     ) {
       return new NextResponse(
         JSON.stringify({
           message:
-            "Username, email, password, role, birthDate, language, region, contentLanguage, and categoryInterestsRaw are required!",
+            "Username, email, password, role, birthDate, language, region, and contentLanguage are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Parse categoryInterests from formData
-    const categoryInterests = JSON.parse(
-      categoryInterestsRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-    ) as ICategoryInterest[];
+    // Parse categoryInterests from formData or use defaults
+    let categoryInterests: ICategoryInterest[];
+    if (categoryInterestsRaw) {
+      try {
+        categoryInterests = JSON.parse(
+          categoryInterestsRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
+        ) as ICategoryInterest[];
+      } catch {
+        // If parsing fails, use defaults
+        categoryInterests = defaultCategoryInterests;
+      }
+    } else {
+      // If no categoryInterests provided, use defaults
+      categoryInterests = defaultCategoryInterests;
+    }
+
+    // Validate password
+    if (!passwordValidation(password)) {
+      return new NextResponse(JSON.stringify({ message: "Password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol!" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     const categoryInterestsRequiredFields = [
       "type",
@@ -103,6 +129,7 @@ export const POST = async (req: Request) => {
     // Validate category interests
     if (categoryInterests && categoryInterests.length > 0) {
       for (const interest of categoryInterests) {
+        // Validate required fields
         const validationResult = objDefaultValidation(
           interest as unknown as {
             [key: string]: string | number | boolean | undefined;
@@ -117,6 +144,26 @@ export const POST = async (req: Request) => {
           return new NextResponse(
             JSON.stringify({
               message: validationResult,
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
+
+        // Validate subscriptionFrequencies enum
+        if (!interest.subscriptionFrequencies || !newsletterFrequencies.includes(interest.subscriptionFrequencies)) {
+          return new NextResponse(
+            JSON.stringify({
+              message: `Invalid subscription frequency: ${interest.subscriptionFrequencies}. Must be one of: ${newsletterFrequencies.join(', ')}`,
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
+
+        // Validate type enum
+        if (!interest.type || !mainCategories.includes(interest.type)) {
+          return new NextResponse(
+            JSON.stringify({
+              message: `Invalid category type: ${interest.type}. Must be one of: ${mainCategories.join(', ')}`,
             }),
             { status: 400, headers: { "Content-Type": "application/json" } }
           );
@@ -173,7 +220,7 @@ export const POST = async (req: Request) => {
       birthDate: new Date(birthDate),
       preferences,
       categoryInterests,
-      lastLogin: new Date(),
+      lastLogin: new Date(), // Set to current date automatically
     };
 
     // upload image to cloudinary

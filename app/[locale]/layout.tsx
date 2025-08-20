@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import "../globals.css";
-import AuthProvider from "@/components/AuthProvider";
+import AuthContext from "@/app/context/AuthContext";
 
 export async function generateMetadata({
   params,
@@ -44,11 +44,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <AuthProvider>
+        <AuthContext>
           <NextIntlClientProvider messages={messages}>
             {children}
           </NextIntlClientProvider>
-        </AuthProvider>
+        </AuthContext>
       </body>
     </html>
   );
