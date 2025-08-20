@@ -1,6 +1,6 @@
 import { createComment, deleteComment } from "@/app/actions/comments";
 import { NextResponse } from "next/server";
-import { auth } from "../../../auth/[...nextauth]/auth";
+import { auth } from "../../../auth/[...nextauth]/route";
 import isObjectIdValid from "../../../../utils/isObjectIdValid";
 
 // @desc    Create or delete a comment to an article

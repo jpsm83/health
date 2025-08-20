@@ -1,6 +1,6 @@
 import { toggleArticleLike } from "@/app/actions/articleLikes";
 import { NextResponse } from "next/server";
-import { auth } from "../../../auth/[...nextauth]/auth";
+import { auth } from "../../../auth/[...nextauth]/route";
 import isObjectIdValid from "../../../../utils/isObjectIdValid";
 
 // @desc    Toggle article like (add if not liked, remove if already liked)

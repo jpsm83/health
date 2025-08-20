@@ -38,9 +38,20 @@ export const useAuth = () => {
 
   const logout = useCallback(async () => {
     try {
-      await signOut({ redirect: false });
-      router.push('/');
-      return { success: true };
+      // Use custom signout endpoint to bypass CSRF issues
+      const response = await fetch('/api/v1/auth/signout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      
+      if (response.ok) {
+        // Clear the session on the client side
+        await signOut({ redirect: false });
+        router.push('/');
+        return { success: true };
+      } else {
+        throw new Error('Signout failed');
+      }
     } catch (error) {
       console.error('Logout error:', error);
       return { success: false, error: 'Logout failed' };

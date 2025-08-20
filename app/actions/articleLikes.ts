@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 
