@@ -50,8 +50,6 @@ export const POST = async (req: Request) => {
     // For now, we'll just return the token (in production, send email)
     const resetLink = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
     
-    console.log("Password reset link:", resetLink); // Remove in production
-
     // TODO: Replace this with actual email sending logic
     // await sendPasswordResetEmail(user.email, resetLink);
 

@@ -17,6 +17,17 @@ const nextConfig: NextConfig = {
 	generateBuildId: async () => {
 		return 'build-' + Date.now()
 	},
+	// Configure allowed image domains for Next.js Image component
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'lh3.googleusercontent.com',
+				port: '',
+				pathname: '/**',
+			},
+		],
+	},
 };
 
 export default withNextIntl(nextConfig);

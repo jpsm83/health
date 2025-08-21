@@ -7,7 +7,18 @@ import User from "@/app/api/models/user";
 import bcrypt from "bcrypt";
 import { IUser } from "@/interfaces/user";
 
-// Extend NextAuth types
+// Define our extended JWT interface that satisfies NextAuth requirements
+interface ExtendedJWT {
+  id?: string;
+  email?: string;
+  name?: string;
+  role?: string;
+  imageUrl?: string;
+  accessToken?: string;
+  [key: string]: string | undefined; // Index signature to satisfy NextAuth JWT requirements
+}
+
+// Extend NextAuth types to match our ISession interface
 declare module "next-auth" {
   interface Session {
     user: {
@@ -15,12 +26,16 @@ declare module "next-auth" {
       email: string;
       name: string;
       role: string;
+      imageUrl?: string;
     };
   }
 
   interface User {
     role: string;
+    imageUrl?: string;
   }
+
+
 }
 
 // Define an interface for the credentials
@@ -47,8 +62,6 @@ const authConfig = NextAuth({
       },
 
       async authorize(credentials) {
-        console.log(credentials);
-
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -58,7 +71,7 @@ const authConfig = NextAuth({
 
         try {
           const user = (await User.findOne({ email: credentials.email })
-            .select("email password username role")
+            .select("email password username role imageUrl")
             .lean()) as Partial<IUser> | null;
 
           if (!user) {
@@ -72,7 +85,6 @@ const authConfig = NextAuth({
           );
 
           if (!passwordMatch) {
-            console.log("Invalid password!");
             return null;
           }
 
@@ -82,6 +94,7 @@ const authConfig = NextAuth({
             email: user.email || "",
             name: user.username || "",
             role: user.role || "user",
+            imageUrl: user.imageUrl || undefined,
           };
         } catch (error) {
           console.error("Authentication error:", error);
@@ -92,36 +105,117 @@ const authConfig = NextAuth({
   ],
   basePath: "/api/v1/auth",
   secret: process.env.AUTH_SECRET!,
-  pages: {
-    signOut: "/",
-  },
-  debug: process.env.NODE_ENV === "development",
+  debug: false,
   session: {
     strategy: "jwt",
   },
   // Disable CSRF for testing (remove in production)
   useSecureCookies: false,
   callbacks: {
-    async jwt({ token, account, user }) {
+    async signIn({ account, profile }) {
+      // Handle Google OAuth signup - create user if they don't exist
+      if (account?.provider === "google" && profile) {
+        try {
+          await connectDb();
+
+          // Check if user already exists
+          const existingUser = await User.findOne({ email: profile.email });
+
+          if (!existingUser) {
+            // Set birth date to February 29, 2000
+            const birthDate = new Date("2000-02-29");
+
+            // Try to get browser info from the state parameter
+            let browserLanguage = "en"; // Default fallback
+            let browserRegion = "US"; // Default fallback
+
+            // The state parameter contains browser info passed from the frontend
+            // This will be available in the account object
+            if (account.state && typeof account.state === "string") {
+              try {
+                const stateData = JSON.parse(account.state);
+                browserLanguage = stateData.browserLanguage || "en";
+                browserRegion = stateData.browserRegion || "US";
+              } catch {
+                console.error("Could not parse state data, using defaults");
+              }
+            }
+
+            // Create new user from Google profile
+            const newUser = new User({
+              email: profile.email,
+              username: (
+                profile.name ||
+                profile.email?.split("@")[0] ||
+                "user"
+              ).replace(/[^a-zA-Z0-9_-]/g, "_"),
+              role: "user",
+              birthDate: birthDate, // February 29, 2000
+              lastLogin: new Date(), // Required field
+              imageUrl: profile.picture, // Google profile picture
+              preferences: {
+                language: browserLanguage, // From browser
+                region: browserRegion, // From browser
+                contentLanguage: browserLanguage, // From browser
+              },
+              // Google OAuth users don't have passwords - set a random one
+              password:
+                Math.random().toString(36).slice(-10) +
+                Math.random().toString(36).slice(-10),
+            });
+
+            await newUser.save();
+          }
+
+          return true;
+        } catch (error) {
+          console.error("Error creating Google OAuth user:", error);
+          return false;
+        }
+      }
+
+      return true;
+    },
+    async jwt({ token, account, user }): Promise<ExtendedJWT> {
+      const extendedToken = token as ExtendedJWT;
+      
       // Persist the OAuth access_token and user role to the token
       if (account) {
-        token.accessToken = account.access_token;
+        extendedToken.accessToken = account.access_token;
       }
       if (user) {
-        token.id = user.id;
-        token.role = (user as IUser).role;
+        extendedToken.id = user.id;
+        extendedToken.role = user.role;
+        extendedToken.imageUrl = user.imageUrl;
       }
-      return token;
+      
+      // If token is missing role or imageUrl, fetch from database
+      if (extendedToken.email && (!extendedToken.role || !extendedToken.imageUrl)) {
+        try {
+          await connectDb();
+          const dbUser = await User.findOne({ email: extendedToken.email }).select('role imageUrl').lean();
+          if (dbUser && 'role' in dbUser) {
+            extendedToken.role = dbUser.role as string;
+            extendedToken.imageUrl = dbUser.imageUrl as string | undefined;
+          }
+        } catch (error) {
+          console.error('JWT callback - DB fetch error:', error);
+        }
+      }
+      
+      return extendedToken;
     },
     async session({ session, token }) {
       // Send properties to the client
       if (session.user) {
+        const extendedToken = token as ExtendedJWT;
         session.user = {
           ...session.user,
-          id: token.id as string,
-          role: token.role as string,
-          email: token.email as string,
-          name: token.name as string,
+          id: extendedToken.id || '',
+          role: extendedToken.role || 'user',
+          email: token.email || '',
+          name: token.name || '',
+          imageUrl: extendedToken.imageUrl || undefined,
         };
       }
       return session;
@@ -146,61 +240,12 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (pathname.includes("/signin")) {
-    try {
-      const body = await req.json();
-      const { email, password } = body;
-
-      if (!email || !password) {
-        return NextResponse.json(
-          { error: "Email and password required" },
-          { status: 400 }
-        );
-      }
-
-      const user = await User.findOne({ email });
-
-      if (!user) {
-        return NextResponse.json({ error: "User not found" }, { status: 404 });
-      }
-
-      const passwordMatch = await bcrypt.compare(password, user.password);
-
-      if (!passwordMatch) {
-        return NextResponse.json(
-          { error: "Invalid password" },
-          { status: 401 }
-        );
-      }
-
-      // Use NextAuth's signIn function
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
-      if (result?.error) {
-        return NextResponse.json(
-          { error: "Invalid credentials" },
-          { status: 401 }
-        );
-      }
-
-      return NextResponse.json({ success: true });
-    } catch (error) {
-      console.error("Sign in error:", error);
-      return NextResponse.json(
-        { error: "Internal server error" },
-        { status: 500 }
-      );
-    }
-  }
-
+  // Only handle custom endpoints, let NextAuth handle OAuth flows
   if (pathname.includes("/signout")) {
     await signOut({ redirect: false });
     return NextResponse.json({ success: true });
   }
 
+  // Let NextAuth handle all other requests (including OAuth)
   return handlers.POST(req);
 }

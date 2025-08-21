@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Navigation from "@/components/Navbar";
-import AuthContext from "@/app/context/AuthContext";
+import AuthContext from "@/context/AuthContext";
 
 export async function generateMetadata({
   params,

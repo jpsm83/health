@@ -36,8 +36,7 @@
     "home": "Главная",
     "dashboard": "Панель управления",
     "profile": "Профиль",
-    "createArticle": "Создать статью",
-    "editArticle": "Редактировать статью",
+
     "articles": "Статьи",
     "language": "Язык",
     "searchArticles": "Поиск статей...",
@@ -51,8 +50,7 @@
       "health": "Здоровье",
       "fitness": "Фитнес",
       "nutrition": "Питание",
-      "sex": "Секс и отношения",
-      "gymwear": "Спортивная одежда",
+      "sex": "Секс",
       "beauty": "Красота",
       "fashion": "Мода",
       "lifestyle": "Образ жизни",
@@ -150,6 +148,7 @@
     "createAccount": "Создайте свой аккаунт",
     "alreadyHaveAccount": "У вас уже есть аккаунт?",
     "signUp": "Зарегистрироваться",
+    "signIn": "Войти",
     "username": "Имя пользователя",
     "enterUsername": "Введите ваше имя пользователя",
     "emailAddress": "Адрес электронной почты",
@@ -164,7 +163,14 @@
     "accountCreatedSuccess": "Аккаунт успешно создан! Теперь вы можете войти.",
     "failedToCreateAccount": "Не удалось создать аккаунт",
     "unexpectedError": "Произошла непредвиденная ошибка",
-    "backToHome": "Вернуться на главную"
+    "backToHome": "Вернуться на главную",
+    "creatingAccount": "Создание вашего аккаунта...",
+    "pleaseWait": "Пожалуйста, подождите, пока мы настраиваем ваш аккаунт",
+    "redirectingBack": "Перенаправление на предыдущую страницу...",
+    "signUpWithGoogle": "Зарегистрироваться через Google",
+    "signingUpWithGoogle": "Регистрация через Google...",
+    "googleSignUpFailed": "Не удалось зарегистрироваться через Google",
+    "or": "или"
   },
   "SignIn": {
     "signInToAccount": "Войдите в свой аккаунт",

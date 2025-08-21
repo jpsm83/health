@@ -26,7 +26,7 @@ export default function SignInContent() {
       const result = await login('credentials', { email, password });
       
       if (result?.success) {
-        router.push('/dashboard');
+        router.push(`/${locale}/dashboard`);
       } else {
         setError(result?.error || t('authenticationFailed'));
       }
@@ -42,8 +42,15 @@ export default function SignInContent() {
     setIsLoading(true);
     
     try {
-      await login('google');
-    } catch {
+      const result = await login('google');
+      if (result?.success) {
+        // Navigate to dashboard after successful Google login
+        router.push(`/${locale}/dashboard`);
+      } else {
+        setError(result?.error || t('googleSignInFailed'));
+        setIsLoading(false);
+      }
+    } catch (error) {
       setError(t('googleSignInFailed'));
       setIsLoading(false);
     }
@@ -60,7 +67,7 @@ export default function SignInContent() {
             {isLogin ? t('dontHaveAccount') : t('alreadyHaveAccount')}{' '}
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-pink-600 hover:text-pink-500"
             >
               {isLogin ? t('signUp') : t('signIn')}
             </button>
@@ -73,7 +80,7 @@ export default function SignInContent() {
             <button
               onClick={handleGoogleSignIn}
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                 <path
@@ -126,7 +133,7 @@ export default function SignInContent() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm"
                 placeholder={t('enterEmail')}
               />
             </div>
@@ -143,7 +150,7 @@ export default function SignInContent() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 focus:z-10 sm:text-sm"
                 placeholder={t('enterPassword')}
               />
             </div>
@@ -152,7 +159,7 @@ export default function SignInContent() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -166,7 +173,7 @@ export default function SignInContent() {
 
             {isLogin && (
               <div className="text-center">
-                <Link href={`/${locale}/forgot-password`} className="text-sm text-indigo-600 hover:text-indigo-500">
+                <Link href={`/${locale}/forgot-password`} className="text-sm text-pink-600 hover:text-pink-500">
                   {t('forgotPassword')}
                 </Link>
               </div>
@@ -174,7 +181,7 @@ export default function SignInContent() {
           </form>
 
           <div className="text-center">
-            <Link href={`/${locale}`} className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link href={`/${locale}`} className="font-medium text-pink-600 hover:text-pink-500">
               {t('backToHome')}
             </Link>
           </div>

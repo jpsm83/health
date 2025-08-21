@@ -6,7 +6,6 @@ export const mainCategories = [
   "fitness",
   "nutrition",
   "sex",
-  "gym-wear",
   "beauty",
   "fashion",
   "lifestyle",
@@ -17,7 +16,7 @@ export const mainCategories = [
 ];
 
 // [
-//   "w-health", "w-fitness", "w-nutrition", "w-sex", "w-gym-wear", "w-beauty", "w-fashion", "w-lifestyle", "m-health", "m-fitness", "m-nutrition", "m-body-care", "travel", "decor", "finance", "procuctivity", "parenting", "crypto", "gaming", "technology"
+//   "w-health", "w-fitness", "w-nutrition", "w-sex", "w-beauty", "w-fashion", "w-lifestyle", "m-health", "m-fitness", "m-nutrition", "m-body-care", "travel", "decor", "finance", "procuctivity", "parenting", "crypto", "gaming", "technology"
 // ];
 
 export const newsletterFrequencies = ["daily", "weekly", "monthly"];

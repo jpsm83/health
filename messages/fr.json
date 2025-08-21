@@ -36,8 +36,7 @@
     "home": "Accueil",
     "dashboard": "Tableau de Bord",
     "profile": "Profil",
-    "createArticle": "Créer un Article",
-    "editArticle": "Modifier l'Article",
+
     "articles": "Articles",
     "language": "Langue",
     "searchArticles": "Rechercher des articles...",
@@ -51,8 +50,7 @@
       "health": "Santé",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sexe et Relations",
-      "gymwear": "Vêtements de Gym",
+      "sex": "Sexe",
       "beauty": "Beauté",
       "fashion": "Mode",
       "lifestyle": "Style de Vie",
@@ -150,6 +148,7 @@
     "createAccount": "Créez votre compte",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "signUp": "S'inscrire",
+    "signIn": "Se connecter",
     "username": "Nom d'utilisateur",
     "enterUsername": "Entrez votre nom d'utilisateur",
     "emailAddress": "Adresse email",
@@ -164,7 +163,14 @@
     "accountCreatedSuccess": "Compte créé avec succès ! Vous pouvez maintenant vous connecter.",
     "failedToCreateAccount": "Échec de la création du compte",
     "unexpectedError": "Une erreur inattendue s'est produite",
-    "backToHome": "Retour à l'Accueil"
+    "backToHome": "Retour à l'Accueil",
+    "creatingAccount": "Création de votre compte...",
+    "pleaseWait": "Veuillez patienter pendant que nous configurons votre compte",
+    "redirectingBack": "Redirection vers la page précédente...",
+    "signUpWithGoogle": "S'inscrire avec Google",
+    "signingUpWithGoogle": "Inscription avec Google...",
+    "googleSignUpFailed": "Échec de l'inscription avec Google",
+    "or": "ou"
   },
   "SignIn": {
     "signInToAccount": "Connectez-vous à votre compte",

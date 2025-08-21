@@ -36,8 +36,7 @@
     "home": "Inicio",
     "dashboard": "Panel",
     "profile": "Perfil",
-    "createArticle": "Crear Artículo",
-    "editArticle": "Editar Artículo",
+
     "articles": "Artículos",
     "language": "Idioma",
     "searchArticles": "Buscar artículos...",
@@ -51,8 +50,7 @@
       "health": "Salud",
       "fitness": "Fitness",
       "nutrition": "Nutrición",
-      "sex": "Sexo y Relaciones",
-      "gymwear": "Ropa de Gimnasio",
+      "sex": "Sexo",
       "beauty": "Belleza",
       "fashion": "Moda",
       "lifestyle": "Estilo de Vida",
@@ -164,7 +162,14 @@
     "accountCreatedSuccess": "¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.",
     "failedToCreateAccount": "Error al crear la cuenta",
     "unexpectedError": "Ocurrió un error inesperado",
-    "backToHome": "Volver al Inicio"
+    "backToHome": "Volver al Inicio",
+    "creatingAccount": "Creando tu cuenta...",
+    "pleaseWait": "Por favor espera mientras configuramos tu cuenta",
+    "redirectingBack": "Redirigiendo a página anterior...",
+    "signUpWithGoogle": "Registrarse con Google",
+    "signingUpWithGoogle": "Registrándose con Google...",
+    "googleSignUpFailed": "Error al registrarse con Google",
+    "or": "o"
   },
   "SignIn": {
     "signInToAccount": "Inicia sesión en tu cuenta",

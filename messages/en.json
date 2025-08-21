@@ -36,8 +36,6 @@
     "home": "Home",
     "dashboard": "Dashboard",
     "profile": "Profile",
-    "createArticle": "Create Article",
-    "editArticle": "Edit Article",
     "articles": "Articles",
     "language": "Language",
     "searchArticles": "Search articles...",
@@ -51,13 +49,12 @@
       "health": "Health",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sex & Relationships",
-      "gymwear": "Gym Wear",
+      "sex": "Sex",
       "beauty": "Beauty",
       "fashion": "Fashion",
       "lifestyle": "Lifestyle",
       "travel": "Travel",
-      "decor": "Home & Decor",
+      "decor": "Decor",
       "productivity": "Productivity",
       "parenting": "Parenting"
     }
@@ -150,6 +147,7 @@
     "createAccount": "Create your account",
     "alreadyHaveAccount": "Already have an account?",
     "signUp": "Sign up",
+    "signIn": "Sign in",
     "username": "Username",
     "enterUsername": "Enter your username",
     "emailAddress": "Email address",
@@ -164,7 +162,14 @@
     "accountCreatedSuccess": "Account created successfully! You can now sign in.",
     "failedToCreateAccount": "Failed to create account",
     "unexpectedError": "An unexpected error occurred",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+          "creatingAccount": "Creating your account...",
+      "pleaseWait": "Please wait while we set up your account",
+      "redirectingBack": "Redirecting back to previous page...",
+      "signUpWithGoogle": "Sign up with Google",
+      "signingUpWithGoogle": "Signing up with Google...",
+      "googleSignUpFailed": "Failed to sign up with Google",
+      "or": "or"
   },
   "SignIn": {
     "signInToAccount": "Sign in to your account",

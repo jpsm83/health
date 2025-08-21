@@ -36,8 +36,7 @@
     "home": "בית",
     "dashboard": "לוח מחוונים",
     "profile": "פרופיל",
-    "createArticle": "צור מאמר",
-    "editArticle": "ערוך מאמר",
+
     "articles": "מאמרים",
     "language": "שפה",
     "searchArticles": "חפש מאמרים...",
@@ -51,8 +50,7 @@
       "health": "בריאות",
       "fitness": "כושר",
       "nutrition": "תזונה",
-      "sex": "מין ויחסים",
-      "gymwear": "בגדי כושר",
+      "sex": "מין",
       "beauty": "יופי",
       "fashion": "אופנה",
       "lifestyle": "אורח חיים",
@@ -150,6 +148,7 @@
     "createAccount": "צור את החשבון שלך",
     "alreadyHaveAccount": "כבר יש לך חשבון?",
     "signUp": "הירשם",
+    "signIn": "התחבר",
     "username": "שם משתמש",
     "enterUsername": "הכנס את שם המשתמש שלך",
     "emailAddress": "כתובת אימייל",
@@ -164,7 +163,14 @@
     "accountCreatedSuccess": "החשבון נוצר בהצלחה! עכשיו אתה יכול להתחבר.",
     "failedToCreateAccount": "יצירת החשבון נכשלה",
     "unexpectedError": "אירעה שגיאה בלתי צפויה",
-    "backToHome": "חזור לבית"
+    "backToHome": "חזור לבית",
+    "creatingAccount": "יוצר את החשבון שלך...",
+    "pleaseWait": "אנא המתן בזמן שאנו מגדירים את החשבון שלך",
+    "redirectingBack": "מפנה לדף הקודם...",
+    "signUpWithGoogle": "הירשם עם Google",
+    "signingUpWithGoogle": "נרשם עם Google...",
+    "googleSignUpFailed": "ההרשמה עם Google נכשלה",
+    "or": "או"
   },
   "SignIn": {
     "signInToAccount": "התחבר לחשבון שלך",

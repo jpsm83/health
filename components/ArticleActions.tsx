@@ -31,9 +31,7 @@ export default function ArticleActions({
       });
 
       if (response.ok) {
-        // Handle successful like/unlike
-        console.log('Like action successful');
-        // You might want to update local state or refetch data
+        return;
       }
     } catch (error) {
       console.error('Error handling like:', error);
@@ -42,8 +40,6 @@ export default function ArticleActions({
 
   const handleComment = () => {
     if (!isAuthenticated) return;
-    // Navigate to comment form or open comment modal
-    console.log('Opening comment form for article:', articleId);
   };
 
   return (

@@ -36,8 +36,7 @@
     "home": "Home",
     "dashboard": "Dashboard",
     "profile": "Profiel",
-    "createArticle": "Artikel Maken",
-    "editArticle": "Artikel Bewerken",
+
     "articles": "Artikelen",
     "language": "Taal",
     "searchArticles": "Zoek artikelen...",
@@ -51,8 +50,7 @@
       "health": "Gezondheid",
       "fitness": "Fitness",
       "nutrition": "Voeding",
-      "sex": "Seks & Relaties",
-      "gymwear": "Sportsporten",
+      "sex": "Seks",
       "beauty": "Schoonheid",
       "fashion": "Mode",
       "lifestyle": "Levensstijl",
@@ -150,6 +148,7 @@
     "createAccount": "Maak je account aan",
     "alreadyHaveAccount": "Heb je al een account?",
     "signUp": "Registreren",
+    "signIn": "Inloggen",
     "username": "Gebruikersnaam",
     "enterUsername": "Voer je gebruikersnaam in",
     "emailAddress": "E-mailadres",
@@ -164,7 +163,14 @@
     "accountCreatedSuccess": "Account succesvol aangemaakt! Je kunt nu inloggen.",
     "failedToCreateAccount": "Account aanmaken mislukt",
     "unexpectedError": "Er is een onverwachte fout opgetreden",
-    "backToHome": "Terug naar Home"
+    "backToHome": "Terug naar Home",
+    "creatingAccount": "Je account wordt aangemaakt...",
+    "pleaseWait": "Even geduld terwijl we je account instellen",
+    "redirectingBack": "Doorverwijzen naar vorige pagina...",
+    "signUpWithGoogle": "Registreren met Google",
+    "signingUpWithGoogle": "Registreren met Google...",
+    "googleSignUpFailed": "Registreren met Google mislukt",
+    "or": "of"
   },
   "SignIn": {
     "signInToAccount": "Log in op je account",

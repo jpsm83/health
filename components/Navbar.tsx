@@ -31,6 +31,7 @@ import {
   RU,
 } from "country-flag-icons/react/1x1";
 import { mainCategories } from "@/lib/constants";
+import Image from "next/image";
 
 export default function Navbar() {
   // All hooks must be called at the top level, unconditionally
@@ -55,7 +56,6 @@ export default function Navbar() {
   // Handle search
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      console.log("Searching for:", searchTerm.trim());
       // TODO: Implement search functionality
       // router.push(`/${locale}/search?q=${encodeURIComponent(searchTerm.trim())}`);
     }
@@ -63,14 +63,21 @@ export default function Navbar() {
 
   // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Search term:", e.target.value);
     setSearchTerm(e.target.value);
   };
 
   // Handle logout
   const handleLogout = async () => {
     try {
-      await logout();
+      const result = await logout();
+
+      if (result.success) {
+        // Navigate to previous page after successful logout
+        // Use Next.js 15 built-in router.back() for better performance
+        router.push(`/${locale}`);
+      } else {
+        console.error("Logout failed:", result.error);
+      }
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -114,7 +121,10 @@ export default function Navbar() {
     const languageName = getLanguageDisplayName(lang);
 
     return FlagComponent ? (
-      <FlagComponent title={languageName} className="w-6 h-5 rounded-full" />
+      <FlagComponent
+        title={languageName}
+        className="w-12 h-12 rounded-full outline-2 outline-white"
+      />
     ) : null;
   };
 
@@ -179,56 +189,6 @@ export default function Navbar() {
                       📊 {t("dashboard")}
                     </Link>
                   </DropdownMenuItem>
-                  {user?.role === "admin" && (
-                    <>
-                      <DropdownMenuItem asChild>
-                        <Link
-                          href={`/${locale}/create-article`}
-                          className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                        >
-                          ✍️ {t("createArticle")}
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link
-                          href={`/${locale}/edit-article`}
-                          className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                        >
-                          ✏️ {t("editArticle")}
-                        </Link>
-                      </DropdownMenuItem>
-                    </>
-                  )}
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={`/${locale}/profile`}
-                      className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                    >
-                      👤 {t("profile")}
-                    </Link>
-                  </DropdownMenuItem>
-                </>
-              )}
-
-              {/* Authentication Pages */}
-              {!isAuthenticated && (
-                <>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={`/${locale}/signin`}
-                      className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                    >
-                      🔐 {t("signIn")}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={`/${locale}/signup`}
-                      className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                    >
-                      📝 {t("signUp")}
-                    </Link>
-                  </DropdownMenuItem>
                 </>
               )}
 
@@ -270,15 +230,6 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   ❤️ {t("categories.sex")}
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/articles/gym-wear`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                >
-                  👕 {t("categories.gymwear")}
                 </Link>
               </DropdownMenuItem>
 
@@ -354,7 +305,7 @@ export default function Navbar() {
           <span className="text-xl font-bold">{t("brandName")}</span>
         </Link>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Search Filter */}
           <div className="hidden md:block relative w-[300px]">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -406,19 +357,110 @@ export default function Navbar() {
             </DropdownMenu>
           </div>
 
+          {/* Mobile Profile Button */}
+          <div className="md:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                {isAuthenticated && user?.imageUrl ? (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                  >
+                    <Image
+                      src={user.imageUrl}
+                      alt="User"
+                      width={30}
+                      height={30}
+                      className="rounded-full"
+                    />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                  >
+                    <UserRound />
+                  </Button>
+                )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="w-[200px] bg-white shadow-lg"
+                align="end"
+                side="bottom"
+                sideOffset={4}
+              >
+                {isAuthenticated ? (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/${locale}/profile`}
+                        className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                      >
+                        👤 {t("profile")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                    >
+                      🚪 {t("signOut")}
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/${locale}/signin`}
+                        className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                      >
+                        🔐 {t("signIn")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/${locale}/signup`}
+                        className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                      >
+                        📝 {t("signUp")}
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
           {/* Authentication navigation desktop*/}
           <div className="hidden md:flex">
             {isAuthenticated ? (
               <div className="relative">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full"
-                    >
-                      <UserRound size={20} />
-                    </Button>
+                    {user ? (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                      >
+                        <Image
+                          src={user?.imageUrl || ""}
+                          width={30}
+                          height={30}
+                          alt="User"
+                          className="rounded-full"
+                        />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                      >
+                        <UserRound size={20} />
+                      </Button>
+                    )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     className="w-[200px] bg-white shadow-lg"
@@ -434,26 +476,6 @@ export default function Navbar() {
                         👤 {t("profile")}
                       </Link>
                     </DropdownMenuItem>
-                    {user?.role === "admin" && (
-                      <>
-                        <DropdownMenuItem asChild>
-                          <Link
-                            href={`/${locale}/create-article`}
-                            className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                          >
-                            ✍️ {t("createArticle")}
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link
-                            href={`/${locale}/edit-article`}
-                            className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                          >
-                            ✏️ {t("editArticle")}
-                          </Link>
-                        </DropdownMenuItem>
-                      </>
-                    )}
                     <DropdownMenuItem
                       onClick={handleLogout}
                       className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"

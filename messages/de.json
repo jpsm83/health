@@ -36,8 +36,7 @@
     "home": "Startseite",
     "dashboard": "Dashboard",
     "profile": "Profil",
-    "createArticle": "Artikel erstellen",
-    "editArticle": "Artikel bearbeiten",
+
     "articles": "Artikel",
     "language": "Sprache",
     "searchArticles": "Artikel suchen...",
@@ -51,8 +50,7 @@
       "health": "Gesundheit",
       "fitness": "Fitness",
       "nutrition": "Ernährung",
-      "sex": "Sex & Beziehungen",
-      "gymwear": "Sportkleidung",
+      "sex": "Sex",
       "beauty": "Schönheit",
       "fashion": "Mode",
       "lifestyle": "Lebensstil",
@@ -150,6 +148,7 @@
     "createAccount": "Erstellen Sie Ihr Konto",
     "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
     "signUp": "Registrieren",
+    "signIn": "Anmelden",
     "username": "Benutzername",
     "enterUsername": "Geben Sie Ihren Benutzernamen ein",
     "emailAddress": "E-Mail-Adresse",
@@ -164,7 +163,14 @@
     "accountCreatedSuccess": "Konto erfolgreich erstellt! Sie können sich jetzt anmelden.",
     "failedToCreateAccount": "Fehler beim Erstellen des Kontos",
     "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
-    "backToHome": "Zurück zur Startseite"
+    "backToHome": "Zurück zur Startseite",
+    "creatingAccount": "Konto wird erstellt...",
+    "pleaseWait": "Bitte warten Sie, während wir Ihr Konto einrichten",
+    "redirectingBack": "Weiterleitung zur vorherigen Seite...",
+    "signUpWithGoogle": "Mit Google registrieren",
+    "signingUpWithGoogle": "Registrierung mit Google...",
+    "googleSignUpFailed": "Registrierung mit Google fehlgeschlagen",
+    "or": "oder"
   },
   "SignIn": {
     "signInToAccount": "Melden Sie sich in Ihrem Konto an",
