@@ -176,11 +176,11 @@
     "signInToAccount": "התחבר לחשבון שלך",
     "createAccount": "צור את החשבון שלך",
     "dontHaveAccount": "אין לך חשבון?",
-    "alreadyHaveAccount": "כבר יש לך חשבון?",
     "signUp": "הירשם",
     "signIn": "התחבר",
-    "continueWithGoogle": "המשך עם Google",
-    "orContinueWith": "או המשך עם",
+    "signInWithGoogle": "התחבר עם Google",
+    "signingInWithGoogle": "מתחבר עם Google...",
+    "or": "או",
     "emailAddress": "כתובת אימייל",
     "enterEmail": "הכנס את האימייל שלך",
     "password": "סיסמה",
@@ -263,5 +263,20 @@
       "description": "הגדר את הסיסמה החדשה שלך לחשבון Women Spot שלך. הכנס את הסיסמה החדשה שלך למטה כדי להשלים את תהליך איפוס הסיסמה.",
       "keywords": "אפס סיסמה, סיסמה חדשה, שינוי סיסמה, אבטחה Women Spot, אבטחת חשבון"
     }
+  },
+  "footer": {
+    "brandName": "בריאות ורווחה",
+    "brandDescription": "המקור האמין שלכם לתוכן על בריאות, כושר ואורח חיים. מעצים נשים לחיות את החיים הטובים ביותר שלהן.",
+    "quickLinks": "קישורים מהירים",
+    "aboutUs": "אודותינו",
+    "contact": "צור קשר",
+    "privacyPolicy": "מדיניות פרטיות",
+    "getInTouch": "צור קשר",
+    "email": "שלום@בריאותרווחה.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "ניו יורק, ניו יורק",
+    "copyright": "© 2024 בריאות ורווחה. כל הזכויות שמורות.",
+    "termsOfService": "תנאי שירות",
+    "cookiePolicy": "מדיניות עוגיות"
   }
 }

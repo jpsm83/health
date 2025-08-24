@@ -176,11 +176,11 @@
     "signInToAccount": "Accedi al tuo account",
     "createAccount": "Crea il tuo account",
     "dontHaveAccount": "Non hai un account?",
-    "alreadyHaveAccount": "Hai già un account?",
     "signUp": "Registrati",
     "signIn": "Accedi",
-    "continueWithGoogle": "Continua con Google",
-    "orContinueWith": "Oppure continua con",
+    "signInWithGoogle": "Accedi con Google",
+    "signingInWithGoogle": "Accesso con Google...",
+    "or": "o",
     "emailAddress": "Indirizzo email",
     "enterEmail": "Inserisci la tua email",
     "password": "Password",
@@ -263,5 +263,20 @@
       "description": "Imposta la tua nuova password per il tuo account Women Spot. Inserisci la tua nuova password qui sotto per completare il processo di reset password.",
       "keywords": "reimposta password, nuova password, cambio password, sicurezza Women Spot, sicurezza account"
     }
+  },
+  "footer": {
+    "brandName": "Salute e Benessere",
+    "brandDescription": "La tua fonte affidabile di contenuti su salute, fitness e stile di vita. Dare alle donne i mezzi per vivere le loro migliori vite.",
+    "quickLinks": "Link Rapidi",
+    "aboutUs": "Chi Siamo",
+    "contact": "Contatti",
+    "privacyPolicy": "Informativa sulla Privacy",
+    "getInTouch": "Contattaci",
+    "email": "ciao@salutebenessere.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "New York, NY",
+    "copyright": "© 2024 Salute e Benessere. Tutti i diritti riservati.",
+    "termsOfService": "Termini di Servizio",
+    "cookiePolicy": "Politica sui Cookie"
   }
 }

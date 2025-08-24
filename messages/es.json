@@ -148,6 +148,7 @@
     "createAccount": "Crea tu cuenta",
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "signUp": "Registrarse",
+    "signIn": "Iniciar Sesión",
     "username": "Nombre de usuario",
     "enterUsername": "Ingresa tu nombre de usuario",
     "emailAddress": "Dirección de email",
@@ -175,11 +176,11 @@
     "signInToAccount": "Inicia sesión en tu cuenta",
     "createAccount": "Crea tu cuenta",
     "dontHaveAccount": "¿No tienes una cuenta?",
-    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "signUp": "Registrarse",
     "signIn": "Iniciar Sesión",
-    "continueWithGoogle": "Continuar con Google",
-    "orContinueWith": "O continuar con",
+    "signInWithGoogle": "Iniciar sesión con Google",
+    "signingInWithGoogle": "Iniciando sesión con Google...",
+    "or": "o",
     "emailAddress": "Dirección de email",
     "enterEmail": "Ingresa tu email",
     "password": "Contraseña",
@@ -262,5 +263,20 @@
       "description": "Establece tu nueva contraseña para tu cuenta Women Spot. Ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento de contraseña.",
       "keywords": "restablecer contraseña, nueva contraseña, cambio de contraseña, seguridad Women Spot, seguridad de cuenta"
     }
+  },
+  "footer": {
+    "brandName": "Salud y Bienestar",
+    "brandDescription": "Tu fuente confiable de contenido de salud, fitness y estilo de vida. Empoderando a las mujeres para vivir sus mejores vidas.",
+    "quickLinks": "Enlaces Rápidos",
+    "aboutUs": "Acerca de Nosotros",
+    "contact": "Contacto",
+    "privacyPolicy": "Política de Privacidad",
+    "getInTouch": "Ponte en Contacto",
+    "email": "hola@saludbienestar.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "Nueva York, NY",
+    "copyright": "© 2024 Salud y Bienestar. Todos los derechos reservados.",
+    "termsOfService": "Términos de Servicio",
+    "cookiePolicy": "Política de Cookies"
   }
 }

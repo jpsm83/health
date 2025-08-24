@@ -176,11 +176,11 @@
     "signInToAccount": "Log in op je account",
     "createAccount": "Maak je account aan",
     "dontHaveAccount": "Heb je geen account?",
-    "alreadyHaveAccount": "Heb je al een account?",
     "signUp": "Registreren",
     "signIn": "Inloggen",
-    "continueWithGoogle": "Doorgaan met Google",
-    "orContinueWith": "Of doorgaan met",
+    "signInWithGoogle": "Inloggen met Google",
+    "signingInWithGoogle": "Inloggen met Google...",
+    "or": "of",
     "emailAddress": "E-mailadres",
     "enterEmail": "Voer je e-mail in",
     "password": "Wachtwoord",
@@ -263,5 +263,20 @@
       "description": "Stel je nieuwe wachtwoord in voor je Women Spot-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
       "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women Spot-beveiliging, accountbeveiliging"
     }
+  },
+  "footer": {
+    "brandName": "Gezondheid en Welzijn",
+    "brandDescription": "Jouw betrouwbare bron voor gezondheids-, fitness- en lifestyle-inhoud. Vrouwen in staat stellen om hun beste leven te leiden.",
+    "quickLinks": "Snelle Links",
+    "aboutUs": "Over Ons",
+    "contact": "Contact",
+    "privacyPolicy": "Privacybeleid",
+    "getInTouch": "Neem Contact Op",
+    "email": "hallo@gezondheidwelzijn.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "New York, NY",
+    "copyright": "© 2024 Gezondheid en Welzijn. Alle rechten voorbehouden.",
+    "termsOfService": "Servicevoorwaarden",
+    "cookiePolicy": "Cookiebeleid"
   }
 }

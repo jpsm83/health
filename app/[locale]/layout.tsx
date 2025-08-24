@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Navigation from "@/components/Navbar";
-import AuthContext from "@/context/AuthContext";
+import Footer from "./footer/Footer";
 
 export async function generateMetadata({
   params,
@@ -40,19 +40,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className="h-full w-full bg-violet-50">
-        <AuthContext>
-          <NextIntlClientProvider messages={messages}>
-            <div className="h-full w-full flex flex-col">
-              <Navigation />
-              <main className="flex-1">
-                {children}
-              </main>
-            </div>
-          </NextIntlClientProvider>
-        </AuthContext>
-      </body>
-    </html>
+      <NextIntlClientProvider messages={messages}>
+        <div className="min-h-screen flex flex-col">
+          <Navigation />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
+      </NextIntlClientProvider>
   );
 }

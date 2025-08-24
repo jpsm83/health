@@ -176,11 +176,11 @@
     "signInToAccount": "Melden Sie sich in Ihrem Konto an",
     "createAccount": "Erstellen Sie Ihr Konto",
     "dontHaveAccount": "Haben Sie kein Konto?",
-    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
     "signUp": "Registrieren",
     "signIn": "Anmelden",
-    "continueWithGoogle": "Mit Google fortfahren",
-    "orContinueWith": "Oder fortfahren mit",
+    "signInWithGoogle": "Mit Google anmelden",
+    "signingInWithGoogle": "Anmeldung mit Google...",
+    "or": "oder",
     "emailAddress": "E-Mail-Adresse",
     "enterEmail": "Geben Sie Ihre E-Mail ein",
     "password": "Passwort",
@@ -263,5 +263,20 @@
       "description": "Legen Sie Ihr neues Passwort für Ihr Women Spot-Konto fest. Geben Sie Ihr neues Passwort unten ein, um den Passwort-Reset-Prozess abzuschließen.",
       "keywords": "Passwort zurücksetzen, neues Passwort, Passwortänderung, Women Spot-Sicherheit, Kontosicherheit"
     }
+  },
+  "footer": {
+    "brandName": "Gesundheit und Wohlbefinden",
+    "brandDescription": "Ihre vertrauenswürdige Quelle für Gesundheits-, Fitness- und Lifestyle-Inhalte. Frauen dabei unterstützen, ihr bestes Leben zu führen.",
+    "quickLinks": "Schnelllinks",
+    "aboutUs": "Über uns",
+    "contact": "Kontakt",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "getInTouch": "Kontakt aufnehmen",
+    "email": "hallo@gesundheitwohlbefinden.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "New York, NY",
+    "copyright": "© 2024 Gesundheit und Wohlbefinden. Alle Rechte vorbehalten.",
+    "termsOfService": "Nutzungsbedingungen",
+    "cookiePolicy": "Cookie-Richtlinie"
   }
 }

@@ -176,11 +176,11 @@
     "signInToAccount": "Connectez-vous à votre compte",
     "createAccount": "Créez votre compte",
     "dontHaveAccount": "Vous n'avez pas de compte ?",
-    "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "signUp": "S'inscrire",
     "signIn": "Se Connecter",
-    "continueWithGoogle": "Continuer avec Google",
-    "orContinueWith": "Ou continuer avec",
+    "signInWithGoogle": "Se connecter avec Google",
+    "signingInWithGoogle": "Connexion avec Google...",
+    "or": "ou",
     "emailAddress": "Adresse email",
     "enterEmail": "Entrez votre email",
     "password": "Mot de passe",
@@ -263,5 +263,20 @@
       "description": "Définissez votre nouveau mot de passe pour votre compte Women Spot. Entrez votre nouveau mot de passe ci-dessous pour compléter le processus de réinitialisation de mot de passe.",
       "keywords": "réinitialiser le mot de passe, nouveau mot de passe, changement de mot de passe, sécurité Women Spot, sécurité du compte"
     }
+  },
+  "footer": {
+    "brandName": "Santé et Bien-être",
+    "brandDescription": "Votre source fiable de contenu sur la santé, le fitness et le mode de vie. Donner aux femmes les moyens de vivre leurs meilleures vies.",
+    "quickLinks": "Liens Rapides",
+    "aboutUs": "À Propos de Nous",
+    "contact": "Contact",
+    "privacyPolicy": "Politique de Confidentialité",
+    "getInTouch": "Contactez-nous",
+    "email": "bonjour@santebienetre.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "New York, NY",
+    "copyright": "© 2024 Santé et Bien-être. Tous droits réservés.",
+    "termsOfService": "Conditions de Service",
+    "cookiePolicy": "Politique des Cookies"
   }
 }

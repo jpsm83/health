@@ -175,11 +175,11 @@
     "signInToAccount": "Sign in to your account",
     "createAccount": "Create your account",
     "dontHaveAccount": "Don't have an account?",
-    "alreadyHaveAccount": "Already have an account?",
     "signUp": "Sign up",
     "signIn": "Sign in",
-    "continueWithGoogle": "Continue with Google",
-    "orContinueWith": "Or continue with",
+    "signInWithGoogle": "Sign in with Google",
+    "signingInWithGoogle": "Signing in with Google...",
+    "or": "or",
     "emailAddress": "Email address",
     "enterEmail": "Enter your email",
     "password": "Password",
@@ -262,5 +262,20 @@
       "description": "Set your new password for your Women Spot account. Enter your new password below to complete the password reset process.",
       "keywords": "reset password, new password, password change, Women Spot security, account security"
     }
+  },
+  "footer": {
+    "brandName": "Health & Wellness",
+    "brandDescription": "Your trusted source for health, fitness, and lifestyle content. Empowering women to live their best lives.",
+    "quickLinks": "Quick Links",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "getInTouch": "Get in Touch",
+    "email": "hello@healthwellness.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "New York, NY",
+    "copyright": "© 2024 Health & Wellness. All rights reserved.",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy"
   }
 }
