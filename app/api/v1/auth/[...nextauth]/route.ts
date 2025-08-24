@@ -63,7 +63,8 @@ const authConfig = NextAuth({
 
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          console.log("❌ Login attempt: Missing email or password");
+          return null; // Return null instead of throwing error
         }
 
         // connect before first call to DB
@@ -75,8 +76,8 @@ const authConfig = NextAuth({
             .lean()) as Partial<IUser> | null;
 
           if (!user) {
-            console.error("User not found");
-            return null;
+            console.log(`❌ Login attempt: User not found for email ${credentials.email}`);
+            return null; // Return null instead of throwing error
           }
 
           const passwordMatch = await bcrypt.compare(
@@ -85,9 +86,12 @@ const authConfig = NextAuth({
           );
 
           if (!passwordMatch) {
-            return null;
+            console.log(`❌ Login attempt: Invalid password for user ${credentials.email}`);
+            return null; // Return null instead of throwing error
           }
 
+          console.log(`✅ Login successful: User ${credentials.email} authenticated`);
+          
           // Return user data for NextAuth
           return {
             id: user._id?.toString() || "",
@@ -97,8 +101,9 @@ const authConfig = NextAuth({
             imageUrl: user.imageUrl || undefined,
           };
         } catch (error) {
-          console.error("Authentication error:", error);
-          return null;
+          // Only log system errors, don't throw them
+          console.error("❌ Authentication system error:", error);
+          return null; // Return null for any system errors
         }
       },
     }),
@@ -112,7 +117,12 @@ const authConfig = NextAuth({
   // Disable CSRF for testing (remove in production)
   useSecureCookies: false,
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({ account, profile, user }) {
+      // Log authentication attempts in a user-friendly way
+      if (user) {
+        console.log(`✅ User ${user.email} successfully authenticated`);
+      }
+
       // Handle Google OAuth signup - create user if they don't exist
       if (account?.provider === "google" && profile) {
         try {
@@ -165,11 +175,12 @@ const authConfig = NextAuth({
             });
 
             await newUser.save();
+            console.log(`✅ New Google OAuth user created: ${profile.email}`);
           }
 
           return true;
         } catch (error) {
-          console.error("Error creating Google OAuth user:", error);
+          console.error("❌ Error creating Google OAuth user:", error);
           return false;
         }
       }
@@ -199,7 +210,7 @@ const authConfig = NextAuth({
             extendedToken.imageUrl = dbUser.imageUrl as string | undefined;
           }
         } catch (error) {
-          console.error('JWT callback - DB fetch error:', error);
+          console.error('❌ JWT callback - DB fetch error:', error);
         }
       }
       

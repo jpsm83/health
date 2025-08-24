@@ -35,7 +35,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   // All hooks must be called at the top level, unconditionally
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout, session } = useAuth();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const pathname = usePathname();
   const router = useRouter();
@@ -361,19 +361,26 @@ export default function Navbar() {
           <div className="md:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                {isAuthenticated && user?.imageUrl ? (
+                {isAuthenticated && session?.user ? (
                   <Button
                     variant="ghost"
                     size="icon"
                     className="bg-pink-600 text-white hover:bg-pink-700 rounded-full"
                   >
-                    <Image
-                      src={user.imageUrl}
-                      alt="User"
-                      width={30}
-                      height={30}
-                      className="rounded-full"
-                    />
+                    {session.user.imageUrl &&
+                    session.user.imageUrl.trim() !== "" ? (
+                      <Image
+                        src={session.user.imageUrl}
+                        alt="User"
+                        width={32}
+                        height={32}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+                        <UserRound size={16} className="text-white" />
+                      </div>
+                    )}
                   </Button>
                 ) : (
                   <Button
@@ -381,7 +388,7 @@ export default function Navbar() {
                     size="icon"
                     className="bg-pink-600 text-white hover:bg-pink-700 rounded-full"
                   >
-                    <UserRound />
+                    <UserRound size={20} />
                   </Button>
                 )}
               </DropdownMenuTrigger>
@@ -393,6 +400,15 @@ export default function Navbar() {
               >
                 {isAuthenticated ? (
                   <>
+                    {/* User info header */}
+                    <div className="px-3 py-2 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {session?.user?.name || "User"}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {session?.user?.email}
+                      </p>
+                    </div>
                     <DropdownMenuItem asChild>
                       <Link
                         href={`/${locale}/profile`}
@@ -438,19 +454,27 @@ export default function Navbar() {
               <div className="relative">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    {user ? (
+                    {session?.user ? (
                       <Button
                         variant="ghost"
-                        size="icon"
-                        className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                        size="sm"
+                        className="h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full px-3 gap-2"
                       >
-                        <Image
-                          src={user?.imageUrl || ""}
-                          width={30}
-                          height={30}
-                          alt="User"
-                          className="rounded-full"
-                        />
+                        <span className="text-sm font-medium hidden lg:block">
+                          {session.user.name}
+                        </span>
+                        {session.user.imageUrl &&
+                        session.user.imageUrl.trim() !== "" ? (
+                          <Image
+                            src={session.user.imageUrl}
+                            width={30}
+                            height={30}
+                            alt="User"
+                            className="rounded-full"
+                          />
+                        ) : (
+                          <UserRound size={20} />
+                        )}
                       </Button>
                     ) : (
                       <Button

@@ -34,8 +34,14 @@ export const useAuth = () => {
         });
 
         if (loginResult?.ok) {
-          await update(); // Update session
-          return { success: true };
+          try {
+            await update(); // Update session
+            return { success: true };
+          } catch (error) {
+            console.error("Session update failed:", error);
+            // Even if session update fails, login was successful
+            return { success: true };
+          }
         } else {
           return {
             success: false,
@@ -85,8 +91,17 @@ export const useAuth = () => {
     ) => {
       try {
         if (provider === "credentials" && credentials) {
-          // Use authService for backend auth preparation
-          await signInWithCredentials();
+          try {
+            // Use authService for backend auth preparation
+            await signInWithCredentials();
+          } catch (error) {
+            // Handle backend auth preparation failure gracefully
+            console.error("Backend auth preparation failed:", error);
+            return { 
+              success: false, 
+              error: "Authentication service unavailable" 
+            };
+          }
           
           // Use NextAuth for actual authentication
           const result = await signIn("credentials", {
@@ -96,28 +111,49 @@ export const useAuth = () => {
           });
 
           if (result?.error) {
-            throw new Error(result.error);
+            // Handle login failure gracefully without throwing errors
+            return { 
+              success: false, 
+              error: "Invalid email or password" 
+            };
           }
 
           if (result?.ok) {
-            await update(); // Update session
-            return { success: true };
+            try {
+              await update(); // Update session
+              return { success: true };
+            } catch (error) {
+              console.error("Session update failed:", error);
+              // Even if session update fails, login was successful
+              return { success: true };
+            }
           }
+
+          // Fallback for unexpected results
+          return { 
+            success: false, 
+            error: "Authentication failed" 
+          };
         } else if (provider === "google") {
-          // Use authService for OAuth setup
-          const oauthResult = await signInWithGoogle("/");
-          
-          if (oauthResult.success) {
-            // Use NextAuth to handle the actual OAuth flow
-            await signIn("google", {
-              callbackUrl: oauthResult.oauthConfig.callbackUrl,
-              redirect: true, // Must be true for OAuth flows
-              state: oauthResult.oauthConfig.state,
-            });
-            // Note: This will redirect the user, so we return success immediately
-            return { success: true };
-          } else {
-            return { success: false, error: "Failed to setup Google OAuth" };
+          try {
+            // Use authService for OAuth setup
+            const oauthResult = await signInWithGoogle("/");
+            
+            if (oauthResult.success) {
+              // Use NextAuth to handle the actual OAuth flow
+              await signIn("google", {
+                callbackUrl: oauthResult.oauthConfig.callbackUrl,
+                redirect: true, // Must be true for OAuth flows
+                state: oauthResult.oauthConfig.state,
+              });
+              // Note: This will redirect the user, so we return success immediately
+              return { success: true };
+            } else {
+              return { success: false, error: "Failed to setup Google OAuth" };
+            }
+          } catch (error) {
+            console.error("Google OAuth setup failed:", error);
+            return { success: false, error: "Google OAuth setup failed" };
           }
         }
       } catch (error) {

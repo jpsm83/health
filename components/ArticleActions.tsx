@@ -16,7 +16,7 @@ export default function ArticleActions({
   commentCount, 
   isLiked = false 
 }: ArticleActionsProps) {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, session } = useAuth();
 
   const handleLike = async () => {
     if (!isAuthenticated) return;
@@ -27,7 +27,7 @@ export default function ArticleActions({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: user?.id }),
+        body: JSON.stringify({ userId: session?.user?.id }),
       });
 
       if (response.ok) {
