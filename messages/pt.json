@@ -196,15 +196,20 @@
     "emailAddress": "Endereço de email",
     "enterEmail": "Digite seu email",
     "emailRequired": "Email é obrigatório",
+    "invalidEmailFormat": "Por favor, digite um endereço de email válido",
     "sendResetLink": "Enviar Link de Redefinição",
+    "resetEmailSent": "Email de redefinição de senha enviado com sucesso",
+    "checkEmailInstructions": "Por favor, verifique sua caixa de entrada (e pasta de spam) para o link de redefinição de senha. O link expirará em 1 hora.",
     "failedToSendResetEmail": "Falha ao enviar email de redefinição",
+    "errorOccurred": "Ocorreu um erro",
     "testingMessage": "Para fins de teste, você pode usar este link",
     "unexpectedError": "Ocorreu um erro inesperado",
     "backToSignIn": "Voltar ao Login",
-    "dontHaveAccount": "Não tem uma conta? Cadastre-se"
+    "dontHaveAccount": "Não tem uma conta? Registre-se",
+    "backToHome": "Voltar ao Início"
   },
   "ResetPassword": {
-    "resetYourPassword": "Redefina sua senha",
+    "resetYourPassword": "Redefinir sua senha",
     "enterNewPasswordBelow": "Digite sua nova senha abaixo.",
     "newPassword": "Nova Senha",
     "enterNewPassword": "Digite sua nova senha",
@@ -219,7 +224,13 @@
     "invalidResetLink": "Link de Redefinição Inválido",
     "resetLinkInvalidOrExpired": "Este link de redefinição de senha é inválido ou expirou.",
     "requestNewPasswordReset": "Solicitar nova redefinição de senha",
-    "backToSignIn": "Voltar ao Login"
+    "backToSignIn": "Voltar ao Login",
+    "newPasswordRequired": "Nova senha é obrigatória",
+    "confirmPasswordRequired": "Confirmação de senha é obrigatória",
+    "passwordResetSuccess": "Senha redefinida com sucesso",
+    "redirectingToSignIn": "Redirecionando para a página de login...",
+    "errorOccurred": "Ocorreu um erro",
+    "backToHome": "Voltar ao Início"
   },
   "metadata": {
     "home": {

@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
+import { useForm } from 'react-hook-form';
+
+interface FormData {
+  newPassword: string;
+  confirmPassword: string;
+}
 
 export default function ResetPasswordContent() {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -17,6 +21,19 @@ export default function ResetPasswordContent() {
   const locale = useLocale();
   const t = useTranslations('ResetPassword');
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    clearErrors,
+    watch,
+  } = useForm<FormData>({
+    mode: 'onChange',
+  });
+
+  const newPassword = watch('newPassword');
+
   useEffect(() => {
     const tokenParam = searchParams?.get('token');
     if (tokenParam) {
@@ -24,8 +41,7 @@ export default function ResetPasswordContent() {
     }
   }, [searchParams]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: FormData) => {
     setError('');
     setSuccess('');
 
@@ -34,17 +50,17 @@ export default function ResetPasswordContent() {
       return;
     }
 
-    if (!newPassword || !confirmPassword) {
+    if (!data.newPassword || !data.confirmPassword) {
       setError(t('bothPasswordsRequired'));
       return;
     }
 
-    if (newPassword !== confirmPassword) {
+    if (data.newPassword !== data.confirmPassword) {
       setError(t('passwordsDoNotMatch'));
       return;
     }
 
-    if (newPassword.length < 6) {
+    if (data.newPassword.length < 6) {
       setError(t('passwordTooShort'));
       return;
     }
@@ -52,44 +68,55 @@ export default function ResetPasswordContent() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/v1/auth/reset-password/confirm', {
+      const response = await fetch('/api/v1/auth/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token, newPassword }),
+        body: JSON.stringify({ token, newPassword: data.newPassword }),
       });
 
-      const data = await response.json();
+      const responseData = await response.json();
 
       if (response.ok) {
-        setSuccess(data.message);
-                       setTimeout(() => {
-                 router.push(`/${locale}/signin`);
-               }, 2000);
+        setSuccess(responseData.message || t('passwordResetSuccess'));
+        // Clear the form on success
+        setValue('newPassword', '');
+        setValue('confirmPassword', '');
+        setTimeout(() => {
+          router.push(`/${locale}/signin`);
+        }, 2000);
       } else {
-        setError(data.message || t('failedToResetPassword'));
+        setError(responseData.message || t('failedToResetPassword'));
       }
-    } catch {
+    } catch (error) {
+      console.error('Reset password error:', error);
       setError(t('unexpectedError'));
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleInputChange = (fieldName: keyof FormData) => {
+    // Clear field error when user starts typing
+    if (errors[fieldName]) {
+      clearErrors(fieldName);
+    }
+  };
+
   if (!token) {
     return (
-      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg text-center">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {t('invalidResetLink')}
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="mt-2 text-center text-sm text-gray-600">
             {t('resetLinkInvalidOrExpired')}
           </p>
           <Link
             href={`/${locale}/forgot-password`}
-            className="text-indigo-600 hover:text-indigo-500 font-medium"
+            className="font-medium text-pink-600 hover:text-pink-500"
           >
             {t('requestNewPasswordReset')}
           </Link>
@@ -99,89 +126,184 @@ export default function ResetPasswordContent() {
   }
 
   return (
-    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t('resetYourPassword')}
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            {t('enterNewPasswordBelow')}
-          </p>
+    <>
+      {/* Full Screen Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-gray-600/50 z-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600 mx-auto mb-6"></div>
+          </div>
         </div>
+      )}
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">{error}</div>
-            </div>
-          )}
-
-          {success && (
-            <div className="rounded-md bg-green-50 p-4">
-              <div className="text-sm text-green-700">{success}</div>
-            </div>
-          )}
-
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
-                {t('newPassword')}
-              </label>
-              <input
-                id="newPassword"
-                name="newPassword"
-                type="password"
-                autoComplete="new-password"
-                required
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder={t('enterNewPassword')}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                {t('confirmNewPassword')}
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder={t('confirmNewPassword')}
-              />
-            </div>
-          </div>
-
+      <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
           <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              ) : null}
-              {t('resetPassword')}
-            </button>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              {t('resetYourPassword')}
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              {t('enterNewPasswordBelow')}
+            </p>
           </div>
-        </form>
 
-        <div className="text-center">
-          <Link href={`/${locale}/signin`} className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t('backToSignIn')}
-          </Link>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            {error && (
+              <div className="rounded-md bg-pink-50 p-4">
+                <div className="text-sm text-pink-700">
+                  <div className="font-medium mb-2">{t('errorOccurred')}</div>
+                  <div className="text-xs text-pink-600">{error}</div>
+                </div>
+              </div>
+            )}
+
+            {success && (
+              <div className="rounded-md bg-green-50 p-4">
+                <div className="text-sm text-green-700">
+                  <div className="font-medium mb-2">{t('passwordResetSuccess')}</div>
+                  <div className="text-xs text-green-600">
+                    {t('redirectingToSignIn')}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
+                  {t('newPassword')}
+                </label>
+                <input
+                  id="newPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  disabled={isLoading}
+                  {...register('newPassword', {
+                    required: t('newPasswordRequired'),
+                    minLength: {
+                      value: 6,
+                      message: t('passwordTooShort')
+                    }
+                  })}
+                  onChange={(e) => {
+                    setValue('newPassword', e.target.value);
+                    handleInputChange('newPassword');
+                  }}
+                  className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                    errors.newPassword
+                      ? 'border-pink-500 focus:ring-pink-500 focus:border-pink-500'
+                      : 'border-gray-300 focus:ring-pink-500 focus:border-pink-500'
+                  } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  placeholder={t('enterNewPassword')}
+                />
+                {errors.newPassword && (
+                  <p className="mt-1 text-sm text-pink-600">
+                    {errors.newPassword.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                  {t('confirmNewPassword')}
+                </label>
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  disabled={isLoading}
+                  {...register('confirmPassword', {
+                    required: t('confirmPasswordRequired'),
+                    validate: (value) => {
+                      if (value !== newPassword) {
+                        return t('passwordsDoNotMatch');
+                      }
+                      return true;
+                    }
+                  })}
+                  onChange={(e) => {
+                    setValue('confirmPassword', e.target.value);
+                    handleInputChange('confirmPassword');
+                  }}
+                  className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                    errors.confirmPassword
+                      ? 'border-pink-500 focus:ring-pink-500 focus:border-pink-500'
+                      : 'border-gray-300 focus:ring-pink-500 focus:border-pink-500'
+                  } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  placeholder={t('confirmNewPassword')}
+                />
+                {errors.confirmPassword && (
+                  <p className="mt-1 text-sm text-pink-600">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? (
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : null}
+                {t('resetPassword')}
+              </button>
+            </div>
+          </form>
+
+          <div className="text-center space-y-2">
+            <Link 
+              href={`/${locale}/signin`} 
+              className={`block font-medium text-pink-600 hover:text-pink-500 ${
+                isLoading ? 'pointer-events-none opacity-50' : ''
+              }`}
+            >
+              {t('backToSignIn')}
+            </Link>
+            <Link 
+              href={`/${locale}/forgot-password`} 
+              className={`block font-medium text-pink-600 hover:text-pink-500 ${
+                isLoading ? 'pointer-events-none opacity-50' : ''
+              }`}
+            >
+              {t('requestNewPasswordReset')}
+            </Link>
+          </div>
+
+          <div className="text-center">
+            <Link
+              href={`/${locale}`}
+              className={`font-medium text-pink-600 hover:text-pink-500 ${
+                isLoading ? 'pointer-events-none opacity-50' : ''
+              }`}
+            >
+              {t('backToHome')}
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

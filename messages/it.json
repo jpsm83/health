@@ -196,13 +196,18 @@
     "enterEmailForReset": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la tua password.",
     "emailAddress": "Indirizzo email",
     "enterEmail": "Inserisci la tua email",
-    "emailRequired": "L'email è obbligatoria",
+    "emailRequired": "L'email è richiesta",
+    "invalidEmailFormat": "Per favore inserisci un indirizzo email valido",
     "sendResetLink": "Invia Link di Reset",
+    "resetEmailSent": "Email di reset password inviata con successo",
+    "checkEmailInstructions": "Per favore controlla la tua casella di posta (e cartella spam) per il link di reset password. Il link scadrà in 1 ora.",
     "failedToSendResetEmail": "Impossibile inviare l'email di reset",
+    "errorOccurred": "Si è verificato un errore",
     "testingMessage": "Per scopi di test, puoi usare questo link",
     "unexpectedError": "Si è verificato un errore imprevisto",
     "backToSignIn": "Torna all'Accesso",
-    "dontHaveAccount": "Non hai un account? Registrati"
+    "dontHaveAccount": "Non hai un account? Registrati",
+    "backToHome": "Torna alla Home"
   },
   "ResetPassword": {
     "resetYourPassword": "Reimposta la tua password",
@@ -212,15 +217,21 @@
     "confirmNewPassword": "Conferma Nuova Password",
     "resetPassword": "Reimposta Password",
     "resetTokenMissing": "Token di reset mancante",
-    "bothPasswordsRequired": "Entrambi i campi password sono obbligatori",
-    "passwordsDoNotMatch": "Le password non coincidono",
+    "bothPasswordsRequired": "Entrambi i campi password sono richiesti",
+    "passwordsDoNotMatch": "Le password non corrispondono",
     "passwordTooShort": "La password deve essere di almeno 6 caratteri",
     "failedToResetPassword": "Impossibile reimpostare la password",
     "unexpectedError": "Si è verificato un errore imprevisto",
     "invalidResetLink": "Link di Reset Non Valido",
-    "resetLinkInvalidOrExpired": "Questo link per reimpostare la password non è valido o è scaduto.",
-    "requestNewPasswordReset": "Richiedi nuovo reset password",
-    "backToSignIn": "Torna all'Accesso"
+    "resetLinkInvalidOrExpired": "Questo link per il reset della password non è valido o è scaduto.",
+    "requestNewPasswordReset": "Richiedi un nuovo reset della password",
+    "backToSignIn": "Torna all'Accesso",
+    "newPasswordRequired": "La nuova password è richiesta",
+    "confirmPasswordRequired": "La conferma della password è richiesta",
+    "passwordResetSuccess": "Password reimpostata con successo",
+    "redirectingToSignIn": "Reindirizzamento alla pagina di accesso...",
+    "errorOccurred": "Si è verificato un errore",
+    "backToHome": "Torna alla Home"
   },
   "metadata": {
     "home": {

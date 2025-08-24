@@ -193,19 +193,24 @@
   },
   "ForgotPassword": {
     "forgotPassword": "Mot de passe oublié ?",
-    "enterEmailForReset": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
-    "emailAddress": "Adresse email",
-    "enterEmail": "Entrez votre email",
-    "emailRequired": "L'email est requis",
-    "sendResetLink": "Envoyer le Lien de Réinitialisation",
-    "failedToSendResetEmail": "Échec de l'envoi de l'email de réinitialisation",
+    "enterEmailForReset": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "emailAddress": "Adresse e-mail",
+    "enterEmail": "Entrez votre e-mail",
+    "emailRequired": "L'e-mail est requis",
+    "invalidEmailFormat": "Veuillez entrer une adresse e-mail valide",
+    "sendResetLink": "Envoyer le lien de réinitialisation",
+    "resetEmailSent": "E-mail de réinitialisation de mot de passe envoyé avec succès",
+    "checkEmailInstructions": "Veuillez vérifier votre boîte de réception (et dossier spam) pour le lien de réinitialisation de mot de passe. Le lien expirera dans 1 heure.",
+    "failedToSendResetEmail": "Échec de l'envoi de l'e-mail de réinitialisation",
+    "errorOccurred": "Une erreur s'est produite",
     "testingMessage": "À des fins de test, vous pouvez utiliser ce lien",
     "unexpectedError": "Une erreur inattendue s'est produite",
-    "backToSignIn": "Retour à la Connexion",
-    "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous"
+    "backToSignIn": "Retour à la connexion",
+    "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous",
+    "backToHome": "Retour à l'Accueil"
   },
   "ResetPassword": {
-    "resetYourPassword": "Réinitialisez votre mot de passe",
+    "resetYourPassword": "Réinitialiser votre mot de passe",
     "enterNewPasswordBelow": "Entrez votre nouveau mot de passe ci-dessous.",
     "newPassword": "Nouveau Mot de Passe",
     "enterNewPassword": "Entrez votre nouveau mot de passe",
@@ -220,7 +225,13 @@
     "invalidResetLink": "Lien de Réinitialisation Invalide",
     "resetLinkInvalidOrExpired": "Ce lien de réinitialisation de mot de passe est invalide ou a expiré.",
     "requestNewPasswordReset": "Demander une nouvelle réinitialisation de mot de passe",
-    "backToSignIn": "Retour à la Connexion"
+    "backToSignIn": "Retour à la Connexion",
+    "newPasswordRequired": "Le nouveau mot de passe est requis",
+    "confirmPasswordRequired": "La confirmation du mot de passe est requise",
+    "passwordResetSuccess": "Mot de passe réinitialisé avec succès",
+    "redirectingToSignIn": "Redirection vers la page de connexion...",
+    "errorOccurred": "Une erreur s'est produite",
+    "backToHome": "Retour à l'Accueil"
   },
   "metadata": {
     "home": {

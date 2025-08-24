@@ -3,6 +3,7 @@ import crypto from "crypto";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import User from "@/app/api/models/user";
+import { sendPasswordResetEmail } from "@/lib/utils/emailService";
 
 // @desc    Send forgot password email
 // @route   POST /api/v1/auth/forgot-password
@@ -29,8 +30,9 @@ export const POST = async (req: Request) => {
     if (!user) {
       // Don't reveal if user exists or not for security
       return new NextResponse(
-        JSON.stringify({ 
-          message: "If an account with that email exists, a password reset link has been sent." 
+        JSON.stringify({
+          message:
+            "If an account with that email exists, a password reset link has been sent.",
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
@@ -46,22 +48,53 @@ export const POST = async (req: Request) => {
       resetPasswordExpires: resetTokenExpiry,
     });
 
-    // TODO: Send email with reset link
-    // For now, we'll just return the token (in production, send email)
-    const resetLink = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
-    
-    // TODO: Replace this with actual email sending logic
-    // await sendPasswordResetEmail(user.email, resetLink);
+    // Create reset link
+    const resetLink = `${
+      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    }/reset-password?token=${resetToken}`;
 
-    return new NextResponse(
-      JSON.stringify({ 
-        message: "If an account with that email exists, a password reset link has been sent.",
-        // Remove this in production - only for testing
-        resetLink: process.env.NODE_ENV === "development" ? resetLink : undefined
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    );
+    try {
+      // Check email configuration
+      if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+        console.error("Email configuration missing:", {
+          hasUser: !!process.env.EMAIL_USER,
+          hasPassword: !!process.env.EMAIL_PASSWORD,
+        });
+        throw new Error("Email configuration is missing");
+      }
+
+      // Send password reset email
+      await sendPasswordResetEmail(user.email, user.username, resetLink);
+
+      return new NextResponse(
+        JSON.stringify({
+          message:
+            "If an account with that email exists, a password reset link has been sent.",
+          // Remove this in production - only for testing
+          resetLink:
+            process.env.NODE_ENV === "development" ? resetLink : undefined,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    } catch (emailError) {
+      console.error("Failed to send password reset email:", emailError);
+
+      // Remove the reset token if email failed
+      await User.findByIdAndUpdate(user._id, {
+        resetPasswordToken: undefined,
+        resetPasswordExpires: undefined,
+      });
+
+      return new NextResponse(
+        JSON.stringify({
+          message:
+            "Failed to send password reset email. Please try again later.",
+        }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
   } catch (error) {
+    console.error("Forgot password route error:", error);
     return handleApiError(
       "Forgot password request failed!",
       error instanceof Error ? error.message : "Unknown error"

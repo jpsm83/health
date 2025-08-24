@@ -196,12 +196,17 @@
     "emailAddress": "Email address",
     "enterEmail": "Enter your email",
     "emailRequired": "Email is required",
+    "invalidEmailFormat": "Please enter a valid email address",
     "sendResetLink": "Send Reset Link",
+    "resetEmailSent": "Password reset email sent successfully",
+    "checkEmailInstructions": "Please check your email inbox (and spam folder) for a password reset link. The link will expire in 1 hour.",
     "failedToSendResetEmail": "Failed to send reset email",
+    "errorOccurred": "An error occurred",
     "testingMessage": "For testing purposes, you can use this link",
     "unexpectedError": "An unexpected error occurred",
     "backToSignIn": "Back to Sign In",
-    "dontHaveAccount": "Don't have an account? Sign up"
+    "dontHaveAccount": "Don't have an account? Sign up",
+    "backToHome": "Back to Home"
   },
   "ResetPassword": {
     "resetYourPassword": "Reset your password",
@@ -219,7 +224,13 @@
     "invalidResetLink": "Invalid Reset Link",
     "resetLinkInvalidOrExpired": "This password reset link is invalid or has expired.",
     "requestNewPasswordReset": "Request a new password reset",
-    "backToSignIn": "Back to Sign In"
+    "backToSignIn": "Back to Sign In",
+    "newPasswordRequired": "New password is required",
+    "confirmPasswordRequired": "Password confirmation is required",
+    "passwordResetSuccess": "Password reset successfully",
+    "redirectingToSignIn": "Redirecting to sign in page...",
+    "errorOccurred": "An error occurred",
+    "backToHome": "Back to Home"
   },
   "metadata": {
     "home": {

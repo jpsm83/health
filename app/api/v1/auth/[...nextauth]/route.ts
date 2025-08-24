@@ -109,7 +109,7 @@ const authConfig = NextAuth({
     }),
   ],
   basePath: "/api/v1/auth",
-  secret: process.env.AUTH_SECRET!,
+  secret: process.env.NEXT_AUTH_SECRET!,
   debug: false,
   session: {
     strategy: "jwt",
