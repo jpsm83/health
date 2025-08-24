@@ -65,20 +65,30 @@
     "subtitle": "Gestiona la configuración y preferencias de tu cuenta",
     "sections": {
       "personal": "Información Personal",
+      "profileImage": "Imagen de Perfil",
       "preferences": "Preferencias",
       "security": "Seguridad"
     },
     "fields": {
-      "name": "Nombre Completo",
+      "username": "Nombre de Usuario",
+      "enterUsername": "Ingresa tu nombre de usuario",
       "email": "Dirección de Email",
+      "enterEmail": "Ingresa tu email",
+      "role": "Rol",
+      "birthDate": "Fecha de Nacimiento",
       "language": "Idioma Preferido",
+      "region": "Región",
+      "contentLanguage": "Idioma del Contenido",
+      "profileImage": "Imagen de Perfil (Opcional)",
       "timezone": "Zona Horaria",
       "notifications": "Notificaciones"
     },
-    "buttons": {
+    "actions": {
       "save": "Guardar Cambios",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "remove": "Eliminar"
     },
+    "updateFailed": "Error al actualizar el perfil",
     "languageInfo": {
       "language": "Idioma"
     },
@@ -160,6 +170,8 @@
     "passwordsDoNotMatch": "Las contraseñas no coinciden",
     "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
     "birthDateRequired": "La fecha de nacimiento es obligatoria",
+    "profileImage": "Imagen de Perfil (Opcional)",
+    "removeImage": "Eliminar",
     "accountCreatedSuccess": "¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.",
     "failedToCreateAccount": "Error al crear la cuenta",
     "unexpectedError": "Ocurrió un error inesperado",

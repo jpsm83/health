@@ -64,20 +64,30 @@
     "subtitle": "Manage your account settings and preferences",
     "sections": {
       "personal": "Personal Information",
+      "profileImage": "Profile Image",
       "preferences": "Preferences",
       "security": "Security"
     },
     "fields": {
-      "name": "Full Name",
+      "username": "Username",
+      "enterUsername": "Enter your username",
       "email": "Email Address",
+      "enterEmail": "Enter your email",
+      "role": "Role",
+      "birthDate": "Birth Date",
       "language": "Preferred Language",
+      "region": "Region",
+      "contentLanguage": "Content Language",
+      "profileImage": "Profile Image (Optional)",
       "timezone": "Timezone",
       "notifications": "Notifications"
     },
-    "buttons": {
+    "actions": {
       "save": "Save Changes",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "remove": "Remove"
     },
+    "updateFailed": "Failed to update profile",
     "languageInfo": {
       "language": "Language"
     },
@@ -159,6 +169,8 @@
     "passwordsDoNotMatch": "Passwords do not match",
     "passwordTooShort": "Password must be at least 6 characters long",
     "birthDateRequired": "Birth date is required",
+    "profileImage": "Profile Image (Optional)",
+    "removeImage": "Remove",
     "accountCreatedSuccess": "Account created successfully! You can now sign in.",
     "failedToCreateAccount": "Failed to create account",
     "unexpectedError": "An unexpected error occurred",

@@ -3,7 +3,6 @@ import { Types } from 'mongoose';
 export interface ICategoryInterest {
   _id?: Types.ObjectId;
   type: string;
-  newsletterSubscription?: boolean;
   subscriptionFrequencies?: string;
 }
 
@@ -14,7 +13,7 @@ export interface IUserPreferences {
 }
 
 export interface IReadingHistoryItem {
-  newsId: Types.ObjectId;
+  articlesId: Types.ObjectId;
   readAt?: Date;
 }
 
@@ -28,8 +27,8 @@ export interface IUser {
   imageFile?: string;
   imageUrl?: string;
   preferences: IUserPreferences;
-  likedNews?: Types.ObjectId[];
-  commentedNews?: Types.ObjectId[];
+  likedArticles?: Types.ObjectId[];
+  commentedArticles?: Types.ObjectId[];
   categoryInterests: ICategoryInterest[];
   readingHistory?: IReadingHistoryItem[];
   lastLogin?: Date;

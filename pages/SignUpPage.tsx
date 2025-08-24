@@ -15,6 +15,7 @@ interface FormData {
   password: string;
   confirmPassword: string;
   birthDate: string;
+  imageFile?: File;
 }
 
 export default function SignUpContent() {
@@ -27,6 +28,8 @@ export default function SignUpContent() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const {
     register,
@@ -41,6 +44,41 @@ export default function SignUpContent() {
 
   const password = watch("password");
 
+  // Handle image selection
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError("Please select a valid image file");
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Image size must be less than 5MB");
+        return;
+      }
+
+      setSelectedImage(file);
+      setError(""); // Clear any previous errors
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Remove selected image
+  const removeImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    setValue("imageFile", undefined);
+  };
+
   const onSubmit = async (data: FormData) => {
     setError("");
     setIsLoading(true);
@@ -52,6 +90,7 @@ export default function SignUpContent() {
         email: data.email,
         password: data.password,
         birthDate: data.birthDate,
+        imageFile: selectedImage || undefined,
       });
 
       if (registerResult.success) {
@@ -442,6 +481,45 @@ export default function SignUpContent() {
                   <p className="mt-1 text-sm text-pink-600">
                     {errors.confirmPassword.message}
                   </p>
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {t("profileImage")}
+                </label>
+                <div className="flex items-center space-x-3">
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    disabled={isLoading}
+                    {...register("imageFile")}
+                    onChange={handleImageChange}
+                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                  {selectedImage && (
+                    <button
+                      type="button"
+                      onClick={removeImage}
+                      className="text-red-600 hover:text-red-900 text-sm"
+                    >
+                      {t("removeImage")}
+                    </button>
+                  )}
+                </div>
+                {errors.imageFile && (
+                  <p className="mt-1 text-sm text-pink-600">
+                    {errors.imageFile.message}
+                  </p>
+                )}
+                {imagePreview && (
+                  <div className="mt-2">
+                    <img src={imagePreview} alt="Profile Preview" className="max-w-xs h-auto rounded-md" />
+                  </div>
                 )}
               </div>
             </div>

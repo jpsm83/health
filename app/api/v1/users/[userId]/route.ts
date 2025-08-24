@@ -216,7 +216,6 @@ export const PATCH = async (
       if (categoryInterests && categoryInterests.length > 0) {
         const categoryInterestsRequiredFields = [
           "type",
-          "newsletterSubscription",
           "subscriptionFrequencies",
         ];
 

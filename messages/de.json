@@ -65,20 +65,30 @@
     "subtitle": "Verwalten Sie Ihre Kontoeinstellungen und Präferenzen",
     "sections": {
       "personal": "Persönliche Informationen",
+      "profileImage": "Profilbild",
       "preferences": "Präferenzen",
       "security": "Sicherheit"
     },
     "fields": {
-      "name": "Vollständiger Name",
+      "username": "Benutzername",
+      "enterUsername": "Geben Sie Ihren Benutzernamen ein",
       "email": "E-Mail-Adresse",
+      "enterEmail": "Geben Sie Ihre E-Mail ein",
+      "role": "Rolle",
+      "birthDate": "Geburtsdatum",
       "language": "Bevorzugte Sprache",
+      "region": "Region",
+      "contentLanguage": "Inhaltssprache",
+      "profileImage": "Profilbild (Optional)",
       "timezone": "Zeitzone",
       "notifications": "Benachrichtigungen"
     },
-    "buttons": {
+    "actions": {
       "save": "Änderungen speichern",
-      "cancel": "Abbrechen"
+      "cancel": "Abbrechen",
+      "remove": "Entfernen"
     },
+    "updateFailed": "Profilaktualisierung fehlgeschlagen",
     "languageInfo": {
       "language": "Sprache"
     },
@@ -160,6 +170,8 @@
     "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
     "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein",
     "birthDateRequired": "Geburtsdatum ist erforderlich",
+    "profileImage": "Profilbild (Optional)",
+    "removeImage": "Entfernen",
     "accountCreatedSuccess": "Konto erfolgreich erstellt! Sie können sich jetzt anmelden.",
     "failedToCreateAccount": "Fehler beim Erstellen des Kontos",
     "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",

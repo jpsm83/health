@@ -65,20 +65,30 @@
     "subtitle": "נהל את הגדרות החשבון והעדפות שלך",
     "sections": {
       "personal": "מידע אישי",
+      "profileImage": "תמונת פרופיל",
       "preferences": "העדפות",
       "security": "אבטחה"
     },
     "fields": {
-      "name": "שם מלא",
+      "username": "שם משתמש",
+      "enterUsername": "הכנס את שם המשתמש שלך",
       "email": "כתובת אימייל",
+      "enterEmail": "הכנס את האימייל שלך",
+      "role": "תפקיד",
+      "birthDate": "תאריך לידה",
       "language": "שפה מועדפת",
+      "region": "אזור",
+      "contentLanguage": "שפת תוכן",
+      "profileImage": "תמונת פרופיל (אופציונלי)",
       "timezone": "אזור זמן",
       "notifications": "התראות"
     },
-    "buttons": {
+    "actions": {
       "save": "שמור שינויים",
-      "cancel": "ביטול"
+      "cancel": "ביטול",
+      "remove": "הסר"
     },
+    "updateFailed": "שגיאה בעדכון הפרופיל",
     "languageInfo": {
       "language": "שפה"
     },
@@ -160,6 +170,8 @@
     "passwordsDoNotMatch": "הסיסמאות לא תואמות",
     "passwordTooShort": "הסיסמה חייבת להיות באורך של לפחות 6 תווים",
     "birthDateRequired": "תאריך לידה נדרש",
+    "profileImage": "תמונת פרופיל (אופציונלי)",
+    "removeImage": "הסר",
     "accountCreatedSuccess": "החשבון נוצר בהצלחה! עכשיו אתה יכול להתחבר.",
     "failedToCreateAccount": "יצירת החשבון נכשלה",
     "unexpectedError": "אירעה שגיאה בלתי צפויה",

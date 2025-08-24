@@ -21,6 +21,7 @@ export const useAuth = () => {
       email: string;
       password: string;
       birthDate: string;
+      imageFile?: File;
     }) => {
       try {
         // Use authService for user registration

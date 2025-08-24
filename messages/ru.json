@@ -65,20 +65,30 @@
     "subtitle": "Управляйте настройками и предпочтениями вашего аккаунта",
     "sections": {
       "personal": "Личная информация",
+      "profileImage": "Фото профиля",
       "preferences": "Предпочтения",
       "security": "Безопасность"
     },
     "fields": {
-      "name": "Полное имя",
+      "username": "Имя пользователя",
+      "enterUsername": "Введите ваше имя пользователя",
       "email": "Адрес электронной почты",
+      "enterEmail": "Введите вашу электронную почту",
+      "role": "Роль",
+      "birthDate": "Дата рождения",
       "language": "Предпочитаемый язык",
+      "region": "Регион",
+      "contentLanguage": "Язык контента",
+      "profileImage": "Фото профиля (Необязательно)",
       "timezone": "Часовой пояс",
       "notifications": "Уведомления"
     },
-    "buttons": {
+    "actions": {
       "save": "Сохранить изменения",
-      "cancel": "Отмена"
+      "cancel": "Отмена",
+      "remove": "Удалить"
     },
+    "updateFailed": "Не удалось обновить профиль",
     "languageInfo": {
       "language": "Язык"
     },
@@ -160,6 +170,8 @@
     "passwordsDoNotMatch": "Пароли не совпадают",
     "passwordTooShort": "Пароль должен содержать не менее 6 символов",
     "birthDateRequired": "Дата рождения обязательна",
+    "profileImage": "Фото профиля (Необязательно)",
+    "removeImage": "Удалить",
     "accountCreatedSuccess": "Аккаунт успешно создан! Теперь вы можете войти.",
     "failedToCreateAccount": "Не удалось создать аккаунт",
     "unexpectedError": "Произошла непредвиденная ошибка",

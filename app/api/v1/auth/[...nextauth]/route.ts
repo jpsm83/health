@@ -34,8 +34,6 @@ declare module "next-auth" {
     role: string;
     imageUrl?: string;
   }
-
-
 }
 
 // Define an interface for the credentials
@@ -63,8 +61,7 @@ const authConfig = NextAuth({
 
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          console.log("❌ Login attempt: Missing email or password");
-          return null; // Return null instead of throwing error
+          throw new Error("Missing email or password");
         }
 
         // connect before first call to DB
@@ -76,8 +73,7 @@ const authConfig = NextAuth({
             .lean()) as Partial<IUser> | null;
 
           if (!user) {
-            console.log(`❌ Login attempt: User not found for email ${credentials.email}`);
-            return null; // Return null instead of throwing error
+            throw new Error(`User not found for email ${credentials.email}`);
           }
 
           const passwordMatch = await bcrypt.compare(
@@ -86,12 +82,9 @@ const authConfig = NextAuth({
           );
 
           if (!passwordMatch) {
-            console.log(`❌ Login attempt: Invalid password for user ${credentials.email}`);
-            return null; // Return null instead of throwing error
+            throw new Error(`Invalid password for user ${credentials.email}`);
           }
 
-          console.log(`✅ Login successful: User ${credentials.email} authenticated`);
-          
           // Return user data for NextAuth
           return {
             id: user._id?.toString() || "",
@@ -101,9 +94,7 @@ const authConfig = NextAuth({
             imageUrl: user.imageUrl || undefined,
           };
         } catch (error) {
-          // Only log system errors, don't throw them
-          console.error("❌ Authentication system error:", error);
-          return null; // Return null for any system errors
+          throw new Error("Authentication system error: " + error);
         }
       },
     }),
@@ -117,12 +108,7 @@ const authConfig = NextAuth({
   // Disable CSRF for testing (remove in production)
   useSecureCookies: false,
   callbacks: {
-    async signIn({ account, profile, user }) {
-      // Log authentication attempts in a user-friendly way
-      if (user) {
-        console.log(`✅ User ${user.email} successfully authenticated`);
-      }
-
+    async signIn({ account, profile }) {
       // Handle Google OAuth signup - create user if they don't exist
       if (account?.provider === "google" && profile) {
         try {
@@ -147,7 +133,7 @@ const authConfig = NextAuth({
                 browserLanguage = stateData.browserLanguage || "en";
                 browserRegion = stateData.browserRegion || "US";
               } catch {
-                console.error("Could not parse state data, using defaults");
+                throw new Error("Could not parse state data, using defaults");
               }
             }
 
@@ -175,13 +161,11 @@ const authConfig = NextAuth({
             });
 
             await newUser.save();
-            console.log(`✅ New Google OAuth user created: ${profile.email}`);
           }
 
           return true;
         } catch (error) {
-          console.error("❌ Error creating Google OAuth user:", error);
-          return false;
+          throw new Error("Error creating Google OAuth user: " + error);
         }
       }
 
@@ -189,7 +173,7 @@ const authConfig = NextAuth({
     },
     async jwt({ token, account, user }): Promise<ExtendedJWT> {
       const extendedToken = token as ExtendedJWT;
-      
+
       // Persist the OAuth access_token and user role to the token
       if (account) {
         extendedToken.accessToken = account.access_token;
@@ -199,21 +183,26 @@ const authConfig = NextAuth({
         extendedToken.role = user.role;
         extendedToken.imageUrl = user.imageUrl;
       }
-      
+
       // If token is missing role or imageUrl, fetch from database
-      if (extendedToken.email && (!extendedToken.role || !extendedToken.imageUrl)) {
+      if (
+        extendedToken.email &&
+        (!extendedToken.role || !extendedToken.imageUrl)
+      ) {
         try {
           await connectDb();
-          const dbUser = await User.findOne({ email: extendedToken.email }).select('role imageUrl').lean();
-          if (dbUser && 'role' in dbUser) {
+          const dbUser = await User.findOne({ email: extendedToken.email })
+            .select("role imageUrl")
+            .lean();
+          if (dbUser && "role" in dbUser) {
             extendedToken.role = dbUser.role as string;
             extendedToken.imageUrl = dbUser.imageUrl as string | undefined;
           }
         } catch (error) {
-          console.error('❌ JWT callback - DB fetch error:', error);
+          throw new Error("JWT callback - DB fetch error: " + error);
         }
       }
-      
+
       return extendedToken;
     },
     async session({ session, token }) {
@@ -222,10 +211,10 @@ const authConfig = NextAuth({
         const extendedToken = token as ExtendedJWT;
         session.user = {
           ...session.user,
-          id: extendedToken.id || '',
-          role: extendedToken.role || 'user',
-          email: token.email || '',
-          name: token.name || '',
+          id: extendedToken.id || "",
+          role: extendedToken.role || "user",
+          email: token.email || "",
+          name: token.name || "",
           imageUrl: extendedToken.imageUrl || undefined,
         };
       }

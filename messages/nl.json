@@ -65,20 +65,30 @@
     "subtitle": "Beheer je accountinstellingen en voorkeuren",
     "sections": {
       "personal": "Persoonlijke Informatie",
+      "profileImage": "Profielfoto",
       "preferences": "Voorkeuren",
       "security": "Beveiliging"
     },
     "fields": {
-      "name": "Volledige Naam",
+      "username": "Gebruikersnaam",
+      "enterUsername": "Voer uw gebruikersnaam in",
       "email": "E-mailadres",
+      "enterEmail": "Voer uw e-mail in",
+      "role": "Rol",
+      "birthDate": "Geboortedatum",
       "language": "Voorkeurstaal",
+      "region": "Regio",
+      "contentLanguage": "Inhoudstaal",
+      "profileImage": "Profielfoto (Optioneel)",
       "timezone": "Tijdzone",
       "notifications": "Meldingen"
     },
-    "buttons": {
+    "actions": {
       "save": "Wijzigingen Opslaan",
-      "cancel": "Annuleren"
+      "cancel": "Annuleren",
+      "remove": "Verwijderen"
     },
+    "updateFailed": "Profiel bijwerken mislukt",
     "languageInfo": {
       "language": "Taal"
     },
@@ -160,6 +170,8 @@
     "passwordsDoNotMatch": "Wachtwoorden komen niet overeen",
     "passwordTooShort": "Wachtwoord moet minimaal 6 tekens lang zijn",
     "birthDateRequired": "Geboortedatum is verplicht",
+    "profileImage": "Profielfoto (Optioneel)",
+    "removeImage": "Verwijderen",
     "accountCreatedSuccess": "Account succesvol aangemaakt! Je kunt nu inloggen.",
     "failedToCreateAccount": "Account aanmaken mislukt",
     "unexpectedError": "Er is een onverwachte fout opgetreden",

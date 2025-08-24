@@ -8,7 +8,6 @@ import {
 
 const categoryInterests = new Schema({
   type: { type: String, enum: mainCategories },
-  newsletterSubscription: { type: Boolean, default: true },
   subscriptionFrequencies: { type: String, enum: newsletterFrequencies },
 });
 

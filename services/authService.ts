@@ -6,6 +6,7 @@ export async function registerUser(userData: {
   email: string;
   password: string;
   birthDate: string;
+  imageFile?: File;
 }) {
   try {
     // Get browser language and region automatically
@@ -21,6 +22,11 @@ export async function registerUser(userData: {
     formData.append("language", browserLanguage);
     formData.append("region", browserRegion);
     formData.append("contentLanguage", browserLanguage);
+
+    // Add image file if provided
+    if (userData.imageFile) {
+      formData.append("imageFile", userData.imageFile);
+    }
 
     const response = await fetch(`${API_BASE}/users`, {
       method: "POST",

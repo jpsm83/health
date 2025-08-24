@@ -65,20 +65,30 @@
     "subtitle": "Gestisci le impostazioni e preferenze del tuo account",
     "sections": {
       "personal": "Informazioni Personali",
+      "profileImage": "Immagine del Profilo",
       "preferences": "Preferenze",
       "security": "Sicurezza"
     },
     "fields": {
-      "name": "Nome Completo",
+      "username": "Nome Utente",
+      "enterUsername": "Inserisci il tuo nome utente",
       "email": "Indirizzo Email",
+      "enterEmail": "Inserisci la tua email",
+      "role": "Ruolo",
+      "birthDate": "Data di Nascita",
       "language": "Lingua Preferita",
+      "region": "Regione",
+      "contentLanguage": "Lingua del Contenuto",
+      "profileImage": "Immagine del Profilo (Opzionale)",
       "timezone": "Fuso Orario",
       "notifications": "Notifiche"
     },
-    "buttons": {
+    "actions": {
       "save": "Salva Modifiche",
-      "cancel": "Annulla"
+      "cancel": "Annulla",
+      "remove": "Rimuovi"
     },
+    "updateFailed": "Impossibile aggiornare il profilo",
     "languageInfo": {
       "language": "Lingua"
     },
@@ -160,6 +170,8 @@
     "passwordsDoNotMatch": "Le password non coincidono",
     "passwordTooShort": "La password deve essere di almeno 6 caratteri",
     "birthDateRequired": "La data di nascita è obbligatoria",
+    "profileImage": "Immagine del Profilo (Opzionale)",
+    "removeImage": "Rimuovi",
     "accountCreatedSuccess": "Account creato con successo! Ora puoi accedere.",
     "failedToCreateAccount": "Impossibile creare l'account",
     "unexpectedError": "Si è verificato un errore imprevisto",
