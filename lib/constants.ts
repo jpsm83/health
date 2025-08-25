@@ -19,7 +19,7 @@ export const mainCategories = [
 //   "w-health", "w-fitness", "w-nutrition", "w-sex", "w-beauty", "w-fashion", "w-lifestyle", "m-health", "m-fitness", "m-nutrition", "m-body-care", "travel", "decor", "finance", "procuctivity", "parenting", "crypto", "gaming", "technology"
 // ];
 
-export const newsletterFrequencies = ["never", "daily", "weekly", "monthly"];
+export const newsletterFrequencies = ["daily", "weekly", "monthly"];
 
 export const roles = ["admin", "user"];
 

@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '@/hooks/useAuth';
+import { useUser } from '@/hooks/useUser';
 
 interface FormData {
   newPassword: string;
@@ -20,6 +22,8 @@ export default function ResetPasswordContent() {
   const searchParams = useSearchParams();
   const locale = useLocale();
   const t = useTranslations('ResetPassword');
+  const { logout, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { user } = useUser();
 
   const {
     register,
@@ -38,8 +42,42 @@ export default function ResetPasswordContent() {
     const tokenParam = searchParams?.get('token');
     if (tokenParam) {
       setToken(tokenParam);
+      
+      // Sign out the user immediately when they access the reset password page
+      // This ensures they can't reset their password while still logged in
+      const signOutUser = async () => {
+        try {
+          await logout();
+        } catch (logoutError) {
+          console.error('Logout error:', logoutError);
+          // Continue even if logout fails
+        }
+      };
+      
+      signOutUser();
     }
-  }, [searchParams]);
+  }, [searchParams, logout]);
+
+  // Redirect if already authenticated (this page is for password reset, not for logged-in users)
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      // Redirect based on user role
+      if (user?.role === 'admin') {
+        router.push(`/${locale}/dashboard`);
+      } else {
+        router.push(`/${locale}/profile`);
+      }
+    }
+  }, [isAuthenticated, authLoading, router, locale, user?.role]);
+
+  // Don't render if already authenticated
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+      </div>
+    );
+  }
 
   const onSubmit = async (data: FormData) => {
     setError('');
@@ -83,6 +121,8 @@ export default function ResetPasswordContent() {
         // Clear the form on success
         setValue('newPassword', '');
         setValue('confirmPassword', '');
+        
+        // Redirect to signin page after a short delay
         setTimeout(() => {
           router.push(`/${locale}/signin`);
         }, 2000);
@@ -143,7 +183,7 @@ export default function ResetPasswordContent() {
               {t('resetYourPassword')}
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              {t('enterNewPasswordBelow')}
+              {t('formInstructions')}
             </p>
           </div>
 
@@ -201,6 +241,9 @@ export default function ResetPasswordContent() {
                     {errors.newPassword.message}
                   </p>
                 )}
+                <p className="mt-2 text-sm text-gray-500">
+                  {t('passwordRequirements')}
+                </p>
               </div>
 
               <div>
@@ -237,6 +280,9 @@ export default function ResetPasswordContent() {
                     {errors.confirmPassword.message}
                   </p>
                 )}
+                <p className="mt-2 text-sm text-gray-500">
+                  {t('confirmPasswordInstructions')}
+                </p>
               </div>
             </div>
 
@@ -268,7 +314,7 @@ export default function ResetPasswordContent() {
                     ></path>
                   </svg>
                 ) : null}
-                {t('resetPassword')}
+                {isLoading ? t('resettingPassword') : t('resetPassword')}
               </button>
             </div>
           </form>

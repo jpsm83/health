@@ -63,6 +63,7 @@ export default function ArticlePageClient({
             <Image 
               src={article.articleImages[0]} 
               alt={content.mainTitle}
+              priority
               className="w-full h-64 object-cover rounded-lg"
             />
           </div>

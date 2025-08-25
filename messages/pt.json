@@ -66,7 +66,8 @@
       "personal": "Informações Pessoais",
       "profileImage": "Imagem do Perfil",
       "preferences": "Preferências",
-      "security": "Segurança"
+      "security": "Segurança",
+      "categoryInterests": "Interesses por Categoria"
     },
     "fields": {
       "username": "Nome de Usuário",
@@ -80,16 +81,53 @@
       "contentLanguage": "Idioma do Conteúdo",
       "profileImage": "Imagem do Perfil (Opcional)",
       "timezone": "Fuso Horário",
-      "notifications": "Notificações"
+      "notifications": "Notificações",
+      "newsletterFrequency": "Frequência da Newsletter",
+      "categoryInterests": "Interesses por Categoria"
     },
     "actions": {
       "save": "Salvar Alterações",
       "cancel": "Cancelar",
-      "remove": "Remover"
+      "remove": "Remover",
+      "resetPassword": "Redefinir Senha",
+      "changeImage": "Alterar"
     },
     "updateFailed": "Falha ao atualizar o perfil",
+    "updateSuccess": "Perfil atualizado com sucesso!",
+    "passwordResetSent": "Email de redefinição de senha enviado com sucesso",
+    "passwordResetFailed": "Falha ao enviar email de redefinição",
+    "unexpectedError": "Ocorreu um erro inesperado",
+    "validation": {
+      "usernameRequired": "Nome de usuário é obrigatório",
+      "usernameTooShort": "Nome de usuário deve ter pelo menos 5 caracteres",
+      "usernameTooLong": "Nome de usuário não pode exceder 30 caracteres",
+      "usernameInvalidChars": "Nome de usuário só pode conter letras, números, sublinhados e hífens",
+      "birthDateRequired": "Data de nascimento é obrigatória",
+      "newsletterFrequencyRequired": "Frequência da newsletter é obrigatória",
+      "invalidImageType": "Por favor selecione um arquivo de imagem válido",
+      "imageTooLarge": "Tamanho da imagem deve ser menor que 5MB",
+      "userEmailNotFound": "Email do usuário não encontrado"
+    },
     "languageInfo": {
       "language": "Idioma"
+    },
+    "stats": {
+      "emailStatus": "Status do Email",
+      "verified": "Verificado",
+      "unverified": "Não Verificado",
+      "likedArticles": "Artigos Curtidos",
+      "comments": "Comentários"
+    },
+    "security": {
+      "resetPasswordDescription": "Enviar um link de redefinição de senha para seu email"
+    },
+    "messages": {
+      "unexpectedError": "Erro inesperado!",
+      "success": "Sucesso",
+      "makeChangesToSave": "Faça alterações para habilitar o botão salvar"
+    },
+    "errors": {
+      "loadingUserData": "Erro ao carregar dados do usuário"
     },
     "options": {
       "english": "English",
@@ -105,6 +143,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Saúde",
+      "fitness": "Fitness",
+      "nutrition": "Nutrição",
+      "sex": "Sexo e Relacionamentos",
+      "beauty": "Beleza",
+      "fashion": "Moda",
+      "lifestyle": "Estilo de Vida",
+      "travel": "Viagens",
+      "decor": "Casa e Decoração",
+      "productivity": "Produtividade",
+      "parenting": "Paternidade"
+    },
+    "frequencies": {
+      "daily": "Diário",
+      "weekly": "Semanal",
+      "monthly": "Mensal"
     }
   },
   "createArticle": {
@@ -210,6 +266,7 @@
     "emailRequired": "Email é obrigatório",
     "invalidEmailFormat": "Por favor, digite um endereço de email válido",
     "sendResetLink": "Enviar Link de Redefinição",
+    "sendingResetLink": "Enviando link de redefinição...",
     "resetEmailSent": "Email de redefinição de senha enviado com sucesso",
     "checkEmailInstructions": "Por favor, verifique sua caixa de entrada (e pasta de spam) para o link de redefinição de senha. O link expirará em 1 hora.",
     "failedToSendResetEmail": "Falha ao enviar email de redefinição",
@@ -218,7 +275,10 @@
     "unexpectedError": "Ocorreu um erro inesperado",
     "backToSignIn": "Voltar ao Login",
     "dontHaveAccount": "Não tem uma conta? Registre-se",
-    "backToHome": "Voltar ao Início"
+    "backToHome": "Voltar ao Início",
+    "loading": "Carregando...",
+    "formInstructions": "Enviaremos um link seguro para redefinir sua senha.",
+    "emailPlaceholder": "seu.email@exemplo.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Redefinir sua senha",
@@ -227,6 +287,7 @@
     "enterNewPassword": "Digite sua nova senha",
     "confirmNewPassword": "Confirmar Nova Senha",
     "resetPassword": "Redefinir Senha",
+    "resettingPassword": "Redefinindo senha...",
     "resetTokenMissing": "Token de redefinição está faltando",
     "bothPasswordsRequired": "Ambos os campos de senha são obrigatórios",
     "passwordsDoNotMatch": "As senhas não coincidem",
@@ -242,7 +303,11 @@
     "passwordResetSuccess": "Senha redefinida com sucesso",
     "redirectingToSignIn": "Redirecionando para a página de login...",
     "errorOccurred": "Ocorreu um erro",
-    "backToHome": "Voltar ao Início"
+    "backToHome": "Voltar ao Início",
+    "loading": "Carregando...",
+    "formInstructions": "Crie uma senha segura para sua conta.",
+    "passwordRequirements": "A senha deve ter pelo menos 6 caracteres",
+    "confirmPasswordInstructions": "Por favor confirme sua nova senha"
   },
   "metadata": {
     "home": {

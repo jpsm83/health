@@ -67,7 +67,8 @@
       "personal": "Личная информация",
       "profileImage": "Фото профиля",
       "preferences": "Предпочтения",
-      "security": "Безопасность"
+      "security": "Безопасность",
+      "categoryInterests": "Категории интересов"
     },
     "fields": {
       "username": "Имя пользователя",
@@ -81,16 +82,53 @@
       "contentLanguage": "Язык контента",
       "profileImage": "Фото профиля (Необязательно)",
       "timezone": "Часовой пояс",
-      "notifications": "Уведомления"
+      "notifications": "Уведомления",
+      "newsletterFrequency": "Частота рассылки",
+      "categoryInterests": "Категории интересов"
     },
     "actions": {
       "save": "Сохранить изменения",
       "cancel": "Отмена",
-      "remove": "Удалить"
+      "remove": "Удалить",
+      "resetPassword": "Сбросить пароль",
+      "changeImage": "Изменить"
     },
     "updateFailed": "Не удалось обновить профиль",
+    "updateSuccess": "Профиль успешно обновлен!",
+    "passwordResetSent": "Письмо для сброса пароля отправлено успешно",
+    "passwordResetFailed": "Не удалось отправить письмо для сброса",
+    "unexpectedError": "Произошла непредвиденная ошибка",
+    "validation": {
+      "usernameRequired": "Имя пользователя обязательно",
+      "usernameTooShort": "Имя пользователя должно содержать не менее 5 символов",
+      "usernameTooLong": "Имя пользователя не может превышать 30 символов",
+      "usernameInvalidChars": "Имя пользователя может содержать только буквы, цифры, подчеркивания и дефисы",
+      "birthDateRequired": "Дата рождения обязательна",
+      "newsletterFrequencyRequired": "Частота рассылки обязательна",
+      "invalidImageType": "Пожалуйста, выберите действительный файл изображения",
+      "imageTooLarge": "Размер изображения должен быть менее 5 МБ",
+      "userEmailNotFound": "Электронная почта пользователя не найдена"
+    },
     "languageInfo": {
       "language": "Язык"
+    },
+    "stats": {
+      "emailStatus": "Статус электронной почты",
+      "verified": "Подтвержден",
+      "unverified": "Не подтвержден",
+      "likedArticles": "Понравившиеся статьи",
+      "comments": "Комментарии"
+    },
+    "security": {
+      "resetPasswordDescription": "Отправить ссылку для сброса пароля на вашу электронную почту"
+    },
+    "messages": {
+      "unexpectedError": "Непредвиденная ошибка!",
+      "success": "Успех",
+      "makeChangesToSave": "Внесите изменения, чтобы включить кнопку сохранения"
+    },
+    "errors": {
+      "loadingUserData": "Ошибка загрузки данных пользователя"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Здоровье",
+      "fitness": "Фитнес",
+      "nutrition": "Питание",
+      "sex": "Секс и Отношения",
+      "beauty": "Красота",
+      "fashion": "Мода",
+      "lifestyle": "Образ Жизни",
+      "travel": "Путешествия",
+      "decor": "Дом и Декор",
+      "productivity": "Продуктивность",
+      "parenting": "Родительство"
+    },
+    "frequencies": {
+      "daily": "Ежедневно",
+      "weekly": "Еженедельно",
+      "monthly": "Ежемесячно"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "Email обязателен",
     "invalidEmailFormat": "Пожалуйста, введите действительный адрес электронной почты",
     "sendResetLink": "Отправить ссылку для сброса",
+    "sendingResetLink": "Отправка ссылки для сброса...",
     "resetEmailSent": "Email для сброса пароля успешно отправлен",
     "checkEmailInstructions": "Пожалуйста, проверьте вашу почту (и папку спам) для ссылки сброса пароля. Ссылка истечет через 1 час.",
     "failedToSendResetEmail": "Не удалось отправить email для сброса",
@@ -219,7 +276,10 @@
     "unexpectedError": "Произошла непредвиденная ошибка",
     "backToSignIn": "Вернуться к входу",
     "dontHaveAccount": "Нет аккаунта? Зарегистрируйтесь",
-    "backToHome": "Вернуться на главную"
+    "backToHome": "Вернуться на главную",
+    "loading": "Загрузка...",
+    "formInstructions": "Мы отправим вам безопасную ссылку для сброса пароля.",
+    "emailPlaceholder": "ваш.email@пример.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Сбросить пароль",
@@ -228,6 +288,7 @@
     "enterNewPassword": "Введите новый пароль",
     "confirmNewPassword": "Подтвердить Новый Пароль",
     "resetPassword": "Сбросить пароль",
+    "resettingPassword": "Сброс пароля...",
     "resetTokenMissing": "Токен сброса отсутствует",
     "bothPasswordsRequired": "Оба поля пароля обязательны",
     "passwordsDoNotMatch": "Пароли не совпадают",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "Пароль успешно сброшен",
     "redirectingToSignIn": "Перенаправление на страницу входа...",
     "errorOccurred": "Произошла ошибка",
-    "backToHome": "Вернуться на главную"
+    "backToHome": "Вернуться на главную",
+    "loading": "Загрузка...",
+    "formInstructions": "Создайте надежный пароль для вашего аккаунта.",
+    "passwordRequirements": "Пароль должен содержать не менее 6 символов",
+    "confirmPasswordInstructions": "Пожалуйста, подтвердите ваш новый пароль"
   },
   "metadata": {
     "home": {

@@ -67,7 +67,8 @@
       "personal": "Información Personal",
       "profileImage": "Imagen de Perfil",
       "preferences": "Preferencias",
-      "security": "Seguridad"
+      "security": "Seguridad",
+      "categoryInterests": "Intereses por Categoría"
     },
     "fields": {
       "username": "Nombre de Usuario",
@@ -81,16 +82,53 @@
       "contentLanguage": "Idioma del Contenido",
       "profileImage": "Imagen de Perfil (Opcional)",
       "timezone": "Zona Horaria",
-      "notifications": "Notificaciones"
+      "notifications": "Notificaciones",
+      "newsletterFrequency": "Frecuencia del Boletín",
+      "categoryInterests": "Intereses por Categoría"
     },
     "actions": {
       "save": "Guardar Cambios",
       "cancel": "Cancelar",
-      "remove": "Eliminar"
+      "remove": "Eliminar",
+      "resetPassword": "Restablecer Contraseña",
+      "changeImage": "Cambiar"
     },
     "updateFailed": "Error al actualizar el perfil",
+    "updateSuccess": "¡Perfil actualizado exitosamente!",
+    "passwordResetSent": "Email de restablecimiento de contraseña enviado exitosamente",
+    "passwordResetFailed": "Error al enviar email de restablecimiento",
+    "unexpectedError": "Ocurrió un error inesperado",
+    "validation": {
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameTooShort": "El nombre de usuario debe tener al menos 5 caracteres",
+      "usernameTooLong": "El nombre de usuario no puede exceder 30 caracteres",
+      "usernameInvalidChars": "El nombre de usuario solo puede contener letras, números, guiones bajos y guiones",
+      "birthDateRequired": "La fecha de nacimiento es obligatoria",
+      "newsletterFrequencyRequired": "La frecuencia del boletín es obligatoria",
+      "invalidImageType": "Por favor selecciona un archivo de imagen válido",
+      "imageTooLarge": "El tamaño de la imagen debe ser menor a 5MB",
+      "userEmailNotFound": "Email de usuario no encontrado"
+    },
     "languageInfo": {
       "language": "Idioma"
+    },
+    "stats": {
+      "emailStatus": "Estado del Email",
+      "verified": "Verificado",
+      "unverified": "No Verificado",
+      "likedArticles": "Artículos Gustados",
+      "comments": "Comentarios"
+    },
+    "security": {
+      "resetPasswordDescription": "Enviar un enlace de restablecimiento de contraseña a tu email"
+    },
+    "messages": {
+      "unexpectedError": "¡Error inesperado!",
+      "success": "Éxito",
+      "makeChangesToSave": "Haz cambios para habilitar el botón guardar"
+    },
+    "errors": {
+      "loadingUserData": "Error al cargar datos del usuario"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Salud",
+      "fitness": "Fitness",
+      "nutrition": "Nutrición",
+      "sex": "Sexo y Relaciones",
+      "beauty": "Belleza",
+      "fashion": "Moda",
+      "lifestyle": "Estilo de Vida",
+      "travel": "Viajes",
+      "decor": "Hogar y Decoración",
+      "productivity": "Productividad",
+      "parenting": "Paternidad"
+    },
+    "frequencies": {
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "El correo electrónico es requerido",
     "invalidEmailFormat": "Por favor ingresa una dirección de correo electrónico válida",
     "sendResetLink": "Enviar Enlace de Restablecimiento",
+    "sendingResetLink": "Enviando enlace de restablecimiento...",
     "resetEmailSent": "Correo de restablecimiento de contraseña enviado exitosamente",
     "checkEmailInstructions": "Por favor revisa tu bandeja de entrada (y carpeta de spam) para el enlace de restablecimiento de contraseña. El enlace expirará en 1 hora.",
     "failedToSendResetEmail": "Error al enviar el correo de restablecimiento",
@@ -219,7 +276,10 @@
     "unexpectedError": "Ocurrió un error inesperado",
     "backToSignIn": "Volver a Iniciar Sesión",
     "dontHaveAccount": "¿No tienes una cuenta? Regístrate",
-    "backToHome": "Volver al Inicio"
+    "backToHome": "Volver al Inicio",
+    "loading": "Cargando...",
+    "formInstructions": "Te enviaremos un enlace seguro para restablecer tu contraseña.",
+    "emailPlaceholder": "tu.email@ejemplo.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Restablecer tu contraseña",
@@ -228,6 +288,7 @@
     "enterNewPassword": "Ingresa tu nueva contraseña",
     "confirmNewPassword": "Confirmar Nueva Contraseña",
     "resetPassword": "Restablecer Contraseña",
+    "resettingPassword": "Restableciendo contraseña...",
     "resetTokenMissing": "Falta el token de restablecimiento",
     "bothPasswordsRequired": "Ambos campos de contraseña son requeridos",
     "passwordsDoNotMatch": "Las contraseñas no coinciden",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "Contraseña restablecida exitosamente",
     "redirectingToSignIn": "Redirigiendo a la página de inicio de sesión...",
     "errorOccurred": "Ocurrió un error",
-    "backToHome": "Volver al Inicio"
+    "backToHome": "Volver al Inicio",
+    "loading": "Cargando...",
+    "formInstructions": "Crea una contraseña segura para tu cuenta.",
+    "passwordRequirements": "La contraseña debe tener al menos 6 caracteres",
+    "confirmPasswordInstructions": "Por favor confirma tu nueva contraseña"
   },
   "metadata": {
     "home": {

@@ -374,6 +374,7 @@ export default function Navbar() {
                         alt="User"
                         width={32}
                         height={32}
+                        priority
                         className="rounded-full"
                       />
                     ) : (
@@ -470,6 +471,7 @@ export default function Navbar() {
                             width={30}
                             height={30}
                             alt="User"
+                            priority
                             className="rounded-full"
                           />
                         ) : (

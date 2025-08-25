@@ -66,7 +66,8 @@
       "personal": "Personal Information",
       "profileImage": "Profile Image",
       "preferences": "Preferences",
-      "security": "Security"
+      "security": "Security",
+      "categoryInterests": "Category Interests"
     },
     "fields": {
       "username": "Username",
@@ -80,16 +81,53 @@
       "contentLanguage": "Content Language",
       "profileImage": "Profile Image (Optional)",
       "timezone": "Timezone",
-      "notifications": "Notifications"
+      "notifications": "Notifications",
+      "newsletterFrequency": "Newsletter Frequency",
+      "categoryInterests": "Category Interests"
     },
     "actions": {
       "save": "Save Changes",
       "cancel": "Cancel",
-      "remove": "Remove"
+      "remove": "Remove",
+      "resetPassword": "Reset Password",
+      "changeImage": "Change"
     },
     "updateFailed": "Failed to update profile",
+    "updateSuccess": "Profile updated successfully!",
+    "passwordResetSent": "Password reset email sent successfully",
+    "passwordResetFailed": "Failed to send reset email",
+    "unexpectedError": "An unexpected error occurred",
+    "validation": {
+      "usernameRequired": "Username is required",
+      "usernameTooShort": "Username must be at least 5 characters",
+      "usernameTooLong": "Username cannot exceed 30 characters",
+      "usernameInvalidChars": "Username can only contain letters, numbers, underscores and dashes",
+      "birthDateRequired": "Birth date is required",
+      "newsletterFrequencyRequired": "Newsletter frequency is required",
+      "invalidImageType": "Please select a valid image file",
+      "imageTooLarge": "Image size must be less than 5MB",
+      "userEmailNotFound": "User email not found"
+    },
     "languageInfo": {
       "language": "Language"
+    },
+    "stats": {
+      "emailStatus": "Email Status",
+      "verified": "Verified",
+      "unverified": "Unverified",
+      "likedArticles": "Liked Articles",
+      "comments": "Comments"
+    },
+    "security": {
+      "resetPasswordDescription": "Send a password reset link to your email"
+    },
+    "messages": {
+      "unexpectedError": "Unexpected error!",
+      "success": "Success",
+      "makeChangesToSave": "Make changes to enable save button"
+    },
+    "errors": {
+      "loadingUserData": "Error loading user data"
     },
     "options": {
       "english": "English",
@@ -105,6 +143,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Health",
+      "fitness": "Fitness",
+      "nutrition": "Nutrition",
+      "sex": "Sex & Relationships",
+      "beauty": "Beauty",
+      "fashion": "Fashion",
+      "lifestyle": "Lifestyle",
+      "travel": "Travel",
+      "decor": "Home & Decor",
+      "productivity": "Productivity",
+      "parenting": "Parenting"
+    },
+    "frequencies": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
     }
   },
   "createArticle": {
@@ -175,13 +231,13 @@
     "failedToCreateAccount": "Failed to create account",
     "unexpectedError": "An unexpected error occurred",
     "backToHome": "Back to Home",
-          "creatingAccount": "Creating your account...",
-      "pleaseWait": "Please wait while we set up your account",
-      "redirectingBack": "Redirecting back to previous page...",
-      "signUpWithGoogle": "Sign up with Google",
-      "signingUpWithGoogle": "Signing up with Google...",
-      "googleSignUpFailed": "Failed to sign up with Google",
-      "or": "or"
+    "creatingAccount": "Creating your account...",
+    "pleaseWait": "Please wait while we set up your account",
+    "redirectingBack": "Redirecting back to previous page...",
+    "signUpWithGoogle": "Sign up with Google",
+    "signingUpWithGoogle": "Signing up with Google...",
+    "googleSignUpFailed": "Failed to sign up with Google",
+    "or": "or"
   },
   "SignIn": {
     "signInToAccount": "Sign in to your account",
@@ -210,6 +266,7 @@
     "emailRequired": "Email is required",
     "invalidEmailFormat": "Please enter a valid email address",
     "sendResetLink": "Send Reset Link",
+    "sendingResetLink": "Sending reset link...",
     "resetEmailSent": "Password reset email sent successfully",
     "checkEmailInstructions": "Please check your email inbox (and spam folder) for a password reset link. The link will expire in 1 hour.",
     "failedToSendResetEmail": "Failed to send reset email",
@@ -218,7 +275,10 @@
     "unexpectedError": "An unexpected error occurred",
     "backToSignIn": "Back to Sign In",
     "dontHaveAccount": "Don't have an account? Sign up",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "loading": "Loading...",
+    "formInstructions": "We'll send you a secure link to reset your password.",
+    "emailPlaceholder": "your.email@example.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Reset your password",
@@ -227,6 +287,7 @@
     "enterNewPassword": "Enter your new password",
     "confirmNewPassword": "Confirm New Password",
     "resetPassword": "Reset Password",
+    "resettingPassword": "Resetting password...",
     "resetTokenMissing": "Reset token is missing",
     "bothPasswordsRequired": "Both password fields are required",
     "passwordsDoNotMatch": "Passwords do not match",
@@ -242,7 +303,11 @@
     "passwordResetSuccess": "Password reset successfully",
     "redirectingToSignIn": "Redirecting to sign in page...",
     "errorOccurred": "An error occurred",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "loading": "Loading...",
+    "formInstructions": "Create a strong password for your account.",
+    "passwordRequirements": "Password must be at least 6 characters long",
+    "confirmPasswordInstructions": "Please confirm your new password"
   },
   "metadata": {
     "home": {

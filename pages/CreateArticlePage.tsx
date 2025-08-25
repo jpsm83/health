@@ -1,9 +1,35 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useAuth } from '@/hooks/useAuth';
+import { useUser } from '@/hooks/useUser';
 
 export default function CreateArticleContent() {
   const t = useTranslations('createArticle');
+  const { isAuthenticated, isLoading } = useAuth();
+  const { user } = useUser();
+
+  // Admin-only access check
+  useEffect(() => {
+    if (!isLoading && (!isAuthenticated || user?.role !== 'admin')) {
+      window.location.href = '/';
+    }
+  }, [isAuthenticated, isLoading, user?.role]);
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+      </div>
+    );
+  }
+
+  // Don't render if not admin
+  if (!isAuthenticated || user?.role !== 'admin') {
+    return null;
+  }
 
   return (
     <>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/hooks/useAuth';
@@ -13,7 +13,7 @@ interface FormData {
 export default function ForgotPasswordContent() {
   const locale = useLocale();
   const t = useTranslations('ForgotPassword');
-  const { forgotPassword } = useAuth();
+  const { forgotPassword, isAuthenticated, isLoading: authLoading, session } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,6 +29,26 @@ export default function ForgotPasswordContent() {
     mode: 'onChange',
   });
 
+  // Redirect if already authenticated (this page is only for guests)
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      if (session?.user?.role === 'admin') {
+        window.location.href = '/dashboard';
+      } else {
+        window.location.href = '/profile';
+      }
+    }
+  }, [isAuthenticated, authLoading, session?.user?.role]);
+
+  // Don't render if already authenticated
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+      </div>
+    );
+  }
+
   const onSubmit = async (data: FormData) => {
     setError('');
     setSuccess('');
@@ -37,17 +57,37 @@ export default function ForgotPasswordContent() {
     try {
       const result = await forgotPassword(data.email);
 
-      if (result.success) {
-        // TypeScript knows result has message property when success is true
-        const successResult = result as { success: true; message: string; resetLink?: string };
-        setSuccess(successResult.message || t('resetEmailSent'));
-        
+      // Check if result is a string (success message) or has success property
+      if (typeof result === "string") {
+        // If result is a string, treat it as a success message
+        setSuccess(result || t('resetEmailSent'));
         // Clear the form on success
         setValue('email', '');
+      } else if (result && typeof result === "object") {
+        // If result is an object, check for success property
+        if ("success" in result) {
+          if (result.success) {
+            // TypeScript knows result has message property when success is true
+            const successResult = result as { success: true; message: string; resetLink?: string };
+            setSuccess(successResult.message || t('resetEmailSent'));
+            // Clear the form on success
+            setValue('email', '');
+          } else {
+            // TypeScript knows result has error property when success is false
+            const errorResult = result as { success: false; error: string };
+            setError(errorResult.error || t('failedToSendResetEmail'));
+          }
+        } else {
+          // If no success property but result exists, treat as success
+          setSuccess(t('resetEmailSent'));
+          // Clear the form on success
+          setValue('email', '');
+        }
       } else {
-        // TypeScript knows result has error property when success is false
-        const errorResult = result as { success: false; error: string };
-        setError(errorResult.error || t('failedToSendResetEmail'));
+        // If result is falsy or unexpected format, treat as success (API worked)
+        setSuccess(t('resetEmailSent'));
+        // Clear the form on success
+        setValue('email', '');
       }
     } catch (error) {
       console.error('Forgot password error:', error);
@@ -82,7 +122,7 @@ export default function ForgotPasswordContent() {
               {t('forgotPassword')}
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              {t('enterEmailForReset')}
+              {t('formInstructions')}
             </p>
           </div>
 
@@ -135,13 +175,16 @@ export default function ForgotPasswordContent() {
                     ? 'border-pink-500 focus:ring-pink-500 focus:border-pink-500'
                     : 'border-gray-300 focus:ring-pink-500 focus:border-pink-500'
                 } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
-                placeholder={t('enterEmail')}
+                placeholder={t('emailPlaceholder')}
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-pink-600">
                   {errors.email.message}
                 </p>
               )}
+              <p className="mt-2 text-sm text-gray-500">
+                {t('enterEmailForReset')}
+              </p>
             </div>
 
             <div>
@@ -172,7 +215,7 @@ export default function ForgotPasswordContent() {
                     ></path>
                   </svg>
                 ) : null}
-                {t('sendResetLink')}
+                {isLoading ? t('sendingResetLink') : t('sendResetLink')}
               </button>
             </div>
           </form>

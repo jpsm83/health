@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useAuth } from "@/hooks/useAuth";
+import { useUser } from "@/hooks/useUser";
 import { useForm } from "react-hook-form";
 
 interface FormData {
@@ -16,7 +17,8 @@ export default function SignInContent() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignIn");
-  const { login } = useAuth();
+  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { user } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,6 +34,27 @@ export default function SignInContent() {
     mode: "onChange",
   });
 
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      // Redirect based on user role
+      if (user?.role === 'admin') {
+        router.push(`/${locale}/dashboard`);
+      } else {
+        router.push(`/${locale}/profile`);
+      }
+    }
+  }, [isAuthenticated, authLoading, router, locale, user?.role]);
+
+  // Don't render if already authenticated
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+      </div>
+    );
+  }
+
   const onSubmit = async (data: FormData) => {
     setError("");
     setIsLoading(true);
@@ -43,8 +66,12 @@ export default function SignInContent() {
       });
 
       if (result?.success) {
-        // Keep loading state active and redirect to dashboard
-        router.push(`/${locale}/dashboard`);
+        // Keep loading state active and redirect based on user role
+        if (user?.role === 'admin') {
+          router.push(`/${locale}/dashboard`);
+        } else {
+          router.push(`/${locale}/profile`);
+        }
       } else {
         setError(result?.error || t("authenticationFailed"));
         setIsLoading(false); // Only stop loading on error
@@ -65,7 +92,7 @@ export default function SignInContent() {
       const result = await login("google");
       if (result?.success) {
         // Note: The user will be redirected to Google OAuth, then back to callbackUrl
-        // No need to handle navigation here
+        // The redirect will be handled by the useEffect above based on user role
       } else {
         setError(result?.error || t("googleSignInFailed"));
         setIsLoading(false);

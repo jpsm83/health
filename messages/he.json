@@ -67,13 +67,14 @@
       "personal": "מידע אישי",
       "profileImage": "תמונת פרופיל",
       "preferences": "העדפות",
-      "security": "אבטחה"
+      "security": "אבטחה",
+      "categoryInterests": "קטגוריות עניין"
     },
     "fields": {
       "username": "שם משתמש",
-      "enterUsername": "הכנס את שם המשתמש שלך",
+      "enterUsername": "הזן את שם המשתמש שלך",
       "email": "כתובת אימייל",
-      "enterEmail": "הכנס את האימייל שלך",
+      "enterEmail": "הזן את האימייל שלך",
       "role": "תפקיד",
       "birthDate": "תאריך לידה",
       "language": "שפה מועדפת",
@@ -81,16 +82,53 @@
       "contentLanguage": "שפת תוכן",
       "profileImage": "תמונת פרופיל (אופציונלי)",
       "timezone": "אזור זמן",
-      "notifications": "התראות"
+      "notifications": "התראות",
+      "newsletterFrequency": "תדירות ניוזלטר",
+      "categoryInterests": "קטגוריות עניין"
     },
     "actions": {
       "save": "שמור שינויים",
       "cancel": "ביטול",
-      "remove": "הסר"
+      "remove": "הסר",
+      "resetPassword": "אפס סיסמה",
+      "changeImage": "שנה"
     },
-    "updateFailed": "שגיאה בעדכון הפרופיל",
+    "updateFailed": "עדכון הפרופיל נכשל",
+    "updateSuccess": "הפרופיל עודכן בהצלחה!",
+    "passwordResetSent": "אימייל איפוס סיסמה נשלח בהצלחה",
+    "passwordResetFailed": "שליחת אימייל איפוס נכשלה",
+    "unexpectedError": "אירעה שגיאה בלתי צפויה",
+    "validation": {
+      "usernameRequired": "שם משתמש נדרש",
+      "usernameTooShort": "שם משתמש חייב להיות לפחות 5 תווים",
+      "usernameTooLong": "שם משתמש לא יכול לעלות על 30 תווים",
+      "usernameInvalidChars": "שם משתמש יכול להכיל רק אותיות, מספרים, קווים תחתונים ומקפים",
+      "birthDateRequired": "תאריך לידה נדרש",
+      "newsletterFrequencyRequired": "תדירות ניוזלטר נדרשת",
+      "invalidImageType": "אנא בחר קובץ תמונה תקין",
+      "imageTooLarge": "גודל התמונה חייב להיות פחות מ-5MB",
+      "userEmailNotFound": "אימייל משתמש לא נמצא"
+    },
     "languageInfo": {
       "language": "שפה"
+    },
+    "stats": {
+      "emailStatus": "סטטוס אימייל",
+      "verified": "מאומת",
+      "unverified": "לא מאומת",
+      "likedArticles": "מאמרים שאהבתי",
+      "comments": "תגובות"
+    },
+    "security": {
+      "resetPasswordDescription": "שלח קישור איפוס סיסמה לאימייל שלך"
+    },
+    "messages": {
+      "unexpectedError": "שגיאה בלתי צפויה!",
+      "success": "הצלחה",
+      "makeChangesToSave": "בצע שינויים כדי לאפשר כפתור שמירה"
+    },
+    "errors": {
+      "loadingUserData": "שגיאה בטעינת נתוני משתמש"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "בריאות",
+      "fitness": "כושר",
+      "nutrition": "תזונה",
+      "sex": "מין ויחסים",
+      "beauty": "יופי",
+      "fashion": "אופנה",
+      "lifestyle": "אורח חיים",
+      "travel": "נסיעות",
+      "decor": "בית ועיצוב",
+      "productivity": "פרודוקטיביות",
+      "parenting": "הורות"
+    },
+    "frequencies": {
+      "daily": "יומי",
+      "weekly": "שבועי",
+      "monthly": "חודשי"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "אימייל נדרש",
     "invalidEmailFormat": "אנא הזן כתובת אימייל תקינה",
     "sendResetLink": "שלח קישור איפוס",
+    "sendingResetLink": "שולח קישור איפוס...",
     "resetEmailSent": "אימייל איפוס סיסמה נשלח בהצלחה",
     "checkEmailInstructions": "אנא בדוק את תיבת הדואר שלך (ותיקיית הספאם) לקישור איפוס הסיסמה. הקישור יפוג תוקף תוך שעה.",
     "failedToSendResetEmail": "שליחת אימייל איפוס נכשלה",
@@ -219,7 +276,10 @@
     "unexpectedError": "אירעה שגיאה בלתי צפויה",
     "backToSignIn": "חזור להתחברות",
     "dontHaveAccount": "אין לך חשבון? הירשם",
-    "backToHome": "חזור לדף הבית"
+    "backToHome": "חזור לדף הבית",
+    "loading": "טוען...",
+    "formInstructions": "נשלח לך קישור בטוח לאיפוס הסיסמה שלך.",
+    "emailPlaceholder": "האימייל.שלך@דוגמה.com"
   },
   "ResetPassword": {
     "resetYourPassword": "אפס את הסיסמה שלך",
@@ -228,6 +288,7 @@
     "enterNewPassword": "הזן את הסיסמה החדשה שלך",
     "confirmNewPassword": "אשר סיסמה חדשה",
     "resetPassword": "אפס סיסמה",
+    "resettingPassword": "מאפס סיסמה...",
     "resetTokenMissing": "אסימון האיפוס חסר",
     "bothPasswordsRequired": "שני שדות הסיסמה נדרשים",
     "passwordsDoNotMatch": "הסיסמאות אינן תואמות",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "הסיסמה אופסה בהצלחה",
     "redirectingToSignIn": "מפנה לדף ההתחברות...",
     "errorOccurred": "אירעה שגיאה",
-    "backToHome": "חזור לדף הבית"
+    "backToHome": "חזור לדף הבית",
+    "loading": "טוען...",
+    "formInstructions": "צור סיסמה חזקה לחשבון שלך.",
+    "passwordRequirements": "הסיסמה חייבת להיות באורך של לפחות 6 תווים",
+    "confirmPasswordInstructions": "אנא אשר את הסיסמה החדשה שלך"
   },
   "metadata": {
     "home": {

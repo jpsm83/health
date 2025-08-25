@@ -67,7 +67,8 @@
       "personal": "Persönliche Informationen",
       "profileImage": "Profilbild",
       "preferences": "Präferenzen",
-      "security": "Sicherheit"
+      "security": "Sicherheit",
+      "categoryInterests": "Kategorie-Interessen"
     },
     "fields": {
       "username": "Benutzername",
@@ -81,16 +82,53 @@
       "contentLanguage": "Inhaltssprache",
       "profileImage": "Profilbild (Optional)",
       "timezone": "Zeitzone",
-      "notifications": "Benachrichtigungen"
+      "notifications": "Benachrichtigungen",
+      "newsletterFrequency": "Newsletter-Häufigkeit",
+      "categoryInterests": "Kategorie-Interessen"
     },
     "actions": {
       "save": "Änderungen speichern",
       "cancel": "Abbrechen",
-      "remove": "Entfernen"
+      "remove": "Entfernen",
+      "resetPassword": "Passwort zurücksetzen",
+      "changeImage": "Ändern"
     },
     "updateFailed": "Profilaktualisierung fehlgeschlagen",
+    "updateSuccess": "Profil erfolgreich aktualisiert!",
+    "passwordResetSent": "Passwort-Reset-E-Mail erfolgreich gesendet",
+    "passwordResetFailed": "Fehler beim Senden der Reset-E-Mail",
+    "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+    "validation": {
+      "usernameRequired": "Benutzername ist erforderlich",
+      "usernameTooShort": "Benutzername muss mindestens 5 Zeichen lang sein",
+      "usernameTooLong": "Benutzername darf 30 Zeichen nicht überschreiten",
+      "usernameInvalidChars": "Benutzername darf nur Buchstaben, Zahlen, Unterstriche und Bindestriche enthalten",
+      "birthDateRequired": "Geburtsdatum ist erforderlich",
+      "newsletterFrequencyRequired": "Newsletter-Häufigkeit ist erforderlich",
+      "invalidImageType": "Bitte wählen Sie eine gültige Bilddatei aus",
+      "imageTooLarge": "Bildgröße muss kleiner als 5MB sein",
+      "userEmailNotFound": "Benutzer-E-Mail nicht gefunden"
+    },
     "languageInfo": {
       "language": "Sprache"
+    },
+    "stats": {
+      "emailStatus": "E-Mail-Status",
+      "verified": "Verifiziert",
+      "unverified": "Nicht verifiziert",
+      "likedArticles": "Gelikte Artikel",
+      "comments": "Kommentare"
+    },
+    "security": {
+      "resetPasswordDescription": "Senden Sie einen Passwort-Reset-Link an Ihre E-Mail"
+    },
+    "messages": {
+      "unexpectedError": "Unerwarteter Fehler!",
+      "success": "Erfolg",
+      "makeChangesToSave": "Nehmen Sie Änderungen vor, um den Speichern-Button zu aktivieren"
+    },
+    "errors": {
+      "loadingUserData": "Fehler beim Laden der Benutzerdaten"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Gesundheit",
+      "fitness": "Fitness",
+      "nutrition": "Ernährung",
+      "sex": "Sex und Beziehungen",
+      "beauty": "Schönheit",
+      "fashion": "Mode",
+      "lifestyle": "Lebensstil",
+      "travel": "Reisen",
+      "decor": "Zuhause und Dekoration",
+      "productivity": "Produktivität",
+      "parenting": "Elternschaft"
+    },
+    "frequencies": {
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "E-Mail ist erforderlich",
     "invalidEmailFormat": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "sendResetLink": "Reset-Link senden",
+    "sendingResetLink": "Reset-Link wird gesendet...",
     "resetEmailSent": "Passwort-Reset-E-Mail erfolgreich gesendet",
     "checkEmailInstructions": "Bitte überprüfen Sie Ihren Posteingang (und Spam-Ordner) für den Passwort-Reset-Link. Der Link läuft in 1 Stunde ab.",
     "failedToSendResetEmail": "Fehler beim Senden der Reset-E-Mail",
@@ -219,7 +276,10 @@
     "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
     "backToSignIn": "Zurück zur Anmeldung",
     "dontHaveAccount": "Haben Sie kein Konto? Registrieren Sie sich",
-    "backToHome": "Zurück zum Start"
+    "backToHome": "Zurück zum Start",
+    "loading": "Wird geladen...",
+    "formInstructions": "Wir senden Ihnen einen sicheren Link zum Zurücksetzen Ihres Passworts.",
+    "emailPlaceholder": "ihre.email@beispiel.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Passwort zurücksetzen",
@@ -228,6 +288,7 @@
     "enterNewPassword": "Geben Sie Ihr neues Passwort ein",
     "confirmNewPassword": "Neues Passwort Bestätigen",
     "resetPassword": "Passwort zurücksetzen",
+    "resettingPassword": "Passwort wird zurückgesetzt...",
     "resetTokenMissing": "Reset-Token fehlt",
     "bothPasswordsRequired": "Beide Passwortfelder sind erforderlich",
     "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "Passwort erfolgreich zurückgesetzt",
     "redirectingToSignIn": "Weiterleitung zur Anmeldeseite...",
     "errorOccurred": "Ein Fehler ist aufgetreten",
-    "backToHome": "Zurück zum Start"
+    "backToHome": "Zurück zum Start",
+    "loading": "Wird geladen...",
+    "formInstructions": "Erstellen Sie ein sicheres Passwort für Ihr Konto.",
+    "passwordRequirements": "Passwort muss mindestens 6 Zeichen lang sein",
+    "confirmPasswordInstructions": "Bitte bestätigen Sie Ihr neues Passwort"
   },
   "metadata": {
     "home": {

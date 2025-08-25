@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useAuth } from "@/hooks/useAuth";
+import { useUser } from "@/hooks/useUser";
 import { useForm } from "react-hook-form";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import Image from "next/image";
@@ -23,7 +24,8 @@ export default function SignUpContent() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignUp");
-  const { signUpCredentials, signUpGoogle } = useAuth();
+  const { signUpCredentials, signUpGoogle, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { user } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -31,6 +33,27 @@ export default function SignUpContent() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      // Redirect based on user role
+      if (user?.role === 'admin') {
+        router.push(`/${locale}/dashboard`);
+      } else {
+        router.push(`/${locale}/profile`);
+      }
+    }
+  }, [isAuthenticated, authLoading, router, locale, user?.role]);
+
+  // Don't render if already authenticated
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+      </div>
+    );
+  }
 
   const {
     register,
@@ -95,9 +118,12 @@ export default function SignUpContent() {
       });
 
       if (registerResult.success) {
-        // Keep loading state active and redirect to previous page
-        // Use Next.js 15 built-in router.back() for better performance
-        router.back();
+        // Keep loading state active and redirect based on user role
+        if (user?.role === 'admin') {
+          router.push(`/${locale}/dashboard`);
+        } else {
+          router.push(`/${locale}/profile`);
+        }
       } else {
         setError(registerResult.error || t("failedToCreateAccount"));
         setIsLoading(false); // Only stop loading on error

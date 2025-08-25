@@ -67,7 +67,8 @@
       "personal": "Persoonlijke Informatie",
       "profileImage": "Profielfoto",
       "preferences": "Voorkeuren",
-      "security": "Beveiliging"
+      "security": "Beveiliging",
+      "categoryInterests": "Categorie-interesses"
     },
     "fields": {
       "username": "Gebruikersnaam",
@@ -81,16 +82,53 @@
       "contentLanguage": "Inhoudstaal",
       "profileImage": "Profielfoto (Optioneel)",
       "timezone": "Tijdzone",
-      "notifications": "Meldingen"
+      "notifications": "Meldingen",
+      "newsletterFrequency": "Nieuwsbrief Frequentie",
+      "categoryInterests": "Categorie-interesses"
     },
     "actions": {
       "save": "Wijzigingen Opslaan",
       "cancel": "Annuleren",
-      "remove": "Verwijderen"
+      "remove": "Verwijderen",
+      "resetPassword": "Wachtwoord Opnieuw Instellen",
+      "changeImage": "Wijzigen"
     },
     "updateFailed": "Profiel bijwerken mislukt",
+    "updateSuccess": "Profiel succesvol bijgewerkt!",
+    "passwordResetSent": "Wachtwoord reset e-mail succesvol verzonden",
+    "passwordResetFailed": "Fout bij het verzenden van reset e-mail",
+    "unexpectedError": "Er is een onverwachte fout opgetreden",
+    "validation": {
+      "usernameRequired": "Gebruikersnaam is vereist",
+      "usernameTooShort": "Gebruikersnaam moet minimaal 5 tekens lang zijn",
+      "usernameTooLong": "Gebruikersnaam mag niet langer zijn dan 30 tekens",
+      "usernameInvalidChars": "Gebruikersnaam mag alleen letters, cijfers, underscores en streepjes bevatten",
+      "birthDateRequired": "Geboortedatum is vereist",
+      "newsletterFrequencyRequired": "Nieuwsbrief frequentie is vereist",
+      "invalidImageType": "Selecteer een geldig afbeeldingsbestand",
+      "imageTooLarge": "Afbeeldingsgrootte moet kleiner zijn dan 5MB",
+      "userEmailNotFound": "Gebruiker e-mail niet gevonden"
+    },
     "languageInfo": {
       "language": "Taal"
+    },
+    "stats": {
+      "emailStatus": "E-mail Status",
+      "verified": "Geverifieerd",
+      "unverified": "Niet geverifieerd",
+      "likedArticles": "Gelikte Artikelen",
+      "comments": "Opmerkingen"
+    },
+    "security": {
+      "resetPasswordDescription": "Stuur een wachtwoord reset link naar je e-mail"
+    },
+    "messages": {
+      "unexpectedError": "Onverwachte fout!",
+      "success": "Succes",
+      "makeChangesToSave": "Maak wijzigingen om de opslaan knop in te schakelen"
+    },
+    "errors": {
+      "loadingUserData": "Fout bij het laden van gebruikersgegevens"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Gezondheid",
+      "fitness": "Fitness",
+      "nutrition": "Voeding",
+      "sex": "Seks en Relaties",
+      "beauty": "Schoonheid",
+      "fashion": "Mode",
+      "lifestyle": "Levensstijl",
+      "travel": "Reizen",
+      "decor": "Huis en Decoratie",
+      "productivity": "Productiviteit",
+      "parenting": "Ouderschap"
+    },
+    "frequencies": {
+      "daily": "Dagelijks",
+      "weekly": "Wekelijks",
+      "monthly": "Maandelijks"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "E-mail is verplicht",
     "invalidEmailFormat": "Voer een geldig e-mailadres in",
     "sendResetLink": "Reset-link verzenden",
+    "sendingResetLink": "Reset-link verzenden...",
     "resetEmailSent": "Wachtwoord reset e-mail succesvol verzonden",
     "checkEmailInstructions": "Controleer uw inbox (en spam-map) voor de wachtwoord reset-link. De link verloopt over 1 uur.",
     "failedToSendResetEmail": "Wachtwoord reset e-mail verzenden mislukt",
@@ -219,7 +276,10 @@
     "unexpectedError": "Er is een onverwachte fout opgetreden",
     "backToSignIn": "Terug naar Inloggen",
     "dontHaveAccount": "Heeft u geen account? Registreer u",
-    "backToHome": "Terug naar Home"
+    "backToHome": "Terug naar Home",
+    "loading": "Laden...",
+    "formInstructions": "We sturen u een veilige link om uw wachtwoord te resetten.",
+    "emailPlaceholder": "uw.email@voorbeeld.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Wachtwoord opnieuw instellen",
@@ -228,6 +288,7 @@
     "enterNewPassword": "Voer uw nieuwe wachtwoord in",
     "confirmNewPassword": "Bevestig Nieuw Wachtwoord",
     "resetPassword": "Wachtwoord Resetten",
+    "resettingPassword": "Wachtwoord wordt gereset...",
     "resetTokenMissing": "Reset-token ontbreekt",
     "bothPasswordsRequired": "Beide wachtwoordvelden zijn verplicht",
     "passwordsDoNotMatch": "Wachtwoorden komen niet overeen",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "Wachtwoord succesvol opnieuw ingesteld",
     "redirectingToSignIn": "Doorverwijzen naar inlogpagina...",
     "errorOccurred": "Er is een fout opgetreden",
-    "backToHome": "Terug naar Home"
+    "backToHome": "Terug naar Home",
+    "loading": "Laden...",
+    "formInstructions": "Maak een sterk wachtwoord aan voor je account.",
+    "passwordRequirements": "Wachtwoord moet minimaal 6 tekens lang zijn",
+    "confirmPasswordInstructions": "Bevestig je nieuwe wachtwoord"
   },
   "metadata": {
     "home": {

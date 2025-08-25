@@ -67,7 +67,8 @@
       "personal": "Informations Personnelles",
       "profileImage": "Image de Profil",
       "preferences": "Préférences",
-      "security": "Sécurité"
+      "security": "Sécurité",
+      "categoryInterests": "Intérêts par Catégorie"
     },
     "fields": {
       "username": "Nom d'Utilisateur",
@@ -81,16 +82,53 @@
       "contentLanguage": "Langue du Contenu",
       "profileImage": "Image de Profil (Optionnel)",
       "timezone": "Fuseau Horaire",
-      "notifications": "Notifications"
+      "notifications": "Notifications",
+      "newsletterFrequency": "Fréquence de la Newsletter",
+      "categoryInterests": "Intérêts par Catégorie"
     },
     "actions": {
       "save": "Sauvegarder les Modifications",
       "cancel": "Annuler",
-      "remove": "Supprimer"
+      "remove": "Supprimer",
+      "resetPassword": "Réinitialiser le Mot de Passe",
+      "changeImage": "Changer"
     },
     "updateFailed": "Échec de la mise à jour du profil",
+    "updateSuccess": "Profil mis à jour avec succès !",
+    "passwordResetSent": "Email de réinitialisation de mot de passe envoyé avec succès",
+    "passwordResetFailed": "Échec de l'envoi de l'email de réinitialisation",
+    "unexpectedError": "Une erreur inattendue s'est produite",
+    "validation": {
+      "usernameRequired": "Le nom d'utilisateur est requis",
+      "usernameTooShort": "Le nom d'utilisateur doit contenir au moins 5 caractères",
+      "usernameTooLong": "Le nom d'utilisateur ne peut pas dépasser 30 caractères",
+      "usernameInvalidChars": "Le nom d'utilisateur ne peut contenir que des lettres, des chiffres, des tirets bas et des tirets",
+      "birthDateRequired": "La date de naissance est requise",
+      "newsletterFrequencyRequired": "La fréquence de la newsletter est requise",
+      "invalidImageType": "Veuillez sélectionner un fichier d'image valide",
+      "imageTooLarge": "La taille de l'image doit être inférieure à 5MB",
+      "userEmailNotFound": "Email utilisateur introuvable"
+    },
     "languageInfo": {
       "language": "Langue"
+    },
+    "stats": {
+      "emailStatus": "Statut de l'Email",
+      "verified": "Vérifié",
+      "unverified": "Non Vérifié",
+      "likedArticles": "Articles Aimés",
+      "comments": "Commentaires"
+    },
+    "security": {
+      "resetPasswordDescription": "Envoyer un lien de réinitialisation de mot de passe à votre email"
+    },
+    "messages": {
+      "unexpectedError": "Erreur inattendue !",
+      "success": "Succès",
+      "makeChangesToSave": "Apportez des modifications pour activer le bouton de sauvegarde"
+    },
+    "errors": {
+      "loadingUserData": "Erreur lors du chargement des données utilisateur"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Santé",
+      "fitness": "Fitness",
+      "nutrition": "Nutrition",
+      "sex": "Sexe et Relations",
+      "beauty": "Beauté",
+      "fashion": "Mode",
+      "lifestyle": "Style de Vie",
+      "travel": "Voyages",
+      "decor": "Maison et Décoration",
+      "productivity": "Productivité",
+      "parenting": "Parentalité"
+    },
+    "frequencies": {
+      "daily": "Quotidien",
+      "weekly": "Hebdomadaire",
+      "monthly": "Mensuel"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "L'e-mail est requis",
     "invalidEmailFormat": "Veuillez entrer une adresse e-mail valide",
     "sendResetLink": "Envoyer le lien de réinitialisation",
+    "sendingResetLink": "Envoi du lien de réinitialisation...",
     "resetEmailSent": "E-mail de réinitialisation de mot de passe envoyé avec succès",
     "checkEmailInstructions": "Veuillez vérifier votre boîte de réception (et dossier spam) pour le lien de réinitialisation de mot de passe. Le lien expirera dans 1 heure.",
     "failedToSendResetEmail": "Échec de l'envoi de l'e-mail de réinitialisation",
@@ -219,7 +276,10 @@
     "unexpectedError": "Une erreur inattendue s'est produite",
     "backToSignIn": "Retour à la connexion",
     "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous",
-    "backToHome": "Retour à l'Accueil"
+    "backToHome": "Retour à l'Accueil",
+    "loading": "Chargement...",
+    "formInstructions": "Nous vous enverrons un lien sécurisé pour réinitialiser votre mot de passe.",
+    "emailPlaceholder": "votre.email@exemple.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Réinitialiser votre mot de passe",
@@ -228,6 +288,7 @@
     "enterNewPassword": "Entrez votre nouveau mot de passe",
     "confirmNewPassword": "Confirmer le Nouveau Mot de Passe",
     "resetPassword": "Réinitialiser le Mot de Passe",
+    "resettingPassword": "Réinitialisation du mot de passe...",
     "resetTokenMissing": "Le jeton de réinitialisation est manquant",
     "bothPasswordsRequired": "Les deux champs de mot de passe sont requis",
     "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "Mot de passe réinitialisé avec succès",
     "redirectingToSignIn": "Redirection vers la page de connexion...",
     "errorOccurred": "Une erreur s'est produite",
-    "backToHome": "Retour à l'Accueil"
+    "backToHome": "Retour à l'Accueil",
+    "loading": "Chargement...",
+    "formInstructions": "Créez un mot de passe sécurisé pour votre compte.",
+    "passwordRequirements": "Le mot de passe doit contenir au moins 6 caractères",
+    "confirmPasswordInstructions": "Veuillez confirmer votre nouveau mot de passe"
   },
   "metadata": {
     "home": {

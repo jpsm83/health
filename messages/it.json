@@ -67,7 +67,8 @@
       "personal": "Informazioni Personali",
       "profileImage": "Immagine del Profilo",
       "preferences": "Preferenze",
-      "security": "Sicurezza"
+      "security": "Sicurezza",
+      "categoryInterests": "Interessi per Categoria"
     },
     "fields": {
       "username": "Nome Utente",
@@ -81,16 +82,53 @@
       "contentLanguage": "Lingua del Contenuto",
       "profileImage": "Immagine del Profilo (Opzionale)",
       "timezone": "Fuso Orario",
-      "notifications": "Notifiche"
+      "notifications": "Notifiche",
+      "newsletterFrequency": "Frequenza Newsletter",
+      "categoryInterests": "Interessi per Categoria"
     },
     "actions": {
       "save": "Salva Modifiche",
       "cancel": "Annulla",
-      "remove": "Rimuovi"
+      "remove": "Rimuovi",
+      "resetPassword": "Reimposta Password",
+      "changeImage": "Cambia"
     },
     "updateFailed": "Impossibile aggiornare il profilo",
+    "updateSuccess": "Profilo aggiornato con successo!",
+    "passwordResetSent": "Email per reimpostare la password inviata con successo",
+    "passwordResetFailed": "Impossibile inviare email per reimpostare la password",
+    "unexpectedError": "Si è verificato un errore imprevisto",
+    "validation": {
+      "usernameRequired": "Il nome utente è obbligatorio",
+      "usernameTooShort": "Il nome utente deve contenere almeno 5 caratteri",
+      "usernameTooLong": "Il nome utente non può superare i 30 caratteri",
+      "usernameInvalidChars": "Il nome utente può contenere solo lettere, numeri, underscore e trattini",
+      "birthDateRequired": "La data di nascita è obbligatoria",
+      "newsletterFrequencyRequired": "La frequenza della newsletter è obbligatoria",
+      "invalidImageType": "Seleziona un file immagine valido",
+      "imageTooLarge": "La dimensione dell'immagine deve essere inferiore a 5 MB",
+      "userEmailNotFound": "Email utente non trovata"
+    },
     "languageInfo": {
       "language": "Lingua"
+    },
+    "stats": {
+      "emailStatus": "Stato Email",
+      "verified": "Verificato",
+      "unverified": "Non verificato",
+      "likedArticles": "Articoli Piaciuti",
+      "comments": "Commenti"
+    },
+    "security": {
+      "resetPasswordDescription": "Invia un link per reimpostare la password alla tua email"
+    },
+    "messages": {
+      "unexpectedError": "Errore imprevisto!",
+      "success": "Successo",
+      "makeChangesToSave": "Apporta modifiche per abilitare il pulsante salva"
+    },
+    "errors": {
+      "loadingUserData": "Errore nel caricamento dei dati utente"
     },
     "options": {
       "english": "English",
@@ -106,6 +144,24 @@
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
       "greenwichMeanTime": "Greenwich Mean Time"
+    },
+    "categories": {
+      "health": "Salute",
+      "fitness": "Fitness",
+      "nutrition": "Nutrizione",
+      "sex": "Sesso e Relazioni",
+      "beauty": "Bellezza",
+      "fashion": "Moda",
+      "lifestyle": "Stile di Vita",
+      "travel": "Viaggi",
+      "decor": "Casa e Decorazione",
+      "productivity": "Produttività",
+      "parenting": "Genitorialità"
+    },
+    "frequencies": {
+      "daily": "Giornaliero",
+      "weekly": "Settimanale",
+      "monthly": "Mensile"
     }
   },
   "createArticle": {
@@ -211,6 +267,7 @@
     "emailRequired": "L'email è richiesta",
     "invalidEmailFormat": "Per favore inserisci un indirizzo email valido",
     "sendResetLink": "Invia Link di Reset",
+    "sendingResetLink": "Invio link di reset...",
     "resetEmailSent": "Email di reset password inviata con successo",
     "checkEmailInstructions": "Per favore controlla la tua casella di posta (e cartella spam) per il link di reset password. Il link scadrà in 1 ora.",
     "failedToSendResetEmail": "Impossibile inviare l'email di reset",
@@ -219,7 +276,10 @@
     "unexpectedError": "Si è verificato un errore imprevisto",
     "backToSignIn": "Torna all'Accesso",
     "dontHaveAccount": "Non hai un account? Registrati",
-    "backToHome": "Torna alla Home"
+    "backToHome": "Torna alla Home",
+    "loading": "Caricamento...",
+    "formInstructions": "Ti invieremo un link sicuro per reimpostare la tua password.",
+    "emailPlaceholder": "tua.email@esempio.com"
   },
   "ResetPassword": {
     "resetYourPassword": "Reimposta la tua password",
@@ -228,6 +288,7 @@
     "enterNewPassword": "Inserisci la tua nuova password",
     "confirmNewPassword": "Conferma Nuova Password",
     "resetPassword": "Reimposta Password",
+    "resettingPassword": "Reimpostazione password...",
     "resetTokenMissing": "Token di reset mancante",
     "bothPasswordsRequired": "Entrambi i campi password sono richiesti",
     "passwordsDoNotMatch": "Le password non corrispondono",
@@ -243,7 +304,11 @@
     "passwordResetSuccess": "Password reimpostata con successo",
     "redirectingToSignIn": "Reindirizzamento alla pagina di accesso...",
     "errorOccurred": "Si è verificato un errore",
-    "backToHome": "Torna alla Home"
+    "backToHome": "Torna alla Home",
+    "loading": "Caricamento...",
+    "formInstructions": "Crea una password sicura per il tuo account.",
+    "passwordRequirements": "La password deve essere di almeno 6 caratteri",
+    "confirmPasswordInstructions": "Per favore conferma la tua nuova password"
   },
   "metadata": {
     "home": {
