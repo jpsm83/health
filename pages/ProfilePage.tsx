@@ -7,6 +7,7 @@ import { User, BookOpen, Lock, CheckCircle, XCircle } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
 import { useAuth } from "@/hooks/useAuth";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
+import Image from "next/image";
 
 
 interface FormData {
@@ -14,6 +15,11 @@ interface FormData {
   email: string;
   role: string;
   birthDate: string;
+  preferences: {
+    language: string;
+    region: string;
+    contentLanguage: string;
+  };
   subscriptionPreferences: {
     categories: string[];
     subscriptionFrequencies: string;
@@ -26,7 +32,7 @@ export default function ProfileContent() {
   const { forgotPassword } = useAuth();
   const {
     user,
-    loading: userLoading,
+    isInitializing: userLoading,
     error: userError,
     updateProfile,
   } = useUser();
@@ -87,6 +93,21 @@ export default function ProfileContent() {
     watch,
   } = useForm<FormData>({
     mode: "onChange",
+    defaultValues: {
+      username: "",
+      email: "",
+      role: "",
+      birthDate: "",
+      preferences: {
+        language: "en",
+        region: "US",
+        contentLanguage: "en",
+      },
+      subscriptionPreferences: {
+        categories: mainCategories,
+        subscriptionFrequencies: "weekly",
+      },
+    },
   });
 
   const watchedValues = watch();
@@ -97,14 +118,21 @@ export default function ProfileContent() {
       isInitialized.current = true;
       
       const initialValues: FormData = {
-        username: user.username,
-        email: user.email,
-        role: user.role,
+        username: user.username || "",
+        email: user.email || "",
+        role: user.role || "",
         birthDate: user.birthDate
           ? new Date(user.birthDate).toISOString().split("T")[0]
           : "",
+        preferences: {
+          language: user.preferences?.language || "en",
+          region: user.preferences?.region || "US",
+          contentLanguage: user.preferences?.contentLanguage || "en",
+        },
         subscriptionPreferences: {
-          categories: user.subscriptionPreferences?.categories || mainCategories,
+          categories: user.subscriptionPreferences?.categories?.length > 0 
+            ? user.subscriptionPreferences.categories 
+            : mainCategories,
           subscriptionFrequencies: user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
         // Don't include password fields in initial values
@@ -130,6 +158,7 @@ export default function ProfileContent() {
       email: watchedValues.email,
       role: watchedValues.role,
       birthDate: watchedValues.birthDate,
+      preferences: watchedValues.preferences,
       subscriptionPreferences: watchedValues.subscriptionPreferences,
     };
 
@@ -184,10 +213,13 @@ export default function ProfileContent() {
         email: data.email,
         role: data.role,
         birthDate: data.birthDate,
+        preferences: {
+          language: data.preferences.language,
+          region: data.preferences.region,
+          contentLanguage: data.preferences.contentLanguage,
+        },
         subscriptionPreferences: {
-          categories: data.subscriptionPreferences.categories.filter(cat => 
-            data.subscriptionPreferences.categories.includes(cat)
-          ),
+          categories: data.subscriptionPreferences.categories,
           subscriptionFrequencies: data.subscriptionPreferences.subscriptionFrequencies,
         },
         imageFile: selectedImage || undefined,
@@ -201,6 +233,7 @@ export default function ProfileContent() {
         setSelectedImage(null);
         setImagePreview(null);
         setError(""); // Clear any errors
+        setSuccess("Profile updated successfully!");
       } else {
         setError(result?.message || "Failed to update profile");
       }
@@ -265,13 +298,15 @@ export default function ProfileContent() {
               <div className="relative">
                 <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 border-4 border-pink-100">
                   {imagePreview ? (
-                    <img
+                    <Image
                       src={imagePreview}
                       alt="Profile Preview"
                       className="w-full h-full object-cover"
                     />
                   ) : user.imageUrl ? (
-                    <img
+                    <Image
+                      width={128}
+                      height={128}
                       src={user.imageUrl}
                       alt="Profile"
                       className="w-full h-full object-cover"
@@ -458,68 +493,64 @@ export default function ProfileContent() {
                   <BookOpen className="w-5 h-5 mr-2 text-pink-600" />
                   Category Interests
             </h2>
+                
+                {/* Newsletter Frequency Dropdown */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Newsletter Frequency
+                  </label>
+                  <select
+                    value={watchedValues.subscriptionPreferences?.subscriptionFrequencies || "weekly"}
+                    onChange={(e) => {
+                      setValue("subscriptionPreferences.subscriptionFrequencies", e.target.value);
+                    }}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  >
+                    {newsletterFrequencies.map((frequency) => (
+                      <option key={frequency} value={frequency}>
+                        {frequency.charAt(0).toUpperCase() + frequency.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Categories Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                   {mainCategories.map((category) => {
+                    const isSelected = watchedValues.subscriptionPreferences?.categories?.includes(category);
                     return (
                       <div
                         key={category}
-                        className="border border-gray-200 rounded-lg p-3 bg-gray-50"
+                        className={`border rounded-lg p-3 transition-colors ${
+                          isSelected 
+                            ? "border-pink-300 bg-pink-50" 
+                            : "border-gray-200 bg-gray-50"
+                        }`}
                       >
-                        <div className="mb-2">
-                          <h3 className="font-medium text-gray-900 capitalize text-sm mb-2">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-medium text-gray-900 capitalize text-sm">
                             {category}
                           </h3>
-                <select
-                              value={
-                                watchedValues.subscriptionPreferences?.categories?.includes(category)
-                                  ? watchedValues.subscriptionPreferences.subscriptionFrequencies || "weekly"
-                                  : "never"
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={(e) => {
+                              const currentCategories = watchedValues.subscriptionPreferences?.categories || [];
+                              let newCategories: string[];
+                              
+                              if (e.target.checked) {
+                                // Add category if not already present
+                                newCategories = [...currentCategories, category];
+                              } else {
+                                // Remove category
+                                newCategories = currentCategories.filter(cat => cat !== category);
                               }
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                
-                                // Get current form values to ensure we have the latest state
-                                const currentCategories = watchedValues.subscriptionPreferences?.categories || [];
-                                const currentFrequency = watchedValues.subscriptionPreferences?.subscriptionFrequencies || "weekly";
-                                
-                                let newCategories = [...currentCategories];
-                                
-                                if (value === "never") {
-                                  // Remove category if frequency is "never"
-                                  newCategories = newCategories.filter(cat => cat !== category);
-                                } else {
-                                  // Add category if not already present
-                                  if (!newCategories.includes(category)) {
-                                    newCategories.push(category);
-                                  }
-                                }
 
-                                setValue("subscriptionPreferences", {
-                                  categories: newCategories,
-                                  subscriptionFrequencies: value === "never" ? currentFrequency : value,
-                                });
-                              }}
-                              className={`w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs ${
-                                !watchedValues.subscriptionPreferences?.categories?.includes(category)
-                                  ? "text-red-600"
-                                  : ""
-                              }`}
-                            >
-                            {newsletterFrequencies.map((frequency) => (
-                              <option
-                                key={frequency}
-                                value={frequency}
-                                className={`${
-                                  frequency === "never"
-                                    ? "text-red-600 font-medium"
-                                    : ""
-                                }`}
-                              >
-                                {frequency}
-                              </option>
-                            ))}
-                </select>
-              </div>
+                              setValue("subscriptionPreferences.categories", newCategories);
+                            }}
+                            className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+                          />
+                        </div>
                       </div>
                     );
                   })}

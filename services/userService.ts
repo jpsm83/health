@@ -7,6 +7,11 @@ export interface IUpdateProfileData {
   email?: string;
   role?: string;
   birthDate?: string;
+  preferences?: {
+    language: string;
+    region: string;
+    contentLanguage: string;
+  };
   subscriptionPreferences?: ISubscriptionPreferences;
   imageFile?: File;
   currentPassword?: string;
@@ -58,6 +63,18 @@ class UserService {
       if (profileData.birthDate)
         formData.append("birthDate", profileData.birthDate);
 
+      // Add preferences
+      if (profileData.preferences) {
+        formData.append("language", profileData.preferences.language);
+        formData.append("region", profileData.preferences.region);
+        formData.append("contentLanguage", profileData.preferences.contentLanguage);
+      } else {
+        // Default values if not provided
+        formData.append("language", "en");
+        formData.append("region", "US");
+        formData.append("contentLanguage", "en");
+      }
+
       // Add subscription preferences
       if (profileData.subscriptionPreferences) {
         formData.append(
@@ -70,12 +87,6 @@ class UserService {
       if (profileData.imageFile) {
         formData.append("imageFile", profileData.imageFile);
       }
-
-      // Add required preference fields that the backend expects
-      // These are required by the backend validation
-      formData.append("language", "en"); // Default language
-      formData.append("region", "US"); // Default region
-      formData.append("contentLanguage", "en"); // Default content language
 
       const result = await this.handleRequest<IUser>(() => 
         this.instance.patch(`/users/${userId.toString()}`, formData)

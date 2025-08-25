@@ -7,17 +7,6 @@ import User from "@/app/api/models/user";
 import bcrypt from "bcrypt";
 import { IUser } from "@/interfaces/user";
 
-// Define our extended JWT interface that satisfies NextAuth requirements
-interface ExtendedJWT {
-  id?: string;
-  email?: string;
-  name?: string;
-  role?: string;
-  imageUrl?: string;
-  accessToken?: string;
-  [key: string]: string | undefined; // Index signature to satisfy NextAuth JWT requirements
-}
-
 // Extend NextAuth types to match our ISession interface
 declare module "next-auth" {
   interface Session {
@@ -69,7 +58,7 @@ const authConfig = NextAuth({
 
         try {
           const user = (await User.findOne({ email: credentials.email })
-            .select("email password username role imageUrl")
+            .select("_id email password username role imageUrl")
             .lean()) as Partial<IUser> | null;
 
           if (!user) {
@@ -171,51 +160,50 @@ const authConfig = NextAuth({
 
       return true;
     },
-    async jwt({ token, account, user }): Promise<ExtendedJWT> {
-      const extendedToken = token as ExtendedJWT;
-
-      // Persist the OAuth access_token and user role to the token
-      if (account) {
-        extendedToken.accessToken = account.access_token;
-      }
+    async jwt({ token, account, user }) {
+      // Only run this when we have new user data (during sign in)
       if (user) {
-        extendedToken.id = user.id;
-        extendedToken.role = user.role;
-        extendedToken.imageUrl = user.imageUrl;
+        token.id = user.id;
+        token.role = user.role;
+        token.imageUrl = user.imageUrl;
       }
 
-      // If token is missing role or imageUrl, fetch from database
-      if (
-        extendedToken.email &&
-        (!extendedToken.role || !extendedToken.imageUrl)
-      ) {
+      // For Google OAuth, ensure we have the correct user ID
+      if (account?.provider === "google" && token.email) {
         try {
           await connectDb();
-          const dbUser = await User.findOne({ email: extendedToken.email })
-            .select("role imageUrl")
-            .lean();
-          if (dbUser && "role" in dbUser) {
-            extendedToken.role = dbUser.role as string;
-            extendedToken.imageUrl = dbUser.imageUrl as string | undefined;
+          const dbUser = (await User.findOne({ email: token.email })
+            .select("_id role imageUrl username")
+            .lean()) as {
+            _id: { toString(): string };
+            role: string;
+            imageUrl?: string;
+            username: string;
+          } | null;
+
+          if (dbUser) {
+            token.id = dbUser._id.toString();
+            token.role = dbUser.role;
+            token.imageUrl = dbUser.imageUrl;
+            token.name = dbUser.username;
           }
         } catch (error) {
-          throw new Error("JWT callback - DB fetch error: " + error);
+          console.error("JWT callback - DB fetch error:", error);
         }
       }
 
-      return extendedToken;
+      return token;
     },
     async session({ session, token }) {
       // Send properties to the client
       if (session.user) {
-        const extendedToken = token as ExtendedJWT;
         session.user = {
           ...session.user,
-          id: extendedToken.id || "",
-          role: extendedToken.role || "user",
+          id: (token.id as string) || "",
+          role: (token.role as string) || "user",
           email: token.email || "",
           name: token.name || "",
-          imageUrl: extendedToken.imageUrl || undefined,
+          imageUrl: token.imageUrl as string | undefined,
         };
       }
       return session;
@@ -225,7 +213,7 @@ const authConfig = NextAuth({
 
 export const { handlers, signIn, signOut, auth } = authConfig;
 
-// Custom handlers for API testing
+// Next.js API route handler
 export async function GET(req: NextRequest) {
   const { pathname } = req.nextUrl;
 

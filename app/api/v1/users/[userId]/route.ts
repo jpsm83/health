@@ -6,7 +6,6 @@ import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
-import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 
@@ -211,7 +210,7 @@ export const PATCH = async (
         if (subscriptionPreferences && subscriptionPreferences.categories && subscriptionPreferences.subscriptionFrequencies) {
           updateData.subscriptionPreferences = subscriptionPreferences;
         }
-      } catch (error) {
+      } catch {
         return new NextResponse(
           JSON.stringify({
             message: "Invalid subscription preferences format",

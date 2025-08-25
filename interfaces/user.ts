@@ -16,9 +16,8 @@ export interface IReadingHistoryItem {
   readAt?: Date;
 }
 
-
 export interface IUser {
-  _id?: Types.ObjectId;
+  _id?: Types.ObjectId | string;
   username: string;
   email: string;
   password: string;

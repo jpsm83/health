@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import passwordValidation from "@/lib/utils/passwordValidation";
+import Image from "next/image";
 
 
 interface FormData {
@@ -518,7 +519,7 @@ export default function SignUpContent() {
                 )}
                 {imagePreview && (
                   <div className="mt-2">
-                    <img src={imagePreview} alt="Profile Preview" className="max-w-xs h-auto rounded-md" />
+                    <Image src={imagePreview} alt="Profile Preview" className="max-w-xs h-auto rounded-md" />
                   </div>
                 )}
               </div>
