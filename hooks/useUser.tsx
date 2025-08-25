@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { updateUserProfile, UpdateProfileData } from '@/services/userService';
-import { ICategoryInterest } from '@/interfaces/user';
+import { userService } from '@/services/userService';
+import type { IUpdateProfileData } from '@/services/userService';
 
 // Interface for the user data that ProfilePage needs
 interface ProfileUser {
@@ -12,7 +12,10 @@ interface ProfileUser {
   birthDate: string;
   imageUrl?: string;
   emailVerified: boolean;
-  categoryInterests: ICategoryInterest[];
+  subscriptionPreferences: {
+    categories: string[];
+    subscriptionFrequencies: string;
+  };
   likedArticles: string[];
   commentedArticles: string[];
   createdAt: string;
@@ -54,7 +57,10 @@ export const useUser = () => {
           birthDate: userData.birthDate ? new Date(userData.birthDate).toISOString().split('T')[0] : '2000-02-29',
           imageUrl: userData.imageUrl || session.user.imageUrl || '',
           emailVerified: userData.emailVerified || false,
-          categoryInterests: userData.categoryInterests || [],
+          subscriptionPreferences: userData.subscriptionPreferences || {
+            categories: [],
+            subscriptionFrequencies: "weekly"
+          },
           likedArticles: userData.likedArticles || [],
           commentedArticles: userData.commentedArticles || [],
           createdAt: userData.createdAt || new Date().toISOString(),
@@ -76,7 +82,10 @@ export const useUser = () => {
             birthDate: '2000-02-29',
             imageUrl: session.user.imageUrl || '',
             emailVerified: false,
-            categoryInterests: [],
+            subscriptionPreferences: {
+              categories: [],
+              subscriptionFrequencies: "weekly"
+            },
             likedArticles: [],
             commentedArticles: [],
             createdAt: new Date().toISOString(),
@@ -92,7 +101,7 @@ export const useUser = () => {
     fetchUserData();
   }, [session]);
 
-  const updateProfile = async (profileData: UpdateProfileData) => {
+  const updateProfile = async (profileData: IUpdateProfileData) => {
     if (!session?.user?.id) {
       setError('User not authenticated');
       return { success: false, message: 'User not authenticated' };
@@ -102,7 +111,7 @@ export const useUser = () => {
     setError(null);
 
     try {
-      const result = await updateUserProfile(session.user.id, profileData);
+      const result = await userService.updateUserProfile(session.user.id, profileData);
       
       if (result.success) {
         // Refresh user data after successful update
@@ -117,7 +126,10 @@ export const useUser = () => {
             birthDate: updatedUserData.birthDate ? new Date(updatedUserData.birthDate).toISOString().split('T')[0] : '2000-02-29',
             imageUrl: updatedUserData.imageUrl || session.user.imageUrl || '',
             emailVerified: updatedUserData.emailVerified || false,
-            categoryInterests: updatedUserData.categoryInterests || [],
+            subscriptionPreferences: updatedUserData.subscriptionPreferences || {
+              categories: [],
+              subscriptionFrequencies: "weekly"
+            },
             likedArticles: updatedUserData.likedArticles || [],
             commentedArticles: updatedUserData.commentedArticles || [],
             createdAt: updatedUserData.createdAt || new Date().toISOString(),

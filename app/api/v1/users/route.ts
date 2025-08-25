@@ -14,7 +14,7 @@ import passwordValidation from "@/lib/utils/passwordValidation";
 import User from "@/app/api/models/user";
 
 // imported interfaces
-import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
+import { IUser, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
 import { roles, mainCategories, newsletterFrequencies } from "@/lib/constants";
@@ -66,17 +66,16 @@ export const POST = async (req: Request) => {
     const region = formData.get("region") as string;
     const contentLanguage = formData.get("contentLanguage") as string;
 
-    // Category Interests - use default categories if not provided
-    const categoryInterestsRaw = formData.get("categoryInterests") as string;
+    // Subscription Preferences - use default categories if not provided
+    const subscriptionPreferencesRaw = formData.get("subscriptionPreferences") as string;
     
-    // Default category interests with all categories from constants
-    const defaultCategoryInterests = mainCategories.map(category => ({
-      type: category,
-      newsletterSubscription: false,
+    // Default subscription preferences with all categories from constants
+    const defaultSubscriptionPreferences = {
+      categories: mainCategories,
       subscriptionFrequencies: newsletterFrequencies[1] // 'weekly' (index 1)
-    }));
+    };
 
-    // Validate required fields (categoryInterests is no longer required since we have defaults)
+    // Validate required fields
     if (
       !username ||
       !email ||
@@ -96,20 +95,20 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Parse categoryInterests from formData or use defaults
-    let categoryInterests: ICategoryInterest[];
-    if (categoryInterestsRaw) {
+    // Parse subscription preferences from formData or use defaults
+    let subscriptionPreferences: { categories: string[]; subscriptionFrequencies: string };
+    if (subscriptionPreferencesRaw) {
       try {
-        categoryInterests = JSON.parse(
-          categoryInterestsRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-        ) as ICategoryInterest[];
+        subscriptionPreferences = JSON.parse(
+          subscriptionPreferencesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
+        );
       } catch {
         // If parsing fails, use defaults
-        categoryInterests = defaultCategoryInterests;
+        subscriptionPreferences = defaultSubscriptionPreferences;
       }
     } else {
-      // If no categoryInterests provided, use defaults
-      categoryInterests = defaultCategoryInterests;
+      // If no subscription preferences provided, use defaults
+      subscriptionPreferences = defaultSubscriptionPreferences;
     }
 
     // Validate password
@@ -120,50 +119,34 @@ export const POST = async (req: Request) => {
       });
     }
 
-    const categoryInterestsRequiredFields = [
-      "type",
-      "newsletterSubscription",
-      "subscriptionFrequencies",
-    ];
-
-    // Validate category interests
-    if (categoryInterests && categoryInterests.length > 0) {
-      for (const interest of categoryInterests) {
-        // Validate required fields
-        const validationResult = objDefaultValidation(
-          interest as unknown as {
-            [key: string]: string | number | boolean | undefined;
-          },
-          {
-            reqFields: categoryInterestsRequiredFields,
-            nonReqFields: [],
-          }
+    // Validate subscription preferences
+    if (subscriptionPreferences) {
+      // Validate subscriptionFrequencies enum
+      if (!subscriptionPreferences.subscriptionFrequencies || !newsletterFrequencies.includes(subscriptionPreferences.subscriptionFrequencies)) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Invalid subscription frequency: ${subscriptionPreferences.subscriptionFrequencies}. Must be one of: ${newsletterFrequencies.join(', ')}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
         );
+      }
 
-        if (validationResult !== true) {
+      // Validate categories array
+      if (!subscriptionPreferences.categories || !Array.isArray(subscriptionPreferences.categories)) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "Categories must be an array",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate each category
+      for (const category of subscriptionPreferences.categories) {
+        if (!mainCategories.includes(category)) {
           return new NextResponse(
             JSON.stringify({
-              message: validationResult,
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
-          );
-        }
-
-        // Validate subscriptionFrequencies enum
-        if (!interest.subscriptionFrequencies || !newsletterFrequencies.includes(interest.subscriptionFrequencies)) {
-          return new NextResponse(
-            JSON.stringify({
-              message: `Invalid subscription frequency: ${interest.subscriptionFrequencies}. Must be one of: ${newsletterFrequencies.join(', ')}`,
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
-          );
-        }
-
-        // Validate type enum
-        if (!interest.type || !mainCategories.includes(interest.type)) {
-          return new NextResponse(
-            JSON.stringify({
-              message: `Invalid category type: ${interest.type}. Must be one of: ${mainCategories.join(', ')}`,
+              message: `Invalid category: ${category}. Must be one of: ${mainCategories.join(', ')}`,
             }),
             { status: 400, headers: { "Content-Type": "application/json" } }
           );
@@ -219,7 +202,7 @@ export const POST = async (req: Request) => {
       role,
       birthDate: new Date(birthDate),
       preferences,
-      categoryInterests,
+      subscriptionPreferences,
       lastLogin: new Date(), // Set to current date automatically
     };
 

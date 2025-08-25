@@ -14,7 +14,7 @@ import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import User from "@/app/api/models/user";
 
 // imported interfaces
-import { IUser, ICategoryInterest, IUserPreferences } from "@/interfaces/user";
+import { IUser, IUserPreferences } from "@/interfaces/user";
 
 // imported constants
 import { roles } from "@/lib/constants";
@@ -109,8 +109,8 @@ export const PATCH = async (
     const region = formData.get("region") as string;
     const contentLanguage = formData.get("contentLanguage") as string;
 
-    // Category Interests (parse as JSON)
-    const categoryInterestsRaw = formData.get("categoryInterests") as string;
+    // Subscription Preferences (parse as JSON)
+    const subscriptionPreferencesRaw = formData.get("subscriptionPreferences") as string;
 
     // Validate required fields
     if (
@@ -120,13 +120,12 @@ export const PATCH = async (
       !birthDate ||
       !language ||
       !region ||
-      !contentLanguage ||
-      !categoryInterestsRaw
+      !contentLanguage
     ) {
       return new NextResponse(
         JSON.stringify({
           message:
-            "Username, email, role, birthDate, language, region, contentLanguage, and categoryInterestsRaw are required!",
+            "Username, email, role, birthDate, language, region, and contentLanguage are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -136,7 +135,7 @@ export const PATCH = async (
     await connectDb();
 
     // Check if user exists
-    const user = await User.findById(userId).select("-categoryInterests._id");
+    const user = await User.findById(userId);
 
     if (!user) {
       return new NextResponse(JSON.stringify({ message: "User not found" }), {
@@ -202,54 +201,23 @@ export const PATCH = async (
       updateData.preferences = preferences;
     }
 
-    // Update category interests
-    if (
-      JSON.stringify(user.categoryInterests || "")
-        .trim()
-        .replace(/[^a-zA-Z]/g, "") !==
-      (categoryInterestsRaw || "").trim().replace(/[^a-zA-Z]/g, "")
-    ) {
-      const categoryInterests = JSON.parse(
-        categoryInterestsRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-      ) as ICategoryInterest[];
+    // Update subscription preferences
+    if (subscriptionPreferencesRaw) {
+      try {
+        const subscriptionPreferences = JSON.parse(
+          subscriptionPreferencesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
+        );
 
-      if (categoryInterests && categoryInterests.length > 0) {
-        const categoryInterestsRequiredFields = [
-          "type",
-          "subscriptionFrequencies",
-        ];
-
-        let categoryInterestsValidation: string | boolean = true;
-        for (const interest of categoryInterests) {
-          const validationResult = objDefaultValidation(
-            interest as unknown as {
-              [key: string]: string | number | boolean | undefined;
-            },
-            {
-              reqFields: categoryInterestsRequiredFields,
-              nonReqFields: [],
-            }
-          );
-
-          if (validationResult !== true) {
-            categoryInterestsValidation = validationResult;
-            break;
-          }
+        if (subscriptionPreferences && subscriptionPreferences.categories && subscriptionPreferences.subscriptionFrequencies) {
+          updateData.subscriptionPreferences = subscriptionPreferences;
         }
-
-        if (categoryInterestsValidation !== true) {
-          return new NextResponse(
-            JSON.stringify({
-              message:
-                categoryInterestsValidation || "Invalid category interests",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
-          );
-        }
-
-        updateData.categoryInterests = categoryInterests;
-      } else {
-        updateData.categoryInterests = undefined;
+      } catch (error) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "Invalid subscription preferences format",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
       }
     }
 

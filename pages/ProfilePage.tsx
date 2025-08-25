@@ -7,17 +7,17 @@ import { User, BookOpen, Lock, CheckCircle, XCircle } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
 import { useAuth } from "@/hooks/useAuth";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
-import { ICategoryInterest } from "@/interfaces/user";
+
 
 interface FormData {
   username: string;
   email: string;
   role: string;
   birthDate: string;
-  categoryInterests: Array<{
-    type: string;
-    subscriptionFrequencies?: string;
-  }>;
+  subscriptionPreferences: {
+    categories: string[];
+    subscriptionFrequencies: string;
+  };
   imageFile?: File;
 }
 
@@ -45,18 +45,22 @@ export default function ProfileContent() {
     try {
       const result = await forgotPassword(user.email);
 
-      if (result.success) {
-        const successResult = result as {
-          success: true;
-          message: string;
-          resetLink?: string;
-        };
-        setSuccess(
-          successResult.message || "Password reset email sent successfully"
-        );
+      if (result && typeof result === 'object' && 'success' in result) {
+        if (result.success) {
+          const successResult = result as {
+            success: true;
+            message: string;
+            resetLink?: string;
+          };
+          setSuccess(
+            successResult.message || "Password reset email sent successfully"
+          );
+        } else {
+          const errorResult = result as { success: false; error: string };
+          setError(errorResult.error || "Failed to send reset email");
+        }
       } else {
-        const errorResult = result as { success: false; error: string };
-        setError(errorResult.error || "Failed to send reset email");
+        setError("Unexpected response format");
       }
     } catch (error) {
       console.error("Password reset error:", error);
@@ -99,13 +103,10 @@ export default function ProfileContent() {
         birthDate: user.birthDate
           ? new Date(user.birthDate).toISOString().split("T")[0]
           : "",
-        categoryInterests: mainCategories.map(category => {
-          const existing = user.categoryInterests?.find((ci: ICategoryInterest) => ci && ci.type === category);
-          return {
-            type: category,
-            subscriptionFrequencies: existing?.subscriptionFrequencies ?? "never",
-          };
-        }),
+        subscriptionPreferences: {
+          categories: user.subscriptionPreferences?.categories || mainCategories,
+          subscriptionFrequencies: user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+        },
         // Don't include password fields in initial values
       };
 
@@ -129,7 +130,7 @@ export default function ProfileContent() {
       email: watchedValues.email,
       role: watchedValues.role,
       birthDate: watchedValues.birthDate,
-      categoryInterests: watchedValues.categoryInterests,
+      subscriptionPreferences: watchedValues.subscriptionPreferences,
     };
 
     return (
@@ -183,13 +184,12 @@ export default function ProfileContent() {
         email: data.email,
         role: data.role,
         birthDate: data.birthDate,
-        categoryInterests: data.categoryInterests.map((ci) => ({
-          type: ci.type,
-          subscriptionFrequencies:
-            ci.subscriptionFrequencies === "never"
-              ? "weekly"
-              : ci.subscriptionFrequencies ?? "weekly",
-        })),
+        subscriptionPreferences: {
+          categories: data.subscriptionPreferences.categories.filter(cat => 
+            data.subscriptionPreferences.categories.includes(cat)
+          ),
+          subscriptionFrequencies: data.subscriptionPreferences.subscriptionFrequencies,
+        },
         imageFile: selectedImage || undefined,
       };
 
@@ -471,43 +471,36 @@ export default function ProfileContent() {
                           </h3>
                 <select
                               value={
-                                watchedValues.categoryInterests?.find(
-                                  (ci) => ci.type === category
-                                )?.subscriptionFrequencies || "never"
+                                watchedValues.subscriptionPreferences?.categories?.includes(category)
+                                  ? watchedValues.subscriptionPreferences.subscriptionFrequencies || "weekly"
+                                  : "never"
                               }
                               onChange={(e) => {
                                 const value = e.target.value;
                                 
                                 // Get current form values to ensure we have the latest state
-                                const currentCategoryInterests =
-                                  watchedValues.categoryInterests || [];
+                                const currentCategories = watchedValues.subscriptionPreferences?.categories || [];
+                                const currentFrequency = watchedValues.subscriptionPreferences?.subscriptionFrequencies || "weekly";
                                 
-                                const newCategoryInterests = [...currentCategoryInterests];
-                                const existingIndex = newCategoryInterests.findIndex(
-                                  (ci) => ci && ci.type === category
-                                );
-
-                                if (existingIndex >= 0) {
-                                  newCategoryInterests[existingIndex] = {
-                                    ...newCategoryInterests[existingIndex],
-                                    subscriptionFrequencies: value,
-                                  };
+                                let newCategories = [...currentCategories];
+                                
+                                if (value === "never") {
+                                  // Remove category if frequency is "never"
+                                  newCategories = newCategories.filter(cat => cat !== category);
                                 } else {
-                                  newCategoryInterests.push({
-                                    type: category,
-                                    subscriptionFrequencies: value,
-                                  });
+                                  // Add category if not already present
+                                  if (!newCategories.includes(category)) {
+                                    newCategories.push(category);
+                                  }
                                 }
 
-                                setValue(
-                                  "categoryInterests",
-                                  newCategoryInterests
-                                );
+                                setValue("subscriptionPreferences", {
+                                  categories: newCategories,
+                                  subscriptionFrequencies: value === "never" ? currentFrequency : value,
+                                });
                               }}
                               className={`w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-xs ${
-                                (watchedValues.categoryInterests?.find(
-                                  (ci) => ci.type === category
-                                )?.subscriptionFrequencies || "never") === "never"
+                                !watchedValues.subscriptionPreferences?.categories?.includes(category)
                                   ? "text-red-600"
                                   : ""
                               }`}

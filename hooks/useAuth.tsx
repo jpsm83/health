@@ -2,14 +2,7 @@
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useCallback } from "react";
-import { 
-  registerUser, 
-  signInWithCredentials, 
-  signInWithGoogle, 
-  signOut as authSignOut,
-  requestPasswordReset, 
-  resetPassword 
-} from "@/services/authService";
+import { authService } from "@/services/authService";
 
 export const useAuth = () => {
   const { data: session, status, update } = useSession();
@@ -25,59 +18,46 @@ export const useAuth = () => {
     }) => {
       try {
         // Use authService for user registration
-        await registerUser(userData);
+        await authService.registerUser(userData);
 
-        // After successful registration, automatically sign in the user with NextAuth
-        const loginResult = await signIn("credentials", {
-          email: userData.email,
-          password: userData.password,
-          redirect: false,
-        });
-
-        if (loginResult?.ok) {
-          try {
-            await update(); // Update session
-            return { success: true };
-          } catch (error) {
-            console.error("Session update failed:", error);
-            // Even if session update fails, login was successful
-            return { success: true };
-          }
-        } else {
+        try {
+          // After successful registration, automatically sign in the user with NextAuth
+          await signIn("credentials", {
+            email: userData.email,
+            password: userData.password,
+            callbackUrl: "/", // Redirect to root after successful login
+            redirect: true,
+          });
+          // Note: This will redirect the user, so we return success immediately
+          return { success: true };
+        } catch (error) {
+          console.error("Login error after registration:", error);
           return {
             success: false,
-            error: "Registration successful but automatic login failed",
+            error: "Registration successful but login failed",
           };
         }
       } catch (error) {
         console.error("Registration error:", error);
-        return { 
-          success: false, 
-          error: error instanceof Error ? error.message : "Registration failed" 
+        return {
+          success: false,
+          error: error instanceof Error ? error.message : "Registration failed",
         };
       }
     },
-    [update]
+    []
   );
 
   // Register with Google OAuth (creates account and signs in)
   const signUpGoogle = useCallback(async () => {
     try {
-      // Use authService for OAuth setup
-      const oauthResult = await signInWithGoogle("/");
-      
-      if (oauthResult.success) {
-        // Use NextAuth to handle the actual OAuth flow
-        await signIn("google", {
-          callbackUrl: oauthResult.oauthConfig.callbackUrl,
-          redirect: true, // Must be true for OAuth flows
-          state: oauthResult.oauthConfig.state,
-        });
-        // Note: This will redirect the user, so we return success immediately
-        return { success: true };
-      } else {
-        return { success: false, error: "Failed to setup Google OAuth" };
-      }
+      // Use NextAuth to handle the actual OAuth flow
+      await signIn("google", {
+        callbackUrl: "/", // Redirect to root after successful login
+        redirect: true, // Must be true for OAuth flows
+      });
+      // Note: This will redirect the user, so we return success immediately
+      return { success: true };
     } catch (error) {
       console.error("Google registration error:", error);
       return { success: false, error: "Google registration failed" };
@@ -92,18 +72,6 @@ export const useAuth = () => {
     ) => {
       try {
         if (provider === "credentials" && credentials) {
-          try {
-            // Use authService for backend auth preparation
-            await signInWithCredentials();
-          } catch (error) {
-            // Handle backend auth preparation failure gracefully
-            console.error("Backend auth preparation failed:", error);
-            return { 
-              success: false, 
-              error: "Authentication service unavailable" 
-            };
-          }
-          
           // Use NextAuth for actual authentication
           const result = await signIn("credentials", {
             email: credentials.email,
@@ -113,9 +81,9 @@ export const useAuth = () => {
 
           if (result?.error) {
             // Handle login failure gracefully without throwing errors
-            return { 
-              success: false, 
-              error: "Invalid email or password" 
+            return {
+              success: false,
+              error: "Invalid email or password",
             };
           }
 
@@ -131,31 +99,18 @@ export const useAuth = () => {
           }
 
           // Fallback for unexpected results
-          return { 
-            success: false, 
-            error: "Authentication failed" 
+          return {
+            success: false,
+            error: "Authentication failed",
           };
         } else if (provider === "google") {
-          try {
-            // Use authService for OAuth setup
-            const oauthResult = await signInWithGoogle("/");
-            
-            if (oauthResult.success) {
-              // Use NextAuth to handle the actual OAuth flow
-              await signIn("google", {
-                callbackUrl: oauthResult.oauthConfig.callbackUrl,
-                redirect: true, // Must be true for OAuth flows
-                state: oauthResult.oauthConfig.state,
-              });
-              // Note: This will redirect the user, so we return success immediately
-              return { success: true };
-            } else {
-              return { success: false, error: "Failed to setup Google OAuth" };
-            }
-          } catch (error) {
-            console.error("Google OAuth setup failed:", error);
-            return { success: false, error: "Google OAuth setup failed" };
-          }
+          // Use NextAuth to handle the actual OAuth flow
+          await signIn("google", {
+            callbackUrl: "/",
+            redirect: true, // Must be true for OAuth flows
+          });
+          // Note: This will redirect the user, so we return success immediately
+          return { success: true };
         }
       } catch (error) {
         console.error("Login error:", error);
@@ -169,12 +124,9 @@ export const useAuth = () => {
     [update]
   );
 
-  // Sign out using NextAuth and authService
+  // Sign out using NextAuth
   const logout = useCallback(async () => {
     try {
-      // Use authService for backend cleanup if needed
-      await authSignOut();
-      
       // Clear the session using NextAuth (handles both client and server)
       await signOut({
         redirect: false,
@@ -191,13 +143,14 @@ export const useAuth = () => {
   const forgotPassword = useCallback(async (email: string) => {
     try {
       // Use authService for password reset request
-      const result = await requestPasswordReset(email);
+      const result = await authService.requestPasswordReset(email);
       return result;
     } catch (error) {
       console.error("Forgot password error:", error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : "Failed to send reset email" 
+      return {
+        success: false,
+        error:
+          error instanceof Error ? error.message : "Failed to send reset email",
       };
     }
   }, []);
@@ -207,13 +160,14 @@ export const useAuth = () => {
     async (token: string, newPassword: string) => {
       try {
         // Use authService for password reset
-        const result = await resetPassword(token, newPassword);
+        const result = await authService.resetPassword(token, newPassword);
         return result;
       } catch (error) {
         console.error("Reset password error:", error);
-        return { 
-          success: false, 
-          error: error instanceof Error ? error.message : "Failed to reset password" 
+        return {
+          success: false,
+          error:
+            error instanceof Error ? error.message : "Failed to reset password",
         };
       }
     },
