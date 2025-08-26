@@ -350,6 +350,78 @@
       "title": "Réinitialiser le Mot de Passe - Women Spot",
       "description": "Définissez votre nouveau mot de passe pour votre compte Women Spot. Entrez votre nouveau mot de passe ci-dessous pour compléter le processus de réinitialisation de mot de passe.",
       "keywords": "réinitialiser le mot de passe, nouveau mot de passe, changement de mot de passe, sécurité Women Spot, sécurité du compte"
+    },
+    "about": {
+      "title": "À Propos de Nous - Women Spot",
+      "description": "Women Spot est votre source fiable de contenu sur la santé, la forme physique et le mode de vie. Donner aux femmes les moyens de vivre leurs meilleures vies.",
+      "keywords": "à propos de nous, Women Spot, santé, forme physique, mode de vie, autonomisation"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "À Propos de Women Spot",
+      "subtitle": "Votre destination de confiance pour tout ce dont les femmes ont besoin pour vivre leurs meilleures vies. Nous nous concentrons sur la santé, le bien-être et le mode de vie des femmes, vous aidant à créer une vie plus heureuse, plus saine et plus épanouie grâce à du contenu basé sur des preuves."
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "description1": "Nous nous engageons à être votre autorité numéro un en matière de santé, de bien-être et de mode de vie des femmes, en prenant l'initiative de vous aider à créer une vie heureuse, saine et épanouie. Quotidiennement, nous produisons des fonctionnalités informatives et éducatives pour soutenir votre parcours et, ce faisant, nous encourageons la conversation au sein de nos communautés.",
+      "description2": "Notre plateforme est devenue la destination unique pour des millions de femmes cherchant des informations fiables et exploitables pour améliorer tous les aspects de leur vie."
+    },
+    "whatWeDo": {
+      "title": "Ce Que Nous Faisons",
+      "cutThroughNoise": {
+        "title": "Traverser le Bruit",
+        "description": "Nous traversons le bruit du bien-être pour vous livrer un contenu positif, engageant et informatif basé sur les commentaires d'experts de premier plan et la recherche scientifique."
+      },
+      "personalizedApproach": {
+        "title": "Approche Personnalisée",
+        "description": "Nous comprenons que le bien-être est unique pour chacune d'entre vous. C'est pourquoi vous trouverez des conseils accessibles, applicables et exploitables pour tous les utilisateurs."
+      }
+    },
+    "team": {
+      "title": "Notre Équipe",
+      "description1": "Notre équipe reflète notre public principal : des femmes comme vous. C'est ainsi que nous comprenons et traduisons des sujets complexes en fonctionnalités informatives et actualités que vous voudrez lire et partager.",
+      "description2": "Notre équipe d'éditeurs travaille en étroite collaboration avec l'IA pour élaborer les informations les plus récentes et fiables, créant des articles très fiables qui sont à jour. Nous ne sommes pas seulement passionnés par la santé et le mode de vie des femmes, mais nous sommes également hautement formés au reportage et à l'édition sur les sujets qui vous préoccupent. Tout notre contenu est soutenu par des experts vérifiés qui sont des leaders dans leurs domaines.",
+      "description3": "Nous sommes fiers de partager qu'aujourd'hui, notre plateforme est devenue la destination unique pour des millions de femmes cherchant des informations fiables pour améliorer tous les aspects de leur vie."
+    },
+    "whatWeCover": {
+      "title": "Ce Que Nous Couvrons",
+      "healthWellness": {
+        "title": "Santé et Bien-être",
+        "description": "Couverture complète de la santé physique et mentale des femmes, de la nutrition et de la santé reproductive."
+      },
+      "fitnessBeauty": {
+        "title": "Forme Physique et Beauté",
+        "description": "Conseils d'experts sur les entraînements, les routines de beauté, les tendances de la mode et les pratiques d'auto-soins."
+      },
+      "lifestyleTravel": {
+        "title": "Mode de Vie et Voyage",
+        "description": "Conseils pour la productivité, la parentalité, la décoration de la maison, les expériences de voyage et l'équilibre travail-vie."
+      },
+      "relationshipsSex": {
+        "title": "Relations et Sexualité",
+        "description": "Discussions ouvertes et honnêtes sur les relations, l'intimité et la santé sexuelle pour les femmes."
+      }
+    },
+    "editorialStandards": {
+      "title": "Nos Normes Éditoriales",
+      "accuracy": {
+        "title": "Précision",
+        "description": "La production de nouvelles et de fonctionnalités comprend des entretiens avec des experts qualifiés et des auteurs d'études, ainsi qu'un protocole exhaustif d'édition et de vérification des faits avant la publication. Le contenu publié est périodiquement vérifié, révisé et mis à jour pour s'assurer que les informations sont à jour avec des recherches et une expertise plus récentes."
+      },
+      "editorialIndependence": {
+        "title": "Indépendance Éditoriale",
+        "description": "Notre plateforme est soutenue en partie par la publicité, cependant, notre contenu est produit conformément au code de conduite éditorial. Dans certains cas, les sponsors peuvent avoir des contributions concernant des concepts larges, mais ils n'ont aucune influence matérielle sur le produit final. Ce contenu créé en collaboration avec des annonceurs est clairement marqué comme tel."
+      },
+      "privacy": {
+        "title": "Confidentialité",
+        "description": "Nous comprenons que la santé est un sujet sensible, et nous maintenons une politique de confidentialité stricte pour protéger vos informations personnelles et vos données de navigation."
+      }
+    },
+    "callToAction": {
+      "title": "Rejoignez Notre Communauté",
+      "description": "Commencez votre voyage vers une vie meilleure aujourd'hui. Explorez nos articles sur tout, de la santé et de la forme physique à la beauté, aux relations et au mode de vie. Partagez vos expériences et faites partie de notre communauté grandissante de femmes autonomisées.",
+      "button": "Commencer à Explorer"
     }
   },
   "footer": {
@@ -360,11 +432,13 @@
     "contact": "Contact",
     "privacyPolicy": "Politique de Confidentialité",
     "getInTouch": "Contactez-nous",
-    "email": "bonjour@santebienetre.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "New York, NY",
+    "address": "Barcelona, Spain",
     "copyright": "© 2024 Santé et Bien-être. Tous droits réservés.",
     "termsOfService": "Conditions de Service",
-    "cookiePolicy": "Politique des Cookies"
+    "cookiePolicy": "Politique des Cookies",
+    "followUs": "Suivez-nous",
+    "siteMap": "Plan du Site",
+    "termsAndConditions": "Conditions d'Utilisation",
+    "cookiesPolicy": "Politique des Cookies"
   }
 }

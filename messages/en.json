@@ -349,6 +349,78 @@
       "title": "Reset Password - Women Spot",
       "description": "Set your new password for your Women Spot account. Enter your new password below to complete the password reset process.",
       "keywords": "reset password, new password, password change, Women Spot security, account security"
+    },
+    "about": {
+      "title": "About Us - Women Spot",
+      "description": "Women Spot is your trusted source for health, fitness, and lifestyle content. Empowering women to live their best lives.",
+      "keywords": "about us, Women Spot, health, fitness, lifestyle, empowerment"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About Women Spot",
+      "subtitle": "Your trusted destination for everything women need to live their best lives. We focus on women's health, wellness, and lifestyle, helping you create a happier, healthier, and more fulfilling life through evidence-based content."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description1": "We are committed to being your number one authority on women's health, wellness, and lifestyle, leading the charge in helping you create a happy, healthy, and fulfilling life. Daily, we produce informative and educational features to support your journey and in doing so, embrace conversation within our communities.",
+      "description2": "Our platform has become the one-stop destination for millions of women seeking reliable, actionable information to enhance every aspect of their lives."
+    },
+    "whatWeDo": {
+      "title": "What We Do",
+      "cutThroughNoise": {
+        "title": "Cut Through the Noise",
+        "description": "We cut through the wellness noise to deliver you positive, engaging, informative content that's based on leading expert comment and scientific research."
+      },
+      "personalizedApproach": {
+        "title": "Personalized Approach",
+        "description": "We understand that wellness is unique to each and every one of you. That's why you'll find approachable, applicable and actionable advice for all users."
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "description1": "Our team reflects our core audience: women like you. It's how we understand and translate complex topics into informative features and news that you'll want to read and share.",
+      "description2": "Our team of editors works closely with AI to craft the most recent and reliable information, creating very reliable articles that are up-to-date. We're not only passionate about women's health and lifestyle, but also highly trained in reporting and editing on the topics you're concerned about. All our content is backed up by vetted experts who are leaders in their fields.",
+      "description3": "We're proud to share that today, our platform has become the one-stop destination for millions of women seeking reliable information to enhance every aspect of their lives."
+    },
+    "whatWeCover": {
+      "title": "What We Cover",
+      "healthWellness": {
+        "title": "Health & Wellness",
+        "description": "Comprehensive coverage of women's physical and mental health, nutrition, and reproductive health."
+      },
+      "fitnessBeauty": {
+        "title": "Fitness & Beauty",
+        "description": "Expert advice on workouts, beauty routines, fashion trends, and self-care practices."
+      },
+      "lifestyleTravel": {
+        "title": "Lifestyle & Travel",
+        "description": "Tips for productivity, parenting, home decor, travel experiences, and work-life balance."
+      },
+      "relationshipsSex": {
+        "title": "Relationships & Sex",
+        "description": "Open, honest discussions about relationships, intimacy, and sexual health for women."
+      }
+    },
+    "editorialStandards": {
+      "title": "Our Editorial Standards",
+      "accuracy": {
+        "title": "Accuracy",
+        "description": "The production of news and features includes interviews with qualified experts and study authors, as well as a thorough editing and fact-checking protocol prior to publishing. Published content is periodically fact-checked, reviewed and updated to ensure the information is up to date with newer research and expertise."
+      },
+      "editorialIndependence": {
+        "title": "Editorial Independence",
+        "description": "Our platform is supported in part by advertising, however, our content is produced in line with editorial code of conduct. In some cases, sponsors may be allowed input regarding broad concepts, but they hold no material influence over the end product. This content created in collaboration with advertisers is clearly marked as such."
+      },
+      "privacy": {
+        "title": "Privacy",
+        "description": "We understand that health is a sensitive topic, and we maintain a strict privacy policy to protect your personal information and browsing data."
+      }
+    },
+    "callToAction": {
+      "title": "Join Our Community",
+      "description": "Start your journey to a better life today. Explore our articles on everything from health and fitness to beauty, relationships, and lifestyle. Share your experiences, and become part of our growing community of empowered women.",
+      "button": "Start Exploring"
     }
   },
   "footer": {
@@ -359,11 +431,13 @@
     "contact": "Contact",
     "privacyPolicy": "Privacy Policy",
     "getInTouch": "Get in Touch",
-    "email": "hello@healthwellness.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "New York, NY",
+    "address": "Barcelona, España",
     "copyright": "© 2024 Health & Wellness. All rights reserved.",
     "termsOfService": "Terms of Service",
-    "cookiePolicy": "Cookie Policy"
+    "cookiePolicy": "Cookie Policy",
+    "followUs": "Follow Us",
+    "siteMap": "Site Map",
+    "termsAndConditions": "Terms and Conditions",
+    "cookiesPolicy": "Cookies Policy"
   }
 }

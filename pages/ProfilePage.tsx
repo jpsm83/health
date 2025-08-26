@@ -81,27 +81,27 @@ export default function ProfileContent() {
 
       // Username validation
       if (!values.username) {
-        errors.username = { message: t("profile.validation.usernameRequired") };
+        errors.username = { message: t("validation.usernameRequired") };
       } else if (values.username.length < 5) {
-        errors.username = { message: t("profile.validation.usernameTooShort") };
+        errors.username = { message: t("validation.usernameTooShort") };
       } else if (values.username.length > 30) {
-        errors.username = { message: t("profile.validation.usernameTooLong") };
+        errors.username = { message: t("validation.usernameTooLong") };
       } else if (!/^[a-zA-Z0-9_-]+$/.test(values.username)) {
         errors.username = {
-          message: t("profile.validation.usernameInvalidChars"),
+          message: t("validation.usernameInvalidChars"),
         };
       }
 
       // Birth date validation
       if (!values.birthDate) {
-        errors.birthDate = { message: t("profile.validation.birthDateRequired") };
+        errors.birthDate = { message: t("validation.birthDateRequired") };
       }
 
       // Newsletter frequency validation
       if (!values.subscriptionPreferences?.subscriptionFrequencies) {
         errors.subscriptionPreferences = {
           subscriptionFrequencies: {
-            message: t("profile.validation.newsletterFrequencyRequired"),
+            message: t("validation.newsletterFrequencyRequired"),
           },
         };
       }
@@ -184,8 +184,8 @@ export default function ProfileContent() {
 
   if (!user) {
     // Redirect to signin if not authenticated
-    if (typeof window !== 'undefined') {
-      window.location.href = '/signin';
+    if (typeof window !== "undefined") {
+      window.location.href = "/signin";
     }
     return null;
   }
@@ -193,7 +193,7 @@ export default function ProfileContent() {
   // Handle password reset
   const handleResetPassword = async () => {
     if (!user?.email) {
-      setError(t("profile.validation.userEmailNotFound"));
+      setError(t("validation.userEmailNotFound"));
       return;
     }
 
@@ -207,7 +207,7 @@ export default function ProfileContent() {
       // Check if result is a string (success message) or has success property
       if (typeof result === "string") {
         // If result is a string, treat it as a success message
-        setSuccess(result || t("profile.passwordResetSent"));
+        setSuccess(result || t("passwordResetSent"));
       } else if (result && typeof result === "object") {
         // If result is an object, check for success property
         if ("success" in result) {
@@ -217,24 +217,22 @@ export default function ProfileContent() {
               message: string;
               resetLink?: string;
             };
-            setSuccess(
-              successResult.message || t("profile.passwordResetSent")
-            );
+            setSuccess(successResult.message || t("passwordResetSent"));
           } else {
             const errorResult = result as { success: false; error: string };
-            setError(errorResult.error || t("profile.passwordResetFailed"));
+            setError(errorResult.error || t("passwordResetFailed"));
           }
         } else {
           // If no success property but result exists, treat as success
-          setSuccess(t("profile.passwordResetSent"));
+          setSuccess(t("passwordResetSent"));
         }
       } else {
         // If result is falsy or unexpected format, treat as success (API worked)
-        setSuccess(t("profile.passwordResetSent"));
+        setSuccess(t("passwordResetSent"));
       }
     } catch (error) {
       console.error("Password reset error:", error);
-      setError(t("profile.unexpectedError"));
+      setError(t("unexpectedError"));
     } finally {
       setIsLoading(false);
     }
@@ -246,13 +244,13 @@ export default function ProfileContent() {
     if (file) {
       // Validate file type
       if (!file.type.startsWith("image/")) {
-        setError(t("profile.validation.invalidImageType"));
+        setError(t("validation.invalidImageType"));
         return;
       }
 
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        setError(t("profile.validation.imageTooLarge"));
+        setError(t("validation.imageTooLarge"));
         return;
       }
 
@@ -306,13 +304,13 @@ export default function ProfileContent() {
         setSelectedImage(null);
         setImagePreview(null);
         setError(""); // Clear any errors
-        setSuccess(t("profile.updateSuccess"));
+        setSuccess(t("updateSuccess"));
       } else {
-        setError(result?.message || t("profile.updateFailed"));
+        setError(result?.message || t("updateFailed"));
       }
     } catch (error) {
       console.error("Profile update error:", error);
-              setError(t("profile.updateFailed") || "Failed to update profile");
+      setError(t("updateFailed") || "Failed to update profile");
     } finally {
       setIsLoading(false);
     }
@@ -343,9 +341,9 @@ export default function ProfileContent() {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
-                  <div className="text-red-600 text-lg mb-4">
-          {t("profile.errors.loadingUserData")}
-        </div>
+          <div className="text-red-600 text-lg mb-4">
+            {t("errors.loadingUserData")}
+          </div>
           <div className="text-gray-600">{userError}</div>
         </div>
       </div>
@@ -418,7 +416,9 @@ export default function ProfileContent() {
                           />
                         </svg>
                       </div>
-                      <span className="text-xs">{t("profile.actions.changeImage")}</span>
+                      <span className="text-xs">
+                        {t("actions.changeImage")}
+                      </span>
                     </div>
                   </label>
                 </div>
@@ -431,7 +431,7 @@ export default function ProfileContent() {
                   onClick={removeImage}
                   className="mt-2 w-full text-center text-red-600 hover:text-red-900 text-sm bg-red-50 hover:bg-red-100 py-1 px-2 rounded-md transition-colors"
                 >
-                  {t("profile.actions.remove")}
+                  {t("actions.remove")}
                 </button>
               )}
             </div>
@@ -442,7 +442,7 @@ export default function ProfileContent() {
                 {user.username}
               </h1>
               <h3 className="text-md text-gray-400 mb-2">{user.email}</h3>
-              <p className="text-lg text-gray-600 mb-4">{t("profile.subtitle")}</p>
+              <p className="text-lg text-gray-600 mb-4">{t("subtitle")}</p>
 
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -454,22 +454,30 @@ export default function ProfileContent() {
                   )}
                   <div>
                     <div className="text-sm font-medium text-gray-900">
-                      {user.emailVerified ? t("profile.stats.verified") : t("profile.stats.unverified")}
+                      {user.emailVerified
+                        ? t("stats.verified")
+                        : t("stats.unverified")}
                     </div>
-                    <div className="text-xs text-gray-500">{t("profile.stats.emailStatus")}</div>
+                    <div className="text-xs text-gray-500">
+                      {t("stats.emailStatus")}
+                    </div>
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-600">
                     {user.likedArticles?.length || 0}
                   </div>
-                  <div className="text-sm text-gray-500">{t("profile.stats.likedArticles")}</div>
+                  <div className="text-sm text-gray-500">
+                    {t("stats.likedArticles")}
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-600">
                     {user.commentedArticles?.length || 0}
                   </div>
-                  <div className="text-sm text-gray-500">{t("profile.stats.comments")}</div>
+                  <div className="text-sm text-gray-500">
+                    {t("stats.comments")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -481,7 +489,7 @@ export default function ProfileContent() {
               <div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                   <User className="w-5 h-5 mr-2 text-pink-600" />
-                  {t("profile.sections.personal")}
+                  {t("sections.personal")}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -489,7 +497,7 @@ export default function ProfileContent() {
                       htmlFor="username"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      {t("profile.fields.username")}
+                      {t("fields.username")}
                     </label>
                     <input
                       id="username"
@@ -505,7 +513,7 @@ export default function ProfileContent() {
                           ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
                           : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
                       } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
-                      placeholder={t("profile.fields.enterUsername")}
+                      placeholder={t("fields.enterUsername")}
                     />
                     {errors.username && (
                       <p className="mt-1 text-sm text-pink-600">
@@ -519,7 +527,7 @@ export default function ProfileContent() {
                       htmlFor="birthDate"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      {t("profile.fields.birthDate")}
+                      {t("fields.birthDate")}
                     </label>
                     <input
                       id="birthDate"
@@ -549,13 +557,13 @@ export default function ProfileContent() {
               <div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                   <BookOpen className="w-5 h-5 mr-2 text-pink-600" />
-                  {t("profile.sections.categoryInterests")}
+                  {t("sections.categoryInterests")}
                 </h2>
 
                 {/* Newsletter Frequency Dropdown */}
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("profile.fields.newsletterFrequency")}
+                    {t("fields.newsletterFrequency")}
                   </label>
                   <select
                     {...register(
@@ -641,7 +649,7 @@ export default function ProfileContent() {
                 {/* Security Section */}
                 <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                   <Lock className="w-5 h-5 mr-2 text-pink-600" />
-                  {t("profile.sections.security")}
+                  {t("sections.security")}
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
@@ -652,10 +660,10 @@ export default function ProfileContent() {
                       className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Lock className="w-4 h-4 mr-2" />
-                      {t("profile.actions.resetPassword")}
+                      {t("actions.resetPassword")}
                     </button>
                     <p className="text-sm text-gray-500">
-                                              {t("profile.security.resetPasswordDescription")}
+                      {t("security.resetPasswordDescription")}
                     </p>
                   </div>
                 </div>
@@ -680,7 +688,7 @@ export default function ProfileContent() {
                     </div>
                     <div className="ml-3 flex-1">
                       <h3 className="text-sm font-medium text-pink-800">
-                        {t("profile.messages.unexpectedError")}
+                        {t("messages.unexpectedError")}
                       </h3>
                       <div className="mt-1 text-sm text-pink-700">{error}</div>
                     </div>
@@ -706,7 +714,7 @@ export default function ProfileContent() {
                     </div>
                     <div className="ml-3 flex-1">
                       <h3 className="text-sm font-medium text-green-800">
-                        {t("profile.messages.success")}
+                        {t("messages.success")}
                       </h3>
                       <div className="mt-1 text-sm text-green-700">
                         {success}
@@ -745,13 +753,13 @@ export default function ProfileContent() {
                       ></path>
                     </svg>
                   ) : null}
-                  {t("profile.actions.save")}
+                  {t("actions.save")}
                 </button>
 
                 {/* Help text when save button is disabled */}
                 {!hasChanges && !isLoading && (
                   <p className="text-sm text-gray-500 text-right">
-                    {t("profile.messages.makeChangesToSave")}
+                    {t("messages.makeChangesToSave")}
                   </p>
                 )}
               </div>

@@ -349,6 +349,78 @@
       "title": "Redefinir Senha - Women Spot",
       "description": "Defina sua nova senha para sua conta Women Spot. Digite sua nova senha abaixo para completar o processo de redefinição de senha.",
       "keywords": "redefinir senha, nova senha, alteração de senha, segurança Women Spot, segurança da conta"
+    },
+    "about": {
+      "title": "Sobre Nós - Women Spot",
+      "description": "Women Spot é sua fonte confiável de conteúdo sobre saúde, fitness e estilo de vida. Capacitando mulheres para viver suas melhores vidas.",
+      "keywords": "sobre nós, women spot, saúde, fitness, estilo de vida, empoderamento"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Sobre Women Spot",
+      "subtitle": "Seu destino confiável para tudo o que as mulheres precisam para viver suas melhores vidas. Nos concentramos na saúde, bem-estar e estilo de vida das mulheres, ajudando você a criar uma vida mais feliz, saudável e gratificante através de conteúdo baseado em evidências."
+    },
+    "mission": {
+      "title": "Nossa Missão",
+      "description1": "Estamos comprometidos em ser sua autoridade número um em saúde, bem-estar e estilo de vida das mulheres, liderando a carga para ajudá-la a criar uma vida feliz, saudável e gratificante. Diariamente, produzimos recursos informativos e educacionais para apoiar sua jornada e, ao fazer isso, abraçamos a conversa dentro de nossas comunidades.",
+      "description2": "Nossa plataforma se tornou o destino único para milhões de mulheres que buscam informações confiáveis e acionáveis para melhorar todos os aspectos de suas vidas."
+    },
+    "whatWeDo": {
+      "title": "O Que Fazemos",
+      "cutThroughNoise": {
+        "title": "Cortar o Ruído",
+        "description": "Cortamos o ruído do bem-estar para entregar conteúdo positivo, envolvente e informativo baseado em comentários de especialistas líderes e pesquisa científica."
+      },
+      "personalizedApproach": {
+        "title": "Abordagem Personalizada",
+        "description": "Entendemos que o bem-estar é único para cada uma de vocês. É por isso que você encontrará conselhos acessíveis, aplicáveis e acionáveis para todos os usuários."
+      }
+    },
+    "team": {
+      "title": "Nossa Equipe",
+      "description1": "Nossa equipe reflete nosso público principal: mulheres como você. É assim que entendemos e traduzimos tópicos complexos em recursos informativos e notícias que você vai querer ler e compartilhar.",
+      "description2": "Nossa equipe de editores trabalha em estreita colaboração com IA para elaborar as informações mais recentes e confiáveis, criando artigos muito confiáveis que estão atualizados. Não somos apenas apaixonados pela saúde e estilo de vida das mulheres, mas também somos altamente treinados em reportagem e edição sobre os tópicos que lhe interessam. Todo nosso conteúdo é respaldado por especialistas verificados que são líderes em seus campos.",
+      "description3": "Temos orgulho de compartilhar que hoje, nossa plataforma se tornou o destino único para milhões de mulheres que buscam informações confiáveis para melhorar todos os aspectos de suas vidas."
+    },
+    "whatWeCover": {
+      "title": "O Que Cobrimos",
+      "healthWellness": {
+        "title": "Saúde e Bem-estar",
+        "description": "Cobertura abrangente da saúde física e mental das mulheres, nutrição e saúde reprodutiva."
+      },
+      "fitnessBeauty": {
+        "title": "Fitness e Beleza",
+        "description": "Conselhos de especialistas sobre treinos, rotinas de beleza, tendências de moda e práticas de autocuidado."
+      },
+      "lifestyleTravel": {
+        "title": "Estilo de Vida e Viagem",
+        "description": "Dicas para produtividade, paternidade, decoração da casa, experiências de viagem e equilíbrio trabalho-vida."
+      },
+      "relationshipsSex": {
+        "title": "Relacionamentos e Sexo",
+        "description": "Discussões abertas e honestas sobre relacionamentos, intimidade e saúde sexual para mulheres."
+      }
+    },
+    "editorialStandards": {
+      "title": "Nossos Padrões Editoriais",
+      "accuracy": {
+        "title": "Precisão",
+        "description": "A produção de notícias e recursos inclui entrevistas com especialistas qualificados e autores de estudos, bem como um protocolo abrangente de edição e verificação de fatos antes da publicação. O conteúdo publicado é periodicamente verificado, revisado e atualizado para garantir que as informações estejam atualizadas com pesquisas e expertise mais recentes."
+      },
+      "editorialIndependence": {
+        "title": "Independência Editorial",
+        "description": "Nossa plataforma é apoiada em parte por publicidade, no entanto, nosso conteúdo é produzido em conformidade com o código de conduta editorial. Em alguns casos, os patrocinadores podem ter contribuições sobre conceitos amplos, mas não têm influência material sobre o produto final. Este conteúdo criado em colaboração com anunciantes é claramente marcado como tal."
+      },
+      "privacy": {
+        "title": "Privacidade",
+        "description": "Entendemos que a saúde é um tópico sensível, e mantemos uma política de privacidade rigorosa para proteger suas informações pessoais e dados de navegação."
+      }
+    },
+    "callToAction": {
+      "title": "Junte-se à Nossa Comunidade",
+      "description": "Comece sua jornada para uma vida melhor hoje. Explore nossos artigos sobre tudo, desde saúde e fitness até beleza, relacionamentos e estilo de vida. Compartilhe suas experiências e torne-se parte de nossa crescente comunidade de mulheres empoderadas.",
+      "button": "Começar a Explorar"
     }
   },
   "footer": {
@@ -359,11 +431,13 @@
     "contact": "Contato",
     "privacyPolicy": "Política de Privacidade",
     "getInTouch": "Entre em Contato",
-    "email": "ola@saudebemestar.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "Nova York, NY",
+    "address": "Barcelona, Espanha",
     "copyright": "© 2024 Saúde e Bem-estar. Todos os direitos reservados.",
     "termsOfService": "Termos de Serviço",
-    "cookiePolicy": "Política de Cookies"
+    "cookiePolicy": "Política de Cookies",
+    "followUs": "Siga-nos",
+    "siteMap": "Mapa do Site",
+    "termsAndConditions": "Termos e Condições",
+    "cookiesPolicy": "Política de Cookies"
   }
 }

@@ -350,6 +350,78 @@
       "title": "Restablecer Contraseña - Women Spot",
       "description": "Establece tu nueva contraseña para tu cuenta Women Spot. Ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento de contraseña.",
       "keywords": "restablecer contraseña, nueva contraseña, cambio de contraseña, seguridad Women Spot, seguridad de cuenta"
+    },
+    "about": {
+      "title": "Acerca de Nosotros - Women Spot",
+      "description": "Women Spot es tu fuente confiable de contenido de salud, fitness y estilo de vida. Empoderando a las mujeres para vivir sus mejores vidas.",
+      "keywords": "acerca de nosotros, Women Spot, salud, fitness, estilo de vida, empoderamiento"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Sobre Women Spot",
+      "subtitle": "Tu destino confiable para todo lo que las mujeres necesitan para vivir sus mejores vidas. Nos enfocamos en la salud, el bienestar y el estilo de vida de las mujeres, ayudándote a crear una vida más feliz, saludable y plena a través de contenido basado en evidencia."
+    },
+    "mission": {
+      "title": "Nuestra Misión",
+      "description1": "Estamos comprometidos a ser tu autoridad número uno en salud, bienestar y estilo de vida de las mujeres, liderando la carga para ayudarte a crear una vida feliz, saludable y plena. Diariamente, producimos características informativas y educativas para apoyar tu viaje y, al hacerlo, abrazamos la conversación dentro de nuestras comunidades.",
+      "description2": "Nuestra plataforma se ha convertido en el destino único para millones de mujeres que buscan información confiable y accionable para mejorar todos los aspectos de sus vidas."
+    },
+    "whatWeDo": {
+      "title": "Qué Hacemos",
+      "cutThroughNoise": {
+        "title": "Cortar el Ruido",
+        "description": "Cortamos el ruido del bienestar para entregarte contenido positivo, atractivo e informativo que se basa en comentarios de expertos líderes e investigación científica."
+      },
+      "personalizedApproach": {
+        "title": "Enfoque Personalizado",
+        "description": "Entendemos que el bienestar es único para cada una de ustedes. Por eso encontrarás consejos accesibles, aplicables y accionables para todas las usuarias."
+      }
+    },
+    "team": {
+      "title": "Nuestro Equipo",
+      "description1": "Nuestro equipo refleja nuestra audiencia principal: mujeres como tú. Es así como entendemos y traducimos temas complejos en características informativas y noticias que querrás leer y compartir.",
+      "description2": "Nuestro equipo de editores trabaja en estrecha colaboración con la IA para elaborar la información más reciente y confiable, creando artículos muy confiables que están actualizados. No solo somos apasionados por la salud y el estilo de vida de las mujeres, sino que también estamos altamente capacitados en reportaje y edición sobre los temas que te preocupan. Todo nuestro contenido está respaldado por expertos verificados que son líderes en sus campos.",
+      "description3": "Nos enorgullece compartir que hoy, nuestra plataforma se ha convertido en el destino único para millones de mujeres que buscan información confiable para mejorar todos los aspectos de sus vidas."
+    },
+    "whatWeCover": {
+      "title": "Qué Cubrimos",
+      "healthWellness": {
+        "title": "Salud y Bienestar",
+        "description": "Cobertura integral de la salud física y mental de las mujeres, nutrición y salud reproductiva."
+      },
+      "fitnessBeauty": {
+        "title": "Fitness y Belleza",
+        "description": "Consejos expertos sobre entrenamientos, rutinas de belleza, tendencias de moda y prácticas de autocuidado."
+      },
+      "lifestyleTravel": {
+        "title": "Estilo de Vida y Viajes",
+        "description": "Consejos para productividad, crianza de hijos, decoración del hogar, experiencias de viaje y equilibrio trabajo-vida."
+      },
+      "relationshipsSex": {
+        "title": "Relaciones y Sexo",
+        "description": "Discusiones abiertas y honestas sobre relaciones, intimidad y salud sexual para mujeres."
+      }
+    },
+    "editorialStandards": {
+      "title": "Nuestros Estándares Editoriales",
+      "accuracy": {
+        "title": "Precisión",
+        "description": "La producción de noticias y características incluye entrevistas con expertos calificados y autores de estudios, así como un protocolo exhaustivo de edición y verificación de hechos antes de la publicación. El contenido publicado se verifica periódicamente, se revisa y se actualiza para asegurar que la información esté actualizada con investigaciones y experiencia más recientes."
+      },
+      "editorialIndependence": {
+        "title": "Independencia Editorial",
+        "description": "Nuestra plataforma es apoyada en parte por publicidad, sin embargo, nuestro contenido se produce de acuerdo con el código de conducta editorial. En algunos casos, los patrocinadores pueden tener aportes sobre conceptos amplios, pero no tienen influencia material sobre el producto final. Este contenido creado en colaboración con anunciantes está claramente marcado como tal."
+      },
+      "privacy": {
+        "title": "Privacidad",
+        "description": "Entendemos que la salud es un tema sensible, y mantenemos una política de privacidad estricta para proteger tu información personal y datos de navegación."
+      }
+    },
+    "callToAction": {
+      "title": "Únete a Nuestra Comunidad",
+      "description": "Comienza tu viaje hacia una vida mejor hoy. Explora nuestros artículos sobre todo, desde salud y fitness hasta belleza, relaciones y estilo de vida. Comparte tus experiencias y conviértete en parte de nuestra creciente comunidad de mujeres empoderadas.",
+      "button": "Comenzar a Explorar"
     }
   },
   "footer": {
@@ -360,11 +432,13 @@
     "contact": "Contacto",
     "privacyPolicy": "Política de Privacidad",
     "getInTouch": "Ponte en Contacto",
-    "email": "hola@saludbienestar.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "Nueva York, NY",
+    "address": "Barcelona, Spain",
     "copyright": "© 2024 Salud y Bienestar. Todos los derechos reservados.",
     "termsOfService": "Términos de Servicio",
-    "cookiePolicy": "Política de Cookies"
+    "followUs": "Síguenos",
+    "cookiePolicy": "Política de Cookies",
+    "siteMap": "Mapa del Sitio",
+    "termsAndConditions": "Términos y Condiciones",
+    "cookiesPolicy": "Política de Cookies"
   }
 }

@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Navigation from "@/components/Navbar";
-import Footer from "./footer/Footer";
+import Footer from "../../components/Footer";
 
 export async function generateMetadata({
   params,

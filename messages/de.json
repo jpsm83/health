@@ -350,6 +350,78 @@
       "title": "Passwort zurücksetzen - Women Spot",
       "description": "Legen Sie Ihr neues Passwort für Ihr Women Spot-Konto fest. Geben Sie Ihr neues Passwort unten ein, um den Passwort-Reset-Prozess abzuschließen.",
       "keywords": "Passwort zurücksetzen, neues Passwort, Passwortänderung, Women Spot-Sicherheit, Kontosicherheit"
+    },
+    "about": {
+      "title": "Über Uns - Women Spot",
+      "description": "Women Spot ist Ihre vertrauenswürdige Quelle für Gesundheits-, Fitness- und Lifestyle-Inhalte. Frauen dabei zu unterstützen, ihre besten Leben zu führen.",
+      "keywords": "über uns, women spot, gesundheit, fitness, lifestyle, empowerment"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Über Women Spot",
+      "subtitle": "Ihr vertrauenswürdiges Ziel für alles, was Frauen brauchen, um ihre besten Leben zu führen. Wir konzentrieren uns auf die Gesundheit, das Wohlbefinden und den Lebensstil von Frauen und helfen Ihnen dabei, ein glücklicheres, gesünderes und erfüllteres Leben durch evidenzbasierte Inhalte zu schaffen."
+    },
+    "mission": {
+      "title": "Unsere Mission",
+      "description1": "Wir verpflichten uns, Ihre erste Autorität für die Gesundheit, das Wohlbefinden und den Lebensstil von Frauen zu sein und führen den Weg, um Ihnen dabei zu helfen, ein glückliches, gesundes und erfülltes Leben zu schaffen. Täglich produzieren wir informative und lehrreiche Features, um Ihre Reise zu unterstützen, und dabei fördern wir den Dialog in unseren Gemeinschaften.",
+      "description2": "Unsere Plattform ist zum One-Stop-Ziel für Millionen von Frauen geworden, die nach zuverlässigen, umsetzbaren Informationen suchen, um alle Aspekte ihres Lebens zu verbessern."
+    },
+    "whatWeDo": {
+      "title": "Was Wir Tun",
+      "cutThroughNoise": {
+        "title": "Den Lärm Durchschneiden",
+        "description": "Wir durchschneiden den Wellness-Lärm, um Ihnen positive, ansprechende und informative Inhalte zu liefern, die auf führenden Expertenkommentaren und wissenschaftlicher Forschung basieren."
+      },
+      "personalizedApproach": {
+        "title": "Persönlicher Ansatz",
+        "description": "Wir verstehen, dass Wohlbefinden für jede von Ihnen einzigartig ist. Deshalb finden Sie zugängliche, anwendbare und umsetzbare Ratschläge für alle Benutzer."
+      }
+    },
+    "team": {
+      "title": "Unser Team",
+      "description1": "Unser Team spiegelt unser Kernpublikum wider: Frauen wie Sie. So verstehen und übersetzen wir komplexe Themen in informative Features und Nachrichten, die Sie lesen und teilen möchten.",
+      "description2": "Unser Redaktionsteam arbeitet eng mit KI zusammen, um die neuesten und zuverlässigsten Informationen zu erstellen und sehr zuverlässige Artikel zu verfassen, die auf dem neuesten Stand sind. Wir sind nicht nur leidenschaftlich an der Gesundheit und dem Lebensstil von Frauen interessiert, sondern auch hochqualifiziert im Berichten und Bearbeiten der Themen, die Sie betreffen. Alle unsere Inhalte werden von verifizierten Experten unterstützt, die in ihren Bereichen führend sind.",
+      "description3": "Wir sind stolz darauf, mitzuteilen, dass unsere Plattform heute zum One-Stop-Ziel für Millionen von Frauen geworden ist, die nach zuverlässigen Informationen suchen, um alle Aspekte ihres Lebens zu verbessern."
+    },
+    "whatWeCover": {
+      "title": "Was Wir Abdecken",
+      "healthWellness": {
+        "title": "Gesundheit & Wohlbefinden",
+        "description": "Umfassende Berichterstattung über die körperliche und geistige Gesundheit von Frauen, Ernährung und reproduktive Gesundheit."
+      },
+      "fitnessBeauty": {
+        "title": "Fitness & Schönheit",
+        "description": "Expertenratschläge zu Workouts, Schönheitsroutinen, Modetrends und Selbstpflegepraktiken."
+      },
+      "lifestyleTravel": {
+        "title": "Lifestyle & Reisen",
+        "description": "Tipps für Produktivität, Elternschaft, Wohnkultur, Reiseerfahrungen und Work-Life-Balance."
+      },
+      "relationshipsSex": {
+        "title": "Beziehungen & Sex",
+        "description": "Offene, ehrliche Diskussionen über Beziehungen, Intimität und sexuelle Gesundheit für Frauen."
+      }
+    },
+    "editorialStandards": {
+      "title": "Unsere Redaktionsstandards",
+      "accuracy": {
+        "title": "Genauigkeit",
+        "description": "Die Produktion von Nachrichten und Features umfasst Interviews mit qualifizierten Experten und Studienautoren sowie ein gründliches Protokoll zur Bearbeitung und Faktenprüfung vor der Veröffentlichung. Veröffentlichte Inhalte werden regelmäßig faktengeprüft, überprüft und aktualisiert, um sicherzustellen, dass die Informationen mit neueren Forschungen und Expertise auf dem neuesten Stand sind."
+      },
+      "editorialIndependence": {
+        "title": "Redaktionelle Unabhängigkeit",
+        "description": "Unsere Plattform wird teilweise durch Werbung unterstützt, jedoch wird unser Inhalt in Übereinstimmung mit dem redaktionellen Verhaltenskodex produziert. In einigen Fällen können Sponsoren Beiträge zu breiten Konzepten leisten, haben aber keinen materiellen Einfluss auf das Endprodukt. Dieser in Zusammenarbeit mit Werbetreibenden erstellte Inhalt ist klar als solcher gekennzeichnet."
+      },
+      "privacy": {
+        "title": "Datenschutz",
+        "description": "Wir verstehen, dass Gesundheit ein sensibles Thema ist, und wir halten eine strenge Datenschutzrichtlinie aufrecht, um Ihre persönlichen Informationen und Browsing-Daten zu schützen."
+      }
+    },
+    "callToAction": {
+      "title": "Treten Sie Unserer Gemeinschaft Bei",
+      "description": "Beginnen Sie heute Ihre Reise zu einem besseren Leben. Entdecken Sie unsere Artikel über alles von Gesundheit und Fitness bis hin zu Schönheit, Beziehungen und Lifestyle. Teilen Sie Ihre Erfahrungen und werden Sie Teil unserer wachsenden Gemeinschaft von selbstbewussten Frauen.",
+      "button": "Beginnen Sie Zu Erkunden"
     }
   },
   "footer": {
@@ -360,11 +432,13 @@
     "contact": "Kontakt",
     "privacyPolicy": "Datenschutzrichtlinie",
     "getInTouch": "Kontakt aufnehmen",
-    "email": "hallo@gesundheitwohlbefinden.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "New York, NY",
+    "address": "Barcelona, Spain",
     "copyright": "© 2024 Gesundheit und Wohlbefinden. Alle Rechte vorbehalten.",
     "termsOfService": "Nutzungsbedingungen",
-    "cookiePolicy": "Cookie-Richtlinie"
+    "cookiePolicy": "Cookie-Richtlinie",
+    "followUs": "Folgen Sie uns",
+    "siteMap": "Site Map",
+    "termsAndConditions": "Nutzungsbedingungen",
+    "cookiesPolicy": "Cookie-Richtlinie"
   }
 }

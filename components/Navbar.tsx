@@ -131,7 +131,7 @@ export default function Navbar() {
   return (
     <nav className="text-white shadow-lg text-base">
       {/* Top navigation */}
-      <div className="bg-pink-600 flex justify-between items-center h-12 md:h-16 px-2 sm:px-6 lg:px-8">
+      <div className="bg-gradient-to-r from-red-600 to-pink-600 flex justify-between items-center h-12 md:h-16 px-2 sm:px-6 lg:px-8">
         {/* Navigation Menu */}
         <div className="md:hidden relative flex items-center space-x-2">
           <DropdownMenu>
@@ -139,7 +139,7 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="bg-pink-600 text-white hover:bg-pink-700 w-10 h-10"
+                className="bg-red-600 text-white hover:bg-red-700 w-10 h-10"
               >
                 <Menu size={24} />
               </Button>
@@ -540,7 +540,7 @@ export default function Navbar() {
       </div>
 
       {/* Bottom navigation */}
-      <div className="hidden bg-pink-500 md:flex justify-center flex-wrap items-center px-6 lg:px-8 gap-2 py-2">
+      <div className="hidden bg-rose-400 md:flex justify-center flex-wrap items-center px-6 lg:px-8 gap-2 py-2 border-t border-gray-300">
         {/* Article categories by button*/}
         {mainCategories.map((category) => (
           <Button
@@ -548,7 +548,7 @@ export default function Navbar() {
             size="sm"
             asChild
             key={category}
-            className="text-gray-300 hover:bg-pink-700 hover:text-white"
+            className="text-gray-200 hover:bg-rose-700 hover:text-white"
           >
             <Link href={`/${locale}/articles/?category=${category}`}>
               {t(`categories.${category.replace("-", "")}`)}

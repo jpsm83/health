@@ -350,6 +350,78 @@
       "title": "Wachtwoord Resetten - Women Spot",
       "description": "Stel je nieuwe wachtwoord in voor je Women Spot-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
       "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women Spot-beveiliging, accountbeveiliging"
+    },
+    "about": {
+      "title": "Over Ons - Women Spot",
+      "description": "Women Spot is je betrouwbare bron voor gezondheids-, fitness- en lifestyle-inhoud. Vrouwen in staat stellen om hun beste leven te leiden.",
+      "keywords": "over ons, women spot, gezondheid, fitness, lifestyle, empowerment"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Over Women Spot",
+      "subtitle": "Je betrouwbare bestemming voor alles wat vrouwen nodig hebben om hun beste leven te leiden. We richten ons op de gezondheid, het welzijn en de levensstijl van vrouwen, en helpen je een gelukkiger, gezonder en vervullender leven te creëren door middel van evidence-based content."
+    },
+    "mission": {
+      "title": "Onze Missie",
+      "description1": "We zijn toegewijd om je nummer één autoriteit te zijn op het gebied van gezondheid, welzijn en levensstijl van vrouwen, en leiden de weg om je te helpen een gelukkig, gezond en vervullend leven te creëren. Dagelijks produceren we informatieve en educatieve features om je reis te ondersteunen, en daarbij omarmen we gesprekken binnen onze gemeenschappen.",
+      "description2": "Ons platform is de one-stop bestemming geworden voor miljoenen vrouwen die op zoek zijn naar betrouwbare, uitvoerbare informatie om elk aspect van hun leven te verbeteren."
+    },
+    "whatWeDo": {
+      "title": "Wat We Doen",
+      "cutThroughNoise": {
+        "title": "Door de Ruis Heen Komen",
+        "description": "We komen door de wellness-ruis heen om je positieve, boeiende en informatieve content te leveren die gebaseerd is op toonaangevende expertcommentaar en wetenschappelijk onderzoek."
+      },
+      "personalizedApproach": {
+        "title": "Gepersonaliseerde Aanpak",
+        "description": "We begrijpen dat welzijn uniek is voor elk van jullie. Daarom vind je toegankelijke, toepasbare en uitvoerbare adviezen voor alle gebruikers."
+      }
+    },
+    "team": {
+      "title": "Ons Team",
+      "description1": "Ons team weerspiegelt ons kernpubliek: vrouwen zoals jij. Zo begrijpen en vertalen we complexe onderwerpen naar informatieve features en nieuws die je wilt lezen en delen.",
+      "description2": "Ons team van redacteuren werkt nauw samen met AI om de meest recente en betrouwbare informatie te maken, en zeer betrouwbare artikelen te creëren die up-to-date zijn. We zijn niet alleen gepassioneerd over de gezondheid en levensstijl van vrouwen, maar zijn ook hoogopgeleid in het rapporteren en bewerken van de onderwerpen die je aangaan. Al onze content wordt ondersteund door geverifieerde experts die leiders zijn in hun vakgebied.",
+      "description3": "We zijn trots om te delen dat ons platform vandaag de one-stop bestemming is geworden voor miljoenen vrouwen die op zoek zijn naar betrouwbare informatie om elk aspect van hun leven te verbeteren."
+    },
+    "whatWeCover": {
+      "title": "Wat We Behandelen",
+      "healthWellness": {
+        "title": "Gezondheid & Welzijn",
+        "description": "Uitgebreide dekking van de fysieke en mentale gezondheid van vrouwen, voeding en reproductieve gezondheid."
+      },
+      "fitnessBeauty": {
+        "title": "Fitness & Schoonheid",
+        "description": "Expertadvies over workouts, schoonheidsroutines, modetrends en zelfzorgpraktijken."
+      },
+      "lifestyleTravel": {
+        "title": "Levensstijl & Reizen",
+        "description": "Tips voor productiviteit, ouderschap, woningdecoratie, reiservaringen en werk-privébalans."
+      },
+      "relationshipsSex": {
+        "title": "Relaties & Seks",
+        "description": "Open, eerlijke discussies over relaties, intimiteit en seksuele gezondheid voor vrouwen."
+      }
+    },
+    "editorialStandards": {
+      "title": "Onze Redactionele Standaarden",
+      "accuracy": {
+        "title": "Nauwkeurigheid",
+        "description": "De productie van nieuws en features omvat interviews met gekwalificeerde experts en studeauteurs, evenals een grondig protocol voor bewerking en feitencontrole vóór publicatie. Gepubliceerde content wordt periodiek feitelijk gecontroleerd, beoordeeld en bijgewerkt om ervoor te zorgen dat de informatie up-to-date is met nieuwere onderzoeken en expertise."
+      },
+      "editorialIndependence": {
+        "title": "Redactionele Onafhankelijkheid",
+        "description": "Ons platform wordt deels ondersteund door advertenties, maar onze content wordt geproduceerd in overeenstemming met de redactionele gedragscode. In sommige gevallen mogen sponsors input hebben over brede concepten, maar ze hebben geen materiële invloed op het eindproduct. Deze content die in samenwerking met adverteerders is gemaakt, is duidelijk als zodanig gemarkeerd."
+      },
+      "privacy": {
+        "title": "Privacy",
+        "description": "We begrijpen dat gezondheid een gevoelig onderwerp is, en we handhaven een strikt privacybeleid om je persoonlijke informatie en browsegegevens te beschermen."
+      }
+    },
+    "callToAction": {
+      "title": "Doe Mee aan Onze Gemeenschap",
+      "description": "Begin vandaag je reis naar een beter leven. Verken onze artikelen over alles, van gezondheid en fitness tot schoonheid, relaties en levensstijl. Deel je ervaringen en word deel van onze groeiende gemeenschap van geëmancipeerde vrouwen.",
+      "button": "Begin met Verkennen"
     }
   },
   "footer": {
@@ -360,11 +432,13 @@
     "contact": "Contact",
     "privacyPolicy": "Privacybeleid",
     "getInTouch": "Neem Contact Op",
-    "email": "hallo@gezondheidwelzijn.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "New York, NY",
+    "address": "Barcelona, Spain",
     "copyright": "© 2024 Gezondheid en Welzijn. Alle rechten voorbehouden.",
     "termsOfService": "Servicevoorwaarden",
-    "cookiePolicy": "Cookiebeleid"
+    "cookiePolicy": "Cookiebeleid",
+    "followUs": "Volg Ons",
+    "siteMap": "Site Map",
+    "termsAndConditions": "Servicevoorwaarden",
+    "cookiesPolicy": "Cookiebeleid"
   }
 }
