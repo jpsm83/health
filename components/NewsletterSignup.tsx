@@ -1,25 +1,26 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Mail } from "lucide-react";
+import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function NewsletterSignup() {
+  const [emailInput, setEmailInput] = useState<string>("");
+
+  const t = useTranslations("newsletterSignup");
+  const locale = useLocale();
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(emailInput);
+  };
+
   return (
     <section className="bg-gradient-to-r from-red-600 to-pink-600 p-8 md:p-12 text-center text-white">
       <div className="max-w-2xl mx-auto">
         {/* Icon */}
-        <div className="mb-6">
-          <svg
-            className="w-16 h-16 mx-auto text-red-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            />
-          </svg>
+        <div className="mb-6 flex justify-center">
+          <Mail size={60} />
         </div>
 
         {/* Content */}
@@ -35,11 +36,14 @@ export default function NewsletterSignup() {
         <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
           <Input
             type="email"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
             placeholder="Enter your email address"
-            className="flex-1 bg-white text-gray-900 placeholder-gray-500 border-0 focus:ring-2 focus:ring-red-300 focus:ring-offset-2"
+            className="flex-1 bg-white text-gray-900 placeholder-gray-500 border-0 focus:ring-1 focus:ring-red-300 focus:ring-offset-0"
             required
           />
           <Button
+            onClick={handleSubmit}
             type="submit"
             variant="secondary"
             className="px-6 py-3 bg-white text-red-600 hover:bg-red-100 border-0 font-semibold shadow-sm hover:shadow-md transition-all duration-200"

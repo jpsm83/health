@@ -1,11 +1,15 @@
 import { MockArticle } from "@/lib/mockData";
 import ArticleCard from "./ArticleCard";
+import { useTranslations, useLocale } from "next-intl";
 
 interface FeaturedArticlesProps {
   articles: MockArticle[];
 }
 
 export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
+  const t = useTranslations("featuredArticles");
+  const locale = useLocale();
+
   if (articles.length === 0) {
     return null;
   }
@@ -26,7 +30,7 @@ export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
       {/* Featured Articles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {articles.map((article) => (
-          <div key={article.id} className="group">
+          <div key={article.id}>
             <ArticleCard article={article} />
           </div>
         ))}

@@ -159,7 +159,7 @@ export default function Navbar() {
                     placeholder={t("searchArticles")}
                     value={searchTerm || ""}
                     onChange={handleSearchChange}
-                    className="w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm"
+                    className="w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-1 focus:ring-red-300 focus:ring-offset-0"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         handleSearch();
@@ -314,7 +314,7 @@ export default function Navbar() {
               placeholder={t("searchPlaceholder")}
               value={searchTerm || ""}
               onChange={handleSearchChange}
-              className="text-gray-700 w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm"
+              className="text-gray-700 w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-1 focus:ring-red-300 focus:ring-offset-0"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSearch();

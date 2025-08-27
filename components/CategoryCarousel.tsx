@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useTranslations, useLocale } from 'next-intl';
 
 interface CategoryCarouselProps {
   category: string;
@@ -17,6 +18,9 @@ export default function CategoryCarousel({
   category,
   articles,
 }: CategoryCarouselProps) {
+  const t = useTranslations('categoryCarousel');
+  const locale = useLocale();
+
   if (articles.length === 0) {
     return null;
   }
@@ -42,11 +46,13 @@ export default function CategoryCarousel({
       </div>
 
       {/* Carousel */}
-      <div className="relative">
+      <div className="relative sm:px-6 md:px-12">
         <Carousel
           opts={{
             align: "start",
             loop: false,
+            containScroll: "trimSnaps",
+            dragFree: true,
           }}
           className="w-full"
         >
@@ -54,7 +60,7 @@ export default function CategoryCarousel({
             {articles.map((article) => (
               <CarouselItem
                 key={article.id}
-                className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                className="pl-2 md:pl-4 basis-64 flex-shrink-0"
               >
                 <ArticleCard article={article} />
               </CarouselItem>

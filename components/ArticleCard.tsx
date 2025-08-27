@@ -1,16 +1,17 @@
 import { MockArticle } from "@/lib/mockData";
 import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useTranslations, useLocale } from 'next-intl';
 
 interface ArticleCardProps {
   article: MockArticle;
-  className?: string;
 }
 
-export default function ArticleCard({
-  article,
-  className = "",
-}: ArticleCardProps) {
+export default function ArticleCard({ article }: ArticleCardProps) {
+  const t = useTranslations('articleCard');
+  const locale = useLocale();
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -21,38 +22,36 @@ export default function ArticleCard({
   };
 
   return (
-    <div
-      className={`group bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden ${className}`}
+    <Link
+      href={`${locale}/article/${article.slug}`}
+      className="bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col cursor-pointer"
     >
-      {/* Article Image */}
-      <div className="relative overflow-hidden h-48">
+      {/* Article Image - More height, narrower width */}
+      <div className="relative overflow-hidden h-40 flex-shrink-0">
         <Image
           src={article.imageUrl}
           alt={article.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />
-        <div className="absolute top-3 left-3 z-10">
+        <div className="absolute top-2 left-2 z-10">
           <span className="bg-pink-600 text-white text-xs font-medium px-2 py-1 rounded-full capitalize">
             {article.category}
           </span>
         </div>
       </div>
 
-      {/* Article Content */}
-      <div className="p-4">
-        {/* Title */}
-        <h3 className="font-semibold text-gray-900 text-lg leading-tight mb-2 group-hover:text-pink-600 transition-colors duration-200 line-clamp-2">
+      {/* Article Content - Reduced padding and spacing */}
+      <div className="p-3 flex-1 flex flex-col gap-3">
+        {/* Title - Smaller fixed height */}
+        <h3 className="font-semibold text-gray-900 leading-tight hover:text-pink-600 transition-colors duration-200">
           {article.title}
         </h3>
 
-        {/* Excerpt */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-          {article.excerpt}
-        </p>
+        {/* Excerpt - Smaller minimum height */}
+        <p className="text-gray-600 text-sm">{article.excerpt}</p>
 
-        {/* Meta Information */}
+        {/* Meta Information - Smaller spacing */}
         <div className="flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center space-x-1">
             <Calendar className="w-3 h-3" />
@@ -64,6 +63,6 @@ export default function ArticleCard({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
