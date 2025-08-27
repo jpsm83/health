@@ -31,7 +31,7 @@ export const mockArticles: MockArticle[] = [
     author: "Dr. Michael Chen",
     publishedAt: "2024-01-12",
     readTime: "7 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "blood-pressure-complete-guide"
   },
   {
@@ -42,7 +42,7 @@ export const mockArticles: MockArticle[] = [
     author: "Dr. Emily Rodriguez",
     publishedAt: "2024-01-10",
     readTime: "6 min read",
-    imageUrl: "https://images.unsplash.com/photo-1541781774459-bb2a1a1b1b1b?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "sleep-hygiene-nightly-routine"
   },
 
@@ -66,7 +66,7 @@ export const mockArticles: MockArticle[] = [
     author: "Coach Maria Santos",
     publishedAt: "2024-01-11",
     readTime: "9 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "strength-training-beginners"
   },
   {
@@ -77,7 +77,7 @@ export const mockArticles: MockArticle[] = [
     author: "Coach David Wilson",
     publishedAt: "2024-01-08",
     readTime: "6 min read",
-    imageUrl: "https://images.unsplash.com/photo-1541781774459-bb2a1a1b1b1b?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "cardio-vs-strength-balance"
   },
 
@@ -101,7 +101,7 @@ export const mockArticles: MockArticle[] = [
     author: "Dr. James Miller",
     publishedAt: "2024-01-09",
     readTime: "7 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "superfoods-fact-vs-fiction"
   },
   {
@@ -112,7 +112,7 @@ export const mockArticles: MockArticle[] = [
     author: "Chef Amanda Green",
     publishedAt: "2024-01-06",
     readTime: "8 min read",
-    imageUrl: "https://images.unsplash.com/photo-1541781774459-bb2a1a1b1b1b?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "plant-based-diet-getting-started"
   },
 
@@ -136,7 +136,7 @@ export const mockArticles: MockArticle[] = [
     author: "Sexual Health Specialist Dr. Michael Rodriguez",
     publishedAt: "2024-01-11",
     readTime: "10 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "sexual-health-comprehensive-guide"
   },
 
@@ -160,7 +160,7 @@ export const mockArticles: MockArticle[] = [
     author: "Beauty Expert Sofia Martinez",
     publishedAt: "2024-01-09",
     readTime: "5 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "natural-beauty-diy-face-masks"
   },
 
@@ -184,7 +184,7 @@ export const mockArticles: MockArticle[] = [
     author: "Minimalist Fashion Blogger Jessica Chen",
     publishedAt: "2024-01-10",
     readTime: "6 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "capsule-wardrobe-less-is-more"
   },
 
@@ -197,7 +197,7 @@ export const mockArticles: MockArticle[] = [
     author: "Wellness Coach Tom Anderson",
     publishedAt: "2024-01-11",
     readTime: "7 min read",
-    imageUrl: "https://images.unsplash.com/photo-1541781774459-bb2a1a1b1b1b?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "digital-detox-reclaiming-time"
   },
   {
@@ -221,7 +221,7 @@ export const mockArticles: MockArticle[] = [
     author: "Travel Blogger Carlos Mendez",
     publishedAt: "2024-01-10",
     readTime: "8 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "budget-travel-world-for-less"
   },
   {
@@ -232,7 +232,7 @@ export const mockArticles: MockArticle[] = [
     author: "Adventure Guide Sarah Williams",
     publishedAt: "2024-01-07",
     readTime: "7 min read",
-    imageUrl: "https://images.unsplash.com/photo-1541781774459-bb2a1a1b1b1b?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "solo-travel-safety-essential-tips"
   },
 
@@ -256,7 +256,7 @@ export const mockArticles: MockArticle[] = [
     author: "Minimalist Designer Alex Johnson",
     publishedAt: "2024-01-09",
     readTime: "7 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "minimalist-interior-design-principles"
   },
 
@@ -280,7 +280,7 @@ export const mockArticles: MockArticle[] = [
     author: "Family Therapist Dr. Robert Davis",
     publishedAt: "2024-01-06",
     readTime: "6 min read",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "screen-time-guidelines-kids"
   },
 
@@ -293,7 +293,7 @@ export const mockArticles: MockArticle[] = [
     author: "Productivity Coach Mark Johnson",
     publishedAt: "2024-01-08",
     readTime: "5 min read",
-    imageUrl: "https://images.unsplash.com/photo-1541781774459-bb2a1a1b1b1b?w=400&h=250&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
     slug: "time-management-pomodoro-technique"
   },
   {

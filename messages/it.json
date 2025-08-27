@@ -3,6 +3,11 @@
     "title": "Benvenuto su Health",
     "subtitle": "La tua piattaforma completa per salute e benessere",
     "description": "Scopri articoli, consigli e risorse per migliorare la tua salute e il tuo benessere.",
+    "heroImageAlt": "Salute e Benessere",
+    "exploreByCategory": {
+      "title": "Esplora per Categoria",
+      "description": "Scopri approfondimenti di esperti e consigli pratici in tutte le aree di salute e benessere."
+    },
     "features": {
       "articles": "Articoli di Salute",
       "dashboard": "Dashboard Personale",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "Lingua Attuale"
+    }
+  },
+  "featuredArticles": {
+    "title": "Articoli in Evidenza",
+    "description": "Scopri i nostri ultimi approfondimenti, consigli e guide per aiutarti a vivere una vita più sana e appagante."
+  },
+  "newsletterSignup": {
+    "title": "Rimani Aggiornato con Insights sulla Salute",
+    "description": "Ricevi gli ultimi consigli sulla salute delle donne, consigli sul benessere e approfondimenti di esperti direttamente nella tua casella di posta.",
+    "emailPlaceholder": "Inserisci il tuo indirizzo email",
+    "subscribeButton": "Iscriviti",
+    "privacyNote": "Rispettiamo la tua privacy. Disiscriviti in qualsiasi momento."
+  },
+  "categoryCarousel": {
+    "viewAll": "Vedi tutti"
+  },
+  "articleCard": {
+    "readTime": "{time} min di lettura",
+    "categories": {
+      "health": "Salute",
+      "fitness": "Fitness",
+      "nutrition": "Nutrizione",
+      "sex": "Sesso",
+      "beauty": "Bellezza",
+      "fashion": "Moda",
+      "lifestyle": "Stile di Vita",
+      "travel": "Viaggi",
+      "decor": "Casa e Decorazione",
+      "productivity": "Produttività",
+      "parenting": "Genitorialità"
     }
   },
   "dashboard": {

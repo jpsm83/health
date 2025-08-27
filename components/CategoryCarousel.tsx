@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 interface CategoryCarouselProps {
   category: string;
@@ -19,7 +19,6 @@ export default function CategoryCarousel({
   articles,
 }: CategoryCarouselProps) {
   const t = useTranslations('categoryCarousel');
-  const locale = useLocale();
 
   if (articles.length === 0) {
     return null;
@@ -41,7 +40,7 @@ export default function CategoryCarousel({
           href={`/category/${category}`}
           className="text-gray-600 hover:text-gray-800 font-medium text-sm transition-colors duration-200"
         >
-          View all →
+          {t("viewAll")} →
         </a>
       </div>
 

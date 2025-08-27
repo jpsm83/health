@@ -3,6 +3,11 @@
     "title": "Welcome to Health",
     "subtitle": "Your comprehensive health and wellness platform",
     "description": "Discover articles, tips, and resources to improve your health and well-being.",
+    "heroImageAlt": "Health and Wellness",
+    "exploreByCategory": {
+      "title": "Explore by Category",
+      "description": "Discover expert insights and practical tips across all areas of health and wellness."
+    },
     "features": {
       "articles": "Health Articles",
       "dashboard": "Personal Dashboard",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "Current Language"
+    }
+  },
+  "featuredArticles": {
+    "title": "Featured Articles",
+    "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
+  },
+  "newsletterSignup": {
+    "title": "Stay Updated with Health Insights",
+    "description": "Get the latest women's health tips, wellness advice, and expert insights delivered directly to your inbox.",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeButton": "Subscribe",
+    "privacyNote": "We respect your privacy. Unsubscribe at any time."
+  },
+  "categoryCarousel": {
+    "viewAll": "View all"
+  },
+  "articleCard": {
+    "readTime": "{time} min read",
+    "categories": {
+      "health": "Health",
+      "fitness": "Fitness",
+      "nutrition": "Nutrition",
+      "sex": "Sex",
+      "beauty": "Beauty",
+      "fashion": "Fashion",
+      "lifestyle": "Lifestyle",
+      "travel": "Travel",
+      "decor": "Decor",
+      "productivity": "Productivity",
+      "parenting": "Parenting"
     }
   },
   "dashboard": {

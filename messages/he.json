@@ -3,6 +3,11 @@
     "title": "ברוכים הבאים ל-Health",
     "subtitle": "הפלטפורמה המקיפה שלכם לבריאות ורווחה",
     "description": "גלו מאמרים, טיפים ומשאבים לשיפור הבריאות והרווחה שלכם.",
+    "heroImageAlt": "בריאות ורווחה",
+    "exploreByCategory": {
+      "title": "חקור לפי קטגוריה",
+      "description": "גלה תובנות מומחים וטיפים מעשיים בכל תחומי הבריאות והרווחה."
+    },
     "features": {
       "articles": "מאמרי בריאות",
       "dashboard": "לוח מחוונים אישי",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "שפה נוכחית"
+    }
+  },
+  "featuredArticles": {
+    "title": "מאמרים מומלצים",
+    "description": "גלה את התובנות, הטיפים והמדריכים האחרונים שלנו כדי לעזור לך לחיות חיים בריאים ומספקים יותר."
+  },
+  "newsletterSignup": {
+    "title": "הישאר מעודכן עם תובנות בריאות",
+    "description": "קבל את הטיפים האחרונים לבריאות נשים, ייעוץ בריאות ותובנות מומחים ישירות לתיבת הדואר שלך.",
+    "emailPlaceholder": "הזן את כתובת האימייל שלך",
+    "subscribeButton": "הרשמה",
+    "privacyNote": "אנו מכבדים את הפרטיות שלך. בטל הרשמה בכל עת."
+  },
+  "categoryCarousel": {
+    "viewAll": "צפה בכל"
+  },
+  "articleCard": {
+    "readTime": "{time} דקות קריאה",
+    "categories": {
+      "health": "בריאות",
+      "fitness": "כושר",
+      "nutrition": "תזונה",
+      "sex": "מין",
+      "beauty": "יופי",
+      "fashion": "אופנה",
+      "lifestyle": "אורח חיים",
+      "travel": "נסיעות",
+      "decor": "בית ועיצוב",
+      "productivity": "פרודוקטיביות",
+      "parenting": "הורות"
     }
   },
   "dashboard": {

@@ -3,6 +3,11 @@
     "title": "Bienvenido a Health",
     "subtitle": "Tu plataforma integral de salud y bienestar",
     "description": "Descubre artículos, consejos y recursos para mejorar tu salud y bienestar.",
+    "heroImageAlt": "Salud y Bienestar",
+    "exploreByCategory": {
+      "title": "Explorar por Categoría",
+      "description": "Descubre insights de expertos y consejos prácticos en todas las áreas de salud y bienestar."
+    },
     "features": {
       "articles": "Artículos de Salud",
       "dashboard": "Panel Personal",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "Idioma Actual"
+    }
+  },
+  "featuredArticles": {
+    "title": "Artículos Destacados",
+    "description": "Descubre nuestros últimos insights, consejos y guías para ayudarte a vivir una vida más saludable y plena."
+  },
+  "newsletterSignup": {
+    "title": "Mantente Actualizado con Insights de Salud",
+    "description": "Recibe los últimos consejos de salud para mujeres, asesoramiento de bienestar e insights de expertos directamente en tu bandeja de entrada.",
+    "emailPlaceholder": "Ingresa tu dirección de email",
+    "subscribeButton": "Suscribirse",
+    "privacyNote": "Respetamos tu privacidad. Cancela la suscripción en cualquier momento."
+  },
+  "categoryCarousel": {
+    "viewAll": "Ver todos"
+  },
+  "articleCard": {
+    "readTime": "{time} min de lectura",
+    "categories": {
+      "health": "Salud",
+      "fitness": "Fitness",
+      "nutrition": "Nutrición",
+      "sex": "Sexo",
+      "beauty": "Belleza",
+      "fashion": "Moda",
+      "lifestyle": "Estilo de Vida",
+      "travel": "Viajes",
+      "decor": "Hogar y Decoración",
+      "productivity": "Productividad",
+      "parenting": "Paternidad"
     }
   },
   "dashboard": {

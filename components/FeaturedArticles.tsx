@@ -1,6 +1,6 @@
 import { MockArticle } from "@/lib/mockData";
 import ArticleCard from "./ArticleCard";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface FeaturedArticlesProps {
   articles: MockArticle[];
@@ -8,7 +8,6 @@ interface FeaturedArticlesProps {
 
 export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
   const t = useTranslations("featuredArticles");
-  const locale = useLocale();
 
   if (articles.length === 0) {
     return null;
@@ -19,11 +18,10 @@ export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
       {/* Section Header */}
       <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
         <h2 className="text-3xl font-bold text-white mb-4">
-          Featured Articles
+          {t("title")}
         </h2>
         <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-          Discover our latest insights, tips, and guides to help you live a
-          healthier, more fulfilling life.
+          {t("description")}
         </p>
       </div>
 

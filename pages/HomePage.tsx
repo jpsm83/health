@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { mainCategories } from "@/lib/constants";
 import { getArticlesByCategory, getFeaturedArticles, MockArticle } from "@/lib/mockData";
 import FeaturedArticles from "@/components/FeaturedArticles";
@@ -10,7 +10,6 @@ import Image from "next/image";
 
 export default function HomePage({ articles }: { articles: MockArticle[] }) {
   const t = useTranslations("home");
-  const locale = useLocale();
   const featuredArticles = getFeaturedArticles();
 
   console.log(articles);
@@ -22,9 +21,11 @@ export default function HomePage({ articles }: { articles: MockArticle[] }) {
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
-            alt="Health and Wellness"
-            className="w-full object-cover"
+            alt={t("heroImageAlt")}
+            className="w-full h-full object-cover"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
           {/* Dark overlay for better text readability */}
           <div className="absolute inset-0 bg-black/30" />
@@ -56,11 +57,10 @@ export default function HomePage({ articles }: { articles: MockArticle[] }) {
       <section>
         <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Explore by Category
+            {t("exploreByCategory.title")}
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Discover expert insights and practical tips across all areas of
-            health and wellness.
+            {t("exploreByCategory.description")}
           </p>
         </div>
 

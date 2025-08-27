@@ -3,6 +3,11 @@
     "title": "Welkom bij Health",
     "subtitle": "Jouw uitgebreide platform voor gezondheid en welzijn",
     "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren.",
+    "heroImageAlt": "Gezondheid en Welzijn",
+    "exploreByCategory": {
+      "title": "Verken per Categorie",
+      "description": "Ontdek expert inzichten en praktische tips op alle gebieden van gezondheid en welzijn."
+    },
     "features": {
       "articles": "Gezondheidsartikelen",
       "dashboard": "Persoonlijk Dashboard",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "Huidige Taal"
+    }
+  },
+  "featuredArticles": {
+    "title": "Uitgelichte Artikelen",
+    "description": "Ontdek onze nieuwste inzichten, tips en gidsen om je te helpen een gezonder en vervullender leven te leiden."
+  },
+  "newsletterSignup": {
+    "title": "Blijf Op de Hoogte van Gezondheidsinzichten",
+    "description": "Ontvang de nieuwste gezondheidstips voor vrouwen, welzijnsadvies en expertinzichten rechtstreeks in je inbox.",
+    "emailPlaceholder": "Voer je e-mailadres in",
+    "subscribeButton": "Abonneren",
+    "privacyNote": "We respecteren je privacy. Schrijf je op elk moment uit."
+  },
+  "categoryCarousel": {
+    "viewAll": "Bekijk alle"
+  },
+  "articleCard": {
+    "readTime": "{time} min leestijd",
+    "categories": {
+      "health": "Gezondheid",
+      "fitness": "Fitness",
+      "nutrition": "Voeding",
+      "sex": "Seks",
+      "beauty": "Schoonheid",
+      "fashion": "Mode",
+      "lifestyle": "Levensstijl",
+      "travel": "Reizen",
+      "decor": "Huis & Decoratie",
+      "productivity": "Productiviteit",
+      "parenting": "Ouderschap"
     }
   },
   "dashboard": {

@@ -3,6 +3,11 @@
     "title": "Willkommen bei Health",
     "subtitle": "Ihre umfassende Gesundheits- und Wellness-Plattform",
     "description": "Entdecken Sie Artikel, Tipps und Ressourcen zur Verbesserung Ihrer Gesundheit und Ihres Wohlbefindens.",
+    "heroImageAlt": "Gesundheit und Wohlbefinden",
+    "exploreByCategory": {
+      "title": "Nach Kategorie erkunden",
+      "description": "Entdecken Sie Experten-Einblicke und praktische Tipps in allen Bereichen von Gesundheit und Wohlbefinden."
+    },
     "features": {
       "articles": "Gesundheitsartikel",
       "dashboard": "Persönliches Dashboard",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "Aktuelle Sprache"
+    }
+  },
+  "featuredArticles": {
+    "title": "Empfohlene Artikel",
+    "description": "Entdecken Sie unsere neuesten Einblicke, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes und erfüllteres Leben zu führen."
+  },
+  "newsletterSignup": {
+    "title": "Bleiben Sie über Gesundheitseinblicke auf dem Laufenden",
+    "description": "Erhalten Sie die neuesten Gesundheitstipps für Frauen, Wellness-Beratung und Experten-Einblicke direkt in Ihren Posteingang.",
+    "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+    "subscribeButton": "Abonnieren",
+    "privacyNote": "Wir respektieren Ihre Privatsphäre. Abbestellen Sie jederzeit."
+  },
+  "categoryCarousel": {
+    "viewAll": "Alle anzeigen"
+  },
+  "articleCard": {
+    "readTime": "{time} Min. Lesezeit",
+    "categories": {
+      "health": "Gesundheit",
+      "fitness": "Fitness",
+      "nutrition": "Ernährung",
+      "sex": "Sex",
+      "beauty": "Schönheit",
+      "fashion": "Mode",
+      "lifestyle": "Lebensstil",
+      "travel": "Reisen",
+      "decor": "Haus & Dekoration",
+      "productivity": "Produktivität",
+      "parenting": "Elternschaft"
     }
   },
   "dashboard": {

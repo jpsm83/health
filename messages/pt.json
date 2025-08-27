@@ -3,6 +3,11 @@
     "title": "Bem-vindo ao Health",
     "subtitle": "Sua plataforma abrangente de saúde e bem-estar",
     "description": "Descubra artigos, dicas e recursos para melhorar sua saúde e bem-estar.",
+    "heroImageAlt": "Saúde e Bem-estar",
+    "exploreByCategory": {
+      "title": "Explorar por Categoria",
+      "description": "Descubra insights de especialistas e dicas práticas em todas as áreas de saúde e bem-estar."
+    },
     "features": {
       "articles": "Artigos de Saúde",
       "dashboard": "Painel Pessoal",
@@ -17,6 +22,36 @@
     },
     "languageInfo": {
       "currentLanguage": "Idioma Atual"
+    }
+  },
+  "featuredArticles": {
+    "title": "Artigos em Destaque",
+    "description": "Descubra nossos últimos insights, dicas e guias para ajudá-lo a viver uma vida mais saudável e gratificante."
+  },
+  "newsletterSignup": {
+    "title": "Mantenha-se Atualizado com Insights de Saúde",
+    "description": "Receba as últimas dicas de saúde para mulheres, conselhos de bem-estar e insights de especialistas diretamente na sua caixa de entrada.",
+    "emailPlaceholder": "Digite seu endereço de email",
+    "subscribeButton": "Inscrever-se",
+    "privacyNote": "Respeitamos sua privacidade. Cancele a inscrição a qualquer momento."
+  },
+  "categoryCarousel": {
+    "viewAll": "Ver todos"
+  },
+  "articleCard": {
+    "readTime": "{time} min de leitura",
+    "categories": {
+      "health": "Saúde",
+      "fitness": "Fitness",
+      "nutrition": "Nutrição",
+      "sex": "Sexo",
+      "beauty": "Beleza",
+      "fashion": "Moda",
+      "lifestyle": "Estilo de Vida",
+      "travel": "Viagem",
+      "decor": "Casa e Decoração",
+      "productivity": "Produtividade",
+      "parenting": "Paternidade"
     }
   },
   "dashboard": {

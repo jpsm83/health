@@ -54,7 +54,7 @@ export default async function ArticlePage({
         <div className="min-h-screen bg-gray-50">
           <main className="max-w-4xl mx-auto py-8 px-4">
             <div className="flex justify-center items-center min-h-[50vh]">
-              <div className="text-lg text-red-600">Article not found</div>
+              <div className="text-lg text-red-600">Article not found!</div>
             </div>
           </main>
         </div>

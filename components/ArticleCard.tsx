@@ -14,7 +14,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString(locale, {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -33,10 +33,11 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           alt={article.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-2 left-2 z-10">
-          <span className="bg-pink-600 text-white text-xs font-medium px-2 py-1 rounded-full capitalize">
-            {article.category}
+          <span className="bg-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize">
+            {t(`categories.${article.category}`)}
           </span>
         </div>
       </div>
@@ -59,7 +60,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           </div>
           <div className="flex items-center space-x-1">
             <Clock className="w-3 h-3" />
-            <span>{article.readTime}</span>
+            <span>{t("readTime", { time: article.readTime })}</span>
           </div>
         </div>
       </div>
