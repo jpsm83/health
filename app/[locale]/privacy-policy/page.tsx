@@ -1,0 +1,26 @@
+import { Metadata } from 'next';
+import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}): Promise<Metadata> {
+  const { locale } = await params;
+   
+  return generatePrivateMetadata(
+    locale,
+    '/privacy-policy',
+    'metadata.privacyPolicy.title'
+  );
+}
+
+// Server Component - handles metadata generation
+export default function PrivacyPolicyPage() {
+  return (
+    <main className="container mx-auto">
+      <PrivacyPolicy />
+    </main>
+  );
+}

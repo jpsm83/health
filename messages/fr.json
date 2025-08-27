@@ -355,6 +355,31 @@
       "title": "À Propos de Nous - Women Spot",
       "description": "Women Spot est votre source fiable de contenu sur la santé, la forme physique et le mode de vie. Donner aux femmes les moyens de vivre leurs meilleures vies.",
       "keywords": "à propos de nous, Women Spot, santé, forme physique, mode de vie, autonomisation"
+    },
+    "contact": {
+      "title": "Contactez-nous - Women Spot",
+      "description": "Contactez-nous pour toute question ou commentaire. Nous sommes là pour vous aider dans votre parcours de santé et de bien-être.",
+      "keywords": "contactez-nous, Women Spot, santé, forme physique, mode de vie, autonomisation, commentaires, questions"
+    },
+    "termsConditions": {
+      "title": "Termes et Conditions - Women Spot",
+      "description": "Termes et conditions pour utiliser Women Spot. Veuillez lire avant d'utiliser notre plateforme.",
+      "keywords": "termes et conditions, Women Spot, santé, forme physique, mode de vie, autonomisation"
+    },
+    "privacyPolicy": {
+      "title": "Politique de Confidentialité - Women Spot",
+      "description": "Politique de confidentialité pour utiliser Women Spot. Nous respectons votre vie privée et nous nous engageons à protéger vos informations personnelles.",
+      "keywords": "politique de confidentialité, Women Spot, santé, forme physique, mode de vie, autonomisation, confidentialité"
+    },
+    "cookiePolicy": {
+      "title": "Politique des Cookies - Women Spot",
+      "description": "Politique des cookies pour utiliser Women Spot. Nous utilisons des cookies pour améliorer votre expérience sur notre plateforme.",
+      "keywords": "politique des cookies, Women Spot, santé, forme physique, mode de vie, autonomisation, cookies"
+    },
+    "siteMap": {
+      "title": "Plan du Site - Women Spot",
+      "description": "Plan du site pour Women Spot. Trouvez votre chemin sur notre plateforme et explorez notre contenu.",
+      "keywords": "plan du site, Women Spot, santé, forme physique, mode de vie, autonomisation, plan du site"
     }
   },
   "about": {

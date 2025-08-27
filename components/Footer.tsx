@@ -18,16 +18,16 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start md:text-left text-center space-y-4">
             <Link href={`/${locale}`} className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <Heart size={24} className="text-pink-200" />
-              <span className="text-xl font-bold">{t('brandName')}</span>
+              <span className="text-xl font-bold">Women Spot</span>
             </Link>
-            <p className="text-pink-100 text-sm text-center md:text-left max-w-xs">
+            <p className="text-pink-100 text-sm text-center md:text-left max-w-xs cursor-default">
               {t('brandDescription')}
             </p>
           </div>
 
           {/* Quick links section */}
           <div className="flex flex-col items-center md:items-start md:text-left text-center space-y-4">
-            <h3 className="text-lg font-semibold text-pink-200">{t('quickLinks')}</h3>
+            <h3 className="text-lg font-semibold text-pink-200 cursor-default">{t('quickLinks')}</h3>
             <div className="flex flex-col space-y-2">
               <Link 
                 href={`/${locale}/about`} 
@@ -36,31 +36,31 @@ const Footer = () => {
                 {t('aboutUs')}
               </Link>
               <Link 
-                href="#" 
+                href={`/${locale}/contact`} 
                 className="text-pink-100 hover:text-white transition-colors duration-200 text-sm"
               >
                 {t('contact')}
               </Link>
               <Link 
-                href="#" 
+                href={`/${locale}/privacy-policy`} 
                 className="text-pink-100 hover:text-white transition-colors duration-200 text-sm"
               >
                 {t('privacyPolicy')}
               </Link>
               <Link 
-                href="#" 
+                href={`/${locale}/terms-conditions`} 
                 className="text-pink-100 hover:text-white transition-colors duration-200 text-sm"
               >
                 {t('termsAndConditions')}
               </Link>
               <Link 
-                href="#" 
+                href={`/${locale}/cookie-policy`} 
                 className="text-pink-100 hover:text-white transition-colors duration-200 text-sm"
               >
                 {t('cookiesPolicy')}
               </Link>
               <Link 
-                href="#" 
+                href={`/${locale}/site-map`} 
                 className="text-pink-100 hover:text-white transition-colors duration-200 text-sm"
               >
                 {t('siteMap')}
@@ -70,26 +70,26 @@ const Footer = () => {
 
           {/* Contact info section */}
           <div className="flex flex-col items-center md:items-start md:text-left text-center space-y-4">
-            <h3 className="text-lg font-semibold text-pink-200">{t('getInTouch')}</h3>
+            <h3 className="text-lg font-semibold text-pink-200 cursor-default">{t('getInTouch')}</h3>
             <div className="flex flex-col space-y-3">
               <div className="flex items-center space-x-2 text-pink-100 text-sm">
                 <Mail size={16} className="text-pink-200" />
-                <span>contactus@womenspot.com</span>
+                <span className="cursor-default">contactus@womenspot.com</span>
               </div>
               <div className="flex items-center space-x-2 text-pink-100 text-sm">
                 <Phone size={16} className="text-pink-200" />
-                <span>+1 (555) 123-4567</span>
+                <span className="cursor-default">+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center space-x-2 text-pink-100 text-sm">
                 <MapPin size={16} className="text-pink-200" />
-                <span>{t('address')}</span>
+                <span className="cursor-default">{t('address')}</span>
               </div>
             </div>
           </div>
 
           {/* Social media section */}
           <div className="flex flex-col items-center md:items-start space-y-4">
-            <h3 className="text-lg font-semibold text-pink-200">{t('followUs')}</h3>
+            <h3 className="text-lg font-semibold text-pink-200 cursor-default">{t('followUs')}</h3>
             <div className="flex flex-wrap gap-3">
               <SocialIcon 
                 url="https://instagram.com" 

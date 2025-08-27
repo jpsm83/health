@@ -355,6 +355,31 @@
       "title": "Chi Siamo - Women Spot",
       "description": "Women Spot è la tua fonte affidabile di contenuti su salute, fitness e stile di vita. Dare alle donne i mezzi per vivere le loro vite migliori.",
       "keywords": "chi siamo, women spot, salute, fitness, stile di vita, empowerment"
+    },
+    "contact": {
+      "title": "Contattaci - Women Spot",
+      "description": "Contattaci per qualsiasi domanda o feedback. Siamo qui per aiutarti nel tuo percorso di salute e benessere.",
+      "keywords": "contattaci, women spot, salute, fitness, stile di vita, empowerment, feedback, domande"
+    },
+    "termsConditions": {
+      "title": "Termini e Condizioni - Women Spot",
+      "description": "Termini e condizioni per utilizzare Women Spot. Si prega di leggere prima di utilizzare la nostra piattaforma.",
+      "keywords": "termini e condizioni, Women Spot, salute, fitness, stile di vita, empowerment"
+    },
+    "privacyPolicy": {
+      "title": "Informativa sulla Privacy - Women Spot",
+      "description": "Informativa sulla privacy per utilizzare Women Spot. Rispettiamo la tua privacy e ci impegniamo a proteggere le tue informazioni personali.",
+      "keywords": "informativa sulla privacy, Women Spot, salute, fitness, stile di vita, empowerment, privacy"
+    },
+    "cookiePolicy": {
+      "title": "Informativa sui Cookie - Women Spot",
+      "description": "Informativa sui cookie per utilizzare Women Spot. Utilizziamo i cookie per migliorare la tua esperienza sulla nostra piattaforma.",
+      "keywords": "informativa sui cookie, Women Spot, salute, fitness, stile di vita, empowerment, cookie"
+    },
+    "siteMap": {
+      "title": "Mappa del Sito - Women Spot",
+      "description": "Mappa del sito per Women Spot. Trova la tua strada sulla nostra piattaforma ed esplora i nostri contenuti.",
+      "keywords": "mappa del sito, Women Spot, salute, fitness, stile di vita, empowerment, mappa del sito"
     }
   },
   "about": {
