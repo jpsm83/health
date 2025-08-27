@@ -444,6 +444,266 @@
       "button": "Beginnen Sie Zu Erkunden"
     }
   },
+  "privacyPolicy": {
+    "title": "Datenschutzhinweis",
+    "lastUpdated": "Zuletzt Aktualisiert:",
+    "highlights": {
+      "title": "Datenschutzhinweis – Highlights",
+      "description": "Wenn Sie die Women Spot-Website, mobile App oder andere digitale Dienste nutzen oder mit diesen interagieren (jeweils ein 'Digitaler Dienst') oder Formulare ausfüllen, um sich für unseren Inhalt zu abonnieren, an Wettbewerben teilzunehmen oder Ihre Daten bei Veranstaltungen anzugeben, erhalten wir und Dritte bestimmte Informationen über Sie. In diesem Highlights-Bereich geben wir einen Überblick über unsere Datenschutzpraktiken im Zusammenhang mit den Digitalen Diensten. Bitte lesen Sie unseren vollständigen Datenschutzhinweis unten für eine detaillierte Erklärung unserer Praktiken."
+    },
+    "sections": {
+      "whatInformationWeObtain": {
+        "title": "Welche Informationen Wir Erhalten",
+        "items": [
+          "Informationen, die Sie bereitstellen, wenn Sie die Digitalen Dienste nutzen oder verwandte Inhalte, Produkte oder Dienstleistungen bestellen, einschließlich wenn Sie sich für Newsletter anmelden, ein Konto erstellen oder sich für eine Mitgliedschaft über die Digitalen Dienste registrieren. Dies kann Ihre Kontakt-, Zahlungs- oder demografischen Informationen umfassen.",
+          "Informationen, die Sie einreichen, wenn Sie sich entscheiden, an einer Umfrage, Verlosung, einem Wettbewerb, einer Promotion, einer Veranstaltung oder einer ähnlichen Initiative teilzunehmen.",
+          "Informationen, die Sie uns über andere geben, wie die Kontaktinformationen eines Freundes, wenn Sie ein Geschenkabonnement bestellen.",
+          "Informationen, die von Cookies und ähnlichen Technologien gesammelt werden. Dies umfasst Informationen über Ihr Gerät und Ihren Browser, einschließlich IP-Adresse oder mobile Geräte-Werbe-IDs, sowie Informationen darüber, wie Sie und andere die Digitalen Dienste nutzen, mit ihnen interagieren oder auf sie reagieren.",
+          "Genaue Standortinformationen, die mit Ihrem Gerät verknüpft sind, wenn Standortdienste aktiv sind.",
+          "Informationen, die wir aus anderen Quellen erhalten, wie Geschäftspartner, Datenlieferanten und Social-Media-Plattformen."
+        ]
+      },
+      "howWeUseInformation": {
+        "title": "Wie Wir Die Erhaltenen Informationen Verwenden Und Unsere Rechtlichen Grundlagen Dafür",
+        "items": [
+          "Um Ihre Anfragen und Abonnements zu bearbeiten und Ihnen die Digitalen Dienste bereitzustellen, einschließlich der Bereitstellung personalisierter Inhalte oder Empfehlungen.",
+          "Um mehr über die Nutzer der Digitalen Dienste zu erfahren und zu analysieren, wie Sie und andere mit den Digitalen Diensten interagieren und auf sie reagieren.",
+          "Um mit Ihnen zu kommunizieren, einschließlich des Versands von Marketing- und Werbekommunikation.",
+          "Für Werbe- und Marketingzwecke, einschließlich der Bereitstellung interessenbasierter Anzeigen, für geräteübergreifende Verknüpfung und zur Analyse der Leistung von Werbe- und Marketingaktivitäten.",
+          "Um unsere Rechte und die Rechte anderer zu schützen.",
+          "Wir verarbeiten personenbezogene Daten für verschiedene Zwecke auf den folgenden rechtlichen Grundlagen: zur Erfüllung unseres Vertrags mit Ihnen, zur Verfolgung unserer berechtigten Interessen, zur Erfüllung unserer gesetzlichen Verpflichtungen und ansonsten mit Ihrer Zustimmung oder auf Ihre Anweisung."
+        ]
+      },
+      "howWeShareInformation": {
+        "title": "Wie Wir Informationen Teilen",
+        "items": [
+          "Mit Dienstleistern, die Dienstleistungen erbringen oder Transaktionen in unserem Namen abwickeln.",
+          "Mit Werbetreibenden, Anbietern von Werbe- und Marketingdienstleistungen und Partnern sowie Unternehmen, die uns dabei helfen zu verstehen, wie Sie und andere mit unserem Inhalt interagieren.",
+          "Mit Social-Media-Plattformen und ähnlichen Diensten, einschließlich wenn Sie mit unseren Digitalen Diensten interagieren, die Tools und Dienste von Social-Media-Plattformen integrieren.",
+          "Mit Geschäftspartnern, wie wenn wir uns mit einem Dritten zusammenschließen, um Produkte oder Dienstleistungen auf einer Co-Branding-Basis anzubieten.",
+          "Andere Parteien, wenn es gesetzlich vorgeschrieben ist oder notwendig, um unsere Rechte zu schützen, und im Kontext von Unternehmensgeschäften.",
+          "Mit Ihrer Zustimmung oder ansonsten auf Ihre Anweisung."
+        ]
+      },
+      "yourChoices": {
+        "title": "Ihre Wahlmöglichkeiten, Einschließlich Marketing Und Opt-Outs Für Interessenbasierte Anzeigen",
+        "items": [
+          "Sie können Schritte unternehmen, um die Verwendung Ihrer Informationen für interessenbasierte Werbung in Ihrem Browser oder mobilen Gerät zu begrenzen.",
+          "Sie können sich von unseren Marketing- oder Werbe-E-Mails abmelden, indem Sie auf den Link 'Abmelden' in unseren E-Mails klicken."
+        ]
+      },
+      "additionalInformation": {
+        "title": "Zusätzliche Informationen",
+        "items": [
+          "Wir verwenden eine Vielzahl von Sicherheitstechnologien und -verfahren, um Informationen vor unbefugtem Zugriff, Verwendung oder Offenlegung zu schützen.",
+          "Wir löschen Ihre Daten, wenn sie nicht mehr für legitime Geschäfts- oder rechtliche Gründe erforderlich sind.",
+          "Wir setzen angemessene Schutzmaßnahmen ein, um Ihre Daten zu schützen, wenn sie in ein Land übertragen, gespeichert und verarbeitet werden, das keine ähnlichen Datenschutzgesetze wie die Europäische Union oder das Vereinigte Königreich hat.",
+          "Die Digitalen Dienste sind nicht für die Nutzung durch Kinder unter 13 Jahren bestimmt."
+        ]
+      },
+      "howWeProtectAndStore": {
+        "title": "Wie Wir Ihre Informationen Schützen Und Speichern",
+        "description1": "Wir verwenden eine Vielzahl von Sicherheitstechnologien und -verfahren, um Informationen vor unbefugtem Zugriff, Verwendung oder Offenlegung zu schützen.",
+        "description2": "Wir werden Ihre personenbezogenen Daten so lange aufbewahren, wie wir eine Beziehung zu Ihnen haben. Sobald unsere Beziehung zu Ihnen beendet ist, werden wir Ihre personenbezogenen Daten für einen Zeitraum aufbewahren, der es uns ermöglicht:",
+        "items": [
+          "Geschäftsunterlagen für Analyse, Verständnis von Markttrends und/oder Prüfungszwecke aufzubewahren und unsere Digitalen Dienste zu verbessern.",
+          "Den Anforderungen an die Aufbewahrung von Unterlagen nach geltendem Recht oder anderen relevanten rechtlichen oder regulatorischen Anforderungen zu entsprechen.",
+          "Gegenwärtige oder potenzielle rechtliche Ansprüche zu verteidigen, zu begründen, auszuüben oder geltend zu machen.",
+          "Betrugserkennung und -prävention durchzuführen.",
+          "Beschwerden bezüglich der Digitalen Dienste, unserer Produkte und Dienstleistungen zu bearbeiten."
+        ]
+      },
+      "internationalDataTransfer": {
+        "title": "Internationale Datenübertragung",
+        "description1": "Unter bestimmten Umständen werden Ihre personenbezogenen Daten in Länder außerhalb der Europäischen Union oder des Vereinigten Königreichs übertragen, gespeichert und verarbeitet, die keine ähnlichen Datenschutzgesetze wie die Europäische Union oder das Vereinigte Königreich haben.",
+        "description2": "In solchen Umständen setzen wir angemessene Schutzmaßnahmen ein, um Ihre Daten zu schützen, einschließlich vertraglicher Verpflichtungen."
+      },
+      "childrensPrivacyRights": {
+        "title": "Datenschutzrechte Von Kindern",
+        "description": "Die Digitalen Dienste sind nicht für die Nutzung durch Kinder bestimmt, insbesondere nicht durch solche unter 13 Jahren, und wir sammeln wissentlich keine personenbezogenen Daten von Kindern unter 13 Jahren."
+      },
+      "linksToThirdParty": {
+        "title": "Links Zu Websites Von Dritten, Mobilen Apps Oder Anderen Diensten",
+        "description1": "Die Digitalen Dienste enthalten Links zu Websites und mobilen Apps, einschließlich Social-Media-Plattformen, oder anderen Kanälen, die nicht von Women Spot betrieben oder mit diesem verbunden sind (gemeinsam \"Drittanbieter-Dienste\").",
+        "description2": "Die Betreiber dieser Drittanbieter-Dienste verwenden Cookies und andere Technologien, um Informationen über Ihren Browser oder Ihr Gerät zu sammeln, einschließlich Informationen über Ihre Navigation von den Digitalen Diensten zu den Drittanbieter-Diensten. Die von diesen Links gesammelten Daten, wenn Sie unsere Digitalen Dienste verlassen, werden von den Drittanbieter-Diensten bestimmt, und sie handeln als separate Verantwortliche für Ihre Daten.",
+        "description3": "Wir sind nicht für die Datenschutzpraktiken der Drittanbieter-Dienste verantwortlich und ermutigen Sie, die Datenschutzrichtlinien oder Hinweise zu überprüfen, die von den Drittanbieter-Diensten veröffentlicht werden, die Sie besuchen könnten."
+      },
+      "changesToPrivacyNotice": {
+        "title": "Änderungen An Diesem Datenschutzhinweis",
+        "description1": "Wir aktualisieren diesen Datenschutzhinweis von Zeit zu Zeit, um Änderungen in unseren Datenschutzpraktiken oder geltenden Gesetzen widerzuspiegeln. Wenn Änderungen an diesem Datenschutzhinweis grundlegende Auswirkungen auf die Art der Verarbeitung haben oder anderweitig erhebliche Auswirkungen auf Sie haben, werden wir Ihnen eine Vorankündigung geben, damit Sie die Möglichkeit haben, Ihre Rechte auszuüben.",
+        "description2": "Wir werden die aktualisierte Version auf den relevanten Digitalen Diensten veröffentlichen und oben im Datenschutzhinweis angeben, wann er zuletzt aktualisiert wurde. Ihre Nutzung der Digitalen Dienste wird von der dann gültigen Version des Datenschutzhinweises geregelt."
+      }
+    }
+  },
+  "cookiePolicy": {
+    "title": "Cookie-Richtlinie",
+    "introduction": {
+      "paragraph1": "Diese Cookie-Richtlinie gilt für den Digitalen Dienst, der mit dieser Cookie-Richtlinie verlinkt, und ist Teil der Datenschutzerklärung, die unsere Datenverarbeitungspraktiken beschreibt und hier verfügbar ist. Auf den Digitalen Diensten verwenden Women Spot ('wir', 'uns', 'unser' oder 'Women Spot') und Dritte, einschließlich unserer werbe- und marketingbezogenen Dienstleister und Partner, eine Vielzahl von Technologien einschließlich Cookies ('Cookies und Ähnliche Technologien').",
+      "paragraph2": "Cookies und Ähnliche Technologien variieren je nach den Digitalen Diensten und umfassen Cookies, Web-Beacons, Tags, Scripts, Pixel, lokale freigegebene Objekte (einschließlich HTML5-Cookies) und Software-Entwicklungskits ('SDKs'). Sie können unten mehr über die Arten von Cookies lesen, die wir verwenden, warum wir sie verwenden und wie Sie Ihre Wahlmöglichkeiten bezüglich Cookies und Ähnlicher Technologien ausüben können."
+    },
+    "sections": {
+      "whatAreCookies": {
+        "title": "WAS SIND COOKIES UND ÄHNLICHE TECHNOLOGIEN?",
+        "paragraphs": [
+          "Die Digitalen Dienste protokollieren automatisch bestimmte Informationen über Besuche der Digitalen Dienste unter Verwendung von Cookies und Ähnlichen Technologien, wie die Anzahl und Häufigkeit der Besucher, technische Informationen über Browser und Geräte, die für den Zugriff auf die Digitalen Dienste verwendet werden, und Informationen über Abstürze oder andere technische Probleme. Die Cookies und Ähnlichen Technologien, die diese Informationen protokollieren, sind notwendig, um den Digitalen Diensten das Funktionieren zu ermöglichen.",
+          "Wir und Dritte können automatisch bestimmte Informationen durch Cookies und Ähnliche Technologien über Ihre Aktivitäten im Laufe der Zeit über die Digitalen Dienste sowie über Drittanbieter-Websites, -Apps oder andere Medien sammeln. Cookies und Ähnliche Technologien können in unseren Webseiten, mobilen Apps, E-Mails und anderem digitalen Inhalt enthalten sein. Sie können eindeutige Cookie-IDs oder andere Bezeichner zuweisen oder sammeln, die mit Ihrem Browser oder Gerät verknüpft sind. Sie können Informationen sammeln, während Sie unsere Digitalen Dienste nutzen oder während sie im Hintergrund Ihres Geräts laufen.",
+          "Cookies und Ähnliche Technologien auf den Digitalen Diensten können direkt von Women Spot bereitgestellt werden (als 'First-Party-Cookies' bezeichnet) oder von anderen wie Werbetreibenden und Datenanalyseunternehmen (als 'Third-Party-Cookies' bezeichnet).",
+          "Cookies und Ähnliche Technologien sind browser- und gerätespezifisch und können für unterschiedliche Zeiträume bestehen bleiben. Einige werden automatisch gelöscht, sobald Sie Ihren Browser schließen oder den Digitalen Dienst verlassen. Diese werden manchmal als 'Session-Cookies' bezeichnet. Andere Cookies sind 'persistente Cookies', was bedeutet, dass sie auf Ihrem Gerät verbleiben, nachdem Ihr Browser geschlossen wurde."
+        ]
+      },
+      "whichCookies": {
+        "title": "WELCHE COOKIES VERWENDEN WIR UND WARUM VERWENDEN WIR SIE?",
+        "description": "Unser Cookie-Dashboard bietet Informationen über die verschiedenen Kategorien von Cookies und Ähnlichen Technologien, die die Digitalen Dienste verwenden, die Unternehmen, die sie bereitstellen, und warum wir sie verwenden. Das Cookie-Dashboard ist immer von unseren Websites aus verfügbar. Wenn Sie Fragen zu unserer Verwendung von Cookies und Ähnlichen Technologien haben, kontaktieren Sie uns bitte über die in der 'Kontakt'-Sektion unserer Datenschutzerklärung bereitgestellten Details."
+      },
+      "yourChoices": {
+        "title": "IHRE WAHLMÖGLICHKEITEN, EINSCHLIESSLICH OPT-OUTS",
+        "paragraphs": [
+          "Cookies und Ähnliche Technologien helfen uns, unseren Dienstleistern und Geschäftspartnern dabei, die Digitalen Dienste bereitzustellen und anzupassen. Sie haben das Recht zu wählen, ob Sie bestimmte Cookies und Ähnliche Technologien akzeptieren oder nicht. Wenn Sie sich jedoch entscheiden, Cookies und Ähnliche Technologien abzulehnen oder zu entfernen, könnte dies die Verfügbarkeit und Funktionalität der Digitalen Dienste beeinträchtigen.",
+          "Bitte verwenden Sie das Cookie-Dashboard, um Ihre Präferenzen anzupassen. Darüber hinaus können Sie je nachdem, wie Sie auf die Digitalen Dienste zugreifen, Ihre Wahlmöglichkeiten über andere Kanäle ausüben, wie unten angegeben:"
+        ],
+        "subsections": {
+          "websiteOptOut": {
+            "title": "Website (Browser) Opt-Out",
+            "paragraphs": [
+              "Die meisten Browser akzeptieren Cookies standardmäßig. Sie könnten in der Lage sein, die Einstellungen zu ändern, damit Ihr Browser bestimmte Cookies und Ähnliche Technologien ablehnt oder Sie benachrichtigt, bevor Cookies akzeptiert werden. Folgen Sie dazu bitte den Anweisungen Ihres Browsers, die sich normalerweise in der 'Hilfe'-, 'Tools'- oder 'Bearbeiten'-Funktion befinden.",
+              "Einige Dritte bieten auch die Möglichkeit, ihre Cookies direkt abzulehnen, indem Sie auf einen Opt-Out-Link klicken, und Sie sollten die Cookie-Richtlinie des relevanten Drittens überprüfen, um mehr über ihre Cookies zu erfahren.",
+              "Sie können auch den Anweisungen folgen, die von der European Interactive Digital Advertising Alliance ('EDAA') hier bereitgestellt werden, um sich von Cookies von Unternehmen abzumelden, die sich für die Teilnahme am Opt-Out-Programm der EDAA entschieden haben."
+            ]
+          },
+          "mobileAppOptOut": {
+            "title": "Mobile App Opt-Out",
+            "paragraphs": [
+              "Um das Tracking für Werbezwecke auf Ihrem mobilen Gerät zu begrenzen, können Sie die von Ihrem Gerätehersteller bereitgestellten Einstellungen überprüfen und anpassen, wie 'Werbe-Tracking begrenzen' für iOS oder 'Interessenbasierte Werbung abmelden' für Android.",
+              "Bitte beachten Sie, dass sich der mobile Bereich weiterentwickelt und zusätzliche Opt-Out-Mechanismen oder Datenschutzeinstellungen verfügbar werden können. Wir ermutigen Sie, die Informationen über Opt-Outs und Einstellungen zu überprüfen, die Gerätehersteller, Technologieunternehmen und Branchenverbände Ihnen ebenfalls zur Verfügung stellen."
+            ]
+          },
+          "moreInformation": {
+            "title": "Weitere Informationen",
+            "description": "Für weitere Informationen über Cookies und Ähnliche Technologien und wie Sie Ihre Wahlmöglichkeiten ausüben können, besuchen Sie bitte",
+            "links": {
+              "allaboutcookies": "www.allaboutcookies.org",
+              "youronlinechoices": "www.youronlinechoices.eu"
+            }
+          }
+        }
+      }
+    }
+  },
+  "termsConditions": {
+    "title": "Allgemeine Geschäftsbedingungen",
+    "termsOfUse": {
+      "title": "Nutzungsbedingungen",
+      "description": "Bedeutungen und Definitionen, die in diesen Bedingungen verwendet werden:",
+      "definitions": [
+        {
+          "term": "Diskussionsforum(s)",
+          "definition": "bedeutet die Chat-Bereiche, Anschlagtafeln oder Forum-Einrichtungen, die auf den Websites bereitgestellt werden;"
+        },
+        {
+          "term": "Women Spot",
+          "definition": "bedeutet Women Spot, der Handelsname von Women Spot Limited, dessen eingetragene Büros sich in [Adresse] befinden und alle Tochter- oder Joint-Venture-Unternehmen;"
+        },
+        {
+          "term": "Website(s)",
+          "definition": "bedeutet die Website(s), die von Women Spot besessen und betrieben werden;"
+        },
+        {
+          "term": "Bedingungen",
+          "definition": "bedeutet diese Nutzungsbedingungen für Benutzer der Websites."
+        }
+      ]
+    },
+    "sections": {
+      "introduction": {
+        "title": "1. EINFÜHRUNG IN DIE BEDINGUNGEN",
+        "items": [
+          "Diese Website wird von Women Spot besessen und betrieben.",
+          "Diese Bedingungen regeln die Nutzung der Website, einschließlich der Teilnahme an den Diskussionsforen.",
+          "Die Websites sind so konzipiert, dass sie ein Forum bieten, das für alle angenehm ist, für den Austausch von Meinungen, Kommentaren und Informationen, und daher verlangt Women Spot von seinen Benutzern, diese Bedingungen einzuhalten. Ihre Nutzung der Website wird Ihre Zustimmung zur Einhaltung dieser Bedingungen darstellen.",
+          "Wenn Sie mit diesen Bedingungen nicht einverstanden sind, sollten Sie die Websites nicht nutzen.",
+          "Women Spot kann diese Bedingungen von Zeit zu Zeit ändern. Die fortgesetzte Nutzung der Websites durch Sie wird Ihre Zustimmung zu allen Änderungen oder Überarbeitungen der Bedingungen darstellen, daher ist es ratsam, diese Seite regelmäßig zu überprüfen.",
+          "Wir können Ihren Zugang zu den Websites ohne Vorankündigung beenden, zusätzlich zu unseren anderen Rechtsbehelfen, wenn Sie diese Bedingungen nicht befolgen.",
+          "Von Zeit zu Zeit können unsere Websites Artikel oder Funktionen veröffentlichen, die einige Website-Besucher als anstößig empfinden könnten. Women Spot beabsichtigt nicht zu beleidigen und schlägt vor, dass Website-Besucher, die den Ton oder Inhalt der Websites als anstößig empfinden, die Websites nicht mehr besuchen. Es wird keine Verantwortung für verursachte Beleidigungen übernommen."
+        ]
+      },
+      "useOfSites": {
+        "title": "2. NUTZUNG DER WEBSITES DURCH SIE",
+        "items": [
+          "Women Spot oder seine Lizenzgeber besitzen alle Materialien auf den Websites. Sie können Inhalte von diesen Websites auf einem Computerbildschirm abrufen und anzeigen, einzelne Seiten auf Papier drucken (aber nicht fotokopieren) und solche Seiten in elektronischer Form auf Diskette speichern (aber nicht auf einem Server oder einem anderen Speichergerät, das mit einem Netzwerk verbunden ist) für Ihren eigenen persönlichen, nicht-kommerziellen Gebrauch. Sie dürfen in keiner Weise kommerzielle oder andere unbefugte Nutzung, durch Veröffentlichung, Weiterleitung, Verteilung, Aufführung, Zwischenspeicherung oder auf andere Weise, von Materialien machen, die über die Websites erhalten wurden.",
+          "Sie erkennen an, dass alle Magazinmarken Markenzeichen sind und dass Sie sie nicht ohne vorherige schriftliche Genehmigung von Women Spot verwenden dürfen.",
+          "Sie dürfen andere nicht zur Nutzung der Websites autorisieren, und Sie sind für alle Ihre eigenen Nutzungen der Websites verantwortlich. Sie stimmen zu, keine obszöne, unanständige oder beleidigende Sprache zu verwenden oder Materialien auf die Websites zu stellen, die falsch, diffamierend, missbräuchlich, belästigend oder hasserfüllt sind. Darüber hinaus dürfen Sie keine Materialien auf die Websites stellen, die verschlüsselt sind, Junk-Mail oder unbefugte Werbung darstellen, die Privatsphäre von jemandem verletzen, Verhaltensweisen fördern, die eine Straftat darstellen oder zu zivilrechtlicher Haftung führen würden, oder die anderweitig lokale, staatliche, nationale oder internationale Gesetze oder Vorschriften verletzen. Sie stimmen zu, die Websites nur für rechtmäßige Zwecke zu nutzen, und Sie erkennen an, dass Ihr Versäumnis, dies zu tun, Sie zivil- und strafrechtlicher Haftung aussetzen kann.",
+          "Sie sind für alle Aktivitäten unter Ihrem Passwort oder Konto verantwortlich, und Sie müssen Ihr Passwort vertraulich halten. Sie müssen uns unverzüglich von jeder unbefugten Nutzung Ihres Passworts oder Kontos oder von jeder anderen Sicherheitsverletzung benachrichtigen. Sie dürfen die Funktionalität der Website nicht stören, das Passwort eines anderen Benutzers anfordern oder verwenden oder anderweitig so handeln, dass es die Nutzung der Website durch andere Benutzer beeinträchtigt.",
+          "Neben der Verbindung zu Women Spot-Servern durch HTTP-Anfragen mit einem Webbrowser dürfen Sie nicht versuchen, Zugang zu Women Spot-Servern durch irgendwelche Mittel zu erhalten, einschließlich, aber nicht beschränkt auf, die Verwendung von Administrator-Passwörtern oder das Vorgeben, ein Administrator zu sein, während Sie die Websites nutzen oder anderweitig.",
+          "Sie sind dafür verantwortlich, sicherzustellen, dass alle Materialien, die Sie den Websites zur Verfügung stellen oder in einem Diskussionsforum veröffentlichen, einschließlich, aber nicht beschränkt auf Text, Fotografien und Ton, nicht die Urheberrechte, Markenzeichen, Geschäftsgeheimnisse oder andere persönliche oder Eigentumsrechte von Dritten verletzen.",
+          "Sie stimmen zu, die Websites oder ihre zugehörige Software, Hardware und Server in keiner Weise zu stören, zu modifizieren oder zu beeinträchtigen, und Sie stimmen zu, die Nutzung der Websites durch andere nicht zu behindern oder zu beeinträchtigen. Sie stimmen ferner zu, keine Informationen oder Materialien auf oder in Verbindung mit den Websites zu ändern oder zu manipulieren.",
+          "Sie erkennen an, dass Women Spot den Inhalt aller Websites, die von den Websites verlinkt sind, nicht überprüft und nicht unterstützt hat und nicht für den Inhalt oder die Handlungen anderer Websites verantwortlich ist, die von den Websites verlinkt sind. Das Verlinken zu jedem anderen Service oder jeder anderen Website von dieser Website erfolgt auf Ihr eigenes Risiko."
+        ]
+      },
+      "ageLimit": {
+        "title": "3. ALTERSBESCHRÄKUNG",
+        "description": "Durch die Nutzung der Websites oder das Veröffentlichen von Inhalten in Diskussionsforen bestätigen Sie, dass Sie 18 Jahre oder älter sind oder, wenn Sie unter 18 Jahre alt sind, dass Sie die Zustimmung Ihres Elternteils oder Erziehungsberechtigten erhalten haben, diese Bedingungen einzugehen."
+      },
+      "useOfDiscussionForums": {
+        "title": "4. NUTZUNG DER DISKUSSIONSFOREN DURCH SIE",
+        "items": [
+          "Diese Bedingungen wurden eingeführt, um sicherzustellen, dass das Diskussionsforum eine einladende und nützliche Ressource für alle Benutzer ist. Diese Bedingungen beschreiben, was als inakzeptables Verhalten angesehen wird, und es ist wichtig, sie sorgfältig zu lesen.",
+          "Benutzer der Diskussionsforen garantieren und verpflichten sich, dass sie nicht: verleumderische oder diffamierende Kommentare veröffentlichen werden; etwas in Bezug auf laufende oder anhängige Gerichtsverfahren veröffentlichen werden; Inhalte veröffentlichen werden, die Sie von jemand anderem kopiert haben (d.h. Sie besitzen nicht die Urheberrechte); Obszönitäten verwenden werden; persönliche Beleidigungen über einen anderen Benutzer veröffentlichen werden; Werbung machen oder um etwas bitten werden; sich als ein anderer Benutzer ausgeben werden; Material veröffentlichen werden, das absichtlich darauf abzielt, andere Benutzer zu verärgern; oder die Diskussionsforen auf andere Weise nutzen werden, die als illegal, unmoralisch oder verantwortungslos angesehen werden würde.",
+          "Wir können und überprüfen nicht jeden Beitrag, bevor er auf den Websites erscheint. Women Spot betreibt eine 'Hinweis- und Entfernungs'-Politik, was bedeutet, dass wenn Women Spot einen Beitrag bemerkt oder von einem Beitrag erfährt, der gegen diese Bedingungen verstößt, Women Spot sich das Recht vorbehält, den Beitrag zu ändern oder zu entfernen.",
+          "Women Spot ermutigt Sie, uns zu kontaktieren, wenn Sie der Meinung sind, dass ein Beitrag diese Bedingungen verletzt. Bitte verwenden Sie die Meldefunktion auf der Website, um es uns wissen zu lassen.",
+          "Sie sind für den Inhalt Ihrer Beiträge verantwortlich, und Women Spot übernimmt keine Verantwortung für den Inhalt oder die Genauigkeit Ihrer Nachrichten.",
+          "Benutzer der Website können Material zur Veröffentlichung in den Diskussionsforen einreichen. Women Spot übernimmt keine Haftung in Bezug auf Material, das von Benutzern eingereicht und von Women Spot veröffentlicht wird, und Women Spot ist nicht für dessen Inhalt oder Genauigkeit verantwortlich.",
+          "Wenn Sie Material an die Diskussionsforen senden möchten, können Sie dies unter diesen Bedingungen tun.",
+          "Sie garantieren, dass das von Ihnen eingereichte Material nicht obszön, beleidigend, belästigend, diffamierend oder anderweitig illegal ist.",
+          "Sie erkennen an, dass jede Verletzung dieser Garantien Women Spot Schaden oder Verlust zufügen kann, und stimmen zu, Women Spot vollständig und dauerhaft gegen alle Haftungen von Dritten, Ansprüche, Kosten, Verluste oder Schäden zu entschädigen und schadlos zu halten, die Women Spot als Ergebnis der Veröffentlichung von Material entstehen, das Sie uns einreichen, einschließlich Folgeschäden.",
+          "Sollte Women Spot von Aktivitäten erfahren, die den Bedingungen widersprechen würden oder in ihrer alleinigen Entscheidung als inakzeptabel bestimmt werden, dann behält sich Women Spot das Recht vor, Maßnahmen zu ergreifen, einschließlich der vorübergehenden oder dauerhaften Entfernung von Inhalten, der Filterung von Internet-Übertragungen und/oder der sofortigen Ausschließung des Benutzers und, wo notwendig, der Weiterleitung von belastendem Material in ihrem Besitz an die britische Polizei oder andere relevante Behörden.",
+          "Sie akzeptieren, dass Women Spot einen Datensatz Ihrer IP- und/oder Host-Adresse nur zu Referenzzwecken führen kann (um eine Übersicht über die Anzahl der Besucher pro Tag zu behalten). Im Falle einer Verletzung dieser Bedingungen kann Women Spot Ihre IP- und/oder Host-Adresse einsehen und zu einer 'Ausschlussdatenbank' hinzufügen, um zu verhindern, dass Sie weiteren Zugang zu den Websites erhalten. Diese Adressen werden nicht an Drittanbieter-Services verteilt oder weitergegeben."
+        ]
+      },
+      "useOfMaterialPosted": {
+        "title": "5. VERWENDUNG VON MATERIAL, DAS VON IHNEN VERÖFFENTLICHT WURDE",
+        "description": "Beiträge zu den Diskussionsforen sind nicht privat. Sie gewähren Women Spot eine dauerhafte, lizenzgebührenfreie, nicht-exklusive Lizenz zur Nutzung, Reproduktion, Änderung, Übersetzung, Übertragung, Verteilung und Unterlizenzierung aller Informationen oder Materialien, die Sie den Websites über solche Beiträge zur Verfügung stellen oder mitteilen, in jedem Medium, das jetzt existiert oder in Zukunft entwickelt wird, für jeden Zweck."
+      },
+      "privacy": {
+        "title": "6. DATENSCHUTZ",
+        "description": "Die Informationen, die Sie über sich selbst an Women Spot bereitstellen, werden von Women Spot nur in Übereinstimmung mit seiner Datenschutzrichtlinie verwendet, die auf unserer Datenschutzrichtlinien-Seite verfügbar ist. Die Datenschutzrichtlinie gilt nicht für Websites von Dritten."
+      },
+      "safety": {
+        "title": "7. SICHERHEIT",
+        "description": "Bitte denken Sie daran, dass das Veröffentlichen Ihres Namens, Ihrer Kontaktinformationen oder anderer persönlicher Informationen auf der Website solche Informationen in den öffentlichen Bereich stellt. Verwenden Sie immer Vorsicht beim Herausgeben von Informationen. Wir raten Ihnen, keine Informationen über sich selbst oder andere Personen preiszugeben (z.B.: vollständiger Name, Telefonnummer, Postanschrift, E-Mail-Adresse, Wohnanschrift oder andere Details, die es ermöglichen, Sie persönlich zu identifizieren) auf der Website."
+      },
+      "informationAndAvailability": {
+        "title": "8. INFORMATIONEN UND VERFÜGBARKEIT",
+        "items": [
+          "Während Women Spot alle Sorgfalt darauf verwendet, sicherzustellen, dass die Informationen auf diesen Websites genau und vollständig sind, werden einige davon von Dritten an Women Spot geliefert, und Women Spot kann deren Genauigkeit oder Vollständigkeit nicht überprüfen. Es wird Ihnen geraten, die Genauigkeit aller Informationen zu überprüfen, bevor Sie sich darauf verlassen.",
+          "Darüber hinaus können aufgrund der inhärenten Natur des Internets Fehler, Unterbrechungen und Verzögerungen im Service jederzeit auftreten. Dementsprechend werden die Websites von Women Spot \"wie besehen\" ohne jegliche Garantien bereitgestellt, und Women Spot übernimmt keine Haftung, die sich aus Ungenauigkeiten oder Auslassungen in den Informationen oder Unterbrechungen der Verfügbarkeit ergibt."
+        ]
+      },
+      "links": {
+        "title": "9. LINKS",
+        "items": [
+          "Jede Website eines Dritten, die zu dieser Website verlinkt, darf nicht: einen Rahmen oder eine andere Browser- oder Randumgebung um den Inhalt dieser Website erstellen; implizieren, dass Women Spot sie oder ihre Produkte oder Dienstleistungen unterstützt; Markenzeichen von Women Spot verwenden, die auf einer Website von Women Spot angezeigt werden, ohne Genehmigung von Women Spot; geistige Eigentumsrechte oder andere Rechte einer Person verletzen; eine Website sein, die Inhalte enthält, die als geschmacklos, beleidigend oder kontrovers interpretiert werden könnten.",
+          "Women Spot behält sich ausdrücklich das Recht vor, die Entfernung jedes Links zu verlangen, der gegen diese Bedingungen verstößt, und alle anderen Maßnahmen zu ergreifen, die es für angemessen hält.",
+          "Auf diesen Websites können Ihnen automatische Links zu anderen Websites angeboten werden. Während Women Spot hofft, dass Sie an diesen anderen Websites interessiert sein werden, erkennen Sie an, dass deren Eigentümer unabhängig von Women Spot sein können und Women Spot deren Inhalt weder unterstützt noch Verantwortung dafür übernimmt.",
+          "Seiten der Website können einige kontextbezogene Affiliate-Marketing-Links enthalten, die von Dritten erstellt wurden. Käufe auf diesen Websites von Dritten liegen in der alleinigen Verantwortung dieser Website. Käufe über diese Links können zu einer Provision führen, die von Women Spot verdient wird."
+        ]
+      },
+      "general": {
+        "title": "10. ALLGEMEINES",
+        "items": [
+          "Diese Bedingungen zusammen mit allen zusätzlichen Bedingungen, die zu Ihrer Aufmerksamkeit gebracht werden, stellen die vollständige und gesamte Vereinbarung zwischen den Parteien dar und ersetzen alle vorherigen Vereinbarungen, ob schriftlich oder mündlich.",
+          "Wenn eine Bestimmung dieser Bedingungen von einem Gericht mit zuständiger Gerichtsbarkeit als ungültig befunden wird, wird die Ungültigkeit dieser Bestimmung die Gültigkeit der verbleibenden Bestimmungen dieser Bedingungen nicht beeinträchtigen, die in voller Kraft und Wirkung bleiben werden.",
+          "Diese Bedingungen sind nicht dazu bestimmt, Dritten zu nützen oder von diesen durchsetzbar zu sein, und das Contracts (Rights of Third Parties) Act 1999 wird auf diese Bedingungen nicht angewendet.",
+          "Das Versäumnis einer der Parteien, ein Recht oder einen Rechtsbehelf unter diesen Bedingungen auszuüben, stellt keinen Verzicht auf dieses Recht oder diesen Rechtsbehelf dar.",
+          "Sofern auf den Websites nicht anders angegeben, ist der Inhalt der Websites ausschließlich an diejenigen gerichtet, die von Großbritannien aus auf die Websites zugreifen. Women Spot macht keine Angaben darüber, dass irgendein Inhalt der Websites für die Nutzung an anderen Orten geeignet ist oder in anderen Standorten verfügbar ist. Diejenigen, die sich entscheiden, von einem anderen Standort aus auf die Websites zuzugreifen, sind allein verantwortlich für die Einhaltung lokaler Gesetze und Vorschriften, falls und soweit sie anwendbar sind.",
+          "Sie stimmen zu, dass diese Bedingungen für alle Zwecke von der englischen Rechtsordnung beherrscht und in Übereinstimmung mit dieser ausgelegt werden. Sie stimmen auch zu, vorbehaltlich der folgenden Klausel, sich der ausschließlichen Zuständigkeit der englischen Gerichte zu unterwerfen, soweit es um Ansprüche oder Angelegenheiten geht, die sich aus diesen Bedingungen ergeben.",
+          "Zum ausschließlichen Vorteil von Women Spot behält sich Women Spot das Recht vor, Verfahren in Bezug auf die Substanz der Angelegenheit vor den Gerichten des Landes Ihres Wohnsitzes zu bringen."
+        ]
+      }
+    },
+    "warning": {
+      "message": "Bitte verlassen Sie die Websites jetzt, wenn Sie mit diesen Bedingungen nicht einverstanden sind"
+    }
+  },
   "footer": {
     "brandName": "Gesundheit und Wohlbefinden",
     "brandDescription": "Ihre vertrauenswürdige Quelle für Gesundheits-, Fitness- und Lifestyle-Inhalte. Frauen dabei unterstützen, ihr bestes Leben zu führen.",
