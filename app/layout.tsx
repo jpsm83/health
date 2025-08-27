@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className="min-h-screen bg-violet-50">
+      <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           {children}
         </SessionProvider>
