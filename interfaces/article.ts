@@ -1,21 +1,21 @@
 import { Types } from "mongoose";
 import { mainCategories, articleStatus } from "@/lib/constants";
 
+export interface ISeo {
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+  slug: string;
+  hreflang: string;
+}
+
 export interface IMetaDataArticle {
   createdBy: string;
   articleImages: string[];
   category: string;
   createdAt: Date | string;
   updatedAt: Date | string;
-  seo: {
-    metaTitle: string;
-    metaDescription: string;
-    keywords: string[];
-    slug: string;
-    hreflang: string;
-    urlPattern: string;
-    canonicalUrl: string;
-  };
+  seo: ISeo;
 }
 
 export interface IArticleContent {
@@ -26,7 +26,7 @@ export interface IArticleContent {
 export interface IContentsByLanguage {
   mainTitle: string;
   articleContents: IArticleContent[];
-  seo: IMetaDataArticle; // hreflang contains language/locale info
+  seo: ISeo; // hreflang contains language/locale info
 }
 
 export interface IArticleComment {

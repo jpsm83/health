@@ -6,11 +6,7 @@ import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
 } from "@/lib/utils/articleMetadata";
-import {
-  IArticle,
-  IContentsByLanguage,
-  IMetaDataArticle,
-} from "@/interfaces/article";
+import { IContentsByLanguage, IMetaDataArticle } from "@/interfaces/article";
 import User from "@/app/api/models/user";
 import ArticlePageClient from "@/pages/ArticlePageClient";
 
@@ -18,7 +14,7 @@ import ArticlePageClient from "@/pages/ArticlePageClient";
 const getArticleData = cache(async (slug: string) => {
   await connectDb();
 
-  const article = (await Article.findOne({
+  const article = await Article.findOne({
     "contentsByLanguage.seo.slug": slug,
   })
     .populate({
@@ -26,11 +22,12 @@ const getArticleData = cache(async (slug: string) => {
       select: "username",
       model: User,
     })
-    .lean()) as unknown as IArticle;
+    .lean();
 
   if (!article) return null;
 
-  return article;
+  // Out-of-the-box Next.js safe serialization
+  return JSON.parse(JSON.stringify(article));
 });
 
 export async function generateMetadata({
@@ -39,6 +36,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
   try {
     const articleData = await getArticleData(slug);
 
@@ -46,15 +44,25 @@ export async function generateMetadata({
       return generateArticleNotFoundMetadata();
     }
 
+    const contentByLanguage = articleData.contentsByLanguage.find(
+      (content: IContentsByLanguage) => content.seo.slug === slug
+    );
+
     const metaContent: IMetaDataArticle = {
-      createdBy: articleData.createdBy?.username,
+      createdBy: articleData.createdBy?.username || "Women Spot Team",
       articleImages: articleData.articleImages,
       category: articleData.category,
-      createdAt: articleData.createdAt || new Date(),
-      updatedAt: articleData.updatedAt || new Date(),
-      seo: articleData.contentsByLanguage.find(
-        (content: IContentsByLanguage) => content.seo.slug === slug
-      )?.seo as unknown as IMetaDataArticle,
+      createdAt: new Date(articleData.createdAt),
+      updatedAt: new Date(articleData.updatedAt),
+      seo: contentByLanguage?.seo || {
+        metaTitle: "Article Not Found",
+        metaDescription: "The requested article could not be found",
+        keywords: [],
+        slug: "",
+        hreflang: "",
+        urlPattern: "",
+        canonicalUrl: "",
+      },
     };
 
     return generateArticleMetadata(metaContent);
@@ -64,22 +72,65 @@ export async function generateMetadata({
   }
 }
 
-export default async function ArticlePage(articleData: IArticle) {
-  if (!articleData) {
+// This should return JSX, not Metadata
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  try {
+    const articleData = await getArticleData(slug);
+
+    if (!articleData) {
+      return (
+        <div className="min-h-screen bg-gray-50">
+          <main className="max-w-4xl mx-auto py-8 px-4">
+            <div className="flex justify-center items-center min-h-[50vh]">
+              <div className="text-lg text-red-600">Article not found!</div>
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+    // Find the content for the current locale
+    const contentByLanguage = articleData.contentsByLanguage.find(
+      (content: IContentsByLanguage) => content.seo.slug === slug
+    );
+
+    if (!contentByLanguage) {
+      return (
+        <div className="min-h-screen bg-gray-50">
+          <main className="max-w-4xl mx-auto py-8 px-4">
+            <div className="flex justify-center items-center min-h-[50vh]">
+              <div className="text-lg text-red-600">
+                Content not found for this language!
+              </div>
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <main className="max-w-4xl mx-auto py-8 px-4">
+          <ArticlePageClient {...articleData} />
+        </main>
+      </div>
+    );
+  } catch (error) {
+    console.error("Error fetching article:", error);
     return (
       <div className="min-h-screen bg-gray-50">
         <main className="max-w-4xl mx-auto py-8 px-4">
           <div className="flex justify-center items-center min-h-[50vh]">
-            <div className="text-lg text-red-600">Article not found!</div>
+            <div className="text-lg text-red-600">Error loading article</div>
           </div>
         </main>
       </div>
     );
   }
-
-  return (
-    <main className="container mx-auto">
-      <ArticlePageClient articleData />
-    </main>
-  );
 }

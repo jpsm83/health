@@ -104,12 +104,10 @@ export default function ArticlePageClient(articleData: IArticle) {
   //     </div>
   //   );
   // }
-
-  console.log(articleData);
   
   return (
     <div>
-      <h1>Article</h1>
+      <h1>Article client</h1>
     </div>
     // <div className="flex flex-col min-h-screen gap-8 md:gap-16">
     //   {/* Article Header */}
