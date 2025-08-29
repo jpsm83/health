@@ -32,7 +32,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           src={article.imageUrl}
           alt={article.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          className="object-cover hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-2 left-2 z-10">

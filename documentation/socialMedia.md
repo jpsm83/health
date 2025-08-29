@@ -210,6 +210,10 @@ This guide provides comprehensive specifications for content formats, dimensions
 ## 💡 Key Takeaways
 
 - **Vertical content** (9:16) dominates short-form video platforms (TikTok, Instagram Reels, YouTube Shorts)
+    720 × 1280 (HD)
+    1080 × 1920 (Full HD)
+    1440 × 2560 (QHD)
+    2160 × 3840 (4K)
 - **Longer videos** (8+ minutes) are optimal for YouTube monetization
 - **Square formats** work well across most platforms for feed posts
 - **Monetization strategies** vary significantly between platforms

@@ -19,6 +19,7 @@ import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 import { mainCategories } from "@/lib/constants";
 import deleteFolderCloudinary from "@/lib/cloudinary/deleteFolderCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
+import User from "@/app/api/models/user";
 
 // @desc    Get article by slug
 // @route   GET /articles/[slug]
@@ -53,8 +54,12 @@ export const GET = async (
     const article = await Article.findOne({
       "contentsByLanguage.seo.slug": slug,
       "contentsByLanguage.seo.hreflang": locale
+    }).populate({
+      path: "createdBy",
+      select: "username",
+      model: User,
     }).lean();
-
+    
     return !article
       ? new NextResponse(JSON.stringify({ message: "Article not found!" }), {
           status: 404,
@@ -209,7 +214,6 @@ export const PATCH = async (
             "hreflang",
             "urlPattern",
             "canonicalUrl",
-            "type",
           ],
           nonReqFields: [],
         }

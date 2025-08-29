@@ -1,15 +1,21 @@
 import { Types } from "mongoose";
 import { mainCategories, articleStatus } from "@/lib/constants";
 
-export interface ISeoTags {
-  metaTitle: string;
-  metaDescription: string;
-  keywords: string[];
-  slug: string;
-  hreflang: string; // Single source of truth for language/locale
-  urlPattern: string; // e.g., "articles", "artigos", "articulos"
-  canonicalUrl: string;
-  type?: string;
+export interface IMetaDataArticle {
+  createdBy: string;
+  articleImages: string[];
+  category: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+  seo: {
+    metaTitle: string;
+    metaDescription: string;
+    keywords: string[];
+    slug: string;
+    hreflang: string;
+    urlPattern: string;
+    canonicalUrl: string;
+  };
 }
 
 export interface IArticleContent {
@@ -20,7 +26,7 @@ export interface IArticleContent {
 export interface IContentsByLanguage {
   mainTitle: string;
   articleContents: IArticleContent[];
-  seo: ISeoTags; // hreflang contains language/locale info
+  seo: IMetaDataArticle; // hreflang contains language/locale info
 }
 
 export interface IArticleComment {
@@ -45,4 +51,3 @@ export interface IArticle {
   createdAt?: Date;
   updatedAt?: Date;
 }
-

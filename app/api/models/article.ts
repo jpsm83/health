@@ -26,7 +26,7 @@ const seoSchema = new Schema({
     type: String,
     required: true,
   },
-  type: { type: String, required: true, default: "article" },
+  type: { type: String, required: true, default: "article" }, // DOES NOT NEED, DELETE
 });
 
 const contentsByLanguageSchema = new Schema({
@@ -39,7 +39,7 @@ const contentsByLanguageSchema = new Schema({
     },
   ],
   seo: { type: seoSchema, required: true },
-});
+}); // must be at least 4 articles content
 
 export const articleSchema = new Schema(
   {
@@ -52,7 +52,7 @@ export const articleSchema = new Schema(
     articleImages: {
       type: [String],
       required: true,
-    },
+    }, // must be at least 4 images
     status: {
       type: String,
       enum: articleStatus,
