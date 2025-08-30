@@ -38,7 +38,7 @@ export default function SignInContent() {
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
       // Redirect based on user role
-      if (user?.role === 'admin') {
+      if (user?.role === "admin") {
         router.push(`/${locale}/dashboard`);
       } else {
         router.push(`/${locale}/profile`);
@@ -50,7 +50,7 @@ export default function SignInContent() {
   if (authLoading || isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-600"></div>
       </div>
     );
   }
@@ -65,15 +65,8 @@ export default function SignInContent() {
         password: data.password,
       });
 
-      if (result?.success) {
-        // Keep loading state active and redirect based on user role
-        if (user?.role === 'admin') {
-          router.push(`/${locale}/dashboard`);
-        } else {
-          router.push(`/${locale}/profile`);
-        }
-      } else {
-        setError(result?.error || t("authenticationFailed"));
+      if (!result?.success) {
+        setError(result?.error || t("failedToCreateAccount"));
         setIsLoading(false); // Only stop loading on error
       }
     } catch (error) {
@@ -90,10 +83,7 @@ export default function SignInContent() {
 
     try {
       const result = await login("google");
-      if (result?.success) {
-        // Note: The user will be redirected to Google OAuth, then back to callbackUrl
-        // The redirect will be handled by the useEffect above based on user role
-      } else {
+      if (!result?.success) {
         setError(result?.error || t("googleSignInFailed"));
         setIsLoading(false);
       }

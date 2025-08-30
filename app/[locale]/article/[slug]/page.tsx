@@ -86,7 +86,7 @@ export default async function ArticlePage({
     if (!articleData) {
       return (
         <div className="min-h-screen bg-gray-50">
-          <main className="max-w-4xl mx-auto py-8 px-4">
+          <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
             <div className="flex justify-center items-center min-h-[50vh]">
               <div className="text-lg text-red-600">Article not found!</div>
             </div>
@@ -103,7 +103,7 @@ export default async function ArticlePage({
     if (!contentByLanguage) {
       return (
         <div className="min-h-screen bg-gray-50">
-          <main className="max-w-4xl mx-auto py-8 px-4">
+          <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
             <div className="flex justify-center items-center min-h-[50vh]">
               <div className="text-lg text-red-600">
                 Content not found for this language!
@@ -114,10 +114,16 @@ export default async function ArticlePage({
       );
     }
 
+    // Create a modified article object with only the matching locale content
+    const modifiedArticleData = {
+      ...articleData,
+      contentsByLanguage: [contentByLanguage], // Only pass the matching locale content
+    };
+
     return (
-      <div className="min-h-screen bg-gray-50">
-        <main className="max-w-4xl mx-auto py-8 px-4">
-          <ArticlePageClient {...articleData} />
+      <div className="min-h-screen bg-white">
+        <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
+          <ArticlePageClient {...modifiedArticleData} />
         </main>
       </div>
     );
@@ -125,10 +131,8 @@ export default async function ArticlePage({
     console.error("Error fetching article:", error);
     return (
       <div className="min-h-screen bg-gray-50">
-        <main className="max-w-4xl mx-auto py-8 px-4">
-          <div className="flex justify-center items-center min-h-[50vh]">
-            <div className="text-lg text-red-600">Error loading article</div>
-          </div>
+        <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36 flex justify-center items-center">
+          <div className="text-lg text-red-600">Error loading article</div>
         </main>
       </div>
     );

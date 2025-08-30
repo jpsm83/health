@@ -26,7 +26,7 @@ export const useAuth = () => {
             email: userData.email,
             password: userData.password,
             callbackUrl: "/", // Redirect to root after successful login
-            redirect: true,
+            redirect: true, // Must be true for OAuth flows
           });
           // Note: This will redirect the user, so we return success immediately
           return { success: true };

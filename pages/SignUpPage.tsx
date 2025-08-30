@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import Image from "next/image";
 
-
 interface FormData {
   username: string;
   email: string;
@@ -24,7 +23,12 @@ export default function SignUpContent() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignUp");
-  const { signUpCredentials, signUpGoogle, isAuthenticated, isLoading: authLoading } = useAuth();
+  const {
+    signUpCredentials,
+    signUpGoogle,
+    isAuthenticated,
+    isLoading: authLoading,
+  } = useAuth();
   const { user } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,27 +37,6 @@ export default function SignUpContent() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!authLoading && isAuthenticated) {
-      // Redirect based on user role
-      if (user?.role === 'admin') {
-        router.push(`/${locale}/dashboard`);
-      } else {
-        router.push(`/${locale}/profile`);
-      }
-    }
-  }, [isAuthenticated, authLoading, router, locale, user?.role]);
-
-  // Don't render if already authenticated
-  if (authLoading || isAuthenticated) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
-      </div>
-    );
-  }
 
   const {
     register,
@@ -66,6 +49,27 @@ export default function SignUpContent() {
     mode: "onChange",
   });
 
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      // Redirect based on user role
+      if (user?.role === "admin") {
+        router.push(`/${locale}/dashboard`);
+      } else {
+        router.push(`/${locale}/profile`);
+      }
+    }
+  }, [isAuthenticated, authLoading, router, locale, user?.role]);
+
+  // Don't render if already authenticated
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-600"></div>
+      </div>
+    );
+  }
+
   const password = watch("password");
 
   // Handle image selection
@@ -73,11 +77,11 @@ export default function SignUpContent() {
     const file = event.target.files?.[0];
     if (file) {
       // Validate file type
-      if (!file.type.startsWith('image/')) {
+      if (!file.type.startsWith("image/")) {
         setError("Please select a valid image file");
         return;
       }
-      
+
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         setError("Image size must be less than 5MB");
@@ -86,7 +90,7 @@ export default function SignUpContent() {
 
       setSelectedImage(file);
       setError(""); // Clear any previous errors
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -109,7 +113,7 @@ export default function SignUpContent() {
 
     try {
       // Use the register method from useAuth hook
-      const registerResult = await signUpCredentials({
+      const result = await signUpCredentials({
         username: data.username,
         email: data.email,
         password: data.password,
@@ -117,15 +121,8 @@ export default function SignUpContent() {
         imageFile: selectedImage || undefined,
       });
 
-      if (registerResult.success) {
-        // Keep loading state active and redirect based on user role
-        if (user?.role === 'admin') {
-          router.push(`/${locale}/dashboard`);
-        } else {
-          router.push(`/${locale}/profile`);
-        }
-      } else {
-        setError(registerResult.error || t("failedToCreateAccount"));
+      if (!result?.success) {
+        setError(result?.error || t("failedToCreateAccount"));
         setIsLoading(false); // Only stop loading on error
       }
     } catch (error) {
@@ -141,11 +138,11 @@ export default function SignUpContent() {
     setIsLoading(true);
 
     try {
-      // Use the registerWithGoogle method from useAuth hook - it handles Google OAuth signup
-      // If user exists: signs them in, if not: creates account + signs them in
-      await signUpGoogle();
-      // Note: The user will be redirected to Google OAuth, then back to callbackUrl
-      // No need to handle navigation here
+      const result = await signUpGoogle();
+      if (!result?.success) {
+        setError(result?.error || t("googleSignUpFailed"));
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error("Google signup error:", error);
       setError(t("googleSignUpFailed"));
@@ -545,7 +542,11 @@ export default function SignUpContent() {
                 )}
                 {imagePreview && (
                   <div className="mt-2">
-                    <Image src={imagePreview} alt="Profile Preview" className="max-w-xs h-auto rounded-md" />
+                    <Image
+                      src={imagePreview}
+                      alt="Profile Preview"
+                      className="max-w-xs h-auto rounded-md"
+                    />
                   </div>
                 )}
               </div>
