@@ -40,7 +40,7 @@ export async function generateArticleMetadata(
     authors: [{ name: metaContent.createdBy }],
     creator: metaContent.createdBy,
     publisher: metaContent.createdBy,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+    metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     alternates: {
       canonical: metaContent.seo.canonicalUrl,

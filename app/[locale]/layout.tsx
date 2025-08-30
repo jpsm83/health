@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     ...(await generatePublicMetadata(locale, "", "metadata.home.title")),
     metadataBase: new URL(
-      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      process.env.NEXTAUTH_URL || "http://localhost:3000"
     ),
   };
 }

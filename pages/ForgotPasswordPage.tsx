@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
-import { useAuth } from '@/hooks/useAuth';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { authService } from '@/services/authService';
 
 interface FormData {
   email: string;
@@ -13,11 +15,13 @@ interface FormData {
 export default function ForgotPasswordContent() {
   const locale = useLocale();
   const t = useTranslations('ForgotPassword');
-  const { forgotPassword, isAuthenticated, isLoading: authLoading, session } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const {
     register,
@@ -31,17 +35,17 @@ export default function ForgotPasswordContent() {
 
   // Redirect if already authenticated (this page is only for guests)
   useEffect(() => {
-    if (!authLoading && isAuthenticated) {
+    if (status === 'authenticated' && session?.user?.id) {
       if (session?.user?.role === 'admin') {
-        window.location.href = '/dashboard';
+        router.push(`/${locale}/dashboard`);
       } else {
-        window.location.href = '/profile';
+        router.push(`/${locale}/profile`);
       }
     }
-  }, [isAuthenticated, authLoading, session?.user?.role]);
+  }, [status, session?.user?.id, session?.user?.role, router, locale]);
 
   // Don't render if already authenticated
-  if (authLoading || isAuthenticated) {
+  if (status === 'authenticated' && session?.user?.id) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
@@ -55,7 +59,7 @@ export default function ForgotPasswordContent() {
     setIsLoading(true);
 
     try {
-      const result = await forgotPassword(data.email);
+      const result = await authService.requestPasswordReset(data.email);
 
       // Check if result is a string (success message) or has success property
       if (typeof result === "string") {

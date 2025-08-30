@@ -1,18 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 
 export const toggleCommentLike = async (
   articleId: string,
-  commentId: string
+  commentId: string,
+  userId: string
 ) => {
   try {
-    const session = await auth();
-
-    if (!session?.user?.id) {
+    if (!userId) {
       throw new Error("You must be signed in to like comments");
     }
 
@@ -33,7 +31,7 @@ export const toggleCommentLike = async (
       throw new Error("Comment not found");
     }
 
-    const userLiked = comment.commentLikes?.includes(session.user.id);
+    const userLiked = comment.commentLikes?.includes(userId);
 
     // Toggle like status using atomic operation
     const updatedArticle = await Article.findOneAndUpdate(
@@ -42,8 +40,8 @@ export const toggleCommentLike = async (
         "comments._id": commentId,
       },
       userLiked
-        ? { $pull: { "comments.$.commentLikes": session.user.id } } // Remove like
-        : { $addToSet: { "comments.$.commentLikes": session.user.id } }, // Add like
+        ? { $pull: { "comments.$.commentLikes": userId } } // Remove like
+        : { $addToSet: { "comments.$.commentLikes": userId } }, // Add like
       { new: true }
     );
 

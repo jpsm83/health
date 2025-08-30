@@ -51,7 +51,7 @@ export default function ArticlePageClient(articleData: IArticle) {
     }
 
     try {
-      const result = await toggleArticleLike(articleData._id?.toString() || "");
+      const result = await toggleArticleLike(articleData._id?.toString() || "", session?.user?.id || "");
       if (result.success) {
         setLikes(result.likeCount || 0);
         setIsLiked(result.liked || false);
@@ -70,7 +70,8 @@ export default function ArticlePageClient(articleData: IArticle) {
     try {
       const result = await createComment(
         articleData._id?.toString() || "",
-        newComment?.trim() || ""
+        newComment?.trim() || "",
+        session?.user?.id || ""
       );
       if (result.success && result.comment) {
         setComments((prev) => [...prev, result.comment]);
@@ -131,8 +132,6 @@ export default function ArticlePageClient(articleData: IArticle) {
   };
 
   const containers = calculateContentDistribution();
-
-  console.log(articleData);
 
   return (
     <div className="flex flex-col min-h-screen gap-8 md:gap-16">

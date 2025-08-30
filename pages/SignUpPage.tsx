@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { useAuth } from "@/hooks/useAuth";
-import { useUser } from "@/hooks/useUser";
 import { useForm } from "react-hook-form";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import Image from "next/image";
+import { useSession, signIn } from "next-auth/react";
+import { authService } from "@/services/authService";
 
 interface FormData {
   username: string;
@@ -19,17 +19,12 @@ interface FormData {
   imageFile?: File;
 }
 
+// 68a71808bf9d6c63772b49db
+
 export default function SignUpContent() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignUp");
-  const {
-    signUpCredentials,
-    signUpGoogle,
-    isAuthenticated,
-    isLoading: authLoading,
-  } = useAuth();
-  const { user } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -37,6 +32,8 @@ export default function SignUpContent() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const { data: session, status } = useSession();
 
   const {
     register,
@@ -51,18 +48,18 @@ export default function SignUpContent() {
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (!authLoading && isAuthenticated) {
+    if (status === "authenticated") {
       // Redirect based on user role
-      if (user?.role === "admin") {
+      if (session?.user?.role === "admin") {
         router.push(`/${locale}/dashboard`);
       } else {
         router.push(`/${locale}/profile`);
       }
     }
-  }, [isAuthenticated, authLoading, router, locale, user?.role]);
+  }, [status, session?.user?.role, router, locale]);
 
   // Don't render if already authenticated
-  if (authLoading || isAuthenticated) {
+  if (status === "authenticated") {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-600"></div>
@@ -113,7 +110,7 @@ export default function SignUpContent() {
 
     try {
       // Use the register method from useAuth hook
-      const result = await signUpCredentials({
+      const result = await authService.registerUser({
         username: data.username,
         email: data.email,
         password: data.password,
@@ -121,14 +118,18 @@ export default function SignUpContent() {
         imageFile: selectedImage || undefined,
       });
 
-      if (!result?.success) {
-        setError(result?.error || t("failedToCreateAccount"));
-        setIsLoading(false); // Only stop loading on error
+      if ((result as unknown as { error?: string })?.error) {
+        console.error(
+          "Google sign-in error:",
+          (result as unknown as { error?: string })?.error
+        );
+        setError(t("googleSignInFailed"));
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Registration error:", error);
-      setError(t("unexpectedError"));
-      setIsLoading(false); // Only stop loading on error
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(t("googleSignInFailed"));
+      setIsLoading(false);
     }
   };
 
@@ -138,14 +139,19 @@ export default function SignUpContent() {
     setIsLoading(true);
 
     try {
-      const result = await signUpGoogle();
-      if (!result?.success) {
-        setError(result?.error || t("googleSignUpFailed"));
+      const result = await signIn("google", { callbackUrl: "/" });
+
+      if ((result as unknown as { error?: string })?.error) {
+        console.error(
+          "Google sign-in error:",
+          (result as unknown as { error?: string })?.error
+        );
+        setError(t("googleSignInFailed"));
         setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Google signup error:", error);
-      setError(t("googleSignUpFailed"));
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(t("googleSignInFailed"));
       setIsLoading(false);
     }
   };

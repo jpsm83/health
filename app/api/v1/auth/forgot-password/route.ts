@@ -50,7 +50,7 @@ export const POST = async (req: Request) => {
 
     // Create reset link
     const resetLink = `${
-      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      process.env.NEXTAUTH_URL || "http://localhost:3000"
     }/reset-password?token=${resetToken}`;
 
     try {

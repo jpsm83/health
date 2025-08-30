@@ -12,7 +12,7 @@ export default function HomePage({ articles }: { articles: MockArticle[] }) {
   const t = useTranslations("home");
   const featuredArticles = getFeaturedArticles();
 
-  console.log(articles);
+  console.log("articles on home page", articles);
   
   return (
     <div className="flex flex-col min-h-screen gap-8 md:gap-16">

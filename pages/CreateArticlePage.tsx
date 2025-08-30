@@ -2,23 +2,22 @@
 
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useAuth } from '@/hooks/useAuth';
-import { useUser } from '@/hooks/useUser';
+import { useSession } from 'next-auth/react';
 
 export default function CreateArticleContent() {
   const t = useTranslations('createArticle');
-  const { isAuthenticated, isLoading } = useAuth();
-  const { user } = useUser();
+
+  const { data: session, status } = useSession();
 
   // Admin-only access check
   useEffect(() => {
-    if (!isLoading && (!isAuthenticated || user?.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session?.user && session.user.role !== 'admin')) {
       window.location.href = '/';
     }
-  }, [isAuthenticated, isLoading, user?.role]);
+  }, [status, session?.user]);
 
   // Show loading while checking auth
-  if (isLoading) {
+  if (status === 'loading') {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
@@ -27,7 +26,7 @@ export default function CreateArticleContent() {
   }
 
   // Don't render if not admin
-  if (!isAuthenticated || user?.role !== 'admin') {
+  if (!session?.user?.id || session?.user?.role !== 'admin') {
     return null;
   }
 

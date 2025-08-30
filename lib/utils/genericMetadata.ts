@@ -87,14 +87,14 @@ async function generateMetadataCore(
   
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
-  const fullUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${locale}${route}`;
+  const fullUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/${locale}${route}`;
   
   return {
     title,
     description,
     keywords,
     ...baseMetadata,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+    metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
     robots: isPublic ? 'index, follow' : 'noindex, nofollow',
     alternates: {
       canonical: `/${locale}${route}`,

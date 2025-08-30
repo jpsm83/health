@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { useTranslations, useLocale } from 'next-intl';
-import { useForm } from 'react-hook-form';
-import { useAuth } from '@/hooks/useAuth';
-import { useUser } from '@/hooks/useUser';
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
+import { useForm } from "react-hook-form";
+import { useSession, signOut } from "next-auth/react";
 
 interface FormData {
   newPassword: string;
@@ -15,15 +14,15 @@ interface FormData {
 
 export default function ResetPasswordContent() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [token, setToken] = useState('');
-  const router = useRouter();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [token, setToken] = useState("");
   const searchParams = useSearchParams();
   const locale = useLocale();
-  const t = useTranslations('ResetPassword');
-  const { logout, isAuthenticated, isLoading: authLoading } = useAuth();
-  const { user } = useUser();
+  const t = useTranslations("ResetPassword");
+
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const {
     register,
@@ -33,45 +32,47 @@ export default function ResetPasswordContent() {
     clearErrors,
     watch,
   } = useForm<FormData>({
-    mode: 'onChange',
+    mode: "onChange",
   });
 
-  const newPassword = watch('newPassword');
+  const newPassword = watch("newPassword");
 
   useEffect(() => {
-    const tokenParam = searchParams?.get('token');
+    const tokenParam = searchParams?.get("token");
     if (tokenParam) {
       setToken(tokenParam);
-      
+
       // Sign out the user immediately when they access the reset password page
       // This ensures they can't reset their password while still logged in
       const signOutUser = async () => {
         try {
-          await logout();
+          await signOut({ redirect: false });
+
+          router.push(`/${locale}`);
         } catch (logoutError) {
-          console.error('Logout error:', logoutError);
+          console.error("Logout error:", logoutError);
           // Continue even if logout fails
         }
       };
-      
+
       signOutUser();
     }
-  }, [searchParams, logout]);
+  }, [searchParams, signOut, router, locale]);
 
   // Redirect if already authenticated (this page is for password reset, not for logged-in users)
   useEffect(() => {
-    if (!authLoading && isAuthenticated) {
+    if (status === "authenticated") {
       // Redirect based on user role
-      if (user?.role === 'admin') {
+      if (session?.user?.role === "admin") {
         router.push(`/${locale}/dashboard`);
       } else {
         router.push(`/${locale}/profile`);
       }
     }
-  }, [isAuthenticated, authLoading, router, locale, user?.role]);
+  }, [status, session?.user?.role, router, locale]);
 
   // Don't render if already authenticated
-  if (authLoading || isAuthenticated) {
+  if (status === "authenticated") {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
@@ -80,36 +81,36 @@ export default function ResetPasswordContent() {
   }
 
   const onSubmit = async (data: FormData) => {
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     if (!token) {
-      setError(t('resetTokenMissing'));
+      setError(t("resetTokenMissing"));
       return;
     }
 
     if (!data.newPassword || !data.confirmPassword) {
-      setError(t('bothPasswordsRequired'));
+      setError(t("bothPasswordsRequired"));
       return;
     }
 
     if (data.newPassword !== data.confirmPassword) {
-      setError(t('passwordsDoNotMatch'));
+      setError(t("passwordsDoNotMatch"));
       return;
     }
 
     if (data.newPassword.length < 6) {
-      setError(t('passwordTooShort'));
+      setError(t("passwordTooShort"));
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/v1/auth/reset-password', {
-        method: 'POST',
+      const response = await fetch("/api/v1/auth/reset-password", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ token, newPassword: data.newPassword }),
       });
@@ -117,21 +118,21 @@ export default function ResetPasswordContent() {
       const responseData = await response.json();
 
       if (response.ok) {
-        setSuccess(responseData.message || t('passwordResetSuccess'));
+        setSuccess(responseData.message || t("passwordResetSuccess"));
         // Clear the form on success
-        setValue('newPassword', '');
-        setValue('confirmPassword', '');
-        
+        setValue("newPassword", "");
+        setValue("confirmPassword", "");
+
         // Redirect to signin page after a short delay
         setTimeout(() => {
           router.push(`/${locale}/signin`);
         }, 2000);
       } else {
-        setError(responseData.message || t('failedToResetPassword'));
+        setError(responseData.message || t("failedToResetPassword"));
       }
     } catch (error) {
-      console.error('Reset password error:', error);
-      setError(t('unexpectedError'));
+      console.error("Reset password error:", error);
+      setError(t("unexpectedError"));
     } finally {
       setIsLoading(false);
     }
@@ -149,16 +150,16 @@ export default function ResetPasswordContent() {
       <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg text-center">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t('invalidResetLink')}
+            {t("invalidResetLink")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            {t('resetLinkInvalidOrExpired')}
+            {t("resetLinkInvalidOrExpired")}
           </p>
           <Link
             href={`/${locale}/forgot-password`}
             className="font-medium text-pink-600 hover:text-pink-500"
           >
-            {t('requestNewPasswordReset')}
+            {t("requestNewPasswordReset")}
           </Link>
         </div>
       </div>
@@ -180,10 +181,10 @@ export default function ResetPasswordContent() {
         <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              {t('resetYourPassword')}
+              {t("resetYourPassword")}
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              {t('formInstructions')}
+              {t("formInstructions")}
             </p>
           </div>
 
@@ -191,7 +192,7 @@ export default function ResetPasswordContent() {
             {error && (
               <div className="rounded-md bg-pink-50 p-4">
                 <div className="text-sm text-pink-700">
-                  <div className="font-medium mb-2">{t('errorOccurred')}</div>
+                  <div className="font-medium mb-2">{t("errorOccurred")}</div>
                   <div className="text-xs text-pink-600">{error}</div>
                 </div>
               </div>
@@ -200,9 +201,11 @@ export default function ResetPasswordContent() {
             {success && (
               <div className="rounded-md bg-green-50 p-4">
                 <div className="text-sm text-green-700">
-                  <div className="font-medium mb-2">{t('passwordResetSuccess')}</div>
+                  <div className="font-medium mb-2">
+                    {t("passwordResetSuccess")}
+                  </div>
                   <div className="text-xs text-green-600">
-                    {t('redirectingToSignIn')}
+                    {t("redirectingToSignIn")}
                   </div>
                 </div>
               </div>
@@ -210,31 +213,34 @@ export default function ResetPasswordContent() {
 
             <div className="space-y-4">
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
-                  {t('newPassword')}
+                <label
+                  htmlFor="newPassword"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {t("newPassword")}
                 </label>
                 <input
                   id="newPassword"
                   type="password"
                   autoComplete="new-password"
                   disabled={isLoading}
-                  {...register('newPassword', {
-                    required: t('newPasswordRequired'),
+                  {...register("newPassword", {
+                    required: t("newPasswordRequired"),
                     minLength: {
                       value: 6,
-                      message: t('passwordTooShort')
-                    }
+                      message: t("passwordTooShort"),
+                    },
                   })}
                   onChange={(e) => {
-                    setValue('newPassword', e.target.value);
-                    handleInputChange('newPassword');
+                    setValue("newPassword", e.target.value);
+                    handleInputChange("newPassword");
                   }}
                   className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.newPassword
-                      ? 'border-pink-500 focus:ring-pink-500 focus:border-pink-500'
-                      : 'border-gray-300 focus:ring-pink-500 focus:border-pink-500'
+                      ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
+                      : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
                   } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
-                  placeholder={t('enterNewPassword')}
+                  placeholder={t("enterNewPassword")}
                 />
                 {errors.newPassword && (
                   <p className="mt-1 text-sm text-pink-600">
@@ -242,38 +248,41 @@ export default function ResetPasswordContent() {
                   </p>
                 )}
                 <p className="mt-2 text-sm text-gray-500">
-                  {t('passwordRequirements')}
+                  {t("passwordRequirements")}
                 </p>
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                  {t('confirmNewPassword')}
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {t("confirmNewPassword")}
                 </label>
                 <input
                   id="confirmPassword"
                   type="password"
                   autoComplete="new-password"
                   disabled={isLoading}
-                  {...register('confirmPassword', {
-                    required: t('confirmPasswordRequired'),
+                  {...register("confirmPassword", {
+                    required: t("confirmPasswordRequired"),
                     validate: (value) => {
                       if (value !== newPassword) {
-                        return t('passwordsDoNotMatch');
+                        return t("passwordsDoNotMatch");
                       }
                       return true;
-                    }
+                    },
                   })}
                   onChange={(e) => {
-                    setValue('confirmPassword', e.target.value);
-                    handleInputChange('confirmPassword');
+                    setValue("confirmPassword", e.target.value);
+                    handleInputChange("confirmPassword");
                   }}
                   className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.confirmPassword
-                      ? 'border-pink-500 focus:ring-pink-500 focus:border-pink-500'
-                      : 'border-gray-300 focus:ring-pink-500 focus:border-pink-500'
+                      ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
+                      : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
                   } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
-                  placeholder={t('confirmNewPassword')}
+                  placeholder={t("confirmNewPassword")}
                 />
                 {errors.confirmPassword && (
                   <p className="mt-1 text-sm text-pink-600">
@@ -281,7 +290,7 @@ export default function ResetPasswordContent() {
                   </p>
                 )}
                 <p className="mt-2 text-sm text-gray-500">
-                  {t('confirmPasswordInstructions')}
+                  {t("confirmPasswordInstructions")}
                 </p>
               </div>
             </div>
@@ -314,27 +323,27 @@ export default function ResetPasswordContent() {
                     ></path>
                   </svg>
                 ) : null}
-                {isLoading ? t('resettingPassword') : t('resetPassword')}
+                {isLoading ? t("resettingPassword") : t("resetPassword")}
               </button>
             </div>
           </form>
 
           <div className="text-center space-y-2">
-            <Link 
-              href={`/${locale}/signin`} 
+            <Link
+              href={`/${locale}/signin`}
               className={`block font-medium text-pink-600 hover:text-pink-500 ${
-                isLoading ? 'pointer-events-none opacity-50' : ''
+                isLoading ? "pointer-events-none opacity-50" : ""
               }`}
             >
-              {t('backToSignIn')}
+              {t("backToSignIn")}
             </Link>
-            <Link 
-              href={`/${locale}/forgot-password`} 
+            <Link
+              href={`/${locale}/forgot-password`}
               className={`block font-medium text-pink-600 hover:text-pink-500 ${
-                isLoading ? 'pointer-events-none opacity-50' : ''
+                isLoading ? "pointer-events-none opacity-50" : ""
               }`}
             >
-              {t('requestNewPasswordReset')}
+              {t("requestNewPasswordReset")}
             </Link>
           </div>
 
@@ -342,10 +351,10 @@ export default function ResetPasswordContent() {
             <Link
               href={`/${locale}`}
               className={`font-medium text-pink-600 hover:text-pink-500 ${
-                isLoading ? 'pointer-events-none opacity-50' : ''
+                isLoading ? "pointer-events-none opacity-50" : ""
               }`}
             >
-              {t('backToHome')}
+              {t("backToHome")}
             </Link>
           </div>
         </div>

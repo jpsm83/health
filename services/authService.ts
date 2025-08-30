@@ -1,6 +1,11 @@
 // services/authService.ts
 import axios, { type AxiosInstance } from "axios";
 import { handleAxiosError } from "@/lib/utils/handleAxiosError";
+import { signIn } from "next-auth/react";
+
+// most of the auth logic is handled by NextAuth
+// this service is only for backend API calls
+// does NOT handle login/logout (NextAuth does that through useAuth hook)
 
 const API_BASE = "/api/v1";
 
@@ -55,7 +60,25 @@ class AuthService {
       formData.append("imageFile", userData.imageFile);
     }
 
-    return this.handleRequest(() => this.instance.post("/users", formData));
+    await this.handleRequest(() => this.instance.post("/users", formData));
+
+    try {
+      // After successful registration, automatically sign in the user with NextAuth
+      await signIn("credentials", {
+        email: userData.email,
+        password: userData.password,
+        callbackUrl: "/", // Redirect to root after successful login
+        redirect: true, // Must be true for OAuth flows
+      });
+      // Note: This will redirect the user, so we return success immediately
+      return { success: true };
+    } catch (error) {
+      console.error("Login error after registration:", error);
+      return {
+        success: false,
+        error: "Registration successful but login failed",
+      };
+    }
   }
 
   // Request password reset email

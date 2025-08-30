@@ -138,14 +138,14 @@
     "status": "published",
     "likes": [
       { "$oid": "685930ebe3655fbfcf8a6494" },
-      { "$oid": "68a71808bf9d6c63772b49db" }
+      { "$oid": "68b38b31a041e7fa0d57202d" }
     ],
     "comments": [
       {
         "userId": { "$oid": "685930ebe3655fbfcf8a6494" },
         "comment": "Great article, very informative!",
         "commentLikes": [
-          { "$oid": "68a71808bf9d6c63772b49db" }
+          { "$oid": "68b38b31a041e7fa0d57202d" }
         ],
         "createdAt": { "$date": "2025-08-29T10:00:00Z" },
         "updatedAt": { "$date": "2025-08-29T10:00:00Z" }

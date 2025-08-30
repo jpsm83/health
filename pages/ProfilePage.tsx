@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { User, BookOpen, Lock, CheckCircle, XCircle } from "lucide-react";
-import { useUser } from "@/hooks/useUser";
-import { useAuth } from "@/hooks/useAuth";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useUser } from "@/hooks/useUser";
+import { useRouter } from "next/navigation";
+import { authService } from "@/services/authService";
 
 interface FormData {
   username: string;
@@ -28,14 +30,6 @@ interface FormData {
 
 export default function ProfileContent() {
   const t = useTranslations("profile");
-  const { forgotPassword } = useAuth();
-  const {
-    user,
-    isInitializing: userLoading,
-    error: userError,
-    updateProfile,
-  } = useUser();
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -43,6 +37,11 @@ export default function ProfileContent() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
   const isInitialized = useRef(false);
+
+  const { data: session, status } = useSession();
+  const { user, updateProfile, error: userError } = useUser();
+  const router = useRouter();
+  const locale = useLocale();
 
   const {
     register,
@@ -117,28 +116,25 @@ export default function ProfileContent() {
 
   // Load user data and set form values when user data changes
   useEffect(() => {
-    if (user && !isInitialized.current) {
+    if (session?.user && !isInitialized.current) {
       isInitialized.current = true;
 
       const initialValues: FormData = {
-        username: user.username || "",
-        email: user.email || "",
-        role: user.role || "",
-        birthDate: user.birthDate
-          ? new Date(user.birthDate).toISOString().split("T")[0]
+        username: user?.username || "",
+        email: user?.email || "",
+        role: user?.role || "",
+        birthDate: user?.birthDate
+          ? new Date(user?.birthDate).toISOString().split("T")[0]
           : "",
         preferences: {
-          language: user.preferences?.language || "en",
-          region: user.preferences?.region || "US",
-          contentLanguage: user.preferences?.contentLanguage || "en",
+          language: user?.preferences?.language || "en",
+          region: user?.preferences?.region || "US",
+          contentLanguage: user?.preferences?.contentLanguage || "en",
         },
         subscriptionPreferences: {
-          categories:
-            user.subscriptionPreferences?.categories?.length > 0
-              ? user.subscriptionPreferences.categories
-              : [],
+          categories: user?.subscriptionPreferences?.categories || [],
           subscriptionFrequencies:
-            user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+            user?.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
         // Don't include password fields in initial values
       };
@@ -152,7 +148,7 @@ export default function ProfileContent() {
         }
       });
     }
-  }, [user, setValue]);
+  }, [user, setValue, session?.user]);
 
   // Check for changes - use useMemo to prevent infinite loops
   const hasChanges = useMemo(() => {
@@ -174,7 +170,7 @@ export default function ProfileContent() {
   }, [watchedValues, originalValues, selectedImage]);
 
   // Simple auth check - redirect if not authenticated
-  if (userLoading) {
+  if (status === "loading") {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
@@ -182,12 +178,8 @@ export default function ProfileContent() {
     );
   }
 
-  if (!user) {
-    // Redirect to signin if not authenticated
-    if (typeof window !== "undefined") {
-      window.location.href = "/signin";
-    }
-    return null;
+  if (!session?.user) {
+    router.push(`/${locale}/signin`);
   }
 
   // Handle password reset
@@ -202,7 +194,7 @@ export default function ProfileContent() {
     setIsLoading(true);
 
     try {
-      const result = await forgotPassword(user.email);
+      const result = await authService.requestPasswordReset(user.email);
 
       // Check if result is a string (success message) or has success property
       if (typeof result === "string") {
@@ -327,15 +319,6 @@ export default function ProfileContent() {
     }
   };
 
-  // Show loading state while fetching user data
-  if (userLoading || !user) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
-      </div>
-    );
-  }
-
   // Show error state if user data failed to load
   if (userError) {
     return (
@@ -375,11 +358,11 @@ export default function ProfileContent() {
                       priority
                       className="w-full h-full object-cover"
                     />
-                  ) : user.imageUrl ? (
+                  ) : user?.imageUrl ? (
                     <Image
                       width={128}
                       height={128}
-                      src={user.imageUrl}
+                      src={user?.imageUrl}
                       alt="Profile"
                       priority
                       className="w-full h-full object-cover"
@@ -439,22 +422,22 @@ export default function ProfileContent() {
             {/* Header Info */}
             <div className="flex-1">
               <h1 className="text-3xl font-extrabold text-gray-900">
-                {user.username}
+                {user?.username}
               </h1>
-              <h3 className="text-md text-gray-400 mb-2">{user.email}</h3>
+              <h3 className="text-md text-gray-400 mb-2">{user?.email}</h3>
               <p className="text-lg text-gray-600 mb-4">{t("subtitle")}</p>
 
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  {user.emailVerified ? (
+                  {user?.emailVerified ? (
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   ) : (
                     <XCircle className="w-5 h-5 text-red-600" />
                   )}
                   <div>
                     <div className="text-sm font-medium text-gray-900">
-                      {user.emailVerified
+                      {user?.emailVerified
                         ? t("stats.verified")
                         : t("stats.unverified")}
                     </div>
@@ -465,7 +448,7 @@ export default function ProfileContent() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-600">
-                    {user.likedArticles?.length || 0}
+                    {user?.likedArticles?.length || 0}
                   </div>
                   <div className="text-sm text-gray-500">
                     {t("stats.likedArticles")}
@@ -473,7 +456,7 @@ export default function ProfileContent() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-600">
-                    {user.commentedArticles?.length || 0}
+                    {user?.commentedArticles?.length || 0}
                   </div>
                   <div className="text-sm text-gray-500">
                     {t("stats.comments")}

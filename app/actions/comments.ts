@@ -1,17 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 
-export const createComment = async (articleId: string, comment: string) => {
+export const createComment = async (articleId: string, comment: string, userId: string) => {
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
+    if(!userId) {
       throw new Error("You must be signed in to comment");
     }
-
     // Validate comment before DB call
     const trimmed = comment.trim();
     if (!trimmed) {
@@ -30,13 +27,13 @@ export const createComment = async (articleId: string, comment: string) => {
     const updatedArticle = await Article.findOneAndUpdate(
       {
         _id: articleId,
-        createdBy: { $ne: session.user.id }, // prevent self-comment
-        "comments.userId": { $ne: session.user.id }, // prevent duplicates
+        createdBy: { $ne: userId }, // prevent self-comment
+        "comments.userId": { $ne: userId }, // prevent duplicates
       },
       {
         $push: {
           comments: {
-            userId: session.user.id,
+            userId: userId,
             comment: trimmed,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -66,11 +63,9 @@ export const createComment = async (articleId: string, comment: string) => {
   }
 };
 
-export const deleteComment = async (articleId: string, commentId: string) => {
+export const deleteComment = async (articleId: string, commentId: string, userId: string) => {
   try {
-    const session = await auth();
-
-    if (!session?.user?.id) {
+    if (!userId) {
       throw new Error("You must be signed in to delete comments");
     }
 
@@ -81,7 +76,7 @@ export const deleteComment = async (articleId: string, commentId: string) => {
       {
         _id: articleId,
         "comments._id": commentId,
-        "comments.userId": session.user.id,
+        "comments.userId": userId,
       },
       {
         $pull: { comments: { _id: commentId } },

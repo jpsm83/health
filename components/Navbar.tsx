@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { useAuth } from "@/hooks/useAuth";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,15 +31,17 @@ import {
 } from "country-flag-icons/react/1x1";
 import { mainCategories } from "@/lib/constants";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   // All hooks must be called at the top level, unconditionally
-  const { isAuthenticated, logout, session } = useAuth();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("navigation");
+
+  const { data: session } = useSession();
 
   // Handle language change
   const handleLanguageChange = (newLanguage: string) => {
@@ -69,15 +70,9 @@ export default function Navbar() {
   // Handle logout
   const handleLogout = async () => {
     try {
-      const result = await logout();
+      await signOut({ redirect: false });
 
-      if (result.success) {
-        // Navigate to previous page after successful logout
-        // Use Next.js 15 built-in router.back() for better performance
-        router.push(`/${locale}`);
-      } else {
-        console.error("Logout failed:", result.error);
-      }
+      router.push(`/${locale}`);
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -179,7 +174,7 @@ export default function Navbar() {
                 </Link>
               </DropdownMenuItem>
 
-              {isAuthenticated && (
+              {session?.user && (
                 <>
                   <DropdownMenuItem asChild>
                     <Link
@@ -361,7 +356,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                {isAuthenticated && session?.user ? (
+                {session?.user ? (
                   <Button
                     variant="ghost"
                     size="icon"
@@ -399,7 +394,7 @@ export default function Navbar() {
                 side="bottom"
                 sideOffset={4}
               >
-                {isAuthenticated ? (
+                {session?.user ? (
                   <>
                     {/* User info header */}
                     <div className="px-3 py-2 border-b border-gray-100">
@@ -451,7 +446,7 @@ export default function Navbar() {
 
           {/* Authentication navigation desktop*/}
           <div className="hidden md:flex">
-            {isAuthenticated ? (
+            {session?.user ? (
               <div className="relative">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

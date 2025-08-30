@@ -1,18 +1,15 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 
-export const toggleArticleLike = async (articleId: string) => {
+export const toggleArticleLike = async (articleId: string, userId: string) => {
   try {
-    const session = await auth();
-
-    if (!session?.user?.id) {
+    if(!userId) {
       throw new Error("You must be signed in to like articles");
     }
-
+    
     await connectDb();
 
     // Check if user already liked the article
@@ -22,14 +19,14 @@ export const toggleArticleLike = async (articleId: string) => {
       throw new Error("Article not found");
     }
 
-    const userLiked = article.likes?.includes(session.user.id);
+    const userLiked = article.likes?.includes(userId);
 
     // Toggle like status using atomic operation
     const updatedArticle = await Article.findByIdAndUpdate(
       articleId,
       userLiked
-        ? { $pull: { likes: session.user.id } } // Remove like
-        : { $addToSet: { likes: session.user.id } }, // Add like (prevents duplicates)
+        ? { $pull: { likes: userId } } // Remove like
+        : { $addToSet: { likes: userId } }, // Add like (prevents duplicates)
       { new: true }
     );
 

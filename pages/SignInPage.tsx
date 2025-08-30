@@ -4,25 +4,38 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { useAuth } from "@/hooks/useAuth";
-import { useUser } from "@/hooks/useUser";
 import { useForm } from "react-hook-form";
+import { useSession, signIn } from "next-auth/react";
 
 interface FormData {
   email: string;
   password: string;
 }
 
+// 183jpsm@gmail.com
+// Password1$1
+
 export default function SignInContent() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignIn");
-  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
-  const { user } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const { data: session, status } = useSession();
+
+  // Handle automatic redirects when session changes
+  useEffect(() => {
+    if (status === "authenticated" && session?.user) {
+      if (session.user.role === "admin") {
+        router.push(`/${locale}/dashboard`);
+      } else {
+        router.push(`/${locale}/profile`);
+      }
+    }
+  }, [status, session, router, locale]);
 
   const {
     register,
@@ -30,49 +43,44 @@ export default function SignInContent() {
     formState: { errors },
     setValue,
     clearErrors,
-  } = useForm<FormData>({
-    mode: "onChange",
-  });
+  } = useForm<FormData>({ mode: "onChange" });
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!authLoading && isAuthenticated) {
-      // Redirect based on user role
-      if (user?.role === "admin") {
-        router.push(`/${locale}/dashboard`);
-      } else {
-        router.push(`/${locale}/profile`);
-      }
-    }
-  }, [isAuthenticated, authLoading, router, locale, user?.role]);
-
-  // Don't render if already authenticated
-  if (authLoading || isAuthenticated) {
+  // If already authenticated → show loading while redirecting
+  if (status === "authenticated" && session?.user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-600"></div>
+      <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600 mx-auto mb-6"></div>
+          <p className="text-gray-600">Redirecting...</p>
+        </div>
       </div>
     );
   }
 
-  const onSubmit = async (data: FormData) => {
+  // Submit login with credentials
+  const onSubmit = async (credentials: FormData) => {
     setError("");
     setIsLoading(true);
 
     try {
-      const result = await login("credentials", {
-        email: data.email,
-        password: data.password,
+      const result = await signIn("credentials", {
+        email: credentials.email,
+        password: credentials.password,
+        callbackUrl: "/",
       });
 
-      if (!result?.success) {
-        setError(result?.error || t("failedToCreateAccount"));
-        setIsLoading(false); // Only stop loading on error
+      if ((result as unknown as { error?: string })?.error) {
+        console.error(
+          "Google sign-in error:",
+          (result as unknown as { error?: string })?.error
+        );
+        setError(t("googleSignInFailed"));
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError(t("unexpectedError"));
-      setIsLoading(false); // Only stop loading on error
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(t("googleSignInFailed"));
+      setIsLoading(false);
     }
   };
 
@@ -82,23 +90,25 @@ export default function SignInContent() {
     setIsLoading(true);
 
     try {
-      const result = await login("google");
-      if (!result?.success) {
-        setError(result?.error || t("googleSignInFailed"));
+      const result = await signIn("google", { callbackUrl: "/" });
+
+      if ((result as unknown as { error?: string })?.error) {
+        console.error(
+          "Google sign-in error:",
+          (result as unknown as { error?: string })?.error
+        );
+        setError(t("googleSignInFailed"));
         setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Google signin error:", error);
+    } catch (err) {
+      console.error("Google sign-in error:", err);
       setError(t("googleSignInFailed"));
       setIsLoading(false);
     }
   };
 
   const handleInputChange = (fieldName: keyof FormData) => {
-    // Clear field error when user starts typing
-    if (errors[fieldName]) {
-      clearErrors(fieldName);
-    }
+    if (errors[fieldName]) clearErrors(fieldName);
   };
 
   return (

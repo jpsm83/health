@@ -1,7 +1,7 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 interface ArticleActionsProps {
   articleId: string;
@@ -16,13 +16,14 @@ export default function ArticleActions({
   commentCount, 
   isLiked = false 
 }: ArticleActionsProps) {
-  const { isAuthenticated, session } = useAuth();
+
+  const { data: session } = useSession();
 
   const handleLike = async () => {
-    if (!isAuthenticated) return;
+    if (!session?.user?.id) return;
     
     try {
-      const response = await fetch(`/api/v1/test-actions/article-likes/${articleId}`, {
+      const response = await fetch(`/api/v1/test-actions/article-likes/${articleId},${session?.user?.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ export default function ArticleActions({
   };
 
   const handleComment = () => {
-    if (!isAuthenticated) return;
+    if (!session?.user?.id) return;
   };
 
   return (
@@ -47,15 +48,15 @@ export default function ArticleActions({
       {/* Like Button */}
       <button
         onClick={handleLike}
-        disabled={!isAuthenticated}
+        disabled={!session?.user?.id}
         className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
-          isAuthenticated
+          session?.user?.id
             ? isLiked
               ? 'bg-red-100 text-red-600 hover:bg-red-200'
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
         }`}
-        title={isAuthenticated ? 'Click to like/unlike' : 'Sign in to like articles'}
+        title={session?.user?.id ? 'Click to like/unlike' : 'Sign in to like articles'}
       >
         <svg 
           className={`w-5 h-5 ${isLiked ? 'fill-current' : 'stroke-current fill-none'}`} 
@@ -74,13 +75,13 @@ export default function ArticleActions({
       {/* Comment Button */}
       <button
         onClick={handleComment}
-        disabled={!isAuthenticated}
+        disabled={!session?.user?.id}
         className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
-          isAuthenticated
+          session?.user?.id
             ? 'bg-blue-100 text-blue-600 hover:bg-blue-200'
             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
         }`}
-        title={isAuthenticated ? 'Add a comment' : 'Sign in to comment'}
+        title={session?.user?.id ? 'Add a comment' : 'Sign in to comment'}
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
@@ -107,7 +108,7 @@ export default function ArticleActions({
       </button>
 
       {/* Authentication Prompt */}
-      {!isAuthenticated && (
+      {!session?.user?.id && (
         <div className="ml-4 text-sm text-gray-500">
           <Link href="/signin" className="text-indigo-600 hover:text-indigo-500">
             Sign in

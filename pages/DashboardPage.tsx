@@ -2,24 +2,25 @@
 
 import { useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { useAuth } from '@/hooks/useAuth';
-import { useUser } from '@/hooks/useUser';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardContent() {
   const t = useTranslations('dashboard');
   const locale = useLocale();
-  const { isAuthenticated, isLoading } = useAuth();
-  const { user } = useUser();
+  const router = useRouter();
+
+  const { data: session, status } = useSession();
 
   // Admin-only access check
   useEffect(() => {
-    if (!isLoading && (!isAuthenticated || user?.role !== 'admin')) {
-      window.location.href = '/';
+    if (status !== 'loading' && (!session?.user?.id || session?.user?.role !== 'admin')) {
+      router.push('/');
     }
-  }, [isAuthenticated, isLoading, user?.role]);
+  }, [status, session?.user?.id, session?.user?.role, router]);
 
   // Show loading while checking auth
-  if (isLoading) {
+  if (status === 'loading') {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
@@ -28,7 +29,7 @@ export default function DashboardContent() {
   }
 
   // Don't render if not admin
-  if (!isAuthenticated || user?.role !== 'admin') {
+  if (!session?.user?.id || session?.user?.role !== 'admin') {
     return null;
   }
 
