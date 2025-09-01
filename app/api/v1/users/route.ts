@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import mongoose from "mongoose";
+import crypto from "crypto";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -8,6 +9,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
+import { sendEmailConfirmation } from "@/lib/utils/emailService";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -193,6 +195,9 @@ export const POST = async (req: Request) => {
 
     const userId = new mongoose.Types.ObjectId();
 
+    // Generate verification token for email confirmation
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+
     const newUser: IUser = {
       _id: userId,
       username,
@@ -203,6 +208,8 @@ export const POST = async (req: Request) => {
       preferences,
       subscriptionPreferences,
       lastLogin: new Date(), // Set to current date automatically
+      verificationToken,
+      emailVerified: false,
     };
 
     // upload image to cloudinary
@@ -235,9 +242,26 @@ export const POST = async (req: Request) => {
 
     await User.create(newUser);
 
+    // Send email confirmation
+    try {
+      const confirmLink = `${
+        process.env.NEXTAUTH_URL || "http://localhost:3000"
+      }/confirm-email?token=${verificationToken}`;
+
+      await sendEmailConfirmation(
+        email,
+        username,
+        confirmLink,
+        preferences.language
+      );
+    } catch (emailError) {
+      console.error("Failed to send confirmation email:", emailError);
+      // Don't fail user creation if email fails, just log the error
+    }
+
     return new NextResponse(
       JSON.stringify({
-        message: `New user created successfully`,
+        message: `New user created successfully. Please check your email to confirm your account.`,
       }),
       {
         status: 201,

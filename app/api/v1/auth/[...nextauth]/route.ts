@@ -2,8 +2,10 @@ import NextAuth, { type NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
+import { sendEmailConfirmation } from "@/lib/utils/emailService";
 
 import { IUser } from "@/interfaces/user";
 

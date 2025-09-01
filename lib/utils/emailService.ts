@@ -169,6 +169,72 @@ const emailTemplates = {
         ${t.copyright}
       `
     };
+  },
+  
+  emailConfirmation: (confirmLink: string, username: string, locale: string = 'en') => {
+    const t = emailTranslations[locale as keyof typeof emailTranslations] || emailTranslations.en;
+    
+    return {
+      subject: "Confirm Your Email - Women Spot",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; font-size: 24px; color: white;">
+              <span style="margin-right: 0.5em;">🤍</span>Women Spot
+            </h1>
+          </div>
+          
+          <div style="background-color: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #374151; margin-bottom: 20px;">${t.greeting} ${username}!</h2>
+            
+            <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+              Welcome to Women Spot! Please confirm your email address by clicking the button below to complete your account setup.
+            </p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${confirmLink}" 
+                 style="background-color: #ec4899; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
+                Confirm Email
+              </a>
+            </div>
+            
+            <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+              If you didn't create an account with Women Spot, please ignore this email.
+            </p>
+            
+            <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+              This confirmation link will expire in 24 hours for security reasons.
+            </p>
+            
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+            
+            <p style="color: #9ca3af; font-size: 14px; text-align: center;">
+              If the button above doesn't work, copy and paste this link into your browser:<br>
+              <a href="${confirmLink}" style="color: #ec4899;">${confirmLink}</a>
+            </p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
+            <p>${t.copyright}</p>
+          </div>
+        </div>
+      `,
+      text: `
+        Confirm Your Email - Women Spot
+        
+        ${t.greeting} ${username}!
+        
+        Welcome to Women Spot! Please confirm your email address by clicking the button below to complete your account setup.
+        
+        ${confirmLink}
+        
+        If you didn't create an account with Women Spot, please ignore this email.
+        
+        This confirmation link will expire in 24 hours for security reasons.
+        
+        ${t.copyright}
+      `
+    };
   }
 };
 
@@ -176,7 +242,7 @@ const emailTemplates = {
 export const sendEmail = async (
   to: string,
   template: keyof typeof emailTemplates,
-  data: { resetLink: string; username: string; locale?: string }
+  data: { resetLink?: string; confirmLink?: string; username: string; locale?: string }
 ) => {
   try {
     console.log("Email service: Starting email send process");
@@ -193,8 +259,13 @@ export const sendEmail = async (
     }
 
     console.log("Email service: Creating email content");
+    const link = data.resetLink || data.confirmLink;
+    if (!link) {
+      throw new Error("Either resetLink or confirmLink must be provided");
+    }
+    
     const emailContent = emailTemplates[template](
-      data.resetLink,
+      link,
       data.username,
       data.locale || 'en'
     );
@@ -229,4 +300,14 @@ export const sendPasswordResetEmail = async (
   locale: string = 'en'
 ) => {
   return sendEmail(email, 'passwordReset', { resetLink, username, locale });
+};
+
+// Specific function for email confirmation emails
+export const sendEmailConfirmation = async (
+  email: string,
+  username: string,
+  confirmLink: string,
+  locale: string = 'en'
+) => {
+  return sendEmail(email, 'emailConfirmation', { confirmLink, username, locale });
 };
