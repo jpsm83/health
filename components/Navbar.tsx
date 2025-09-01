@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { routing } from "@/i18n/routing";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,18 +16,6 @@ import {
 import { Search } from "lucide-react";
 import { useState } from "react";
 
-// Import country flag components
-import {
-  US,
-  BR,
-  ES,
-  FR,
-  DE,
-  IT,
-  NL,
-  IL,
-  RU,
-} from "country-flag-icons/react/1x1";
 import { mainCategories } from "@/lib/constants";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
@@ -42,17 +29,6 @@ export default function Navbar() {
   const t = useTranslations("navigation");
 
   const { data: session } = useSession();
-
-  // Handle language change
-  const handleLanguageChange = (newLanguage: string) => {
-    // Get current path without language prefix
-    const pathWithoutLang =
-      pathname?.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, "") || "";
-    const newPath = `/${newLanguage}${pathWithoutLang || ""}`;
-
-    // Use replace to avoid adding to browser history and ensure proper refresh
-    router.replace(newPath);
-  };
 
   // Handle search
   const handleSearch = () => {
@@ -76,51 +52,6 @@ export default function Navbar() {
     } catch (error) {
       console.error("Logout error:", error);
     }
-  };
-
-  // Get language display name
-  const getLanguageDisplayName = (lang: string): string => {
-    const displayNames: Record<string, string> = {
-      en: "English",
-      pt: "Português",
-      es: "Español",
-      fr: "Français",
-      de: "Deutsch",
-      it: "Italiano",
-      nl: "Nederlands",
-      he: "עברית",
-      ru: "Русский",
-    };
-
-    return displayNames[lang] || lang;
-  };
-
-  // Get country flag component
-  const getCountryFlag = (lang: string) => {
-    const flagMap: Record<
-      string,
-      React.ComponentType<{ title?: string; className?: string }>
-    > = {
-      en: US,
-      pt: BR,
-      es: ES,
-      fr: FR,
-      de: DE,
-      it: IT,
-      nl: NL,
-      he: IL,
-      ru: RU,
-    };
-
-    const FlagComponent = flagMap[lang];
-    const languageName = getLanguageDisplayName(lang);
-
-    return FlagComponent ? (
-      <FlagComponent
-        title={languageName}
-        className="w-12 h-12 rounded-full outline-2 outline-white"
-      />
-    ) : null;
   };
 
   return (
@@ -316,40 +247,6 @@ export default function Navbar() {
                 }
               }}
             />
-          </div>
-
-          {/* Language Selector */}
-          <div className="relative flex items-center space-x-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full"
-                >
-                  {getCountryFlag(locale)}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-[140px] bg-white shadow-lg"
-                align="end"
-                side="bottom"
-                sideOffset={4}
-              >
-                {routing.locales.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang}
-                    onClick={() => handleLanguageChange(lang)}
-                    className="cursor-pointer hover:bg-pink-50"
-                  >
-                    <div className="flex items-center space-x-2">
-                      {getCountryFlag(lang)}
-                      <span>{getLanguageDisplayName(lang)}</span>
-                    </div>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
 
           {/* Mobile Profile Button */}

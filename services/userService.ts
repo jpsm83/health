@@ -10,7 +10,6 @@ export interface IUpdateProfileData {
   preferences?: {
     language: string;
     region: string;
-    contentLanguage: string;
   };
   subscriptionPreferences?: ISubscriptionPreferences;
   imageFile?: File;
@@ -67,12 +66,10 @@ class UserService {
       if (profileData.preferences) {
         formData.append("language", profileData.preferences.language);
         formData.append("region", profileData.preferences.region);
-        formData.append("contentLanguage", profileData.preferences.contentLanguage);
       } else {
         // Default values if not provided
         formData.append("language", "en");
         formData.append("region", "US");
-        formData.append("contentLanguage", "en");
       }
 
       // Add subscription preferences

@@ -8,9 +8,30 @@ import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useUser } from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
+import { routing } from "@/i18n/routing";
+
+// Import country flag components
+import {
+  US,
+  BR,
+  ES,
+  FR,
+  DE,
+  IT,
+  NL,
+  IL,
+  RU,
+} from "country-flag-icons/react/1x1";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 
 interface FormData {
   username: string;
@@ -20,7 +41,6 @@ interface FormData {
   preferences: {
     language: string;
     region: string;
-    contentLanguage: string;
   };
   subscriptionPreferences: {
     categories: string[];
@@ -44,7 +64,87 @@ export default function Profile() {
   const { data: session, status } = useSession();
   const { user, updateProfile, error: userError } = useUser();
   const router = useRouter();
+  const pathname = usePathname();
   const locale = useLocale();
+
+  // Handle language change - immediate language switch like Navbar
+  const handleLanguageChange = (newLanguage: string) => {
+    // Map language codes to region codes
+    const languageToRegion: Record<string, string> = {
+      en: "US",
+      pt: "BR", 
+      es: "ES",
+      fr: "FR",
+      de: "DE",
+      it: "IT",
+      nl: "NL",
+      he: "IL",
+      ru: "RU",
+    };
+
+    const newRegion = languageToRegion[newLanguage] || "US";
+    
+    // Update form fields to track the new language
+    setValue("preferences.language", newLanguage);
+    setValue("preferences.region", newRegion);
+    
+    // Get current path without language prefix
+    const pathWithoutLang = pathname?.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, "") || "";
+    const newPath = `/${newLanguage}${pathWithoutLang || ""}`;
+
+    // Use replace to avoid adding to browser history and ensure proper refresh
+    router.replace(newPath);
+  };
+
+  // Get language display name
+  const getLanguageDisplayName = (lang: string): string => {
+    const displayNames: Record<string, string> = {
+      en: "English",
+      pt: "Português",
+      es: "Español",
+      fr: "Français",
+      de: "Deutsch",
+      it: "Italiano",
+      nl: "Nederlands",
+      he: "עברית",
+      ru: "Русский",
+    };
+
+    return displayNames[lang] || lang;
+  };
+
+  // Get country flag component
+  const getCountryFlag = (lang: string, size: string) => {
+    const flagMap: Record<
+      string,
+      React.ComponentType<{ title?: string; className?: string }>
+    > = {
+      en: US,
+      pt: BR,
+      es: ES,
+      fr: FR,
+      de: DE,
+      it: IT,
+      nl: NL,
+      he: IL,
+      ru: RU,
+    };
+
+    const FlagComponent = flagMap[lang];
+    const languageName = getLanguageDisplayName(lang);
+
+    if (size === "sm") {
+      return <FlagComponent title={languageName} className="!w-4 !h-4 rounded-full" />;
+    }
+
+    if (size === "md") {
+      return <FlagComponent title={languageName} className="!w-8 !h-8 rounded-full" />;
+    }
+
+    if (size === "lg") {
+      return <FlagComponent title={languageName} className="!w-12 !h-12 rounded-full" />;
+    }
+  };
 
   const {
     register,
@@ -64,7 +164,6 @@ export default function Profile() {
       preferences: {
         language: "en",
         region: "US",
-        contentLanguage: "en",
       },
       subscriptionPreferences: {
         categories: mainCategories,
@@ -130,12 +229,12 @@ export default function Profile() {
           ? new Date(user.birthDate).toISOString().split("T")[0]
           : "",
         preferences: {
-          language: user.preferences?.language || "en",
+          language: user.preferences?.language || locale || "en",
           region: user.preferences?.region || "US",
-          contentLanguage: user.preferences?.contentLanguage || "en",
         },
         subscriptionPreferences: {
-          categories: user.subscriptionPreferences?.categories || mainCategories,
+          categories:
+            user.subscriptionPreferences?.categories || mainCategories,
           subscriptionFrequencies:
             user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
@@ -147,11 +246,19 @@ export default function Profile() {
       // Set form values
       Object.entries(initialValues).forEach(([key, value]) => {
         if (key !== "imageFile") {
-          setValue(key as keyof FormData, value);
+          if (key === "preferences") {
+            // For preferences, use current locale instead of database value
+            setValue("preferences", {
+              language: locale || "en",
+              region: (value as { language: string; region: string }).region,
+            });
+          } else {
+            setValue(key as keyof FormData, value);
+          }
         }
       });
     }
-  }, [user, setValue, session?.user]);
+  }, [user, setValue, session?.user, locale]);
 
   // Reset form when user data changes (for cases where user data is updated externally)
   useEffect(() => {
@@ -164,27 +271,35 @@ export default function Profile() {
           ? new Date(user.birthDate).toISOString().split("T")[0]
           : "",
         preferences: {
-          language: user.preferences?.language || "en",
+          language: user.preferences?.language || locale || "en",
           region: user.preferences?.region || "US",
-          contentLanguage: user.preferences?.contentLanguage || "en",
         },
         subscriptionPreferences: {
-          categories: user.subscriptionPreferences?.categories || mainCategories,
+          categories:
+            user.subscriptionPreferences?.categories || mainCategories,
           subscriptionFrequencies:
             user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
       };
 
       setOriginalValues(updatedValues);
-      
+
       // Update form values
       Object.entries(updatedValues).forEach(([key, value]) => {
         if (key !== "imageFile") {
-          setValue(key as keyof FormData, value);
+          if (key === "preferences") {
+            // For preferences, use current locale instead of database value
+            setValue("preferences", {
+              language: locale || "en",
+              region: (value as { language: string; region: string }).region,
+            });
+          } else {
+            setValue(key as keyof FormData, value);
+          }
         }
       });
     }
-  }, [user, setValue]);
+  }, [user, setValue, locale]);
 
   // Check for changes - use useMemo to prevent infinite loops
   const hasChanges = useMemo(() => {
@@ -195,15 +310,22 @@ export default function Profile() {
       email: watchedValues.email,
       role: watchedValues.role,
       birthDate: watchedValues.birthDate,
-      preferences: watchedValues.preferences,
+      preferences: {
+        language: locale, // Use current locale instead of form value
+        region: watchedValues.preferences?.region,
+      },
       subscriptionPreferences: watchedValues.subscriptionPreferences,
     };
 
+    // Check if current locale differs from original database language
+    const languageChanged = locale !== originalValues.preferences.language;
+    
     return (
       JSON.stringify(currentValues) !== JSON.stringify(originalValues) ||
-      selectedImage !== null
+      selectedImage !== null ||
+      languageChanged
     );
-  }, [watchedValues, originalValues, selectedImage]);
+  }, [watchedValues, originalValues, selectedImage, locale]);
 
   // Simple auth check - redirect if not authenticated
   if (status === "loading") {
@@ -353,9 +475,8 @@ export default function Profile() {
         role: data.role,
         birthDate: data.birthDate,
         preferences: {
-          language: data.preferences.language,
+          language: locale, // Use current locale instead of form value
           region: data.preferences.region,
-          contentLanguage: data.preferences.contentLanguage,
         },
         subscriptionPreferences: {
           categories: data.subscriptionPreferences.categories,
@@ -421,13 +542,13 @@ export default function Profile() {
         </div>
       )}
 
-      <div className="flex items-start justify-center py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
-          <div className="flex items-start space-x-8">
-            {/* Profile Image Section - Top Left */}
+      <div className="flex items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+            {/* Profile Image Section - Centered on mobile, left on desktop */}
             <div className="flex-shrink-0">
               <div className="relative">
-                <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 border-4 border-pink-100">
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200 border-4 border-pink-100">
                   {imagePreview ? (
                     <Image
                       src={imagePreview}
@@ -446,7 +567,7 @@ export default function Profile() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-300">
-                      <User className="w-16 h-16 text-gray-500" />
+                      <User className="w-12 h-12 md:w-16 md:h-16 text-gray-500" />
                     </div>
                   )}
                 </div>
@@ -463,7 +584,7 @@ export default function Profile() {
                       className="hidden"
                     />
                     <div className="text-center">
-                      <div className="w-8 h-8 mx-auto mb-1">
+                      <div className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1">
                         <svg
                           className="w-full h-full"
                           fill="currentColor"
@@ -497,23 +618,64 @@ export default function Profile() {
             </div>
 
             {/* Header Info */}
-            <div className="flex-1">
-              <h1 className="text-3xl font-extrabold text-gray-900">
-                {user?.username}
-              </h1>
-              <h3 className="text-md text-gray-400 mb-2">{user?.email}</h3>
-              <p className="text-lg text-gray-600 mb-4">{t("subtitle")}</p>
+            <div className="flex-1 w-full text-center md:text-left">
+              <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between space-y-4 md:space-y-0">
+                <div className="flex-1">
+                  <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                    {user?.username}
+                  </h1>
+                  <h3 className="text-sm md:text-md text-gray-400 mt-1">{user?.email}</h3>
+                  <p className="text-sm md:text-lg text-gray-600 mt-2">{t("subtitle")}</p>
+                </div>
+
+                {/* Language Selector */}
+                <div className="relative flex items-center space-x-2">
+                  <h2 className="text-sm md:text-md text-gray-500">
+                    {t("language.preferences")}
+                  </h2>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="cursor-pointer"
+                      >
+                        {getCountryFlag(locale, "md")}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      className="w-[140px] bg-white shadow-lg"
+                      align="end"
+                      side="bottom"
+                      sideOffset={4}
+                    >
+                      {routing.locales.map((lang) => (
+                        <DropdownMenuItem
+                          key={lang}
+                          onClick={() => handleLanguageChange(lang)}
+                          className="cursor-pointer hover:bg-pink-50"
+                        >
+                          <div className="flex items-center space-x-2">
+                            {getCountryFlag(lang, "sm")}
+                            <span>{getLanguageDisplayName(lang)}</span>
+                          </div>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4">
+                <div className="flex items-center space-x-2 md:space-x-3 p-2 md:p-3 bg-gray-50 rounded-lg">
                   {user?.emailVerified ? (
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
                   ) : (
-                    <XCircle className="w-5 h-5 text-red-600" />
+                    <XCircle className="w-4 h-4 md:w-5 md:h-5 text-red-600 flex-shrink-0" />
                   )}
-                  <div>
-                    <div className="text-sm font-medium text-gray-900">
+                  <div className="min-w-0">
+                    <div className="text-xs md:text-sm font-medium text-gray-900 truncate">
                       {user?.emailVerified
                         ? t("stats.verified")
                         : t("stats.unverified")}
@@ -523,19 +685,19 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-600">
+                <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg">
+                  <div className="text-xl md:text-2xl font-bold text-pink-600">
                     {user?.likedArticles?.length || 0}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-xs md:text-sm text-gray-500">
                     {t("stats.likedArticles")}
                   </div>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-600">
+                <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg sm:col-span-2 md:col-span-1">
+                  <div className="text-xl md:text-2xl font-bold text-pink-600">
                     {user?.commentedArticles?.length || 0}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-xs md:text-sm text-gray-500">
                     {t("stats.comments")}
                   </div>
                 </div>
@@ -545,12 +707,12 @@ export default function Profile() {
 
           {/* Email Confirmation Request */}
           {!user?.emailVerified && (
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <Button
                 type="button"
                 onClick={handleRequestEmailConfirmation}
                 disabled={isLoading}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 <CheckCircle className="w-4 h-4 mr-2" />
                 {t("emailConfirmation.requestButton")}
@@ -614,15 +776,15 @@ export default function Profile() {
             </div>
           )}
 
-          <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-8">
+          <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit(onSubmit)}>
+            <div className="space-y-6 md:space-y-8">
               {/* Personal Information Section */}
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                  <User className="w-5 h-5 mr-2 text-pink-600" />
+                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
+                  <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
                   {t("sections.personal")}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                   <div>
                     <label
                       htmlFor="username"
@@ -686,13 +848,13 @@ export default function Profile() {
 
               {/* Category Interests Section */}
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                  <BookOpen className="w-5 h-5 mr-2 text-pink-600" />
+                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
+                  <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
                   {t("sections.categoryInterests")}
                 </h2>
 
                 {/* Newsletter Frequency Dropdown */}
-                <div className="mb-6">
+                <div className="mb-4 md:mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     {t("fields.newsletterFrequency")}
                   </label>
@@ -716,9 +878,9 @@ export default function Profile() {
                   </select>
                 </div>
 
-                                {/* Categories Grid */}
-                <div className="mb-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                {/* Categories Grid */}
+                <div className="mb-4 md:mb-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                     {mainCategories.map((category) => {
                       const isSelected =
                         watchedValues.subscriptionPreferences?.categories?.includes(
@@ -727,14 +889,14 @@ export default function Profile() {
                       return (
                         <div
                           key={category}
-                          className={`border rounded-lg p-3 transition-colors ${
+                          className={`border rounded-lg p-2 md:p-3 transition-colors ${
                             isSelected
                               ? "border-green-900 border-2 bg-green-700/20 text-white"
                               : "border-red-700 border-2 bg-red-700/20 text-white"
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <h3 className="font-medium text-gray-900 capitalize text-sm">
+                            <h3 className="font-medium text-gray-900 capitalize text-xs md:text-sm flex-1 min-w-0">
                               {t(`categories.${category}`)}
                             </h3>
                             <input
@@ -766,7 +928,7 @@ export default function Profile() {
                                 // Trigger validation to update error state
                                 trigger("subscriptionPreferences.categories");
                               }}
-                              className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+                              className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded flex-shrink-0 ml-2"
                             />
                           </div>
                         </div>
@@ -778,17 +940,17 @@ export default function Profile() {
 
               <div>
                 {/* Security Section */}
-                <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                  <Lock className="w-5 h-5 mr-2 text-pink-600" />
+                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
+                  <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
                   {t("sections.security")}
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                     <Button
                       type="button"
                       onClick={handleResetPassword}
                       disabled={isLoading}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       {t("actions.resetPassword")}
@@ -856,11 +1018,11 @@ export default function Profile() {
               )}
 
               {/* Save Button - Inline with Security Section */}
-              <div className="flex flex-col items-end space-y-2">
+              <div className="flex flex-col items-center md:items-end space-y-2">
                 <Button
                   type="submit"
                   disabled={isLoading || !hasChanges}
-                  className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full md:w-auto"
                 >
                   {isLoading ? (
                     <svg
@@ -889,7 +1051,7 @@ export default function Profile() {
 
                 {/* Help text when save button is disabled */}
                 {!hasChanges && !isLoading && (
-                  <p className="text-sm text-gray-500 text-right">
+                  <p className="text-sm text-gray-500 text-center md:text-right">
                     {t("messages.makeChangesToSave")}
                   </p>
                 )}

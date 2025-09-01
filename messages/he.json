@@ -114,7 +114,6 @@
       "birthDate": "תאריך לידה",
       "language": "שפה מועדפת",
       "region": "אזור",
-      "contentLanguage": "שפת תוכן",
       "profileImage": "תמונת פרופיל (אופציונלי)",
       "timezone": "אזור זמן",
       "notifications": "התראות",
@@ -146,6 +145,9 @@
     },
     "languageInfo": {
       "language": "שפה"
+    },
+    "language": {
+      "preferences": "העדפות שפה"
     },
     "stats": {
       "emailStatus": "סטטוס אימייל",

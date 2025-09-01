@@ -114,7 +114,6 @@
       "birthDate": "Geburtsdatum",
       "language": "Bevorzugte Sprache",
       "region": "Region",
-      "contentLanguage": "Inhaltssprache",
       "profileImage": "Profilbild (Optional)",
       "timezone": "Zeitzone",
       "notifications": "Benachrichtigungen",
@@ -146,6 +145,9 @@
     },
     "languageInfo": {
       "language": "Sprache"
+    },
+    "language": {
+      "preferences": "Spracheinstellungen"
     },
     "stats": {
       "emailStatus": "E-Mail-Status",

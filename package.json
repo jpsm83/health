@@ -31,9 +31,12 @@
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-flagkit": "^2.0.4",
     "react-hook-form": "^7.62.0",
     "react-social-icons": "^6.24.0",
-    "tailwind-merge": "^3.3.1"
+    "react-world-flags": "^1.6.0",
+    "tailwind-merge": "^3.3.1",
+    "world-countries": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

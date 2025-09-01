@@ -48,7 +48,6 @@ export const useUser = () => {
           preferences: userData.preferences || {
             language: "en",
             region: "US",
-            contentLanguage: "en",
           },
           subscriptionPreferences: {
             categories: userData.subscriptionPreferences?.categories || mainCategories,
@@ -78,7 +77,6 @@ export const useUser = () => {
             preferences: {
               language: "en",
               region: "US",
-              contentLanguage: "en",
             },
             subscriptionPreferences: {
               categories: mainCategories,
@@ -147,10 +145,12 @@ export const useUser = () => {
               : new Date("2000-02-29"),
             imageUrl: updatedUserData.imageUrl || session.user.imageUrl || "",
             emailVerified: updatedUserData.emailVerified || false,
-            preferences: updatedUserData.preferences || {
+            preferences: updatedUserData.preferences ? {
+              language: updatedUserData.preferences.language || "en",
+              region: updatedUserData.preferences.region || "US",
+            } : {
               language: "en",
               region: "US",
-              contentLanguage: "en",
             },
             subscriptionPreferences: {
               categories: updatedUserData.subscriptionPreferences?.categories || mainCategories,

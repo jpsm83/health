@@ -106,7 +106,6 @@ export const PATCH = async (
     // Preferences
     const language = formData.get("language") as string;
     const region = formData.get("region") as string;
-    const contentLanguage = formData.get("contentLanguage") as string;
 
     // Subscription Preferences (parse as JSON)
     const subscriptionPreferencesRaw = formData.get("subscriptionPreferences") as string;
@@ -118,13 +117,12 @@ export const PATCH = async (
       !role ||
       !birthDate ||
       !language ||
-      !region ||
-      !contentLanguage
+      !region
     ) {
       return new NextResponse(
         JSON.stringify({
           message:
-            "Username, email, role, birthDate, language, region, and contentLanguage are required!",
+            "Username, email, role, birthDate, language and region are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -194,7 +192,6 @@ export const PATCH = async (
     const preferences: IUserPreferences = {
       language,
       region,
-      contentLanguage,
     };
     if (JSON.stringify(user.preferences) !== JSON.stringify(preferences)) {
       updateData.preferences = preferences;

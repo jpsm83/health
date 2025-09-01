@@ -114,7 +114,6 @@
       "birthDate": "Geboortedatum",
       "language": "Voorkeurstaal",
       "region": "Regio",
-      "contentLanguage": "Inhoudstaal",
       "profileImage": "Profielfoto (Optioneel)",
       "timezone": "Tijdzone",
       "notifications": "Meldingen",
@@ -146,6 +145,9 @@
     },
     "languageInfo": {
       "language": "Taal"
+    },
+    "language": {
+      "preferences": "Taalvoorkeuren"
     },
     "stats": {
       "emailStatus": "E-mail Status",

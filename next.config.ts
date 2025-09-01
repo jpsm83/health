@@ -17,6 +17,15 @@ const nextConfig: NextConfig = {
 	generateBuildId: async () => {
 		return 'build-' + Date.now()
 	},
+	// Optimize CSS loading to prevent preload warnings
+	experimental: {
+		optimizeCss: true,
+		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
+	},
+	// Optimize CSS and prevent preload warnings
+	compiler: {
+		removeConsole: process.env.NODE_ENV === 'production',
+	},
 	// Configure allowed image domains for Next.js Image component
 	images: {
 		remotePatterns: [

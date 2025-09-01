@@ -140,7 +140,6 @@ const authOptions: NextAuthConfig = {
               preferences: {
                 language: browserLanguage, // From browser
                 region: browserRegion, // From browser
-                contentLanguage: browserLanguage, // From browser
               },
               password: crypto.randomUUID(), // Google users don't need passwords
               verificationToken,

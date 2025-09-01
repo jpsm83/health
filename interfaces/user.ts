@@ -3,7 +3,6 @@ import { Types } from 'mongoose';
 export interface IUserPreferences {
   language: string;
   region: string;
-  contentLanguage: string;
 }
 
 export interface ISubscriptionPreferences {

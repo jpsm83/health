@@ -65,7 +65,6 @@ export const POST = async (req: Request) => {
     // Preferences
     const language = formData.get("language") as string;
     const region = formData.get("region") as string;
-    const contentLanguage = formData.get("contentLanguage") as string;
 
     // Subscription Preferences - use default categories if not provided
     const subscriptionPreferencesRaw = formData.get(
@@ -86,13 +85,12 @@ export const POST = async (req: Request) => {
       !role ||
       !birthDate ||
       !language ||
-      !region ||
-      !contentLanguage
+      !region
     ) {
       return new NextResponse(
         JSON.stringify({
           message:
-            "Username, email, password, role, birthDate, language, region, and contentLanguage are required!",
+            "Username, email, password, role, birthDate, language and region are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -193,7 +191,6 @@ export const POST = async (req: Request) => {
     const preferences: IUserPreferences = {
       language,
       region,
-      contentLanguage,
     };
 
     // connect before first call to DB

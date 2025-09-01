@@ -54,7 +54,6 @@ class AuthService {
     formData.append("birthDate", userData.birthDate);
     formData.append("language", browserLanguage);
     formData.append("region", browserRegion);
-    formData.append("contentLanguage", browserLanguage);
 
     if (userData.imageFile) {
       formData.append("imageFile", userData.imageFile);

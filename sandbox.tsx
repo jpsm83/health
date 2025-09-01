@@ -141,7 +141,6 @@ const authConfig = NextAuth({
               preferences: {
                 language: browserLanguage, // From browser
                 region: browserRegion, // From browser
-                contentLanguage: browserLanguage, // From browser
               },
               // Google OAuth users don't have passwords - set a random one
               password:

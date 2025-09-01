@@ -1,4 +1,2 @@
 - finish the article page and its features
 - update home page to get articles on load
-- on selection of language update user preferences
-- on load of page give preference for language of database and not browser

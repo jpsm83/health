@@ -44,7 +44,6 @@ export const userSchema = new Schema(
     preferences: {
       language: { type: String, required: true },
       region: { type: String, required: true },
-      contentLanguage: { type: String, required: true },
     },
     likedArticles: {
       type: [{ type: Schema.Types.ObjectId, ref: "Articles" }],

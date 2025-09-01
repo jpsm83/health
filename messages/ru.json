@@ -114,7 +114,6 @@
       "birthDate": "Дата рождения",
       "language": "Предпочитаемый язык",
       "region": "Регион",
-      "contentLanguage": "Язык контента",
       "profileImage": "Фото профиля (Необязательно)",
       "timezone": "Часовой пояс",
       "notifications": "Уведомления",
@@ -146,6 +145,9 @@
     },
     "languageInfo": {
       "language": "Язык"
+    },
+    "language": {
+      "preferences": "Языковые Предпочтения"
     },
     "stats": {
       "emailStatus": "Статус электронной почты",
