@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 
-export default function CreateArticleContent() {
+export default function CreateArticle() {
   const t = useTranslations('createArticle');
 
   const { data: session, status } = useSession();

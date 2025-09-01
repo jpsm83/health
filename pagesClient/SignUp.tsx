@@ -21,7 +21,7 @@ interface FormData {
 
 // 68a71808bf9d6c63772b49db
 
-export default function SignUpContent() {
+export default function SignUp() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignUp");

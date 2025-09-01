@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
-export default function ConfirmEmailClient() {
+export default function ConfirmEmail() {
+  const t = useTranslations('confirmEmail');
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('');
@@ -15,7 +17,7 @@ export default function ConfirmEmailClient() {
       
       if (!token) {
         setStatus('error');
-        setMessage('No verification token found.');
+        setMessage(t('messages.noToken'));
         return;
       }
 
@@ -35,12 +37,12 @@ export default function ConfirmEmailClient() {
           setMessage(data.message);
         } else {
           setStatus('error');
-          setMessage(data.message || 'Email confirmation failed.');
+          setMessage(data.message || t('messages.confirmationFailed'));
         }
       } catch (error) {
         console.error('Error confirming email:', error);
         setStatus('error');
-        setMessage('An error occurred while confirming your email.');
+        setMessage(t('messages.unexpectedError'));
       }
     };
 
@@ -52,7 +54,7 @@ export default function ConfirmEmailClient() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Email Confirmation
+            {t('title')}
           </h2>
         </div>
         
@@ -60,7 +62,7 @@ export default function ConfirmEmailClient() {
           {status === 'loading' && (
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto"></div>
-              <p className="mt-4 text-gray-600">Confirming your email...</p>
+              <p className="mt-4 text-gray-600">{t('loading')}</p>
             </div>
           )}
           
@@ -71,14 +73,14 @@ export default function ConfirmEmailClient() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">Email Confirmed!</h3>
+              <h3 className="mt-4 text-lg font-medium text-gray-900">{t('success.title')}</h3>
               <p className="mt-2 text-sm text-gray-600">{message}</p>
               <div className="mt-6">
                 <Link
                   href="/signin"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                 >
-                  Sign In
+                  {t('success.signInButton')}
                 </Link>
               </div>
             </div>
@@ -91,14 +93,14 @@ export default function ConfirmEmailClient() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">Confirmation Failed</h3>
+              <h3 className="mt-4 text-lg font-medium text-gray-900">{t('error.title')}</h3>
               <p className="mt-2 text-sm text-gray-600">{message}</p>
               <div className="mt-6">
                 <Link
                   href="/signin"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                 >
-                  Back to Sign In
+                  {t('error.backToSignInButton')}
                 </Link>
               </div>
             </div>

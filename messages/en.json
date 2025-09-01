@@ -159,10 +159,16 @@
     "messages": {
       "unexpectedError": "Unexpected error!",
       "success": "Success",
-      "makeChangesToSave": "Make changes to enable save button"
+      "makeChangesToSave": "Make changes to enable save button",
+      "unexpectedErrorSendingEmailConfirmation": "Error sending email confirmation",
+      "successSendingEmailConfirmation": "Email confirmation sent successfully"
     },
     "errors": {
       "loadingUserData": "Error loading user data"
+    },
+    "emailConfirmation": {
+      "requestButton": "Request Email Confirmation",
+      "description": "Send a new confirmation email to verify your account"
     },
     "options": {
       "english": "English",
@@ -736,6 +742,23 @@
     },
     "warning": {
       "message": "Please leave the Sites now if you do not agree to these Terms"
+    }
+  },
+  "confirmEmail": {
+    "title": "Email Confirmation",
+    "loading": "Confirming your email...",
+    "success": {
+      "title": "Email Confirmed!",
+      "signInButton": "Sign In"
+    },
+    "error": {
+      "title": "Confirmation Failed",
+      "backToSignInButton": "Back to Sign In"
+    },
+    "messages": {
+      "noToken": "No verification token found.",
+      "confirmationFailed": "Email confirmation failed.",
+      "unexpectedError": "An error occurred while confirming your email."
     }
   },
   "footer": {

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import PrivacyPolicy from '@/pagesClient/PrivacyPolicy';
 
 export async function generateMetadata({ 
   params 

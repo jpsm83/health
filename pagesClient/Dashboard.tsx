@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-export default function DashboardContent() {
+export default function Dashboard() {
   const t = useTranslations('dashboard');
   const locale = useLocale();
   const router = useRouter();

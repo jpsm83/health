@@ -8,7 +8,7 @@ import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
 
-export default function HomePage({ articles }: { articles: MockArticle[] }) {
+export default function Home({ articles }: { articles: MockArticle[] }) {
   const t = useTranslations("home");
   const featuredArticles = getFeaturedArticles();
 

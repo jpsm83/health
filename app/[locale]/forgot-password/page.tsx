@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import ForgotPasswordContent from '@/pages/ForgotPasswordPage';
+import ForgotPassword from '@/pagesClient/ForgotPassword';
 
 export async function generateMetadata({ 
   params 
@@ -20,7 +20,7 @@ export async function generateMetadata({
 export default function ForgotPasswordPage() {
   return (
       <main className="container mx-auto px-4 py-8">
-        <ForgotPasswordContent />
+        <ForgotPassword />
       </main>
   );
 }

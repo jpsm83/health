@@ -10,7 +10,7 @@ import { createComment } from "@/app/actions/comments";
 import { Heart } from 'lucide-react';
 import { useRouter } from "next/navigation";
 
-export default function ArticlePageClient(articleData: IArticle) {
+export default function Article(articleData: IArticle) {
   const { data: session } = useSession();
   const locale = useLocale();
   const [likes, setLikes] = useState<number>(articleData.likes?.length || 0);

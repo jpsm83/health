@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-const CookiePolicy = () => {
+export default function CookiePolicy() {
   const t = useTranslations('cookiePolicy');
 
   return (
@@ -112,5 +112,3 @@ const CookiePolicy = () => {
     </div>
   );
 };
-
-export default CookiePolicy;

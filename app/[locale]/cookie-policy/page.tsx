@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import CookiePolicy from '@/pages/CookiePolicy';
+import CookiePolicy from '@/pagesClient/CookiePolicy';
 
 export async function generateMetadata({ 
   params 

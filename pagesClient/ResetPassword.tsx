@@ -12,7 +12,7 @@ interface FormData {
   confirmPassword: string;
 }
 
-export default function ResetPasswordContent() {
+export default function ResetPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -57,7 +57,7 @@ export default function ResetPasswordContent() {
 
       signOutUser();
     }
-  }, [searchParams, signOut, router, locale]);
+  }, [searchParams, router, locale]);
 
   // Redirect if already authenticated (this page is for password reset, not for logged-in users)
   useEffect(() => {

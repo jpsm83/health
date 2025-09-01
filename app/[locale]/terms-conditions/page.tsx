@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import TermsConditions from '@/pages/TermsConditions';
+import TermsConditions from '@/pagesClient/TermsConditions';
 
 export async function generateMetadata({ 
   params 

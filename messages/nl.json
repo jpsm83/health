@@ -160,10 +160,16 @@
     "messages": {
       "unexpectedError": "Onverwachte fout!",
       "success": "Succes",
-      "makeChangesToSave": "Maak wijzigingen om de opslaan knop in te schakelen"
+      "makeChangesToSave": "Maak wijzigingen om de opslaan knop in te schakelen",
+      "unexpectedErrorSendingEmailConfirmation": "Fout bij het verzenden van e-mailbevestiging",
+      "successSendingEmailConfirmation": "E-mailbevestiging succesvol verzonden"
     },
     "errors": {
       "loadingUserData": "Fout bij het laden van gebruikersgegevens"
+    },
+    "emailConfirmation": {
+      "requestButton": "E-mailbevestiging Aanvragen",
+      "description": "Verstuur een nieuwe bevestigings-e-mail om je account te verifiëren"
     },
     "options": {
       "english": "English",
@@ -737,6 +743,23 @@
     },
     "warning": {
       "message": "Verlaat de Sites nu alsjeblieft als je het niet eens bent met deze Voorwaarden"
+    }
+  },
+  "confirmEmail": {
+    "title": "E-mailbevestiging",
+    "loading": "Je e-mail bevestigen...",
+    "success": {
+      "title": "E-mail bevestigd!",
+      "signInButton": "Inloggen"
+    },
+    "error": {
+      "title": "Bevestiging mislukt",
+      "backToSignInButton": "Terug naar Inloggen"
+    },
+    "messages": {
+      "noToken": "Geen verificatietoken gevonden.",
+      "confirmationFailed": "E-mailbevestiging mislukt.",
+      "unexpectedError": "Er is een fout opgetreden bij het bevestigen van je e-mail."
     }
   },
   "footer": {

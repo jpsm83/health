@@ -160,10 +160,16 @@
     "messages": {
       "unexpectedError": "שגיאה בלתי צפויה!",
       "success": "הצלחה",
-      "makeChangesToSave": "בצע שינויים כדי לאפשר כפתור שמירה"
+      "makeChangesToSave": "בצע שינויים כדי לאפשר כפתור שמירה",
+      "unexpectedErrorSendingEmailConfirmation": "שגיאה בשליחת אישור דוא\"ל",
+      "successSendingEmailConfirmation": "אישור דוא\"ל נשלח בהצלחה"
     },
     "errors": {
       "loadingUserData": "שגיאה בטעינת נתוני משתמש"
+    },
+    "emailConfirmation": {
+      "requestButton": "בקש אישור דוא\"ל",
+      "description": "שלח דוא\"ל אישור חדש כדי לאמת את החשבון שלך"
     },
     "options": {
       "english": "English",
@@ -683,6 +689,23 @@
     },
     "warning": {
       "message": "אנא עזבי את האתרים עכשיו אם את לא מסכימה לתנאים אלה"
+    }
+  },
+  "confirmEmail": {
+    "title": "אישור דוא\"ל",
+    "loading": "מאשר את הדוא\"ל שלך...",
+    "success": {
+      "title": "הדוא\"ל אושר!",
+      "signInButton": "התחברות"
+    },
+    "error": {
+      "title": "האישור נכשל",
+      "backToSignInButton": "חזרה להתחברות"
+    },
+    "messages": {
+      "noToken": "לא נמצא אסימון אימות.",
+      "confirmationFailed": "אישור הדוא\"ל נכשל.",
+      "unexpectedError": "אירעה שגיאה בעת אישור הדוא\"ל שלך."
     }
   },
   "footer": {

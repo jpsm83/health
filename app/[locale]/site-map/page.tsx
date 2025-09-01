@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import SiteMap from '@/pages/SiteMap';
+import SiteMap from '@/pagesClient/SiteMap';
 
 export async function generateMetadata({ 
   params 

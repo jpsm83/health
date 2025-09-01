@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import ConfirmEmailClient from '@/pages/ConfirmEmailClient';
+import ConfirmEmail from '@/pagesClient/ConfirmEmail';
 
 export async function generateMetadata({ 
   params 
@@ -20,7 +20,7 @@ export async function generateMetadata({
 export default function ConfirmEmailPage() {
   return (
     <main className="container mx-auto">
-      <ConfirmEmailClient />
+      <ConfirmEmail />
     </main>
   );
 }

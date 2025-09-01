@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
-import DashboardContent from "@/pages/DashboardPage";
+import Dashboard from "@/pagesClient/Dashboard";
 
 export async function generateMetadata({
   params,
@@ -20,7 +20,7 @@ export async function generateMetadata({
 export default function DashboardPage() {
   return (
     <main className="container mx-auto px-4 py-8">
-      <DashboardContent />
+      <Dashboard />
     </main>
   );
 }

@@ -15,7 +15,7 @@ interface FormData {
 // 183jpsm@gmail.com
 // Password1$1
 
-export default function SignInContent() {
+export default function SignIn() {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("SignIn");

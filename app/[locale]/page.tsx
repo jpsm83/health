@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePublicMetadata } from '@/lib/utils/genericMetadata';
-import Home from '@/pages/HomePage';
+import Home from '@/pagesClient/Home';
 
 export async function generateMetadata({ 
   params 
@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-bg-[#f9fafb]">
       <main className="container mx-auto">
-        <Home />
+        <Home articles={[]} />
       </main>
     </div>
   );

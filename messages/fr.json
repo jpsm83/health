@@ -160,10 +160,16 @@
     "messages": {
       "unexpectedError": "Erreur inattendue !",
       "success": "Succès",
-      "makeChangesToSave": "Apportez des modifications pour activer le bouton de sauvegarde"
+      "makeChangesToSave": "Apportez des modifications pour activer le bouton de sauvegarde",
+      "unexpectedErrorSendingEmailConfirmation": "Erreur lors de l'envoi de la confirmation par email",
+      "successSendingEmailConfirmation": "Confirmation par email envoyée avec succès"
     },
     "errors": {
       "loadingUserData": "Erreur lors du chargement des données utilisateur"
+    },
+    "emailConfirmation": {
+      "requestButton": "Demander la Confirmation par Email",
+      "description": "Envoyer un nouvel email de confirmation pour vérifier votre compte"
     },
     "options": {
       "english": "English",
@@ -737,6 +743,23 @@
     },
     "warning": {
       "message": "Veuillez quitter les Sites maintenant si vous n'êtes pas d'accord avec ces Termes"
+    }
+  },
+  "confirmEmail": {
+    "title": "Confirmation d'Email",
+    "loading": "Confirmation de votre email...",
+    "success": {
+      "title": "Email Confirmé !",
+      "signInButton": "Se Connecter"
+    },
+    "error": {
+      "title": "Échec de la Confirmation",
+      "backToSignInButton": "Retour à la Connexion"
+    },
+    "messages": {
+      "noToken": "Aucun jeton de vérification trouvé.",
+      "confirmationFailed": "La confirmation de l'email a échoué.",
+      "unexpectedError": "Une erreur s'est produite lors de la confirmation de votre email."
     }
   },
   "footer": {

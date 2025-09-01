@@ -8,7 +8,7 @@ import {
 } from "@/lib/utils/articleMetadata";
 import { IContentsByLanguage, IMetaDataArticle } from "@/interfaces/article";
 import User from "@/app/api/models/user";
-import ArticlePageClient from "@/pages/ArticlePageClient";
+import { default as ArticleClient } from "@/pagesClient/Article";
 
 // This ensures the database call happens only once per request
 const getArticleData = cache(async (slug: string) => {
@@ -123,7 +123,7 @@ export default async function ArticlePage({
     return (
       <div className="min-h-screen bg-white">
         <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
-          <ArticlePageClient {...modifiedArticleData} />
+          <ArticleClient {...modifiedArticleData} />
         </main>
       </div>
     );

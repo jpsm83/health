@@ -159,10 +159,16 @@
     "messages": {
       "unexpectedError": "Erro inesperado!",
       "success": "Sucesso",
-      "makeChangesToSave": "Faça alterações para habilitar o botão salvar"
+      "makeChangesToSave": "Faça alterações para habilitar o botão salvar",
+      "unexpectedErrorSendingEmailConfirmation": "Erro ao enviar confirmação de email",
+      "successSendingEmailConfirmation": "Confirmação de email enviada com sucesso"
     },
     "errors": {
       "loadingUserData": "Erro ao carregar dados do usuário"
+    },
+    "emailConfirmation": {
+      "requestButton": "Solicitar Confirmação de Email",
+      "description": "Enviar um novo email de confirmação para verificar sua conta"
     },
     "options": {
       "english": "English",
@@ -736,6 +742,23 @@
     },
     "warning": {
       "message": "Por favor, deixe os Sites agora se você não concordar com estes Termos"
+    }
+  },
+  "confirmEmail": {
+    "title": "Confirmação de Email",
+    "loading": "Confirmando seu email...",
+    "success": {
+      "title": "Email Confirmado!",
+      "signInButton": "Entrar"
+    },
+    "error": {
+      "title": "Confirmação Falhou",
+      "backToSignInButton": "Voltar para Entrar"
+    },
+    "messages": {
+      "noToken": "Nenhum token de verificação encontrado.",
+      "confirmationFailed": "A confirmação do email falhou.",
+      "unexpectedError": "Ocorreu um erro ao confirmar seu email."
     }
   },
   "footer": {

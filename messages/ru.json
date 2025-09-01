@@ -160,10 +160,16 @@
     "messages": {
       "unexpectedError": "Непредвиденная ошибка!",
       "success": "Успех",
-      "makeChangesToSave": "Внесите изменения, чтобы включить кнопку сохранения"
+      "makeChangesToSave": "Внесите изменения, чтобы включить кнопку сохранения",
+      "unexpectedErrorSendingEmailConfirmation": "Ошибка отправки подтверждения по email",
+      "successSendingEmailConfirmation": "Подтверждение по email успешно отправлено"
     },
     "errors": {
       "loadingUserData": "Ошибка загрузки данных пользователя"
+    },
+    "emailConfirmation": {
+      "requestButton": "Запросить Подтверждение Email",
+      "description": "Отправить новое подтверждение по email для проверки вашего аккаунта"
     },
     "options": {
       "english": "English",
@@ -737,6 +743,23 @@
     },
     "warning": {
       "message": "Пожалуйста, покиньте Сайты сейчас, если вы не согласны с этими Условиями"
+    }
+  },
+  "confirmEmail": {
+    "title": "Подтверждение Email",
+    "loading": "Подтверждение вашего email...",
+    "success": {
+      "title": "Email Подтвержден!",
+      "signInButton": "Войти"
+    },
+    "error": {
+      "title": "Подтверждение Неудачно",
+      "backToSignInButton": "Вернуться к Входу"
+    },
+    "messages": {
+      "noToken": "Токен подтверждения не найден.",
+      "confirmationFailed": "Подтверждение email не удалось.",
+      "unexpectedError": "Произошла ошибка при подтверждении вашего email."
     }
   },
   "footer": {

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import About from '@/pages/About';
+import About from '@/pagesClient/About';
 
 export async function generateMetadata({ 
   params 

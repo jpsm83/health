@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import SignUpContent from '@/pages/SignUpPage';
+import SignUp from '@/pagesClient/SignUp';
 
 export async function generateMetadata({ 
   params 
@@ -18,5 +18,5 @@ export async function generateMetadata({
 
 // Server Component - handles metadata generation
 export default function SignUpPage() {
-  return <SignUpContent />;
+  return <SignUp />;
 }

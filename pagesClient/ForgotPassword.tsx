@@ -12,7 +12,7 @@ interface FormData {
   email: string;
 }
 
-export default function ForgotPasswordContent() {
+export default function ForgotPassword() {
   const locale = useLocale();
   const t = useTranslations('ForgotPassword');
 

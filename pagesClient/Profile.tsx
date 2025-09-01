@@ -29,7 +29,7 @@ interface FormData {
   imageFile?: File;
 }
 
-export default function ProfileContent() {
+export default function Profile() {
   const t = useTranslations("profile");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -67,7 +67,7 @@ export default function ProfileContent() {
         contentLanguage: "en",
       },
       subscriptionPreferences: {
-        categories: [],
+        categories: mainCategories,
         subscriptionFrequencies: "weekly",
       },
     },
@@ -119,25 +119,25 @@ export default function ProfileContent() {
 
   // Load user data and set form values when user data changes
   useEffect(() => {
-    if (session?.user && !isInitialized.current) {
+    if (session?.user && user && !isInitialized.current) {
       isInitialized.current = true;
 
       const initialValues: FormData = {
-        username: user?.username || "",
-        email: user?.email || "",
-        role: user?.role || "",
-        birthDate: user?.birthDate
-          ? new Date(user?.birthDate).toISOString().split("T")[0]
+        username: user.username || "",
+        email: user.email || "",
+        role: user.role || "",
+        birthDate: user.birthDate
+          ? new Date(user.birthDate).toISOString().split("T")[0]
           : "",
         preferences: {
-          language: user?.preferences?.language || "en",
-          region: user?.preferences?.region || "US",
-          contentLanguage: user?.preferences?.contentLanguage || "en",
+          language: user.preferences?.language || "en",
+          region: user.preferences?.region || "US",
+          contentLanguage: user.preferences?.contentLanguage || "en",
         },
         subscriptionPreferences: {
-          categories: user?.subscriptionPreferences?.categories || [],
+          categories: user.subscriptionPreferences?.categories || mainCategories,
           subscriptionFrequencies:
-            user?.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+            user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
         // Don't include password fields in initial values
       };
@@ -152,6 +152,39 @@ export default function ProfileContent() {
       });
     }
   }, [user, setValue, session?.user]);
+
+  // Reset form when user data changes (for cases where user data is updated externally)
+  useEffect(() => {
+    if (user && isInitialized.current) {
+      const updatedValues: FormData = {
+        username: user.username || "",
+        email: user.email || "",
+        role: user.role || "",
+        birthDate: user.birthDate
+          ? new Date(user.birthDate).toISOString().split("T")[0]
+          : "",
+        preferences: {
+          language: user.preferences?.language || "en",
+          region: user.preferences?.region || "US",
+          contentLanguage: user.preferences?.contentLanguage || "en",
+        },
+        subscriptionPreferences: {
+          categories: user.subscriptionPreferences?.categories || mainCategories,
+          subscriptionFrequencies:
+            user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+        },
+      };
+
+      setOriginalValues(updatedValues);
+      
+      // Update form values
+      Object.entries(updatedValues).forEach(([key, value]) => {
+        if (key !== "imageFile") {
+          setValue(key as keyof FormData, value);
+        }
+      });
+    }
+  }, [user, setValue]);
 
   // Check for changes - use useMemo to prevent infinite loops
   const hasChanges = useMemo(() => {
@@ -520,10 +553,10 @@ export default function ProfileContent() {
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <CheckCircle className="w-4 h-4 mr-2" />
-                Request Email Confirmation
+                {t("emailConfirmation.requestButton")}
               </Button>
               <p className="text-sm text-gray-500">
-                Send a new confirmation email to verify your account
+                {t("emailConfirmation.description")}
               </p>
             </div>
           )}
@@ -683,7 +716,7 @@ export default function ProfileContent() {
                   </select>
                 </div>
 
-                {/* Categories Grid */}
+                                {/* Categories Grid */}
                 <div className="mb-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                     {mainCategories.map((category) => {

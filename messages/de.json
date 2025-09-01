@@ -160,10 +160,16 @@
     "messages": {
       "unexpectedError": "Unerwarteter Fehler!",
       "success": "Erfolg",
-      "makeChangesToSave": "Nehmen Sie Änderungen vor, um den Speichern-Button zu aktivieren"
+      "makeChangesToSave": "Nehmen Sie Änderungen vor, um den Speichern-Button zu aktivieren",
+      "unexpectedErrorSendingEmailConfirmation": "Fehler beim Senden der E-Mail-Bestätigung",
+      "successSendingEmailConfirmation": "E-Mail-Bestätigung erfolgreich gesendet"
     },
     "errors": {
       "loadingUserData": "Fehler beim Laden der Benutzerdaten"
+    },
+    "emailConfirmation": {
+      "requestButton": "E-Mail-Bestätigung anfordern",
+      "description": "Senden Sie eine neue Bestätigungs-E-Mail, um Ihr Konto zu verifizieren"
     },
     "options": {
       "english": "English",
@@ -737,6 +743,23 @@
     },
     "warning": {
       "message": "Bitte verlassen Sie die Websites jetzt, wenn Sie mit diesen Bedingungen nicht einverstanden sind"
+    }
+  },
+  "confirmEmail": {
+    "title": "E-Mail-Bestätigung",
+    "loading": "Bestätigung Ihrer E-Mail...",
+    "success": {
+      "title": "E-Mail bestätigt!",
+      "signInButton": "Anmelden"
+    },
+    "error": {
+      "title": "Bestätigung fehlgeschlagen",
+      "backToSignInButton": "Zurück zur Anmeldung"
+    },
+    "messages": {
+      "noToken": "Kein Bestätigungstoken gefunden.",
+      "confirmationFailed": "E-Mail-Bestätigung fehlgeschlagen.",
+      "unexpectedError": "Bei der Bestätigung Ihrer E-Mail ist ein Fehler aufgetreten."
     }
   },
   "footer": {

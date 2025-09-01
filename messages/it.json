@@ -160,10 +160,16 @@
     "messages": {
       "unexpectedError": "Errore imprevisto!",
       "success": "Successo",
-      "makeChangesToSave": "Apporta modifiche per abilitare il pulsante salva"
+      "makeChangesToSave": "Apporta modifiche per abilitare il pulsante salva",
+      "unexpectedErrorSendingEmailConfirmation": "Errore nell'invio della conferma email",
+      "successSendingEmailConfirmation": "Conferma email inviata con successo"
     },
     "errors": {
       "loadingUserData": "Errore nel caricamento dei dati utente"
+    },
+    "emailConfirmation": {
+      "requestButton": "Richiedi Conferma Email",
+      "description": "Invia una nuova email di conferma per verificare il tuo account"
     },
     "options": {
       "english": "English",
@@ -737,6 +743,23 @@
     },
     "warning": {
       "message": "Per favore lascia i Siti ora se non sei d'accordo con questi Termini"
+    }
+  },
+  "confirmEmail": {
+    "title": "Conferma Email",
+    "loading": "Confermando la tua email...",
+    "success": {
+      "title": "Email Confermata!",
+      "signInButton": "Accedi"
+    },
+    "error": {
+      "title": "Conferma Fallita",
+      "backToSignInButton": "Torna all'Accesso"
+    },
+    "messages": {
+      "noToken": "Nessun token di verifica trovato.",
+      "confirmationFailed": "La conferma dell'email è fallita.",
+      "unexpectedError": "Si è verificato un errore durante la conferma della tua email."
     }
   },
   "footer": {

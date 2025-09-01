@@ -33,6 +33,7 @@ export const useUser = () => {
         }
 
         const userData = await response.json();
+        
         // Transform the database user data to match our IUser interface
         const transformedUser: Partial<IUser> = {
           _id: userData._id || session.user.id,
@@ -49,9 +50,9 @@ export const useUser = () => {
             region: "US",
             contentLanguage: "en",
           },
-          subscriptionPreferences: userData.subscriptionPreferences || {
-            categories: mainCategories,
-            subscriptionFrequencies: "weekly",
+          subscriptionPreferences: {
+            categories: userData.subscriptionPreferences?.categories || mainCategories,
+            subscriptionFrequencies: userData.subscriptionPreferences?.subscriptionFrequencies || "weekly",
           },
           likedArticles: userData.likedArticles || [],
           commentedArticles: userData.commentedArticles || [],
@@ -151,11 +152,10 @@ export const useUser = () => {
               region: "US",
               contentLanguage: "en",
             },
-            subscriptionPreferences:
-              updatedUserData.subscriptionPreferences || {
-                categories: mainCategories,
-                subscriptionFrequencies: "weekly",
-              },
+            subscriptionPreferences: {
+              categories: updatedUserData.subscriptionPreferences?.categories || mainCategories,
+              subscriptionFrequencies: updatedUserData.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+            },
             likedArticles: updatedUserData.likedArticles || [],
             commentedArticles: updatedUserData.commentedArticles || [],
             createdAt: updatedUserData.createdAt || new Date().toISOString(),

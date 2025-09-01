@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import CreateArticleContent from '@/pages/CreateArticlePage';
+import CreateArticle from '@/pagesClient/CreateArticle';
 
 export async function generateMetadata({ 
   params 
@@ -20,7 +20,7 @@ export async function generateMetadata({
 export default function CreateArticlePage() {
   return (
       <main className="max-w-4xl mx-auto py-8 px-4">
-        <CreateArticleContent />
+        <CreateArticle />
       </main>
   );
 }
