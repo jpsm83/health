@@ -9,7 +9,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
-import { sendEmailConfirmation } from "@/lib/utils/emailService";
+import { sendEmailConfirmation } from "@/services/emailService";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -68,12 +68,14 @@ export const POST = async (req: Request) => {
     const contentLanguage = formData.get("contentLanguage") as string;
 
     // Subscription Preferences - use default categories if not provided
-    const subscriptionPreferencesRaw = formData.get("subscriptionPreferences") as string;
-    
+    const subscriptionPreferencesRaw = formData.get(
+      "subscriptionPreferences"
+    ) as string;
+
     // Default subscription preferences with all categories from constants
     const defaultSubscriptionPreferences = {
       categories: mainCategories,
-      subscriptionFrequencies: newsletterFrequencies[1] // 'weekly' (index 1)
+      subscriptionFrequencies: newsletterFrequencies[1], // 'weekly' (index 1)
     };
 
     // Validate required fields
@@ -97,11 +99,17 @@ export const POST = async (req: Request) => {
     }
 
     // Parse subscription preferences from formData or use defaults
-    let subscriptionPreferences: { categories: string[]; subscriptionFrequencies: string };
+    let subscriptionPreferences: {
+      categories: string[];
+      subscriptionFrequencies: string;
+    };
     if (subscriptionPreferencesRaw) {
       try {
         subscriptionPreferences = JSON.parse(
-          subscriptionPreferencesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
+          subscriptionPreferencesRaw
+            .replace(/,\s*]/g, "]")
+            .replace(/\s+/g, " ")
+            .trim()
         );
       } catch {
         // If parsing fails, use defaults
@@ -114,26 +122,42 @@ export const POST = async (req: Request) => {
 
     // Validate password
     if (!passwordValidation(password)) {
-      return new NextResponse(JSON.stringify({ message: "Password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol!" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return new NextResponse(
+        JSON.stringify({
+          message:
+            "Password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol!",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     // Validate subscription preferences
     if (subscriptionPreferences) {
       // Validate subscriptionFrequencies enum
-      if (!subscriptionPreferences.subscriptionFrequencies || !newsletterFrequencies.includes(subscriptionPreferences.subscriptionFrequencies)) {
+      if (
+        !subscriptionPreferences.subscriptionFrequencies ||
+        !newsletterFrequencies.includes(
+          subscriptionPreferences.subscriptionFrequencies
+        )
+      ) {
         return new NextResponse(
           JSON.stringify({
-            message: `Invalid subscription frequency: ${subscriptionPreferences.subscriptionFrequencies}. Must be one of: ${newsletterFrequencies.join(', ')}`,
+            message: `Invalid subscription frequency: ${
+              subscriptionPreferences.subscriptionFrequencies
+            }. Must be one of: ${newsletterFrequencies.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
 
       // Validate categories array
-      if (!subscriptionPreferences.categories || !Array.isArray(subscriptionPreferences.categories)) {
+      if (
+        !subscriptionPreferences.categories ||
+        !Array.isArray(subscriptionPreferences.categories)
+      ) {
         return new NextResponse(
           JSON.stringify({
             message: "Categories must be an array",
@@ -147,7 +171,9 @@ export const POST = async (req: Request) => {
         if (!mainCategories.includes(category)) {
           return new NextResponse(
             JSON.stringify({
-              message: `Invalid category: ${category}. Must be one of: ${mainCategories.join(', ')}`,
+              message: `Invalid category: ${category}. Must be one of: ${mainCategories.join(
+                ", "
+              )}`,
             }),
             { status: 400, headers: { "Content-Type": "application/json" } }
           );

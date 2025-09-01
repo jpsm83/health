@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
-import { sendEmailConfirmation } from "@/lib/utils/emailService";
+import { sendEmailConfirmation } from "@/services/emailService";
 
 import { IUser } from "@/interfaces/user";
 
@@ -121,11 +121,18 @@ const authOptions: NextAuthConfig = {
           }
 
           if (!existingUser) {
+            // Generate verification token for email confirmation
+            const verificationToken = crypto.randomBytes(32).toString("hex");
+
             const newUser = new User({
               email: profile.email,
-              username: (profile.name || profile.email?.split("@")[0] || "user_" + Math.random().toString(36).slice(-6))
-                .replace(/[^a-zA-Z0-9_-]/g, '') // Remove special characters, keep only letters, numbers, underscores, and dashes
-                .replace(/\s+/g, '_'), // Replace spaces with underscores
+              username: (
+                profile.name ||
+                profile.email?.split("@")[0] ||
+                "user_" + Math.random().toString(36).slice(-6)
+              )
+                .replace(/[^a-zA-Z0-9_-]/g, "") // Remove special characters, keep only letters, numbers, underscores, and dashes
+                .replace(/\s+/g, "_"), // Replace spaces with underscores
               role: "user",
               birthDate: new Date("2000-02-29"),
               lastLogin: new Date(),
@@ -135,9 +142,31 @@ const authOptions: NextAuthConfig = {
                 region: browserRegion, // From browser
                 contentLanguage: browserLanguage, // From browser
               },
-              password: crypto.randomUUID(), // Google users don’t need passwords
+              password: crypto.randomUUID(), // Google users don't need passwords
+              verificationToken,
+              emailVerified: false,
             });
             await newUser.save();
+
+            // Send email confirmation
+            try {
+              const confirmLink = `${
+                process.env.NEXTAUTH_URL || "http://localhost:3000"
+              }/confirm-email?token=${verificationToken}`;
+
+              await sendEmailConfirmation(
+                profile.email!,
+                newUser.username,
+                confirmLink,
+                browserLanguage
+              );
+            } catch (emailError) {
+              console.error(
+                "Failed to send confirmation email for Google user:",
+                emailError
+              );
+              // Don't fail sign-in if email fails, just log the error
+            }
           }
         } catch (error) {
           console.error("Error in Google sign-in callback:", error);

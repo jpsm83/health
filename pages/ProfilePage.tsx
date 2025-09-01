@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import { authService } from "@/services/authService";
+import { Button } from "@/components/ui/button";
 
 interface FormData {
   username: string;
@@ -33,6 +34,8 @@ export default function ProfileContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [emailConfirmationError, setEmailConfirmationError] = useState("");
+  const [emailConfirmationSuccess, setEmailConfirmationSuccess] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
@@ -230,6 +233,47 @@ export default function ProfileContent() {
     }
   };
 
+  // Handle email confirmation request
+  const handleRequestEmailConfirmation = async () => {
+    if (!user?.email) {
+      setError(t("validation.userEmailNotFound"));
+      return;
+    }
+
+    setError("");
+    setSuccess("");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/v1/auth/request-email-confirmation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: user.email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccess(data.message || "Email confirmation sent successfully!");
+        setEmailConfirmationSuccess(
+          data.message || "Email confirmation sent successfully!"
+        );
+      } else {
+        setError(data.message || "Failed to send email confirmation");
+        setEmailConfirmationError(
+          data.message || "Failed to send email confirmation"
+        );
+      }
+    } catch (error) {
+      console.error("Email confirmation request error:", error);
+      setError("Failed to request email confirmation");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Handle image selection
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -409,13 +453,13 @@ export default function ProfileContent() {
 
               {/* Remove Image Button */}
               {selectedImage && (
-                <button
+                <Button
                   type="button"
                   onClick={removeImage}
                   className="mt-2 w-full text-center text-red-600 hover:text-red-900 text-sm bg-red-50 hover:bg-red-100 py-1 px-2 rounded-md transition-colors"
                 >
                   {t("actions.remove")}
-                </button>
+                </Button>
               )}
             </div>
 
@@ -465,6 +509,77 @@ export default function ProfileContent() {
               </div>
             </div>
           </div>
+
+          {/* Email Confirmation Request */}
+          {!user?.emailVerified && (
+            <div className="flex items-center space-x-4">
+              <Button
+                type="button"
+                onClick={handleRequestEmailConfirmation}
+                disabled={isLoading}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Request Email Confirmation
+              </Button>
+              <p className="text-sm text-gray-500">
+                Send a new confirmation email to verify your account
+              </p>
+            </div>
+          )}
+
+          {/* Success/Error Messages */}
+          {emailConfirmationError && (
+            <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <svg
+                    className="h-5 w-5 text-pink-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="ml-3 flex-1">
+                  <h3 className="text-sm font-medium text-pink-800">
+                    {t("messages.unexpectedErrorSendingEmailConfirmation")}
+                  </h3>
+                  <div className="mt-1 text-sm text-pink-700">{error}</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {emailConfirmationSuccess && (
+            <div className="rounded-md bg-green-50 border border-green-200 p-3">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <svg
+                    className="h-5 w-5 text-green-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="ml-3 flex-1">
+                  <h3 className="text-sm font-medium text-green-800">
+                    {t("messages.successSendingEmailConfirmation")}
+                  </h3>
+                  <div className="mt-1 text-sm text-green-700">{success}</div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-8">
@@ -636,7 +751,7 @@ export default function ProfileContent() {
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
-                    <button
+                    <Button
                       type="button"
                       onClick={handleResetPassword}
                       disabled={isLoading}
@@ -644,7 +759,7 @@ export default function ProfileContent() {
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       {t("actions.resetPassword")}
-                    </button>
+                    </Button>
                     <p className="text-sm text-gray-500">
                       {t("security.resetPasswordDescription")}
                     </p>
@@ -709,7 +824,7 @@ export default function ProfileContent() {
 
               {/* Save Button - Inline with Security Section */}
               <div className="flex flex-col items-end space-y-2">
-                <button
+                <Button
                   type="submit"
                   disabled={isLoading || !hasChanges}
                   className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -737,7 +852,7 @@ export default function ProfileContent() {
                     </svg>
                   ) : null}
                   {t("actions.save")}
-                </button>
+                </Button>
 
                 {/* Help text when save button is disabled */}
                 {!hasChanges && !isLoading && (

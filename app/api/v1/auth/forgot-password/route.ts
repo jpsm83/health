@@ -3,7 +3,7 @@ import crypto from "crypto";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import User from "@/app/api/models/user";
-import { sendPasswordResetEmail } from "@/lib/utils/emailService";
+import { sendPasswordResetEmail } from "@/services/emailService";
 
 // @desc    Send forgot password email
 // @route   POST /api/v1/auth/forgot-password
