@@ -125,7 +125,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/health`}
+                  href={`/${locale}/health`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   🏥 {t("categories.health")}
@@ -134,7 +134,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/fitness`}
+                  href={`/${locale}/fitness`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   💪 {t("categories.fitness")}
@@ -143,7 +143,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/nutrition`}
+                  href={`/${locale}/nutrition`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   🥗 {t("categories.nutrition")}
@@ -152,7 +152,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/sex`}
+                  href={`/${locale}/sex`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   ❤️ {t("categories.sex")}
@@ -161,7 +161,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/beauty`}
+                  href={`/${locale}/beauty`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   💄 {t("categories.beauty")}
@@ -170,7 +170,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/fashion`}
+                  href={`/${locale}/fashion`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   👗 {t("categories.fashion")}
@@ -179,7 +179,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/lifestyle`}
+                  href={`/${locale}/lifestyle`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   🌟 {t("categories.lifestyle")}
@@ -188,7 +188,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/travel`}
+                  href={`/${locale}/travel`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   ✈️ {t("categories.travel")}
@@ -197,7 +197,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/decor`}
+                  href={`/${locale}/decor`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   🏠 {t("categories.decor")}
@@ -206,7 +206,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/productivity`}
+                  href={`/${locale}/productivity`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   ⚡ {t("categories.productivity")}
@@ -215,7 +215,7 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/articles/parenting`}
+                  href={`/${locale}/parenting`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                 >
                   👶 {t("categories.parenting")}
@@ -442,7 +442,7 @@ export default function Navbar() {
             key={category}
             className="text-gray-200 hover:bg-rose-700 hover:text-white"
           >
-            <Link href={`/${locale}/articles/?category=${category}`}>
+            <Link href={`/${locale}/${category}`}>
               {t(`categories.${category.replace("-", "")}`)}
             </Link>
           </Button>

@@ -36,10 +36,14 @@
     "privacyNote": "Мы уважаем вашу конфиденциальность. Отписаться можно в любое время."
   },
   "categoryCarousel": {
-    "viewAll": "Посмотреть все"
+    "viewAll": "Посмотреть все",
+    "loading": "Загрузка...",
+    "loadMore": "Загрузить еще",
+    "errorLoading": "Ошибка загрузки статей:"
   },
   "articleCard": {
     "readTime": "{time} мин чтения",
+    "noContentAvailable": "Контент недоступен",
     "categories": {
       "health": "Здоровье",
       "fitness": "Фитнес",

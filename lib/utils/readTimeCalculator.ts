@@ -8,12 +8,12 @@ export function calculateReadTime(article: {
       articleParagraphs: string[];
     }>;
   }>;
-}): string {
+}): number {
   const averageWordsPerMinute = 225; // Average reading speed
   
   // Get the first language content (assuming single language for now)
   const content = article.contentsByLanguage[0];
-  if (!content) return "1 min read";
+  if (!content) return 1;
   
   let totalWords = 0;
   
@@ -34,20 +34,8 @@ export function calculateReadTime(article: {
   // Calculate reading time in minutes
   const minutes = Math.ceil(totalWords / averageWordsPerMinute);
   
-  // Return formatted string
-  if (minutes === 1) {
-    return "1 min read";
-  } else if (minutes < 60) {
-    return `${minutes} min read`;
-  } else {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    if (remainingMinutes === 0) {
-      return `${hours} hr read`;
-    } else {
-      return `${hours} hr ${remainingMinutes} min read`;
-    }
-  }
+  // Return number of minutes
+  return minutes;
 }
 
 // Generate excerpt from article content
@@ -60,17 +48,18 @@ export function generateExcerpt(
       }>;
     }>;
   },
+  t: (key: string) => string,
   maxLength: number = 120
 ): string {
   const content = article.contentsByLanguage[0];
   if (!content || !content.articleContents.length) {
-    return "No content available";
+    return t("noContentAvailable");
   }
   
   // Get first paragraph from first article content
   const firstParagraph = content.articleContents[0]?.articleParagraphs[0];
   if (!firstParagraph) {
-    return "No content available";
+    return t("noContentAvailable");
   }
   
   // Truncate if too long

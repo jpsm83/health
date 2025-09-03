@@ -42,6 +42,7 @@ export const GET = async (req: Request) => {
     const slug = searchParams.get("slug") || undefined;
     const category = searchParams.get("category") || undefined;
     const locale = searchParams.get("locale") || "en";
+    const excludeIds = searchParams.get("excludeIds") || undefined;
 
     // ------------------------
     // Build filter
@@ -68,16 +69,33 @@ export const GET = async (req: Request) => {
       mongoFilter.category = category;
     }
 
+// Exclude already loaded IDs
+if (excludeIds) {
+  try {
+    const excludeIdsArray = JSON.parse(excludeIds);
+    if (Array.isArray(excludeIdsArray) && excludeIdsArray.length > 0) {
+      mongoFilter._id = { $nin: excludeIdsArray };
+    }
+  } catch {
+    return new NextResponse(
+      JSON.stringify({
+        message: "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
+      }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+}
+
     // ------------------------
     // Query DB
     // ------------------------
-    const articles = await Article.find(mongoFilter)
-      .populate({ path: "createdBy", select: "username", model: User })
-      .sort({ [sort]: order })
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .lean();
-
+// Query DB
+const articles = await Article.find(mongoFilter)
+  .populate({ path: "createdBy", select: "username", model: User })
+  .sort({ [sort]: order })
+  .limit(limit) // Always limit
+  .lean();
+  
     // ------------------------
     // Handle no results
     // ------------------------

@@ -1,8 +1,8 @@
 {
-    "_id":{"$oid":"68b1537adf106b7d55d4f025"},
+    "_id":{"$oid":"68b85ef59cc7ac88078acbf7"},
     "contentsByLanguage": [
       {
-        "mainTitle": "The Future of Artificial Intelligence",
+        "mainTitle": "The Future of Artificial Intelligence 20 en",
         "articleContents": [
           {
             "subTitle": "Introduction to AI",
@@ -54,18 +54,18 @@
           }
         ],
         "seo": {
-          "metaTitle": "The Future of Artificial Intelligence - English",
+          "metaTitle": "The Future of Artificial Intelligence 20 en",
           "metaDescription": "Discover the future of AI and its impact on various industries.",
           "keywords": ["AI", "Artificial Intelligence", "Future Tech", "Machine Learning"],
-          "slug": "future-of-artificial-intelligence",
+          "slug": "future-of-artificial-intelligence-20-en",
           "hreflang": "en",
-          "urlPattern": "articles",
-          "canonicalUrl": "https://example.com/en/articles/future-of-artificial-intelligence",
+          "urlPattern": "health",
+          "canonicalUrl": "https://example.com/en/health/future-of-artificial-intelligence-20-en",
           "type": "article"
         }
       },
       {
-        "mainTitle": "O Futuro da Inteligência Artificial",
+        "mainTitle": "O Futuro da Inteligência Artificial 20 pt",
         "articleContents": [
           {
             "subTitle": "Introdução à IA",
@@ -117,13 +117,13 @@
           }
         ],
         "seo": {
-          "metaTitle": "O Futuro da Inteligência Artificial - Português",
+          "metaTitle": "O Futuro da Inteligência Artificial 20 pt",
           "metaDescription": "Descubra o futuro da IA e seu impacto em várias indústrias.",
           "keywords": ["IA", "Inteligência Artificial", "Tecnologia do Futuro", "Aprendizado de Máquina"],
-          "slug": "futuro-da-inteligencia-artificial",
+          "slug": "futuro-da-inteligencia-artificial-20-pt",
           "hreflang": "pt",
-          "urlPattern": "artigos",
-          "canonicalUrl": "https://example.com/pt/artigos/futuro-da-inteligencia-artificial",
+          "urlPattern": "saude",
+          "canonicalUrl": "https://example.com/pt/saude/futuro-da-inteligencia-artificial-20-pt",
           "type": "artigo"
         }
       }
@@ -151,7 +151,7 @@
         "updatedAt": { "$date": "2025-08-29T10:00:00Z" }
       }
     ],
-    "views": 120,
+    "views": 150,
     "unpublishedAt": null,
     "createdBy": { "$oid": "685930ebe3655fbfcf8a6494" },
     "createdAt": { "$date": "2025-08-29T09:00:00Z" },

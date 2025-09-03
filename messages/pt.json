@@ -36,10 +36,14 @@
     "privacyNote": "Respeitamos sua privacidade. Cancele a inscrição a qualquer momento."
   },
   "categoryCarousel": {
-    "viewAll": "Ver todos"
+    "viewAll": "Ver todos",
+    "loading": "Carregando...",
+    "loadMore": "Carregar mais",
+    "errorLoading": "Erro ao carregar artigos:"
   },
   "articleCard": {
     "readTime": "{time} min de leitura",
+    "noContentAvailable": "Nenhum conteúdo disponível",
     "categories": {
       "health": "Saúde",
       "fitness": "Fitness",

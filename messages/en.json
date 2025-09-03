@@ -36,10 +36,14 @@
     "privacyNote": "We respect your privacy. Unsubscribe at any time."
   },
   "categoryCarousel": {
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "loading": "Loading...",
+    "loadMore": "Load More",
+    "errorLoading": "Error loading articles:"
   },
   "articleCard": {
     "readTime": "{time} min read",
+    "noContentAvailable": "No content available",
     "categories": {
       "health": "Health",
       "fitness": "Fitness",

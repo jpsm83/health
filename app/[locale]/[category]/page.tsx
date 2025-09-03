@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { mainCategories } from "@/lib/constants";
-import { getArticlesByCategory, getFeaturedArticles } from "@/services/articleService";
 import Articles from "@/pagesClient/Articles";
+import { articleService } from "@/services/articleService";
 
 export async function generateMetadata({
   params,
@@ -32,13 +32,9 @@ export default async function CategoryPage({
 
   try {
     // Fetch both category articles and featured articles in parallel
-    const [articlesByCategory, featuredArticles] = await Promise.all([
-      getArticlesByCategory(category, locale),
-      getFeaturedArticles(undefined, undefined, locale)
-    ]);
+    const articlesByCategory = await articleService.getArticlesByCategory({ category, locale });
 
     console.log(articlesByCategory);
-    console.log(featuredArticles);
 
     if (!articlesByCategory || articlesByCategory.length === 0) {
       return (
@@ -61,7 +57,6 @@ export default async function CategoryPage({
         <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
           <Articles 
             articles={articlesByCategory} 
-            featuredArticles={featuredArticles}
           />
         </main>
       </div>

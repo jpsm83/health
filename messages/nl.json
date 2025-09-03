@@ -36,10 +36,14 @@
     "privacyNote": "We respecteren je privacy. Schrijf je op elk moment uit."
   },
   "categoryCarousel": {
-    "viewAll": "Bekijk alle"
+    "viewAll": "Bekijk alle",
+    "loading": "Laden...",
+    "loadMore": "Meer laden",
+    "errorLoading": "Fout bij het laden van artikelen:"
   },
   "articleCard": {
     "readTime": "{time} min leestijd",
+    "noContentAvailable": "Geen inhoud beschikbaar",
     "categories": {
       "health": "Gezondheid",
       "fitness": "Fitness",

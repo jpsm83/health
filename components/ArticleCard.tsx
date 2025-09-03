@@ -23,8 +23,9 @@ export default function ArticleCard({
   };
 
   // Calculate read time and generate excerpt
-  const readTime = calculateReadTime(article);
-  const excerpt = generateExcerpt(article);
+  const readTimeMinutes = calculateReadTime(article);
+  const readTime = t("readTime", { time: readTimeMinutes });
+  const excerpt = generateExcerpt(article, t);
 
   return (
     <Link
@@ -56,7 +57,7 @@ export default function ArticleCard({
         </h3>
 
         {/* Excerpt - Smaller minimum height */}
-        <p className="text-gray-600 text-sm">{excerpt}</p>
+        <p className="text-gray-600 text-xs">{excerpt}</p>
 
         {/* Meta Information - Smaller spacing */}
         <div className="flex items-center justify-between text-xs text-gray-500">

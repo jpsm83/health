@@ -50,6 +50,7 @@ export interface GetArticlesParams {
   order?: "asc" | "desc";
   query?: string;
   page?: number;
+  excludeIds?: string[];
 }
 
 class ArticleService {
@@ -100,18 +101,25 @@ class ArticleService {
       sort = "createdAt",
       order = "desc",
       locale = "en",
+      excludeIds,
     } = params;
     try {
+      const requestParams: Record<string, string | number> = {
+        page,
+        limit,
+        sort,
+        order,
+        locale,
+      };
+
+      if (excludeIds && excludeIds.length > 0) {
+        requestParams.excludeIds = JSON.stringify(excludeIds);
+      }
+
       const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
         () =>
           this.instance.get("/articles", {
-            params: {
-              page,
-              limit,
-              sort,
-              order,
-              locale,
-            },
+            params: requestParams,
           })
       );
       
@@ -142,40 +150,45 @@ class ArticleService {
   }
 
      // get all articles by category
-   async getArticlesByCategory(
-     params: GetArticlesParams & { category: string }
-   ): Promise<IArticle[]> {
-     const {
-       page = 1,
-       limit = 9,
-       sort = "createdAt",
-       order = "desc",
-       locale = "en",
-       category,
-     } = params;
-     try {
-       const result = await this.handleRequest<IPaginatedResponse<IArticle>>(() =>
-         this.instance.get("/articles", {
-           params: {
-             page,
-             limit,
-             sort,
-             order,
-             locale,
-             category,
-           },
-         })
-       );
-       
-       // Return the data array, or empty array if no data
-       return result.data || [];
-     } catch (error) {
-       console.error("Error fetching articles by category:", error);
-       // Return empty array instead of throwing error
-       return [];
-     }
-   }
-
+     async getArticlesByCategory(
+      params: GetArticlesParams & { category: string }
+    ): Promise<IArticle[]> {
+      const {
+        page = 1,            // fallback if excludeIds not used
+        limit = 9,
+        sort = "createdAt",
+        order = "desc",
+        locale = "en",
+        category,
+        excludeIds,
+      } = params;
+    
+      try {
+        const requestParams: Record<string, string | number> = {
+          page,
+          limit,
+          sort,
+          order,
+          locale,
+          category,
+        };
+    
+        // Pass excludeIds as JSON if provided
+        if (excludeIds && excludeIds.length > 0) {
+          requestParams.excludeIds = JSON.stringify(excludeIds);
+        }
+    
+        const result = await this.handleRequest<IPaginatedResponse<IArticle>>(() =>
+          this.instance.get("/articles", { params: requestParams })
+        );
+    
+        return result.data || [];
+      } catch (error) {
+        console.error("Error fetching articles by category:", error);
+        return [];
+      }
+    }
+        
   // get article by category and slug
   async getArticleByCategoryAndSlug(slug: string): Promise<IArticle> {
     try {

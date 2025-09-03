@@ -36,10 +36,14 @@
     "privacyNote": "אנו מכבדים את הפרטיות שלך. בטל הרשמה בכל עת."
   },
   "categoryCarousel": {
-    "viewAll": "צפה בכל"
+    "viewAll": "צפה בכל",
+    "loading": "טוען...",
+    "loadMore": "טען עוד",
+    "errorLoading": "שגיאה בטעינת מאמרים:"
   },
   "articleCard": {
     "readTime": "{time} דקות קריאה",
+    "noContentAvailable": "אין תוכן זמין",
     "categories": {
       "health": "בריאות",
       "fitness": "כושר",

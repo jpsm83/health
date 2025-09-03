@@ -1,54 +1,56 @@
 import { IArticle } from "@/interfaces/article";
 import ArticleCard from "./ArticleCard";
+import ArticleCardSkeleton from "./skeletons/ArticleCardSkeleton";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
-import { useTranslations } from 'next-intl';
-import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
+
 import { articleService } from "@/services/articleService";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface CategoryCarouselProps {
   category: string;
 }
 
-export default function CategoryCarousel({
-  category,
-}: CategoryCarouselProps) {
-  const t = useTranslations('categoryCarousel');
-  
+export default function CategoryCarousel({ category }: CategoryCarouselProps) {
+  const t = useTranslations("categoryCarousel");
+
   const [articles, setArticles] = useState<IArticle[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const limit = 6;
+  const [api, setApi] = useState<CarouselApi>();
 
   // Fetch initial articles
   useEffect(() => {
     const fetchArticles = async () => {
       setLoading(true);
       setError(null);
-      
+
       try {
         const fetchedArticles = await articleService.getArticlesByCategory({
           category,
           page: 1,
           limit,
-          sort: 'createdAt',
-          order: 'desc'
+          sort: "createdAt",
+          order: "desc",
         });
-        
+
         setArticles(fetchedArticles);
-        setHasMore(fetchedArticles.length === limit);
-        setCurrentPage(1);
+        setHasMore(fetchedArticles.length >= limit);
+        console.log("1 - first load done!");
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Failed to fetch articles';
+        const message =
+          err instanceof Error ? err.message : "Failed to fetch articles";
         setError(message);
         console.error(`Error fetching ${category} articles:`, err);
       } finally {
@@ -59,38 +61,64 @@ export default function CategoryCarousel({
     fetchArticles();
   }, [category, limit]);
 
-  const loadMore = async () => {
-    if (loading || !hasMore) return;
-    
-    setLoading(true);
+  // Load more articles
+  const loadMore = useCallback(async () => {
+    if (loadingMore || !hasMore) return;
+
+    setLoadingMore(true);
     setError(null);
-    
+
     try {
+      const excludeIds = articles
+        .map((article) => article._id?.toString())
+        .filter((id): id is string => Boolean(id));
+
       const newArticles = await articleService.getArticlesByCategory({
         category,
-        page: currentPage + 1,
         limit,
-        sort: 'createdAt',
-        order: 'desc'
+        sort: "createdAt",
+        order: "desc",
+        excludeIds,
       });
-      
-      setArticles(prev => [...prev, ...newArticles]);
-      setHasMore(newArticles.length === limit);
-      setCurrentPage(prev => prev + 1);
+
+      if (newArticles.length === 0) {
+        setHasMore(false);
+      } else {
+        setArticles((prev) => [...prev, ...newArticles]);
+      }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to fetch more articles';
-      setError(message);
-      console.error(`Error fetching more ${category} articles:`, err);
+      setError(
+        err instanceof Error ? err.message : "Failed to fetch more articles"
+      );
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
-  };
+  }, [category, articles, limit, loadingMore, hasMore]);
+
+  // Embla scroll event listener - trigger loadMore when reaching end
+  useEffect(() => {
+    if (!api || !hasMore || loadingMore) return;
+
+    const handleScroll = () => {
+      if (!api.canScrollNext() && hasMore && !loadingMore) {
+        loadMore();
+      }
+    };
+
+    api.on("scroll", handleScroll);
+
+    return () => {
+      api.off("scroll", handleScroll);
+    };
+  }, [api, hasMore, loadingMore, loadMore]);
 
   if (articles.length === 0 && !loading) {
     return null;
   }
 
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
+
+  console.log(articles);
 
   return (
     <div className="mb-12">
@@ -103,19 +131,8 @@ export default function CategoryCarousel({
           </h2>
         </div>
         <div className="flex items-center gap-4">
-          {hasMore && (
-            <Button
-              onClick={loadMore}
-              disabled={loading}
-              variant="outline"
-              size="sm"
-              className="text-gray-600 hover:text-gray-800"
-            >
-              {loading ? "Loading..." : "Load More"}
-            </Button>
-          )}
           <a
-            href={`/category/${category}`}
+            href={`/${category}`}
             className="text-gray-600 hover:text-gray-800 font-medium text-sm transition-colors duration-200"
           >
             {t("viewAll")} →
@@ -126,13 +143,14 @@ export default function CategoryCarousel({
       {/* Error Display */}
       {error && (
         <div className="text-center py-4 text-red-600">
-          Error loading articles: {error}
+          {t("errorLoading")} {error}
         </div>
       )}
 
       {/* Carousel */}
       <div className="relative sm:px-6 md:px-12">
         <Carousel
+          setApi={setApi}
           opts={{
             align: "start",
             loop: false,
@@ -142,26 +160,36 @@ export default function CategoryCarousel({
           className="w-full"
         >
           <CarouselContent className="-ml-2 md:-ml-4">
-            {articles.map((article) => (
+            {articles.map((article, index) => (
               <CarouselItem
-                key={article._id?.toString() || Math.random().toString()}
+                key={`${article._id?.toString() || "unknown"}-${index}`}
                 className="pl-2 md:pl-4 basis-64 flex-shrink-0"
               >
                 <ArticleCard article={article} />
               </CarouselItem>
             ))}
-            {loading && (
-              <CarouselItem className="pl-2 md:pl-4 basis-64 flex-shrink-0">
-                <div className="flex items-center justify-center h-48 bg-gray-100 rounded-lg">
-                  <div className="text-gray-500">Loading...</div>
-                </div>
-              </CarouselItem>
+            {loadingMore && (
+              <>
+                <CarouselItem className="pl-2 md:pl-4 basis-64 flex-shrink-0">
+                  <ArticleCardSkeleton />
+                </CarouselItem>
+                <CarouselItem className="pl-2 md:pl-4 basis-64 flex-shrink-0">
+                  <ArticleCardSkeleton />
+                </CarouselItem>
+              </>
             )}
           </CarouselContent>
 
           {/* Navigation Buttons */}
-          <CarouselPrevious className="left-3" />
-          <CarouselNext className="right-3" />
+          <CarouselPrevious
+            className="left-0 rounded-none border-none h-full bg-gradient-to-r from-[#d1d5db] to-transparent hover:bg-gradient-to-r hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
+"
+          />
+
+          <CarouselNext
+            className="right-0 rounded-none border-none h-full bg-gradient-to-l from-[#d1d5db] to-transparent hover:bg-gradient-to-l hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
+"
+          />
         </Carousel>
       </div>
     </div>
