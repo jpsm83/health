@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
 	},
 	// Optimize CSS loading to prevent preload warnings
 	experimental: {
-		optimizeCss: true,
+		optimizeCss: false, // Disabled to avoid critters dependency issue
 		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
 	},
 	// Optimize CSS and prevent preload warnings

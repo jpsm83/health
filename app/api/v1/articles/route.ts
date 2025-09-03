@@ -35,7 +35,7 @@ export const GET = async (req: Request) => {
     const { searchParams } = new URL(req.url);
 
     const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "10");
+    const limit = parseInt(searchParams.get("limit") || "9");
     const sort = searchParams.get("sort") || "createdAt";
     const order = searchParams.get("order") === "asc" ? 1 : -1;
 
@@ -81,14 +81,11 @@ export const GET = async (req: Request) => {
     // ------------------------
     // Handle no results
     // ------------------------
-    if (!articles?.length) {
-      return new NextResponse(
-        JSON.stringify({ message: "No articles found!" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+    if (!articles) {
+      return new NextResponse(JSON.stringify({ message: "No articles found!" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      })
     }
 
     // ------------------------

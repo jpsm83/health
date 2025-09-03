@@ -1,19 +1,20 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { mainCategories } from "@/lib/constants";
-import { getArticlesByCategory, getFeaturedArticles, MockArticle } from "@/lib/mockData";
-import FeaturedArticles from "@/components/FeaturedArticles";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
+import { IArticle } from "@/interfaces/article";
+import { mainCategories } from "@/lib/constants";
+import FeaturedArticles from "@/components/FeaturedArticles";
 
-export default function Home({ articles }: { articles: MockArticle[] }) {
+export default function Home({
+  featuredArticles
+}: {
+  featuredArticles: IArticle[];
+}) {
   const t = useTranslations("home");
-  const featuredArticles = getFeaturedArticles();
 
-  console.log("articles on home page", articles);
-  
   return (
     <div className="flex flex-col min-h-screen gap-8 md:gap-16">
       {/* Hero Section with Full-Width Image */}
@@ -48,7 +49,7 @@ export default function Home({ articles }: { articles: MockArticle[] }) {
       </section>
 
       {/* Featured Articles Section */}
-      <FeaturedArticles title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
+      <FeaturedArticles articles={featuredArticles} title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
@@ -66,14 +67,10 @@ export default function Home({ articles }: { articles: MockArticle[] }) {
 
         {/* Render carousels for each category */}
         {mainCategories.map((category) => {
-          const categoryArticles = getArticlesByCategory(category);
-          if (categoryArticles.length === 0) return null;
-
           return (
             <CategoryCarousel
               key={category}
               category={category}
-              articles={categoryArticles}
             />
           );
         })}

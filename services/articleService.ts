@@ -1,17 +1,45 @@
 import { IArticle } from "@/interfaces/article";
+import axios, { type AxiosInstance } from "axios";
+import { handleAxiosError } from "@/lib/utils/handleAxiosError";
+
+// Generic API response interface for all services
+export interface IApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  message?: string;
+}
+
+// Paginated response interface
+export interface IPaginatedResponse<T> {
+  page: number;
+  limit: number;
+  totalDocs: number;
+  totalPages: number;
+  data: T[];
+}
 
 // For server-side requests, use absolute URL
 const getBaseUrl = () => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // Client-side
-    return process.env.NEXT_PUBLIC_API_URL || '';
+    return process.env.NEXT_PUBLIC_API_URL || "";
   } else {
     // Server-side - construct absolute URL
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-    const host = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000';
+    const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    const host =
+      process.env.VERCEL_URL ||
+      process.env.NEXT_PUBLIC_VERCEL_URL ||
+      "localhost:3000";
     return `${protocol}://${host}`;
   }
 };
+
+// Check if we're in a server component context
+const isServerComponent = () => {
+  return typeof window === "undefined" && process.env.NODE_ENV !== "test";
+};
+
+const API_BASE = "/api/v1";
 
 export interface GetArticlesParams {
   category?: string;
@@ -19,130 +47,152 @@ export interface GetArticlesParams {
   locale?: string;
   limit?: number;
   sort?: string;
-  order?: 'asc' | 'desc';
+  order?: "asc" | "desc";
   query?: string;
+  page?: number;
 }
 
-/**
- * Universal function to get articles with various filters and options
- * @param params - Object containing filtering and sorting options
- * @returns Promise<IArticle[]> for multiple articles or Promise<IArticle | null> for single article
- * 
- * @example
- * // Get all articles
- * const allArticles = await getArticles();
- * 
- * // Get featured articles (9 most recent)
- * const featured = await getArticles({ limit: 9, sort: 'createdAt', order: 'desc' });
- * 
- * // Get articles by category
- * const healthArticles = await getArticles({ category: 'health' });
- * 
- * // Get single article by category and slug
- * const article = await getArticles({ category: 'health', slug: 'article-slug' });
- * 
- * // Get single article by slug only (searches across all categories)
- * const articleBySlug = await getArticles({ slug: 'article-slug' });
- * 
- * // Search articles
- * const searchResults = await getArticles({ query: 'vitamins', limit: 10 });
- * 
- * // Get articles with specific locale
- * const spanishArticles = await getArticles({ locale: 'es', limit: 5 });
- */
-export const getArticles = async (params: GetArticlesParams = {}): Promise<IArticle[] | IArticle | null> => {
-  try {
-    const {
-      category,
-      slug,
-      locale = 'en',
-      limit,
-      sort = 'createdAt',
-      order = 'desc',
-      query
-    } = params;
+class ArticleService {
+  private instance: AxiosInstance;
 
+  constructor() {
     const baseUrl = getBaseUrl();
-    let url: string;
-
-    // Build URL based on parameters
-    if (category && slug) {
-      // Single article by category and slug
-      url = `${baseUrl}/api/v1/articles/category/${category}/${slug}?locale=${locale}`;
-    } else if (category) {
-      // Articles by category
-      url = `${baseUrl}/api/v1/articles/category/${category}?locale=${locale}`;
-    } else if (slug) {
-      // Single article by slug only (search across all categories)
-      const searchParams = new URLSearchParams();
-      searchParams.append('slug', slug);
-      if (locale) searchParams.append('locale', locale);
-      
-      url = `${baseUrl}/api/v1/articles?${searchParams.toString()}`;
-    } else {
-      // All articles with optional filters
-      const searchParams = new URLSearchParams();
-      if (locale) searchParams.append('locale', locale);
-      if (limit) searchParams.append('limit', limit.toString());
-      if (sort) searchParams.append('sort', sort);
-      if (order) searchParams.append('order', order);
-      if (query) searchParams.append('query', query);
-      
-      url = `${baseUrl}/api/v1/articles?${searchParams.toString()}`;
-    }
-    
-    const response = await fetch(url, {
-      method: 'GET',
+    this.instance = axios.create({
+      baseURL: `${baseUrl}${API_BASE}`,
+      withCredentials: true, // ensures cookies are sent
+      timeout: 10000, // 10 second timeout
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      // Enable caching for better performance
-      next: { revalidate: 300 }, // Revalidate every 5 minutes
     });
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        // Return appropriate empty value based on expected return type
-        return slug ? null : [];
-      }
-      throw new Error(`HTTP error! status: ${response.status}`);
+    // Add request interceptor for server-side debugging
+    if (isServerComponent()) {
+      this.instance.interceptors.request.use(
+        (config) => {
+          return config;
+        },
+        (error) => {
+          console.error("Server-side API request error:", error);
+          return Promise.reject(error);
+        }
+      );
     }
-
-    const data = await response.json();
-    
-    // Return single article if slug is provided (with or without category), otherwise return array
-    if (slug) {
-      return Array.isArray(data) && data.length > 0 ? data[0] : null;
-    }
-    
-    return Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.error('Error fetching articles:', error);
-    // Return appropriate empty value based on expected return type
-    return params.slug ? null : [];
   }
-};
 
-// Convenience functions that use the main getArticles function
-export const getAllArticles = async (): Promise<IArticle[]> => {
-  return getArticles() as Promise<IArticle[]>;
-};
+  // Generic request wrapper with centralized error handling
+  private async handleRequest<T>(
+    requestFn: () => Promise<{ data: T }>
+  ): Promise<T> {
+    try {
+      const response = await requestFn();
+      return response.data;
+    } catch (error) {
+      throw handleAxiosError(error);
+    }
+  }
 
-export const getFeaturedArticles = async (category?: string, query?: string, locale = 'en'): Promise<IArticle[]> => {
-  return getArticles({ 
-    category, 
-    query, 
-    locale,
-    limit: 9, 
-    sort: 'createdAt', 
-    order: 'desc' 
-  }) as Promise<IArticle[]>;
-};
+  // get all articles
+  async getArticles(params: GetArticlesParams = {}): Promise<IArticle[]> {
+    const {
+      page = 1,
+      limit = 9,
+      sort = "createdAt",
+      order = "desc",
+      locale = "en",
+    } = params;
+    try {
+      const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
+        () =>
+          this.instance.get("/articles", {
+            params: {
+              page,
+              limit,
+              sort,
+              order,
+              locale,
+            },
+          })
+      );
+      
+      // Return the data array, or empty array if no data
+      return result.data || [];
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+      // Return empty array instead of throwing error
+      return [];
+    }
+  }
 
-export const getArticlesByCategory = async (category: string, locale = 'en'): Promise<IArticle[]> => {
-  return getArticles({ category, locale }) as Promise<IArticle[]>;
-};
+  // get article by id
+  async getArticleById(id: string, locale = "en"): Promise<IArticle> {
+    try {
+      const result = await this.handleRequest<IArticle>(() =>
+        this.instance.get(`/articles/${id}`, {
+          params: {
+            locale,
+          },
+        })
+      );
+      return result;
+    } catch (error) {
+      console.error("Error fetching article:", error);
+      throw error;
+    }
+  }
 
-export const getArticleBySlug = async (slug: string): Promise<IArticle | null> => {
-  return getArticles({ slug }) as Promise<IArticle | null>;
-};
+     // get all articles by category
+   async getArticlesByCategory(
+     params: GetArticlesParams & { category: string }
+   ): Promise<IArticle[]> {
+     const {
+       page = 1,
+       limit = 9,
+       sort = "createdAt",
+       order = "desc",
+       locale = "en",
+       category,
+     } = params;
+     try {
+       const result = await this.handleRequest<IPaginatedResponse<IArticle>>(() =>
+         this.instance.get("/articles", {
+           params: {
+             page,
+             limit,
+             sort,
+             order,
+             locale,
+             category,
+           },
+         })
+       );
+       
+       // Return the data array, or empty array if no data
+       return result.data || [];
+     } catch (error) {
+       console.error("Error fetching articles by category:", error);
+       // Return empty array instead of throwing error
+       return [];
+     }
+   }
+
+  // get article by category and slug
+  async getArticleByCategoryAndSlug(slug: string): Promise<IArticle> {
+    try {
+      const result = await this.handleRequest<IArticle>(() =>
+        this.instance.get("/articles", {
+          params: {
+            slug,
+          },
+        })
+      );
+      return result;
+    } catch (error) {
+      console.error("Error fetching article by category and slug:", error);
+      throw error;
+    }
+  }
+}
+
+// Export singleton instance for API calls
+export const articleService = new ArticleService();
