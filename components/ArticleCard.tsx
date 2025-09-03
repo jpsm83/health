@@ -1,15 +1,15 @@
-import { MockArticle } from "@/lib/mockData";
 import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations, useLocale } from "next-intl";
+import { IArticleCardProps } from "@/interfaces/article";
 
-interface ArticleCardProps {
-  article: MockArticle;
-}
-
-export default function ArticleCard({ article }: ArticleCardProps) {
-  const t = useTranslations('articleCard');
+export default function ArticleCard({
+  article,
+}: {
+  article: IArticleCardProps;
+}) {
+  const t = useTranslations("articleCard");
   const locale = useLocale();
 
   const formatDate = (dateString: string) => {
@@ -23,7 +23,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <Link
-      href={`${locale}/article/${article.slug}`}
+      href={`${locale}/${article.category}/${article.slug}`}
       className="bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col cursor-pointer"
     >
       {/* Article Image - More height, narrower width */}

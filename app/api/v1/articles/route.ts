@@ -10,6 +10,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 
 // imported models
 import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 // imported interfaces
 import { IArticle, IContentsByLanguage } from "@/interfaces/article";
@@ -17,27 +18,135 @@ import { IArticle, IContentsByLanguage } from "@/interfaces/article";
 // imported constants
 import { mainCategories } from "@/lib/constants";
 
+interface IMongoFilter {
+  [key: string]: unknown;
+}
+
 // @desc    Get all articles
 // @route   GET /articles
 // @access  Public
-export const GET = async () => {
+export const GET = async (req: Request) => {
   try {
-    // connect before first call to DB
     await connectDb();
 
-    const articles = await Article.find().lean();
+    // ------------------------
+    // Parse query parameters
+    // ------------------------
+    const { searchParams } = new URL(req.url);
 
-    return !articles?.length
-      ? new NextResponse(JSON.stringify({ message: "No articles found!" }), {
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
+    const sort = searchParams.get("sort") || "createdAt";
+    const order = searchParams.get("order") === "asc" ? 1 : -1;
+
+    const slug = searchParams.get("slug") || undefined;
+    const category = searchParams.get("category") || undefined;
+    const locale = searchParams.get("locale") || "en";
+
+    // ------------------------
+    // Build filter
+    // ------------------------
+    if (category && slug) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Category and slug are not allowed together!",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const mongoFilter: IMongoFilter = {};
+
+    if (slug) {
+      mongoFilter["contentsByLanguage.seo.slug"] = slug;
+    }
+
+    if (category) {
+      mongoFilter.category = category;
+    }
+
+    // ------------------------
+    // Query DB
+    // ------------------------
+    const articles = await Article.find(mongoFilter)
+      .populate({ path: "createdBy", select: "username", model: User })
+      .sort({ [sort]: order })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean();
+
+    // ------------------------
+    // Handle no results
+    // ------------------------
+    if (!articles?.length) {
+      return new NextResponse(
+        JSON.stringify({ message: "No articles found!" }),
+        {
           status: 404,
           headers: { "Content-Type": "application/json" },
-        })
-      : new NextResponse(JSON.stringify(articles), {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        }
+      );
+    }
+
+    // ------------------------
+    // Post-process by locale
+    // ------------------------
+    const articlesWithFilteredContent = articles
+      .map((article) => {
+        let contentByLanguage: IContentsByLanguage | undefined;
+
+        if (slug) {
+          // Exact slug match
+          contentByLanguage = article.contentsByLanguage.find(
+            (content: IContentsByLanguage) => content.seo.slug === slug
+          );
+        } else {
+          // Try requested locale
+          contentByLanguage = article.contentsByLanguage.find(
+            (content: IContentsByLanguage) => content.seo.hreflang === locale
+          );
+
+          // Fallback to English if locale not found
+          if (!contentByLanguage && locale !== "en") {
+            contentByLanguage = article.contentsByLanguage.find(
+              (content: IContentsByLanguage) => content.seo.hreflang === "en"
+            );
+          }
+
+          // Final fallback: first available
+          if (!contentByLanguage && article.contentsByLanguage.length > 0) {
+            contentByLanguage = article.contentsByLanguage[0];
+          }
+        }
+
+        return {
+          ...article,
+          contentsByLanguage: contentByLanguage ? [contentByLanguage] : [],
+        };
+      })
+      .filter((article) => article.contentsByLanguage.length > 0);
+
+    // ------------------------
+    // Pagination metadata
+    // ------------------------
+    const totalDocs = await Article.countDocuments(mongoFilter);
+    const totalPages = Math.ceil(totalDocs / limit);
+
+    const response = {
+      page,
+      limit,
+      totalDocs,
+      totalPages,
+      data: articlesWithFilteredContent,
+    };
+
+    return new NextResponse(JSON.stringify(response), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     return handleApiError("Get all articles failed!", error as string);
   }
@@ -69,7 +178,7 @@ export const POST = async (req: Request) => {
     const fileEntries = formData
       .getAll("articleImages")
       .filter((entry): entry is File => entry instanceof File);
-      
+
     // Validate required fields
     if (!category || !contentsByLanguageRaw) {
       return new NextResponse(
@@ -125,7 +234,10 @@ export const POST = async (req: Request) => {
       }
 
       // Validate articleContents
-      if (!Array.isArray(content.articleContents) || content.articleContents.length === 0) {
+      if (
+        !Array.isArray(content.articleContents) ||
+        content.articleContents.length === 0
+      ) {
         return new NextResponse(
           JSON.stringify({
             message: "ArticleContents must be a non-empty array!",
@@ -156,7 +268,10 @@ export const POST = async (req: Request) => {
         }
 
         // Validate articleParagraphs
-        if (!Array.isArray(articleContent.articleParagraphs) || articleContent.articleParagraphs.length === 0) {
+        if (
+          !Array.isArray(articleContent.articleParagraphs) ||
+          articleContent.articleParagraphs.length === 0
+        ) {
           return new NextResponse(
             JSON.stringify({
               message: "ArticleParagraphs must be a non-empty array!",
@@ -172,8 +287,14 @@ export const POST = async (req: Request) => {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["metaTitle", "metaDescription", "keywords", "slug", "hreflang", "urlPattern", "canonicalUrl"],
-          nonReqFields: ["type"],
+          reqFields: [
+            "metaTitle",
+            "metaDescription",
+            "keywords",
+            "slug",
+            "hreflang",
+          ],
+          nonReqFields: ["urlPattern", "canonicalUrl"],
         }
       );
 
@@ -187,7 +308,17 @@ export const POST = async (req: Request) => {
       }
 
       // Validate hreflang is supported
-      const supportedLocales = ['en', 'pt', 'es', 'fr', 'de', 'it', 'nl', 'he', 'ru'];
+      const supportedLocales = [
+        "en",
+        "pt",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "nl",
+        "he",
+        "ru",
+      ];
       if (!supportedLocales.includes(content.seo.hreflang)) {
         return new NextResponse(
           JSON.stringify({
@@ -199,15 +330,28 @@ export const POST = async (req: Request) => {
         );
       }
 
-      // Validate urlPattern is valid
-      const validUrlPatterns = ["articles", "artigos", "articulos", "articles", "artikel", "articoli", "artikelen", "מאמרים"];
-      if (!validUrlPatterns.includes(content.seo.urlPattern)) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Invalid URL pattern: ${content.seo.urlPattern}. Supported patterns: ${validUrlPatterns.join(", ")}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
+      // Validate urlPattern is valid (if provided)
+      if (content.seo.urlPattern) {
+        const validUrlPatterns = [
+          "articles",
+          "artigos",
+          "articulos",
+          "articles",
+          "artikel",
+          "articoli",
+          "artikelen",
+          "מאמרים",
+        ];
+        if (!validUrlPatterns.includes(content.seo.urlPattern)) {
+          return new NextResponse(
+            JSON.stringify({
+              message: `Invalid URL pattern: ${
+                content.seo.urlPattern
+              }. Supported patterns: ${validUrlPatterns.join(", ")}`,
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
       }
     }
 
@@ -230,17 +374,17 @@ export const POST = async (req: Request) => {
     await connectDb();
 
     // Check for duplicate slugs across all languages
-    const slugs = contentsByLanguage.map(content => content.seo.slug);
-    
+    const slugs = contentsByLanguage.map((content) => content.seo.slug);
+
     // Check if any of the slugs already exist in the database
     const duplicateArticle = await Article.findOne({
-      'contentsByLanguage.seo.slug': { $in: slugs }
+      "contentsByLanguage.seo.slug": { $in: slugs },
     });
 
     if (duplicateArticle) {
       return new NextResponse(
-        JSON.stringify({ 
-          message: `Article with slug(s) already exists: ${slugs.join(', ')}` 
+        JSON.stringify({
+          message: `Article with slug(s) already exists: ${slugs.join(", ")}`,
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );

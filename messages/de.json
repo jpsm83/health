@@ -22,11 +22,11 @@
     },
     "languageInfo": {
       "currentLanguage": "Aktuelle Sprache"
+    },
+    "featuredArticles": {
+      "title": "Empfohlene Artikel",
+      "description": "Entdecken Sie unsere neuesten Einblicke, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes und erfüllteres Leben zu führen."
     }
-  },
-  "featuredArticles": {
-    "title": "Empfohlene Artikel",
-    "description": "Entdecken Sie unsere neuesten Einblicke, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes und erfüllteres Leben zu führen."
   },
   "newsletterSignup": {
     "title": "Bleiben Sie über Gesundheitseinblicke auf dem Laufenden",

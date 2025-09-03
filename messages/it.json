@@ -22,11 +22,11 @@
     },
     "languageInfo": {
       "currentLanguage": "Lingua Attuale"
+    },
+    "featuredArticles": {
+      "title": "Articoli in Evidenza",
+      "description": "Scopri i nostri ultimi approfondimenti, consigli e guide per aiutarti a vivere una vita più sana e appagante."
     }
-  },
-  "featuredArticles": {
-    "title": "Articoli in Evidenza",
-    "description": "Scopri i nostri ultimi approfondimenti, consigli e guide per aiutarti a vivere una vita più sana e appagante."
   },
   "newsletterSignup": {
     "title": "Rimani Aggiornato con Insights sulla Salute",

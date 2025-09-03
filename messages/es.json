@@ -22,11 +22,11 @@
     },
     "languageInfo": {
       "currentLanguage": "Idioma Actual"
+    },
+    "featuredArticles": {
+      "title": "Artículos Destacados",
+      "description": "Descubre nuestros últimos insights, consejos y guías para ayudarte a vivir una vida más saludable y plena."
     }
-  },
-  "featuredArticles": {
-    "title": "Artículos Destacados",
-    "description": "Descubre nuestros últimos insights, consejos y guías para ayudarte a vivir una vida más saludable y plena."
   },
   "newsletterSignup": {
     "title": "Mantente Actualizado con Insights de Salud",

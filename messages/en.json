@@ -22,11 +22,11 @@
     },
     "languageInfo": {
       "currentLanguage": "Current Language"
+    },
+    "featuredArticles": {
+      "title": "Featured Articles",
+      "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
     }
-  },
-  "featuredArticles": {
-    "title": "Featured Articles",
-    "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
   },
   "newsletterSignup": {
     "title": "Stay Updated with Health Insights",
@@ -250,6 +250,21 @@
       "language": "Language",
       "slug": "Slug",
       "date": "Date"
+    }
+  },
+  "articles": {
+    "health": {
+      "heroImageAlt": "Health Articles Hero Image",
+      "title": "Health Articles",
+      "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Health Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in health and wellness."
+      },
+      "explore": {
+        "title": "Explore Health Articles",
+        "description": "Our comprehensive collection of health articles, tips, everthing you need to know about health and wellness."
+      }
     }
   },
   "SignUp": {

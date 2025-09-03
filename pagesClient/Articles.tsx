@@ -2,17 +2,21 @@
 
 import { useTranslations } from "next-intl";
 import { mainCategories } from "@/lib/constants";
-import { getArticlesByCategory, getFeaturedArticles, MockArticle } from "@/lib/mockData";
+import { getArticlesByCategory } from "@/lib/mockData";
 import FeaturedArticles from "@/components/FeaturedArticles";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
+import { IArticle } from "@/interfaces/article";
+import { transformArticlesToCardProps } from "@/lib/utils/articleTransformers";
 
-export default function Home({ articles }: { articles: MockArticle[] }) {
-  const t = useTranslations("home");
-  const featuredArticles = getFeaturedArticles();
+interface ArticlesProps {
+  articles: IArticle[];
+  featuredArticles?: IArticle[];
+}
 
-  console.log("articles on home page", articles);
+export default function Articles({ articles, featuredArticles = [] }: ArticlesProps) {
+  const t = useTranslations("articles");
   
   return (
     <div className="flex flex-col min-h-screen gap-8 md:gap-16">
@@ -21,7 +25,7 @@ export default function Home({ articles }: { articles: MockArticle[] }) {
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
-            alt={t("heroImageAlt")}
+            alt={t(`${articles[0].category}.heroImageAlt`)}
             className="w-full h-full object-cover"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -35,20 +39,20 @@ export default function Home({ articles }: { articles: MockArticle[] }) {
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center text-white max-w-4xl mx-auto px-6">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              {t("title")}
+              {t(`${articles[0].category}.title`)}
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto">
-              {t("subtitle")}
-            </p>
             <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-              {t("description")}
+              {t(`${articles[0].category}.description`)}
             </p>
           </div>
         </div>
       </section>
-
       {/* Featured Articles Section */}
-      <FeaturedArticles title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
+      <FeaturedArticles
+        articles={transformArticlesToCardProps(featuredArticles)}
+        title={t(`${articles[0].category}.featuredArticles.title`)}
+        description={t(`${articles[0].category}.featuredArticles.description`)}
+      />
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
@@ -57,10 +61,10 @@ export default function Home({ articles }: { articles: MockArticle[] }) {
       <section>
         <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
           <h2 className="text-3xl font-bold text-white mb-4">
-            {t("exploreByCategory.title")}
+            {t(`${articles[0].category}.explore.title`)}
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            {t("exploreByCategory.description")}
+            {t(`${articles[0].category}.explore.description`)}
           </p>
         </div>
 

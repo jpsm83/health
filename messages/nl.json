@@ -22,11 +22,11 @@
     },
     "languageInfo": {
       "currentLanguage": "Huidige Taal"
+    },
+    "featuredArticles": {
+      "title": "Uitgelichte Artikelen",
+      "description": "Ontdek onze nieuwste inzichten, tips en gidsen om je te helpen een gezonder en vervullender leven te leiden."
     }
-  },
-  "featuredArticles": {
-    "title": "Uitgelichte Artikelen",
-    "description": "Ontdek onze nieuwste inzichten, tips en gidsen om je te helpen een gezonder en vervullender leven te leiden."
   },
   "newsletterSignup": {
     "title": "Blijf Op de Hoogte van Gezondheidsinzichten",

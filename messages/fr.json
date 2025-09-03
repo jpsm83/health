@@ -22,11 +22,11 @@
     },
     "languageInfo": {
       "currentLanguage": "Langue Actuelle"
+    },
+    "featuredArticles": {
+      "title": "Articles en Vedette",
+      "description": "Découvrez nos derniers insights, conseils et guides pour vous aider à vivre une vie plus saine et épanouie."
     }
-  },
-  "featuredArticles": {
-    "title": "Articles en Vedette",
-    "description": "Découvrez nos derniers insights, conseils et guides pour vous aider à vivre une vie plus saine et épanouie."
   },
   "newsletterSignup": {
     "title": "Restez Informé des Insights de Santé",

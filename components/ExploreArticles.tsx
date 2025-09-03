@@ -7,11 +7,12 @@ interface FeaturedArticlesProps {
   description: string;
 }
 
-export default function FeaturedArticles({ articles, title, description }: FeaturedArticlesProps) {
-  if (!articles || articles.length === 0) {
+export default function ExploteArticles({ articles, title, description }: FeaturedArticlesProps) {
+  if (articles?.length === 0 || !articles) {
     return null;
   }
 
+  console.log("articles on featured articles", articles);
   return (
     <section>
       {/* Section Header */}

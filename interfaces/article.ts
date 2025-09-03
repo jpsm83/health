@@ -1,12 +1,26 @@
 import { Types } from "mongoose";
 import { mainCategories, articleStatus } from "@/lib/constants";
 
+export interface IArticleCardProps {
+  author: string;
+  category: string;
+  excerpt: string;
+  id: string;
+  imageUrl: string;
+  publishedAt: string;
+  readTime: string;
+  slug: string;
+  title: string;
+}
+
 export interface ISeo {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
   slug: string;
   hreflang: string;
+  urlPattern?: string;
+  canonicalUrl?: string;
 }
 
 export interface IMetaDataArticle {
