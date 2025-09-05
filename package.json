@@ -31,6 +31,7 @@
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-error-boundary": "^6.0.0",
     "react-flagkit": "^2.0.4",
     "react-hook-form": "^7.62.0",
     "react-social-icons": "^6.24.0",

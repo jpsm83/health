@@ -1,12 +1,14 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
 import { IArticle } from "@/interfaces/article";
 import { mainCategories } from "@/lib/constants";
 import FeaturedArticles from "@/components/FeaturedArticles";
+import { articleService } from "@/services/articleService";
+import { useState, useEffect } from "react";
 
 export default function Home({
   featuredArticles
@@ -14,9 +16,29 @@ export default function Home({
   featuredArticles: IArticle[];
 }) {
   const t = useTranslations("home");
+  const locale = useLocale();
+  const [articles, setArticles] = useState<IArticle[]>(featuredArticles);
+
+  // Fetch articles when locale changes
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const fetchedArticles = await articleService.getArticles({
+          locale,
+          limit: 9,
+        });
+        setArticles(fetchedArticles);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+        // Keep existing articles if fetch fails
+      }
+    };
+
+    fetchArticles();
+  }, [locale]);
 
   return (
-    <div className="flex flex-col min-h-screen gap-8 md:gap-16">
+    <div className="flex flex-col h-full gap-8 md:gap-16">
       {/* Hero Section with Full-Width Image */}
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
@@ -49,7 +71,7 @@ export default function Home({
       </section>
 
       {/* Featured Articles Section */}
-      <FeaturedArticles articles={featuredArticles} title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
+      <FeaturedArticles articles={articles} title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />

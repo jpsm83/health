@@ -2,13 +2,16 @@ import { Metadata } from "next";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
 import { articleService } from "@/services/articleService";
+import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import { IArticle } from "@/interfaces/article";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string }>;
+  params: Promise<{ locale: string; category: string }>;
 }): Promise<Metadata> {
-  const { category } = await params;
+  const { category, locale } = await params;
 
   if (!mainCategories.includes(category)) {
     return {
@@ -17,58 +20,35 @@ export async function generateMetadata({
     };
   }
 
-  return {
-    title: `${category.charAt(0).toUpperCase() + category.slice(1)} Articles`,
-    description: `Browse all ${category} articles and content`,
-  };
+  return generatePublicMetadata(locale, "", `metadata.${category}.title`);
 }
 
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ category: string; locale: string }>;
+  params: Promise<{ locale: string; category: string }>;
 }) {
   const { category, locale } = await params;
 
+  let articlesByCategory: IArticle[] | [] = [];
+
   try {
     // Fetch both category articles and featured articles in parallel
-    const articlesByCategory = await articleService.getArticlesByCategory({ category, locale });
-
-    console.log(articlesByCategory);
-
-    if (!articlesByCategory || articlesByCategory.length === 0) {
-      return (
-        <div className="min-h-screen bg-gray-50">
-          <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
-            <div className="flex justify-center items-center min-h-[50vh]">
-              <div className="text-lg text-red-600">
-                {mainCategories.includes(category)
-                  ? `No articles found in ${category} category`
-                  : "Category not found!"}
-              </div>
-            </div>
-          </main>
-        </div>
-      );
-    }
-
-    return (
-      <div className="min-h-screen bg-white">
-        <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
-          <Articles 
-            articles={articlesByCategory} 
-          />
-        </main>
-      </div>
-    );
+    articlesByCategory = await articleService.getArticlesByCategory({
+      category,
+      locale,
+    });
   } catch (error) {
     console.error("Error fetching articles:", error);
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36 flex justify-center items-center">
-          <div className="text-lg text-red-600">Error loading articles</div>
-        </main>
-      </div>
-    );
   }
+
+  return (
+    <div className="min-h-full">
+      <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36 min-h-full">
+        <ErrorBoundary context={`Articles component for category ${category}`}>
+          <Articles articles={articlesByCategory} category={category} />
+        </ErrorBoundary>
+      </main>
+    </div>
+  );
 }

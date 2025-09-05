@@ -28,6 +28,61 @@
       "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
     }
   },
+    "health": {
+      "title": "Health Articles",
+      "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "health articles, wellness content, health tips, medical advice, lifestyle articles, health resources"
+    },
+    "fitness": {
+      "title": "Fitness Articles",
+      "description": "Our best insights on fitness, a comprehensive collection of fitness articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "fitness articles, workout tips, exercise guides, fitness routines, health and fitness, wellness"
+    },
+    "nutrition": {
+      "title": "Nutrition Articles",
+      "description": "Our best insights on nutrition, a comprehensive collection of nutrition articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "nutrition articles, healthy eating, diet tips, food guides, nutritional advice, wellness nutrition"
+    },
+    "sex": {
+      "title": "Sex Articles",
+      "description": "Our best insights on sex, a comprehensive collection of sex articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "sex articles, sexual health, relationships, intimacy, sexual wellness, relationship advice"
+    },
+    "beauty": {
+      "title": "Beauty Articles",
+      "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "beauty articles, beauty tips, skincare, makeup, beauty routines, beauty advice"
+    },
+    "fashion": {
+      "title": "Fashion Articles",
+      "description": "Our best insights on fashion, a comprehensive collection of fashion articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "fashion articles, style tips, fashion trends, clothing advice, fashion guides, style inspiration"
+    },
+    "lifestyle": {
+      "title": "Lifestyle Articles",
+      "description": "Our best insights on lifestyle, a comprehensive collection of lifestyle articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "lifestyle articles, life tips, wellness lifestyle, healthy living, life advice, lifestyle guides"
+    },
+    "travel": {
+      "title": "Travel Articles",
+      "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "travel articles, travel tips, travel guides, vacation advice, travel destinations, travel wellness"
+    },
+    "decor": {
+      "title": "Decor Articles",
+      "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "decor articles, home decor, interior design, home tips, decorating guides, home improvement"
+    },
+    "productivity": {
+      "title": "Productivity Articles",
+      "description": "Our best insights on productivity, a comprehensive collection of productivity articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "productivity articles, productivity tips, time management, work efficiency, productivity guides, productivity advice"
+    },
+    "parenting": {
+      "title": "Parenting Articles",
+      "description": "Our best insights on parenting, a comprehensive collection of parenting articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "parenting articles, parenting tips, child care, parenting advice, family guides, parenting resources"
+    },
   "newsletterSignup": {
     "title": "Stay Updated with Health Insights",
     "description": "Get the latest women's health tips, wellness advice, and expert insights delivered directly to your inbox.",

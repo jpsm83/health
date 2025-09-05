@@ -134,7 +134,7 @@ export default function Article(articleData: IArticle) {
   const containers = calculateContentDistribution();
 
   return (
-    <div className="flex flex-col min-h-screen gap-8 md:gap-16">
+    <div className="flex flex-col h-full gap-8 md:gap-16">
       {/* Article Header */}
       <header className="text-center py-8 bg-gray-100">
         <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 cursor-default">

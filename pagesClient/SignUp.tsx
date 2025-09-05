@@ -61,7 +61,7 @@ export default function SignUp() {
   // Don't render if already authenticated
   if (status === "authenticated") {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center h-full">
         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-600"></div>
       </div>
     );

@@ -74,11 +74,16 @@ async function generateMetadataCore(
   titleKey: string,
   isPublic: boolean
 ): Promise<Metadata> {
-  // Dynamically load translations using next-intl
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-  
   // Extract page name from the key (e.g., 'metadata.home.title' -> 'home')
-  const pageName = titleKey.split('.')[1] || 'home';
+  const pageName = titleKey.split('.')[1];
+  
+  // Check if it's a category page (categories are at root level, not under metadata)
+  const isCategoryPage = ['health', 'fitness', 'nutrition', 'sex', 'beauty', 'fashion', 'lifestyle', 'travel', 'decor', 'productivity', 'parenting'].includes(pageName);
+  
+  // Load translations from the appropriate namespace
+  const t = isCategoryPage 
+    ? await getTranslations({ locale }) // Root level for categories
+    : await getTranslations({ locale, namespace: 'metadata' }); // Metadata namespace for other pages
   
   // Get translated content dynamically
   const title = t(`${pageName}.title`);

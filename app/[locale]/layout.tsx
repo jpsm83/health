@@ -7,7 +7,6 @@ import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Navigation from "@/components/Navbar";
 import Footer from "../../components/Footer";
 
-
 export async function generateMetadata({
   params,
 }: {

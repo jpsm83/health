@@ -85,7 +85,7 @@ export default async function ArticlePage({
 
     if (!articleData) {
       return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="h-full bg-gray-50">
           <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
             <div className="flex justify-center items-center min-h-[50vh]">
               <div className="text-lg text-red-600">Article not found!</div>
@@ -102,7 +102,7 @@ export default async function ArticlePage({
 
     if (!contentByLanguage) {
       return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="h-full bg-gray-50">
           <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
             <div className="flex justify-center items-center min-h-[50vh]">
               <div className="text-lg text-red-600">
@@ -121,7 +121,7 @@ export default async function ArticlePage({
     };
 
     return (
-      <div className="min-h-screen bg-white">
+      <div className="h-full bg-white">
         <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
           <ArticleClient {...modifiedArticleData} />
         </main>
@@ -130,7 +130,7 @@ export default async function ArticlePage({
   } catch (error) {
     console.error("Error fetching article:", error);
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="h-full bg-gray-50">
         <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36 flex justify-center items-center">
           <div className="text-lg text-red-600">Error loading article</div>
         </main>

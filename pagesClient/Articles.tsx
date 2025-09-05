@@ -1,23 +1,22 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { mainCategories } from "@/lib/constants";
-import { getArticlesByCategory } from "@/lib/mockData";
 import FeaturedArticles from "@/components/FeaturedArticles";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
 import { IArticle } from "@/interfaces/article";
-import { transformArticlesToCardProps } from "@/lib/utils/articleTransformers";
 
 interface ArticlesProps {
   articles: IArticle[];
-  featuredArticles?: IArticle[];
+  error?: string;
 }
 
-export default function Articles({ articles, featuredArticles = [] }: ArticlesProps) {
+export default function Articles({ articles, category }: ArticlesProps) {
   const t = useTranslations("articles");
-  
+  const locale = useLocale();
+
   return (
     <div className="flex flex-col min-h-screen gap-8 md:gap-16">
       {/* Hero Section with Full-Width Image */}
@@ -47,9 +46,10 @@ export default function Articles({ articles, featuredArticles = [] }: ArticlesPr
           </div>
         </div>
       </section>
-      {/* Featured Articles Section */}
+
+      {/* Featured Articles First Section */}
       <FeaturedArticles
-        articles={transformArticlesToCardProps(featuredArticles)}
+        articles={articles.slice(0, 6)}
         title={t(`${articles[0].category}.featuredArticles.title`)}
         description={t(`${articles[0].category}.featuredArticles.description`)}
       />
@@ -57,30 +57,15 @@ export default function Articles({ articles, featuredArticles = [] }: ArticlesPr
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
 
-      {/* Category Carousels */}
-      <section>
-        <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            {t(`${articles[0].category}.explore.title`)}
-          </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            {t(`${articles[0].category}.explore.description`)}
-          </p>
-        </div>
-
-        {/* Render carousels for each category */}
-        {mainCategories.map((category) => {
-          const categoryArticles = getArticlesByCategory(category);
-          if (categoryArticles.length === 0) return null;
-
-          return (
-            <CategoryCarousel
-              key={category}
-              category={category}
-              articles={categoryArticles}
-            />
-          );
-        })}
+      {/* Featured Articles Second Section */}
+      <section className="mb-6 md:mb-10">
+        <FeaturedArticles
+          articles={articles.slice(6)}
+          title={t(`${articles[0].category}.featuredArticles.title`)}
+          description={t(
+            `${articles[0].category}.featuredArticles.description`
+          )}
+        />
       </section>
     </div>
   );

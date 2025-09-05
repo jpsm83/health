@@ -1,4 +1,7 @@
+- make all the pages looks like locale/category/page
+- make all the pages looks like articles on pagesClient
 - finish the article page and its features
 - update home page to get articles on load
 - all services must use axios
 - all loading must be on suspense
+- make all the internationalizatio follow the en.json

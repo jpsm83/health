@@ -15,19 +15,34 @@ export async function generateMetadata({
 }
 
 // Server Component - handles metadata generation
-export default async function HomePage() {
-  let featuredArticles: IArticle[] = [];
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   try {
-    featuredArticles = await articleService.getArticles();
+    const featuredArticles: IArticle[] | [] = await articleService.getArticles({
+      locale,
+    });
+    return (
+      <div className="h-full bg-[#f9fafb]">
+        <main className="container mx-auto">
+          <Home featuredArticles={featuredArticles} />
+        </main>
+      </div>
+    );
   } catch (error) {
     console.error("Error fetching articles:", error);
+    return (
+      <div className="bg-gray-50">
+        <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
+          <div className="flex justify-center items-center py-20">
+            <div className="text-lg text-red-600">Error loading Home Page</div>
+          </div>
+        </main>
+      </div>
+    );
   }
-
-  return (
-    <div className="min-h-screen bg-[#f9fafb]">
-      <main className="container mx-auto">
-        <Home featuredArticles={featuredArticles} />
-      </main>
-    </div>
-  );
 }

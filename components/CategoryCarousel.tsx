@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 import { articleService } from "@/services/articleService";
 import { useState, useEffect, useCallback } from "react";
@@ -20,6 +20,7 @@ interface CategoryCarouselProps {
 
 export default function CategoryCarousel({ category }: CategoryCarouselProps) {
   const t = useTranslations("categoryCarousel");
+  const locale = useLocale();
 
   const [articles, setArticles] = useState<IArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,11 +44,11 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
           limit,
           sort: "createdAt",
           order: "desc",
+          locale,
         });
 
         setArticles(fetchedArticles);
         setHasMore(fetchedArticles.length >= limit);
-        console.log("1 - first load done!");
       } catch (err) {
         const message =
           err instanceof Error ? err.message : "Failed to fetch articles";
@@ -59,7 +60,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
     };
 
     fetchArticles();
-  }, [category, limit]);
+  }, [category, limit, locale]);
 
   // Load more articles
   const loadMore = useCallback(async () => {
@@ -79,6 +80,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
         sort: "createdAt",
         order: "desc",
         excludeIds,
+        locale,
       });
 
       if (newArticles.length === 0) {
@@ -93,7 +95,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
     } finally {
       setLoadingMore(false);
     }
-  }, [category, articles, limit, loadingMore, hasMore]);
+  }, [category, articles, limit, loadingMore, hasMore, locale]);
 
   // Embla scroll event listener - trigger loadMore when reaching end
   useEffect(() => {
@@ -117,8 +119,6 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
   }
 
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
-
-  console.log(articles);
 
   return (
     <div className="mb-12">
