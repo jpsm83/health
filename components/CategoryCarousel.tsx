@@ -51,7 +51,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
         setHasMore(fetchedArticles.length >= limit);
       } catch (err) {
         const message =
-          err instanceof Error ? err.message : "Failed to fetch articles";
+          err instanceof Error ? err.message : t("failedToFetchArticles");
         setError(message);
         console.error(`Error fetching ${category} articles:`, err);
       } finally {
@@ -60,7 +60,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
     };
 
     fetchArticles();
-  }, [category, limit, locale]);
+  }, [category, limit, locale, t]);
 
   // Load more articles
   const loadMore = useCallback(async () => {
@@ -90,12 +90,12 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
       }
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to fetch more articles"
+        err instanceof Error ? err.message : t("failedToFetchMoreArticles")
       );
     } finally {
       setLoadingMore(false);
     }
-  }, [category, articles, limit, loadingMore, hasMore, locale]);
+  }, [category, articles, limit, loadingMore, hasMore, locale, t]);
 
   // Embla scroll event listener - trigger loadMore when reaching end
   useEffect(() => {

@@ -5,3 +5,4 @@
 - all services must use axios
 - all loading must be on suspense
 - make all the internationalizatio follow the en.json
+- subscribe supose to add the user email somewhere

@@ -97,7 +97,7 @@ class ArticleService {
   async getArticles(params: GetArticlesParams = {}): Promise<IArticle[]> {
     const {
       page = 1,
-      limit = 9,
+      limit = 6,
       sort = "createdAt",
       order = "desc",
       locale = "en",
@@ -122,7 +122,7 @@ class ArticleService {
             params: requestParams,
           })
       );
-      
+
       // Return the data array, or empty array if no data
       return result.data || [];
     } catch (error) {
@@ -149,46 +149,92 @@ class ArticleService {
     }
   }
 
-     // get all articles by category
-     async getArticlesByCategory(
-      params: GetArticlesParams & { category: string }
-    ): Promise<IArticle[]> {
-      const {
-        page = 1,            // fallback if excludeIds not used
-        limit = 9,
-        sort = "createdAt",
-        order = "desc",
-        locale = "en",
+  // get all articles by category
+  async getArticlesByCategory(
+    params: GetArticlesParams & { category: string }
+  ): Promise<IArticle[]> {
+    const {
+      page = 1, // fallback if excludeIds not used
+      limit = 6,
+      sort = "createdAt",
+      order = "desc",
+      locale = "en",
+      category,
+      excludeIds,
+    } = params;
+
+    try {
+      const requestParams: Record<string, string | number> = {
+        page,
+        limit,
+        sort,
+        order,
+        locale,
         category,
-        excludeIds,
-      } = params;
-    
-      try {
-        const requestParams: Record<string, string | number> = {
-          page,
-          limit,
-          sort,
-          order,
-          locale,
-          category,
-        };
-    
-        // Pass excludeIds as JSON if provided
-        if (excludeIds && excludeIds.length > 0) {
-          requestParams.excludeIds = JSON.stringify(excludeIds);
-        }
-    
-        const result = await this.handleRequest<IPaginatedResponse<IArticle>>(() =>
-          this.instance.get("/articles", { params: requestParams })
-        );
-    
-        return result.data || [];
-      } catch (error) {
-        console.error("Error fetching articles by category:", error);
-        return [];
+      };
+
+      // Pass excludeIds as JSON if provided
+      if (excludeIds && excludeIds.length > 0) {
+        requestParams.excludeIds = JSON.stringify(excludeIds);
       }
+
+      const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
+        () => this.instance.get("/articles", { params: requestParams })
+      );
+
+      return result.data || [];
+    } catch (error) {
+      console.error("Error fetching articles by category:", error);
+      return [];
     }
-        
+  }
+
+         // get all articles by category paginated
+     async getArticlesByCategoryPaginated(
+       params: GetArticlesParams & { category: string }
+     ): Promise<IPaginatedResponse<IArticle>> {
+       const {
+         page = 1,
+         limit = 6,
+         sort = "createdAt",
+         order = "desc",
+         locale = "en",
+         category,
+         excludeIds,
+       } = params;
+   
+       try {
+         const requestParams: Record<string, string | number> = {
+           page,
+           limit,
+           sort,
+           order,
+           locale,
+           category,
+         };
+   
+         // Pass excludeIds as JSON if provided
+         if (excludeIds && excludeIds.length > 0) {
+           requestParams.excludeIds = JSON.stringify(excludeIds);
+         }
+   
+         const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
+           () => this.instance.get("/articles/paginated", { params: requestParams })
+         );
+   
+         return result;
+       } catch (error) {
+         console.error("Error fetching articles by category paginated:", error);
+         return {
+           page: 1,
+           limit: 6,
+           totalDocs: 0,
+           totalPages: 0,
+           data: [],
+         };
+       }
+     }
+  
   // get article by category and slug
   async getArticleByCategoryAndSlug(slug: string): Promise<IArticle> {
     try {

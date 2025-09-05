@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
-import { articleService } from "@/services/articleService";
+import { articleService, IPaginatedResponse } from "@/services/articleService";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { IArticle } from "@/interfaces/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -25,19 +25,93 @@ export async function generateMetadata({
 
 export default async function CategoryPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; category: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { category, locale } = await params;
+  const { page = "1" } = await searchParams;
+  
+  const currentPage = Math.max(1, parseInt(page as string, 10) || 1);
 
-  let articlesByCategory: IArticle[] | [] = [];
+  // Configuration - easily adjustable
+  // Change these values to customize the number of articles displayed
+  const FEATURED_ARTICLES_COUNT = 2; // Number of fixed articles in first section
+  const ARTICLES_PER_PAGE = 2; // Number of articles per page in second section
+  
+  // Examples:
+  // FEATURED_ARTICLES_COUNT = 3, ARTICLES_PER_PAGE = 4 → First section: 3 articles, Second section: 4 per page
+  // FEATURED_ARTICLES_COUNT = 1, ARTICLES_PER_PAGE = 6 → First section: 1 article, Second section: 6 per page
+
+  let featuredArticles: IArticle[] = []; // Fixed articles (first section)
+  let paginatedArticles: IArticle[] = []; // Paginated articles (second section)
+  let paginationData = {
+    currentPage: 1,
+    totalPages: 1,
+    totalArticles: 0,
+  };
 
   try {
-    // Fetch both category articles and featured articles in parallel
-    articlesByCategory = await articleService.getArticlesByCategory({
+    // Get the featured articles (fixed section - always the same)
+    const featuredResult: IPaginatedResponse<IArticle> = await articleService.getArticlesByCategoryPaginated({
       category,
       locale,
+      page: 1,
+      sort: "createdAt",
+      order: "desc",
+      limit: FEATURED_ARTICLES_COUNT,
     });
+
+    featuredArticles = featuredResult.data || [];
+
+    // Get total count for pagination calculation
+    const totalResult: IPaginatedResponse<IArticle> = await articleService.getArticlesByCategoryPaginated({
+      category,
+      locale,
+      page: 1,
+      sort: "createdAt",
+      order: "desc",
+      limit: 1000, // Get a large number to count total
+    });
+
+    const totalArticles = totalResult.totalDocs;
+    const remainingArticles = totalArticles - FEATURED_ARTICLES_COUNT; // Subtract featured articles
+    const totalPages = Math.ceil(remainingArticles / ARTICLES_PER_PAGE);
+
+    // Redirect to page 1 if current page is greater than total pages
+    if (currentPage > totalPages && totalPages > 0) {
+      return {
+        redirect: {
+          destination: `/${locale}/${category}?page=1`,
+          permanent: false,
+        },
+      };
+    }
+
+    // Get the paginated articles for the second section
+    // Use excludeIds to skip the featured articles
+    const featuredIds = featuredArticles
+      .map(article => article._id?.toString())
+      .filter((id): id is string => Boolean(id));
+    
+    const paginatedResult: IPaginatedResponse<IArticle> = await articleService.getArticlesByCategoryPaginated({
+      category,
+      locale,
+      page: currentPage,
+      sort: "createdAt",
+      order: "desc",
+      limit: ARTICLES_PER_PAGE,
+      excludeIds: featuredIds,
+    });
+
+    paginatedArticles = paginatedResult.data || [];
+
+    paginationData = {
+      currentPage,
+      totalPages,
+      totalArticles: remainingArticles, // Total articles minus the featured ones
+    };
   } catch (error) {
     console.error("Error fetching articles:", error);
   }
@@ -46,7 +120,12 @@ export default async function CategoryPage({
     <div className="min-h-full">
       <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36 min-h-full">
         <ErrorBoundary context={`Articles component for category ${category}`}>
-          <Articles articles={articlesByCategory} category={category} />
+          <Articles 
+            featuredArticles={featuredArticles}
+            paginatedArticles={paginatedArticles}
+            category={category}
+            paginationData={paginationData}
+          />
         </ErrorBoundary>
       </main>
     </div>

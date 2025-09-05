@@ -94,7 +94,9 @@
     "viewAll": "View all",
     "loading": "Loading...",
     "loadMore": "Load More",
-    "errorLoading": "Error loading articles:"
+    "errorLoading": "Error loading articles:",
+    "failedToFetchArticles": "Failed to fetch articles",
+    "failedToFetchMoreArticles": "Failed to fetch more articles"
   },
   "articleCard": {
     "readTime": "{time} min read",
@@ -312,6 +314,8 @@
     }
   },
   "articles": {
+    "noArticlesFound": "No articles found",
+    "noArticlesAvailable": "There are no articles available in this category at the moment.",
     "health": {
       "heroImageAlt": "Health Articles Hero Image",
       "title": "Health Articles",
@@ -836,6 +840,13 @@
       "confirmationFailed": "Email confirmation failed.",
       "unexpectedError": "An error occurred while confirming your email."
     }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "goToPreviousPage": "Go to previous page",
+    "goToNextPage": "Go to next page",
+    "morePages": "More pages"
   },
   "footer": {
     "brandName": "Health & Wellness",

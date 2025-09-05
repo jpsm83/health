@@ -1,21 +1,78 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
-import { mainCategories } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 import FeaturedArticles from "@/components/FeaturedArticles";
-import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
 import { IArticle } from "@/interfaces/article";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+interface PaginationData {
+  currentPage: number;
+  totalPages: number;
+  totalArticles: number;
+}
 
 interface ArticlesProps {
-  articles: IArticle[];
+  featuredArticles: IArticle[];
+  paginatedArticles: IArticle[];
+  category: string;
+  paginationData: PaginationData;
   error?: string;
 }
 
-export default function Articles({ articles, category }: ArticlesProps) {
+export default function Articles({ featuredArticles, paginatedArticles, category, paginationData }: ArticlesProps) {
   const t = useTranslations("articles");
-  const locale = useLocale();
+
+  // Handle empty articles case
+  if (featuredArticles.length === 0 && paginatedArticles.length === 0) {
+    return (
+      <div className="flex flex-col min-h-screen gap-8 md:gap-16">
+        {/* Hero Section with Full-Width Image */}
+        <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
+          <div className="absolute inset-0">
+            <Image
+              src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
+              alt={t(`${category}.heroImageAlt`)}
+              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/30" />
+          </div>
+          <div className="relative z-10 flex items-center justify-center h-full">
+            <div className="text-center text-white max-w-4xl mx-auto px-6">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                {t(`${category}.title`)}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+                {t(`${category}.description`)}
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        {/* No articles message */}
+        <section className="text-center py-16">
+          <h2 className="text-2xl font-semibold text-gray-600 mb-4">
+            {t("noArticlesFound")}
+          </h2>
+          <p className="text-gray-500">
+            {t("noArticlesAvailable")}
+          </p>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen gap-8 md:gap-16">
@@ -24,7 +81,7 @@ export default function Articles({ articles, category }: ArticlesProps) {
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
-            alt={t(`${articles[0].category}.heroImageAlt`)}
+            alt={t(`${category}.heroImageAlt`)}
             className="w-full h-full object-cover"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -38,35 +95,104 @@ export default function Articles({ articles, category }: ArticlesProps) {
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center text-white max-w-4xl mx-auto px-6">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              {t(`${articles[0].category}.title`)}
+              {t(`${category}.title`)}
             </h1>
             <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-              {t(`${articles[0].category}.description`)}
+              {t(`${category}.description`)}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Featured Articles First Section */}
+      {/* Featured Articles First Section - Always shows first 2 articles */}
       <FeaturedArticles
-        articles={articles.slice(0, 6)}
-        title={t(`${articles[0].category}.featuredArticles.title`)}
-        description={t(`${articles[0].category}.featuredArticles.description`)}
+        articles={featuredArticles}
+        title={t(`${category}.featuredArticles.title`)}
+        description={t(`${category}.featuredArticles.description`)}
       />
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
 
-      {/* Featured Articles Second Section */}
+      {/* Featured Articles Second Section - Shows paginated articles */}
       <section className="mb-6 md:mb-10">
         <FeaturedArticles
-          articles={articles.slice(6)}
-          title={t(`${articles[0].category}.featuredArticles.title`)}
+          articles={paginatedArticles}
+          title={t(`${category}.featuredArticles.title`)}
           description={t(
-            `${articles[0].category}.featuredArticles.description`
+            `${category}.featuredArticles.description`
           )}
         />
       </section>
+
+      {/* Pagination Section */}
+      {paginationData.totalPages > 1 && (
+        <section className="pb-6 md:pb-10">
+          {/* Pagination Controls */}
+          <div className="flex justify-center">
+            <Pagination>
+              <PaginationContent>
+                {/* Previous Button */}
+                {paginationData.currentPage > 1 && (
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      href={`?page=${paginationData.currentPage - 1}`}
+                    />
+                  </PaginationItem>
+                )}
+
+                {/* Page Numbers */}
+                {Array.from({ length: paginationData.totalPages }, (_, i) => i + 1).map((page) => {
+                  // Show first page, last page, current page, and pages around current page
+                  const shouldShow = 
+                    page === 1 || 
+                    page === paginationData.totalPages || 
+                    Math.abs(page - paginationData.currentPage) <= 1;
+
+                  if (!shouldShow) {
+                    // Show ellipsis for gaps
+                    if (page === 2 && paginationData.currentPage > 4) {
+                      return (
+                        <PaginationItem key={`ellipsis-start-${page}`}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    if (page === paginationData.totalPages - 1 && paginationData.currentPage < paginationData.totalPages - 3) {
+                      return (
+                        <PaginationItem key={`ellipsis-end-${page}`}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    return null;
+                  }
+
+                  return (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        href={`?page=${page}`}
+                        isActive={page === paginationData.currentPage}
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                })}
+
+                {/* Next Button */}
+                {paginationData.currentPage < paginationData.totalPages && (
+                  <PaginationItem>
+                    <PaginationNext 
+                      href={`?page=${paginationData.currentPage + 1}`}
+                    />
+                  </PaginationItem>
+                )}
+              </PaginationContent>
+            </Pagination>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
