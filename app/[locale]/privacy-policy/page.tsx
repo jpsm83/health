@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import PrivacyPolicy from '@/pagesClient/PrivacyPolicy';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 export async function generateMetadata({ 
   params 
@@ -20,7 +21,9 @@ export async function generateMetadata({
 export default function PrivacyPolicyPage() {
   return (
     <main className="container mx-auto">
-      <PrivacyPolicy />
+      <ErrorBoundary context={"PrivacyPolicy component"}>
+        <PrivacyPolicy />
+      </ErrorBoundary>
     </main>
   );
 }

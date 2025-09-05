@@ -10,14 +10,14 @@ import { createComment } from "@/app/actions/comments";
 import { Heart } from 'lucide-react';
 import { useRouter } from "next/navigation";
 
-export default function Article(articleData: IArticle) {
+export default function Article({ articleData }: { articleData: IArticle | undefined }) {
   const { data: session } = useSession();
   const locale = useLocale();
-  const [likes, setLikes] = useState<number>(articleData.likes?.length || 0);
+  const [likes, setLikes] = useState<number>(articleData?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [newComment, setNewComment] = useState<string | undefined>(undefined);
   const [comments, setComments] = useState<IArticleComment[]>(
-    articleData.comments || []
+    articleData?.comments || []
   );
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -36,12 +36,12 @@ export default function Article(articleData: IArticle) {
 
   // Check if user has liked the article
   useEffect(() => {
-    if (session?.user?.id && articleData.likes) {
+    if (session?.user?.id && articleData?.likes) {
       setIsLiked(
-        articleData.likes.some((like) => like.toString() === session.user.id)
+        articleData?.likes.some((like) => like.toString() === session.user.id)
       );
     }
-  }, [session, articleData.likes]);
+  }, [session, articleData?.likes]);
 
   // toggle article like
   const toggleLike = async () => {
@@ -51,7 +51,7 @@ export default function Article(articleData: IArticle) {
     }
 
     try {
-      const result = await toggleArticleLike(articleData._id?.toString() || "", session?.user?.id || "");
+      const result = await toggleArticleLike(articleData?._id?.toString() || "", session?.user?.id || "");
       if (result.success) {
         setLikes(result.likeCount || 0);
         setIsLiked(result.liked || false);
@@ -69,7 +69,7 @@ export default function Article(articleData: IArticle) {
     setIsSubmitting(true);
     try {
       const result = await createComment(
-        articleData._id?.toString() || "",
+        articleData?._id?.toString() || "",
         newComment?.trim() || "",
         session?.user?.id || ""
       );
@@ -88,8 +88,8 @@ export default function Article(articleData: IArticle) {
   const calculateContentDistribution = () => {
     const containerDistribution = 4;
     const totalContent =
-      articleData.contentsByLanguage[0].articleContents.length;
-    const totalImages = articleData.articleImages.length;
+      articleData?.contentsByLanguage[0].articleContents.length;
+    const totalImages = articleData?.articleImages.length;
 
     if (totalContent === 0 || totalImages === 0) return [];
 
@@ -97,25 +97,25 @@ export default function Article(articleData: IArticle) {
     let contentIndex = 0;
 
     for (let i = 0; i < containerDistribution; i++) {
-      const imageIndex = i < totalImages ? i : i % totalImages;
-      const image = articleData.articleImages[imageIndex];
+      const imageIndex = i < (totalImages || 0) ? i : i % (totalImages || 0);
+      const image = articleData?.articleImages[imageIndex];
 
       // Calculate how many content sections this container should have
       let contentCount = 0;
-      if (i < totalContent) {
+      if (i < (totalContent || 0)) {
         if (i === containerDistribution - 1) {
           // Last container gets remaining content
-          contentCount = totalContent - contentIndex;
+          contentCount = (totalContent || 0) - contentIndex;
         } else {
           // Distribute content evenly among first 3 containers
           contentCount = Math.ceil(
-            (totalContent - contentIndex) / (containerDistribution - i)
+            ((totalContent || 0) - contentIndex) / (containerDistribution - i)
           );
         }
       }
 
       const containerContent =
-        articleData.contentsByLanguage[0].articleContents.slice(
+        articleData?.contentsByLanguage[0].articleContents.slice(
           contentIndex,
           contentIndex + contentCount
         );
@@ -138,17 +138,17 @@ export default function Article(articleData: IArticle) {
       {/* Article Header */}
       <header className="text-center py-8 bg-gray-100">
         <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 cursor-default">
-          {articleData.contentsByLanguage[0].mainTitle}
+          {articleData?.contentsByLanguage[0].mainTitle}
         </h1>
         <div className="flex flex-col md:flex-row items-center justify-between px-2 md:px-8">
         <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-400 gap-4 mb-2 md:mb-0 cursor-default">
-          <span>Category: {articleData.category}</span>
+          <span>Category: {articleData?.category}</span>
           <span>
             Published:{" "}
-            {formatDate(articleData.createdAt)}
+            {formatDate(articleData?.createdAt)}
           </span>
           <span>
-            Views: {articleData.views}
+            Views: {articleData?.views}
           </span>
           <span>
             Likes: {likes}
@@ -172,7 +172,7 @@ export default function Article(articleData: IArticle) {
                 <Image
                   src={container.image}
                   alt={`${
-                    articleData.contentsByLanguage[0].mainTitle
+                    articleData?.contentsByLanguage[0].mainTitle
                   } - Section ${containerIndex + 1}`}
                   fill
                   className="object-cover"
@@ -184,7 +184,7 @@ export default function Article(articleData: IArticle) {
 
             {/* Container Content */}
             <div className="p-6 md:p-8">
-              {container.content.map((section, sectionIndex) => (
+              {container.content?.map((section, sectionIndex) => (
                 <section key={sectionIndex} className="mb-8 last:mb-0">
                   <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
                     {section.subTitle}

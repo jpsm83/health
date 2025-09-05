@@ -1,26 +1,25 @@
-import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import Profile from '@/pagesClient/Profile';
+import { Metadata } from "next";
+import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
+import Profile from "@/pagesClient/Profile";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ locale: string }> 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  
-  return generatePrivateMetadata(
-    locale,
-    '/profile',
-    'metadata.profile.title'
-  );
+
+  return generatePrivateMetadata(locale, "/profile", "metadata.profile.title");
 }
 
 // Server Component - handles metadata generation
 export default function ProfilePage() {
   return (
-      <main className="max-w-4xl mx-auto py-8 px-4">
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Profile component"}>
         <Profile />
-      </main>
+      </ErrorBoundary>
+    </main>
   );
 }

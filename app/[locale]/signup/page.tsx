@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import SignUp from '@/pagesClient/SignUp';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 export async function generateMetadata({ 
   params 
@@ -18,5 +19,11 @@ export async function generateMetadata({
 
 // Server Component - handles metadata generation
 export default function SignUpPage() {
-  return <SignUp />;
+  return (
+    <main className="container mx-auto">
+      <ErrorBoundary context={"SignUp component"}>
+        <SignUp />
+      </ErrorBoundary>
+    </main>
+  );
 }

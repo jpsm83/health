@@ -132,11 +132,11 @@ class ArticleService {
     }
   }
 
-  // get article by id
-  async getArticleById(id: string, locale = "en"): Promise<IArticle> {
+  // get article by slug
+  async getArticleBySlug(slug: string, locale = "en"): Promise<IArticle> {
     try {
       const result = await this.handleRequest<IArticle>(() =>
-        this.instance.get(`/articles/${id}`, {
+        this.instance.get(`/articles/${slug}`, {
           params: {
             locale,
           },
@@ -144,7 +144,7 @@ class ArticleService {
       );
       return result;
     } catch (error) {
-      console.error("Error fetching article:", error);
+      console.error("Error fetching article by slug:", error);
       throw error;
     }
   }
@@ -234,24 +234,7 @@ class ArticleService {
          };
        }
      }
-  
-  // get article by category and slug
-  async getArticleByCategoryAndSlug(slug: string): Promise<IArticle> {
-    try {
-      const result = await this.handleRequest<IArticle>(() =>
-        this.instance.get("/articles", {
-          params: {
-            slug,
-          },
-        })
-      );
-      return result;
-    } catch (error) {
-      console.error("Error fetching article by category and slug:", error);
-      throw error;
-    }
   }
-}
 
 // Export singleton instance for API calls
 export const articleService = new ArticleService();

@@ -29,7 +29,7 @@ export default function ArticleCard({
 
   return (
     <Link
-      href={`${locale}/${article.category}/${article.contentsByLanguage[0].seo.slug}`}
+      href={`/${article.category}/${article.contentsByLanguage[0].seo.slug}`}
       className="bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col cursor-pointer"
     >
       {/* Article Image - More height, narrower width */}

@@ -1,18 +1,19 @@
-import { Metadata } from 'next';
-import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
-import CookiePolicy from '@/pagesClient/CookiePolicy';
+import { Metadata } from "next";
+import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
+import CookiePolicy from "@/pagesClient/CookiePolicy";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ locale: string }> 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-   
+
   return generatePrivateMetadata(
     locale,
-    '/cookie-policy',
-    'metadata.cookiePolicy.title'
+    "/cookie-policy",
+    "metadata.cookiePolicy.title"
   );
 }
 
@@ -20,7 +21,9 @@ export async function generateMetadata({
 export default function CookiePolicyPage() {
   return (
     <main className="container mx-auto">
-      <CookiePolicy />
+      <ErrorBoundary context={"CookiePolicy component"}>
+        <CookiePolicy />
+      </ErrorBoundary>
     </main>
   );
 }

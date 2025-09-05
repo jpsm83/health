@@ -7,7 +7,7 @@ export default function About() {
   const t = useTranslations("about");
 
   return (
-    <div className="h-full bg-white md:mt-20 mt-10 text-justify">
+    <div className="h-full md:mt-20 mt-10 text-justify">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-red-600 to-pink-600 text-white py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

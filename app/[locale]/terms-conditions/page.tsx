@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { generatePrivateMetadata } from '@/lib/utils/genericMetadata';
 import TermsConditions from '@/pagesClient/TermsConditions';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 export async function generateMetadata({ 
   params 
@@ -20,7 +21,9 @@ export async function generateMetadata({
 export default function TermsConditionsPage() {
   return (
     <main className="container mx-auto">
-      <TermsConditions />
+      <ErrorBoundary context={"TermsConditions component"}>
+        <TermsConditions />
+      </ErrorBoundary>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Dashboard from "@/pagesClient/Dashboard";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 export async function generateMetadata({
   params,
@@ -19,8 +20,10 @@ export async function generateMetadata({
 // Server Component - handles metadata generation
 export default function DashboardPage() {
   return (
-    <main className="container mx-auto px-4 py-8">
-      <Dashboard />
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Dashboard component"}>
+        <Dashboard />
+      </ErrorBoundary>
     </main>
   );
 }

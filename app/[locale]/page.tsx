@@ -3,6 +3,7 @@ import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Home from "@/pagesClient/Home";
 import { articleService } from "@/services/articleService";
 import { IArticle } from "@/interfaces/article";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 export async function generateMetadata({
   params,
@@ -22,27 +23,21 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
 
+  let featuredArticles: IArticle[] | [] = [];
+
   try {
-    const featuredArticles: IArticle[] | [] = await articleService.getArticles({
+    featuredArticles = await articleService.getArticles({
       locale,
     });
-    return (
-      <div className="h-full bg-[#f9fafb]">
-        <main className="container mx-auto">
-          <Home featuredArticles={featuredArticles} />
-        </main>
-      </div>
-    );
   } catch (error) {
     console.error("Error fetching articles:", error);
-    return (
-      <div className="bg-gray-50">
-        <main className="mx-auto sm:px-8 md:px-12 lg:px-24 xl:px-36">
-          <div className="flex justify-center items-center py-20">
-            <div className="text-lg text-red-600">Error loading Home Page</div>
-          </div>
-        </main>
-      </div>
-    );
   }
+
+  return (
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Home component"}>
+        <Home featuredArticles={featuredArticles} />
+      </ErrorBoundary>
+    </main>
+  );
 }

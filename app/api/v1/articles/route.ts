@@ -69,41 +69,44 @@ export const GET = async (req: Request) => {
       mongoFilter.category = category;
     }
 
-// Exclude already loaded IDs
-if (excludeIds) {
-  try {
-    const excludeIdsArray = JSON.parse(excludeIds);
-    if (Array.isArray(excludeIdsArray) && excludeIdsArray.length > 0) {
-      mongoFilter._id = { $nin: excludeIdsArray };
+    // Exclude already loaded IDs
+    if (excludeIds) {
+      try {
+        const excludeIdsArray = JSON.parse(excludeIds);
+        if (Array.isArray(excludeIdsArray) && excludeIdsArray.length > 0) {
+          mongoFilter._id = { $nin: excludeIdsArray };
+        }
+      } catch {
+        return new NextResponse(
+          JSON.stringify({
+            message:
+              "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
     }
-  } catch {
-    return new NextResponse(
-      JSON.stringify({
-        message: "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
-      }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
-    );
-  }
-}
 
     // ------------------------
     // Query DB
     // ------------------------
-// Query DB
-const articles = await Article.find(mongoFilter)
-  .populate({ path: "createdBy", select: "username", model: User })
-  .sort({ [sort]: order })
-  .limit(limit) // Always limit
-  .lean();
-  
+    const articles = await Article.find(mongoFilter)
+      .populate({ path: "createdBy", select: "username", model: User })
+      .sort({ [sort]: order })
+      .limit(limit) // Always limit
+      .lean();
+
     // ------------------------
     // Handle no results
     // ------------------------
     if (!articles) {
-      return new NextResponse(JSON.stringify({ message: "No articles found!" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      })
+      return new NextResponse(
+        JSON.stringify({ message: "No articles found!" }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     // ------------------------
