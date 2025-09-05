@@ -3,6 +3,7 @@ import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
 } from "@/lib/utils/articleMetadata";
+import { languageMap } from "@/lib/utils/genericMetadata";
 import { IArticle, IMetaDataArticle } from "@/interfaces/article";
 import { articleService } from "@/services/articleService";
 import Article from "@/pagesClient/Article";
@@ -23,6 +24,8 @@ export async function generateMetadata({
     }
 
     const contentByLanguage = articleData.contentsByLanguage[0]; // Already filtered by API
+    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
 
     const metaContent: IMetaDataArticle = {
       createdBy:
@@ -31,7 +34,7 @@ export async function generateMetadata({
         "username" in articleData.createdBy
           ? (articleData.createdBy as { username: string }).username
           : "Women Spot Team",
-      articleImages: articleData.articleImages,
+      articleImages: articleData.articleImages || [],
       category: articleData.category,
       createdAt: articleData.createdAt
         ? new Date(articleData.createdAt)
@@ -39,21 +42,47 @@ export async function generateMetadata({
       updatedAt: articleData.updatedAt
         ? new Date(articleData.updatedAt)
         : new Date(),
-      seo: contentByLanguage?.seo || {
-        metaTitle: "Article Not Found",
-        metaDescription: "The requested article could not be found",
-        keywords: [],
-        slug: "",
-        hreflang: "",
-        urlPattern: "",
-        canonicalUrl: "",
+      seo: contentByLanguage?.seo ? {
+        ...contentByLanguage.seo,
+        canonicalUrl: contentByLanguage.seo.canonicalUrl || canonicalUrl,
+        hreflang: contentByLanguage.seo.hreflang || languageMap[locale] || locale,
+        slug: contentByLanguage.seo.slug || slug,
+      } : {
+        metaTitle: `Article: ${slug}`,
+        metaDescription: `Read about ${slug} on Women Spot`,
+        keywords: [articleData.category, "health", "women"],
+        slug: slug,
+        hreflang: languageMap[locale] || locale,
+        urlPattern: `/${locale}/${articleData.category}/[slug]`,
+        canonicalUrl: canonicalUrl,
       },
     };
 
     return generateArticleMetadata(metaContent);
   } catch (error) {
     console.error("Error generating article metadata:", error);
-    return generateArticleNotFoundMetadata();
+    
+    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const fallbackCanonicalUrl = `${baseUrl}/${locale}/${slug}`;
+    
+    const fallbackMetaContent: IMetaDataArticle = {
+      createdBy: "Women Spot Team",
+      articleImages: [],
+      category: "health",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      seo: {
+        metaTitle: `Article: ${slug}`,
+        metaDescription: `Read about ${slug} on Women Spot - Your health and wellness resource`,
+        keywords: ["health", "women", "wellness", slug],
+        slug: slug,
+        hreflang: languageMap[locale] || locale,
+        urlPattern: `/${locale}/[category]/[slug]`,
+        canonicalUrl: fallbackCanonicalUrl,
+      },
+    };
+    
+    return generateArticleMetadata(fallbackMetaContent);
   }
 }
 

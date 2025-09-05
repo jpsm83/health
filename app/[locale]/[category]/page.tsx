@@ -20,7 +20,7 @@ export async function generateMetadata({
     };
   }
 
-  return generatePublicMetadata(locale, "", `metadata.${category}.title`);
+  return generatePublicMetadata(locale, `/${category}`, `metadata.${category}.title`);
 }
 
 export default async function CategoryPage({

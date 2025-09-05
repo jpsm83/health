@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
-import SiteMap from "@/pagesClient/SiteMap";
+import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 export async function generateMetadata({
@@ -10,15 +9,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  return generatePrivateMetadata(locale, "/site-map", "metadata.siteMap.title");
+  return generatePublicMetadata(locale, "/site-map", "metadata.siteMap.title");
 }
 
-// Server Component - handles metadata generation
+// Server Component - handles metadata generation and renders static content
 export default function SiteMapPage() {
   return (
     <main className="container mx-auto">
       <ErrorBoundary context={"SiteMap component"}>
-        <SiteMap />
+        <div>
+          <h1>Site Map</h1>
+        </div>
       </ErrorBoundary>
     </main>
   );

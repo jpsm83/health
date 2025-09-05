@@ -14,6 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { mainCategories } from "@/lib/constants";
 
 interface PaginationData {
   currentPage: number;
@@ -29,8 +30,23 @@ interface ArticlesProps {
   error?: string;
 }
 
-export default function Articles({ featuredArticles, paginatedArticles, category, paginationData }: ArticlesProps) {
+export default function Articles({
+  featuredArticles,
+  paginatedArticles,
+  category,
+  paginationData,
+}: ArticlesProps) {
   const t = useTranslations("articles");
+
+  if (!mainCategories.includes(category)) {
+    return (
+      <section className="text-center py-16">
+        <h2 className="text-2xl font-semibold text-gray-600 mb-4">
+          {t("categoryNotFound")}
+        </h2>
+      </section>
+    );
+  }
 
   // Handle empty articles case
   if (featuredArticles.length === 0 && paginatedArticles.length === 0) {
@@ -60,15 +76,13 @@ export default function Articles({ featuredArticles, paginatedArticles, category
             </div>
           </div>
         </section>
-        
+
         {/* No articles message */}
         <section className="text-center py-16">
           <h2 className="text-2xl font-semibold text-gray-600 mb-4">
             {t("noArticlesFound")}
           </h2>
-          <p className="text-gray-500">
-            {t("noArticlesAvailable")}
-          </p>
+          <p className="text-gray-500">{t("noArticlesAvailable")}</p>
         </section>
       </div>
     );
@@ -119,9 +133,7 @@ export default function Articles({ featuredArticles, paginatedArticles, category
         <FeaturedArticles
           articles={paginatedArticles}
           title={t(`${category}.featuredArticles.title`)}
-          description={t(
-            `${category}.featuredArticles.description`
-          )}
+          description={t(`${category}.featuredArticles.description`)}
         />
       </section>
 
@@ -135,18 +147,21 @@ export default function Articles({ featuredArticles, paginatedArticles, category
                 {/* Previous Button */}
                 {paginationData.currentPage > 1 && (
                   <PaginationItem>
-                    <PaginationPrevious 
+                    <PaginationPrevious
                       href={`?page=${paginationData.currentPage - 1}`}
                     />
                   </PaginationItem>
                 )}
 
                 {/* Page Numbers */}
-                {Array.from({ length: paginationData.totalPages }, (_, i) => i + 1).map((page) => {
+                {Array.from(
+                  { length: paginationData.totalPages },
+                  (_, i) => i + 1
+                ).map((page) => {
                   // Show first page, last page, current page, and pages around current page
-                  const shouldShow = 
-                    page === 1 || 
-                    page === paginationData.totalPages || 
+                  const shouldShow =
+                    page === 1 ||
+                    page === paginationData.totalPages ||
                     Math.abs(page - paginationData.currentPage) <= 1;
 
                   if (!shouldShow) {
@@ -158,7 +173,10 @@ export default function Articles({ featuredArticles, paginatedArticles, category
                         </PaginationItem>
                       );
                     }
-                    if (page === paginationData.totalPages - 1 && paginationData.currentPage < paginationData.totalPages - 3) {
+                    if (
+                      page === paginationData.totalPages - 1 &&
+                      paginationData.currentPage < paginationData.totalPages - 3
+                    ) {
                       return (
                         <PaginationItem key={`ellipsis-end-${page}`}>
                           <PaginationEllipsis />
@@ -183,7 +201,7 @@ export default function Articles({ featuredArticles, paginatedArticles, category
                 {/* Next Button */}
                 {paginationData.currentPage < paginationData.totalPages && (
                   <PaginationItem>
-                    <PaginationNext 
+                    <PaginationNext
                       href={`?page=${paginationData.currentPage + 1}`}
                     />
                   </PaginationItem>

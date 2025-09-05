@@ -784,5 +784,39 @@
         }
       }
     }
+  },
+  "confirmEmail": {
+    "title": "אישור אימייל",
+    "loading": "מאשר את האימייל שלך...",
+    "success": {
+      "title": "אימייל אושר!",
+      "signInButton": "התחבר"
+    },
+    "error": {
+      "title": "אישור נכשל",
+      "backToSignInButton": "חזור להתחברות"
+    },
+    "messages": {
+      "noToken": "לא נמצא אסימון אימות.",
+      "confirmationFailed": "אישור האימייל נכשל.",
+      "unexpectedError": "אירעה שגיאה באישור האימייל שלך."
+    }
+  },
+  "footer": {
+    "brandName": "בריאות ורווחה",
+    "brandDescription": "המקור האמין שלך לתוכן בריאות, כושר ואורח חיים. מעצים נשים לחיות את החיים הטובים ביותר שלהן.",
+    "quickLinks": "קישורים מהירים",
+    "aboutUs": "אודותינו",
+    "contact": "צור קשר",
+    "privacyPolicy": "מדיניות פרטיות",
+    "getInTouch": "צור קשר",
+    "address": "ברצלונה, ספרד",
+    "copyright": "© 2024 בריאות ורווחה. כל הזכויות שמורות.",
+    "termsOfService": "תנאי שירות",
+    "cookiePolicy": "מדיניות עוגיות",
+    "followUs": "עקוב אחרינו",
+    "siteMap": "מפת האתר",
+    "termsAndConditions": "תנאים והגבלות",
+    "cookiesPolicy": "מדיניות עוגיות"
   }
 }

@@ -1,18 +1,6 @@
 import { Metadata } from 'next';
 import { IMetaDataArticle } from '@/interfaces/article';
-
-// Language mapping for proper hreflang values (matching metadata.ts)
-const languageMap: Record<string, string> = {
-  'en': 'en-US',
-  'pt': 'pt-BR', 
-  'es': 'es-ES',
-  'fr': 'fr-FR',
-  'de': 'de-DE',
-  'it': 'it-IT',
-  'nl': 'nl-NL',
-  'he': 'he-IL',
-  'ru': 'ru-RU'
-};
+import { languageMap } from './genericMetadata';
 
 // Generate comprehensive metadata for article pages
 // Optimized for all major social media platforms
@@ -21,38 +9,53 @@ export async function generateArticleMetadata(
 ): Promise<Metadata> {
   
   // Enhanced image handling for social media
-  const enhancedImages = metaContent.articleImages.map((img: string) => ({
-    url: img,
-    width: 1280,
-    height: 720,
-    alt: metaContent.seo.metaTitle,
-    type: 'image/png', // or 'image/png' depending on your image format
-    secureUrl: img.startsWith('https') ? img : undefined,
-  }));
+  const enhancedImages = metaContent.articleImages?.length > 0 
+    ? metaContent.articleImages.map((img: string) => ({
+        url: img,
+        width: 1280,
+        height: 720,
+        alt: metaContent.seo.metaTitle || 'Article image',
+        type: 'image/png',
+        secureUrl: img.startsWith('https') ? img : undefined,
+      }))
+    : [{
+        url: '/women-spot.png',
+        width: 1200,
+        height: 630,
+        alt: 'Women Spot - Be Your Self',
+        type: 'image/png',
+      }];
   
   // Get proper language code for current locale
-  const properLang = languageMap[metaContent.seo.hreflang]
+  const properLang = languageMap[metaContent.seo.hreflang] || metaContent.seo.hreflang || 'en-US';
   
+  // Ensure we have valid values for all metadata fields
+  const title = metaContent.seo.metaTitle || 'Article';
+  const description = metaContent.seo.metaDescription || 'Read this article on Women Spot';
+  const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
+  const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/article`;
+  const author = metaContent.createdBy || 'Women Spot Team';
+
   return {
-    title: metaContent.seo.metaTitle,
-    description: metaContent.seo.metaDescription,
-    keywords: metaContent.seo.keywords.join(', '),
-    authors: [{ name: metaContent.createdBy }],
-    creator: metaContent.createdBy,
-    publisher: metaContent.createdBy,
+    title,
+    description,
+    keywords,
+    authors: [{ name: author }],
+    creator: author,
+    publisher: author,
     metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     alternates: {
-      canonical: metaContent.seo.canonicalUrl,
+      canonical: canonicalUrl,
       languages: {
-        [properLang]: metaContent.seo.canonicalUrl,
+        [properLang]: canonicalUrl,
       },
     },
     // Enhanced Open Graph for Facebook, LinkedIn, WhatsApp, Discord, etc.
     openGraph: {
-      title: metaContent.seo.metaTitle,
-      description: metaContent.seo.metaDescription,
-      url: metaContent.seo.canonicalUrl,
+      title,
+      description,
+      url: canonicalUrl,
       siteName: 'Women Spot',
       locale: properLang,
       type: 'article',
@@ -62,28 +65,28 @@ export async function generateArticleMetadata(
     // Enhanced Twitter Cards for better Twitter sharing
     twitter: {
       card: 'summary_large_image',
-      title: metaContent.seo.metaTitle,
-      description: metaContent.seo.metaDescription,
-      images: metaContent.articleImages,
+      title,
+      description,
+      images: metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/women-spot.png'],
       // Additional Twitter properties
-      creator: metaContent.createdBy, // Add your actual Twitter handle
+      creator: author,
       site: '@womenspot', // Add your actual Twitter handle
     },
     // Additional metadata for other platforms and SEO
     other: {
-      'language': metaContent.seo.hreflang,
+      'language': metaContent.seo.hreflang || properLang,
       // Article-specific metadata
-      'article:published_time': metaContent.createdAt?.toISOString() || '',
-      'article:modified_time': metaContent.updatedAt?.toISOString() || '',
-      'article:author': 'Women Spot',
-      'article:section': metaContent.category,
-      'article:tag': metaContent.seo.keywords.join(', '),
+      'article:published_time': metaContent.createdAt?.toISOString() || new Date().toISOString(),
+      'article:modified_time': metaContent.updatedAt?.toISOString() || new Date().toISOString(),
+      'article:author': author,
+      'article:section': metaContent.category || 'Health',
+      'article:tag': keywords,
       // LinkedIn specific
       'linkedin:owner': 'womenspot', // Add your actual LinkedIn company page
       // Pinterest specific
       'pinterest:rich-pin': 'true',
       // WhatsApp specific
-      'whatsapp:description': metaContent.seo.metaDescription,
+      'whatsapp:description': description,
       // General social media
       'theme-color': '#8B5CF6', // Purple color from your brand
       'msapplication-TileColor': '#8B5CF6',

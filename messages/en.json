@@ -28,61 +28,6 @@
       "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
     }
   },
-    "health": {
-      "title": "Health Articles",
-      "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "health articles, wellness content, health tips, medical advice, lifestyle articles, health resources"
-    },
-    "fitness": {
-      "title": "Fitness Articles",
-      "description": "Our best insights on fitness, a comprehensive collection of fitness articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "fitness articles, workout tips, exercise guides, fitness routines, health and fitness, wellness"
-    },
-    "nutrition": {
-      "title": "Nutrition Articles",
-      "description": "Our best insights on nutrition, a comprehensive collection of nutrition articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "nutrition articles, healthy eating, diet tips, food guides, nutritional advice, wellness nutrition"
-    },
-    "sex": {
-      "title": "Sex Articles",
-      "description": "Our best insights on sex, a comprehensive collection of sex articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "sex articles, sexual health, relationships, intimacy, sexual wellness, relationship advice"
-    },
-    "beauty": {
-      "title": "Beauty Articles",
-      "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "beauty articles, beauty tips, skincare, makeup, beauty routines, beauty advice"
-    },
-    "fashion": {
-      "title": "Fashion Articles",
-      "description": "Our best insights on fashion, a comprehensive collection of fashion articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "fashion articles, style tips, fashion trends, clothing advice, fashion guides, style inspiration"
-    },
-    "lifestyle": {
-      "title": "Lifestyle Articles",
-      "description": "Our best insights on lifestyle, a comprehensive collection of lifestyle articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "lifestyle articles, life tips, wellness lifestyle, healthy living, life advice, lifestyle guides"
-    },
-    "travel": {
-      "title": "Travel Articles",
-      "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "travel articles, travel tips, travel guides, vacation advice, travel destinations, travel wellness"
-    },
-    "decor": {
-      "title": "Decor Articles",
-      "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "decor articles, home decor, interior design, home tips, decorating guides, home improvement"
-    },
-    "productivity": {
-      "title": "Productivity Articles",
-      "description": "Our best insights on productivity, a comprehensive collection of productivity articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "productivity articles, productivity tips, time management, work efficiency, productivity guides, productivity advice"
-    },
-    "parenting": {
-      "title": "Parenting Articles",
-      "description": "Our best insights on parenting, a comprehensive collection of parenting articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "parenting articles, parenting tips, child care, parenting advice, family guides, parenting resources"
-    },
   "newsletterSignup": {
     "title": "Stay Updated with Health Insights",
     "description": "Get the latest women's health tips, wellness advice, and expert insights delivered directly to your inbox.",
@@ -314,8 +259,10 @@
     }
   },
   "articles": {
+    "categoryNotFound": "Category Not Found",
     "noArticlesFound": "No articles found",
     "noArticlesAvailable": "There are no articles available in this category at the moment.",
+
     "health": {
       "heroImageAlt": "Health Articles Hero Image",
       "title": "Health Articles",
@@ -327,6 +274,136 @@
       "explore": {
         "title": "Explore Health Articles",
         "description": "Our comprehensive collection of health articles, tips, everthing you need to know about health and wellness."
+      }
+    },
+    "fitness": {
+      "heroImageAlt": "Fitness Articles Hero Image",
+      "title": "Fitness Articles",
+      "description": "Our best insights on fitness, a comprehensive collection of fitness articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Fitness Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in fitness and wellness."
+      },
+      "explore": {
+        "title": "Explore Fitness Articles",
+        "description": "Our comprehensive collection of fitness articles, tips, everthing you need to know about fitness and wellness."
+      }
+    },
+    "nutrition": {
+      "heroImageAlt": "Nutrition Articles Hero Image",
+      "title": "Nutrition Articles",
+      "description": "Our best insights on nutrition, a comprehensive collection of nutrition articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Nutrition Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in nutrition and wellness."
+      },
+      "explore": {
+        "title": "Explore Nutrition Articles",
+        "description": "Our comprehensive collection of nutrition articles, tips, everthing you need to know about nutrition and wellness."
+      }
+    },
+    "sex": {
+      "heroImageAlt": "Sex Articles Hero Image",
+      "title": "Sex Articles",
+      "description": "Our best insights on sex, a comprehensive collection of sex articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Sex Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in sex and wellness."
+      },
+      "explore": {
+        "title": "Explore Sex Articles",
+        "description": "Our comprehensive collection of sex articles, tips, everthing you need to know about sex and wellness."
+      }
+    },
+    "beauty": {
+      "heroImageAlt": "Beauty Articles Hero Image",
+      "title": "Beauty Articles",
+      "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Beauty Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in beauty and wellness."
+      },
+      "explore": {
+        "title": "Explore Beauty Articles",
+        "description": "Our comprehensive collection of beauty articles, tips, everthing you need to know about beauty and wellness."
+      }
+    },
+    "fashion": {
+      "heroImageAlt": "Fashion Articles Hero Image",
+      "title": "Fashion Articles",
+      "description": "Our best insights on fashion, a comprehensive collection of fashion articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Fashion Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in fashion and wellness."
+      },
+      "explore": {
+        "title": "Explore Fashion Articles",
+        "description": "Our comprehensive collection of fashion articles, tips, everthing you need to know about fashion and wellness."
+      }
+    },
+    "lifestyle": {
+      "heroImageAlt": "Lifestyle Articles Hero Image",
+      "title": "Lifestyle Articles",
+      "description": "Our best insights on lifestyle, a comprehensive collection of lifestyle articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Lifestyle Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in lifestyle and wellness."
+      },
+      "explore": {
+        "title": "Explore Lifestyle Articles",
+        "description": "Our comprehensive collection of lifestyle articles, tips, everthing you need to know about lifestyle and wellness."
+      }
+    },
+    "travel": {
+      "heroImageAlt": "Travel Articles Hero Image",
+      "title": "Travel Articles",
+      "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Travel Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in travel and wellness."
+      },
+      "explore": {
+        "title": "Explore Travel Articles",
+        "description": "Our comprehensive collection of travel articles, tips, everthing you need to know about travel and wellness."
+      }
+    },
+    "decor": {
+      "heroImageAlt": "Decor Articles Hero Image",
+      "title": "Decor Articles",
+      "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Decor Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in decor and wellness."
+      },
+      "explore": {
+        "title": "Explore Decor Articles",
+        "description": "Our comprehensive collection of decor articles, tips, everthing you need to know about decor and wellness."
+      }
+    },
+    "productivity": {
+      "heroImageAlt": "Productivity Articles Hero Image",
+      "title": "Productivity Articles",
+      "description": "Our best insights on productivity, a comprehensive collection of productivity articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Productivity Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in productivity and wellness."
+      },
+      "explore": {
+        "title": "Explore Productivity Articles",
+        "description": "Our comprehensive collection of productivity articles, tips, everthing you need to know about productivity and wellness."
+      }
+    },
+    "parenting": {
+      "heroImageAlt": "Parenting Articles Hero Image",
+      "title": "Parenting Articles",
+      "description": "Our best insights on parenting, a comprehensive collection of parenting articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "featuredArticles": {
+        "title": " Featured Parenting Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in parenting and wellness."
+      },
+      "explore": {
+        "title": "Explore Parenting Articles",
+        "description": "Our comprehensive collection of parenting articles, tips, everthing you need to know about parenting and wellness."
       }
     }
   },
@@ -495,6 +572,66 @@
       "title": "Site Map - Women Spot",
       "description": "Site map for Women Spot. Find your way around our platform and explore our content.",
       "keywords": "site map, Women Spot, health, fitness, lifestyle, empowerment, site map"
+    },
+    "health": {
+      "title": "Health Articles",
+      "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "health articles, wellness content, health tips, medical advice, lifestyle articles, health resources"
+    },
+    "fitness": {
+      "title": "Fitness Articles",
+      "description": "Our best insights on fitness, a comprehensive collection of fitness articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "fitness articles, workout tips, exercise guides, fitness routines, health and fitness, wellness"
+    },
+    "nutrition": {
+      "title": "Nutrition Articles",
+      "description": "Our best insights on nutrition, a comprehensive collection of nutrition articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "nutrition articles, healthy eating, diet tips, food guides, nutritional advice, wellness nutrition"
+    },
+    "sex": {
+      "title": "Sex Articles",
+      "description": "Our best insights on sex, a comprehensive collection of sex articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "sex articles, sexual health, relationships, intimacy, sexual wellness, relationship advice"
+    },
+    "beauty": {
+      "title": "Beauty Articles",
+      "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "beauty articles, beauty tips, skincare, makeup, beauty routines, beauty advice"
+    },
+    "fashion": {
+      "title": "Fashion Articles",
+      "description": "Our best insights on fashion, a comprehensive collection of fashion articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "fashion articles, style tips, fashion trends, clothing advice, fashion guides, style inspiration"
+    },
+    "lifestyle": {
+      "title": "Lifestyle Articles",
+      "description": "Our best insights on lifestyle, a comprehensive collection of lifestyle articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "lifestyle articles, life tips, wellness lifestyle, healthy living, life advice, lifestyle guides"
+    },
+    "travel": {
+      "title": "Travel Articles",
+      "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "travel articles, travel tips, travel guides, vacation advice, travel destinations, travel wellness"
+    },
+    "decor": {
+      "title": "Decor Articles",
+      "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "decor articles, home decor, interior design, home tips, decorating guides, home improvement"
+    },
+    "productivity": {
+      "title": "Productivity Articles",
+      "description": "Our best insights on productivity, a comprehensive collection of productivity articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "productivity articles, productivity tips, time management, work efficiency, productivity guides, productivity advice"
+    },
+    "parenting": {
+      "title": "Parenting Articles",
+      "description": "Our best insights on parenting, a comprehensive collection of parenting articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "parenting articles, parenting tips, child care, parenting advice, family guides, parenting resources"
+    },
+    "confirmEmail": {
+      "title": "Confirm Email - Women Spot",
+      "description": "Confirm your email address to access your Women Spot account. Enter your email address and we'll send you a confirmation link.",
+      "keywords": "confirm email, email confirmation, Women Spot account, email verification, account confirmation"
     }
   },
   "about": {
