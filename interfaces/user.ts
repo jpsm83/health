@@ -19,12 +19,13 @@ export interface IUser {
   _id?: Types.ObjectId | string;
   username: string;
   email: string;
-  password: string;
+  password?: string;
   role: string;
   birthDate: Date;
   imageFile?: string;
   imageUrl?: string;
   preferences: IUserPreferences;
+  subscriptionPreferences?: ISubscriptionPreferences;
   likedArticles?: Types.ObjectId[];
   commentedArticles?: Types.ObjectId[];
   subscriptionId?: Types.ObjectId | null;

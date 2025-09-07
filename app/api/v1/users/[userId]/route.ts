@@ -107,8 +107,7 @@ export const PATCH = async (
     const language = formData.get("language") as string;
     const region = formData.get("region") as string;
 
-    // Subscription Preferences (parse as JSON)
-    const subscriptionPreferencesRaw = formData.get("subscriptionPreferences") as string;
+    // Note: Subscription preferences are now handled via separate subscriber API
 
     // Validate required fields
     if (
@@ -195,26 +194,6 @@ export const PATCH = async (
     };
     if (JSON.stringify(user.preferences) !== JSON.stringify(preferences)) {
       updateData.preferences = preferences;
-    }
-
-    // Update subscription preferences
-    if (subscriptionPreferencesRaw) {
-      try {
-        const subscriptionPreferences = JSON.parse(
-          subscriptionPreferencesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-        );
-
-        if (subscriptionPreferences && subscriptionPreferences.categories && subscriptionPreferences.subscriptionFrequencies) {
-          updateData.subscriptionPreferences = subscriptionPreferences;
-        }
-      } catch {
-        return new NextResponse(
-          JSON.stringify({
-            message: "Invalid subscription preferences format",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
     }
 
     // Handle image upload if provided

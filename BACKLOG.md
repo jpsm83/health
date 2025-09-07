@@ -1,4 +1,4 @@
-- subscribe supose to add the user email somewhere
+- review code and modify fetch for actions
 - all loading must be on suspense
 - add skeleton everywhere
 - create 404 page

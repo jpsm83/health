@@ -187,7 +187,7 @@ export default function Profile() {
         errors.username = { message: t("validation.usernameTooShort") };
       } else if (values.username.length > 30) {
         errors.username = { message: t("validation.usernameTooLong") };
-      } else if (!/^[a-zA-Z0-9_-]+$/.test(values.username)) {
+      } else if (!/^[a-zA-Z0-9_\-\s]+$/.test(values.username)) {
         errors.username = {
           message: t("validation.usernameInvalidChars"),
         };
@@ -470,7 +470,7 @@ export default function Profile() {
 
     try {
       const updateData = {
-        username: data.username,
+        username: data.username.trim(),
         email: data.email,
         role: data.role,
         birthDate: data.birthDate,
@@ -542,7 +542,7 @@ export default function Profile() {
         </div>
       )}
 
-      <div className="flex items-start justify-center py-4 px-4 sm:px-6 lg:px-8">
+      <div className="flex items-start justify-center py-8 md:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
             {/* Profile Image Section - Centered on mobile, left on desktop */}

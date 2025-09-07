@@ -144,8 +144,9 @@ const authOptions: NextAuthConfig = {
                 profile.email?.split("@")[0] ||
                 "user_" + Math.random().toString(36).slice(-6)
               )
-                .replace(/[^a-zA-Z0-9_-]/g, "") // Remove special characters, keep only letters, numbers, underscores, and dashes
-                .replace(/\s+/g, "_"), // Replace spaces with underscores
+                .trim() // Trim whitespace from ends
+                .replace(/[^a-zA-Z0-9_\-\s]/g, "") // Remove special characters, keep only letters, numbers, underscores, dashes, and spaces
+                .replace(/\s+/g, " "), // Replace multiple spaces with single space
               role: "user",
               birthDate: new Date("2000-02-29"),
               lastLogin: new Date(),

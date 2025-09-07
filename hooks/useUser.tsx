@@ -34,11 +34,25 @@ export const useUser = () => {
 
         const userData = await response.json();
         
+        // Fetch subscription data if user has a subscriptionId
+        let subscriptionData = null;
+        if (userData.subscriptionId) {
+          try {
+            const subscriptionResponse = await fetch(`/api/v1/subscribers/${userData.subscriptionId}`);
+            if (subscriptionResponse.ok) {
+              subscriptionData = await subscriptionResponse.json();
+            }
+          } catch (subscriptionError) {
+            console.error("Error fetching subscription data:", subscriptionError);
+          }
+        }
+        
         // Transform the database user data to match our IUser interface
-        const transformedUser: Partial<IUser> = {
+        const transformedUser: IUser = {
           _id: userData._id || session.user.id,
           username: userData.username || session.user.name || "",
           email: userData.email || session.user.email || "",
+          password: userData.password || "", // Password is optional in frontend
           role: userData.role || session.user.role || "user",
           birthDate: userData.birthDate
             ? new Date(userData.birthDate)
@@ -49,9 +63,10 @@ export const useUser = () => {
             language: "en",
             region: "US",
           },
+          subscriptionId: userData.subscriptionId || null,
           subscriptionPreferences: {
-            categories: userData.subscriptionPreferences?.categories || mainCategories,
-            subscriptionFrequencies: userData.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+            categories: subscriptionData?.subscriptionPreferences?.categories || mainCategories,
+            subscriptionFrequencies: subscriptionData?.subscriptionPreferences?.subscriptionFrequencies || "weekly",
           },
           likedArticles: userData.likedArticles || [],
           commentedArticles: userData.commentedArticles || [],
@@ -59,17 +74,18 @@ export const useUser = () => {
           updatedAt: userData.updatedAt || new Date().toISOString(),
         };
 
-        setUser(transformedUser as IUser);
+        setUser(transformedUser);
       } catch (err) {
         console.error("Error fetching user data:", err);
         setError("Failed to load user data");
 
         // Fallback to session data if database fetch fails
         if (session?.user) {
-          const fallbackUser: Partial<IUser> = {
+          const fallbackUser: IUser = {
             _id: session.user.id,
             username: session.user.name || "",
             email: session.user.email || "",
+            password: "", // Password not available in session
             role: session.user.role || "user",
             birthDate: new Date("2000-02-29"),
             imageUrl: session.user.imageUrl || "",
@@ -87,7 +103,7 @@ export const useUser = () => {
             createdAt: new Date(),
             updatedAt: new Date(),
           };
-          setUser(fallbackUser as IUser);
+          setUser(fallbackUser);
         }
       } finally {
         setIsInitializing(false);
@@ -125,20 +141,62 @@ export const useUser = () => {
         }
       }
 
+      // Update user data (without subscription preferences)
+      const userUpdateData = { ...profileData };
+      delete userUpdateData.subscriptionPreferences; // Remove subscription data from user update
+      
       const result = await userService.updateUserProfile(
         actualUserId,
-        profileData
+        userUpdateData
       );
 
       if (result.success) {
+        // Update subscription preferences separately if provided
+        if (profileData.subscriptionPreferences && user?.subscriptionId) {
+          try {
+            const subscriptionResponse = await fetch(`/api/v1/subscribers/${user.subscriptionId}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                subscriptionPreferences: profileData.subscriptionPreferences,
+              }),
+            });
+
+            if (!subscriptionResponse.ok) {
+              console.error("Failed to update subscription preferences");
+              // Don't fail the entire update, just log the error
+            }
+          } catch (subscriptionError) {
+            console.error("Error updating subscription preferences:", subscriptionError);
+            // Don't fail the entire update, just log the error
+          }
+        }
+
         // Refresh user data after successful update
         const refreshResponse = await fetch(`/api/v1/users/${actualUserId}`);
         if (refreshResponse.ok) {
           const updatedUserData = await refreshResponse.json();
-          const transformedUser: Partial<IUser> = {
+          
+          // Fetch updated subscription data
+          let updatedSubscriptionData = null;
+          if (updatedUserData.subscriptionId) {
+            try {
+              const subscriptionResponse = await fetch(`/api/v1/subscribers/${updatedUserData.subscriptionId}`);
+              if (subscriptionResponse.ok) {
+                updatedSubscriptionData = await subscriptionResponse.json();
+              }
+            } catch (subscriptionError) {
+              console.error("Error fetching updated subscription data:", subscriptionError);
+            }
+          }
+          
+          const transformedUser: IUser = {
             _id: updatedUserData._id || session.user.id,
             username: updatedUserData.username || session.user.name || "",
             email: updatedUserData.email || session.user.email || "",
+            password: updatedUserData.password || "", // Password is optional in frontend
             role: updatedUserData.role || session.user.role || "user",
             birthDate: updatedUserData.birthDate
               ? new Date(updatedUserData.birthDate)
@@ -152,16 +210,17 @@ export const useUser = () => {
               language: "en",
               region: "US",
             },
+            subscriptionId: updatedUserData.subscriptionId || null,
             subscriptionPreferences: {
-              categories: updatedUserData.subscriptionPreferences?.categories || mainCategories,
-              subscriptionFrequencies: updatedUserData.subscriptionPreferences?.subscriptionFrequencies || "weekly",
+              categories: updatedSubscriptionData?.subscriptionPreferences?.categories || mainCategories,
+              subscriptionFrequencies: updatedSubscriptionData?.subscriptionPreferences?.subscriptionFrequencies || "weekly",
             },
             likedArticles: updatedUserData.likedArticles || [],
             commentedArticles: updatedUserData.commentedArticles || [],
             createdAt: updatedUserData.createdAt || new Date().toISOString(),
             updatedAt: updatedUserData.updatedAt || new Date().toISOString(),
           };
-          setUser(transformedUser as IUser);
+          setUser(transformedUser);
         }
       } else {
         setError(result.message || "Failed to update profile");

@@ -72,13 +72,8 @@ class UserService {
         formData.append("region", "US");
       }
 
-      // Add subscription preferences
-      if (profileData.subscriptionPreferences) {
-        formData.append(
-          "subscriptionPreferences",
-          JSON.stringify(profileData.subscriptionPreferences)
-        );
-      }
+      // Note: Subscription preferences are now handled separately via subscriber API
+      // No need to include subscription preferences in user update
 
       // Add image file if provided
       if (profileData.imageFile) {

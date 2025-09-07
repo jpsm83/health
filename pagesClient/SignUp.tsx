@@ -111,7 +111,7 @@ export default function SignUp() {
     try {
       // Use the register method from useAuth hook
       const result = await authService.registerUser({
-        username: data.username,
+        username: data.username.trim(),
         email: data.email,
         password: data.password,
         birthDate: data.birthDate,
@@ -261,9 +261,9 @@ export default function SignUp() {
                       message: "Username cannot exceed 30 characters",
                     },
                     pattern: {
-                      value: /^[a-zA-Z0-9_-]+$/,
+                      value: /^[a-zA-Z0-9_\-\s]+$/,
                       message:
-                        "Username can only contain letters, numbers, underscores and dashes",
+                        "Username can only contain letters, numbers, underscores, dashes and spaces",
                     },
                   })}
                   onChange={(e) => {
