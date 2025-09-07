@@ -784,5 +784,84 @@
     "siteMap": "Site Map",
     "termsAndConditions": "Nutzungsbedingungen",
     "cookiesPolicy": "Cookie-Richtlinie"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Artikel erfolgreich geliked",
+      "likedSuccessMessage": "Ihr Like wurde erfolgreich hinzugefügt!",
+      "unlikedSuccess": "Artikel erfolgreich ungeliked",
+      "unlikedSuccessMessage": "Ihr Like wurde erfolgreich entfernt!",
+      "likeError": "Fehler beim Liken des Artikels",
+      "likeErrorMessage": "Bitte versuchen Sie es später erneut"
+    },
+    "info": {
+      "category": "Kategorie:",
+      "published": "Veröffentlicht:",
+      "views": "Aufrufe:",
+      "likes": "Likes:"
+    },
+    "actions": {
+      "likeArticle": "Artikel liken",
+      "unlikeArticle": "Artikel unliken",
+      "likes": "Likes"
+    },
+    "imageAlt": " - Abschnitt "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Kommentar erfolgreich erstellt",
+      "createdSuccessMessage": "Ihr Kommentar wurde erfolgreich erstellt!",
+      "createError": "Fehler beim Erstellen des Kommentars",
+      "createErrorMessage": "Bitte versuchen Sie es später erneut",
+      "likedSuccess": "Kommentar erfolgreich geliked",
+      "likedSuccessMessage": "Ihr Kommentar wurde erfolgreich geliked!",
+      "unlikedSuccess": "Kommentar erfolgreich ungeliked",
+      "unlikedSuccessMessage": "Ihr Kommentar wurde erfolgreich ungeliked!",
+      "likeError": "Fehler beim Liken des Kommentars",
+      "likeErrorMessage": "Bitte versuchen Sie es später erneut",
+      "deletedSuccess": "Kommentar erfolgreich gelöscht",
+      "deletedSuccessMessage": "Ihr Kommentar wurde erfolgreich gelöscht!",
+      "deleteError": "Fehler beim Löschen des Kommentars",
+      "deleteErrorMessage": "Bitte versuchen Sie es später erneut",
+      "reportedSuccess": "Kommentar erfolgreich gemeldet",
+      "reportedSuccessMessage": "Vielen Dank, dass Sie uns helfen, unsere Community sicher zu halten!",
+      "reportError": "Fehler beim Melden des Kommentars",
+      "reportErrorMessage": "Bitte versuchen Sie es später erneut"
+    },
+    "title": "Kommentare",
+    "form": {
+      "placeholder": "Teilen Sie Ihre Gedanken mit...",
+      "charCount": "/1000 Zeichen",
+      "submit": "Kommentar absenden",
+      "submitting": "Wird abgesendet...",
+      "alreadyCommented": "Sie haben bereits einen Kommentar zu diesem Artikel abgegeben. Vielen Dank für Ihren Beitrag!",
+      "noComments": "Noch keine Kommentare. Seien Sie der Erste, der seine Gedanken teilt!"
+    },
+    "actions": {
+      "likeComment": "Kommentar liken",
+      "unlikeComment": "Kommentar unliken",
+      "reportComment": "Kommentar melden",
+      "deleteComment": "Kommentar löschen"
+    },
+    "moderation": {
+      "reported": "Kommentar gemeldet und wird überprüft",
+      "flagged": "Dieser Kommentar wurde zur Moderation markiert"
+    },
+    "reportModal": {
+      "title": "Kommentar melden",
+      "description": "Bitte wählen Sie einen Grund für die Meldung dieses Kommentars:",
+      "reasons": {
+        "badLanguage": "Schlechte Sprache",
+        "racistContent": "Rassistischer Inhalt",
+        "spam": "Spam",
+        "harassment": "Belästigung",
+        "inappropriateContent": "Unangemessener Inhalt",
+        "falseInformation": "Falsche Informationen",
+        "other": "Andere"
+      },
+      "cancel": "Abbrechen",
+      "submit": "Kommentar melden",
+      "submitting": "Wird gemeldet..."
+    }
   }
 }

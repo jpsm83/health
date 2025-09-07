@@ -784,5 +784,84 @@
     "siteMap": "Mapa del Sitio",
     "termsAndConditions": "Términos y Condiciones",
     "cookiesPolicy": "Política de Cookies"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Artículo marcado como me gusta exitosamente",
+      "likedSuccessMessage": "¡Tu me gusta ha sido agregado exitosamente!",
+      "unlikedSuccess": "Artículo desmarcado como me gusta exitosamente",
+      "unlikedSuccessMessage": "¡Tu me gusta ha sido removido exitosamente!",
+      "likeError": "Error al marcar como me gusta el artículo",
+      "likeErrorMessage": "Por favor intenta de nuevo más tarde"
+    },
+    "info": {
+      "category": "Categoría:",
+      "published": "Publicado:",
+      "views": "Vistas:",
+      "likes": "Me gusta:"
+    },
+    "actions": {
+      "likeArticle": "Me gusta artículo",
+      "unlikeArticle": "No me gusta artículo",
+      "likes": "Me gusta"
+    },
+    "imageAlt": " - Sección "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Comentario creado exitosamente",
+      "createdSuccessMessage": "¡Tu comentario ha sido creado exitosamente!",
+      "createError": "Error al crear comentario",
+      "createErrorMessage": "Por favor intenta de nuevo más tarde",
+      "likedSuccess": "Comentario marcado como me gusta exitosamente",
+      "likedSuccessMessage": "¡Tu comentario ha sido marcado como me gusta exitosamente!",
+      "unlikedSuccess": "Comentario desmarcado como me gusta exitosamente",
+      "unlikedSuccessMessage": "¡Tu comentario ha sido desmarcado como me gusta exitosamente!",
+      "likeError": "Error al marcar como me gusta el comentario",
+      "likeErrorMessage": "Por favor intenta de nuevo más tarde",
+      "deletedSuccess": "Comentario eliminado exitosamente",
+      "deletedSuccessMessage": "¡Tu comentario ha sido eliminado exitosamente!",
+      "deleteError": "Error al eliminar comentario",
+      "deleteErrorMessage": "Por favor intenta de nuevo más tarde",
+      "reportedSuccess": "Comentario reportado exitosamente",
+      "reportedSuccessMessage": "¡Gracias por ayudar a mantener segura nuestra comunidad!",
+      "reportError": "Error al reportar comentario",
+      "reportErrorMessage": "Por favor intenta de nuevo más tarde"
+    },
+    "title": "Comentarios",
+    "form": {
+      "placeholder": "Comparte tus pensamientos...",
+      "charCount": "/1000 caracteres",
+      "submit": "Enviar Comentario",
+      "submitting": "Enviando...",
+      "alreadyCommented": "Ya has comentado en este artículo. ¡Gracias por tu contribución!",
+      "noComments": "Aún no hay comentarios. ¡Sé el primero en compartir tus pensamientos!"
+    },
+    "actions": {
+      "likeComment": "Me gusta comentario",
+      "unlikeComment": "No me gusta comentario",
+      "reportComment": "Reportar comentario",
+      "deleteComment": "Eliminar comentario"
+    },
+    "moderation": {
+      "reported": "Comentario reportado y bajo revisión",
+      "flagged": "Este comentario ha sido marcado para moderación"
+    },
+    "reportModal": {
+      "title": "Reportar Comentario",
+      "description": "Por favor selecciona una razón para reportar este comentario:",
+      "reasons": {
+        "badLanguage": "Lenguaje Inapropiado",
+        "racistContent": "Contenido Racista",
+        "spam": "Spam",
+        "harassment": "Acoso",
+        "inappropriateContent": "Contenido Inapropiado",
+        "falseInformation": "Información Falsa",
+        "other": "Otro"
+      },
+      "cancel": "Cancelar",
+      "submit": "Reportar Comentario",
+      "submitting": "Reportando..."
+    }
   }
 }

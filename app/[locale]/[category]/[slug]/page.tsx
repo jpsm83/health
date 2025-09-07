@@ -74,7 +74,7 @@ export async function generateMetadata({
       seo: {
         metaTitle: `Article: ${slug}`,
         metaDescription: `Read about ${slug} on Women Spot - Your health and wellness resource`,
-        keywords: ["health", "women", "wellness", slug],
+        keywords: ["health", "women", "wellness", "Women Spot", slug],
         slug: slug,
         hreflang: languageMap[locale] || locale,
         urlPattern: `/${locale}/[category]/[slug]`,

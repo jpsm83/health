@@ -1,14 +1,18 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
+import { IArticleComment } from "@/interfaces/article";
 
 export const createComment = async (articleId: string, comment: string, userId: string) => {
+  let commentSaved = false;
+  let savedComment = null;
+
   try {
     if(!userId) {
       throw new Error("You must be signed in to comment");
     }
+    
     // Validate comment before DB call
     const trimmed = comment.trim();
     if (!trimmed) {
@@ -23,13 +27,28 @@ export const createComment = async (articleId: string, comment: string, userId: 
 
     await connectDb();
 
-    // Single atomic operation: ensure article exists & user hasn't commented yet
-    const updatedArticle = await Article.findOneAndUpdate(
-      {
-        _id: articleId,
-        createdBy: { $ne: userId }, // prevent self-comment
-        "comments.userId": { $ne: userId }, // prevent duplicates
-      },
+    // First check if article exists
+    const article = await Article.findById(articleId);
+    if (!article) {
+      throw new Error("Article not found");
+    }
+
+    // Check if user is the author
+    if (article.createdBy?.toString() === userId) {
+      throw new Error("You cannot comment on your own article");
+    }
+
+    // Check if user has already commented
+    const hasCommented = article.comments?.some(
+      (comment: IArticleComment) => comment.userId?.toString() === userId
+    );
+    if (hasCommented) {
+      throw new Error("You have already commented on this article");
+    }
+
+    // Add comment to article
+    const updatedArticle = await Article.findByIdAndUpdate(
+      articleId,
       {
         $push: {
           comments: {
@@ -44,18 +63,37 @@ export const createComment = async (articleId: string, comment: string, userId: 
     );
 
     if (!updatedArticle) {
-      throw new Error(
-        "Article not found, you are the author, or you have already commented!"
-      );
+      throw new Error("Failed to add comment to article");
     }
 
-    revalidatePath(`/article/[lang]/[slug]`);
+    // Mark that comment was saved successfully
+    commentSaved = true;
+    const lastComment = updatedArticle.comments[updatedArticle.comments.length - 1];
+    savedComment = {
+      _id: lastComment._id?.toString(),
+      userId: lastComment.userId?.toString(),
+      comment: lastComment.comment,
+      commentLikes: [],
+      commentReports: [],
+      createdAt: lastComment.createdAt,
+      updatedAt: lastComment.updatedAt,
+    };
 
     return {
       success: true,
-      comment: updatedArticle.comments[updatedArticle.comments.length - 1],
+      comment: savedComment,
     };
   } catch (error) {
+    console.error("Error in createComment:", error);
+    
+    // If comment was saved but there was an error after, still return success
+    if (commentSaved && savedComment) {
+      return {
+        success: true,
+        comment: savedComment,
+      };
+    }
+    
     return {
       success: false,
       error: error instanceof Error ? error.message : "Failed to add comment",
@@ -90,7 +128,8 @@ export const deleteComment = async (articleId: string, commentId: string, userId
       );
     }
 
-    revalidatePath(`/article/[lang]/[slug]`);
+    // Temporarily disable revalidatePath to fix stack overflow
+    // revalidatePath(`/[locale]/[category]/[slug]`, "page");
 
     return { success: true };
   } catch (error) {

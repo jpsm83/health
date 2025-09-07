@@ -24,3 +24,5 @@ export const newsletterFrequencies = ["daily", "weekly", "monthly"];
 export const roles = ["admin", "user"];
 
 export const articleStatus = ["published", "archived"];
+
+export const commentReportReasons = ["bad_language", "racist", "spam", "harassment", "inappropriate_content", "false_information", "other"];

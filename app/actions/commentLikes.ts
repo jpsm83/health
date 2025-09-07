@@ -57,7 +57,8 @@ export const toggleCommentLike = async (
 
     // Revalidate the page to show updated like count
     // Fixed: Added 'page' type parameter to avoid warning
-    revalidatePath(`/article/[lang]/[slug]`, "page");
+    // Temporarily disable revalidatePath to fix stack overflow
+    // revalidatePath(`/[locale]/[category]/[slug]`, "page");
 
     return {
       success: true,

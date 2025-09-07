@@ -79,6 +79,35 @@ export const articleSchema = new Schema(
           commentLikes: {
             type: [{ type: Schema.Types.ObjectId, ref: "User" }],
             default: undefined,
+          },
+          commentReports: {
+            type: [
+              {
+                userId: {
+                  type: Schema.Types.ObjectId,
+                  ref: "User",
+                  required: true,
+                },
+                reason: {
+                  type: String,
+                  required: true,
+                  enum: [
+                    "bad_language",
+                    "racist",
+                    "spam",
+                    "harassment",
+                    "inappropriate_content",
+                    "false_information",
+                    "other"
+                  ],
+                },
+                reportedAt: {
+                  type: Date,
+                  default: Date.now,
+                },
+              },
+            ],
+            default: undefined,
           },      
           createdAt: { type: Date, default: Date.now },
           updatedAt: { type: Date, default: Date.now },

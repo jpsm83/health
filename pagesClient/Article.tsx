@@ -2,35 +2,41 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { IArticle, IArticleComment } from "@/interfaces/article";
 import Image from "next/image";
 import { toggleArticleLike } from "@/app/actions/articleLikes";
-import { createComment } from "@/app/actions/comments";
-import { Heart } from 'lucide-react';
-import { useRouter } from "next/navigation";
+import { Heart } from "lucide-react";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import { showToast } from "@/components/Toasts";
+import CommentsSection from "@/components/CommentsSection";
+import { Button } from "@/components/ui/button";
 
-export default function Article({ articleData }: { articleData: IArticle | undefined }) {
-  const { data: session } = useSession();
-  const locale = useLocale();
+export default function Article({
+  articleData,
+}: {
+  articleData: IArticle | undefined;
+}) {
   const [likes, setLikes] = useState<number>(articleData?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [newComment, setNewComment] = useState<string | undefined>(undefined);
   const [comments, setComments] = useState<IArticleComment[]>(
     articleData?.comments || []
   );
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  const { data: session } = useSession();
+  const locale = useLocale();
   const router = useRouter();
+  const t = useTranslations();
 
   // Helper function to format dates consistently
   const formatDate = (dateString: string | Date | undefined) => {
     if (!dateString) return "";
     const date = new Date(dateString);
     return date.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     });
   };
 
@@ -45,42 +51,37 @@ export default function Article({ articleData }: { articleData: IArticle | undef
 
   // toggle article like
   const toggleLike = async () => {
-    if (!session?.user?.id){
+    if (!session?.user?.id) {
       router.push("/signin");
       return;
     }
 
     try {
-      const result = await toggleArticleLike(articleData?._id?.toString() || "", session?.user?.id || "");
+      const result = await toggleArticleLike(
+        articleData?._id?.toString() || "",
+        session?.user?.id || ""
+      );
+
       if (result.success) {
         setLikes(result.likeCount || 0);
         setIsLiked(result.liked || false);
+        if (result.liked) {
+          showToast(
+            "success",
+            t("article.toasts.likedSuccess"),
+            t("article.toasts.likedSuccessMessage")
+          );
+        } else {
+          showToast(
+            "success",
+            t("article.toasts.unlikedSuccess"),
+            t("article.toasts.unlikedSuccessMessage")
+          );
+        }
       }
     } catch (error) {
       console.error("Error toggling like:", error);
-    }
-  };
-
-  // Handle comment submission
-  const handleComment = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!session?.user?.id || !newComment?.trim() || isSubmitting) return;
-
-    setIsSubmitting(true);
-    try {
-      const result = await createComment(
-        articleData?._id?.toString() || "",
-        newComment?.trim() || "",
-        session?.user?.id || ""
-      );
-      if (result.success && result.comment) {
-        setComments((prev) => [...prev, result.comment]);
-        setNewComment(undefined);
-      }
-    } catch (error) {
-      console.error("Error creating comment:", error);
-    } finally {
-      setIsSubmitting(false);
+      showToast("error", t("article.toasts.likeError"), t("article.toasts.likeErrorMessage"));
     }
   };
 
@@ -133,152 +134,125 @@ export default function Article({ articleData }: { articleData: IArticle | undef
 
   const containers = calculateContentDistribution();
 
+  // Check if current user has already commented
+  const hasUserCommented = comments.some(
+    (comment) => comment.userId?.toString() === session?.user?.id
+  );
+
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16">
       {/* Article Header */}
-      <header className="text-center py-8 bg-gray-100">
-        <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 cursor-default">
+      <header className="text-center py-8 bg-gray-100 w-full">
+        <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 md:mb-12 cursor-default">
           {articleData?.contentsByLanguage[0].mainTitle}
         </h1>
         <div className="flex flex-col md:flex-row items-center justify-between px-2 md:px-8">
-        <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-400 gap-4 mb-2 md:mb-0 cursor-default">
-          <span>Category: {articleData?.category}</span>
-          <span>
-            Published:{" "}
-            {formatDate(articleData?.createdAt)}
-          </span>
-          <span>
-            Views: {articleData?.views}
-          </span>
-          <span>
-            Likes: {likes}
-          </span>
+          <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-400 gap-4 mb-2 md:mb-0 cursor-default">
+            <span>{t("article.info.category")} {articleData?.category}</span>
+            <span>{t("article.info.published")} {formatDate(articleData?.createdAt)}</span>
+            <span>{t("article.info.views")} {articleData?.views}</span>
+            <span>{t("article.info.likes")} {likes}</span>
           </div>
           {/* Like Button at Top */}
-            <Heart onClick={toggleLike} size={24} className={`cursor-pointer ${isLiked ? "fill-red-500 text-red-700" : "fill-gray-400 text-gray-600"}`} />
+          <div className="flex justify-center items-center">
+            {/* Like Button at Top */}
+            <Button
+              onClick={toggleLike}
+              className={`flex items-center gap-1 px-2 py-1 border-none shadow-none transition-colors cursor-pointer ${
+                isLiked ? "text-red-600" : "text-gray-600"
+              }`}
+              title={isLiked ? t("article.actions.unlikeArticle") : t("article.actions.likeArticle")}
+            >
+              <Heart
+                size={24}
+                className={
+                  isLiked ? "fill-current" : "stroke-current fill-none"
+                }
+              />
+            </Button>
+          </div>
         </div>
       </header>
 
       {/* Article Content in 4 Containers */}
-      <div className="space-y-12">
+      <div className="space-y-6 md:space-y-12">
         {containers.map((container, containerIndex) => (
-          <div
-            key={containerIndex}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden"
-          >
-            {/* Container Image */}
-            {container.image && (
-              <div className="relative w-full h-64 md:h-80">
-                <Image
-                  src={container.image}
-                  alt={`${
-                    articleData?.contentsByLanguage[0].mainTitle
-                  } - Section ${containerIndex + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
-                  priority
-                />
+          <div key={containerIndex}>
+            {/* Newsletter Signup before the last container */}
+            {containerIndex === containers.length - 1 && (
+              <div className="mb-6 md:mb-12">
+                <NewsletterSignup />
               </div>
             )}
 
-            {/* Container Content */}
-            <div className="p-6 md:p-8">
-              {container.content?.map((section, sectionIndex) => (
-                <section key={sectionIndex} className="mb-8 last:mb-0">
-                  <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
-                    {section.subTitle}
-                  </h2>
-                  <div className="space-y-4">
-                    {section.articleParagraphs.map((paragraph, pIndex) => (
-                      <p
-                        key={pIndex}
-                        className="text-gray-700 text-lg leading-relaxed"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </section>
-              ))}
+            <div className="overflow-hidden text-justify">
+              {/* Container Image */}
+              {container.image && (
+                <div className="relative w-full h-64 md:h-80">
+                  <Image
+                    src={container.image}
+                    alt={`${
+                      articleData?.contentsByLanguage[0].mainTitle
+                    }${t("article.imageAlt")}${containerIndex + 1}`}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+                    priority
+                  />
+                </div>
+              )}
+
+              {/* Container Content */}
+              <div className="p-2 md:p-6">
+                {container.content?.map((section, sectionIndex) => (
+                  <section key={sectionIndex} className="mb-8 last:mb-0">
+                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
+                      {section.subTitle}
+                    </h2>
+                    <div className="space-y-4">
+                      {section.articleParagraphs.map((paragraph, pIndex) => (
+                        <p
+                          key={pIndex}
+                          className="text-gray-700 text-lg leading-relaxed"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
             </div>
           </div>
         ))}
-      </div>
 
-      {/* Like Button at Bottom */}
-      <div className="flex justify-center py-8">
-        <button
-          onClick={toggleLike}
-          className={`flex items-center gap-3 px-8 py-4 rounded-full transition-all duration-200 ${
-            isLiked
-              ? "bg-red-500 text-white shadow-lg scale-105"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
-        >
-          <span className="text-3xl">❤️</span>
-          <span className="font-semibold text-lg">
-            {likes} {likes === 1 ? "Like" : "Likes"}
-          </span>
-        </button>
-      </div>
-
-      {/* Comments Section */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-          Comments
-        </h3>
-
-        {/* Comment Form - Only for logged in users */}
-        {session?.user?.id && (
-          <form onSubmit={handleComment} className="mb-8">
-            <div className="flex gap-4">
-              <input
-                type="text"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Share your thoughts..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                maxLength={600}
-                disabled={isSubmitting}
-              />
-              <button
-                type="submit"
-                disabled={!newComment?.trim() || isSubmitting}
-                className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? "Posting..." : "Post Comment"}
-              </button>
-            </div>
-          </form>
-        )}
-
-        {/* Comments List */}
-        <div className="space-y-4">
-          {comments.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">
-              No comments yet. Be the first to share your thoughts!
-            </p>
-          ) : (
-            comments.map((comment, index) => (
-              <div
-                key={index}
-                className="border border-gray-200 rounded-lg p-4"
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-800">User</span>
-                    <span className="text-sm text-gray-500">
-                      {formatDate(comment.createdAt)}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-gray-700">{comment.comment}</p>
-              </div>
-            ))
-          )}
+        {/* Like Button at Bottom */}
+        <div className="flex justify-center items-center">
+          {/* Like Button at Bottom */}
+          <Button
+            onClick={toggleLike}
+            className={`flex items-center gap-1 px-2 py-1 border-none shadow-none transition-colors cursor-pointer ${
+              isLiked ? "text-red-600" : "text-gray-600"
+            }`}
+            title={isLiked ? t("article.actions.unlikeArticle") : t("article.actions.likeArticle")}
+          >
+            <Heart
+              size={24}
+              className={isLiked ? "fill-current" : "stroke-current fill-none"}
+            />
+            {likes > 0 && (
+              <span className="text-xs font-medium">{likes} {t("article.actions.likes")}</span>
+            )}
+          </Button>
         </div>
+
+        {/* Comments Section */}
+        <CommentsSection
+          articleId={articleData?._id?.toString() || ""}
+          comments={comments}
+          setComments={setComments}
+          hasUserCommented={hasUserCommented}
+        />
       </div>
     </div>
   );

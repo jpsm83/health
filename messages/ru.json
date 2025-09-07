@@ -784,5 +784,84 @@
     "siteMap": "Карта сайта",
     "termsAndConditions": "Условия использования",
     "cookiesPolicy": "Политика использования файлов cookie"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Статья успешно понравилась",
+      "likedSuccessMessage": "Ваш лайк был успешно добавлен!",
+      "unlikedSuccess": "Статья успешно не понравилась",
+      "unlikedSuccessMessage": "Ваш лайк был успешно удален!",
+      "likeError": "Ошибка при лайке статьи",
+      "likeErrorMessage": "Попробуйте позже"
+    },
+    "info": {
+      "category": "Категория:",
+      "published": "Опубликовано:",
+      "views": "Просмотры:",
+      "likes": "Лайки:"
+    },
+    "actions": {
+      "likeArticle": "Лайкнуть статью",
+      "unlikeArticle": "Убрать лайк статьи",
+      "likes": "Лайки"
+    },
+    "imageAlt": " - Раздел "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Комментарий успешно создан",
+      "createdSuccessMessage": "Ваш комментарий был успешно создан!",
+      "createError": "Ошибка при создании комментария",
+      "createErrorMessage": "Попробуйте позже",
+      "likedSuccess": "Комментарий успешно понравился",
+      "likedSuccessMessage": "Ваш комментарий был успешно лайкнут!",
+      "unlikedSuccess": "Комментарий успешно не понравился",
+      "unlikedSuccessMessage": "Ваш комментарий был успешно разлайкнут!",
+      "likeError": "Ошибка при лайке комментария",
+      "likeErrorMessage": "Попробуйте позже",
+      "deletedSuccess": "Комментарий успешно удален",
+      "deletedSuccessMessage": "Ваш комментарий был успешно удален!",
+      "deleteError": "Ошибка при удалении комментария",
+      "deleteErrorMessage": "Попробуйте позже",
+      "reportedSuccess": "Комментарий успешно пожалован",
+      "reportedSuccessMessage": "Спасибо за помощь в поддержании безопасности нашего сообщества!",
+      "reportError": "Ошибка при жалобе на комментарий",
+      "reportErrorMessage": "Попробуйте позже"
+    },
+    "title": "Комментарии",
+    "form": {
+      "placeholder": "Поделитесь своими мыслями...",
+      "charCount": "/1000 символов",
+      "submit": "Отправить Комментарий",
+      "submitting": "Отправка...",
+      "alreadyCommented": "Вы уже прокомментировали эту статью. Спасибо за ваш вклад!",
+      "noComments": "Пока нет комментариев. Будьте первым, кто поделится своими мыслями!"
+    },
+    "actions": {
+      "likeComment": "Лайкнуть комментарий",
+      "unlikeComment": "Убрать лайк комментария",
+      "reportComment": "Пожаловаться на комментарий",
+      "deleteComment": "Удалить комментарий"
+    },
+    "moderation": {
+      "reported": "Комментарий пожалован и на рассмотрении",
+      "flagged": "Этот комментарий помечен для модерации"
+    },
+    "reportModal": {
+      "title": "Пожаловаться на Комментарий",
+      "description": "Пожалуйста, выберите причину для жалобы на этот комментарий:",
+      "reasons": {
+        "badLanguage": "Плохой Язык",
+        "racistContent": "Расистский Контент",
+        "spam": "Спам",
+        "harassment": "Преследование",
+        "inappropriateContent": "Неподходящий Контент",
+        "falseInformation": "Ложная Информация",
+        "other": "Другое"
+      },
+      "cancel": "Отмена",
+      "submit": "Пожаловаться на Комментарий",
+      "submitting": "Подача жалобы..."
+    }
   }
 }

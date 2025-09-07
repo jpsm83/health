@@ -784,5 +784,84 @@
     "siteMap": "Mappa del Sito",
     "termsAndConditions": "Termini e Condizioni",
     "cookiesPolicy": "Politica sui Cookie"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Articolo piaciuto con successo",
+      "likedSuccessMessage": "Il tuo like è stato aggiunto con successo!",
+      "unlikedSuccess": "Articolo non piaciuto con successo",
+      "unlikedSuccessMessage": "Il tuo like è stato rimosso con successo!",
+      "likeError": "Impossibile piacere l'articolo",
+      "likeErrorMessage": "Riprova più tardi"
+    },
+    "info": {
+      "category": "Categoria:",
+      "published": "Pubblicato:",
+      "views": "Visualizzazioni:",
+      "likes": "Mi piace:"
+    },
+    "actions": {
+      "likeArticle": "Mi piace articolo",
+      "unlikeArticle": "Non mi piace articolo",
+      "likes": "Mi piace"
+    },
+    "imageAlt": " - Sezione "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Commento creato con successo",
+      "createdSuccessMessage": "Il tuo commento è stato creato con successo!",
+      "createError": "Impossibile creare il commento",
+      "createErrorMessage": "Riprova più tardi",
+      "likedSuccess": "Commento piaciuto con successo",
+      "likedSuccessMessage": "Il tuo commento è stato piaciuto con successo!",
+      "unlikedSuccess": "Commento non piaciuto con successo",
+      "unlikedSuccessMessage": "Il tuo commento è stato non piaciuto con successo!",
+      "likeError": "Impossibile piacere il commento",
+      "likeErrorMessage": "Riprova più tardi",
+      "deletedSuccess": "Commento eliminato con successo",
+      "deletedSuccessMessage": "Il tuo commento è stato eliminato con successo!",
+      "deleteError": "Impossibile eliminare il commento",
+      "deleteErrorMessage": "Riprova più tardi",
+      "reportedSuccess": "Commento segnalato con successo",
+      "reportedSuccessMessage": "Grazie per aiutarci a mantenere sicura la nostra comunità!",
+      "reportError": "Impossibile segnalare il commento",
+      "reportErrorMessage": "Riprova più tardi"
+    },
+    "title": "Commenti",
+    "form": {
+      "placeholder": "Condividi i tuoi pensieri...",
+      "charCount": "/1000 caratteri",
+      "submit": "Invia Commento",
+      "submitting": "Invio in corso...",
+      "alreadyCommented": "Hai già commentato questo articolo. Grazie per il tuo contributo!",
+      "noComments": "Nessun commento ancora. Sii il primo a condividere i tuoi pensieri!"
+    },
+    "actions": {
+      "likeComment": "Mi piace commento",
+      "unlikeComment": "Non mi piace commento",
+      "reportComment": "Segnala commento",
+      "deleteComment": "Elimina commento"
+    },
+    "moderation": {
+      "reported": "Commento segnalato e in revisione",
+      "flagged": "Questo commento è stato segnalato per moderazione"
+    },
+    "reportModal": {
+      "title": "Segnala Commento",
+      "description": "Seleziona un motivo per segnalare questo commento:",
+      "reasons": {
+        "badLanguage": "Linguaggio Inappropriato",
+        "racistContent": "Contenuto Razzista",
+        "spam": "Spam",
+        "harassment": "Molestie",
+        "inappropriateContent": "Contenuto Inappropriato",
+        "falseInformation": "Informazioni False",
+        "other": "Altro"
+      },
+      "cancel": "Annulla",
+      "submit": "Segnala Commento",
+      "submitting": "Segnalazione in corso..."
+    }
   }
 }

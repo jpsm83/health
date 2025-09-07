@@ -818,5 +818,84 @@
     "siteMap": "מפת האתר",
     "termsAndConditions": "תנאים והגבלות",
     "cookiesPolicy": "מדיניות עוגיות"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "המאמר נאהב בהצלחה",
+      "likedSuccessMessage": "הלייק שלך נוסף בהצלחה!",
+      "unlikedSuccess": "המאמר לא נאהב בהצלחה",
+      "unlikedSuccessMessage": "הלייק שלך הוסר בהצלחה!",
+      "likeError": "נכשל באהבת המאמר",
+      "likeErrorMessage": "אנא נסה שוב מאוחר יותר"
+    },
+    "info": {
+      "category": "קטגוריה:",
+      "published": "פורסם:",
+      "views": "צפיות:",
+      "likes": "לייקים:"
+    },
+    "actions": {
+      "likeArticle": "אהב מאמר",
+      "unlikeArticle": "בטל אהבת מאמר",
+      "likes": "לייקים"
+    },
+    "imageAlt": " - סעיף "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "התגובה נוצרה בהצלחה",
+      "createdSuccessMessage": "התגובה שלך נוצרה בהצלחה!",
+      "createError": "נכשל ביצירת התגובה",
+      "createErrorMessage": "אנא נסה שוב מאוחר יותר",
+      "likedSuccess": "התגובה נאהבה בהצלחה",
+      "likedSuccessMessage": "התגובה שלך נאהבה בהצלחה!",
+      "unlikedSuccess": "התגובה לא נאהבה בהצלחה",
+      "unlikedSuccessMessage": "התגובה שלך לא נאהבה בהצלחה!",
+      "likeError": "נכשל באהבת התגובה",
+      "likeErrorMessage": "אנא נסה שוב מאוחר יותר",
+      "deletedSuccess": "התגובה נמחקה בהצלחה",
+      "deletedSuccessMessage": "התגובה שלך נמחקה בהצלחה!",
+      "deleteError": "נכשל במחיקת התגובה",
+      "deleteErrorMessage": "אנא נסה שוב מאוחר יותר",
+      "reportedSuccess": "התגובה דווחה בהצלחה",
+      "reportedSuccessMessage": "תודה על עזרה בשמירה על הקהילה שלנו בטוחה!",
+      "reportError": "נכשל בדיווח התגובה",
+      "reportErrorMessage": "אנא נסה שוב מאוחר יותר"
+    },
+    "title": "תגובות",
+    "form": {
+      "placeholder": "שתף את המחשבות שלך...",
+      "charCount": "/1000 תווים",
+      "submit": "שלח תגובה",
+      "submitting": "שולח...",
+      "alreadyCommented": "כבר הגבת על המאמר הזה. תודה על התרומה שלך!",
+      "noComments": "עדיין אין תגובות. היה הראשון לשתף את המחשבות שלך!"
+    },
+    "actions": {
+      "likeComment": "אהב תגובה",
+      "unlikeComment": "בטל אהבת תגובה",
+      "reportComment": "דווח על תגובה",
+      "deleteComment": "מחק תגובה"
+    },
+    "moderation": {
+      "reported": "התגובה דווחה ונבדקת",
+      "flagged": "התגובה הזו סומנה לבדיקה"
+    },
+    "reportModal": {
+      "title": "דווח על תגובה",
+      "description": "אנא בחר סיבה לדיווח על התגובה הזו:",
+      "reasons": {
+        "badLanguage": "שפה גסה",
+        "racistContent": "תוכן גזעני",
+        "spam": "ספאם",
+        "harassment": "הטרדה",
+        "inappropriateContent": "תוכן לא הולם",
+        "falseInformation": "מידע שקרי",
+        "other": "אחר"
+      },
+      "cancel": "בטל",
+      "submit": "דווח על תגובה",
+      "submitting": "מדווח..."
+    }
   }
 }

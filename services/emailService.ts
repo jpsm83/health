@@ -25,7 +25,16 @@ const emailTranslations = {
     confirmMessage: "Welcome to Women Spot! Please confirm your email address by clicking the button below to complete your account setup.",
     confirmButton: "Confirm Email",
     confirmIgnoreMessage: "If you didn't create an account with Women Spot, please ignore this email.",
-    confirmExpiryMessage: "This confirmation link will expire in 24 hours for security reasons."
+    confirmExpiryMessage: "This confirmation link will expire in 24 hours for security reasons.",
+    // Comment report translations
+    reportSubject: "Comment Report Notification - Women Spot",
+    reportMessage: "Your comment has been reported by another user and is currently under review by our moderation team.",
+    reportReason: "Report Reason",
+    reportAction: "What happens next?",
+    reportActionText: "Our moderation team will review your comment and the report. If the comment violates our community guidelines, it may be removed. If it's found to be appropriate, it will remain visible.",
+    reportAppeal: "If you believe this report was made in error, you can contact our support team.",
+    reportContact: "Contact Support",
+    reportThankYou: "Thank you for being part of our community and helping us maintain a safe environment for everyone."
   },
   pt: {
     subject: "Solicitação de Redefinição de Senha - Women Spot",
@@ -41,7 +50,16 @@ const emailTranslations = {
     confirmMessage: "Bem-vindo ao Women Spot! Confirme seu endereço de email clicando no botão abaixo para completar a configuração da sua conta.",
     confirmButton: "Confirmar Email",
     confirmIgnoreMessage: "Se você não criou uma conta no Women Spot, ignore este email.",
-    confirmExpiryMessage: "Este link de confirmação expirará em 24 horas por motivos de segurança."
+    confirmExpiryMessage: "Este link de confirmação expirará em 24 horas por motivos de segurança.",
+    // Comment report translations
+    reportSubject: "Notificação de Denúncia de Comentário - Women Spot",
+    reportMessage: "Seu comentário foi denunciado por outro usuário e está atualmente sob revisão pela nossa equipe de moderação.",
+    reportReason: "Motivo da Denúncia",
+    reportAction: "O que acontece agora?",
+    reportActionText: "Nossa equipe de moderação revisará seu comentário e a denúncia. Se o comentário violar nossas diretrizes da comunidade, ele pode ser removido. Se for considerado apropriado, permanecerá visível.",
+    reportAppeal: "Se você acredita que esta denúncia foi feita por engano, pode entrar em contato com nossa equipe de suporte.",
+    reportContact: "Contatar Suporte",
+    reportThankYou: "Obrigado por fazer parte da nossa comunidade e nos ajudar a manter um ambiente seguro para todos."
   },
   es: {
     subject: "Solicitud de Restablecimiento de Contraseña - Women Spot",
@@ -57,7 +75,16 @@ const emailTranslations = {
     confirmMessage: "¡Bienvenido a Women Spot! Confirma tu dirección de email haciendo clic en el botón de abajo para completar la configuración de tu cuenta.",
     confirmButton: "Confirmar Email",
     confirmIgnoreMessage: "Si no creaste una cuenta en Women Spot, ignora este email.",
-    confirmExpiryMessage: "Este enlace de confirmación expirará en 24 horas por razones de seguridad."
+    confirmExpiryMessage: "Este enlace de confirmación expirará en 24 horas por razones de seguridad.",
+    // Comment report translations
+    reportSubject: "Notificación de Reporte de Comentario - Women Spot",
+    reportMessage: "Tu comentario ha sido reportado por otro usuario y está actualmente bajo revisión por nuestro equipo de moderación.",
+    reportReason: "Motivo del Reporte",
+    reportAction: "¿Qué sucede ahora?",
+    reportActionText: "Nuestro equipo de moderación revisará tu comentario y el reporte. Si el comentario viola nuestras pautas de la comunidad, puede ser removido. Si se considera apropiado, permanecerá visible.",
+    reportAppeal: "Si crees que este reporte fue hecho por error, puedes contactar a nuestro equipo de soporte.",
+    reportContact: "Contactar Soporte",
+    reportThankYou: "Gracias por ser parte de nuestra comunidad y ayudarnos a mantener un ambiente seguro para todos."
   },
   fr: {
     subject: "Demande de Réinitialisation de Mot de Passe - Women Spot",
@@ -73,7 +100,16 @@ const emailTranslations = {
     confirmMessage: "Bienvenue sur Women Spot ! Veuillez confirmer votre adresse e-mail en cliquant sur le bouton ci-dessous pour finaliser la configuration de votre compte.",
     confirmButton: "Confirmer l'Email",
     confirmIgnoreMessage: "Si vous n'avez pas créé de compte sur Women Spot, veuillez ignorer cet e-mail.",
-    confirmExpiryMessage: "Ce lien de confirmation expirera dans 24 heures pour des raisons de sécurité."
+    confirmExpiryMessage: "Ce lien de confirmation expirera dans 24 heures pour des raisons de sécurité.",
+    // Comment report translations
+    reportSubject: "Notification de Signalement de Commentaire - Women Spot",
+    reportMessage: "Votre commentaire a été signalé par un autre utilisateur et est actuellement en cours d'examen par notre équipe de modération.",
+    reportReason: "Motif du Signalement",
+    reportAction: "Que se passe-t-il maintenant ?",
+    reportActionText: "Notre équipe de modération examinera votre commentaire et le signalement. Si le commentaire viole nos directives communautaires, il peut être supprimé. S'il est jugé approprié, il restera visible.",
+    reportAppeal: "Si vous pensez que ce signalement a été fait par erreur, vous pouvez contacter notre équipe de support.",
+    reportContact: "Contacter le Support",
+    reportThankYou: "Merci de faire partie de notre communauté et de nous aider à maintenir un environnement sûr pour tous."
   },
   de: {
     subject: "Passwort-Reset-Anfrage - Women Spot",
@@ -89,7 +125,16 @@ const emailTranslations = {
     confirmMessage: "Willkommen bei Women Spot! Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie auf die Schaltfläche unten klicken, um die Einrichtung Ihres Kontos abzuschließen.",
     confirmButton: "E-Mail bestätigen",
     confirmIgnoreMessage: "Wenn Sie kein Konto bei Women Spot erstellt haben, ignorieren Sie bitte diese E-Mail.",
-    confirmExpiryMessage: "Dieser Bestätigungslink läuft aus Sicherheitsgründen in 24 Stunden ab."
+    confirmExpiryMessage: "Dieser Bestätigungslink läuft aus Sicherheitsgründen in 24 Stunden ab.",
+    // Comment report translations
+    reportSubject: "Kommentar-Meldung Benachrichtigung - Women Spot",
+    reportMessage: "Ihr Kommentar wurde von einem anderen Benutzer gemeldet und wird derzeit von unserem Moderations-Team überprüft.",
+    reportReason: "Meldungsgrund",
+    reportAction: "Was passiert als nächstes?",
+    reportActionText: "Unser Moderations-Team wird Ihren Kommentar und die Meldung überprüfen. Wenn der Kommentar unsere Community-Richtlinien verletzt, kann er entfernt werden. Wenn er als angemessen befunden wird, bleibt er sichtbar.",
+    reportAppeal: "Wenn Sie glauben, dass diese Meldung fälschlicherweise gemacht wurde, können Sie unser Support-Team kontaktieren.",
+    reportContact: "Support Kontaktieren",
+    reportThankYou: "Vielen Dank, dass Sie Teil unserer Community sind und uns helfen, eine sichere Umgebung für alle zu schaffen."
   },
   it: {
     subject: "Richiesta di Reset Password - Women Spot",
@@ -105,7 +150,16 @@ const emailTranslations = {
     confirmMessage: "Benvenuto su Women Spot! Conferma il tuo indirizzo email cliccando sul pulsante qui sotto per completare la configurazione del tuo account.",
     confirmButton: "Conferma Email",
     confirmIgnoreMessage: "Se non hai creato un account su Women Spot, ignora questa email.",
-    confirmExpiryMessage: "Questo link di conferma scadrà tra 24 ore per motivi di sicurezza."
+    confirmExpiryMessage: "Questo link di conferma scadrà tra 24 ore per motivi di sicurezza.",
+    // Comment report translations
+    reportSubject: "Notifica Segnalazione Commento - Women Spot",
+    reportMessage: "Il tuo commento è stato segnalato da un altro utente ed è attualmente in revisione dal nostro team di moderazione.",
+    reportReason: "Motivo della Segnalazione",
+    reportAction: "Cosa succede ora?",
+    reportActionText: "Il nostro team di moderazione esaminerà il tuo commento e la segnalazione. Se il commento viola le nostre linee guida della community, potrebbe essere rimosso. Se è ritenuto appropriato, rimarrà visibile.",
+    reportAppeal: "Se ritieni che questa segnalazione sia stata fatta per errore, puoi contattare il nostro team di supporto.",
+    reportContact: "Contatta il Supporto",
+    reportThankYou: "Grazie per far parte della nostra community e aiutarci a mantenere un ambiente sicuro per tutti."
   },
   nl: {
     subject: "Wachtwoord Reset Verzoek - Women Spot",
@@ -121,7 +175,16 @@ const emailTranslations = {
     confirmMessage: "Welkom bij Women Spot! Bevestig uw e-mailadres door op de knop hieronder te klikken om de instelling van uw account te voltooien.",
     confirmButton: "E-mail Bevestigen",
     confirmIgnoreMessage: "Als u geen account heeft aangemaakt bij Women Spot, negeer dan deze e-mail.",
-    confirmExpiryMessage: "Deze bevestigingslink verloopt over 24 uur om veiligheidsredenen."
+    confirmExpiryMessage: "Deze bevestigingslink verloopt over 24 uur om veiligheidsredenen.",
+    // Comment report translations
+    reportSubject: "Commentaar Rapportage Melding - Women Spot",
+    reportMessage: "Uw commentaar is gerapporteerd door een andere gebruiker en wordt momenteel beoordeeld door ons moderatieteam.",
+    reportReason: "Rapportage Reden",
+    reportAction: "Wat gebeurt er nu?",
+    reportActionText: "Ons moderatieteam zal uw commentaar en de rapportage beoordelen. Als het commentaar onze communityrichtlijnen schendt, kan het worden verwijderd. Als het geschikt wordt geacht, blijft het zichtbaar.",
+    reportAppeal: "Als u denkt dat deze rapportage ten onrechte is gemaakt, kunt u contact opnemen met ons supportteam.",
+    reportContact: "Contact Support",
+    reportThankYou: "Bedankt voor het deel uitmaken van onze community en ons helpen een veilige omgeving voor iedereen te behouden."
   },
   he: {
     subject: "בקשת איפוס סיסמה - Women Spot",
@@ -137,7 +200,16 @@ const emailTranslations = {
     confirmMessage: "ברוכים הבאים ל-Women Spot! אנא אמת את כתובת האימייל שלך על ידי לחיצה על הכפתור למטה כדי להשלים את הגדרת החשבון שלך.",
     confirmButton: "אמת אימייל",
     confirmIgnoreMessage: "אם לא יצרת חשבון ב-Women Spot, אנא התעלם מהאימייל הזה.",
-    confirmExpiryMessage: "קישור האימות הזה יפוג תוקף תוך 24 שעות מסיבות אבטחה."
+    confirmExpiryMessage: "קישור האימות הזה יפוג תוקף תוך 24 שעות מסיבות אבטחה.",
+    // Comment report translations
+    reportSubject: "התראה על דיווח תגובה - Women Spot",
+    reportMessage: "התגובה שלך דווחה על ידי משתמש אחר ונמצאת כעת בבדיקה על ידי צוות המודרציה שלנו.",
+    reportReason: "סיבת הדיווח",
+    reportAction: "מה קורה עכשיו?",
+    reportActionText: "צוות המודרציה שלנו יבדוק את התגובה שלך ואת הדיווח. אם התגובה מפרה את הנחיות הקהילה שלנו, היא עלולה להימחק. אם היא נחשבת מתאימה, היא תישאר גלויה.",
+    reportAppeal: "אם אתה חושב שהדיווח הזה נעשה בטעות, אתה יכול ליצור קשר עם צוות התמיכה שלנו.",
+    reportContact: "צור קשר עם התמיכה",
+    reportThankYou: "תודה על היותך חלק מהקהילה שלנו ועל עזרתך לשמור על סביבה בטוחה לכולם."
   },
   ru: {
     subject: "Запрос на сброс пароля - Women Spot",
@@ -153,7 +225,16 @@ const emailTranslations = {
     confirmMessage: "Добро пожаловать в Women Spot! Пожалуйста, подтвердите ваш адрес электронной почты, нажав кнопку ниже, чтобы завершить настройку вашего аккаунта.",
     confirmButton: "Подтвердить Email",
     confirmIgnoreMessage: "Если вы не создавали аккаунт в Women Spot, проигнорируйте это письмо.",
-    confirmExpiryMessage: "Эта ссылка для подтверждения истечет через 24 часа по соображениям безопасности."
+    confirmExpiryMessage: "Эта ссылка для подтверждения истечет через 24 часа по соображениям безопасности.",
+    // Comment report translations
+    reportSubject: "Уведомление о жалобе на комментарий - Women Spot",
+    reportMessage: "Ваш комментарий был пожалован другим пользователем и в настоящее время рассматривается нашей командой модерации.",
+    reportReason: "Причина жалобы",
+    reportAction: "Что происходит дальше?",
+    reportActionText: "Наша команда модерации рассмотрит ваш комментарий и жалобу. Если комментарий нарушает наши правила сообщества, он может быть удален. Если он признан подходящим, он останется видимым.",
+    reportAppeal: "Если вы считаете, что эта жалоба была подана по ошибке, вы можете связаться с нашей службой поддержки.",
+    reportContact: "Связаться с поддержкой",
+    reportThankYou: "Спасибо за то, что вы являетесь частью нашего сообщества и помогаете нам поддерживать безопасную среду для всех."
   }
 };
 
@@ -289,6 +370,89 @@ const emailTemplates = {
         ${t.copyright}
       `
     };
+  },
+  commentReport: (commentText: string, reason: string, articleTitle: string, username: string, locale: string = 'en') => {
+    const t = emailTranslations[locale as keyof typeof emailTranslations] || emailTranslations.en;
+    
+    return {
+      subject: t.reportSubject,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>${t.reportSubject}</title>
+        </head>
+        <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center;">
+              <h1 style="margin: 0; font-size: 24px; color: white;">
+                <span style="margin-right: 0.5em;">🤍</span>Women Spot
+              </h1>
+            </div>
+            
+            <div style="background-color: #f9fafb; padding: 30px; border: 1px solid #e5e7eb;">
+              <h2 style="color: #374151; margin-bottom: 20px;">${t.greeting} ${username}!</h2>
+              
+              <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+                ${t.reportMessage}
+              </p>
+              
+              <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+                <h3 style="color: #374151; margin-top: 0; margin-bottom: 15px;">Article: ${articleTitle}</h3>
+                <p style="color: #6b7280; margin-bottom: 10px; font-weight: 600;">Your Comment:</p>
+                <p style="color: #374151; font-style: italic; background-color: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #ec4899; margin-bottom: 15px;">
+                  "${commentText}"
+                </p>
+                <p style="color: #6b7280; margin-bottom: 5px; font-weight: 600;">${t.reportReason}:</p>
+                <p style="color: #ec4899; font-weight: bold; margin: 0;">${reason}</p>
+              </div>
+              
+              <h3 style="color: #374151; margin-bottom: 15px;">${t.reportAction}</h3>
+              <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+                ${t.reportActionText}
+              </p>
+              
+              <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+                ${t.reportAppeal}
+              </p>
+              
+              <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+                ${t.reportThankYou}
+              </p>
+              
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+              
+              <p style="color: #9ca3af; font-size: 14px; text-align: center; margin: 0;">
+                ${t.copyright}
+              </p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+      text: `
+        ${t.reportSubject}
+        
+        ${t.greeting} ${username}!
+        
+        ${t.reportMessage}
+        
+        Article: ${articleTitle}
+        Your Comment: "${commentText}"
+        ${t.reportReason}: ${reason}
+        
+        ${t.reportAction}
+        ${t.reportActionText}
+        
+        ${t.reportAppeal}
+        
+        ${t.reportThankYou}
+        
+        ${t.copyright}
+      `
+    };
   }
 };
 
@@ -296,45 +460,60 @@ const emailTemplates = {
 export const sendEmail = async (
   to: string,
   template: keyof typeof emailTemplates,
-  data: { resetLink?: string; confirmLink?: string; username: string; locale?: string }
+  data: { 
+    resetLink?: string; 
+    confirmLink?: string; 
+    username: string; 
+    locale?: string;
+    commentText?: string;
+    reason?: string;
+    articleTitle?: string;
+  }
 ) => {
   try {
-    console.log("Email service: Starting email send process");
-    console.log("Email service: Environment check:", {
-      hasUser: !!process.env.EMAIL_USER,
-      hasPassword: !!process.env.EMAIL_PASSWORD,
-      user: process.env.EMAIL_USER,
-    });
-
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
       throw new Error(
         "Email configuration is missing. Please set EMAIL_USER and EMAIL_PASSWORD environment variables."
       );
     }
 
-    console.log("Email service: Creating email content");
-    const link = data.resetLink || data.confirmLink;
-    if (!link) {
-      throw new Error("Either resetLink or confirmLink must be provided");
-    }
+    let emailContent;
     
-    const emailContent = emailTemplates[template](
-      link,
-      data.username,
-      data.locale || 'en'
-    );
+    if (template === 'commentReport') {
+      // commentReport template has different parameters
+      if (!data.commentText || !data.reason || !data.articleTitle) {
+        throw new Error("commentText, reason, and articleTitle are required for comment report emails");
+      }
+      emailContent = emailTemplates[template](
+        data.commentText,
+        data.reason,
+        data.articleTitle,
+        data.username,
+        data.locale || 'en'
+      );
+    } else {
+      // Other templates need a link
+      const link = data.resetLink || data.confirmLink;
+      if (!link) {
+        throw new Error("Either resetLink or confirmLink must be provided");
+      }
+      emailContent = emailTemplates[template](
+        link,
+        data.username,
+        data.locale || 'en'
+      );
+    }
 
     const mailOptions = {
       from: `"Women Spot" <${process.env.EMAIL_USER}>`,
-      to: to,
+      to,
       subject: emailContent.subject,
       html: emailContent.html,
       text: emailContent.text,
     };
 
-    console.log("Email service: Sending email to:", to);
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully:", info.messageId);
+
     return { success: true, messageId: info.messageId };
   } catch (error) {
     console.error("Email service: Failed to send email:", error);
@@ -353,7 +532,13 @@ export const sendPasswordResetEmail = async (
   resetLink: string,
   locale: string = 'en'
 ) => {
-  return sendEmail(email, 'passwordReset', { resetLink, username, locale });
+  try {
+    console.log("Email service: Starting password reset email send process");
+    return await sendEmail(email, 'passwordReset', { resetLink, username, locale });
+  } catch (error) {
+    console.error("Email service: Failed to send password reset email:", error);
+    throw error;
+  }
 };
 
 // Specific function for email confirmation emails
@@ -363,5 +548,40 @@ export const sendEmailConfirmation = async (
   confirmLink: string,
   locale: string = 'en'
 ) => {
-  return sendEmail(email, 'emailConfirmation', { confirmLink, username, locale });
+  try {
+    console.log("Email service: Starting email confirmation send process");
+    return await sendEmail(email, 'emailConfirmation', { confirmLink, username, locale });
+  } catch (error) {
+    console.error("Email service: Failed to send email confirmation:", error);
+    throw error;
+  }
+};
+
+// Specific function for comment report emails
+export const sendCommentReportEmail = async (
+  email: string,
+  username: string,
+  commentText: string,
+  reason: string,
+  articleTitle: string,
+  locale: string = 'en'
+) => {
+  try {
+    console.log("Email service: Starting comment report email send process");
+    
+    return await sendEmail(email, 'commentReport', {
+      username,
+      commentText,
+      reason,
+      articleTitle,
+      locale
+    });
+  } catch (error) {
+    console.error("Email service: Failed to send comment report email:", error);
+    throw new Error(
+      `Failed to send comment report email: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
+  }
 };

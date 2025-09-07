@@ -1,4 +1,4 @@
-- finish the article page and its features
+- do something with the search
 - all loading must be on suspense
 - subscribe supose to add the user email somewhere
 - add skeleton everywhere

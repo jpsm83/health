@@ -783,5 +783,84 @@
     "siteMap": "Mapa do Site",
     "termsAndConditions": "Termos e Condições",
     "cookiesPolicy": "Política de Cookies"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Artigo curtido com sucesso",
+      "likedSuccessMessage": "Seu like foi adicionado com sucesso!",
+      "unlikedSuccess": "Artigo descurtido com sucesso",
+      "unlikedSuccessMessage": "Seu like foi removido com sucesso!",
+      "likeError": "Falha ao curtir o artigo",
+      "likeErrorMessage": "Tente novamente mais tarde"
+    },
+    "info": {
+      "category": "Categoria:",
+      "published": "Publicado:",
+      "views": "Visualizações:",
+      "likes": "Curtidas:"
+    },
+    "actions": {
+      "likeArticle": "Curtir artigo",
+      "unlikeArticle": "Descurtir artigo",
+      "likes": "Curtidas"
+    },
+    "imageAlt": " - Seção "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Comentário criado com sucesso",
+      "createdSuccessMessage": "Seu comentário foi criado com sucesso!",
+      "createError": "Falha ao criar comentário",
+      "createErrorMessage": "Tente novamente mais tarde",
+      "likedSuccess": "Comentário curtido com sucesso",
+      "likedSuccessMessage": "Seu comentário foi curtido com sucesso!",
+      "unlikedSuccess": "Comentário descurtido com sucesso",
+      "unlikedSuccessMessage": "Seu comentário foi descurtido com sucesso!",
+      "likeError": "Falha ao curtir o comentário",
+      "likeErrorMessage": "Tente novamente mais tarde",
+      "deletedSuccess": "Comentário excluído com sucesso",
+      "deletedSuccessMessage": "Seu comentário foi excluído com sucesso!",
+      "deleteError": "Falha ao excluir comentário",
+      "deleteErrorMessage": "Tente novamente mais tarde",
+      "reportedSuccess": "Comentário denunciado com sucesso",
+      "reportedSuccessMessage": "Obrigado por ajudar a manter nossa comunidade segura!",
+      "reportError": "Falha ao denunciar comentário",
+      "reportErrorMessage": "Tente novamente mais tarde"
+    },
+    "title": "Comentários",
+    "form": {
+      "placeholder": "Compartilhe seus pensamentos...",
+      "charCount": "/1000 caracteres",
+      "submit": "Enviar Comentário",
+      "submitting": "Enviando...",
+      "alreadyCommented": "Você já comentou neste artigo. Obrigado pela sua contribuição!",
+      "noComments": "Ainda não há comentários. Seja o primeiro a compartilhar seus pensamentos!"
+    },
+    "actions": {
+      "likeComment": "Curtir comentário",
+      "unlikeComment": "Descurtir comentário",
+      "reportComment": "Denunciar comentário",
+      "deleteComment": "Excluir comentário"
+    },
+    "moderation": {
+      "reported": "Comentário denunciado e em análise",
+      "flagged": "Este comentário foi sinalizado para moderação"
+    },
+    "reportModal": {
+      "title": "Denunciar Comentário",
+      "description": "Selecione um motivo para denunciar este comentário:",
+      "reasons": {
+        "badLanguage": "Linguagem Inadequada",
+        "racistContent": "Conteúdo Racista",
+        "spam": "Spam",
+        "harassment": "Assédio",
+        "inappropriateContent": "Conteúdo Inadequado",
+        "falseInformation": "Informação Falsa",
+        "other": "Outro"
+      },
+      "cancel": "Cancelar",
+      "submit": "Denunciar Comentário",
+      "submitting": "Denunciando..."
+    }
   }
 }

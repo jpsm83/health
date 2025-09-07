@@ -43,10 +43,18 @@ export interface IContentsByLanguage {
   seo: ISeo; // hreflang contains language/locale info
 }
 
+export interface ICommentReport {
+  userId: Types.ObjectId;
+  reason: 'bad_language' | 'racist' | 'spam' | 'harassment' | 'inappropriate_content' | 'false_information' | 'other';
+  reportedAt?: Date;
+}
+
 export interface IArticleComment {
+  _id?: Types.ObjectId;
   userId: Types.ObjectId;
   comment: string;
-  commentsikes?: Types.ObjectId[];
+  commentLikes?: Types.ObjectId[];
+  commentReports?: ICommentReport[];
   createdAt?: Date;
   updatedAt?: Date;
 }

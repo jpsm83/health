@@ -1001,5 +1001,84 @@
     "siteMap": "Site Map",
     "termsAndConditions": "Terms and Conditions",
     "cookiesPolicy": "Cookies Policy"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Article liked successfully",
+      "likedSuccessMessage": "Your like has been added successfully!",
+      "unlikedSuccess": "Article unliked successfully",
+      "unlikedSuccessMessage": "Your like has been removed successfully!",
+      "likeError": "Failed to like article",
+      "likeErrorMessage": "Please try again later"
+    },
+    "info": {
+      "category": "Category:",
+      "published": "Published:",
+      "views": "Views:",
+      "likes": "Likes:"
+    },
+    "actions": {
+      "likeArticle": "Like article",
+      "unlikeArticle": "Unlike article",
+      "likes": "Likes"
+    },
+    "imageAlt": " - Section "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Comment created successfully",
+      "createdSuccessMessage": "Your comment has been created successfully!",
+      "createError": "Failed to create comment",
+      "createErrorMessage": "Please try again later",
+      "likedSuccess": "Comment liked successfully",
+      "likedSuccessMessage": "Your comment has been liked successfully!",
+      "unlikedSuccess": "Comment unliked successfully",
+      "unlikedSuccessMessage": "Your comment has been unliked successfully!",
+      "likeError": "Failed to like comment",
+      "likeErrorMessage": "Please try again later",
+      "deletedSuccess": "Comment deleted successfully",
+      "deletedSuccessMessage": "Your comment has been deleted successfully!",
+      "deleteError": "Failed to delete comment",
+      "deleteErrorMessage": "Please try again later",
+      "reportedSuccess": "Comment reported successfully",
+      "reportedSuccessMessage": "Thank you for helping keep our community safe!",
+      "reportError": "Failed to report comment",
+      "reportErrorMessage": "Please try again later"
+    },
+    "title": "Comments",
+    "form": {
+      "placeholder": "Share your thoughts...",
+      "charCount": "/1000 characters",
+      "submit": "Submit Comment",
+      "submitting": "Submitting...",
+      "alreadyCommented": "You have already commented on this article. Thank you for your contribution!",
+      "noComments": "No comments yet. Be the first to share your thoughts!"
+    },
+    "actions": {
+      "likeComment": "Like comment",
+      "unlikeComment": "Unlike comment",
+      "reportComment": "Report comment",
+      "deleteComment": "Delete comment"
+    },
+    "moderation": {
+      "reported": "Comment reported and under review",
+      "flagged": "This comment has been flagged for moderation"
+    },
+    "reportModal": {
+      "title": "Report Comment",
+      "description": "Please select a reason for reporting this comment:",
+      "reasons": {
+        "badLanguage": "Bad Language",
+        "racistContent": "Racist Content",
+        "spam": "Spam",
+        "harassment": "Harassment",
+        "inappropriateContent": "Inappropriate Content",
+        "falseInformation": "False Information",
+        "other": "Other"
+      },
+      "cancel": "Cancel",
+      "submit": "Report Comment",
+      "submitting": "Reporting..."
+    }
   }
 }

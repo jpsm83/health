@@ -784,5 +784,84 @@
     "siteMap": "Site Map",
     "termsAndConditions": "Servicevoorwaarden",
     "cookiesPolicy": "Cookiebeleid"
+  },
+  "article": {
+    "toasts": {
+      "likedSuccess": "Artikel succesvol geliked",
+      "likedSuccessMessage": "Je like is succesvol toegevoegd!",
+      "unlikedSuccess": "Artikel succesvol ungeliked",
+      "unlikedSuccessMessage": "Je like is succesvol verwijderd!",
+      "likeError": "Fout bij liken van artikel",
+      "likeErrorMessage": "Probeer het later opnieuw"
+    },
+    "info": {
+      "category": "Categorie:",
+      "published": "Gepubliceerd:",
+      "views": "Weergaven:",
+      "likes": "Likes:"
+    },
+    "actions": {
+      "likeArticle": "Like artikel",
+      "unlikeArticle": "Unlike artikel",
+      "likes": "Likes"
+    },
+    "imageAlt": " - Sectie "
+  },
+  "comments": {
+    "toasts": {
+      "createdSuccess": "Reactie succesvol aangemaakt",
+      "createdSuccessMessage": "Je reactie is succesvol aangemaakt!",
+      "createError": "Fout bij aanmaken van reactie",
+      "createErrorMessage": "Probeer het later opnieuw",
+      "likedSuccess": "Reactie succesvol geliked",
+      "likedSuccessMessage": "Je reactie is succesvol geliked!",
+      "unlikedSuccess": "Reactie succesvol ungeliked",
+      "unlikedSuccessMessage": "Je reactie is succesvol ungeliked!",
+      "likeError": "Fout bij liken van reactie",
+      "likeErrorMessage": "Probeer het later opnieuw",
+      "deletedSuccess": "Reactie succesvol verwijderd",
+      "deletedSuccessMessage": "Je reactie is succesvol verwijderd!",
+      "deleteError": "Fout bij verwijderen van reactie",
+      "deleteErrorMessage": "Probeer het later opnieuw",
+      "reportedSuccess": "Reactie succesvol gerapporteerd",
+      "reportedSuccessMessage": "Bedankt voor het helpen veilig houden van onze community!",
+      "reportError": "Fout bij rapporteren van reactie",
+      "reportErrorMessage": "Probeer het later opnieuw"
+    },
+    "title": "Reacties",
+    "form": {
+      "placeholder": "Deel je gedachten...",
+      "charCount": "/1000 karakters",
+      "submit": "Verstuur Reactie",
+      "submitting": "Versturen...",
+      "alreadyCommented": "Je hebt al gereageerd op dit artikel. Bedankt voor je bijdrage!",
+      "noComments": "Nog geen reacties. Wees de eerste om je gedachten te delen!"
+    },
+    "actions": {
+      "likeComment": "Like reactie",
+      "unlikeComment": "Unlike reactie",
+      "reportComment": "Rapporteer reactie",
+      "deleteComment": "Verwijder reactie"
+    },
+    "moderation": {
+      "reported": "Reactie gerapporteerd en onder review",
+      "flagged": "Deze reactie is gemarkeerd voor moderatie"
+    },
+    "reportModal": {
+      "title": "Rapporteer Reactie",
+      "description": "Selecteer een reden voor het rapporteren van deze reactie:",
+      "reasons": {
+        "badLanguage": "Slechte Taal",
+        "racistContent": "Racistische Inhoud",
+        "spam": "Spam",
+        "harassment": "Intimidatie",
+        "inappropriateContent": "Ongepaste Inhoud",
+        "falseInformation": "Valse Informatie",
+        "other": "Anders"
+      },
+      "cancel": "Annuleren",
+      "submit": "Rapporteer Reactie",
+      "submitting": "Rapporteren..."
+    }
   }
 }
