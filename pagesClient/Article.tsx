@@ -12,6 +12,7 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 import { showToast } from "@/components/Toasts";
 import CommentsSection from "@/components/CommentsSection";
 import { Button } from "@/components/ui/button";
+import CategoryCarousel from "@/components/CategoryCarousel";
 
 export default function Article({
   articleData,
@@ -81,7 +82,11 @@ export default function Article({
       }
     } catch (error) {
       console.error("Error toggling like:", error);
-      showToast("error", t("article.toasts.likeError"), t("article.toasts.likeErrorMessage"));
+      showToast(
+        "error",
+        t("article.toasts.likeError"),
+        t("article.toasts.likeErrorMessage")
+      );
     }
   };
 
@@ -140,70 +145,82 @@ export default function Article({
   );
 
   return (
-    <div className="flex flex-col h-full gap-8 md:gap-16">
-      {/* Article Header */}
-      <header className="text-center py-8 bg-gray-100 w-full">
-        <h1 className="text-4xl md:text-7xl font-bold text-gray-800 mb-6 md:mb-12 cursor-default">
-          {articleData?.contentsByLanguage[0].mainTitle}
-        </h1>
-        <div className="flex flex-col md:flex-row items-center justify-between px-2 md:px-8">
-          <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-400 gap-4 mb-2 md:mb-0 cursor-default">
-            <span>{t("article.info.category")} {articleData?.category}</span>
-            <span>{t("article.info.published")} {formatDate(articleData?.createdAt)}</span>
-            <span>{t("article.info.views")} {articleData?.views}</span>
-            <span>{t("article.info.likes")} {likes}</span>
-          </div>
-          {/* Like Button at Top */}
-          <div className="flex justify-center items-center">
-            {/* Like Button at Top */}
-            <Button
-              onClick={toggleLike}
-              className={`flex items-center gap-1 px-2 py-1 border-none shadow-none transition-colors cursor-pointer ${
-                isLiked ? "text-red-600" : "text-gray-600"
-              }`}
-              title={isLiked ? t("article.actions.unlikeArticle") : t("article.actions.likeArticle")}
-            >
-              <Heart
-                size={24}
-                className={
-                  isLiked ? "fill-current" : "stroke-current fill-none"
-                }
-              />
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
       {/* Article Content in 4 Containers */}
       <div className="space-y-6 md:space-y-12">
         {containers.map((container, containerIndex) => (
           <div key={containerIndex}>
             {/* Newsletter Signup before the last container */}
             {containerIndex === containers.length - 1 && (
-              <div className="mb-6 md:mb-12">
+              <div className="mb-8 md:mb-18">
                 <NewsletterSignup />
               </div>
             )}
 
             <div className="overflow-hidden text-justify">
-              {/* Container Image */}
+              {/* Container Image with Overlay Header for first container */}
               {container.image && (
-                <div className="relative w-full h-64 md:h-80">
+                <div className="relative w-full h-[70vh] mb-8 md:mb-16">
                   <Image
                     src={container.image}
-                    alt={`${
-                      articleData?.contentsByLanguage[0].mainTitle
-                    }${t("article.imageAlt")}${containerIndex + 1}`}
+                    alt={`${articleData?.contentsByLanguage[0].mainTitle}${t(
+                      "article.imageAlt"
+                    )}${containerIndex + 1}`}
                     fill
                     className="object-cover object-center"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
                     priority
                   />
+                  
+                  {/* Overlay Header for first container only */}
+                  {containerIndex === 0 && (
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
+                      <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default">
+                        {articleData?.contentsByLanguage[0].mainTitle}
+                      </h1>
+                      <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
+                        <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default">
+                          <span>
+                            {t("article.info.category")} {articleData?.category}
+                          </span>
+                          <span>
+                            {t("article.info.published")} {formatDate(articleData?.createdAt)}
+                          </span>
+                          <span>
+                            {t("article.info.views")} {articleData?.views}
+                          </span>
+                          <span>
+                            {t("article.info.likes")} {likes}
+                          </span>
+                        </div>
+                        {/* Like Button at Top */}
+                        <div className="flex justify-center items-center">
+                          <Button
+                            onClick={toggleLike}
+                            className={`flex items-center gap-1 px-2 py-1 border-none transition-colors cursor-pointer rounded-full shadow-lg ${
+                              isLiked ? "text-red-400" : "text-gray-200"
+                            }`}
+                            title={
+                              isLiked
+                                ? t("article.actions.unlikeArticle")
+                                : t("article.actions.likeArticle")
+                            }
+                          >
+                            <Heart
+                              className={`size-6 ${
+                                isLiked ? "fill-current" : "stroke-current fill-none"
+                              }`}
+                            />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
               {/* Container Content */}
-              <div className="p-2 md:p-6">
+              <div className="px-4 md:px-18">
                 {container.content?.map((section, sectionIndex) => (
                   <section key={sectionIndex} className="mb-8 last:mb-0">
                     <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
@@ -234,14 +251,21 @@ export default function Article({
             className={`flex items-center gap-1 px-2 py-1 border-none shadow-none transition-colors cursor-pointer ${
               isLiked ? "text-red-600" : "text-gray-600"
             }`}
-            title={isLiked ? t("article.actions.unlikeArticle") : t("article.actions.likeArticle")}
+            title={
+              isLiked
+                ? t("article.actions.unlikeArticle")
+                : t("article.actions.likeArticle")
+            }
           >
             <Heart
-              size={24}
-              className={isLiked ? "fill-current" : "stroke-current fill-none"}
+              className={`size-6 ${
+                isLiked ? "fill-current" : "stroke-current fill-none"
+              }`}
             />
             {likes > 0 && (
-              <span className="text-xs font-medium">{likes} {t("article.actions.likes")}</span>
+              <span className="text-xs font-medium">
+                {likes} {t("article.actions.likes")}
+              </span>
             )}
           </Button>
         </div>
@@ -253,6 +277,17 @@ export default function Article({
           setComments={setComments}
           hasUserCommented={hasUserCommented}
         />
+
+        {/* Category Carousels */}
+        <section>
+          <div className="text-center bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
+            <h2 className="text-3xl font-bold text-white">
+              {t("article.exploreMore")}
+            </h2>
+          </div>
+
+          <CategoryCarousel category={articleData?.category || ""} />
+        </section>
       </div>
     </div>
   );

@@ -36,6 +36,7 @@ export const GET = async (req: Request) => {
     const category = searchParams.get("category") || undefined;
     const locale = searchParams.get("locale") || "en";
     const excludeIds = searchParams.get("excludeIds") || undefined;
+    const query = searchParams.get("query") || undefined;
 
     // ------------------------
     // Build filter
@@ -60,6 +61,16 @@ export const GET = async (req: Request) => {
 
     if (category) {
       mongoFilter.category = category;
+    }
+
+    if (query && query.trim()) {
+      mongoFilter["contentsByLanguage"] = { 
+        $elemMatch: { 
+          mainTitle: { $regex: query.trim(), $options: "i" } 
+        } 
+      };
+      console.log("Search query:", query.trim());
+      console.log("MongoDB filter:", JSON.stringify(mongoFilter, null, 2));
     }
 
     // Exclude already loaded IDs

@@ -1,5 +1,5 @@
-- do something with the search
-- all loading must be on suspense
 - subscribe supose to add the user email somewhere
+- all loading must be on suspense
 - add skeleton everywhere
 - create 404 page
+- minimize size of json messges

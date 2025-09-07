@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { mainCategories } from "@/lib/constants";
 import Image from "next/image";
@@ -22,26 +22,42 @@ import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   // All hooks must be called at the top level, unconditionally
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("navigation");
 
   const { data: session } = useSession();
 
-  // Handle search
+  // Get search term from URL - single source of truth
+  const searchTerm = searchParams.get('q') || "";
+
+  // Handle search input change - just update local state for typing
+  const [localSearchTerm, setLocalSearchTerm] = useState<string>("");
+
+  // Sync local state with URL when component mounts or URL changes
+  useEffect(() => {
+    setLocalSearchTerm(searchTerm);
+  }, [searchTerm]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalSearchTerm(e.target.value);
+  };
+
+  // Handle search on Enter key
   const handleSearch = () => {
-    if (searchTerm.trim()) {
-      // TODO: Implement search functionality
-      // router.push(`/${locale}/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    if (localSearchTerm.trim()) {
+      router.push(`/${locale}/search?q=${encodeURIComponent(localSearchTerm.trim())}`);
+      setIsMobileMenuOpen(false); // Close mobile menu after search
+    } else {
+      // Redirect to home if search input is empty
+      router.push(`/${locale}`);
+      setIsMobileMenuOpen(false); // Close mobile menu after redirect
     }
   };
 
-  // Handle search input change
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
 
   // Handle logout
   const handleLogout = async () => {
@@ -54,13 +70,18 @@ export default function Navbar() {
     }
   };
 
+  // Handle navigation link clicks (close mobile menu)
+  const handleNavLinkClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav className="text-white shadow-lg text-base">
       {/* Top navigation */}
       <div className="bg-gradient-to-r from-red-600 to-pink-600 flex justify-between items-center h-12 md:h-16 px-2 sm:px-6 lg:px-8">
         {/* Navigation Menu */}
         <div className="md:hidden relative flex items-center space-x-2">
-          <DropdownMenu>
+          <DropdownMenu open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
@@ -71,7 +92,7 @@ export default function Navbar() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="w-[240px] bg-white shadow-lg"
+              className="w-[240px] bg-white shadow-lg border border-gray-200"
               align="start"
               side="bottom"
               sideOffset={4}
@@ -83,7 +104,7 @@ export default function Navbar() {
                   <Input
                     type="text"
                     placeholder={t("searchArticles")}
-                    value={searchTerm || ""}
+                    value={localSearchTerm}
                     onChange={handleSearchChange}
                     className="w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-1 focus:ring-red-300 focus:ring-offset-0"
                     onKeyDown={(e) => {
@@ -100,6 +121,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   🏠 {t("home")}
                 </Link>
@@ -111,6 +133,7 @@ export default function Navbar() {
                     <Link
                       href={`/${locale}/dashboard`}
                       className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                      onClick={handleNavLinkClick}
                     >
                       📊 {t("dashboard")}
                     </Link>
@@ -127,6 +150,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/health`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   🏥 {t("categories.health")}
                 </Link>
@@ -136,6 +160,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/fitness`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   💪 {t("categories.fitness")}
                 </Link>
@@ -145,6 +170,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/nutrition`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   🥗 {t("categories.nutrition")}
                 </Link>
@@ -154,6 +180,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/sex`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   ❤️ {t("categories.sex")}
                 </Link>
@@ -163,6 +190,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/beauty`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   💄 {t("categories.beauty")}
                 </Link>
@@ -172,6 +200,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/fashion`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   👗 {t("categories.fashion")}
                 </Link>
@@ -181,6 +210,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/lifestyle`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   🌟 {t("categories.lifestyle")}
                 </Link>
@@ -190,6 +220,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/travel`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   ✈️ {t("categories.travel")}
                 </Link>
@@ -199,6 +230,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/decor`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   🏠 {t("categories.decor")}
                 </Link>
@@ -208,6 +240,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/productivity`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   ⚡ {t("categories.productivity")}
                 </Link>
@@ -217,6 +250,7 @@ export default function Navbar() {
                 <Link
                   href={`/${locale}/parenting`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                  onClick={handleNavLinkClick}
                 >
                   👶 {t("categories.parenting")}
                 </Link>
@@ -238,7 +272,7 @@ export default function Navbar() {
             <Input
               type="text"
               placeholder={t("searchPlaceholder")}
-              value={searchTerm || ""}
+              value={localSearchTerm}
               onChange={handleSearchChange}
               className="text-gray-700 w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-1 focus:ring-red-300 focus:ring-offset-0"
               onKeyDown={(e) => {
@@ -286,7 +320,7 @@ export default function Navbar() {
                 )}
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-[200px] bg-white shadow-lg"
+                className="w-[200px] bg-white shadow-lg border border-gray-200"
                 align="end"
                 side="bottom"
                 sideOffset={4}
@@ -306,12 +340,16 @@ export default function Navbar() {
                       <Link
                         href={`/${locale}/profile`}
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                        onClick={handleNavLinkClick}
                       >
                         👤 {t("profile")}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onClick={handleLogout}
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
                       className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                     >
                       🚪 {t("signOut")}
@@ -323,6 +361,7 @@ export default function Navbar() {
                       <Link
                         href={`/${locale}/signin`}
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                        onClick={handleNavLinkClick}
                       >
                         🔐 {t("signIn")}
                       </Link>
@@ -331,6 +370,7 @@ export default function Navbar() {
                       <Link
                         href={`/${locale}/signup`}
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                        onClick={handleNavLinkClick}
                       >
                         📝 {t("signUp")}
                       </Link>
@@ -381,7 +421,7 @@ export default function Navbar() {
                     )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
-                    className="w-[200px] bg-white shadow-lg"
+                    className="w-[200px] bg-white shadow-lg border border-gray-200"
                     align="end"
                     side="bottom"
                     sideOffset={4}

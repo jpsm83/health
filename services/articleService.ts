@@ -189,52 +189,100 @@ class ArticleService {
     }
   }
 
-         // get all articles by category paginated
-     async getArticlesByCategoryPaginated(
-       params: GetArticlesParams & { category: string }
-     ): Promise<IPaginatedResponse<IArticle>> {
-       const {
-         page = 1,
-         limit = 6,
-         sort = "createdAt",
-         order = "desc",
-         locale = "en",
-         category,
-         excludeIds,
-       } = params;
-   
-       try {
-         const requestParams: Record<string, string | number> = {
-           page,
-           limit,
-           sort,
-           order,
-           locale,
-           category,
-         };
-   
-         // Pass excludeIds as JSON if provided
-         if (excludeIds && excludeIds.length > 0) {
-           requestParams.excludeIds = JSON.stringify(excludeIds);
-         }
-   
-         const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
-           () => this.instance.get("/articles/paginated", { params: requestParams })
-         );
-   
-         return result;
-       } catch (error) {
-         console.error("Error fetching articles by category paginated:", error);
-         return {
-           page: 1,
-           limit: 6,
-           totalDocs: 0,
-           totalPages: 0,
-           data: [],
-         };
-       }
-     }
+  // get all articles by category paginated
+  async getArticlesByCategoryPaginated(
+    params: GetArticlesParams & { category: string }
+  ): Promise<IPaginatedResponse<IArticle>> {
+    const {
+      page = 1,
+      limit = 6,
+      sort = "createdAt",
+      order = "desc",
+      locale = "en",
+      category,
+      excludeIds,
+    } = params;
+
+    try {
+      const requestParams: Record<string, string | number> = {
+        page,
+        limit,
+        sort,
+        order,
+        locale,
+        category,
+      };
+
+      // Pass excludeIds as JSON if provided
+      if (excludeIds && excludeIds.length > 0) {
+        requestParams.excludeIds = JSON.stringify(excludeIds);
+      }
+
+      const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
+        () =>
+          this.instance.get("/articles/paginated", { params: requestParams })
+      );
+
+      return result;
+    } catch (error) {
+      console.error("Error fetching articles by category paginated:", error);
+      return {
+        page: 1,
+        limit: 6,
+        totalDocs: 0,
+        totalPages: 0,
+        data: [],
+      };
+    }
   }
+
+  // Search articles by title with pagination
+  async searchArticlesPaginated(
+    params: GetArticlesParams & { query: string }
+  ): Promise<IPaginatedResponse<IArticle>> {
+    const {
+      page = 1,
+      limit = 6,
+      sort = "createdAt",
+      order = "desc",
+      locale = "en",
+      query,
+      excludeIds,
+    } = params;
+
+    try {
+      const requestParams: Record<string, string | number> = {
+        page,
+        limit,
+        sort,
+        order,
+        locale,
+        query,
+      };
+
+      // Pass excludeIds as JSON if provided
+      if (excludeIds && excludeIds.length >= 0) {
+        requestParams.excludeIds = JSON.stringify(excludeIds);
+      }
+
+      const result = await this.handleRequest<IPaginatedResponse<IArticle>>(
+        () =>
+          this.instance.get("/articles/paginated", { params: requestParams })
+      );
+
+      return result;
+    } catch (error) {
+      console.error("Error searching articles paginated:", error);
+      return {
+        page: 1,
+        limit: 6,
+        totalDocs: 0,
+        totalPages: 0,
+        data: [],
+      };
+    }
+  }
+}
 
 // Export singleton instance for API calls
 export const articleService = new ArticleService();
