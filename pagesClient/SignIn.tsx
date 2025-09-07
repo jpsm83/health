@@ -122,8 +122,8 @@ export default function SignIn() {
         </div>
       )}
 
-      <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
+<div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
+<div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               {t("signInToAccount")}

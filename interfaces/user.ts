@@ -27,7 +27,7 @@ export interface IUser {
   preferences: IUserPreferences;
   likedArticles?: Types.ObjectId[];
   commentedArticles?: Types.ObjectId[];
-  subscriptionPreferences: ISubscriptionPreferences;
+  subscriptionId?: Types.ObjectId | null;
   readingHistory?: IReadingHistoryItem[];
   lastLogin?: Date;
   isActive?: boolean;

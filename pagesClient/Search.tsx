@@ -13,6 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useTranslations } from "next-intl";
 
 interface PaginationData {
   currentPage: number;
@@ -32,6 +33,8 @@ export default function Search({
   query,
   paginationData,
 }: SearchProps) {
+  const t = useTranslations("search");
+
   return (
     <div className="flex flex-col min-h-full gap-12 md:gap-16 mb-12 md:mb-16">
       {/* Hero Section with Full-Width Image */}
@@ -39,7 +42,7 @@ export default function Search({
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1757237848/health/bpzafd2yt9i7evmnecoa.png"
-            alt="Search Results"
+            alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -54,12 +57,13 @@ export default function Search({
           <div className="relative z-10 flex items-center justify-center h-full">
             <div className="text-center text-white max-w-4xl mx-auto px-6">
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Search Results
+                {t("resultsTitle")}
               </h1>
               <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-                Found {paginationData.totalArticles} result
-                {paginationData.totalArticles !== 1 ? "s" : ""} for &quot;
-                {query}&quot;
+                {t("resultsFound", { 
+                  count: paginationData.totalArticles, 
+                  query: query 
+                })}
               </p>
             </div>
           </div>
@@ -68,10 +72,10 @@ export default function Search({
             {/* No results message */}
             <div className="text-center text-white max-w-4xl mx-auto px-6">
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                No articles found!
+                {t("noResultsTitle")}
               </h1>
               <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-                Try searching with different keywords than...
+                {t("noResultsDescription")}
               </p>
               <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
                 &quot;{query}&quot;

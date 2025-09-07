@@ -3,3 +3,4 @@
 - add skeleton everywhere
 - create 404 page
 - minimize size of json messges
+- services are for reactjs, in nextjs we use action, refact all services to become actions

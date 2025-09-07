@@ -13,12 +13,21 @@ import { sendEmailConfirmation } from "@/services/emailService";
 
 // imported models
 import User from "@/app/api/models/user";
+import Subscriber from "@/app/api/models/subscriber";
 
 // imported interfaces
 import { IUser, IUserPreferences } from "@/interfaces/user";
 
+// Helper function to generate verification token
+function generateToken(): string {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
+
 // imported constants
-import { roles, mainCategories, newsletterFrequencies } from "@/lib/constants";
+import { roles, mainCategories } from "@/lib/constants";
 
 // @desc    Get all users
 // @route   GET /users
@@ -66,16 +75,8 @@ export const POST = async (req: Request) => {
     const language = formData.get("language") as string;
     const region = formData.get("region") as string;
 
-    // Subscription Preferences - use default categories if not provided
-    const subscriptionPreferencesRaw = formData.get(
-      "subscriptionPreferences"
-    ) as string;
-
-    // Default subscription preferences with all categories from constants
-    const defaultSubscriptionPreferences = {
-      categories: mainCategories,
-      subscriptionFrequencies: newsletterFrequencies[1], // 'weekly' (index 1)
-    };
+    // Note: Subscription preferences are now handled via the subscription reference
+    // No need to parse subscription preferences from form data
 
     // Validate required fields
     if (
@@ -96,28 +97,6 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Parse subscription preferences from formData or use defaults
-    let subscriptionPreferences: {
-      categories: string[];
-      subscriptionFrequencies: string;
-    };
-    if (subscriptionPreferencesRaw) {
-      try {
-        subscriptionPreferences = JSON.parse(
-          subscriptionPreferencesRaw
-            .replace(/,\s*]/g, "]")
-            .replace(/\s+/g, " ")
-            .trim()
-        );
-      } catch {
-        // If parsing fails, use defaults
-        subscriptionPreferences = defaultSubscriptionPreferences;
-      }
-    } else {
-      // If no subscription preferences provided, use defaults
-      subscriptionPreferences = defaultSubscriptionPreferences;
-    }
-
     // Validate password
     if (!passwordValidation(password)) {
       return new NextResponse(
@@ -130,53 +109,6 @@ export const POST = async (req: Request) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-    }
-
-    // Validate subscription preferences
-    if (subscriptionPreferences) {
-      // Validate subscriptionFrequencies enum
-      if (
-        !subscriptionPreferences.subscriptionFrequencies ||
-        !newsletterFrequencies.includes(
-          subscriptionPreferences.subscriptionFrequencies
-        )
-      ) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Invalid subscription frequency: ${
-              subscriptionPreferences.subscriptionFrequencies
-            }. Must be one of: ${newsletterFrequencies.join(", ")}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      // Validate categories array
-      if (
-        !subscriptionPreferences.categories ||
-        !Array.isArray(subscriptionPreferences.categories)
-      ) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "Categories must be an array",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      // Validate each category
-      for (const category of subscriptionPreferences.categories) {
-        if (!mainCategories.includes(category)) {
-          return new NextResponse(
-            JSON.stringify({
-              message: `Invalid category: ${category}. Must be one of: ${mainCategories.join(
-                ", "
-              )}`,
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
-          );
-        }
-      }
     }
 
     // Validate roles
@@ -229,7 +161,6 @@ export const POST = async (req: Request) => {
       role,
       birthDate: new Date(birthDate),
       preferences,
-      subscriptionPreferences,
       lastLogin: new Date(), // Set to current date automatically
       verificationToken,
       emailVerified: false,
@@ -263,7 +194,91 @@ export const POST = async (req: Request) => {
       newUser.imageFile = imageFile.name;
     }
 
-    await User.create(newUser);
+    // Start database transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      // Check if user was previously a newsletter subscriber
+      const existingSubscriber = await Subscriber.findOne({
+        email: email.toLowerCase(),
+      }).session(session);
+
+      if (existingSubscriber) {
+        console.log("********************************************existingSubscriber", existingSubscriber);
+
+        // Link existing subscription to new user
+        await Subscriber.findOneAndUpdate(
+          { email: email.toLowerCase() },
+          {
+            $set: {
+              userId: newUser._id,
+            },
+          },
+          {
+            new: true,
+            session: session,
+          }
+        );
+        // Use existing subscriber's ID
+        newUser.subscriptionId = existingSubscriber._id;
+      } else {
+        console.log("********************************************no existingSubscriber");
+
+        // Create new subscription for user
+        const subscriptionId = new mongoose.Types.ObjectId();
+
+        await Subscriber.create(
+          [
+            {
+              _id: subscriptionId,
+              email: email.toLowerCase(),
+              userId: newUser._id,
+              emailVerified: false,
+              verificationToken: generateToken(),
+              unsubscribeToken: generateToken(),
+              subscriptionPreferences: {
+                categories: mainCategories,
+                subscriptionFrequencies: "weekly",
+              },
+            },
+          ],
+          { session }
+        );
+        // Use new subscription's ID
+        newUser.subscriptionId = subscriptionId;
+      }
+      console.log("********************************************newUser", newUser);
+
+      // Create user
+      await User.create([newUser], { session });
+      
+      // Commit the transaction
+      await session.commitTransaction();
+    } catch (error) {
+      await session.abortTransaction();
+      return new NextResponse(
+        JSON.stringify({
+          message: "Failed to create user and subscription",
+          error: error instanceof Error ? error.message : "Unknown error",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    } finally {
+      await session.endSession();
+    }
+
+    // Verify the user was created with the correct subscriptionId
+    const createdUser = await User.findById(userId).populate("subscriptionId");
+    console.log(
+      `Verification - Created user subscriptionId: ${createdUser?.subscriptionId}`
+    );
+    console.log(
+      `Verification - Created user subscriptionId type: ${typeof createdUser?.subscriptionId}`
+    );
 
     // Send email confirmation
     try {

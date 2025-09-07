@@ -20,10 +20,8 @@ export async function generateMetadata({
 // Server Component - handles metadata generation
 export default function ConfirmEmailPage() {
   return (
-    <main className="container mx-auto">
-      <ErrorBoundary context={"ConfirmEmail component"}>
-        <ConfirmEmail />
-      </ErrorBoundary>
-    </main>
+    <ErrorBoundary context={"ConfirmEmail component"}>
+      <ConfirmEmail />
+    </ErrorBoundary>
   );
 }

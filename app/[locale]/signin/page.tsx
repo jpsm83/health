@@ -16,10 +16,8 @@ export async function generateMetadata({
 // Server Component - handles metadata generation
 export default function SignInPage() {
   return (
-    <main className="container mx-auto">
-      <ErrorBoundary context={"SignIn component"}>
-        <SignIn />
-      </ErrorBoundary>
-    </main>
+    <ErrorBoundary context={"SignIn component"}>
+      <SignIn />
+    </ErrorBoundary>
   );
 }

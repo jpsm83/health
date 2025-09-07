@@ -20,10 +20,8 @@ export async function generateMetadata({
 // Server Component - handles metadata generation
 export default function ResetPasswordPage() {
   return (
-    <main className="container mx-auto">
-      <ErrorBoundary context={"ResetPassword component"}>
-        <ResetPassword />
-      </ErrorBoundary>
-    </main>
+    <ErrorBoundary context={"ResetPassword component"}>
+      <ResetPassword />
+    </ErrorBoundary>
   );
 }

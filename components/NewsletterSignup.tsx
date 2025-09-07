@@ -3,15 +3,67 @@ import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { showToast } from "@/components/Toasts";
+import { subscribeToNewsletter } from "@/app/actions/newsletterSubscription";
 
 export default function NewsletterSignup() {
   const [emailInput, setEmailInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const t = useTranslations("newsletterSignup");
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(emailInput);
+
+    if (!emailInput.trim()) {
+      showToast(
+        "error",
+        "Email Required",
+        "Please enter your email address"
+      );
+      return;
+    }
+
+    // Validate email format with regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput.trim())) {
+      showToast(
+        "error",
+        "Invalid Email",
+        "Please enter a valid email address"
+      );
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const result = await subscribeToNewsletter(emailInput.trim());
+
+      if (result.success) {
+        showToast(
+          "success",
+          "Subscription Successful",
+          result.message
+        );
+        setEmailInput(""); // Clear the input
+      } else {
+        showToast(
+          "error",
+          "Subscription Failed",
+          result.message
+        );
+      }
+    } catch (error) {
+      console.error("Newsletter subscription error:", error);
+      showToast(
+        "error",
+        "Subscription Error",
+        "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -39,9 +91,10 @@ export default function NewsletterSignup() {
           onClick={handleSubmit}
           type="submit"
           variant="secondary"
-          className="px-6 py-3 bg-white text-red-600 hover:bg-red-100 border-0 font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+          disabled={isLoading}
+          className="px-6 py-3 bg-white text-red-600 hover:bg-red-100 border-0 font-semibold shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {t("subscribeButton")}
+          {isLoading ? "Subscribing..." : t("subscribeButton")}
         </Button>
       </form>
 

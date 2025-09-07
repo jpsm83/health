@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import User from "@/app/api/models/user";
+import Subscriber from "@/app/api/models/subscriber";
+import mongoose from "mongoose";
 
 // @desc    Confirm email with verification token
 // @route   POST /api/v1/auth/confirm-email
@@ -48,18 +50,41 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Update user to mark email as verified and clear verification token
-    await User.findByIdAndUpdate(user._id, {
-      emailVerified: true,
-      verificationToken: undefined,
-    });
+    // Start database transaction to update both user and subscriber
+    const session = await mongoose.startSession();
+    session.startTransaction();
 
-    return new NextResponse(
-      JSON.stringify({ 
-        message: "Email confirmed successfully! You can now sign in to your account." 
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    );
+    try {
+      // Update user to mark email as verified and clear verification token
+      await User.findByIdAndUpdate(user._id, {
+        emailVerified: true,
+        verificationToken: undefined,
+      }, { session });
+
+      // Also update linked subscriber's email verification status
+      if (user.subscriptionId) {
+        await Subscriber.findByIdAndUpdate(user.subscriptionId, {
+          emailVerified: true,
+        }, { session });
+        
+        console.log(`Updated subscriber ${user.subscriptionId} email verification to true`);
+      }
+
+      // Commit the transaction
+      await session.commitTransaction();
+
+      return new NextResponse(
+        JSON.stringify({ 
+          message: "Email confirmed successfully! You can now sign in to your account." 
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    } catch (error) {
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      await session.endSession();
+    }
   } catch (error) {
     return handleApiError(
       "Email confirmation failed!",

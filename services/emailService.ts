@@ -34,7 +34,21 @@ const emailTranslations = {
     reportActionText: "Our moderation team will review your comment and the report. If the comment violates our community guidelines, it may be removed. If it's found to be appropriate, it will remain visible.",
     reportAppeal: "If you believe this report was made in error, you can contact our support team.",
     reportContact: "Contact Support",
-    reportThankYou: "Thank you for being part of our community and helping us maintain a safe environment for everyone."
+    reportThankYou: "Thank you for being part of our community and helping us maintain a safe environment for everyone.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Confirm Your Newsletter Subscription - Women Spot",
+    newsletterMessage: "Thank you for subscribing to our newsletter! Please confirm your subscription by clicking the button below to start receiving our latest of Women Spot.",
+    newsletterButton: "Confirm Subscription",
+    newsletterIgnoreMessage: "If you didn't subscribe to our newsletter, please ignore this email.",
+    newsletterWelcome: "Welcome to our community ",
+    newsletterBenefits: "You'll receive:",
+    newsletterBenefit1: "• Weekly articles of Women Spot",
+    newsletterBenefit2: "• Latest updates from our community",
+    newsletterBenefit3: "• Exclusive content, tips and more",
+    // Unsubscribe translations
+    unsubscribeText: "Don't want to receive these emails?",
+    unsubscribeLink: "Unsubscribe here",
+    unsubscribeFooter: "If you no longer wish to receive our newsletter, you can unsubscribe at any time."
   },
   pt: {
     subject: "Solicitação de Redefinição de Senha - Women Spot",
@@ -59,7 +73,21 @@ const emailTranslations = {
     reportActionText: "Nossa equipe de moderação revisará seu comentário e a denúncia. Se o comentário violar nossas diretrizes da comunidade, ele pode ser removido. Se for considerado apropriado, permanecerá visível.",
     reportAppeal: "Se você acredita que esta denúncia foi feita por engano, pode entrar em contato com nossa equipe de suporte.",
     reportContact: "Contatar Suporte",
-    reportThankYou: "Obrigado por fazer parte da nossa comunidade e nos ajudar a manter um ambiente seguro para todos."
+    reportThankYou: "Obrigado por fazer parte da nossa comunidade e nos ajudar a manter um ambiente seguro para todos.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Confirme sua Inscrição na Newsletter - Women Spot",
+    newsletterMessage: "Obrigado por se inscrever na nossa newsletter! Confirme sua inscrição clicando no botão abaixo para começar a receber nosso conteúdo mais recente do Women Spot.",
+    newsletterButton: "Confirmar Inscrição",
+    newsletterIgnoreMessage: "Se você não se inscreveu na nossa newsletter, ignore este email.",
+    newsletterWelcome: "Bem-vindo à nossa comunidade ",
+    newsletterBenefits: "Você receberá:",
+    newsletterBenefit1: "• Artigos semanais do Women Spot",
+    newsletterBenefit2: "• Atualizações mais recentes da nossa comunidade",
+    newsletterBenefit3: "• Conteúdo exclusivo, dicas e muito mais",
+    // Unsubscribe translations
+    unsubscribeText: "Não quer receber estes emails?",
+    unsubscribeLink: "Cancelar inscrição aqui",
+    unsubscribeFooter: "Se você não deseja mais receber nossa newsletter, pode cancelar a inscrição a qualquer momento."
   },
   es: {
     subject: "Solicitud de Restablecimiento de Contraseña - Women Spot",
@@ -84,7 +112,21 @@ const emailTranslations = {
     reportActionText: "Nuestro equipo de moderación revisará tu comentario y el reporte. Si el comentario viola nuestras pautas de la comunidad, puede ser removido. Si se considera apropiado, permanecerá visible.",
     reportAppeal: "Si crees que este reporte fue hecho por error, puedes contactar a nuestro equipo de soporte.",
     reportContact: "Contactar Soporte",
-    reportThankYou: "Gracias por ser parte de nuestra comunidad y ayudarnos a mantener un ambiente seguro para todos."
+    reportThankYou: "Gracias por ser parte de nuestra comunidad y ayudarnos a mantener un ambiente seguro para todos.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Confirma tu Suscripción al Boletín - Women Spot",
+    newsletterMessage: "¡Gracias por suscribirte a nuestro boletín! Confirma tu suscripción haciendo clic en el botón de abajo para comenzar a recibir nuestro contenido más reciente del Women Spot.",
+    newsletterButton: "Confirmar Suscripción",
+    newsletterIgnoreMessage: "Si no te suscribiste a nuestro boletín, ignora este email.",
+    newsletterWelcome: "¡Bienvenido a nuestra comunidad ",
+    newsletterBenefits: "Recibirás:",
+    newsletterBenefit1: "• Artículos semanales del Women Spot",
+    newsletterBenefit2: "• Actualizaciones más recientes de nuestra comunidad",
+    newsletterBenefit3: "• Contenido exclusivo, consejos y mucho más",
+    // Unsubscribe translations
+    unsubscribeText: "¿No quieres recibir estos emails?",
+    unsubscribeLink: "Cancelar suscripción aquí",
+    unsubscribeFooter: "Si ya no deseas recibir nuestro boletín, puedes cancelar la suscripción en cualquier momento."
   },
   fr: {
     subject: "Demande de Réinitialisation de Mot de Passe - Women Spot",
@@ -109,7 +151,21 @@ const emailTranslations = {
     reportActionText: "Notre équipe de modération examinera votre commentaire et le signalement. Si le commentaire viole nos directives communautaires, il peut être supprimé. S'il est jugé approprié, il restera visible.",
     reportAppeal: "Si vous pensez que ce signalement a été fait par erreur, vous pouvez contacter notre équipe de support.",
     reportContact: "Contacter le Support",
-    reportThankYou: "Merci de faire partie de notre communauté et de nous aider à maintenir un environnement sûr pour tous."
+    reportThankYou: "Merci de faire partie de notre communauté et de nous aider à maintenir un environnement sûr pour tous.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Confirmez votre Abonnement à la Newsletter - Women Spot",
+    newsletterMessage: "Merci de vous être abonné à notre newsletter ! Confirmez votre abonnement en cliquant sur le bouton ci-dessous pour commencer à recevoir notre contenu le plus récent du Women Spot.",
+    newsletterButton: "Confirmer l'Abonnement",
+    newsletterIgnoreMessage: "Si vous ne vous êtes pas abonné à notre newsletter, ignorez cet email.",
+    newsletterWelcome: "Bienvenue dans notre communauté ",
+    newsletterBenefits: "Vous recevrez :",
+    newsletterBenefit1: "• Articles hebdomadaires du Women Spot",
+    newsletterBenefit2: "• Dernières mises à jour de notre communauté",
+    newsletterBenefit3: "• Contenu exclusif, conseils et bien plus",
+    // Unsubscribe translations
+    unsubscribeText: "Vous ne voulez plus recevoir ces emails ?",
+    unsubscribeLink: "Se désabonner ici",
+    unsubscribeFooter: "Si vous ne souhaitez plus recevoir notre newsletter, vous pouvez vous désabonner à tout moment."
   },
   de: {
     subject: "Passwort-Reset-Anfrage - Women Spot",
@@ -134,7 +190,21 @@ const emailTranslations = {
     reportActionText: "Unser Moderations-Team wird Ihren Kommentar und die Meldung überprüfen. Wenn der Kommentar unsere Community-Richtlinien verletzt, kann er entfernt werden. Wenn er als angemessen befunden wird, bleibt er sichtbar.",
     reportAppeal: "Wenn Sie glauben, dass diese Meldung fälschlicherweise gemacht wurde, können Sie unser Support-Team kontaktieren.",
     reportContact: "Support Kontaktieren",
-    reportThankYou: "Vielen Dank, dass Sie Teil unserer Community sind und uns helfen, eine sichere Umgebung für alle zu schaffen."
+    reportThankYou: "Vielen Dank, dass Sie Teil unserer Community sind und uns helfen, eine sichere Umgebung für alle zu schaffen.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Bestätigen Sie Ihr Newsletter-Abonnement - Women Spot",
+    newsletterMessage: "Vielen Dank für Ihr Newsletter-Abonnement! Bestätigen Sie Ihr Abonnement, indem Sie auf die Schaltfläche unten klicken, um unseren neuesten Women Spot-Inhalt zu erhalten.",
+    newsletterButton: "Abonnement Bestätigen",
+    newsletterIgnoreMessage: "Wenn Sie sich nicht für unseren Newsletter angemeldet haben, ignorieren Sie diese E-Mail.",
+    newsletterWelcome: "Willkommen in unserer Gemeinschaft ",
+    newsletterBenefits: "Sie erhalten:",
+    newsletterBenefit1: "• Wöchentliche Women Spot-Artikel",
+    newsletterBenefit2: "• Neueste Updates aus unserer Gemeinschaft",
+    newsletterBenefit3: "• Exklusive Inhalte, Tipps und vieles mehr",
+    // Unsubscribe translations
+    unsubscribeText: "Möchten Sie diese E-Mails nicht mehr erhalten?",
+    unsubscribeLink: "Hier abmelden",
+    unsubscribeFooter: "Wenn Sie unseren Newsletter nicht mehr erhalten möchten, können Sie sich jederzeit abmelden."
   },
   it: {
     subject: "Richiesta di Reset Password - Women Spot",
@@ -159,7 +229,21 @@ const emailTranslations = {
     reportActionText: "Il nostro team di moderazione esaminerà il tuo commento e la segnalazione. Se il commento viola le nostre linee guida della community, potrebbe essere rimosso. Se è ritenuto appropriato, rimarrà visibile.",
     reportAppeal: "Se ritieni che questa segnalazione sia stata fatta per errore, puoi contattare il nostro team di supporto.",
     reportContact: "Contatta il Supporto",
-    reportThankYou: "Grazie per far parte della nostra community e aiutarci a mantenere un ambiente sicuro per tutti."
+    reportThankYou: "Grazie per far parte della nostra community e aiutarci a mantenere un ambiente sicuro per tutti.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Conferma la tua Iscrizione alla Newsletter - Women Spot",
+    newsletterMessage: "Grazie per esserti iscritto alla nostra newsletter! Conferma la tua iscrizione cliccando sul pulsante qui sotto per iniziare a ricevere i nostri contenuti più recenti del Women Spot.",
+    newsletterButton: "Conferma Iscrizione",
+    newsletterIgnoreMessage: "Se non ti sei iscritto alla nostra newsletter, ignora questa email.",
+    newsletterWelcome: "Benvenuto nella nostra comunità ",
+    newsletterBenefits: "Riceverai:",
+    newsletterBenefit1: "• Articoli settimanali del Women Spot",
+    newsletterBenefit2: "• Ultimi aggiornamenti dalla nostra comunità",
+    newsletterBenefit3: "• Contenuti esclusivi, consigli e molto altro",
+    // Unsubscribe translations
+    unsubscribeText: "Non vuoi più ricevere queste email?",
+    unsubscribeLink: "Disiscriviti qui",
+    unsubscribeFooter: "Se non desideri più ricevere la nostra newsletter, puoi disiscriverti in qualsiasi momento."
   },
   nl: {
     subject: "Wachtwoord Reset Verzoek - Women Spot",
@@ -184,7 +268,21 @@ const emailTranslations = {
     reportActionText: "Ons moderatieteam zal uw commentaar en de rapportage beoordelen. Als het commentaar onze communityrichtlijnen schendt, kan het worden verwijderd. Als het geschikt wordt geacht, blijft het zichtbaar.",
     reportAppeal: "Als u denkt dat deze rapportage ten onrechte is gemaakt, kunt u contact opnemen met ons supportteam.",
     reportContact: "Contact Support",
-    reportThankYou: "Bedankt voor het deel uitmaken van onze community en ons helpen een veilige omgeving voor iedereen te behouden."
+    reportThankYou: "Bedankt voor het deel uitmaken van onze community en ons helpen een veilige omgeving voor iedereen te behouden.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Bevestig je Nieuwsbrief Abonnement - Women Spot",
+    newsletterMessage: "Bedankt voor het abonneren op onze nieuwsbrief! Bevestig je abonnement door op de knop hieronder te klikken om onze nieuwste Women Spot-inhoud te ontvangen.",
+    newsletterButton: "Bevestig Abonnement",
+    newsletterIgnoreMessage: "Als je je niet hebt aangemeld voor onze nieuwsbrief, negeer deze email dan.",
+    newsletterWelcome: "Welkom in onze community ",
+    newsletterBenefits: "Je ontvangt:",
+    newsletterBenefit1: "• Wekelijkse Women Spot-artikelen",
+    newsletterBenefit2: "• Laatste updates van onze community",
+    newsletterBenefit3: "• Exclusieve inhoud, tips en meer",
+    // Unsubscribe translations
+    unsubscribeText: "Wil je deze emails niet meer ontvangen?",
+    unsubscribeLink: "Hier afmelden",
+    unsubscribeFooter: "Als je onze nieuwsbrief niet meer wilt ontvangen, kun je je op elk moment afmelden."
   },
   he: {
     subject: "בקשת איפוס סיסמה - Women Spot",
@@ -209,7 +307,21 @@ const emailTranslations = {
     reportActionText: "צוות המודרציה שלנו יבדוק את התגובה שלך ואת הדיווח. אם התגובה מפרה את הנחיות הקהילה שלנו, היא עלולה להימחק. אם היא נחשבת מתאימה, היא תישאר גלויה.",
     reportAppeal: "אם אתה חושב שהדיווח הזה נעשה בטעות, אתה יכול ליצור קשר עם צוות התמיכה שלנו.",
     reportContact: "צור קשר עם התמיכה",
-    reportThankYou: "תודה על היותך חלק מהקהילה שלנו ועל עזרתך לשמור על סביבה בטוחה לכולם."
+    reportThankYou: "תודה על היותך חלק מהקהילה שלנו ועל עזרתך לשמור על סביבה בטוחה לכולם.",
+    // Newsletter confirmation translations
+    newsletterSubject: "אשר את המנוי לניוזלטר - Women Spot",
+    newsletterMessage: "תודה על ההרשמה לניוזלטר שלנו! אנא אשר את המנוי על ידי לחיצה על הכפתור למטה כדי להתחיל לקבל את התוכן החדש ביותר שלנו של Women Spot.",
+    newsletterButton: "אשר מנוי",
+    newsletterIgnoreMessage: "אם לא נרשמת לניוזלטר שלנו, אנא התעלם מהאימייל הזה.",
+    newsletterWelcome: "ברוכים הבאים לקהילה שלנו ",
+    newsletterBenefits: "תקבלו:",
+    newsletterBenefit1: "• מאמרים שבועיים של Women Spot",
+    newsletterBenefit2: "• עדכונים אחרונים מהקהילה שלנו",
+    newsletterBenefit3: "• תוכן בלעדי, טיפים ועוד",
+    // Unsubscribe translations
+    unsubscribeText: "לא רוצים לקבל את האימיילים האלה?",
+    unsubscribeLink: "הסר מנוי כאן",
+    unsubscribeFooter: "אם אתם לא רוצים יותר לקבל את הניוזלטר שלנו, אתם יכולים להסיר את המנוי בכל עת."
   },
   ru: {
     subject: "Запрос на сброс пароля - Women Spot",
@@ -234,7 +346,21 @@ const emailTranslations = {
     reportActionText: "Наша команда модерации рассмотрит ваш комментарий и жалобу. Если комментарий нарушает наши правила сообщества, он может быть удален. Если он признан подходящим, он останется видимым.",
     reportAppeal: "Если вы считаете, что эта жалоба была подана по ошибке, вы можете связаться с нашей службой поддержки.",
     reportContact: "Связаться с поддержкой",
-    reportThankYou: "Спасибо за то, что вы являетесь частью нашего сообщества и помогаете нам поддерживать безопасную среду для всех."
+    reportThankYou: "Спасибо за то, что вы являетесь частью нашего сообщества и помогаете нам поддерживать безопасную среду для всех.",
+    // Newsletter confirmation translations
+    newsletterSubject: "Подтвердите подписку на рассылку - Women Spot",
+    newsletterMessage: "Спасибо за подписку на нашу рассылку! Подтвердите подписку, нажав кнопку ниже, чтобы начать получать наш последний контент Women Spot.",
+    newsletterButton: "Подтвердить подписку",
+    newsletterIgnoreMessage: "Если вы не подписывались на нашу рассылку, проигнорируйте это письмо.",
+    newsletterWelcome: "Добро пожаловать в наше сообщество ",
+    newsletterBenefits: "Вы получите:",
+    newsletterBenefit1: "• Еженедельные статьи Women Spot",
+    newsletterBenefit2: "• Последние обновления от нашего сообщества",
+    newsletterBenefit3: "• Эксклюзивный контент, советы и многое другое",
+    // Unsubscribe translations
+    unsubscribeText: "Не хотите получать эти письма?",
+    unsubscribeLink: "Отписаться здесь",
+    unsubscribeFooter: "Если вы больше не хотите получать нашу рассылку, вы можете отписаться в любое время."
   }
 };
 
@@ -453,6 +579,83 @@ const emailTemplates = {
         ${t.copyright}
       `
     };
+  },
+
+  newsletterConfirmation: (confirmLink: string, username: string, locale: string = 'en', unsubscribeLink?: string) => {
+    const t = emailTranslations[locale as keyof typeof emailTranslations] || emailTranslations.en;
+    
+    return {
+      subject: t.newsletterSubject,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; font-size: 24px; color: white;">
+              <span style="margin-right: 0.5em;">🤍</span>Women Spot
+            </h1>
+          </div>
+          
+          <div style="background-color: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #374151; margin-bottom: 20px;">${t.newsletterWelcome} ${username}.</h2>
+            
+            <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+              ${t.newsletterMessage}
+            </p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${confirmLink}" 
+                 style="background-color: #ec4899; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
+                ${t.newsletterButton}
+              </a>
+            </div>
+            
+            <div style="background-color: #f3f4f6; padding: 20px; border-radius: 6px; margin: 20px 0;">
+              <h3 style="color: #374151; margin-bottom: 15px;">${t.newsletterBenefits}</h3>
+              <p style="color: #6b7280; margin: 5px 0;">${t.newsletterBenefit1}</p>
+              <p style="color: #6b7280; margin: 5px 0;">${t.newsletterBenefit2}</p>
+              <p style="color: #6b7280; margin: 5px 0;">${t.newsletterBenefit3}</p>
+            </div>
+            
+            <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
+              ${t.newsletterIgnoreMessage}
+            </p>
+            
+            <p style="color: #9ca3af; font-size: 12px; margin-top: 20px;">
+              ${t.fallbackMessage}<br>
+              <a href="${confirmLink}" style="color: #ec4899;">${confirmLink}</a>
+            </p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
+            <p>${t.copyright}</p>
+            ${unsubscribeLink ? `
+              <p style="margin-top: 10px;">
+                ${t.unsubscribeFooter} 
+                <a href="${unsubscribeLink}" style="color: #ec4899; text-decoration: underline;">${t.unsubscribeLink}</a>
+              </p>
+            ` : ''}
+          </div>
+        </div>
+      `,
+      text: `
+        ${t.newsletterSubject}
+        
+        ${t.newsletterWelcome} ${username}.
+        
+        ${t.newsletterMessage}
+        
+        ${confirmLink}
+        
+        ${t.newsletterBenefits}
+        ${t.newsletterBenefit1}
+        ${t.newsletterBenefit2}
+        ${t.newsletterBenefit3}
+        
+        ${t.newsletterIgnoreMessage}
+        
+        ${t.copyright}
+        ${unsubscribeLink ? `\n\n${t.unsubscribeFooter}\n${unsubscribeLink}` : ''}
+      `
+    };
   }
 };
 
@@ -468,6 +671,7 @@ export const sendEmail = async (
     commentText?: string;
     reason?: string;
     articleTitle?: string;
+    unsubscribeLink?: string;
   }
 ) => {
   try {
@@ -500,7 +704,8 @@ export const sendEmail = async (
       emailContent = emailTemplates[template](
         link,
         data.username,
-        data.locale || 'en'
+        data.locale || 'en',
+        data.unsubscribeLink
       );
     }
 

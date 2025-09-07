@@ -862,5 +862,30 @@
       "submit": "Denunciar Comentário",
       "submitting": "Denunciando..."
     }
+  },
+  "newsletterConfirmation": {
+    "title": "Confirmação da Newsletter",
+    "confirming": "Confirmando Inscrição...",
+    "success": "Inscrição Confirmada!",
+    "error": "Falha na Confirmação",
+    "welcomeMessage": "Bem-vindo à nossa newsletter! Você começará a receber nosso conteúdo mais recente sobre saúde e bem-estar em breve.",
+    "errorMessage": "Houve um erro ao confirmar sua inscrição. Tente se inscrever novamente.",
+    "processingMessage": "Aguarde enquanto confirmamos sua inscrição na newsletter.",
+    "goHome": "Ir para a Página Inicial"
+  },
+  "unsubscribe": {
+    "title": "Cancelar Inscrição na Newsletter",
+    "description": "Lamentamos vê-la partir! Digite seu endereço de email para cancelar a inscrição na nossa newsletter.",
+    "emailLabel": "Endereço de Email",
+    "emailPlaceholder": "Digite seu endereço de email",
+    "unsubscribeButton": "Cancelar Inscrição",
+    "processing": "Processando...",
+    "processingMessage": "Aguarde enquanto processamos sua solicitação de cancelamento.",
+    "successTitle": "Inscrição Cancelada com Sucesso",
+    "successMessage": "Você foi cancelada com sucesso da nossa newsletter. Você não receberá mais emails nossos.",
+    "errorTitle": "Falha no Cancelamento",
+    "errorMessage": "Houve um erro ao processar sua solicitação de cancelamento. Tente novamente.",
+    "tryAgain": "Tentar Novamente",
+    "goHome": "Ir para a Página Inicial"
   }
 }

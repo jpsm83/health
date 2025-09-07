@@ -1022,6 +1022,13 @@
     "imageAlt": " - Section ",
     "exploreMore": "Selected articles just for you"
   },
+  "search": {
+    "heroImageAlt": "Search Results",
+    "resultsTitle": "Search Results",
+    "resultsFound": "Found {count} result{count, plural, =1 {} other {s}} for \"{query}\"",
+    "noResultsTitle": "No articles found!",
+    "noResultsDescription": "Try searching with different keywords than..."
+  },
   "comments": {
     "toasts": {
       "createdSuccess": "Comment created successfully",
@@ -1078,5 +1085,30 @@
       "submit": "Report Comment",
       "submitting": "Reporting..."
     }
+  },
+  "newsletterConfirmation": {
+    "title": "Newsletter Confirmation",
+    "confirming": "Confirming Subscription...",
+    "success": "Subscription Confirmed!",
+    "error": "Confirmation Failed",
+    "welcomeMessage": "Welcome to our newsletter! You'll start receiving our latest health and wellness content soon.",
+    "errorMessage": "There was an error confirming your subscription. Please try subscribing again.",
+    "processingMessage": "Please wait while we confirm your newsletter subscription.",
+    "goHome": "Go to Homepage"
+  },
+  "unsubscribe": {
+    "title": "Unsubscribe from Newsletter",
+    "description": "We're sorry to see you go! Enter your email address to unsubscribe from our newsletter.",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+    "unsubscribeButton": "Unsubscribe",
+    "processing": "Processing...",
+    "processingMessage": "Please wait while we process your unsubscribe request.",
+    "successTitle": "Successfully Unsubscribed",
+    "successMessage": "You have been successfully unsubscribed from our newsletter. You will no longer receive emails from us.",
+    "errorTitle": "Unsubscribe Failed",
+    "errorMessage": "There was an error processing your unsubscribe request. Please try again.",
+    "tryAgain": "Try Again",
+    "goHome": "Go to Homepage"
   }
 }

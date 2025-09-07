@@ -3,11 +3,22 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import mongoose from "mongoose";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
+import Subscriber from "@/app/api/models/subscriber";
 import { sendEmailConfirmation } from "@/services/emailService";
+import { mainCategories } from "@/lib/constants";
 
 import { IUser } from "@/interfaces/user";
+
+// Helper function to generate verification token
+function generateToken(): string {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
 
 // Extend types
 declare module "next-auth" {
@@ -123,8 +134,10 @@ const authOptions: NextAuthConfig = {
           if (!existingUser) {
             // Generate verification token for email confirmation
             const verificationToken = crypto.randomBytes(32).toString("hex");
+            const userId = new mongoose.Types.ObjectId();
 
             const newUser = new User({
+              _id: userId,
               email: profile.email,
               username: (
                 profile.name ||
@@ -145,7 +158,76 @@ const authOptions: NextAuthConfig = {
               verificationToken,
               emailVerified: false,
             });
-            await newUser.save();
+
+            // Start database transaction for subscription handling
+            const session = await mongoose.startSession();
+            session.startTransaction();
+
+            try {
+              // Check if user was previously a newsletter subscriber
+              const existingSubscriber = await Subscriber.findOne({
+                email: profile.email!.toLowerCase(),
+              }).session(session);
+
+              if (existingSubscriber) {
+                console.log("Google signup - Linking existing subscriber:", existingSubscriber._id);
+                
+                // Link existing subscription to new user
+                await Subscriber.findOneAndUpdate(
+                  { email: profile.email!.toLowerCase() },
+                  {
+                    $set: {
+                      userId: userId,
+                    },
+                  },
+                  {
+                    new: true,
+                    session: session,
+                  }
+                );
+                // Use existing subscriber's ID
+                newUser.subscriptionId = existingSubscriber._id;
+              } else {
+                console.log("Google signup - Creating new subscriber");
+                
+                // Create new subscription for user
+                const subscriptionId = new mongoose.Types.ObjectId();
+
+                await Subscriber.create(
+                  [
+                    {
+                      _id: subscriptionId,
+                      email: profile.email!.toLowerCase(),
+                      userId: userId,
+                      emailVerified: false,
+                      verificationToken: generateToken(),
+                      unsubscribeToken: generateToken(),
+                      subscriptionPreferences: {
+                        categories: mainCategories,
+                        subscriptionFrequencies: "weekly",
+                      },
+                    },
+                  ],
+                  { session }
+                );
+                // Use new subscription's ID
+                newUser.subscriptionId = subscriptionId;
+              }
+
+              // Save user
+              await newUser.save({ session });
+              
+              // Commit the transaction
+              await session.commitTransaction();
+              
+              console.log("Google signup - User created with subscriptionId:", newUser.subscriptionId);
+            } catch (error) {
+              await session.abortTransaction();
+              console.error("Google signup - Transaction failed:", error);
+              throw error;
+            } finally {
+              await session.endSession();
+            }
 
             // Send email confirmation
             try {

@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-import { mainCategories, newsletterFrequencies, roles } from "@/lib/constants";
+import { roles } from "@/lib/constants";
 
 export const userSchema = new Schema(
   {
@@ -53,17 +53,10 @@ export const userSchema = new Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Articles" }],
       default: undefined,
     },
-    subscriptionPreferences: {
-      categories: {
-        type: [String],
-        enum: mainCategories,
-        default: mainCategories,
-      },
-      subscriptionFrequencies: {
-        type: String,
-        enum: newsletterFrequencies,
-        default: "weekly",
-      },
+    subscriptionId: {
+      type: Schema.Types.ObjectId,
+      ref: "Subscriber",
+      default: null,
     },
     readingHistory: {
       type: [

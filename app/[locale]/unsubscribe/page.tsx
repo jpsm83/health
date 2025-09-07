@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
-import SignUp from "@/pagesClient/SignUp";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import Unsubscribe from "@/pagesClient/Unsubscribe";
 
 export async function generateMetadata({
   params,
@@ -10,14 +10,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  return generatePrivateMetadata(locale, "/signup", "metadata.signup.title");
+  return generatePrivateMetadata(
+    locale,
+    "/unsubscribe",
+    "metadata.unsubscribe.title"
+  );
 }
 
-// Server Component - handles metadata generation
-export default function SignUpPage() {
+export default function UnsubscribePage() {
   return (
-    <ErrorBoundary context={"SignUp component"}>
-      <SignUp />
+    <ErrorBoundary context={"Unsubscribe component"}>
+      <Unsubscribe />
     </ErrorBoundary>
   );
 }
