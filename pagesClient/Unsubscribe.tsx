@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { CheckCircle, XCircle, Loader2, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { unsubscribeFromNewsletter } from "@/app/actions/newsletterSubscription";
+import unsubscribeFromNewsletterAction from "@/app/actions/email/newsletterUnsubscribe";
 import { showToast } from "@/components/Toasts";
 
 export default function Unsubscribe() {
@@ -31,7 +31,7 @@ export default function Unsubscribe() {
       setStatus("loading");
 
       try {
-        const result = await unsubscribeFromNewsletter(
+        const result = await unsubscribeFromNewsletterAction(
           emailValue.trim(),
           tokenToUse
         );

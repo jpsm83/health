@@ -1,4 +1,4 @@
-import { createComment, deleteComment } from "@/app/actions/comments";
+import { createComment, deleteComment } from "@/app/actions/comment/comments";
 import { NextResponse } from "next/server";
 import { auth } from "../../../auth/[...nextauth]/route";
 import isObjectIdValid from "../../../../utils/isObjectIdValid";

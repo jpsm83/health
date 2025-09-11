@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { hash } from "bcrypt";
-import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import User from "@/app/api/models/user";
+import resetPasswordAction from "@/app/actions/email/resetPassword";
 
 // @desc    Reset password with token (forgot password flow)
 // @route   POST /api/v1/auth/reset-password
@@ -22,47 +20,20 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Validate new password length
-    if (newPassword.length < 6) {
+    const result = await resetPasswordAction(token, newPassword);
+
+    if (!result.success) {
       return new NextResponse(
         JSON.stringify({ 
-          message: "New password must be at least 6 characters long" 
+          message: result.message 
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-
-    // connect before first call to DB
-    await connectDb();
-
-    // Find user with valid reset token
-    const user = await User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }, // Token not expired
-    });
-
-    if (!user) {
-      return new NextResponse(
-        JSON.stringify({ 
-          message: "Invalid or expired reset token. Please request a new password reset link." 
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Hash new password
-    const hashedPassword = await hash(newPassword, 10);
-
-    // Update password and clear reset token
-    await User.findByIdAndUpdate(user._id, {
-      password: hashedPassword,
-      resetPasswordToken: undefined,
-      resetPasswordExpires: undefined,
-    });
 
     return new NextResponse(
       JSON.stringify({ 
-        message: "Password reset successfully. You can now sign in with your new password." 
+        message: result.message 
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );

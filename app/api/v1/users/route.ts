@@ -9,7 +9,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
-import { sendEmailConfirmation } from "@/services/emailService";
+import requestEmailConfirmationAction from "@/app/actions/email/requestEmailConfirmation";
 
 // imported models
 import User from "@/app/api/models/user";
@@ -282,16 +282,7 @@ export const POST = async (req: Request) => {
 
     // Send email confirmation
     try {
-      const confirmLink = `${
-        process.env.NEXTAUTH_URL || "http://localhost:3000"
-      }/confirm-email?token=${verificationToken}`;
-
-      await sendEmailConfirmation(
-        email,
-        username,
-        confirmLink,
-        preferences.language
-      );
+      await requestEmailConfirmationAction(email);
     } catch (emailError) {
       console.error("Failed to send confirmation email:", emailError);
       // Don't fail user creation if email fails, just log the error

@@ -1,7 +1,7 @@
 import { auth } from "../../../../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import isObjectIdValid from "../../../../../utils/isObjectIdValid";
-import { toggleCommentLike } from "@/app/actions/commentLikes";
+import { toggleCommentLike } from "@/app/actions/comment/commentLikes";
 
 // @desc    Toggle comment like (add if not liked, remove if already liked)
 // @route   POST /test-actions/comment-likes/[articleId]/[commentId]

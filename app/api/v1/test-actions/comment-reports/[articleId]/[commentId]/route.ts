@@ -1,7 +1,7 @@
 import { auth } from "../../../../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import isObjectIdValid from "../../../../../utils/isObjectIdValid";
-import { reportComment } from "@/app/actions/commentReports";
+import { reportComment } from "@/app/actions/comment/commentReports";
 
 // @desc    Report a comment
 // @route   POST /test-actions/comment-reports/[articleId]/[commentId]

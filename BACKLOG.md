@@ -1,4 +1,8 @@
 - review code and modify fetch for actions
+    - email
+    - article
+    - user
+    - auth
 - all loading must be on suspense
 - add skeleton everywhere
 - create 404 page

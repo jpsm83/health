@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { IArticle, IArticleComment } from "@/interfaces/article";
 import Image from "next/image";
-import { toggleArticleLike } from "@/app/actions/articleLikes";
+import { toggleArticleLike } from "@/app/actions/article/articleLikes";
 import { Heart } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { showToast } from "@/components/Toasts";

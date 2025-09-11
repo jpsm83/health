@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/Toasts";
-import { subscribeToNewsletter } from "@/app/actions/newsletterSubscription";
+import subscribeToNewsletterAction from "@/app/actions/email/newsletterSubscribe";
 
 export default function NewsletterSignup() {
   const [emailInput, setEmailInput] = useState<string>("");
@@ -48,7 +48,7 @@ export default function NewsletterSignup() {
     setIsLoading(true);
 
     try {
-      const result = await subscribeToNewsletter(emailInput.trim());
+      const result = await subscribeToNewsletterAction(emailInput.trim());
 
       if (result.success) {
         showToast(

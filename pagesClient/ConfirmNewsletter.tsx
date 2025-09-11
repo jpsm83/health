@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { confirmNewsletterSubscription } from "@/app/actions/newsletterSubscription";
+import confirmNewsletterSubscriptionAction from "@/app/actions/email/confirmNewsletterSubscription";
 
 export default function ConfirmNewsletter() {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
@@ -27,7 +27,7 @@ export default function ConfirmNewsletter() {
       }
 
       try {
-        const result = await confirmNewsletterSubscription(token, email);
+        const result = await confirmNewsletterSubscriptionAction(token, email);
 
         if (result.success) {
           setStatus("success");

@@ -1,4 +1,4 @@
-import { toggleArticleLike } from "@/app/actions/articleLikes";
+import { toggleArticleLike } from "@/app/actions/article/articleLikes";
 import { NextResponse } from "next/server";
 import { auth } from "../../../auth/[...nextauth]/route";
 import isObjectIdValid from "../../../../utils/isObjectIdValid";

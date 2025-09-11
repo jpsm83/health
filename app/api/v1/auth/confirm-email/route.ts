@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
-import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import User from "@/app/api/models/user";
-import Subscriber from "@/app/api/models/subscriber";
-import mongoose from "mongoose";
+import confirmEmailAction from "@/app/actions/email/confirmEmail";
 
 // @desc    Confirm email with verification token
 // @route   POST /api/v1/auth/confirm-email
@@ -23,68 +20,23 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // connect before first call to DB
-    await connectDb();
+    const result = await confirmEmailAction(token);
 
-    // Find user with valid verification token
-    const user = await User.findOne({
-      verificationToken: token,
-    });
-
-    if (!user) {
+    if (!result.success) {
       return new NextResponse(
         JSON.stringify({ 
-          message: "Invalid verification token. Please request a new confirmation link." 
+          message: result.message 
         }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        { status: result.error === "Email already verified" ? 400 : 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Check if email is already verified
-    if (user.emailVerified) {
-      return new NextResponse(
-        JSON.stringify({ 
-          message: "Email is already verified." 
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Start database transaction to update both user and subscriber
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
-    try {
-      // Update user to mark email as verified and clear verification token
-      await User.findByIdAndUpdate(user._id, {
-        emailVerified: true,
-        verificationToken: undefined,
-      }, { session });
-
-      // Also update linked subscriber's email verification status
-      if (user.subscriptionId) {
-        await Subscriber.findByIdAndUpdate(user.subscriptionId, {
-          emailVerified: true,
-        }, { session });
-        
-        console.log(`Updated subscriber ${user.subscriptionId} email verification to true`);
-      }
-
-      // Commit the transaction
-      await session.commitTransaction();
-
-      return new NextResponse(
-        JSON.stringify({ 
-          message: "Email confirmed successfully! You can now sign in to your account." 
-        }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      );
-    } catch (error) {
-      await session.abortTransaction();
-      throw error;
-    } finally {
-      await session.endSession();
-    }
+    return new NextResponse(
+      JSON.stringify({ 
+        message: result.message 
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
     return handleApiError(
       "Email confirmation failed!",

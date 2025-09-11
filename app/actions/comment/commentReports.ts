@@ -4,7 +4,7 @@ import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
 import { commentReportReasons } from "@/lib/constants";
-import { sendCommentReportEmail } from "@/services/emailService";
+import sendCommentReportEmailAction from "@/app/actions/email/commentReport";
 import { Types } from "mongoose";
 
 export const reportComment = async (
@@ -85,7 +85,7 @@ export const reportComment = async (
     try {
       const authorLanguage = commentAuthor.preferences?.language || "en";
 
-      await sendCommentReportEmail(
+      await sendCommentReportEmailAction(
         commentAuthor.email,
         commentAuthor.username,
         comment.comment,
