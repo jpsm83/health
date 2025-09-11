@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
-import { sendEmailConfirmation } from "@/services/emailService";
+import requestEmailConfirmationAction from "@/app/actions/email/requestEmailConfirmation";
 import { mainCategories } from "@/lib/constants";
 
 import { IUser } from "@/interfaces/user";
@@ -232,16 +232,7 @@ const authOptions: NextAuthConfig = {
 
             // Send email confirmation
             try {
-              const confirmLink = `${
-                process.env.NEXTAUTH_URL || "http://localhost:3000"
-              }/confirm-email?token=${verificationToken}`;
-
-              await sendEmailConfirmation(
-                profile.email!,
-                newUser.username,
-                confirmLink,
-                browserLanguage
-              );
+              await requestEmailConfirmationAction(profile.email!);
             } catch (emailError) {
               console.error(
                 "Failed to send confirmation email for Google user:",

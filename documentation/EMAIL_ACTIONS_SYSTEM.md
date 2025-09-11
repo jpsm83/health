@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Email Actions System is a modular, server-side email handling architecture built with Next.js Server Actions. It provides a clean separation of concerns between business logic, email sending, and API routing while maintaining consistency across all email flows.
+The Email Actions System is a comprehensive, server-side email handling architecture built with Next.js Server Actions. It provides a clean separation of concerns between business logic, email sending, and API routing while maintaining consistency across all email flows.
 
 ## Architecture Principles
 
@@ -40,10 +40,11 @@ return NextResponse.json(result);
 #### Flow:
 ```
 1. User subscribes → newsletterSubscribe.ts
-   ├── Validates email
+   ├── Validates email format
    ├── Checks existing users/subscribers
-   ├── Generates tokens
+   ├── Generates verification & unsubscribe tokens
    ├── Creates/updates subscriber record
+   ├── Validates email (disposable email check)
    └── Sends confirmation email
 
 2. User clicks confirmation link → confirmNewsletterSubscription.ts
@@ -57,7 +58,7 @@ return NextResponse.json(result);
    ├── Validates email and token
    ├── Finds subscriber
    ├── Validates unsubscribe token
-   └── Deactivates subscription
+   └── Deactivates subscription (or deletes if no user account)
 ```
 
 #### API Routes:
@@ -67,7 +68,7 @@ return NextResponse.json(result);
 #### Frontend Components:
 - `components/NewsletterSignup.tsx` → calls `newsletterSubscribe.ts`
 - `pagesClient/ConfirmNewsletter.tsx` → calls `confirmNewsletterSubscription.ts`
-- `pagesClient/Unsubscribe.tsx` → calls `newsletterUnsubscribe.ts`
+- `app/[locale]/unsubscribe/page.tsx` → calls `newsletterUnsubscribe.ts`
 
 ### 2. Email Confirmation Flow
 
@@ -83,7 +84,7 @@ return NextResponse.json(result);
    ├── Checks if already verified
    ├── Generates verification token
    ├── Updates user record
-   └── Sends confirmation email
+   └── Sends confirmation email (multilingual)
 
 2. User clicks confirmation link → confirmEmail.ts
    ├── Validates token
@@ -100,7 +101,7 @@ return NextResponse.json(result);
 
 #### Frontend Components:
 - `pagesClient/Profile.tsx` → calls `requestEmailConfirmation.ts`
-- `pagesClient/ConfirmEmail.tsx` → calls `confirmEmail.ts`
+- `app/[locale]/confirm-email/page.tsx` → calls `confirmEmail.ts`
 
 ### 3. Password Reset Flow
 
@@ -113,18 +114,17 @@ return NextResponse.json(result);
 1. User requests password reset → requestPasswordReset.ts
    ├── Validates email
    ├── Checks if user exists
-   ├── Generates reset token
-   ├── Sets token expiry (1 hour)
-   ├── Updates user record
-   └── Sends reset email
+   ├── Generates reset token (1 hour expiry)
+   ├── Updates user record with token
+   └── Sends reset email (multilingual)
 
-2. User submits new password → resetPassword.ts
+2. User resets password → resetPassword.ts
    ├── Validates token and password
    ├── Checks token expiry
    ├── Finds user with valid token
    ├── Hashes new password
    ├── Updates password
-   └── Clears reset tokens
+   └── Clears reset token
 ```
 
 #### API Routes:
@@ -132,71 +132,51 @@ return NextResponse.json(result);
 - `POST /api/v1/auth/reset-password` → calls `resetPassword.ts`
 
 #### Frontend Components:
-- `pagesClient/Profile.tsx` → calls `requestPasswordReset.ts`
+- `pagesClient/ForgotPassword.tsx` → calls `requestPasswordReset.ts`
 - `pagesClient/ResetPassword.tsx` → calls `resetPassword.ts`
 
-### 4. Comment Reporting Flow
+### 4. Newsletter Broadcasting Flow
 
 #### Files:
-- `app/actions/email/commentReports.ts`
+- `app/actions/email/sendNewsletter.ts`
+
+#### Flow:
+```
+1. Admin sends newsletter → sendNewsletter.ts
+   ├── Gets all verified subscribers
+   ├── Validates email configuration
+   ├── Sends newsletter to each subscriber
+   ├── Handles individual email failures
+   └── Returns success count and errors
+```
+
+#### API Routes:
+- `POST /api/v1/newsletter/send` → calls `sendNewsletter.ts`
+
+### 5. Comment Report Notification Flow
+
+#### Files:
 - `app/actions/email/commentReport.ts`
 
 #### Flow:
 ```
-1. User reports comment → commentReports.ts
-   ├── Validates input parameters
-   ├── Checks if comment exists
-   ├── Checks if already reported
-   ├── Adds report to comment
-   ├── Gets comment author info
-   └── Sends notification email
-
-2. Email sending → commentReport.ts
-   ├── Validates email config
-   ├── Generates email content
-   └── Sends email via transporter
+1. Comment is reported → commentReport.ts
+   ├── Validates email configuration
+   ├── Generates multilingual email content
+   ├── Includes comment details and report reason
+   └── Sends notification to comment author
 ```
-
-#### API Routes:
-- `POST /api/v1/test-actions/comment-reports/[articleId]/[commentId]` → calls `commentReports.ts`
-
-#### Frontend Components:
-- `components/CommentsSection.tsx` → calls `commentReports.ts`
 
 ## Shared Email Utilities
 
-### Common Functions in Each Action:
+### Email Configuration
+All email actions use shared utilities for:
+- **Transporter Creation**: Gmail SMTP configuration
+- **Email Validation**: Environment variable checks
+- **Email Sending**: Consistent error handling
 
-```typescript
-// Email transporter setup
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
-};
-
-// Email configuration validation
-const validateEmailConfig = () => {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-    throw new Error("Email configuration is missing...");
-  }
-};
-
-// Email sending with transporter
-const sendEmailWithTransporter = async (mailOptions) => {
-  const transporter = createTransporter();
-  const info = await transporter.sendMail(mailOptions);
-  return { success: true, data: { messageId: info.messageId } };
-};
-```
-
-## Internationalization (i18n)
-
-### Supported Languages:
+### Multilingual Support
+Email templates support 8 languages:
 - English (en)
 - Portuguese (pt)
 - Spanish (es)
@@ -207,185 +187,162 @@ const sendEmailWithTransporter = async (mailOptions) => {
 - Hebrew (he)
 - Russian (ru)
 
-### Translation Structure:
+### Email Templates
+All emails follow a consistent design:
+- **Header**: Women Spot branding with pink theme
+- **Content**: Localized messages and instructions
+- **Actions**: Call-to-action buttons
+- **Footer**: Copyright and unsubscribe links
+
+## Database Models
+
+### User Model
 ```typescript
-const emailTranslations = {
-  en: {
-    subject: "Email Subject - Women Spot",
-    greeting: "Hello",
-    message: "Email message content...",
-    // ... other translations
-  },
-  // ... other languages
-};
+{
+  email: string;
+  emailVerified: boolean;
+  verificationToken?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: Date;
+  subscriptionId?: ObjectId;
+}
+```
+
+### Subscriber Model
+```typescript
+{
+  email: string;
+  emailVerified: boolean;
+  verificationToken?: string;
+  unsubscribeToken?: string;
+  subscriptionPreferences: {
+    categories: string[];
+    subscriptionFrequencies: string;
+  };
+  userId?: ObjectId;
+}
 ```
 
 ## Error Handling
 
-### Standard Error Response Format:
+### Consistent Error Response Format
 ```typescript
-interface ActionResult {
+interface EmailActionResult {
   success: boolean;
   message: string;
   error?: string;
-  data?: any;
 }
 ```
 
-### Error Handling Patterns:
-1. **Validation Errors**: Return `success: false` with descriptive message
-2. **Database Errors**: Log error and return generic message
-3. **Email Errors**: Log error but don't fail the entire operation
-4. **Security Errors**: Return generic message to avoid information leakage
+### Error Types
+- **Validation Errors**: Invalid email format, missing fields
+- **Business Logic Errors**: User already exists, email already verified
+- **Email Service Errors**: SMTP failures, bounce handling
+- **Database Errors**: Connection issues, transaction failures
 
-## Database Operations
+## Security Features
 
-### Transaction Handling:
-```typescript
-// For operations affecting multiple collections
-const session = await mongoose.startSession();
-session.startTransaction();
+### Token Management
+- **Verification Tokens**: Random 32-character hex strings
+- **Reset Tokens**: 1-hour expiry for password resets
+- **Unsubscribe Tokens**: Unique per subscriber for secure unsubscription
 
-try {
-  // Multiple database operations
-  await session.commitTransaction();
-} catch (error) {
-  await session.abortTransaction();
-  throw error;
-} finally {
-  await session.endSession();
-}
-```
+### Email Validation
+- **Format Validation**: Regex-based email format checking
+- **Disposable Email Detection**: Blocks common temporary email services
+- **Bounce Handling**: Removes invalid email addresses from database
 
-### Common Database Patterns:
-- **User Lookup**: `User.findOne({ email })`
-- **Token Validation**: `User.findOne({ token, expires: { $gt: Date.now() } })`
-- **Update Operations**: `User.findByIdAndUpdate(id, updates)`
-
-## Security Considerations
-
-### 1. **Token Security**
-- Tokens are cryptographically secure (32 bytes)
-- Tokens have expiration times
-- Tokens are cleared after use
-
-### 2. **Email Security**
-- Don't reveal if user exists or not
-- Use generic error messages
-- Validate all inputs
-
-### 3. **Password Security**
-- Passwords are hashed with bcrypt
-- Reset tokens expire in 1 hour
-- Old tokens are cleared after successful reset
+### Rate Limiting
+- **Email Sending**: Individual error handling per recipient
+- **Token Generation**: Secure random token generation
+- **Database Transactions**: Atomic operations for data consistency
 
 ## Environment Variables
 
-### Required Variables:
+### Required Configuration
 ```env
-# Email Configuration
-EMAIL_USER=your-email@gmail.com
+EMAIL_USER=your-gmail-address@gmail.com
 EMAIL_PASSWORD=your-app-password
-
-# Application URL
-NEXTAUTH_URL=http://localhost:3000
-
-# Database
-MONGODB_URI=your-mongodb-connection-string
+NEXTAUTH_URL=https://your-domain.com
 ```
 
-## Testing and Development
+### Gmail Setup
+1. Enable 2-Factor Authentication
+2. Generate App Password
+3. Use App Password in `EMAIL_PASSWORD`
 
-### Development Mode:
-- Reset links are included in API responses for testing
-- Detailed error logging
-- Email configuration validation
+## API Endpoints Summary
 
-### Production Mode:
-- No sensitive data in responses
-- Minimal error information
-- Proper error handling
+| Method | Endpoint | Action | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/v1/subscribers` | `newsletterSubscribe` | Subscribe to newsletter |
+| DELETE | `/api/v1/subscribers` | `newsletterUnsubscribe` | Unsubscribe from newsletter |
+| POST | `/api/v1/newsletter/send` | `sendNewsletter` | Send newsletter to all subscribers |
+| POST | `/api/v1/auth/request-email-confirmation` | `requestEmailConfirmation` | Request email confirmation |
+| POST | `/api/v1/auth/confirm-email` | `confirmEmail` | Confirm email address |
+| POST | `/api/v1/auth/forgot-password` | `requestPasswordReset` | Request password reset |
+| POST | `/api/v1/auth/reset-password` | `resetPassword` | Reset password with token |
 
-## File Structure
+## Frontend Pages
 
-```
-app/actions/email/
-├── newsletterSubscribe.ts           # Newsletter subscription + email
-├── confirmNewsletterSubscription.ts # Newsletter confirmation
-├── newsletterUnsubscribe.ts         # Newsletter unsubscription
-├── requestEmailConfirmation.ts      # Email confirmation request + email
-├── confirmEmail.ts                  # Email confirmation
-├── requestPasswordReset.ts          # Password reset request + email
-├── resetPassword.ts                 # Password reset
-├── commentReports.ts                # Comment reporting + email
-└── commentReport.ts                 # Comment report email utility
-```
+| Page | Route | Action Used | Description |
+|------|-------|-------------|-------------|
+| Newsletter Signup | `/` | `newsletterSubscribe` | Homepage newsletter signup |
+| Confirm Newsletter | `/confirm-newsletter` | `confirmNewsletterSubscription` | Newsletter confirmation page |
+| Unsubscribe | `/unsubscribe` | `newsletterUnsubscribe` | Newsletter unsubscribe page |
+| Confirm Email | `/confirm-email` | `confirmEmail` | Email confirmation page |
+| Forgot Password | `/forgot-password` | `requestPasswordReset` | Password reset request page |
+| Reset Password | `/reset-password` | `resetPassword` | Password reset form page |
+| Profile | `/profile` | `requestEmailConfirmation` | User profile with email management |
 
-## Best Practices
+## Development Guidelines
 
-### 1. **Action Design**
-- Keep actions focused on single responsibility
-- Include comprehensive error handling
-- Use TypeScript interfaces for return types
-- Validate all inputs
+### Adding New Email Flows
+1. Create request action (business logic + email sending)
+2. Create confirmation action (database operations)
+3. Add API routes that delegate to actions
+4. Create frontend pages/components
+5. Add multilingual support
+6. Update this documentation
 
-### 2. **Email Templates**
-- Use consistent styling across all emails
-- Include fallback text versions
-- Support multiple languages
-- Include proper unsubscribe links
+### Testing Email Actions
+1. **Unit Tests**: Test individual action functions
+2. **Integration Tests**: Test API routes with actions
+3. **Email Testing**: Use test email addresses
+4. **Error Scenarios**: Test validation and error handling
 
-### 3. **Database Operations**
-- Use transactions for multi-collection operations
-- Handle database connection errors
-- Clean up temporary data on failures
-
-### 4. **API Integration**
-- Keep API routes thin
-- Delegate business logic to actions
-- Return consistent response formats
-- Handle errors gracefully
+### Monitoring and Logging
+- **Email Sending**: Log success/failure for each email
+- **Token Usage**: Track verification and reset token usage
+- **Error Tracking**: Monitor and alert on email service failures
+- **Performance**: Track email sending performance
 
 ## Troubleshooting
 
-### Common Issues:
+### Common Issues
+1. **Email Not Sending**: Check Gmail credentials and 2FA setup
+2. **Token Expiry**: Verify token generation and expiry logic
+3. **Database Errors**: Check MongoDB connection and transaction handling
+4. **Multilingual Issues**: Verify locale detection and translation keys
 
-1. **Email Not Sending**
-   - Check environment variables
-   - Verify Gmail app password
-   - Check email configuration
-
-2. **Token Issues**
-   - Verify token generation
-   - Check token expiration
-   - Ensure proper cleanup
-
-3. **Database Errors**
-   - Check MongoDB connection
-   - Verify collection schemas
-   - Check transaction handling
-
-### Debugging Tips:
-- Enable detailed logging in development
-- Use development reset links for testing
-- Check browser network tab for API errors
-- Verify database state after operations
+### Debug Steps
+1. Check environment variables
+2. Verify database connections
+3. Test email configuration
+4. Review error logs
+5. Validate token generation
 
 ## Future Enhancements
 
-### Potential Improvements:
-1. **Email Queue System**: For handling high-volume email sending
-2. **Email Templates**: Centralized template management
-3. **Email Analytics**: Track email open rates and clicks
-4. **Email Scheduling**: Send emails at specific times
-5. **Email Preferences**: User-configurable email settings
+### Planned Features
+- **Email Templates**: Dynamic template system
+- **Analytics**: Email open/click tracking
+- **A/B Testing**: Email content optimization
+- **Scheduling**: Automated newsletter sending
+- **Segmentation**: Targeted email campaigns
 
-### Scalability Considerations:
-- Consider using Redis for token storage
-- Implement email rate limiting
-- Use email service providers for high volume
-- Add email delivery status tracking
-
----
-
-This documentation provides a comprehensive overview of the Email Actions System. For specific implementation details, refer to the individual action files and their corresponding API routes.
+### Technical Improvements
+- **Queue System**: Background email processing
+- **Retry Logic**: Automatic retry for failed emails
+- **Rate Limiting**: Prevent email spam
+- **Monitoring**: Real-time email delivery tracking

@@ -21,7 +21,7 @@ export const subscriberSchema = new Schema(
     },
     verificationToken: {
       type: String,
-      required: true,
+      required: false, // Make it optional so we can clear it after confirmation
     },
     unsubscribeToken: {
       type: String,

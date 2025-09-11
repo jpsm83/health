@@ -51,7 +51,7 @@ export interface ICommentReport {
 
 export interface IArticleComment {
   _id?: Types.ObjectId;
-  userId: Types.ObjectId;
+  userId: Types.ObjectId | { _id: Types.ObjectId; username: string; imageUrl?: string };
   comment: string;
   commentLikes?: Types.ObjectId[];
   commentReports?: ICommentReport[];

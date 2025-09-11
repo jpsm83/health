@@ -428,7 +428,9 @@
     "password": "Password",
     "enterPassword": "Enter your password",
     "authenticationFailed": "Authentication failed",
+    "checkCredentials": "Please check your email and password",
     "googleSignInFailed": "Google sign-in failed",
+    "tryAgainOrUseEmail": "Please try again or use email/password",
     "unexpectedError": "An unexpected error occurred",
     "forgotPassword": "Forgot your password?",
     "backToHome": "Back to Home"
@@ -609,6 +611,11 @@
       "title": "Confirm Email - Women Spot",
       "description": "Confirm your email address to access your Women Spot account. Enter your email address and we'll send you a confirmation link.",
       "keywords": "confirm email, email confirmation, Women Spot account, email verification, account confirmation"
+    },
+    "unsubscribe": {
+      "title": "Unsubscribe from Newsletter - Women Spot",
+      "description": "Unsubscribe from Women Spot newsletter. Enter your email address to stop receiving our health and wellness updates.",
+      "keywords": "unsubscribe, newsletter, email preferences, stop emails, Women Spot newsletter"
     }
   },
   "about": {
@@ -1098,17 +1105,15 @@
   },
   "unsubscribe": {
     "title": "Unsubscribe from Newsletter",
-    "description": "We're sorry to see you go! Enter your email address to unsubscribe from our newsletter.",
-    "emailLabel": "Email Address",
-    "emailPlaceholder": "Enter your email address",
-    "unsubscribeButton": "Unsubscribe",
+    "description": "We're sorry to see you go! This page processes unsubscribe requests from email links.",
     "processing": "Processing...",
     "processingMessage": "Please wait while we process your unsubscribe request.",
     "successTitle": "Successfully Unsubscribed",
     "successMessage": "You have been successfully unsubscribed from our newsletter. You will no longer receive emails from us.",
     "errorTitle": "Unsubscribe Failed",
     "errorMessage": "There was an error processing your unsubscribe request. Please try again.",
-    "tryAgain": "Try Again",
+    "invalidLinkTitle": "Invalid Unsubscribe Link",
+    "invalidLinkMessage": "This unsubscribe link is invalid or has expired. Please contact support if you need help.",
     "goHome": "Go to Homepage"
   }
 }

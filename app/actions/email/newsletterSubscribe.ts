@@ -6,6 +6,40 @@ import User from "@/app/api/models/user";
 import * as nodemailer from "nodemailer";
 import { mainCategories } from "@/lib/constants";
 
+// Email validation function
+const validateEmailExists = async (email: string): Promise<boolean> => {
+  try {
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return false;
+    }
+
+    // Extract domain from email
+    const domain = email.split('@')[1];
+    
+    // Check if it's a common disposable email domain
+    const disposableDomains = [
+      '10minutemail.com', 'tempmail.org', 'guerrillamail.com', 
+      'mailinator.com', 'throwaway.email', 'temp-mail.org'
+    ];
+    
+    if (disposableDomains.includes(domain.toLowerCase())) {
+      return false;
+    }
+
+    // For now, we'll allow the email and let the bounce handling deal with it
+    // In a production environment, you might want to use a service like:
+    // - ZeroBounce API
+    // - Hunter.io
+    // - EmailValidator API
+    return true;
+  } catch (error) {
+    console.error('Email validation error:', error);
+    return false;
+  }
+};
+
 // Shared email utilities
 const createTransporter = () => {
   return nodemailer.createTransport({
@@ -122,6 +156,18 @@ export default async function subscribeToNewsletterAction(
       subscriber = await Subscriber.create(subscriberData);
     }
 
+    // Validate email before sending confirmation
+    const isEmailValid = await validateEmailExists(subscriber.email);
+    if (!isEmailValid) {
+      // Remove the subscriber record if email is invalid
+      await Subscriber.findByIdAndDelete(subscriber._id);
+      return {
+        success: false,
+        message: "Invalid email address. Please use a valid email address.",
+        error: "INVALID_EMAIL_ADDRESS"
+      };
+    }
+
     // Send confirmation email
     const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-newsletter?token=${subscriber.verificationToken}&email=${encodeURIComponent(subscriber.email)}`;
     const unsubscribeLink = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(subscriber.email)}&token=${subscriber.unsubscribeToken}`;
@@ -179,7 +225,25 @@ export default async function subscribeToNewsletterAction(
       await sendEmailWithTransporter(mailOptions);
     } catch (emailError) {
       console.error("Failed to send confirmation email:", emailError);
-      // Don't fail the subscription if email fails
+      
+      // Check if it's a bounce error (email doesn't exist)
+      const errorMessage = emailError instanceof Error ? emailError.message : String(emailError);
+      if (errorMessage.includes('bounce') || 
+          errorMessage.includes('invalid') || 
+          errorMessage.includes('not found') ||
+          errorMessage.includes('does not exist')) {
+        
+        // Remove the subscriber record if email bounces
+        await Subscriber.findByIdAndDelete(subscriber._id);
+        return {
+          success: false,
+          message: "Invalid email address. Please use a valid email address.",
+          error: "EMAIL_BOUNCED"
+        };
+      }
+      
+      // For other email errors, don't fail the subscription but log the error
+      console.error("Email sending failed but subscription will continue:", emailError);
     }
 
     return {

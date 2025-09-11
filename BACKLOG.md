@@ -1,10 +1,10 @@
 - review code and modify fetch for actions
-    - email
+    - email     DONE
     - article
     - user
     - auth
 - all loading must be on suspense
-- add skeleton everywhere
+- add skeleton everywhere / profile has a ugly one
 - create 404 page
 - minimize size of json messges
 - services are for reactjs, in nextjs we use action, refact all services to become actions

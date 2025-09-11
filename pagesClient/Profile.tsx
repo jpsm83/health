@@ -11,6 +11,7 @@ import { useUser } from "@/hooks/useUser";
 import { useRouter, usePathname } from "next/navigation";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { routing } from "@/i18n/routing";
 
 // Import country flag components
@@ -59,6 +60,7 @@ export default function Profile() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
+  const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
   const isInitialized = useRef(false);
 
   const { data: session, status } = useSession();
@@ -166,7 +168,7 @@ export default function Profile() {
         region: "US",
       },
       subscriptionPreferences: {
-        categories: mainCategories,
+        categories: [],
         subscriptionFrequencies: "weekly",
       },
     },
@@ -234,7 +236,7 @@ export default function Profile() {
         },
         subscriptionPreferences: {
           categories:
-            user.subscriptionPreferences?.categories || mainCategories,
+            user.subscriptionPreferences?.categories || [],
           subscriptionFrequencies:
             user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
@@ -257,6 +259,9 @@ export default function Profile() {
           }
         }
       });
+
+      // Mark user data as loaded
+      setIsUserDataLoaded(true);
     }
   }, [user, setValue, session?.user, locale]);
 
@@ -276,7 +281,7 @@ export default function Profile() {
         },
         subscriptionPreferences: {
           categories:
-            user.subscriptionPreferences?.categories || mainCategories,
+            user.subscriptionPreferences?.categories || [],
           subscriptionFrequencies:
             user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
@@ -327,7 +332,14 @@ export default function Profile() {
     );
   }, [watchedValues, originalValues, selectedImage, locale]);
 
+
   // Simple auth check - redirect if not authenticated
+  useEffect(() => {
+    if (status !== "loading" && !session?.user) {
+      router.push(`/${locale}/signin`);
+    }
+  }, [status, session?.user, router, locale]);
+
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center py-8">
@@ -337,7 +349,11 @@ export default function Profile() {
   }
 
   if (!session?.user) {
-    router.push(`/${locale}/signin`);
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
+      </div>
+    );
   }
 
   // Handle password reset
@@ -428,6 +444,7 @@ export default function Profile() {
       setIsLoading(false);
     }
   };
+
 
   // Handle image selection
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -878,64 +895,81 @@ export default function Profile() {
                   </select>
                 </div>
 
-                {/* Categories Grid */}
+                {/* Categories Grid - Show skeleton while loading, actual content when loaded */}
                 <div className="mb-4 md:mb-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                    {mainCategories.map((category) => {
-                      const isSelected =
-                        watchedValues.subscriptionPreferences?.categories?.includes(
-                          category
-                        );
-                      return (
+                  {!isUserDataLoaded ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                      {Array.from({ length: 8 }).map((_, index) => (
                         <div
-                          key={category}
-                          className={`border rounded-lg p-2 md:p-3 transition-colors ${
-                            isSelected
-                              ? "border-green-900 border-2 bg-green-700/20 text-white"
-                              : "border-red-700 border-2 bg-red-700/20 text-white"
-                          }`}
+                          key={index}
+                          className="border rounded-lg p-2 md:p-3 bg-gray-50"
                         >
                           <div className="flex items-center justify-between">
-                            <h3 className="font-medium text-gray-900 capitalize text-xs md:text-sm flex-1 min-w-0">
-                              {t(`categories.${category}`)}
-                            </h3>
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={(e) => {
-                                const currentCategories =
-                                  watchedValues.subscriptionPreferences
-                                    ?.categories || [];
-                                let newCategories: string[];
-
-                                if (e.target.checked) {
-                                  // Add category if not already present
-                                  newCategories = [
-                                    ...currentCategories,
-                                    category,
-                                  ];
-                                } else {
-                                  // Remove category
-                                  newCategories = currentCategories.filter(
-                                    (cat) => cat !== category
-                                  );
-                                }
-
-                                setValue(
-                                  "subscriptionPreferences.categories",
-                                  newCategories
-                                );
-                                // Trigger validation to update error state
-                                trigger("subscriptionPreferences.categories");
-                              }}
-                              className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded flex-shrink-0 ml-2"
-                            />
+                            <Skeleton className="h-4 w-20 flex-1" />
+                            <Skeleton className="h-4 w-4 rounded flex-shrink-0 ml-2" />
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                      {mainCategories.map((category) => {
+                        const isSelected =
+                          watchedValues.subscriptionPreferences?.categories?.includes(
+                            category
+                          );
+                        return (
+                          <div
+                            key={category}
+                            className={`border rounded-lg p-2 md:p-3 transition-colors ${
+                              isSelected
+                                ? "border-green-900 border-2 bg-green-700/20 text-white"
+                                : "border-red-700 border-2 bg-red-700/20 text-white"
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <h3 className="font-medium text-gray-900 capitalize text-xs md:text-sm flex-1 min-w-0">
+                                {t(`categories.${category}`)}
+                              </h3>
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={(e) => {
+                                  const currentCategories =
+                                    watchedValues.subscriptionPreferences
+                                      ?.categories || [];
+                                  let newCategories: string[];
+
+                                  if (e.target.checked) {
+                                    // Add category if not already present
+                                    newCategories = [
+                                      ...currentCategories,
+                                      category,
+                                    ];
+                                  } else {
+                                    // Remove category
+                                    newCategories = currentCategories.filter(
+                                      (cat) => cat !== category
+                                    );
+                                  }
+
+                                  setValue(
+                                    "subscriptionPreferences.categories",
+                                    newCategories
+                                  );
+                                  // Trigger validation to update error state
+                                  trigger("subscriptionPreferences.categories");
+                                }}
+                                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded flex-shrink-0 ml-2"
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
+
               </div>
 
               <div>

@@ -303,14 +303,27 @@ export default function CommentsSection({
             {t("comments.form.noComments")}
           </p>
         ) : (
-          comments.map((comment, index) => {
+          comments
+            .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+            .map((comment, index) => {
             const isLiked = comment.commentLikes?.some(
               (like: Types.ObjectId) => like.toString() === session?.user?.id
             );
             const likeCount = comment.commentLikes?.length || 0;
+            
+            // Get comment author info - handle both populated and non-populated userId
+            const commentAuthor = typeof comment.userId === 'object' && comment.userId !== null && 'username' in comment.userId 
+              ? comment.userId 
+              : null;
+            const commentAuthorId = typeof comment.userId === 'object' && comment.userId !== null && '_id' in comment.userId
+              ? comment.userId._id.toString()
+              : (comment.userId as Types.ObjectId)?.toString();
+            const commentAuthorName = commentAuthor?.username || 'Unknown User';
+            const commentAuthorImage = commentAuthor?.imageUrl;
+            
             const canDelete =
               session?.user?.id &&
-              (comment.userId?.toString() === session?.user?.id ||
+              (commentAuthorId === session?.user?.id ||
                 session?.user?.role === "admin");
             const isReported =
               comment.commentReports && comment.commentReports.length >= 3;
@@ -328,11 +341,11 @@ export default function CommentsSection({
                   {/* User Avatar */}
                   <div className="flex-shrink-0">
                     <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                      {session?.user?.imageUrl &&
-                      session?.user?.imageUrl.trim() !== "" ? (
+                      {commentAuthorImage &&
+                      commentAuthorImage.trim() !== "" ? (
                         <Image
-                          src={session?.user?.imageUrl}
-                          alt={session?.user?.name || "User"}
+                          src={commentAuthorImage}
+                          alt={commentAuthorName}
                           width={32}
                           height={32}
                           priority
@@ -349,7 +362,7 @@ export default function CommentsSection({
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1 sm:gap-2">
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-gray-800 text-sm md:text-base">
-                          {session?.user?.name}
+                          {commentAuthorName}
                         </span>
                         <span className="text-xs md:text-sm text-gray-500">
                           {formatDate(comment.createdAt)}
@@ -385,9 +398,9 @@ export default function CommentsSection({
                           </Button>
                         )}
 
-                        {/* Report Button */}
+                        {/* Report Button - Only for other users' comments that haven't been reported by current user */}
                         {session?.user?.id &&
-                          session?.user?.id == comment.userId?.toString() &&
+                          commentAuthorId !== session?.user?.id &&
                           !isReported &&
                           !hasUserReported && (
                             <Button

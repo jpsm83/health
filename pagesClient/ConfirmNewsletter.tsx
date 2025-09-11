@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import confirmNewsletterSubscriptionAction from "@/app/actions/email/confirmNewsletterSubscription";
 
 export default function ConfirmNewsletter() {
@@ -46,10 +45,6 @@ export default function ConfirmNewsletter() {
     confirmSubscription();
   }, [searchParams, t]);
 
-  const handleGoHome = () => {
-    window.location.href = "/";
-  };
-
   return (
     <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
@@ -72,9 +67,6 @@ export default function ConfirmNewsletter() {
             <p className="text-gray-600 mb-6">
               {message || t("welcomeMessage")}
             </p>
-            <Button onClick={handleGoHome} className="w-full">
-              {t("goHome")}
-            </Button>
           </>
         )}
 

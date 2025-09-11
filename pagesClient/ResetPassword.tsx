@@ -41,27 +41,12 @@ export default function ResetPassword() {
     const tokenParam = searchParams?.get("token");
     if (tokenParam) {
       setToken(tokenParam);
-
-      // Sign out the user immediately when they access the reset password page
-      // This ensures they can't reset their password while still logged in
-      const signOutUser = async () => {
-        try {
-          await signOut({ redirect: false });
-
-          router.push(`/${locale}`);
-        } catch (logoutError) {
-          console.error("Logout error:", logoutError);
-          // Continue even if logout fails
-        }
-      };
-
-      signOutUser();
     }
-  }, [searchParams, router, locale]);
+  }, [searchParams]);
 
-  // Redirect if already authenticated (this page is for password reset, not for logged-in users)
+  // Redirect if already authenticated AND no token (direct access to reset page)
   useEffect(() => {
-    if (status === "authenticated") {
+    if (status === "authenticated" && !token) {
       // Redirect based on user role
       if (session?.user?.role === "admin") {
         router.push(`/${locale}/dashboard`);
@@ -69,10 +54,10 @@ export default function ResetPassword() {
         router.push(`/${locale}/profile`);
       }
     }
-  }, [status, session?.user?.role, router, locale]);
+  }, [status, session?.user?.role, router, locale, token]);
 
-  // Don't render if already authenticated
-  if (status === "authenticated") {
+  // Don't render if already authenticated and no token
+  if (status === "authenticated" && !token) {
     return (
       <div className="flex items-center justify-center h-full">
         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
@@ -122,6 +107,16 @@ export default function ResetPassword() {
         // Clear the form on success
         setValue("newPassword", "");
         setValue("confirmPassword", "");
+
+        // Sign out the user if they're authenticated (for profile password change flow)
+        if (status === "authenticated") {
+          try {
+            await signOut({ redirect: false });
+          } catch (logoutError) {
+            console.error("Logout error:", logoutError);
+            // Continue even if logout fails
+          }
+        }
 
         // Redirect to signin page after a short delay
         setTimeout(() => {

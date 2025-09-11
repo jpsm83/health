@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useForm } from "react-hook-form";
 import { useSession, signIn } from "next-auth/react";
+import { showToast } from "@/components/Toasts";
 
 interface FormData {
   email: string;
@@ -21,7 +22,6 @@ export default function SignIn() {
   const t = useTranslations("SignIn");
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const { data: session, status } = useSession();
@@ -59,34 +59,43 @@ export default function SignIn() {
 
   // Submit login with credentials
   const onSubmit = async (credentials: FormData) => {
-    setError("");
     setIsLoading(true);
 
     try {
       const result = await signIn("credentials", {
         email: credentials.email,
         password: credentials.password,
-        callbackUrl: "/",
+        redirect: false, // Prevent automatic redirect to handle errors
       });
 
-      if ((result as unknown as { error?: string })?.error) {
-        console.error(
-          "Google sign-in error:",
-          (result as unknown as { error?: string })?.error
-        );
-        setError(t("googleSignInFailed"));
+      // NextAuth v5 returns a result object with error property for failures
+      if (result && result.error) {
+        // Handle authentication errors
+        if (result.error === "CredentialsSignin") {
+          // This is expected behavior for invalid credentials, not a real error
+          showToast("error", t("authenticationFailed"), t("checkCredentials"));
+        } else {
+          // This is a real error that should be logged
+          console.error("Sign-in error:", result.error);
+          showToast("error", t("authenticationFailed"), t("checkCredentials"));
+        }
         setIsLoading(false);
+        return;
       }
+
+      // If we get here, authentication was successful
+      // The useEffect will handle the redirect based on user role
+      setIsLoading(false);
     } catch (err) {
-      console.error("Google sign-in error:", err);
-      setError(t("googleSignInFailed"));
+      // This should rarely happen with NextAuth, but handle it gracefully
+      console.error("Unexpected sign-in error:", err);
+      showToast("error", t("authenticationFailed"), t("checkCredentials"));
       setIsLoading(false);
     }
   };
 
   // Handle Google signin
   const handleGoogleSignIn = async () => {
-    setError("");
     setIsLoading(true);
 
     try {
@@ -97,12 +106,12 @@ export default function SignIn() {
           "Google sign-in error:",
           (result as unknown as { error?: string })?.error
         );
-        setError(t("googleSignInFailed"));
+        showToast("error", t("googleSignInFailed"), t("tryAgainOrUseEmail"));
         setIsLoading(false);
       }
     } catch (err) {
       console.error("Google sign-in error:", err);
-      setError(t("googleSignInFailed"));
+      showToast("error", t("googleSignInFailed"), t("tryAgainOrUseEmail"));
       setIsLoading(false);
     }
   };
@@ -180,12 +189,6 @@ export default function SignIn() {
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            {error && (
-              <div className="rounded-md bg-pink-50 p-4">
-                <div className="text-sm text-pink-700">{error}</div>
-              </div>
-            )}
-
             <div className="space-y-4">
               <div>
                 <label
