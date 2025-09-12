@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useForm } from "react-hook-form";
 import { useSession, signOut } from "next-auth/react";
+import resetPassword from "@/app/actions/auth/resetPassword";
 
 interface FormData {
   newPassword: string;
@@ -92,18 +93,11 @@ export default function ResetPassword() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/v1/auth/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token, newPassword: data.newPassword }),
-      });
+      // Use server action instead of fetch
+      const result = await resetPassword(token, data.newPassword);
 
-      const responseData = await response.json();
-
-      if (response.ok) {
-        setSuccess(responseData.message || t("passwordResetSuccess"));
+      if (result.success) {
+        setSuccess(result.message || t("passwordResetSuccess"));
         // Clear the form on success
         setValue("newPassword", "");
         setValue("confirmPassword", "");
@@ -123,7 +117,7 @@ export default function ResetPassword() {
           router.push(`/${locale}/signin`);
         }, 2000);
       } else {
-        setError(responseData.message || t("failedToResetPassword"));
+        setError(result.message || t("failedToResetPassword"));
       }
     } catch (error) {
       console.error("Reset password error:", error);

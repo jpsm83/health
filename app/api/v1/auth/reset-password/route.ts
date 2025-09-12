@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import resetPasswordAction from "@/app/actions/auth/resetPassword";
+import resetPassword from "@/app/actions/auth/resetPassword";
 
 // @desc    Reset password with token (forgot password flow)
 // @route   POST /api/v1/auth/reset-password
@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Use the action to handle password reset
-    const result = await resetPasswordAction(token, newPassword);
+    const result = await resetPassword(token, newPassword);
 
     if (!result.success) {
       const statusCode = result.error === "Missing required fields" || 

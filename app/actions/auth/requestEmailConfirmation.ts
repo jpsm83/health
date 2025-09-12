@@ -203,7 +203,7 @@ export interface RequestEmailConfirmationResult {
   error?: string;
 }
 
-export default async function requestEmailConfirmationAction(
+export default async function requestEmailConfirmation(
   email: string
 ): Promise<RequestEmailConfirmationResult> {
   try {

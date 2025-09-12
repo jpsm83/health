@@ -10,7 +10,7 @@ export interface ResetPasswordResult {
   error?: string;
 }
 
-export default async function resetPasswordAction(
+export default async function resetPassword(
   token: string,
   newPassword: string
 ): Promise<ResetPasswordResult> {

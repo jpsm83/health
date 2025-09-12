@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import requestEmailConfirmationAction from "@/app/actions/auth/requestEmailConfirmation";
+import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
 
 // @desc    Request new email confirmation
 // @route   POST /api/v1/auth/request-email-confirmation
@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Use the action to handle email confirmation request
-    const result = await requestEmailConfirmationAction(email);
+    const result = await requestEmailConfirmation(email);
 
     if (!result.success) {
       const statusCode = result.error === "Invalid email format" || result.error === "Email already verified" ? 400 : 500;

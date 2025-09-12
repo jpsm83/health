@@ -682,9 +682,9 @@ All API routes use corresponding server actions from their respective action fol
 
 #### Authentication Actions (`app/actions/auth/`)
 1. `confirmEmailAction` - Email confirmation logic
-2. `requestEmailConfirmationAction` - Email confirmation request logic
+2. `requestEmailConfirmation` - Email confirmation request logic
 3. `requestPasswordResetAction` - Password reset request logic
-4. `resetPasswordAction` - Password reset logic
+4. `resetPassword` - Password reset logic
 
 #### Newsletter Actions (`app/actions/newsletter/`)
 5. `sendNewsletterAction` - Newsletter sending logic

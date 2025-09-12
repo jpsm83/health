@@ -1,22 +1,9 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
-
-// imported utils
-import connectDb from "@/app/api/db/connectDb";
-import { handleApiError } from "@/app/api/utils/handleApiError";
-import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
-import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
-import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
-
-// imported models
-import User from "@/app/api/models/user";
-
-// imported interfaces
-import { IUser, IUserPreferences } from "@/interfaces/user";
-
-// imported constants
-import { roles } from "@/lib/constants";
+import { getUserById } from "@/app/actions/user/getUserById";
+import { updateUser } from "@/app/actions/user/updateUser";
+import { deleteUser } from "@/app/actions/user/deleteUser";
 
 // @desc    Get user by userId
 // @route   GET /users/[userId]
@@ -27,38 +14,25 @@ export const GET = async (
 ) => {
   try {
     const { userId } = await context.params;
-    // Validate ObjectId
-    if (!isObjectIdValid([userId])) {
+    
+    const result = await getUserById(userId);
+
+    if (!result.success) {
+      const status = result.message === "User not found" ? 404 : 400;
       return new NextResponse(
-        JSON.stringify({ message: "Invalid user ID format" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ message: result.message || result.error }),
+        { status, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // connect before first call to DB
-    await connectDb();
-
-    // Check if user exists
-    const user = (await User.findById(userId)
-      .select("-password")
-      .lean()) as Partial<IUser>;
-
-    // Additional authorization check
-    if (!user) {
-      return new NextResponse(JSON.stringify({ message: "User not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    return new NextResponse(JSON.stringify(user), {
+    return new NextResponse(JSON.stringify(result.data), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
-    return handleApiError(
-      "Get user by userId failed!",
-      error instanceof Error ? error.message : "Unknown error"
+  } catch {
+    return new NextResponse(
+      JSON.stringify({ message: "Get user by userId failed!" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 };
@@ -85,14 +59,6 @@ export const PATCH = async (
 
     const { userId } = await context.params;
 
-    // Validate ObjectId
-    if (!isObjectIdValid([userId])) {
-      return new NextResponse(
-        JSON.stringify({ message: "Invalid user ID format" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
     // Parse FORM DATA
     const formData = await req.formData();
 
@@ -107,197 +73,44 @@ export const PATCH = async (
     const language = formData.get("language") as string;
     const region = formData.get("region") as string;
 
-    // Note: Subscription preferences are now handled via separate subscriber API
-
-    // Validate required fields
-    if (
-      !username ||
-      !email ||
-      !role ||
-      !birthDate ||
-      !language ||
-      !region
-    ) {
-      return new NextResponse(
-        JSON.stringify({
-          message:
-            "Username, email, role, birthDate, language and region are required!",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // connect before first call to DB
-    await connectDb();
-
-    // Check if user exists
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return new NextResponse(JSON.stringify({ message: "User not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // check if the user is the same user
-    if (user.id !== session.user.id) {
-      return new NextResponse(
-        JSON.stringify({
-          message: "You are not authorized to update this user!",
-        }),
-        { status: 403, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Prepare update object
-    const updateData: Partial<IUser> = {};
-
-    // Validate and update username
-    if (user.username !== username) updateData.username = username;
-
-    // Validate and update email
-    if (user.email !== email) {
-      const duplicateEmail = await User.findOne({
-        email,
-        _id: { $ne: userId },
-      });
-      if (duplicateEmail) {
-        return new NextResponse(
-          JSON.stringify({ message: "Email is already taken by another user" }),
-          { status: 409, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      updateData.email = email;
-    }
-
-    // Validate and update role
-    if (!roles.includes(role)) {
-      return new NextResponse(JSON.stringify({ message: "Invalid role" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-    
-    if (user.role !== role) updateData.role = role;
-
-    // Update birth date
-    const parsedBirthDate = new Date(birthDate);
-    if (user.birthDate.toISOString() !== parsedBirthDate.toISOString()) {
-      updateData.birthDate = parsedBirthDate;
-    }
-
-    // Update preferences
-    const preferences: IUserPreferences = {
-      language,
-      region,
-    };
-    if (JSON.stringify(user.preferences) !== JSON.stringify(preferences)) {
-      updateData.preferences = preferences;
-    }
-
-    // Handle image upload if provided
-    const isNewImageProvided =
-      imageFile &&
-      imageFile instanceof File &&
-      imageFile.size > 0 &&
-      imageFile.name !== user.imageFile;
-
-    const deleteUserImage = async () => {
-      if (user.imageFile) {
-        const deleteResult: string | boolean = await deleteFilesCloudinary(
-          user.imageUrl || ""
-        );
-        if (deleteResult !== true) {
-          return new NextResponse(JSON.stringify({ message: deleteResult }), {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          });
-        }
-      }
-      return true;
-    };
-
-    if (isNewImageProvided) {
-      const folder = `/users/${userId}`;
-
-      const uploadResponse = await uploadFilesCloudinary({
-        folder,
-        filesArr: [imageFile],
-        onlyImages: true,
-      });
-
-      const isUploadValid =
-        Array.isArray(uploadResponse) &&
-        uploadResponse.length > 0 &&
-        uploadResponse.every((url) => url.includes("https://"));
-
-      if (!isUploadValid) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Error uploading image: ${uploadResponse}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      const deleteResult = await deleteUserImage();
-      if (deleteResult !== true) return deleteResult;
-
-      updateData.imageFile = imageFile.name;
-      updateData.imageUrl = uploadResponse[0];
-    } else {
-      // CASE: No new image provided at all (imageFile is undefined/null/empty)
-      const isImageFileMissingOrEmpty =
-        !imageFile || !(imageFile instanceof File) || imageFile.size === 0;
-
-      if (isImageFileMissingOrEmpty && user.imageFile) {
-        const deleteResult = await deleteUserImage();
-        if (deleteResult !== true) return deleteResult;
-
-        await User.updateOne(
-          { _id: userId },
-          {
-            $unset: {
-              imageFile: "",
-              imageUrl: "",
-            },
-          }
-        );
-      }
-    }
-
-    // Update user
-    const updatedUser = await User.findByIdAndUpdate(
+    // Use the updateUser action
+    const result = await updateUser(
       userId,
-      { $set: updateData },
       {
-        new: true,
-        lean: true,
-      }
+        username,
+        email,
+        role,
+        birthDate,
+        language,
+        region,
+        imageFile,
+      },
+      session.user.id
     );
 
-    // check if updatedUser is undefined
-    if (!updatedUser) {
-      return new NextResponse(JSON.stringify({ message: "User not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      });
+    if (!result.success) {
+      const status = result.message?.includes("not authorized") ? 403 : 
+                    result.message?.includes("already taken") ? 409 : 400;
+      return new NextResponse(
+        JSON.stringify({ message: result.message || result.error }),
+        { status, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     return new NextResponse(
-      JSON.stringify({
-        message: "User updated successfully",
-      }),
+      JSON.stringify({ message: result.message }),
       {
         status: 200,
         headers: { "Content-Type": "application/json" },
       }
     );
   } catch (error) {
-    return handleApiError(
-      "Update user failed!",
-      error instanceof Error ? error.message : "Unknown error"
+    return new NextResponse(
+      JSON.stringify({ 
+        message: "Update user failed!",
+        error: error instanceof Error ? error.message : "Unknown error"
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 };
@@ -324,53 +137,32 @@ export const DELETE = async (
 
     const { userId } = await context.params;
 
-    // Validate ObjectId
-    if (!isObjectIdValid([userId])) {
+    // Use the deleteUser action
+    const result = await deleteUser(userId, session.user.id);
+
+    if (!result.success) {
+      const status = result.message?.includes("not authorized") ? 403 : 
+                    result.message?.includes("not found") ? 404 : 400;
       return new NextResponse(
-        JSON.stringify({ message: "Invalid user ID format!" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ message: result.message || result.error }),
+        { status, headers: { "Content-Type": "application/json" } }
       );
     }
-
-    // connect before first call to DB
-    await connectDb();
-
-    // Check if user exists
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return new NextResponse(JSON.stringify({ message: "User not found!" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // check if the user is the same user
-    if (user.id !== session.user.id) {
-      return new NextResponse(
-        JSON.stringify({
-          message: "You are not authorized to deactivate this user!",
-        }),
-        { status: 403, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Deactivate user
-    await User.findByIdAndUpdate(userId, { $set: { isActive: false } });
 
     return new NextResponse(
-      JSON.stringify({
-        message: "User deactivated successfully",
-      }),
+      JSON.stringify({ message: result.message }),
       {
         status: 200,
         headers: { "Content-Type": "application/json" },
       }
     );
   } catch (error) {
-    return handleApiError(
-      "Deactivate user failed!",
-      error instanceof Error ? error.message : "Unknown error"
+    return new NextResponse(
+      JSON.stringify({ 
+        message: "Deactivate user failed!",
+        error: error instanceof Error ? error.message : "Unknown error"
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 };

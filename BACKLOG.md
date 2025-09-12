@@ -2,6 +2,9 @@
     - email     DONE
     - article   DONE
     - user
+    - subscribe
+    - newsletter
+    - comment
     - auth
 - all loading must be on suspense
 - add skeleton everywhere / profile has a ugly one

@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
-import requestEmailConfirmationAction from "@/app/actions/auth/requestEmailConfirmation";
+import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
 import { mainCategories } from "@/lib/constants";
 
 import { IUser } from "@/interfaces/user";
@@ -105,7 +105,8 @@ const authOptions: NextAuthConfig = {
   basePath: "/api/v1/auth",
   // Disable CSRF for testing (remove in production)
   useSecureCookies: false,
-  debug: process.env.NODE_ENV === "development",
+  // debug: process.env.NODE_ENV === "development",
+  debug: process.env.NEXTAUTH_DEBUG === "true", // Control debug mode via environment variable
 
   // Callbacks
   callbacks: {
@@ -232,7 +233,7 @@ const authOptions: NextAuthConfig = {
 
             // Send email confirmation
             try {
-              await requestEmailConfirmationAction(profile.email!);
+              await requestEmailConfirmation(profile.email!);
             } catch (emailError) {
               console.error(
                 "Failed to send confirmation email for Google user:",

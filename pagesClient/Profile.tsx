@@ -7,7 +7,9 @@ import { User, BookOpen, Lock, CheckCircle, XCircle } from "lucide-react";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { useUser } from "@/hooks/useUser";
+import { updateUserProfile } from "@/app/actions/user/updateUserProfile";
+import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
+import { ISerializedUser } from "@/interfaces/user";
 import { useRouter, usePathname } from "next/navigation";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
@@ -50,7 +52,11 @@ interface FormData {
   imageFile?: File;
 }
 
-export default function Profile() {
+interface ProfileProps {
+  initialUser?: ISerializedUser;
+}
+
+export default function Profile({ initialUser }: ProfileProps) {
   const t = useTranslations("profile");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -64,10 +70,12 @@ export default function Profile() {
   const isInitialized = useRef(false);
 
   const { data: session, status } = useSession();
-  const { user, updateProfile, error: userError } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
+
+  // Use initial user data from server or fallback to hook
+  const [user, setUser] = useState<ISerializedUser | null>(initialUser || null);
 
   // Handle language change - immediate language switch like Navbar
   const handleLanguageChange = (newLanguage: string) => {
@@ -265,6 +273,13 @@ export default function Profile() {
     }
   }, [user, setValue, session?.user, locale]);
 
+  // Update user state when initialUser prop changes
+  useEffect(() => {
+    if (initialUser) {
+      setUser(initialUser);
+    }
+  }, [initialUser]);
+
   // Reset form when user data changes (for cases where user data is updated externally)
   useEffect(() => {
     if (user && isInitialized.current) {
@@ -316,7 +331,7 @@ export default function Profile() {
       role: watchedValues.role,
       birthDate: watchedValues.birthDate,
       preferences: {
-        language: locale, // Use current locale instead of form value
+        language: watchedValues.preferences?.language || locale, // Use form value, fallback to locale
         region: watchedValues.preferences?.region,
       },
       subscriptionPreferences: watchedValues.subscriptionPreferences,
@@ -416,25 +431,18 @@ export default function Profile() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/v1/auth/request-email-confirmation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: user.email }),
-      });
+      // Use server action instead of fetch
+      const result = await requestEmailConfirmation(user.email);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess(data.message || "Email confirmation sent successfully!");
+      if (result.success) {
+        setSuccess(result.message || "Email confirmation sent successfully!");
         setEmailConfirmationSuccess(
-          data.message || "Email confirmation sent successfully!"
+          result.message || "Email confirmation sent successfully!"
         );
       } else {
-        setError(data.message || "Failed to send email confirmation");
+        setError(result.message || "Failed to send email confirmation");
         setEmailConfirmationError(
-          data.message || "Failed to send email confirmation"
+          result.message || "Failed to send email confirmation"
         );
       }
     } catch (error) {
@@ -482,6 +490,11 @@ export default function Profile() {
   };
 
   const onSubmit = async (data: FormData) => {
+    if (!session?.user?.id || !session?.user?.email) {
+      setError("User not authenticated");
+      return;
+    }
+
     setError("");
     setIsLoading(true);
 
@@ -492,7 +505,7 @@ export default function Profile() {
         role: data.role,
         birthDate: data.birthDate,
         preferences: {
-          language: locale, // Use current locale instead of form value
+          language: data.preferences.language, // Use form value to ensure consistency
           region: data.preferences.region,
         },
         subscriptionPreferences: {
@@ -500,12 +513,24 @@ export default function Profile() {
           subscriptionFrequencies:
             data.subscriptionPreferences.subscriptionFrequencies,
         },
+        subscriptionId: user?.subscriptionId, // Pass subscriptionId for subscription updates
         imageFile: selectedImage || undefined,
       };
 
-      const result = await updateProfile(updateData);
+      // Use server action directly - this works in client components!
+      const result = await updateUserProfile(
+        session.user.id,
+        updateData,
+        session.user.id
+      );
 
       if (result?.success) {
+        // Update local user state with the updated data
+        if (result.data) {
+          const updatedUser = Array.isArray(result.data) ? result.data[0] : result.data;
+          setUser(updatedUser);
+        }
+        
         // Update original values after successful save
         setOriginalValues(data);
         setSelectedImage(null);
@@ -535,14 +560,14 @@ export default function Profile() {
   };
 
   // Show error state if user data failed to load
-  if (userError) {
+  if (!user) {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
           <div className="text-red-600 text-lg mb-4">
             {t("errors.loadingUserData")}
           </div>
-          <div className="text-gray-600">{userError}</div>
+          <div className="text-gray-600">User data not available</div>
         </div>
       </div>
     );
