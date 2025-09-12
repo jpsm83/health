@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Search from "@/pagesClient/Search";
-import { articleService, IPaginatedResponse } from "@/services/articleService";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 
 export async function generateMetadata({
   searchParams,
@@ -41,7 +41,7 @@ export default async function SearchPage({
   // Change these values to customize the number of articles displayed
   const ARTICLES_PER_PAGE = 6; // Number of articles per page
 
-  let searchResults: IArticle[] = []; // Search results
+  let searchResults: ISerializedArticle[] = []; // Search results
   let paginationData = {
     currentPage: 1,
     totalPages: 1,
@@ -49,16 +49,16 @@ export default async function SearchPage({
   };
 
   try {
-    // Get search results with pagination using excludeIds approach for consistency
-    const searchResult: IPaginatedResponse<IArticle> =
-      await articleService.searchArticlesPaginated({
+    // Get search results with pagination
+    const searchResult = 
+      await searchArticlesPaginated({
         query: query.trim(),
         locale,
         page: currentPage,
         sort: "createdAt",
         order: "desc",
         limit: ARTICLES_PER_PAGE,
-        excludeIds: [], // Use empty array to trigger the excludeIds logic path
+        // No excludeIds needed for search pagination
       });
 
     searchResults = searchResult.data || [];

@@ -3,7 +3,7 @@
 import FeaturedArticles from "@/components/FeaturedArticles";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import {
   Pagination,
   PaginationContent,
@@ -22,7 +22,7 @@ interface PaginationData {
 }
 
 interface SearchProps {
-  searchResults: IArticle[];
+  searchResults: ISerializedArticle[];
   query: string;
   paginationData: PaginationData;
   error?: string;

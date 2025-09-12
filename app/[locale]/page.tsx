@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Home from "@/pagesClient/Home";
-import { articleService } from "@/services/articleService";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { getArticles } from "@/app/actions/article/getArticles";
 
 export async function generateMetadata({
   params,
@@ -23,12 +23,16 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
 
-  let featuredArticles: IArticle[] | [] = [];
+  let featuredArticles: ISerializedArticle[] = [];
 
   try {
-    featuredArticles = await articleService.getArticles({
+    const articlesResponse = await getArticles({
       locale,
+      limit: 9, // Match the limit that was being used in the client component
     });
+    
+    // Extract the data array from the paginated response
+    featuredArticles = articlesResponse.data;
   } catch (error) {
     console.error("Error fetching articles:", error);
   }

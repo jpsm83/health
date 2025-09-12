@@ -1,15 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 
 export const toggleArticleLike = async (articleId: string, userId: string) => {
   try {
-    if(!userId) {
+    if (!userId) {
       throw new Error("You must be signed in to like articles");
     }
-    
+
     await connectDb();
 
     // Check if user already liked the article

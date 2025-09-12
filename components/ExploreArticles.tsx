@@ -1,18 +1,17 @@
 import ArticleCard from "./ArticleCard";
-import { IArticleCardProps } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 
-interface FeaturedArticlesProps {
-  articles: IArticleCardProps[] | null;
+interface IFeaturedArticlesProps {
+  articles: ISerializedArticle[] | null;
   title: string;
   description: string;
 }
 
-export default function ExploteArticles({ articles, title, description }: FeaturedArticlesProps) {
+export default function ExploteArticles({ articles, title, description }: IFeaturedArticlesProps) {
   if (articles?.length === 0 || !articles) {
     return null;
   }
 
-  console.log("articles on featured articles", articles);
   return (
     <section>
       {/* Section Header */}
@@ -27,8 +26,8 @@ export default function ExploteArticles({ articles, title, description }: Featur
 
       {/* Featured Articles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles.map((article: IArticleCardProps) => (
-          <div key={article.id}>
+        {articles.map((article: ISerializedArticle) => (
+          <div key={article._id}>
             <ArticleCard article={article} />
           </div>
         ))}

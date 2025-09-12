@@ -4,10 +4,10 @@ import {
   generateArticleNotFoundMetadata,
 } from "@/lib/utils/articleMetadata";
 import { languageMap } from "@/lib/utils/genericMetadata";
-import { IArticle, IMetaDataArticle } from "@/interfaces/article";
-import { articleService } from "@/services/articleService";
+import { ISerializedArticle, IMetaDataArticle } from "@/interfaces/article";
 import Article from "@/pagesClient/Article";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
 
 export async function generateMetadata({
   params,
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { slug, locale } = await params;
 
   try {
-    const articleData = await articleService.getArticleBySlug(slug, locale);
+    const articleData = await getArticleBySlug(slug, locale);
 
     if (!articleData) {
       return generateArticleNotFoundMetadata();
@@ -94,10 +94,11 @@ export default async function ArticlePage({
 }) {
   const { slug, locale } = await params;
 
-  let articleData: IArticle | undefined = undefined;
+  let articleData: ISerializedArticle | undefined = undefined;
 
   try {
-    articleData = await articleService.getArticleBySlug(slug, locale);
+    const result = await getArticleBySlug(slug, locale);
+    articleData = result ?? undefined;
   } catch (error) {
     console.error("Error fetching article:", error);
   }

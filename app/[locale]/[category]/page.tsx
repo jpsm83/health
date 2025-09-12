@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
-import { articleService, IPaginatedResponse } from "@/services/articleService";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
 
 export async function generateMetadata({
   params,
@@ -44,8 +44,8 @@ export default async function CategoryPage({
   // FEATURED_ARTICLES_COUNT = 3, ARTICLES_PER_PAGE = 4 → First section: 3 articles, Second section: 4 per page
   // FEATURED_ARTICLES_COUNT = 1, ARTICLES_PER_PAGE = 6 → First section: 1 article, Second section: 6 per page
 
-  let featuredArticles: IArticle[] = []; // Fixed articles (first section)
-  let paginatedArticles: IArticle[] = []; // Paginated articles (second section)
+  let featuredArticles: ISerializedArticle[] = []; // Fixed articles (first section)
+  let paginatedArticles: ISerializedArticle[] = []; // Paginated articles (second section)
   let paginationData = {
     currentPage: 1,
     totalPages: 1,
@@ -54,8 +54,7 @@ export default async function CategoryPage({
 
   try {
     // Get the featured articles (fixed section - always the same)
-    const featuredResult: IPaginatedResponse<IArticle> =
-      await articleService.getArticlesByCategoryPaginated({
+    const featuredResult = await getArticlesByCategoryPaginated({
         category,
         locale,
         page: 1,
@@ -67,8 +66,7 @@ export default async function CategoryPage({
     featuredArticles = featuredResult.data || [];
 
     // Get total count for pagination calculation
-    const totalResult: IPaginatedResponse<IArticle> =
-      await articleService.getArticlesByCategoryPaginated({
+    const totalResult = await getArticlesByCategoryPaginated({
         category,
         locale,
         page: 1,
@@ -97,8 +95,7 @@ export default async function CategoryPage({
       .map((article) => article._id?.toString())
       .filter((id): id is string => Boolean(id));
 
-    const paginatedResult: IPaginatedResponse<IArticle> =
-      await articleService.getArticlesByCategoryPaginated({
+    const paginatedResult = await getArticlesByCategoryPaginated({
         category,
         locale,
         page: currentPage,

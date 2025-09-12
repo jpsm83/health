@@ -1,8 +1,8 @@
 import ArticleCard from "./ArticleCard";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 
 interface FeaturedArticlesProps {
-  articles: IArticle[] | null;
+  articles: ISerializedArticle[] | null;
   title?: string;
   description?: string;
   showBanner?: boolean;
@@ -30,7 +30,7 @@ export default function FeaturedArticles({
 
       {/* Featured Articles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles.map((article: IArticle) => (
+        {articles.map((article: ISerializedArticle) => (
           <div key={article._id?.toString() || ""}>
             <ArticleCard article={article} />
           </div>

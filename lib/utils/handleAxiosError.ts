@@ -1,14 +1,9 @@
 import axios from "axios";
 
-// Interface for Axios error response data
-interface AxiosErrorResponseData {
-  message?: string;
-}
-
 // Helper method to handle errors
 export const handleAxiosError = (error: unknown): never => {
   if (axios.isAxiosError(error)) {
-    const responseData = error.response?.data as any;
+    const responseData = error.response?.data as { message?: string; Error?: string };
     const message: string =
       responseData?.message ||
       responseData?.Error ||

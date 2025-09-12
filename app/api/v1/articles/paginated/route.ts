@@ -1,27 +1,20 @@
 import { NextResponse } from "next/server";
 
 // imported utils
-import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
-// imported models
-import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user";
-
 // imported interfaces
-import { IContentsByLanguage } from "@/interfaces/article";
+import { IGetArticlesParams } from "@/interfaces/article";
 
-interface IMongoFilter {
-  [key: string]: unknown;
-}
+// imported server actions
+import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
+import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 
 // @desc    Get paginated articles with advanced features
 // @route   GET /articles/paginated
 // @access  Public
 export const GET = async (req: Request) => {
   try {
-    await connectDb();
-
     // ------------------------
     // Parse query parameters
     // ------------------------
@@ -30,7 +23,7 @@ export const GET = async (req: Request) => {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "9");
     const sort = searchParams.get("sort") || "createdAt";
-    const order = searchParams.get("order") === "asc" ? 1 : -1;
+    const order = searchParams.get("order") === "asc" ? "asc" : "desc";
 
     const slug = searchParams.get("slug") || undefined;
     const category = searchParams.get("category") || undefined;
@@ -39,46 +32,20 @@ export const GET = async (req: Request) => {
     const query = searchParams.get("query") || undefined;
 
     // ------------------------
-    // Build filter
+    // Validate excludeIds format
     // ------------------------
-    if (category && slug) {
-      return new NextResponse(
-        JSON.stringify({
-          message: "Category and slug are not allowed together!",
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    const mongoFilter: IMongoFilter = {};
-
-    if (slug) {
-      mongoFilter["contentsByLanguage.seo.slug"] = slug;
-    }
-
-    if (category) {
-      mongoFilter.category = category;
-    }
-
-    if (query && query.trim()) {
-      mongoFilter["contentsByLanguage"] = { 
-        $elemMatch: { 
-          mainTitle: { $regex: query.trim(), $options: "i" } 
-        } 
-      };
-      console.log("Search query:", query.trim());
-      console.log("MongoDB filter:", JSON.stringify(mongoFilter, null, 2));
-    }
-
-    // Exclude already loaded IDs
+    let excludeIdsArray: string[] | undefined;
     if (excludeIds) {
       try {
-        const excludeIdsArray = JSON.parse(excludeIds);
-        if (Array.isArray(excludeIdsArray) && excludeIdsArray.length > 0) {
-          mongoFilter._id = { $nin: excludeIdsArray };
+        excludeIdsArray = JSON.parse(excludeIds);
+        if (!Array.isArray(excludeIdsArray) || excludeIdsArray.length === 0) {
+          return new NextResponse(
+            JSON.stringify({
+              message:
+                "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
         }
       } catch {
         return new NextResponse(
@@ -92,117 +59,64 @@ export const GET = async (req: Request) => {
     }
 
     // ------------------------
-    // Query DB
+    // Use appropriate server action based on parameters
     // ------------------------
-    let articles;
-    
-    if (excludeIds) {
-      // When using excludeIds, we need to get all filtered results first
-      // then apply pagination to the filtered results
-      const allFilteredArticles = await Article.find(mongoFilter)
-        .populate({ path: "createdBy", select: "username", model: User })
-        .sort({ [sort]: order })
-        .lean();
-      
-      // Apply pagination to the filtered results
-      const skip = (page - 1) * limit;
-      articles = allFilteredArticles.slice(skip, skip + limit);
+    const params: IGetArticlesParams = {
+      page,
+      limit,
+      sort,
+      order,
+      locale,
+      category,
+      slug,
+      query,
+      excludeIds: excludeIdsArray,
+    };
+
+    let result;
+
+    // Decision logic:
+    // - If query is provided → use searchArticlesPaginated (optimized for search)
+    // - If category is provided (no query) → use getArticlesByCategoryPaginated (optimized for category filtering)
+    // - If neither query nor category → return error (at least one is required)
+    if (query && query.trim()) {
+      // Use searchArticlesPaginated when query is specified
+      // This action is optimized for search functionality
+      result = await searchArticlesPaginated({
+        ...params,
+        query: query.trim(), // Ensure query is explicitly passed as string
+      });
+    } else if (category) {
+      // Use getArticlesByCategoryPaginated when category is specified (no query)
+      // This action is optimized for category filtering
+      result = await getArticlesByCategoryPaginated({
+        ...params,
+        category, // Ensure category is explicitly passed as string
+      });
     } else {
-      // Normal pagination without exclusions
-      const skip = (page - 1) * limit;
-      articles = await Article.find(mongoFilter)
-        .populate({ path: "createdBy", select: "username", model: User })
-        .sort({ [sort]: order })
-        .skip(skip)
-        .limit(limit)
-        .lean();
+      // Neither query nor category provided
+      return new NextResponse(
+        JSON.stringify({
+          message: "Either 'query' or 'category' parameter is required for paginated articles endpoint.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     // ------------------------
     // Handle no results
     // ------------------------
-    if (!articles || articles.length === 0) {
-      const response = {
-        page,
-        limit,
-        totalDocs: 0,
-        totalPages: 0,
-        data: [],
-      };
-      
-      return new NextResponse(JSON.stringify(response), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // ------------------------
-    // Post-process by locale
-    // ------------------------
-    const articlesWithFilteredContent = articles
-      .map((article) => {
-        let contentByLanguage: IContentsByLanguage | undefined;
-
-        if (slug) {
-          // Exact slug match
-          contentByLanguage = article.contentsByLanguage.find(
-            (content: IContentsByLanguage) => content.seo.slug === slug
-          );
-        } else {
-          // Try requested locale
-          contentByLanguage = article.contentsByLanguage.find(
-            (content: IContentsByLanguage) => content.seo.hreflang === locale
-          );
-
-          // Fallback to English if locale not found
-          if (!contentByLanguage && locale !== "en") {
-            contentByLanguage = article.contentsByLanguage.find(
-              (content: IContentsByLanguage) => content.seo.hreflang === "en"
-            );
-          }
-
-          // Final fallback: first available
-          if (!contentByLanguage && article.contentsByLanguage.length > 0) {
-            contentByLanguage = article.contentsByLanguage[0];
-          }
+    if (result.data.length === 0) {
+      return new NextResponse(
+        JSON.stringify({ message: "No articles found!" }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
         }
-
-        return {
-          ...article,
-          contentsByLanguage: contentByLanguage ? [contentByLanguage] : [],
-        };
-      })
-      .filter((article) => article.contentsByLanguage.length > 0);
-
-    // ------------------------
-    // Pagination metadata
-    // ------------------------
-    let totalDocs, totalPages;
-    
-    if (excludeIds) {
-      // When using excludeIds, count the filtered results
-      const allFilteredArticles = await Article.find(mongoFilter)
-        .populate({ path: "createdBy", select: "username", model: User })
-        .sort({ [sort]: order })
-        .lean();
-      
-      totalDocs = allFilteredArticles.length;
-      totalPages = Math.ceil(totalDocs / limit);
-    } else {
-      // Normal count without exclusions
-      totalDocs = await Article.countDocuments(mongoFilter);
-      totalPages = Math.ceil(totalDocs / limit);
+      );
     }
 
-    const response = {
-      page,
-      limit,
-      totalDocs,
-      totalPages,
-      data: articlesWithFilteredContent,
-    };
-
-    return new NextResponse(JSON.stringify(response), {
+    return new NextResponse(JSON.stringify(result), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

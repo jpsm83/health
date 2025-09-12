@@ -1,47 +1,25 @@
-import { NextResponse } from "next/server";
+"use server";
 
-// imported utils
+import { IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/interfaces/article";
 import connectDb from "@/app/api/db/connectDb";
-import { handleApiError } from "@/app/api/utils/handleApiError";
-
-// imported models
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
 
-// imported interfaces
-import { IContentsByLanguage } from "@/interfaces/article";
-
-// @desc    Get article by slug
-// @route   GET /articles/[slug]
-// @access  Public
-export const GET = async (
-  req: Request,
-  { params }: { params: { slug: string } }
-) => {
+export async function getArticleBySlug(slug: string, locale = "en"): Promise<ISerializedArticle | null> {
   try {
     await connectDb();
 
-    const { slug } = params;
-    const { searchParams } = new URL(req.url);
-    const locale = searchParams.get("locale") || "en";
-
-    // Validate slug parameter
+    // ------------------------
+    // Validate slug parameter (matching route.ts logic)
+    // ------------------------
     if (!slug || typeof slug !== "string") {
-      return new NextResponse(
-        JSON.stringify({
-          message: "Valid slug parameter is required!",
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      throw new Error("Valid slug parameter is required!");
     }
 
     // ------------------------
-    // Query DB for article by slug
+    // Query DB for article by slug (matching route.ts logic)
     // ------------------------
-    let article;
+    let article: IArticleLean | null;
     try {
       article = await Article.findOne({
         "contentsByLanguage.seo.slug": slug,
@@ -52,35 +30,28 @@ export const GET = async (
           select: "username imageUrl", 
           model: User 
         })
-        .lean();
+        .lean() as IArticleLean | null;
     } catch (dbError) {
       console.error("Database query failed:", dbError);
       throw new Error(`Database query failed: ${dbError instanceof Error ? dbError.message : String(dbError)}`);
     }
     
     // ------------------------
-    // Handle no results
+    // Handle no results (matching route.ts logic)
     // ------------------------
     if (!article) {
-      return new NextResponse(
-        JSON.stringify({ message: "Article not found!" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return null;
     }
 
     // ------------------------
-    // Post-process by locale
+    // Post-process by locale (matching route.ts logic)
     // ------------------------
     let contentByLanguage: IContentsByLanguage | undefined;
 
     // Access contentsByLanguage from the lean result
-    const contentsByLanguage = (article as Record<string, unknown>)
-      .contentsByLanguage as IContentsByLanguage[];
+    const contentsByLanguage = article.contentsByLanguage as IContentsByLanguage[];
 
-    // Try to find content for the requested locale
+    // Try to find content for the requested slug first
     contentByLanguage = contentsByLanguage.find(
       (content: IContentsByLanguage) => content.seo.slug === slug
     );
@@ -104,31 +75,26 @@ export const GET = async (
       contentByLanguage = contentsByLanguage[0];
     }
 
-    // If still no content found, return error
+    // If still no content found, return null
     if (!contentByLanguage) {
-      return new NextResponse(
-        JSON.stringify({ message: "No content found for this article!" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return null;
     }
 
     // ------------------------
-    // Return article with filtered content
+    // Return article with filtered content (matching route.ts logic)
     // ------------------------
     const articleWithFilteredContent = {
       ...article,
       contentsByLanguage: [contentByLanguage],
     };
 
-    return new NextResponse(JSON.stringify(articleWithFilteredContent), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    // Serialize MongoDB objects to plain objects for client components
+    const serializedArticle = serializeMongoObject(articleWithFilteredContent) as ISerializedArticle;
+
+    return serializedArticle;
   } catch (error) {
-    console.error("Error in rote.ts:", error);
-    return handleApiError("Get article by slug failed!", error as string);
+    console.error("Error fetching article by slug:", error);
+    // Return null instead of throwing error (matching service behavior)
+    return null;
   }
-};
+}

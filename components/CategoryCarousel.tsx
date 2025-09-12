@@ -1,4 +1,4 @@
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import ArticleCard from "./ArticleCard";
 import ArticleCardSkeleton from "./skeletons/ArticleCardSkeleton";
 import {
@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/carousel";
 import { useTranslations, useLocale } from "next-intl";
 
-import { articleService } from "@/services/articleService";
 import { useState, useEffect, useCallback } from "react";
+import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
 
 interface CategoryCarouselProps {
   category: string;
@@ -22,7 +22,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
   const t = useTranslations("categoryCarousel");
   const locale = useLocale();
 
-  const [articles, setArticles] = useState<IArticle[]>([]);
+  const [articles, setArticles] = useState<ISerializedArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +38,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
       setError(null);
 
       try {
-        const fetchedArticles = await articleService.getArticlesByCategory({
+        const fetchedArticles = await getArticlesByCategory({
           category,
           page: 1,
           limit,
@@ -46,9 +46,8 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
           order: "desc",
           locale,
         });
-
-        setArticles(fetchedArticles);
-        setHasMore(fetchedArticles.length >= limit);
+        setArticles(fetchedArticles.data);
+        setHasMore(fetchedArticles.data.length >= limit);
       } catch (err) {
         const message =
           err instanceof Error ? err.message : t("failedToFetchArticles");
@@ -74,7 +73,7 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
         .map((article) => article._id?.toString())
         .filter((id): id is string => Boolean(id));
 
-      const newArticles = await articleService.getArticlesByCategory({
+      const newArticles = await getArticlesByCategory({
         category,
         limit,
         sort: "createdAt",
@@ -83,10 +82,10 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
         locale,
       });
 
-      if (newArticles.length === 0) {
+      if (newArticles.data.length === 0) {
         setHasMore(false);
       } else {
-        setArticles((prev) => [...prev, ...newArticles]);
+        setArticles((prev) => [...prev, ...newArticles.data]);
       }
     } catch (err) {
       setError(

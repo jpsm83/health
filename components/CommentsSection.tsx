@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { IArticleComment, ICommentReport } from "@/interfaces/article";
-import { Types } from "mongoose";
+import { ISerializedArticleComment, ISerializedCommentReport } from "@/interfaces/article";
 import { createComment, deleteComment } from "@/app/actions/comment/comments";
 import { toggleCommentLike } from "@/app/actions/comment/commentLikes";
 import { reportComment } from "@/app/actions/comment/commentReports";
@@ -16,8 +15,8 @@ import Image from "next/image";
 
 interface CommentsSectionProps {
   articleId: string;
-  comments: IArticleComment[];
-  setComments: React.Dispatch<React.SetStateAction<IArticleComment[]>>;
+  comments: ISerializedArticleComment[];
+  setComments: React.Dispatch<React.SetStateAction<ISerializedArticleComment[]>>;
   hasUserCommented: boolean;
 }
 
@@ -107,13 +106,13 @@ export default function CommentsSection({
               if (result.liked) {
                 updatedComment.commentLikes = [
                   ...(comment.commentLikes || []),
-                  new Types.ObjectId(session?.user?.id),
+                  session?.user?.id || "",
                 ];
               } else {
                 updatedComment.commentLikes = (
                   comment.commentLikes || []
                 ).filter(
-                  (id: Types.ObjectId) => id.toString() !== session?.user?.id
+                  (id: string) => id !== session?.user?.id
                 );
               }
               return updatedComment;
@@ -192,8 +191,8 @@ export default function CommentsSection({
           prev.map((comment) => {
             if (comment._id?.toString() === reportModal.commentId) {
               const updatedComment = { ...comment };
-              const newReport: ICommentReport = {
-                userId: new Types.ObjectId(session?.user?.id),
+              const newReport: ISerializedCommentReport = {
+                userId: session?.user?.id || "",
                 reason: selectedReason as
                   | "bad_language"
                   | "racist"
@@ -202,7 +201,7 @@ export default function CommentsSection({
                   | "inappropriate_content"
                   | "false_information"
                   | "other",
-                reportedAt: new Date(),
+                reportedAt: new Date().toISOString(),
               };
               updatedComment.commentReports = [
                 ...(comment.commentReports || []),
@@ -307,17 +306,17 @@ export default function CommentsSection({
             .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
             .map((comment, index) => {
             const isLiked = comment.commentLikes?.some(
-              (like: Types.ObjectId) => like.toString() === session?.user?.id
+              (like: string) => like === session?.user?.id
             );
             const likeCount = comment.commentLikes?.length || 0;
             
             // Get comment author info - handle both populated and non-populated userId
             const commentAuthor = typeof comment.userId === 'object' && comment.userId !== null && 'username' in comment.userId 
-              ? comment.userId 
+              ? comment.userId as { username: string; imageUrl?: string; _id: string }
               : null;
             const commentAuthorId = typeof comment.userId === 'object' && comment.userId !== null && '_id' in comment.userId
-              ? comment.userId._id.toString()
-              : (comment.userId as Types.ObjectId)?.toString();
+              ? (comment.userId as { _id: string })._id
+              : comment.userId as string;
             const commentAuthorName = commentAuthor?.username || 'Unknown User';
             const commentAuthorImage = commentAuthor?.imageUrl;
             
@@ -328,8 +327,8 @@ export default function CommentsSection({
             const isReported =
               comment.commentReports && comment.commentReports.length >= 3;
             const hasUserReported = comment.commentReports?.some(
-              (report: { userId: Types.ObjectId }) =>
-                report.userId?.toString() === session?.user?.id
+              (report: ISerializedCommentReport) =>
+                report.userId === session?.user?.id
             );
 
             return (

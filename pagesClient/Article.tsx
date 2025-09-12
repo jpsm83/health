@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { IArticle, IArticleComment } from "@/interfaces/article";
+import { ISerializedArticle, ISerializedArticleComment } from "@/interfaces/article";
 import Image from "next/image";
-import { toggleArticleLike } from "@/app/actions/article/articleLikes";
+import { toggleArticleLike } from "@/app/actions/article/toggleArticleLike";
 import { Heart } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { showToast } from "@/components/Toasts";
@@ -17,11 +17,11 @@ import CategoryCarousel from "@/components/CategoryCarousel";
 export default function Article({
   articleData,
 }: {
-  articleData: IArticle | undefined;
+  articleData: ISerializedArticle | undefined;
 }) {
   const [likes, setLikes] = useState<number>(articleData?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [comments, setComments] = useState<IArticleComment[]>(
+  const [comments, setComments] = useState<ISerializedArticleComment[]>(
     articleData?.comments || []
   );
 

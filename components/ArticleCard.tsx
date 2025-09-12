@@ -2,13 +2,13 @@ import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import { calculateReadTime, generateExcerpt } from "@/lib/utils/readTimeCalculator";
 
 export default function ArticleCard({
   article,
 }: {
-  article: IArticle;
+  article: ISerializedArticle;
 }) {
   const t = useTranslations("articleCard");
   const locale = useLocale();

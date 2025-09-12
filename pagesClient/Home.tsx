@@ -1,41 +1,19 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
-import { IArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
 import { mainCategories } from "@/lib/constants";
 import FeaturedArticles from "@/components/FeaturedArticles";
-import { articleService } from "@/services/articleService";
-import { useState, useEffect } from "react";
 
 export default function Home({
   featuredArticles
 }: {
-  featuredArticles: IArticle[];
+  featuredArticles: ISerializedArticle[];
 }) {
   const t = useTranslations("home");
-  const locale = useLocale();
-  const [articles, setArticles] = useState<IArticle[]>(featuredArticles);
-
-  // Fetch articles when locale changes
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const fetchedArticles = await articleService.getArticles({
-          locale,
-          limit: 9,
-        });
-        setArticles(fetchedArticles);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-        // Keep existing articles if fetch fails
-      }
-    };
-
-    fetchArticles();
-  }, [locale]);
 
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16">
@@ -71,7 +49,7 @@ export default function Home({
       </section>
 
       {/* Featured Articles Section */}
-      <FeaturedArticles articles={articles} title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
+      <FeaturedArticles articles={featuredArticles} title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
