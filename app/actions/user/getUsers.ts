@@ -17,6 +17,22 @@ function serializeUser(user: any): ISerializedUser {
     imageUrl: user.imageUrl,
     preferences: user.preferences,
     subscriptionId: user.subscriptionId?.toString() || null,
+    subscriptionPreferences: {
+      categories: [],
+      subscriptionFrequencies: "weekly"
+    },
+    likedArticles: user.likedArticles?.map((id: unknown) => {
+      if (id && typeof id === 'object' && 'toString' in id) {
+        return id.toString();
+      }
+      return String(id);
+    }) || [],
+    commentedArticles: user.commentedArticles?.map((id: unknown) => {
+      if (id && typeof id === 'object' && 'toString' in id) {
+        return id.toString();
+      }
+      return String(id);
+    }) || [],
     lastLogin: user.lastLogin?.toISOString(),
     isActive: user.isActive,
     emailVerified: user.emailVerified,

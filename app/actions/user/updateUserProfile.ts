@@ -7,13 +7,26 @@ import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import User from "@/app/api/models/user";
+import Subscriber from "@/app/api/models/subscriber";
 import { IUpdateProfileData, IUser, IUserPreferences, ISerializedUser } from "@/interfaces/user";
 import { roles } from "@/lib/constants";
 import { IApiResponse } from "@/interfaces/api";
 
-// Helper function to serialize MongoDB user object
+// Helper function to serialize MongoDB user object with subscription preferences
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function serializeUser(user: any): ISerializedUser {
+function serializeUser(user: any, subscriptionPreferences?: any): ISerializedUser {
+  // Helper function to ensure plain object conversion
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const toPlainObject = (obj: any): any => {
+    if (obj === null || obj === undefined) return obj;
+    if (typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return obj.toISOString();
+    if (Array.isArray(obj)) return obj.map(toPlainObject);
+    
+    // Convert to plain object to remove any MongoDB-specific methods
+    return JSON.parse(JSON.stringify(obj));
+  };
+
   return {
     _id: user._id?.toString() || "",
     username: user.username || "",
@@ -22,7 +35,7 @@ function serializeUser(user: any): ISerializedUser {
     birthDate: user.birthDate?.toISOString() || new Date().toISOString(),
     imageFile: user.imageFile,
     imageUrl: user.imageUrl,
-    preferences: user.preferences || { language: "en", region: "US" },
+    preferences: toPlainObject(user.preferences) || { language: "en", region: "US" },
     subscriptionId: user.subscriptionId?.toString() || null,
     lastLogin: user.lastLogin?.toISOString(),
     isActive: user.isActive,
@@ -31,7 +44,15 @@ function serializeUser(user: any): ISerializedUser {
     updatedAt: user.updatedAt?.toISOString(),
     likedArticles: user.likedArticles?.map((id: string) => id.toString()) || [],
     commentedArticles: user.commentedArticles?.map((id: string) => id.toString()) || [],
-    subscriptionPreferences: user.subscriptionPreferences,
+    subscriptionPreferences: subscriptionPreferences ? {
+      categories: Array.isArray(subscriptionPreferences.categories) 
+        ? subscriptionPreferences.categories.map((cat: unknown) => String(cat))
+        : [],
+      subscriptionFrequencies: String(subscriptionPreferences.subscriptionFrequencies || "weekly")
+    } : {
+      categories: [],
+      subscriptionFrequencies: "weekly"
+    },
   };
 }
 
@@ -168,6 +189,23 @@ export async function updateUserProfile(
       }
     }
 
+    // Update subscription preferences if provided and user has a subscription
+    if (profileData.subscriptionPreferences && user && !Array.isArray(user) && user.subscriptionId) {
+      try {
+        await Subscriber.findByIdAndUpdate(
+          user.subscriptionId,
+          {
+            $set: {
+              subscriptionPreferences: profileData.subscriptionPreferences
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Error updating subscription preferences:", error);
+        // Don't fail the entire update if subscription preferences fail
+      }
+    }
+
     // Handle image upload if provided
     const isNewImageProvided =
       profileData.imageFile &&
@@ -239,9 +277,21 @@ export async function updateUserProfile(
 
     // Only update if there are changes
     if (Object.keys(updateData).length === 0) {
+      // Get updated subscription preferences for return
+      let subscriptionPreferences = null;
+      if (user && !Array.isArray(user) && user.subscriptionId) {
+        const subscriber = await Subscriber.findById(user.subscriptionId)
+          .select("subscriptionPreferences")
+          .lean();
+        if (subscriber && !Array.isArray(subscriber) && subscriber.subscriptionPreferences) {
+          // Ensure plain object conversion
+          subscriptionPreferences = JSON.parse(JSON.stringify(subscriber.subscriptionPreferences));
+        }
+      }
+      
       return {
         success: true,
-        data: serializeUser(user), // Return serialized user data
+        data: serializeUser(user, subscriptionPreferences), // Return serialized user data with subscription preferences
         message: "No changes to update",
       };
     }
@@ -264,9 +314,21 @@ export async function updateUserProfile(
       };
     }
 
+    // Get updated subscription preferences for return
+    let subscriptionPreferences = null;
+    if (updatedUser && !Array.isArray(updatedUser) && updatedUser.subscriptionId) {
+      const subscriber = await Subscriber.findById(updatedUser.subscriptionId)
+        .select("subscriptionPreferences")
+        .lean();
+      if (subscriber && !Array.isArray(subscriber) && subscriber.subscriptionPreferences) {
+        // Ensure plain object conversion
+        subscriptionPreferences = JSON.parse(JSON.stringify(subscriber.subscriptionPreferences));
+      }
+    }
+
     return {
       success: true,
-      data: serializeUser(updatedUser), // Return serialized updated user data
+      data: serializeUser(updatedUser, subscriptionPreferences), // Return serialized updated user data with subscription preferences
       message: "User profile updated successfully",
     };
   } catch (error) {

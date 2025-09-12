@@ -75,8 +75,8 @@ export const createComment = async (articleId: string, comment: string, userId: 
       comment: lastComment.comment,
       commentLikes: [],
       commentReports: [],
-      createdAt: lastComment.createdAt,
-      updatedAt: lastComment.updatedAt,
+      createdAt: lastComment.createdAt?.toISOString(),
+      updatedAt: lastComment.updatedAt?.toISOString(),
     };
 
     return {

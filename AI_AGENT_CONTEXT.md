@@ -305,6 +305,7 @@ The following documentation files provide detailed information about specific fe
 - **SERVER_ACTIONS_ARCHITECTURE.md** - Next.js server actions architecture pattern, implementation examples, and complete API structure overview
 - **MULTILINGUAL_METADATA.md** - Multilingual metadata handling and SEO optimization strategies
 - **PAGINATION_IMPLEMENTATION.md** - Pagination system implementation for articles and content
+- **USER_MANAGEMENT_SYSTEM.md** - Complete user system implementation including server actions, API routes, data flows, and user creation with image upload
 
 ### Development & Testing
 - **socialMedia.md** - Social media integration and sharing features
