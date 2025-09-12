@@ -9,7 +9,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
-import requestEmailConfirmationAction from "@/app/actions/email/requestEmailConfirmation";
+import requestEmailConfirmationAction from "@/app/actions/auth/requestEmailConfirmation";
 
 // imported models
 import User from "@/app/api/models/user";

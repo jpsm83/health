@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
-import requestEmailConfirmationAction from "@/app/actions/email/requestEmailConfirmation";
+import requestEmailConfirmationAction from "@/app/actions/auth/requestEmailConfirmation";
 import { mainCategories } from "@/lib/constants";
 
 import { IUser } from "@/interfaces/user";

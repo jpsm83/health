@@ -36,8 +36,6 @@ export default function Navbar() {
 
   // Handle search input change - just update local state for typing
   const [localSearchTerm, setLocalSearchTerm] = useState<string>("");
-  const [isSendingNewsletter, setIsSendingNewsletter] =
-    useState<boolean>(false);
 
   // Sync local state with URL when component mounts or URL changes
   useEffect(() => {
@@ -59,39 +57,6 @@ export default function Navbar() {
       // Redirect to home if search input is empty
       router.push(`/${locale}`);
       setIsMobileMenuOpen(false); // Close mobile menu after redirect
-    }
-  };
-
-  // Handle newsletter sending
-  const handleSendNewsletter = async () => {
-    setIsSendingNewsletter(true);
-    try {
-      const response = await fetch("/api/v1/newsletter/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const result = await response.json();
-      console.log("Newsletter send result:", result);
-
-      if (result.success) {
-        alert(
-          `Newsletter sent successfully to ${result.sentCount} subscribers!`
-        );
-      } else if (result.error === "NO_SUBSCRIBERS") {
-        alert(
-          `No verified subscribers found. Please have users subscribe to the newsletter first.`
-        );
-      } else {
-        alert(`Failed to send newsletter: ${result.message}`);
-      }
-    } catch (error) {
-      console.error("Newsletter send error:", error);
-      alert("Failed to send newsletter. Please try again.");
-    } finally {
-      setIsSendingNewsletter(false);
     }
   };
 
@@ -527,20 +492,6 @@ export default function Navbar() {
           </Button>
         ))}
       </div>
-
-      {/* Newsletter send button for testing */}
-      {session?.user?.role === "admin" && (
-        <div className="flex items-center justify-center bg-gray-400">
-        <Button
-          onClick={handleSendNewsletter}
-          disabled={isSendingNewsletter}
-          variant="ghost"
-          className="bg-gray-500 hover:bg-gray-600 rounded-none hover:text-white cursor-pointer"
-        >
-          {isSendingNewsletter ? "Sending..." : "Send Newsletter"}
-        </Button>
-        </div>
-      )}
     </nav>
   );
 }

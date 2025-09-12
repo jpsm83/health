@@ -1,30 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
+import confirmNewsletterSubscriptionAction from "@/app/actions/subscribers/confirmNewsletterSubscription";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import confirmEmailAction from "@/app/actions/auth/confirmEmail";
 
-// @desc    Confirm email with verification token
-// @route   POST /api/v1/auth/confirm-email
+// @desc    Confirm newsletter subscription with token
+// @route   POST /api/v1/subscribers/confirm-newsletter-subscription
 // @access  Public
 export const POST = async (req: NextRequest) => {
   try {
-    const { token } = await req.json();
+    const { token, email } = await req.json();
 
     // Validate required fields
-    if (!token) {
+    if (!token || !email) {
       return new NextResponse(
         JSON.stringify({
           success: false,
-          message: "Verification token is required",
+          message: "Token and email are required",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Use the action to handle email confirmation
-    const result = await confirmEmailAction(token);
+    // Use the action to handle newsletter subscription confirmation
+    const result = await confirmNewsletterSubscriptionAction(token, email);
 
     if (!result.success) {
-      const statusCode = result.error === "Invalid token" || result.error === "Email already verified" ? 400 : 500;
+      const statusCode = result.error === "MISSING_PARAMETERS" || 
+                        result.error === "INVALID_TOKEN" ? 400 : 500;
       return new NextResponse(
         JSON.stringify({
           success: false,
@@ -43,6 +44,6 @@ export const POST = async (req: NextRequest) => {
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return handleApiError("Email confirmation failed!", error as string);
+    return handleApiError("Newsletter subscription confirmation failed!", error as string);
   }
 };

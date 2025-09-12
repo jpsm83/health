@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { CheckCircle, XCircle, Mail } from "lucide-react";
-import unsubscribeFromNewsletterAction from "@/app/actions/email/newsletterUnsubscribe";
+import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 

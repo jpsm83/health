@@ -4,7 +4,7 @@ import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
 import { commentReportReasons } from "@/lib/constants";
-import sendCommentReportEmailAction from "@/app/actions/email/commentReport";
+import sendCommentReportEmailAction from "@/app/actions/user/commentReport";
 import { Types } from "mongoose";
 
 export const reportComment = async (

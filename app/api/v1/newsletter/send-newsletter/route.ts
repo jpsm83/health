@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
+import sendNewsletterAction from "@/app/actions/newsletter/sendNewsletter";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import sendNewsletterAction from "@/app/actions/email/sendNewsletter";
 
 // @desc    Send newsletter to all verified subscribers
-// @route   POST /api/v1/newsletter/send
+// @route   POST /api/v1/newsletter/send-newsletter
 // @access  Private (Admin only)
 export const POST = async () => {
   try {
+    // Use the action to handle newsletter sending
     const result = await sendNewsletterAction();
 
     // Return 200 for both success and "no subscribers" cases

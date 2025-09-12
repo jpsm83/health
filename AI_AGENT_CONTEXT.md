@@ -300,13 +300,41 @@ const result = await Model.find(query).lean();
 The following documentation files provide detailed information about specific features and implementations:
 
 ### Core System Documentation
-- **EMAIL_ACTIONS_SYSTEM.md** - Complete email system implementation including templates, actions, and multilingual support
+- **ARTICLES_FLOW_DOCUMENTATION.md** - Complete articles system implementation including server actions, API routes, data flows, and article creation with image upload
+- **EMAIL_API_DOCUMENTATION.md** - Comprehensive email system documentation including all 19 API endpoints, server actions, email flows, and user/subscriber management
+- **SERVER_ACTIONS_ARCHITECTURE.md** - Next.js server actions architecture pattern, implementation examples, and complete API structure overview
 - **MULTILINGUAL_METADATA.md** - Multilingual metadata handling and SEO optimization strategies
 - **PAGINATION_IMPLEMENTATION.md** - Pagination system implementation for articles and content
 
 ### Development & Testing
-- **sandbox.md** - Development sandbox and testing utilities
 - **socialMedia.md** - Social media integration and sharing features
+
+## Architecture Overview
+
+The application follows a **Server Actions + API Routes** architecture pattern:
+
+### Server Actions Structure
+```
+app/actions/
+├── article/          # Article-related actions (6 actions)
+├── auth/             # Authentication actions (4 actions)
+├── newsletter/       # Newsletter actions (1 action)
+├── subscribers/      # Subscriber management actions (3 actions)
+├── user/             # User-related actions (1 action)
+└── comment/          # Comment management actions (3 actions)
+```
+
+### API Routes Structure
+```
+app/api/v1/
+├── articles/         # Article endpoints (4 endpoints)
+├── auth/            # Authentication endpoints (5 endpoints)
+├── newsletter/      # Newsletter endpoints (1 endpoint)
+├── subscribers/     # Subscriber endpoints (6 endpoints)
+└── users/          # User endpoints (6 endpoints)
+```
+
+**Total API Endpoints: 22** (19 email/user management + 3 article endpoints)
 
 ## Future Documentation
 

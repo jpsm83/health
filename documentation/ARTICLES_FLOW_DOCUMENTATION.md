@@ -176,6 +176,31 @@ const article = await getArticleBySlug({
 - API routes: Like endpoints
 - Features: User engagement, social features
 
+## Article Creation
+
+### Article Creation Flow
+```
+User submits article form with images
+↓
+POST /api/v1/articles (multipart/form-data)
+↓
+app/api/v1/articles/route.ts (API Route)
+↓
+Form validation + Image upload to Cloudinary
+↓
+MongoDB Article creation
+↓
+JSON Response with created article
+```
+
+### Article Creation Features
+- **Multilingual Support**: Multiple language versions in single article
+- **Image Upload**: Automatic Cloudinary integration
+- **SEO Validation**: Complete SEO metadata validation
+- **Slug Uniqueness**: Prevents duplicate slugs across languages
+- **Content Validation**: Comprehensive content structure validation
+- **Authentication Required**: Only authenticated users can create articles
+
 ## API Routes
 
 ### 1. `/api/v1/articles/route.ts`
@@ -183,23 +208,27 @@ const article = await getArticleBySlug({
 
 **Methods**:
 - `GET` - Fetch articles with various filters
+- `POST` - Create new article (with image upload)
 
-**Query Parameters**:
-- `page`, `limit`, `sort`, `order`, `locale`, `category`, `slug`, `query`, `excludeIds`
+**Query Parameters** (GET):
+- `page`, `limit`, `sort`, `order`, `locale`, `category`, `slug`, `excludeIds`
 
 **Smart Routing Logic**:
 ```typescript
-if (query && query.trim()) {
-  // Use searchArticlesPaginated for search queries
-  result = await searchArticlesPaginated(params);
-} else if (category) {
-  // Use getArticlesByCategoryPaginated for category queries
-  result = await getArticlesByCategoryPaginated(params);
+if (category) {
+  // Use getArticlesByCategory when category is specified
+  result = await getArticlesByCategory(params);
 } else {
-  // Use getArticles for general queries
+  // Use getArticles for general article fetching (no category filter)
   result = await getArticles(params);
 }
 ```
+
+**POST Request** (Create Article):
+- **Content-Type**: `multipart/form-data`
+- **Required Fields**: `category`, `contentsByLanguage`, `articleImages`
+- **Authentication**: Required
+- **Features**: Image upload to Cloudinary, multilingual content validation
 
 **Response Format**:
 ```typescript
@@ -213,44 +242,64 @@ if (query && query.trim()) {
 ```
 
 ### 2. `/api/v1/articles/paginated/route.ts`
-**Purpose**: Dedicated paginated articles endpoint
+**Purpose**: Dedicated paginated articles endpoint with advanced features
 
 **Methods**:
-- `GET` - Fetch paginated articles with advanced features
+- `GET` - Fetch paginated articles with search and category filtering
 
 **Query Parameters**:
-- Same as main articles endpoint
-- Requires either `query` or `category` parameter
+- `page`, `limit`, `sort`, `order`, `locale`, `category`, `slug`, `excludeIds`, `query`
+- **Required**: Either `query` or `category` parameter
 
-**Dual Action Support**:
-- Automatically selects appropriate server action based on parameters
-- Optimized for different use cases
+**Smart Routing Logic**:
+```typescript
+if (query && query.trim()) {
+  // Use searchArticlesPaginated for search queries
+  result = await searchArticlesPaginated(params);
+} else if (category) {
+  // Use getArticlesByCategoryPaginated for category queries
+  result = await getArticlesByCategoryPaginated(params);
+} else {
+  // Return error - at least one parameter required
+}
+```
 
-### 3. `/api/v1/articles/[slug]/route.ts`
+### 3. `/api/v1/articles/by-slug/[slug]/route.ts`
 **Purpose**: Single article endpoint by slug
 
 **Methods**:
-- `GET` - Fetch single article
+- `GET` - Fetch single article by slug
 
 **Parameters**:
-- `slug` - Article slug from URL
+- `slug` - Article slug from URL path
+- `locale` - Query parameter (default: 'en')
 
-**Usage**:
-- Third-party API access
-- Direct article links
-- Article sharing
+**Features**:
+- Full article content with populated author and comments
+- Locale-specific content filtering
+- SEO metadata included
 
-### 4. `/api/v1/likes/articles/[articleId]/route.ts`
+**Response Format**:
+```typescript
+ISerializedArticle | null
+```
+
+### 4. `/api/v1/articles/by-id/[articleId]/likes/route.ts`
 **Purpose**: Article likes management
 
 **Methods**:
-- `POST` - Toggle article like
-- `GET` - Get article like status
+- `POST` - Toggle article like (add/remove)
+- `GET` - Get article like status and count
 
 **Parameters**:
-- `articleId` - Article ID from URL
+- `articleId` - Article ID from URL path
 
 **Authentication**: Required for POST, optional for GET
+
+**Features**:
+- Atomic like/unlike operations
+- Duplicate prevention
+- Real-time like count updates
 
 **Response Format**:
 ```typescript
@@ -339,11 +388,50 @@ Third-party app calls GET /api/v1/articles?category=nutrition&page=2
 ↓
 app/api/v1/articles/route.ts (API Route)
 ↓
-getArticlesByCategoryPaginated({ category: 'nutrition', page: 2 })
+getArticlesByCategory({ category: 'nutrition', page: 2 })
 ↓
 MongoDB Query + Serialization
 ↓
 JSON Response with pagination metadata
+```
+
+### 6. Search API Flow
+```
+Third-party app calls GET /api/v1/articles/paginated?query=healthy&page=1
+↓
+app/api/v1/articles/paginated/route.ts (API Route)
+↓
+searchArticlesPaginated({ query: 'healthy', page: 1 })
+↓
+MongoDB Query + Locale Filtering + Search + Pagination
+↓
+JSON Response with search results
+```
+
+### 7. Single Article API Flow
+```
+Third-party app calls GET /api/v1/articles/by-slug/healthy-nutrition-tips?locale=en
+↓
+app/api/v1/articles/by-slug/[slug]/route.ts (API Route)
+↓
+getArticleBySlug('healthy-nutrition-tips', 'en')
+↓
+MongoDB Query + Population + Locale Filtering
+↓
+JSON Response with full article data
+```
+
+### 8. Article Likes API Flow
+```
+User clicks like button → POST /api/v1/articles/by-id/123/likes
+↓
+app/api/v1/articles/by-id/[articleId]/likes/route.ts (API Route)
+↓
+toggleArticleLike('123', userId)
+↓
+MongoDB Atomic Update
+↓
+JSON Response with updated like status
 ```
 
 ## Key Features
@@ -401,8 +489,21 @@ console.log(result.data.length); // Should be 6 or less
 
 ### API Routes
 ```bash
-# Test API endpoint
+# Test main articles endpoint
 curl "http://localhost:3000/api/v1/articles?category=nutrition&page=1"
+
+# Test paginated endpoint with search
+curl "http://localhost:3000/api/v1/articles/paginated?query=healthy&page=1"
+
+# Test single article by slug
+curl "http://localhost:3000/api/v1/articles/by-slug/healthy-nutrition-tips?locale=en"
+
+# Test article likes (GET)
+curl "http://localhost:3000/api/v1/articles/by-id/123/likes"
+
+# Test article likes (POST) - requires authentication
+curl -X POST "http://localhost:3000/api/v1/articles/by-id/123/likes" \
+  -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
 ### Integration Testing

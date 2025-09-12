@@ -1,6 +1,6 @@
 - review code and modify fetch for actions
     - email     DONE
-    - article
+    - article   DONE
     - user
     - auth
 - all loading must be on suspense

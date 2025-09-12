@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getTranslations } from "next-intl/server";
-import confirmEmailAction from "@/app/actions/email/confirmEmail";
+import confirmEmailAction from "@/app/actions/auth/confirmEmail";
 import Link from "next/link";
 
 export async function generateMetadata({

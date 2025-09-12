@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import subscribeToNewsletterAction from "@/app/actions/subscribers/newsletterSubscribe";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import requestEmailConfirmationAction from "@/app/actions/auth/requestEmailConfirmation";
 
-// @desc    Request new email confirmation
-// @route   POST /api/v1/auth/request-email-confirmation
+// @desc    Subscribe to newsletter
+// @route   POST /api/v1/subscribers/newsletter-subscribe
 // @access  Public
 export const POST = async (req: NextRequest) => {
   try {
-    const { email } = await req.json();
+    const { email, preferences } = await req.json();
 
     // Validate required fields
     if (!email) {
@@ -20,11 +20,15 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Use the action to handle email confirmation request
-    const result = await requestEmailConfirmationAction(email);
+    // Use the action to handle newsletter subscription
+    const result = await subscribeToNewsletterAction(email, preferences);
 
     if (!result.success) {
-      const statusCode = result.error === "Invalid email format" || result.error === "Email already verified" ? 400 : 500;
+      const statusCode = result.error === "INVALID_EMAIL" || 
+                        result.error === "USER_EXISTS" || 
+                        result.error === "ALREADY_SUBSCRIBED" || 
+                        result.error === "INVALID_EMAIL_ADDRESS" || 
+                        result.error === "EMAIL_BOUNCED" ? 400 : 500;
       return new NextResponse(
         JSON.stringify({
           success: false,
@@ -40,9 +44,9 @@ export const POST = async (req: NextRequest) => {
         success: true,
         message: result.message,
       }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+      { status: 201, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return handleApiError("Request email confirmation failed!", error as string);
+    return handleApiError("Newsletter subscription failed!", error as string);
   }
 };

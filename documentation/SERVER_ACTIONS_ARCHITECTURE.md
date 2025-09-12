@@ -10,17 +10,35 @@ The architecture follows this pattern:
 3. **Server Components** - Can directly import and use server actions
 4. **Client Components** - Receive serialized data from server components
 
-## Articles System Implementation
+## System Implementation
 
 ### Server Actions Structure
 ```
-app/actions/article/
-├── getArticles.ts                    # General article fetching
-├── getArticleBySlug.ts              # Single article by slug
-├── getArticlesByCategory.ts         # Category articles (non-paginated)
-├── getArticlesByCategoryPaginated.ts # Category articles (paginated)
-├── searchArticlesPaginated.ts       # Search with pagination
-└── toggleArticleLike.ts                  # Article like functionality
+app/actions/
+├── article/
+│   ├── getArticles.ts                    # General article fetching
+│   ├── getArticleBySlug.ts              # Single article by slug
+│   ├── getArticlesByCategory.ts         # Category articles (non-paginated)
+│   ├── getArticlesByCategoryPaginated.ts # Category articles (paginated)
+│   ├── searchArticlesPaginated.ts       # Search with pagination
+│   └── toggleArticleLike.ts             # Article like functionality
+├── auth/
+│   ├── confirmEmail.ts                  # Email confirmation logic
+│   ├── requestEmailConfirmation.ts      # Email confirmation request logic
+│   ├── requestPasswordReset.ts          # Password reset request logic
+│   └── resetPassword.ts                 # Password reset logic
+├── newsletter/
+│   └── sendNewsletter.ts                # Newsletter sending logic
+├── subscribers/
+│   ├── newsletterSubscribe.ts           # Newsletter subscription logic
+│   ├── newsletterUnsubscribe.ts         # Newsletter unsubscription logic
+│   └── confirmNewsletterSubscription.ts # Newsletter confirmation logic
+├── user/
+│   └── commentReport.ts                 # Comment report email logic
+└── comment/
+    ├── commentLikes.ts                  # Comment likes functionality
+    ├── commentReports.ts                # Comment reports functionality
+    └── comments.ts                      # Comment management
 ```
 
 ### API Routes Structure
@@ -29,11 +47,88 @@ app/api/v1/
 ├── articles/
 │   ├── route.ts                     # Main articles endpoint
 │   ├── paginated/route.ts          # Dedicated pagination endpoint
-│   └── [slug]/route.ts             # Single article endpoint
-└── likes/
-    └── articles/
-        └── [articleId]/route.ts     # Article likes endpoint
+│   ├── by-id/
+│   │   └── [articleId]/
+│   │       └── likes/
+│   │           └── route.ts         # Article likes endpoint
+│   └── by-slug/
+│       └── [slug]/
+│           └── route.ts             # Single article by slug endpoint
+├── auth/
+│   ├── [...nextauth]/route.ts       # NextAuth.js authentication
+│   ├── confirm-email/route.ts       # Email confirmation endpoint
+│   ├── request-email-confirmation/route.ts # Request email confirmation
+│   ├── request-password-reset/route.ts     # Request password reset
+│   └── reset-password/route.ts             # Reset password endpoint
+├── newsletter/
+│   └── send-newsletter/route.ts     # Send newsletter endpoint
+├── subscribers/
+│   ├── route.ts                     # Subscriber management
+│   ├── [subscriberId]/route.ts      # Individual subscriber management
+│   ├── newsletter-subscribe/route.ts        # Newsletter subscription
+│   ├── newsletter-unsubscribe/route.ts      # Newsletter unsubscription
+│   └── confirm-newsletter-subscription/route.ts # Newsletter confirmation
+└── users/
+    ├── route.ts                     # User management
+    ├── [userId]/route.ts            # Individual user management
+    └── comment-report/route.ts      # Comment report notification
 ```
+
+## Complete API Endpoints Reference
+
+### Articles Endpoints
+| Endpoint | Method | Purpose | Parameters |
+|----------|--------|---------|------------|
+| `/api/v1/articles` | GET | Main articles with smart routing | `page`, `limit`, `sort`, `order`, `locale`, `category`, `query` |
+| `/api/v1/articles/paginated` | GET | Dedicated paginated articles | `page`, `limit`, `sort`, `order`, `locale`, `category`, `query` |
+| `/api/v1/articles/by-slug/[slug]` | GET | Single article by slug | `slug` (URL param) |
+| `/api/v1/articles/by-id/[articleId]/likes` | POST/GET | Article likes management | `articleId` (URL param) |
+
+### Authentication Endpoints
+| Endpoint | Method | Purpose | Parameters |
+|----------|--------|---------|------------|
+| `/api/v1/auth/[...nextauth]` | GET/POST | NextAuth.js authentication | Various auth parameters |
+| `/api/v1/auth/confirm-email` | POST | Confirm email with token | `token` |
+| `/api/v1/auth/request-email-confirmation` | POST | Request email confirmation | `email` |
+| `/api/v1/auth/request-password-reset` | POST | Request password reset | `email` |
+| `/api/v1/auth/reset-password` | POST | Reset password with token | `token`, `newPassword` |
+
+### Newsletter Endpoints
+| Endpoint | Method | Purpose | Parameters |
+|----------|--------|---------|------------|
+| `/api/v1/newsletter/send-newsletter` | POST | Send newsletter to all subscribers | None |
+
+### Subscriber Endpoints
+| Endpoint | Method | Purpose | Parameters |
+|----------|--------|---------|------------|
+| `/api/v1/subscribers` | GET/POST | Subscriber management | Various subscriber parameters |
+| `/api/v1/subscribers/[subscriberId]` | GET/PUT/DELETE | Individual subscriber management | `subscriberId` (URL param) |
+| `/api/v1/subscribers/newsletter-subscribe` | POST | Subscribe to newsletter | `email`, `preferences` |
+| `/api/v1/subscribers/newsletter-unsubscribe` | POST | Unsubscribe from newsletter | `email`, `token` |
+| `/api/v1/subscribers/confirm-newsletter-subscription` | POST | Confirm newsletter subscription | `token`, `email` |
+
+### User Endpoints
+| Endpoint | Method | Purpose | Parameters |
+|----------|--------|---------|------------|
+| `/api/v1/users` | GET/POST | User management | Various user parameters |
+| `/api/v1/users/[userId]` | GET/PUT/DELETE | Individual user management | `userId` (URL param) |
+| `/api/v1/users/comment-report` | POST | Send comment report notification | `email`, `username`, `commentText`, `reason`, `articleTitle`, `locale` |
+
+## API Summary
+
+### Total Endpoints: **18 API Routes**
+- **Articles**: 4 endpoints (main, paginated, by-slug, likes)
+- **Authentication**: 5 endpoints (NextAuth + 4 email-related)
+- **Newsletter**: 1 endpoint (send newsletter)
+- **Subscribers**: 5 endpoints (management + subscription flows)
+- **Users**: 3 endpoints (management + comment reports)
+
+### Organization Principles
+1. **RESTful Design**: Clear resource-based URLs
+2. **Nested Resources**: Related endpoints grouped logically
+3. **Dynamic Routes**: `[param]` for resource-specific operations
+4. **Consistent Naming**: Clear, descriptive endpoint names
+5. **HTTP Methods**: Appropriate use of GET, POST, PUT, DELETE
 
 ## Benefits
 
@@ -44,6 +139,8 @@ app/api/v1/
 - **Performance**: Optimized queries and serialization
 - **Scalability**: Handles both small and large datasets efficiently
 - **Consistency**: Uniform response format across all endpoints
+- **Organization**: Actions grouped by functionality for better maintainability
+- **Clarity**: Clear separation of concerns between different system domains
 
 ## Implementation Examples
 
@@ -353,14 +450,19 @@ When migrating existing API routes to use server actions:
 ```
 app/
 ├── actions/           # Server actions (database logic)
-│   └── article/
-│       ├── getArticles.ts
-│       ├── getArticleBySlug.ts
-│       └── ...
+│   ├── article/       # Article-related actions
+│   ├── auth/          # Authentication actions
+│   ├── newsletter/    # Newsletter actions
+│   ├── subscribers/   # Subscriber management actions
+│   ├── user/          # User-related actions
+│   └── comment/       # Comment management actions
 ├── api/              # API routes (HTTP endpoints)
 │   └── v1/
-│       └── articles/
-│           └── route.ts
+│       ├── articles/  # Article endpoints
+│       ├── auth/      # Authentication endpoints
+│       ├── newsletter/# Newsletter endpoints
+│       ├── subscribers/# Subscriber endpoints
+│       └── users/     # User endpoints
 └── [locale]/         # Server components (can use server actions directly)
     └── page.tsx
 ```

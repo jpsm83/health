@@ -1,30 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import confirmEmailAction from "@/app/actions/auth/confirmEmail";
+import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 
-// @desc    Confirm email with verification token
-// @route   POST /api/v1/auth/confirm-email
+// @desc    Send forgot password email
+// @route   POST /api/v1/auth/request-password-reset
 // @access  Public
 export const POST = async (req: NextRequest) => {
   try {
-    const { token } = await req.json();
+    const { email } = await req.json();
 
     // Validate required fields
-    if (!token) {
+    if (!email) {
       return new NextResponse(
         JSON.stringify({
           success: false,
-          message: "Verification token is required",
+          message: "Email address is required",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Use the action to handle email confirmation
-    const result = await confirmEmailAction(token);
+    // Use the action to handle password reset request
+    const result = await requestPasswordResetAction(email);
 
     if (!result.success) {
-      const statusCode = result.error === "Invalid token" || result.error === "Email already verified" ? 400 : 500;
+      const statusCode = result.error === "Invalid email format" ? 400 : 500;
       return new NextResponse(
         JSON.stringify({
           success: false,
@@ -39,10 +39,11 @@ export const POST = async (req: NextRequest) => {
       JSON.stringify({
         success: true,
         message: result.message,
+        resetLink: result.resetLink, // Only included in development
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return handleApiError("Email confirmation failed!", error as string);
+    return handleApiError("Request password reset failed!", error as string);
   }
 };

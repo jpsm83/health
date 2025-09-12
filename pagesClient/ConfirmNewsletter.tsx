@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
-import confirmNewsletterSubscriptionAction from "@/app/actions/email/confirmNewsletterSubscription";
+import confirmNewsletterSubscriptionAction from "@/app/actions/subscribers/confirmNewsletterSubscription";
 
 export default function ConfirmNewsletter() {
   const [status, setStatus] = useState<"loading" | "success" | "error">(

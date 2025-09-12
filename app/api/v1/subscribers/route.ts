@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/app/api/db/connectDb";
 import Subscriber from "@/app/api/models/subscriber";
-import subscribeToNewsletterAction from "@/app/actions/email/newsletterSubscribe";
-import unsubscribeFromNewsletterAction from "@/app/actions/email/newsletterUnsubscribe";
+import subscribeToNewsletterAction from "@/app/actions/subscribers/newsletterSubscribe";
+import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
 // @desc    Get all subscribers
