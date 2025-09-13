@@ -1,4 +1,4 @@
-- all loading must be on suspense
-- add skeleton everywhere / profile has a ugly one
+- create "create article" page
+- create dashbord page
 - create 404 page
 - minimize size of json translations (messages folder)

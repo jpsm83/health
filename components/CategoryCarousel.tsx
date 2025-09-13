@@ -1,6 +1,5 @@
 import { ISerializedArticle } from "@/interfaces/article";
 import ArticleCard from "./ArticleCard";
-import ArticleCardSkeleton from "./skeletons/ArticleCardSkeleton";
 import {
   Carousel,
   CarouselContent,
@@ -167,16 +166,6 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
                 <ArticleCard article={article} />
               </CarouselItem>
             ))}
-            {loadingMore && (
-              <>
-                <CarouselItem className="pl-2 md:pl-4 basis-64 flex-shrink-0">
-                  <ArticleCardSkeleton />
-                </CarouselItem>
-                <CarouselItem className="pl-2 md:pl-4 basis-64 flex-shrink-0">
-                  <ArticleCardSkeleton />
-                </CarouselItem>
-              </>
-            )}
           </CarouselContent>
 
           {/* Navigation Buttons */}

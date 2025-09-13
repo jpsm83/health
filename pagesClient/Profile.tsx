@@ -13,7 +13,6 @@ import { ISerializedUser } from "@/interfaces/user";
 import { useRouter, usePathname } from "next/navigation";
 import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { routing } from "@/i18n/routing";
 
 // Import country flag components
@@ -34,7 +33,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 
 interface FormData {
   username: string;
@@ -66,7 +64,6 @@ export default function Profile({ initialUser }: ProfileProps) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
-  const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
   const isInitialized = useRef(false);
 
   const { data: session, status } = useSession();
@@ -82,7 +79,7 @@ export default function Profile({ initialUser }: ProfileProps) {
     // Map language codes to region codes
     const languageToRegion: Record<string, string> = {
       en: "US",
-      pt: "BR", 
+      pt: "BR",
       es: "ES",
       fr: "FR",
       de: "DE",
@@ -93,13 +90,14 @@ export default function Profile({ initialUser }: ProfileProps) {
     };
 
     const newRegion = languageToRegion[newLanguage] || "US";
-    
+
     // Update form fields to track the new language
     setValue("preferences.language", newLanguage);
     setValue("preferences.region", newRegion);
-    
+
     // Get current path without language prefix
-    const pathWithoutLang = pathname?.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, "") || "";
+    const pathWithoutLang =
+      pathname?.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, "") || "";
     const newPath = `/${newLanguage}${pathWithoutLang || ""}`;
 
     // Use replace to avoid adding to browser history and ensure proper refresh
@@ -144,15 +142,30 @@ export default function Profile({ initialUser }: ProfileProps) {
     const languageName = getLanguageDisplayName(lang);
 
     if (size === "sm") {
-      return <FlagComponent title={languageName} className="!w-4 !h-4 rounded-full" />;
+      return (
+        <FlagComponent
+          title={languageName}
+          className="!w-4 !h-4 rounded-full"
+        />
+      );
     }
 
     if (size === "md") {
-      return <FlagComponent title={languageName} className="!w-8 !h-8 rounded-full" />;
+      return (
+        <FlagComponent
+          title={languageName}
+          className="!w-8 !h-8 rounded-full"
+        />
+      );
     }
 
     if (size === "lg") {
-      return <FlagComponent title={languageName} className="!w-12 !h-12 rounded-full" />;
+      return (
+        <FlagComponent
+          title={languageName}
+          className="!w-12 !h-12 rounded-full"
+        />
+      );
     }
   };
 
@@ -243,8 +256,7 @@ export default function Profile({ initialUser }: ProfileProps) {
           region: user.preferences?.region || "US",
         },
         subscriptionPreferences: {
-          categories:
-            user.subscriptionPreferences?.categories || [],
+          categories: user.subscriptionPreferences?.categories || [],
           subscriptionFrequencies:
             user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
@@ -267,9 +279,6 @@ export default function Profile({ initialUser }: ProfileProps) {
           }
         }
       });
-
-      // Mark user data as loaded
-      setIsUserDataLoaded(true);
     }
   }, [user, setValue, session?.user, locale]);
 
@@ -295,8 +304,7 @@ export default function Profile({ initialUser }: ProfileProps) {
           region: user.preferences?.region || "US",
         },
         subscriptionPreferences: {
-          categories:
-            user.subscriptionPreferences?.categories || [],
+          categories: user.subscriptionPreferences?.categories || [],
           subscriptionFrequencies:
             user.subscriptionPreferences?.subscriptionFrequencies || "weekly",
         },
@@ -339,7 +347,7 @@ export default function Profile({ initialUser }: ProfileProps) {
 
     // Check if current locale differs from original database language
     const languageChanged = locale !== originalValues.preferences.language;
-    
+
     return (
       JSON.stringify(currentValues) !== JSON.stringify(originalValues) ||
       selectedImage !== null ||
@@ -347,29 +355,12 @@ export default function Profile({ initialUser }: ProfileProps) {
     );
   }, [watchedValues, originalValues, selectedImage, locale]);
 
-
   // Simple auth check - redirect if not authenticated
   useEffect(() => {
     if (status !== "loading" && !session?.user) {
       router.push(`/${locale}/signin`);
     }
   }, [status, session?.user, router, locale]);
-
-  if (status === "loading") {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
-      </div>
-    );
-  }
-
-  if (!session?.user) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
-      </div>
-    );
-  }
 
   // Handle password reset
   const handleResetPassword = async () => {
@@ -431,7 +422,6 @@ export default function Profile({ initialUser }: ProfileProps) {
       setIsLoading(false);
     }
   };
-
 
   // Handle image selection
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -506,10 +496,12 @@ export default function Profile({ initialUser }: ProfileProps) {
       if (result?.success) {
         // Update local user state with the updated data
         if (result.data) {
-          const updatedUser = Array.isArray(result.data) ? result.data[0] : result.data;
+          const updatedUser = Array.isArray(result.data)
+            ? result.data[0]
+            : result.data;
           setUser(updatedUser);
         }
-        
+
         // Update original values after successful save
         setOriginalValues(data);
         setSelectedImage(null);
@@ -553,551 +545,526 @@ export default function Profile({ initialUser }: ProfileProps) {
   }
 
   return (
-    <>
-      {/* Full Screen Loading Overlay */}
-      {isLoading && (
-        <div className="fixed inset-0 bg-gray-600/50 z-50 flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600 mx-auto mb-6"></div>
-          </div>
-        </div>
-      )}
-
-      <div className="flex items-start justify-center py-8 md:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
-          <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-            {/* Profile Image Section - Centered on mobile, left on desktop */}
-            <div className="flex-shrink-0">
-              <div className="relative">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200 border-4 border-pink-100">
-                  {imagePreview ? (
-                    <Image
-                      src={imagePreview}
-                      alt="Profile Preview"
-                      priority
-                      className="w-full h-full object-cover"
-                    />
-                  ) : user?.imageUrl ? (
-                    <Image
-                      width={128}
-                      height={128}
-                      src={user?.imageUrl}
-                      alt="Profile"
-                      priority
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-300">
-                      <User className="w-12 h-12 md:w-16 md:h-16 text-gray-500" />
-                    </div>
-                  )}
-                </div>
-
-                {/* Image Upload Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black bg-opacity-50 rounded-full">
-                  <label htmlFor="image" className="cursor-pointer text-white">
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      disabled={isLoading}
-                      onChange={handleImageChange}
-                      className="hidden"
-                    />
-                    <div className="text-center">
-                      <div className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1">
-                        <svg
-                          className="w-full h-full"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-xs">
-                        {t("actions.changeImage")}
-                      </span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              {/* Remove Image Button */}
-              {selectedImage && (
-                <Button
-                  type="button"
-                  onClick={removeImage}
-                  className="mt-2 w-full text-center text-red-600 hover:text-red-900 text-sm bg-red-50 hover:bg-red-100 py-1 px-2 rounded-md transition-colors"
-                >
-                  {t("actions.remove")}
-                </Button>
-              )}
-            </div>
-
-            {/* Header Info */}
-            <div className="flex-1 w-full text-center md:text-left">
-              <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between space-y-4 md:space-y-0">
-                <div className="flex-1">
-                  <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">
-                    {user?.username}
-                  </h1>
-                  <h3 className="text-sm md:text-md text-gray-400 mt-1">{user?.email}</h3>
-                  <p className="text-sm md:text-lg text-gray-600 mt-2">{t("subtitle")}</p>
-                </div>
-
-                {/* Language Selector */}
-                <div className="relative flex items-center space-x-2">
-                  <h2 className="text-sm md:text-md text-gray-500">
-                    {t("language.preferences")}
-                  </h2>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="cursor-pointer"
-                      >
-                        {getCountryFlag(locale, "md")}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-[140px] bg-white shadow-lg"
-                      align="end"
-                      side="bottom"
-                      sideOffset={4}
-                    >
-                      {routing.locales.map((lang) => (
-                        <DropdownMenuItem
-                          key={lang}
-                          onClick={() => handleLanguageChange(lang)}
-                          className="cursor-pointer hover:bg-pink-50"
-                        >
-                          <div className="flex items-center space-x-2">
-                            {getCountryFlag(lang, "sm")}
-                            <span>{getLanguageDisplayName(lang)}</span>
-                          </div>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </div>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4">
-                <div className="flex items-center space-x-2 md:space-x-3 p-2 md:p-3 bg-gray-50 rounded-lg">
-                  {user?.emailVerified ? (
-                    <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
-                  ) : (
-                    <XCircle className="w-4 h-4 md:w-5 md:h-5 text-red-600 flex-shrink-0" />
-                  )}
-                  <div className="min-w-0">
-                    <div className="text-xs md:text-sm font-medium text-gray-900 truncate">
-                      {user?.emailVerified
-                        ? t("stats.verified")
-                        : t("stats.unverified")}
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {t("stats.emailStatus")}
-                    </div>
+    <div className="flex items-start justify-center py-8 md:py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
+        <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+          {/* Profile Image Section - Centered on mobile, left on desktop */}
+          <div className="flex-shrink-0">
+            <div className="relative">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200 border-4 border-pink-100">
+                {imagePreview ? (
+                  <Image
+                    src={imagePreview}
+                    alt="Profile Preview"
+                    priority
+                    className="w-full h-full object-cover"
+                  />
+                ) : user?.imageUrl ? (
+                  <Image
+                    width={128}
+                    height={128}
+                    src={user?.imageUrl}
+                    alt="Profile"
+                    priority
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-300">
+                    <User className="w-12 h-12 md:w-16 md:h-16 text-gray-500" />
                   </div>
-                </div>
-                <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg">
-                  <div className="text-xl md:text-2xl font-bold text-pink-600">
-                    {user?.likedArticles?.length || 0}
-                  </div>
-                  <div className="text-xs md:text-sm text-gray-500">
-                    {t("stats.likedArticles")}
-                  </div>
-                </div>
-                <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg sm:col-span-2 md:col-span-1">
-                  <div className="text-xl md:text-2xl font-bold text-pink-600">
-                    {user?.commentedArticles?.length || 0}
-                  </div>
-                  <div className="text-xs md:text-sm text-gray-500">
-                    {t("stats.comments")}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Email Confirmation Request */}
-          {!user?.emailVerified && (
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <Button
-                type="button"
-                onClick={handleRequestEmailConfirmation}
-                disabled={isLoading}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
-              >
-                <CheckCircle className="w-4 h-4 mr-2" />
-                {t("emailConfirmation.requestButton")}
-              </Button>
-              <p className="text-sm text-gray-500">
-                {t("emailConfirmation.description")}
-              </p>
-            </div>
-          )}
-
-          {/* Success/Error Messages */}
-          {emailConfirmationError && (
-            <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="h-5 w-5 text-pink-400"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-3 flex-1">
-                  <h3 className="text-sm font-medium text-pink-800">
-                    {t("messages.unexpectedErrorSendingEmailConfirmation")}
-                  </h3>
-                  <div className="mt-1 text-sm text-pink-700">{error}</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {emailConfirmationSuccess && (
-            <div className="rounded-md bg-green-50 border border-green-200 p-3">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="h-5 w-5 text-green-400"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-3 flex-1">
-                  <h3 className="text-sm font-medium text-green-800">
-                    {t("messages.successSendingEmailConfirmation")}
-                  </h3>
-                  <div className="mt-1 text-sm text-green-700">{success}</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-6 md:space-y-8">
-              {/* Personal Information Section */}
-              <div>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                  <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
-                  {t("sections.personal")}
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                  <div>
-                    <label
-                      htmlFor="username"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      {t("fields.username")}
-                    </label>
-                    <input
-                      id="username"
-                      type="text"
-                      disabled={isLoading}
-                      {...register("username")}
-                      onChange={(e) => {
-                        setValue("username", e.target.value);
-                        handleInputChange("username");
-                      }}
-                      className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                        errors.username
-                          ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                          : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
-                      } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
-                      placeholder={t("fields.enterUsername")}
-                    />
-                    {errors.username && (
-                      <p className="mt-1 text-sm text-pink-600">
-                        {errors.username.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="birthDate"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      {t("fields.birthDate")}
-                    </label>
-                    <input
-                      id="birthDate"
-                      type="date"
-                      disabled={isLoading}
-                      {...register("birthDate")}
-                      onChange={(e) => {
-                        setValue("birthDate", e.target.value);
-                        handleInputChange("birthDate");
-                      }}
-                      className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                        errors.birthDate
-                          ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                          : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
-                      } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
-                    />
-                    {errors.birthDate && (
-                      <p className="mt-1 text-sm text-pink-600">
-                        {errors.birthDate.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Category Interests Section */}
-              <div>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                  <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
-                  {t("sections.categoryInterests")}
-                </h2>
-
-                {/* Newsletter Frequency Dropdown */}
-                <div className="mb-4 md:mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("fields.newsletterFrequency")}
-                  </label>
-                  <select
-                    {...register(
-                      "subscriptionPreferences.subscriptionFrequencies"
-                    )}
-                    onChange={(e) => {
-                      setValue(
-                        "subscriptionPreferences.subscriptionFrequencies",
-                        e.target.value
-                      );
-                    }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
-                  >
-                    {newsletterFrequencies.map((frequency) => (
-                      <option key={frequency} value={frequency}>
-                        {t(`frequencies.${frequency}`)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Categories Grid - Show skeleton while loading, actual content when loaded */}
-                <div className="mb-4 md:mb-6">
-                  {!isUserDataLoaded ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                      {Array.from({ length: 8 }).map((_, index) => (
-                        <div
-                          key={index}
-                          className="border rounded-lg p-2 md:p-3 bg-gray-50"
-                        >
-                          <div className="flex items-center justify-between">
-                            <Skeleton className="h-4 w-20 flex-1" />
-                            <Skeleton className="h-4 w-4 rounded flex-shrink-0 ml-2" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                      {mainCategories.map((category) => {
-                        const isSelected =
-                          watchedValues.subscriptionPreferences?.categories?.includes(
-                            category
-                          );
-                        return (
-                          <div
-                            key={category}
-                            className={`border rounded-lg p-2 md:p-3 transition-colors ${
-                              isSelected
-                                ? "border-green-900 border-2 bg-green-700/20 text-white"
-                                : "border-red-700 border-2 bg-red-700/20 text-white"
-                            }`}
-                          >
-                            <div className="flex items-center justify-between">
-                              <h3 className="font-medium text-gray-900 capitalize text-xs md:text-sm flex-1 min-w-0">
-                                {t(`categories.${category}`)}
-                              </h3>
-                              <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={(e) => {
-                                  const currentCategories =
-                                    watchedValues.subscriptionPreferences
-                                      ?.categories || [];
-                                  let newCategories: string[];
-
-                                  if (e.target.checked) {
-                                    // Add category if not already present
-                                    newCategories = [
-                                      ...currentCategories,
-                                      category,
-                                    ];
-                                  } else {
-                                    // Remove category
-                                    newCategories = currentCategories.filter(
-                                      (cat) => cat !== category
-                                    );
-                                  }
-
-                                  setValue(
-                                    "subscriptionPreferences.categories",
-                                    newCategories
-                                  );
-                                  // Trigger validation to update error state
-                                  trigger("subscriptionPreferences.categories");
-                                }}
-                                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded flex-shrink-0 ml-2"
-                              />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-
-              </div>
-
-              <div>
-                {/* Security Section */}
-                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                  <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
-                  {t("sections.security")}
-                </h2>
-                <div className="space-y-4">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                    <Button
-                      type="button"
-                      onClick={handleResetPassword}
-                      disabled={isLoading}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
-                    >
-                      <Lock className="w-4 h-4 mr-2" />
-                      {t("actions.resetPassword")}
-                    </Button>
-                    <p className="text-sm text-gray-500">
-                      {t("security.resetPasswordDescription")}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Success/Error Messages */}
-              {error && (
-                <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <svg
-                        className="h-5 w-5 text-pink-400"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div className="ml-3 flex-1">
-                      <h3 className="text-sm font-medium text-pink-800">
-                        {t("messages.unexpectedError")}
-                      </h3>
-                      <div className="mt-1 text-sm text-pink-700">{error}</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {success && (
-                <div className="rounded-md bg-green-50 border border-green-200 p-3">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <svg
-                        className="h-5 w-5 text-green-400"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div className="ml-3 flex-1">
-                      <h3 className="text-sm font-medium text-green-800">
-                        {t("messages.success")}
-                      </h3>
-                      <div className="mt-1 text-sm text-green-700">
-                        {success}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Save Button - Inline with Security Section */}
-              <div className="flex flex-col items-center md:items-end space-y-2">
-                <Button
-                  type="submit"
-                  disabled={isLoading || !hasChanges}
-                  className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full md:w-auto"
-                >
-                  {isLoading ? (
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                  ) : null}
-                  {t("actions.save")}
-                </Button>
-
-                {/* Help text when save button is disabled */}
-                {!hasChanges && !isLoading && (
-                  <p className="text-sm text-gray-500 text-center md:text-right">
-                    {t("messages.makeChangesToSave")}
-                  </p>
                 )}
               </div>
+
+              {/* Image Upload Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black bg-opacity-50 rounded-full">
+                <label htmlFor="image" className="cursor-pointer text-white">
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    disabled={isLoading}
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                  <div className="text-center">
+                    <div className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1">
+                      <svg
+                        className="w-full h-full"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-xs">{t("actions.changeImage")}</span>
+                  </div>
+                </label>
+              </div>
             </div>
-          </form>
+
+            {/* Remove Image Button */}
+            {selectedImage && (
+              <Button
+                type="button"
+                onClick={removeImage}
+                className="mt-2 w-full text-center text-red-600 hover:text-red-900 text-sm bg-red-50 hover:bg-red-100 py-1 px-2 rounded-md transition-colors"
+              >
+                {t("actions.remove")}
+              </Button>
+            )}
+          </div>
+
+          {/* Header Info */}
+          <div className="flex-1 w-full text-center md:text-left">
+            <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between space-y-4 md:space-y-0">
+              <div className="flex-1">
+                <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">
+                  {user?.username}
+                </h1>
+                <h3 className="text-sm md:text-md text-gray-400 mt-1">
+                  {user?.email}
+                </h3>
+                <p className="text-sm md:text-lg text-gray-600 mt-2">
+                  {t("subtitle")}
+                </p>
+              </div>
+
+              {/* Language Selector */}
+              <div className="relative flex items-center space-x-2">
+                <h2 className="text-sm md:text-md text-gray-500">
+                  {t("language.preferences")}
+                </h2>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="cursor-pointer"
+                    >
+                      {getCountryFlag(locale, "md")}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-[140px] bg-white shadow-lg"
+                    align="end"
+                    side="bottom"
+                    sideOffset={4}
+                  >
+                    {routing.locales.map((lang) => (
+                      <DropdownMenuItem
+                        key={lang}
+                        onClick={() => handleLanguageChange(lang)}
+                        className="cursor-pointer hover:bg-pink-50"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {getCountryFlag(lang, "sm")}
+                          <span>{getLanguageDisplayName(lang)}</span>
+                        </div>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4">
+              <div className="flex items-center space-x-2 md:space-x-3 p-2 md:p-3 bg-gray-50 rounded-lg">
+                {user?.emailVerified ? (
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
+                ) : (
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-red-600 flex-shrink-0" />
+                )}
+                <div className="min-w-0">
+                  <div className="text-xs md:text-sm font-medium text-gray-900 truncate">
+                    {user?.emailVerified
+                      ? t("stats.verified")
+                      : t("stats.unverified")}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {t("stats.emailStatus")}
+                  </div>
+                </div>
+              </div>
+              <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg">
+                <div className="text-xl md:text-2xl font-bold text-pink-600">
+                  {user?.likedArticles?.length || 0}
+                </div>
+                <div className="text-xs md:text-sm text-gray-500">
+                  {t("stats.likedArticles")}
+                </div>
+              </div>
+              <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg sm:col-span-2 md:col-span-1">
+                <div className="text-xl md:text-2xl font-bold text-pink-600">
+                  {user?.commentedArticles?.length || 0}
+                </div>
+                <div className="text-xs md:text-sm text-gray-500">
+                  {t("stats.comments")}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Email Confirmation Request */}
+        {!user?.emailVerified && (
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <Button
+              type="button"
+              onClick={handleRequestEmailConfirmation}
+              disabled={isLoading}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+            >
+              <CheckCircle className="w-4 h-4 mr-2" />
+              {t("emailConfirmation.requestButton")}
+            </Button>
+            <p className="text-sm text-gray-500">
+              {t("emailConfirmation.description")}
+            </p>
+          </div>
+        )}
+
+        {/* Success/Error Messages */}
+        {emailConfirmationError && (
+          <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg
+                  className="h-5 w-5 text-pink-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div className="ml-3 flex-1">
+                <h3 className="text-sm font-medium text-pink-800">
+                  {t("messages.unexpectedErrorSendingEmailConfirmation")}
+                </h3>
+                <div className="mt-1 text-sm text-pink-700">{error}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {emailConfirmationSuccess && (
+          <div className="rounded-md bg-green-50 border border-green-200 p-3">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg
+                  className="h-5 w-5 text-green-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div className="ml-3 flex-1">
+                <h3 className="text-sm font-medium text-green-800">
+                  {t("messages.successSendingEmailConfirmation")}
+                </h3>
+                <div className="mt-1 text-sm text-green-700">{success}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form
+          className="space-y-6 md:space-y-8"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="space-y-6 md:space-y-8">
+            {/* Personal Information Section */}
+            <div>
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
+                <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
+                {t("sections.personal")}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                <div>
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {t("fields.username")}
+                  </label>
+                  <input
+                    id="username"
+                    type="text"
+                    disabled={isLoading}
+                    {...register("username")}
+                    onChange={(e) => {
+                      setValue("username", e.target.value);
+                      handleInputChange("username");
+                    }}
+                    className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                      errors.username
+                        ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
+                        : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                    } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    placeholder={t("fields.enterUsername")}
+                  />
+                  {errors.username && (
+                    <p className="mt-1 text-sm text-pink-600">
+                      {errors.username.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="birthDate"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {t("fields.birthDate")}
+                  </label>
+                  <input
+                    id="birthDate"
+                    type="date"
+                    disabled={isLoading}
+                    {...register("birthDate")}
+                    onChange={(e) => {
+                      setValue("birthDate", e.target.value);
+                      handleInputChange("birthDate");
+                    }}
+                    className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
+                      errors.birthDate
+                        ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
+                        : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                    } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  />
+                  {errors.birthDate && (
+                    <p className="mt-1 text-sm text-pink-600">
+                      {errors.birthDate.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Category Interests Section */}
+            <div>
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
+                <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
+                {t("sections.categoryInterests")}
+              </h2>
+
+              {/* Newsletter Frequency Dropdown */}
+              <div className="mb-4 md:mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t("fields.newsletterFrequency")}
+                </label>
+                <select
+                  {...register(
+                    "subscriptionPreferences.subscriptionFrequencies"
+                  )}
+                  onChange={(e) => {
+                    setValue(
+                      "subscriptionPreferences.subscriptionFrequencies",
+                      e.target.value
+                    );
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                >
+                  {newsletterFrequencies.map((frequency) => (
+                    <option key={frequency} value={frequency}>
+                      {t(`frequencies.${frequency}`)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Categories Grid */}
+              <div className="mb-4 md:mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                  {mainCategories.map((category) => {
+                    const isSelected =
+                      watchedValues.subscriptionPreferences?.categories?.includes(
+                        category
+                      );
+                    return (
+                      <div
+                        key={category}
+                        className={`border rounded-lg p-2 md:p-3 transition-colors ${
+                          isSelected
+                            ? "border-green-900 border-2 bg-green-700/20 text-white"
+                            : "border-red-700 border-2 bg-red-700/20 text-white"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-medium text-gray-900 capitalize text-xs md:text-sm flex-1 min-w-0">
+                            {t(`categories.${category}`)}
+                          </h3>
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={(e) => {
+                              const currentCategories =
+                                watchedValues.subscriptionPreferences
+                                  ?.categories || [];
+                              let newCategories: string[];
+
+                              if (e.target.checked) {
+                                // Add category if not already present
+                                newCategories = [
+                                  ...currentCategories,
+                                  category,
+                                ];
+                              } else {
+                                // Remove category
+                                newCategories = currentCategories.filter(
+                                  (cat) => cat !== category
+                                );
+                              }
+
+                              setValue(
+                                "subscriptionPreferences.categories",
+                                newCategories
+                              );
+                              // Trigger validation to update error state
+                              trigger("subscriptionPreferences.categories");
+                            }}
+                            className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded flex-shrink-0 ml-2"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <div>
+              {/* Security Section */}
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
+                <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
+                {t("sections.security")}
+              </h2>
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <Button
+                    type="button"
+                    onClick={handleResetPassword}
+                    disabled={isLoading}
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                  >
+                    <Lock className="w-4 h-4 mr-2" />
+                    {t("actions.resetPassword")}
+                  </Button>
+                  <p className="text-sm text-gray-500">
+                    {t("security.resetPasswordDescription")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Success/Error Messages */}
+            {error && (
+              <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="h-5 w-5 text-pink-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-3 flex-1">
+                    <h3 className="text-sm font-medium text-pink-800">
+                      {t("messages.unexpectedError")}
+                    </h3>
+                    <div className="mt-1 text-sm text-pink-700">{error}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {success && (
+              <div className="rounded-md bg-green-50 border border-green-200 p-3">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="h-5 w-5 text-green-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-3 flex-1">
+                    <h3 className="text-sm font-medium text-green-800">
+                      {t("messages.success")}
+                    </h3>
+                    <div className="mt-1 text-sm text-green-700">{success}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Save Button - Inline with Security Section */}
+            <div className="flex flex-col items-center md:items-end space-y-2">
+              <Button
+                type="submit"
+                disabled={isLoading || !hasChanges}
+                className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full md:w-auto"
+              >
+                {isLoading ? (
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : null}
+                {t("actions.save")}
+              </Button>
+
+              {/* Help text when save button is disabled */}
+              {!hasChanges && !isLoading && (
+                <p className="text-sm text-gray-500 text-center md:text-right">
+                  {t("messages.makeChangesToSave")}
+                </p>
+              )}
+            </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }

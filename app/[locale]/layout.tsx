@@ -17,9 +17,7 @@ export async function generateMetadata({
   // Base metadata for the locale - individual pages will override this with their own SEO data
   return {
     ...(await generatePublicMetadata(locale, "", "metadata.home.title")),
-    metadataBase: new URL(
-      process.env.NEXTAUTH_URL || "http://localhost:3000"
-    ),
+    metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
   };
 }
 
@@ -40,14 +38,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-      <NextIntlClientProvider messages={messages}>
-        <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <main className="flex-1 flex flex-col">
-            {children}
-          </main>
-          <Footer />
-        </div>
-      </NextIntlClientProvider>
+    <NextIntlClientProvider messages={messages}>
+      <div className="min-h-screen flex flex-col">
+        <Navigation />
+        <main className="flex-1 flex flex-col">{children}</main>
+        <Footer />
+      </div>
+    </NextIntlClientProvider>
   );
 }

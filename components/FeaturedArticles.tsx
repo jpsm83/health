@@ -22,10 +22,12 @@ export default function FeaturedArticles({
     <section>
       {/* Section Header */}
       {showBanner && (
-      <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
-        <h2 className="text-3xl font-bold text-white text-center">{title}</h2>
-        <p className="text-lg text-gray-300 max-w-2xl mx-auto">{description}</p>
-      </div>
+        <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
+          <h2 className="text-3xl font-bold text-white text-center">{title}</h2>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            {description}
+          </p>
+        </div>
       )}
 
       {/* Featured Articles Grid */}

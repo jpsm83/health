@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useEffect } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
-  const t = useTranslations('dashboard');
+  const t = useTranslations("dashboard");
   const locale = useLocale();
   const router = useRouter();
 
@@ -14,34 +14,24 @@ export default function Dashboard() {
 
   // Admin-only access check
   useEffect(() => {
-    if (status !== 'loading' && (!session?.user?.id || session?.user?.role !== 'admin')) {
-      router.push('/');
+    if (
+      status !== "loading" &&
+      (!session?.user?.id || session?.user?.role !== "admin")
+    ) {
+      router.push("/");
     }
   }, [status, session?.user?.id, session?.user?.role, router]);
 
-  // Show loading while checking auth
-  if (status === 'loading') {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-pink-600"></div>
-      </div>
-    );
-  }
-
   // Don't render if not admin
-  if (!session?.user?.id || session?.user?.role !== 'admin') {
+  if (!session?.user?.id || session?.user?.role !== "admin") {
     return null;
   }
 
   return (
     <>
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          {t('title')}
-        </h1>
-        <p className="text-xl text-gray-600">
-          {t('subtitle')}
-        </p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">{t("title")}</h1>
+        <p className="text-xl text-gray-600">{t("subtitle")}</p>
       </div>
 
       {/* Stats Grid */}
@@ -49,31 +39,31 @@ export default function Dashboard() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="text-3xl mb-2">📚</div>
           <h3 className="text-lg font-semibold text-gray-900 mb-1">
-            {t('stats.articles')}
+            {t("stats.articles")}
           </h3>
           <p className="text-3xl font-bold text-blue-600">24</p>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="text-4xl mb-2">🎯</div>
           <h3 className="text-lg font-semibold text-gray-900 mb-1">
-            {t('stats.goals')}
+            {t("stats.goals")}
           </h3>
           <p className="text-3xl font-bold text-green-600">5</p>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="text-3xl mb-2">📈</div>
           <h3 className="text-lg font-semibold text-gray-900 mb-1">
-            {t('stats.progress')}
+            {t("stats.progress")}
           </h3>
           <p className="text-3xl font-bold text-purple-600">78%</p>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="text-3xl mb-2">🔥</div>
           <h3 className="text-lg font-semibold text-gray-900 mb-1">
-            {t('stats.streak')}
+            {t("stats.streak")}
           </h3>
           <p className="text-3xl font-bold text-orange-600">12</p>
         </div>
@@ -82,7 +72,7 @@ export default function Dashboard() {
       {/* Language Info */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <p className="text-sm text-blue-700">
-          {t('languageInfo.language')}: {locale.toUpperCase()}
+          {t("languageInfo.language")}: {locale.toUpperCase()}
         </p>
       </div>
     </>

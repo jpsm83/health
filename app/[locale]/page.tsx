@@ -25,12 +25,12 @@ export default async function HomePage({
 
   let featuredArticles: ISerializedArticle[] = [];
 
-  try {
+  try {    
     const articlesResponse = await getArticles({
       locale,
       limit: 9, // Match the limit that was being used in the client component
     });
-    
+
     // Extract the data array from the paginated response
     featuredArticles = articlesResponse.data;
   } catch (error) {

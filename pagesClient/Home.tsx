@@ -9,7 +9,7 @@ import { mainCategories } from "@/lib/constants";
 import FeaturedArticles from "@/components/FeaturedArticles";
 
 export default function Home({
-  featuredArticles
+  featuredArticles,
 }: {
   featuredArticles: ISerializedArticle[];
 }) {
@@ -49,7 +49,11 @@ export default function Home({
       </section>
 
       {/* Featured Articles Section */}
-      <FeaturedArticles articles={featuredArticles} title={t("featuredArticles.title")} description={t("featuredArticles.description")} />
+      <FeaturedArticles
+        articles={featuredArticles}
+        title={t("featuredArticles.title")}
+        description={t("featuredArticles.description")}
+      />
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
@@ -67,12 +71,7 @@ export default function Home({
 
         {/* Render carousels for each category */}
         {mainCategories.map((category) => {
-          return (
-            <CategoryCarousel
-              key={category}
-              category={category}
-            />
-          );
+          return <CategoryCarousel key={category} category={category} />;
         })}
       </section>
     </div>

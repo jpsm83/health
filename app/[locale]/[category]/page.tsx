@@ -20,7 +20,11 @@ export async function generateMetadata({
     };
   }
 
-  return generatePublicMetadata(locale, `/${category}`, `metadata.${category}.title`);
+  return generatePublicMetadata(
+    locale,
+    `/${category}`,
+    `metadata.${category}.title`
+  );
 }
 
 export default async function CategoryPage({
@@ -37,8 +41,8 @@ export default async function CategoryPage({
 
   // Configuration - easily adjustable
   // Change these values to customize the number of articles displayed
-  const FEATURED_ARTICLES_COUNT = 2; // Number of fixed articles in first section
-  const ARTICLES_PER_PAGE = 2; // Number of articles per page in second section
+  const FEATURED_ARTICLES_COUNT = 9; // Number of fixed articles in first section
+  const ARTICLES_PER_PAGE = 15; // Number of articles per page in second section
 
   // Examples:
   // FEATURED_ARTICLES_COUNT = 3, ARTICLES_PER_PAGE = 4 → First section: 3 articles, Second section: 4 per page
@@ -55,25 +59,25 @@ export default async function CategoryPage({
   try {
     // Get the featured articles (fixed section - always the same)
     const featuredResult = await getArticlesByCategoryPaginated({
-        category,
-        locale,
-        page: 1,
-        sort: "createdAt",
-        order: "desc",
-        limit: FEATURED_ARTICLES_COUNT,
-      });
+      category,
+      locale,
+      page: 1,
+      sort: "createdAt",
+      order: "desc",
+      limit: FEATURED_ARTICLES_COUNT,
+    });
 
     featuredArticles = featuredResult.data || [];
 
     // Get total count for pagination calculation
     const totalResult = await getArticlesByCategoryPaginated({
-        category,
-        locale,
-        page: 1,
-        sort: "createdAt",
-        order: "desc",
-        limit: 1000, // Get a large number to count total
-      });
+      category,
+      locale,
+      page: 1,
+      sort: "createdAt",
+      order: "desc",
+      limit: 1000, // Get a large number to count total
+    });
 
     const totalArticles = totalResult.totalDocs;
     const remainingArticles = totalArticles - FEATURED_ARTICLES_COUNT; // Subtract featured articles
@@ -96,14 +100,14 @@ export default async function CategoryPage({
       .filter((id): id is string => Boolean(id));
 
     const paginatedResult = await getArticlesByCategoryPaginated({
-        category,
-        locale,
-        page: currentPage,
-        sort: "createdAt",
-        order: "desc",
-        limit: ARTICLES_PER_PAGE,
-        excludeIds: featuredIds,
-      });
+      category,
+      locale,
+      page: currentPage,
+      sort: "createdAt",
+      order: "desc",
+      limit: ARTICLES_PER_PAGE,
+      excludeIds: featuredIds,
+    });
 
     paginatedArticles = paginatedResult.data || [];
 
