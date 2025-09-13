@@ -13,9 +13,6 @@ export interface IComment {
   comment: string;
   likes?: Types.ObjectId[];
   reports?: ICommentReport[];
-  isDeleted?: boolean;
-  deletedAt?: Date;
-  deletedBy?: Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -28,9 +25,6 @@ export interface ICommentDocument extends Document {
   comment: string;
   likes?: Types.ObjectId[];
   reports?: ICommentReport[];
-  isDeleted: boolean;
-  deletedAt?: Date;
-  deletedBy?: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -43,9 +37,6 @@ export interface ICommentLean {
   comment: string;
   likes?: Types.ObjectId[];
   reports?: ICommentReport[];
-  isDeleted: boolean;
-  deletedAt?: Date;
-  deletedBy?: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -58,9 +49,6 @@ export interface ISerializedComment {
   comment: string;
   likes?: string[];
   reports?: ISerializedCommentReport[];
-  isDeleted: boolean;
-  deletedAt?: string;
-  deletedBy?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -114,5 +102,4 @@ export interface IGetCommentsParams {
   limit?: number;
   sort?: string;
   order?: 'asc' | 'desc';
-  includeDeleted?: boolean;
 }

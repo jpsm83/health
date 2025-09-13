@@ -17,7 +17,6 @@ export const GET = async (req: NextRequest) => {
     const limit = parseInt(searchParams.get("limit") || "10");
     const sort = searchParams.get("sort") || "createdAt";
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
-    const includeDeleted = searchParams.get("includeDeleted") === "true";
 
     const result = await getCommentsAction({
       articleId,
@@ -26,7 +25,6 @@ export const GET = async (req: NextRequest) => {
       limit,
       sort,
       order,
-      includeDeleted,
     });
 
     if (!result.success) {

@@ -17,8 +17,6 @@ export const GET = async (
     const limit = parseInt(searchParams.get("limit") || "10");
     const sort = searchParams.get("sort") || "createdAt";
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
-    const includeDeleted = searchParams.get("includeDeleted") === "true";
-
     if (!articleId) {
       return new NextResponse(
         JSON.stringify({
@@ -35,7 +33,6 @@ export const GET = async (
       limit,
       sort,
       order,
-      includeDeleted,
     });
 
     if (!result.success) {

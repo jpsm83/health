@@ -23,9 +23,6 @@ The comment system in Women Spot Health Blog is a fully separated, scalable arch
   comment: String,            // Comment text (max 1000 chars)
   likes: [ObjectId],          // Array of user IDs who liked
   reports: [ReportSchema],    // Array of report objects
-  isDeleted: Boolean,         // Soft delete flag
-  deletedAt: Date,            // When deleted
-  deletedBy: ObjectId,        // Who deleted it
   createdAt: Date,            // Auto-generated
   updatedAt: Date             // Auto-generated
 }
@@ -40,8 +37,6 @@ The comment system in Women Spot Health Blog is a fully separated, scalable arch
 // Compound indexes for efficient queries
 { articleId: 1, createdAt: -1 }                    // Comments by article, newest first
 { userId: 1, createdAt: -1 }                        // User's comments, newest first
-{ isDeleted: 1, articleId: 1 }                     // Filter deleted comments
-{ articleId: 1, isDeleted: 1, createdAt: -1 }      // Most common query optimization
 ```
 
 ## Server Actions
@@ -92,7 +87,7 @@ interface IDeleteCommentParams {
 **Business Rules**:
 - User must be signed in
 - Only comment owner or admin can delete
-- Soft delete (sets `isDeleted: true`)
+- Permanent delete (removes from database)
 - Updates article's `commentsCount`
 
 ### 3. Get Comments (`app/actions/comment/getComments.ts`)
@@ -116,7 +111,6 @@ interface IGetCommentsParams {
 - Pagination support
 - Filter by article or user
 - Sort by various fields
-- Include/exclude deleted comments
 - Populate user information (username, avatar)
 
 ### 4. Toggle Comment Like (`app/actions/comment/toggleCommentLike.ts`)
@@ -169,7 +163,6 @@ interface IReportCommentParams {
 - `limit` - Items per page (default: 10)
 - `sort` - Sort field (default: createdAt)
 - `order` - Sort order: asc/desc (default: desc)
-- `includeDeleted` - Include deleted comments (default: false)
 
 **Response**:
 ```json

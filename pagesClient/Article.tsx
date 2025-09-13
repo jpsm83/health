@@ -24,6 +24,7 @@ export default function Article({
   const [likes, setLikes] = useState<number>(articleData?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<ISerializedComment[]>([]);
+  const [hasUserCommented, setHasUserCommented] = useState<boolean>(false);
 
   const { data: session } = useSession();
   const locale = useLocale();
@@ -65,6 +66,16 @@ export default function Article({
           
           if (result.success && result.comments) {
             setComments(result.comments);
+            // Check if current user has commented
+            const userHasCommented = result.comments.some(
+              (comment) => {
+                const commentUserId = typeof comment.userId === 'object' && comment.userId !== null && '_id' in comment.userId
+                  ? (comment.userId as { _id: string })._id
+                  : comment.userId as string;
+                return commentUserId === session?.user?.id;
+              }
+            );
+            setHasUserCommented(userHasCommented);
           }
         } catch (error) {
           console.error("Error loading comments:", error);
@@ -73,7 +84,7 @@ export default function Article({
     };
 
     loadComments();
-  }, [articleData?._id]);
+  }, [articleData?._id, session?.user?.id]);
 
   // toggle article like
   const toggleLike = async () => {
@@ -164,10 +175,6 @@ export default function Article({
 
   const containers = calculateContentDistribution();
 
-  // Check if current user has already commented
-  const hasUserCommented = comments.some(
-    (comment) => comment.userId?.toString() === session?.user?.id
-  );
 
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
@@ -301,6 +308,7 @@ export default function Article({
           comments={comments}
           setComments={setComments}
           hasUserCommented={hasUserCommented}
+          setHasUserCommented={setHasUserCommented}
         />
 
         {/* Category Carousels */}

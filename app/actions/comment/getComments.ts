@@ -13,15 +13,14 @@ export const getComments = async (params: IGetCommentsParams): Promise<{
   error?: string;
 }> => {
   try {
-    const {
-      articleId,
-      userId,
-      page = 1,
-      limit = 10,
-      sort = "createdAt",
-      order = "desc",
-      includeDeleted = false,
-    } = params;
+  const {
+    articleId,
+    userId,
+    page = 1,
+    limit = 10,
+    sort = "createdAt",
+    order = "desc",
+  } = params;
 
     await connectDb();
 
@@ -34,10 +33,6 @@ export const getComments = async (params: IGetCommentsParams): Promise<{
     
     if (userId) {
       query.userId = new Types.ObjectId(userId);
-    }
-
-    if (!includeDeleted) {
-      query.isDeleted = false;
     }
 
     // Build sort object
@@ -94,9 +89,6 @@ export const getComments = async (params: IGetCommentsParams): Promise<{
             reportedAt: (reportObj.reportedAt as Date)?.toISOString() || new Date().toISOString(),
           };
         }) || [],
-        isDeleted: comment.isDeleted as boolean,
-        deletedAt: (comment.deletedAt as Date)?.toISOString(),
-        deletedBy: (comment.deletedBy as { toString: () => string })?.toString(),
         createdAt: (comment.createdAt as Date).toISOString(),
         updatedAt: (comment.updatedAt as Date).toISOString(),
       };

@@ -46,17 +46,6 @@ const commentSchema = new Schema(
       type: [commentReportSchema],
       default: undefined,
     },
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
-    deletedAt: {
-      type: Date,
-    },
-    deletedBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
   },
   {
     timestamps: true,
@@ -67,8 +56,6 @@ const commentSchema = new Schema(
 // Compound indexes for efficient queries
 commentSchema.index({ articleId: 1, createdAt: -1 }); // For getting comments by article, newest first
 commentSchema.index({ userId: 1, createdAt: -1 }); // For getting user's comments
-commentSchema.index({ isDeleted: 1, articleId: 1 }); // For filtering deleted comments
-commentSchema.index({ articleId: 1, isDeleted: 1, createdAt: -1 }); // Most common query: non-deleted comments by article, newest first
 
 const Comment = models.Comment || model("Comment", commentSchema);
 export default Comment;

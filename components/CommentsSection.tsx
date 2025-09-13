@@ -19,6 +19,7 @@ interface CommentsSectionProps {
   comments: ISerializedComment[];
   setComments: React.Dispatch<React.SetStateAction<ISerializedComment[]>>;
   hasUserCommented: boolean;
+  setHasUserCommented?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function CommentsSection({
@@ -26,6 +27,7 @@ export default function CommentsSection({
   comments,
   setComments,
   hasUserCommented,
+  setHasUserCommented,
 }: CommentsSectionProps) {
   const { data: session } = useSession();
   const router = useRouter();
@@ -70,7 +72,11 @@ export default function CommentsSection({
       if (result.success && result.comment) {
         // Add the new comment to the list
         setComments((prev) => [...prev, result.comment!]);
-        setNewComment(undefined);
+        setNewComment("");
+        // Update hasUserCommented state to hide the input form
+        if (setHasUserCommented) {
+          setHasUserCommented(true);
+        }
         showToast(
           "success",
           t("comments.toasts.createdSuccess"),
@@ -159,6 +165,10 @@ export default function CommentsSection({
         setComments((prev) =>
           prev.filter((comment) => comment._id?.toString() !== commentId)
         );
+        // Show comment form again after deletion
+        if (setHasUserCommented) {
+          setHasUserCommented(false);
+        }
         showToast(
           "success",
           t("comments.toasts.deletedSuccess"),

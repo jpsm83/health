@@ -3,8 +3,10 @@
 import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
 import Article from "@/app/api/models/article";
+import "@/app/api/models/user"; // Import User model for population
 import { ICreateCommentParams, ISerializedComment } from "@/interfaces/comment";
 import { Types } from "mongoose";
+
 
 export const createComment = async (params: ICreateCommentParams): Promise<{
   success: boolean;
@@ -51,7 +53,6 @@ export const createComment = async (params: ICreateCommentParams): Promise<{
     const existingComment = await Comment.findOne({
       articleId: new Types.ObjectId(articleId),
       userId: new Types.ObjectId(userId),
-      isDeleted: false,
     });
 
     if (existingComment) {
@@ -72,19 +73,35 @@ export const createComment = async (params: ICreateCommentParams): Promise<{
       $inc: { commentsCount: 1 }
     });
 
-    // Serialize the comment for client
+    // Populate user data for the comment
+    const populatedComment = await Comment.findById(savedComment._id)
+      .populate({
+        path: "userId",
+        select: "username imageUrl",
+        model: "User",
+      })
+      .lean();
+
+    if (!populatedComment) {
+      throw new Error("Failed to retrieve created comment");
+    }
+
+    // Serialize the comment for client with populated user data
+    const commentData = populatedComment as Record<string, unknown>;
+    const userData = commentData.userId as Record<string, unknown>;
     const serializedComment: ISerializedComment = {
-      _id: savedComment._id.toString(),
-      articleId: savedComment.articleId.toString(),
-      userId: savedComment.userId.toString(),
-      comment: savedComment.comment,
+      _id: (commentData._id as { toString: () => string }).toString(),
+      articleId: (commentData.articleId as { toString: () => string }).toString(),
+      userId: {
+        _id: (userData._id as { toString: () => string }).toString(),
+        username: userData.username as string,
+        imageUrl: (userData.imageUrl as string) || undefined,
+      },
+      comment: commentData.comment as string,
       likes: [],
       reports: [],
-      isDeleted: savedComment.isDeleted,
-      deletedAt: savedComment.deletedAt?.toISOString(),
-      deletedBy: savedComment.deletedBy?.toString(),
-      createdAt: savedComment.createdAt.toISOString(),
-      updatedAt: savedComment.updatedAt.toISOString(),
+      createdAt: (commentData.createdAt as Date).toISOString(),
+      updatedAt: (commentData.updatedAt as Date).toISOString(),
     };
 
     return {

@@ -4,7 +4,6 @@ import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
 import Article from "@/app/api/models/article";
 import { IDeleteCommentParams } from "@/interfaces/comment";
-import { Types } from "mongoose";
 
 export const deleteComment = async (params: IDeleteCommentParams): Promise<{
   success: boolean;
@@ -34,18 +33,10 @@ export const deleteComment = async (params: IDeleteCommentParams): Promise<{
       throw new Error("You don't have permission to delete this comment");
     }
 
-    // Soft delete the comment
-    const updatedComment = await Comment.findByIdAndUpdate(
-      commentId,
-      {
-        isDeleted: true,
-        deletedAt: new Date(),
-        deletedBy: new Types.ObjectId(userId),
-      },
-      { new: true }
-    );
+    // Permanently delete the comment
+    const deletedComment = await Comment.findByIdAndDelete(commentId);
 
-    if (!updatedComment) {
+    if (!deletedComment) {
       throw new Error("Failed to delete comment");
     }
 
