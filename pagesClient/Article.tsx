@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ISerializedArticle, ISerializedArticleComment } from "@/interfaces/article";
+import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedComment } from "@/interfaces/comment";
 import Image from "next/image";
 import { toggleArticleLike } from "@/app/actions/article/toggleArticleLike";
+import { getComments } from "@/app/actions/comment/getComments";
 import { Heart } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { showToast } from "@/components/Toasts";
@@ -21,9 +23,7 @@ export default function Article({
 }) {
   const [likes, setLikes] = useState<number>(articleData?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [comments, setComments] = useState<ISerializedArticleComment[]>(
-    articleData?.comments || []
-  );
+  const [comments, setComments] = useState<ISerializedComment[]>([]);
 
   const { data: session } = useSession();
   const locale = useLocale();
@@ -49,6 +49,31 @@ export default function Article({
       );
     }
   }, [session, articleData?.likes]);
+
+  // Load comments when component mounts
+  useEffect(() => {
+    const loadComments = async () => {
+      if (articleData?._id) {
+        try {
+          const result = await getComments({
+            articleId: articleData._id,
+            page: 1,
+            limit: 50,
+            sort: "createdAt",
+            order: "desc",
+          });
+          
+          if (result.success && result.comments) {
+            setComments(result.comments);
+          }
+        } catch (error) {
+          console.error("Error loading comments:", error);
+        }
+      }
+    };
+
+    loadComments();
+  }, [articleData?._id]);
 
   // toggle article like
   const toggleLike = async () => {

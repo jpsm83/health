@@ -55,21 +55,7 @@ export interface IContentsByLanguage {
   seo: ISeo; // hreflang contains language/locale info
 }
 
-export interface ICommentReport {
-  userId: Types.ObjectId;
-  reason: 'bad_language' | 'racist' | 'spam' | 'harassment' | 'inappropriate_content' | 'false_information' | 'other';
-  reportedAt?: Date;
-}
-
-export interface IArticleComment {
-  _id?: Types.ObjectId;
-  userId: Types.ObjectId | { _id: Types.ObjectId; username: string; imageUrl?: string };
-  comment: string;
-  commentLikes?: Types.ObjectId[];
-  commentReports?: ICommentReport[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+// Comment interfaces moved to interfaces/comment.ts
 
 export interface IArticle {
   _id?: Types.ObjectId;
@@ -78,7 +64,7 @@ export interface IArticle {
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
-  comments?: IArticleComment[];
+  commentsCount?: number;
   views?: number;
   unpublishedAt?: Date;
   createdBy: Types.ObjectId | string;
@@ -94,7 +80,7 @@ export interface IArticleDocument extends Document {
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
-  comments?: IArticleComment[];
+  commentsCount: number;
   views?: number;
   unpublishedAt?: Date;
   createdBy: Types.ObjectId;
@@ -111,7 +97,7 @@ export interface IArticleLean {
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
-  comments?: IArticleComment[];
+  commentsCount: number;
   views?: number;
   unpublishedAt?: Date;
   createdBy: Types.ObjectId | { _id: Types.ObjectId; username: string };
@@ -128,7 +114,7 @@ export interface ISerializedArticle {
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: string[];
-  comments?: ISerializedArticleComment[];
+  commentsCount: number;
   views?: number;
   unpublishedAt?: string;
   createdBy: string;
@@ -136,23 +122,7 @@ export interface ISerializedArticle {
   updatedAt: string;
 }
 
-// Serialized Comment type
-export interface ISerializedArticleComment {
-  _id: string;
-  userId: string;
-  comment: string;
-  commentLikes?: string[];
-  commentReports?: ISerializedCommentReport[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-// Serialized Comment Report type
-export interface ISerializedCommentReport {
-  userId: string;
-  reason: 'bad_language' | 'racist' | 'spam' | 'harassment' | 'inappropriate_content' | 'false_information' | 'other';
-  reportedAt: string;
-}
+// Comment interfaces moved to interfaces/comment.ts
 
 // Utility function to serialize MongoDB objects
 export const serializeMongoObject = (obj: unknown): unknown => {

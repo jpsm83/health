@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import sendNewsletterAction from "@/app/actions/newsletter/sendNewsletter";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
-// @desc    Send newsletter to all verified subscribers
+// @desc    Send newsletter to all subscribers
 // @route   POST /api/v1/newsletter/send-newsletter
 // @access  Private (Admin only)
 export const POST = async () => {

@@ -11,7 +11,7 @@ import { updateUserProfile } from "@/app/actions/user/updateUserProfile";
 import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
 import { ISerializedUser } from "@/interfaces/user";
 import { useRouter, usePathname } from "next/navigation";
-import { authService } from "@/services/authService";
+import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { routing } from "@/i18n/routing";
@@ -383,33 +383,12 @@ export default function Profile({ initialUser }: ProfileProps) {
     setIsLoading(true);
 
     try {
-      const result = await authService.requestPasswordReset(user.email);
+      const result = await requestPasswordResetAction(user.email);
 
-      // Check if result is a string (success message) or has success property
-      if (typeof result === "string") {
-        // If result is a string, treat it as a success message
-        setSuccess(result || t("passwordResetSent"));
-      } else if (result && typeof result === "object") {
-        // If result is an object, check for success property
-        if ("success" in result) {
-          if (result.success) {
-            const successResult = result as {
-              success: true;
-              message: string;
-              resetLink?: string;
-            };
-            setSuccess(successResult.message || t("passwordResetSent"));
-          } else {
-            const errorResult = result as { success: false; error: string };
-            setError(errorResult.error || t("passwordResetFailed"));
-          }
-        } else {
-          // If no success property but result exists, treat as success
-          setSuccess(t("passwordResetSent"));
-        }
+      if (result.success) {
+        setSuccess(result.message || t("passwordResetSent"));
       } else {
-        // If result is falsy or unexpected format, treat as success (API worked)
-        setSuccess(t("passwordResetSent"));
+        setError(result.message || t("passwordResetFailed"));
       }
     } catch (error) {
       console.error("Password reset error:", error);

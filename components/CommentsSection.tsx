@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ISerializedArticleComment, ISerializedCommentReport } from "@/interfaces/article";
-import { createComment, deleteComment } from "@/app/actions/comment/comments";
-import { toggleCommentLike } from "@/app/actions/comment/commentLikes";
-import { reportComment } from "@/app/actions/comment/commentReports";
+import { ISerializedComment, ISerializedCommentReport } from "@/interfaces/comment";
+import { createComment } from "@/app/actions/comment/createComment";
+import { deleteComment } from "@/app/actions/comment/deleteComment";
+import { toggleCommentLike } from "@/app/actions/comment/toggleCommentLike";
+import { reportComment } from "@/app/actions/comment/reportComment";
 import { Heart, Trash2, User, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/components/Toasts";
@@ -15,8 +16,8 @@ import Image from "next/image";
 
 interface CommentsSectionProps {
   articleId: string;
-  comments: ISerializedArticleComment[];
-  setComments: React.Dispatch<React.SetStateAction<ISerializedArticleComment[]>>;
+  comments: ISerializedComment[];
+  setComments: React.Dispatch<React.SetStateAction<ISerializedComment[]>>;
   hasUserCommented: boolean;
 }
 
@@ -60,21 +61,23 @@ export default function CommentsSection({
 
     setIsSubmitting(true);
     try {
-      const result = await createComment(
+      const result = await createComment({
         articleId,
-        newComment?.trim() || "",
-        session?.user?.id || ""
-      );
+        userId: session?.user?.id || "",
+        comment: newComment?.trim() || "",
+      });
 
       if (result.success && result.comment) {
         // Add the new comment to the list
-        setComments((prev) => [...prev, result.comment]);
+        setComments((prev) => [...prev, result.comment!]);
         setNewComment(undefined);
         showToast(
           "success",
           t("comments.toasts.createdSuccess"),
           t("comments.toasts.createdSuccessMessage")
         );
+      } else {
+        showToast("error", t("comments.toasts.createError"), result.error || t("comments.toasts.createErrorMessage"));
       }
     } catch (error) {
       console.error("Error creating comment:", error);
@@ -92,11 +95,10 @@ export default function CommentsSection({
     }
 
     try {
-      const result = await toggleCommentLike(
-        articleId,
+      const result = await toggleCommentLike({
         commentId,
-        session?.user?.id || ""
-      );
+        userId: session?.user?.id || "",
+      });
       if (result.success) {
         // Update the comment in the local state
         setComments((prev) =>
@@ -104,13 +106,13 @@ export default function CommentsSection({
             if (comment._id?.toString() === commentId) {
               const updatedComment = { ...comment };
               if (result.liked) {
-                updatedComment.commentLikes = [
-                  ...(comment.commentLikes || []),
+                updatedComment.likes = [
+                  ...(comment.likes || []),
                   session?.user?.id || "",
                 ];
               } else {
-                updatedComment.commentLikes = (
-                  comment.commentLikes || []
+                updatedComment.likes = (
+                  comment.likes || []
                 ).filter(
                   (id: string) => id !== session?.user?.id
                 );
@@ -148,11 +150,11 @@ export default function CommentsSection({
     }
 
     try {
-      const result = await deleteComment(
-        articleId,
+      const result = await deleteComment({
         commentId,
-        session?.user?.id || ""
-      );
+        userId: session?.user?.id || "",
+        isAdmin: session?.user?.role === "admin",
+      });
       if (result.success) {
         setComments((prev) =>
           prev.filter((comment) => comment._id?.toString() !== commentId)
@@ -178,12 +180,11 @@ export default function CommentsSection({
 
     setIsReporting(true);
     try {
-      const result = await reportComment(
-        articleId,
-        reportModal?.commentId || "",
-        session?.user?.id || "",
-        selectedReason
-      );
+      const result = await reportComment({
+        commentId: reportModal?.commentId || "",
+        userId: session?.user?.id || "",
+        reason: selectedReason,
+      });
 
       if (result.success) {
         // Update the comment in the local state to add the report
@@ -203,8 +204,8 @@ export default function CommentsSection({
                   | "other",
                 reportedAt: new Date().toISOString(),
               };
-              updatedComment.commentReports = [
-                ...(comment.commentReports || []),
+              updatedComment.reports = [
+                ...(comment.reports || []),
                 newReport,
               ];
               return updatedComment;
@@ -305,10 +306,10 @@ export default function CommentsSection({
           comments
             .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
             .map((comment, index) => {
-            const isLiked = comment.commentLikes?.some(
+            const isLiked = comment.likes?.some(
               (like: string) => like === session?.user?.id
             );
-            const likeCount = comment.commentLikes?.length || 0;
+            const likeCount = comment.likes?.length || 0;
             
             // Get comment author info - handle both populated and non-populated userId
             const commentAuthor = typeof comment.userId === 'object' && comment.userId !== null && 'username' in comment.userId 
@@ -325,8 +326,8 @@ export default function CommentsSection({
               (commentAuthorId === session?.user?.id ||
                 session?.user?.role === "admin");
             const isReported =
-              comment.commentReports && comment.commentReports.length >= 3;
-            const hasUserReported = comment.commentReports?.some(
+              comment.reports && comment.reports.length >= 3;
+            const hasUserReported = comment.reports?.some(
               (report: ISerializedCommentReport) =>
                 report.userId === session?.user?.id
             );

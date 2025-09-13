@@ -25,11 +25,6 @@ export async function getArticleBySlug(slug: string, locale = "en"): Promise<ISe
         "contentsByLanguage.seo.slug": slug,
       })
         .populate({ path: "createdBy", select: "username", model: User })
-        .populate({ 
-          path: "comments.userId", 
-          select: "username imageUrl", 
-          model: User 
-        })
         .lean() as IArticleLean | null;
     } catch (dbError) {
       console.error("Database query failed:", dbError);

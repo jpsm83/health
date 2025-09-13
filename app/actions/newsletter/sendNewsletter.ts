@@ -46,13 +46,13 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
   try {
     await connectDb();
 
-    // Get all verified subscribers
+    // Get all subscribers
     const subscribers = await Subscriber.find().select('email unsubscribeToken');
 
     if (subscribers.length === 0) {
       return {
         success: false,
-        message: "No verified subscribers found to send newsletter to.",
+        message: "No subscribers found to send newsletter to.",
         error: "NO_SUBSCRIBERS"
       };
     }

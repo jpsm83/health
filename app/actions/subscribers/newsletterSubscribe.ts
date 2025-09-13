@@ -123,23 +123,15 @@ export default async function subscribeToNewsletterAction(
     let subscriber = await Subscriber.findOne({ email: email.toLowerCase() });
 
     if (subscriber) {
-      if (subscriber.emailVerified) {
-        return {
-          success: false,
-          message: "This email is already subscribed to our newsletter!",
-          error: "ALREADY_SUBSCRIBED"
-        };
-      } else {
-        // Reactivate existing subscriber
-        subscriber.emailVerified = false;
-        subscriber.verificationToken = generateVerificationToken();
-        subscriber.unsubscribeToken = generateUnsubscribeToken();
-        subscriber.subscriptionPreferences = {
-          categories: preferences?.categories || mainCategories,
-          subscriptionFrequencies: preferences?.subscriptionFrequencies || "weekly",
-        };
-        await subscriber.save();
-      }
+      // Update existing subscriber preferences and resend confirmation
+      subscriber.emailVerified = false;
+      subscriber.verificationToken = generateVerificationToken();
+      subscriber.unsubscribeToken = generateUnsubscribeToken();
+      subscriber.subscriptionPreferences = {
+        categories: preferences?.categories || mainCategories,
+        subscriptionFrequencies: preferences?.subscriptionFrequencies || "weekly",
+      };
+      await subscriber.save();
     } else {
       // Create new subscriber
       const subscriberData = {

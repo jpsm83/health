@@ -6,7 +6,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { authService } from "@/services/authService";
+import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 
 interface FormData {
   email: string;
@@ -59,43 +59,14 @@ export default function ForgotPassword() {
     setIsLoading(true);
 
     try {
-      const result = await authService.requestPasswordReset(data.email);
+      const result = await requestPasswordResetAction(data.email);
 
-      // Check if result is a string (success message) or has success property
-      if (typeof result === "string") {
-        // If result is a string, treat it as a success message
-        setSuccess(result || t("resetEmailSent"));
+      if (result.success) {
+        setSuccess(result.message || t("resetEmailSent"));
         // Clear the form on success
         setValue("email", "");
-      } else if (result && typeof result === "object") {
-        // If result is an object, check for success property
-        if ("success" in result) {
-          if (result.success) {
-            // TypeScript knows result has message property when success is true
-            const successResult = result as {
-              success: true;
-              message: string;
-              resetLink?: string;
-            };
-            setSuccess(successResult.message || t("resetEmailSent"));
-            // Clear the form on success
-            setValue("email", "");
-          } else {
-            // TypeScript knows result has error property when success is false
-            const errorResult = result as { success: false; error: string };
-            setError(errorResult.error || t("failedToSendResetEmail"));
-          }
-        } else {
-          // If no success property but result exists, treat as success
-          setSuccess(t("resetEmailSent"));
-          // Clear the form on success
-          setValue("email", "");
-        }
       } else {
-        // If result is falsy or unexpected format, treat as success (API worked)
-        setSuccess(t("resetEmailSent"));
-        // Clear the form on success
-        setValue("email", "");
+        setError(result.message || t("failedToSendResetEmail"));
       }
     } catch (error) {
       console.error("Forgot password error:", error);

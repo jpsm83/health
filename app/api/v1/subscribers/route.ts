@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import connectDb from "@/app/api/db/connectDb";
-import Subscriber from "@/app/api/models/subscriber";
 import subscribeToNewsletterAction from "@/app/actions/subscribers/newsletterSubscribe";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
+import { getSubscribers } from "@/app/actions/subscribers/getSubscribers";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
 // @desc    Get all subscribers
@@ -10,17 +9,24 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 // @access  Private (Admin only)
 export const GET = async () => {
   try {
-    await connectDb();
+    // Use the action to handle getting subscribers
+    const result = await getSubscribers();
 
-    const subscribers = await Subscriber.find({ emailVerified: true })
-      .select("-verificationToken")
-      .sort({ createdAt: -1 });
+    if (!result.success) {
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          message: result.message,
+        }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     return new NextResponse(
       JSON.stringify({
         success: true,
-        count: subscribers.length,
-        data: subscribers,
+        count: result.data?.length || 0,
+        data: result.data,
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
@@ -114,4 +120,3 @@ export const DELETE = async (req: NextRequest) => {
     return handleApiError("Unsubscribe failed!", error as string);
   }
 };
-

@@ -1,9 +1,9 @@
 - review code and modify fetch for actions
-    - email     DONE
-    - article   DONE
-    - user
-    - subscribe
-    - newsletter
+    - email         DONE
+    - article       DONE
+    - user          DONE
+    - subscribe     DONE
+    - newsletter    DONE
     - comment
     - auth
 - all loading must be on suspense

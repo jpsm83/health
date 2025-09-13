@@ -306,6 +306,8 @@ The following documentation files provide detailed information about specific fe
 - **MULTILINGUAL_METADATA.md** - Multilingual metadata handling and SEO optimization strategies
 - **PAGINATION_IMPLEMENTATION.md** - Pagination system implementation for articles and content
 - **USER_MANAGEMENT_SYSTEM.md** - Complete user system implementation including server actions, API routes, data flows, and user creation with image upload
+- **SUBSCRIBER_SYSTEM_DOCUMENTATION.md** - Complete subscriber system implementation including newsletter subscription flow, email verification, preference management, unsubscription, and newsletter distribution
+- **COMMENT_SYSTEM_DOCUMENTATION.md** - Complete comment system implementation including separated architecture, server actions, API routes, user interactions, and moderation features
 
 ### Development & Testing
 - **socialMedia.md** - Social media integration and sharing features
@@ -320,9 +322,9 @@ app/actions/
 ├── article/          # Article-related actions (6 actions)
 ├── auth/             # Authentication actions (4 actions)
 ├── newsletter/       # Newsletter actions (1 action)
-├── subscribers/      # Subscriber management actions (3 actions)
+├── subscribers/      # Subscriber management actions (6 actions)
 ├── user/             # User-related actions (1 action)
-└── comment/          # Comment management actions (3 actions)
+└── comment/          # Comment management actions (5 actions)
 ```
 
 ### API Routes Structure
@@ -331,11 +333,12 @@ app/api/v1/
 ├── articles/         # Article endpoints (4 endpoints)
 ├── auth/            # Authentication endpoints (5 endpoints)
 ├── newsletter/      # Newsletter endpoints (1 endpoint)
-├── subscribers/     # Subscriber endpoints (6 endpoints)
-└── users/          # User endpoints (6 endpoints)
+├── subscribers/     # Subscriber endpoints (8 endpoints)
+├── users/          # User endpoints (6 endpoints)
+└── comments/       # Comment endpoints (6 endpoints)
 ```
 
-**Total API Endpoints: 22** (19 email/user management + 3 article endpoints)
+**Total API Endpoints: 30** (24 email/user/subscriber/article management + 6 comment endpoints)
 
 ## Future Documentation
 

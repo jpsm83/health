@@ -1,23 +1,23 @@
 "use server";
 
 import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
+import Comment from "@/app/api/models/comment";
 import User from "@/app/api/models/user";
+import { IReportCommentParams } from "@/interfaces/comment";
 import { commentReportReasons } from "@/lib/constants";
 import sendCommentReportEmailAction from "@/app/actions/user/commentReport";
 import { Types } from "mongoose";
 
-export const reportComment = async (
-  articleId: string,
-  commentId: string,
-  userId: string,
-  reason: string
-) => {
+export const reportComment = async (params: IReportCommentParams): Promise<{
+  success: boolean;
+  message?: string;
+  error?: string;
+}> => {
   try {
-    if (!userId || !articleId || !commentId || !reason) {
-      throw new Error(
-        "User id, article id, comment id, and reason are required!"
-      );
+    const { commentId, userId, reason } = params;
+
+    if (!userId || !commentId || !reason) {
+      throw new Error("User id, comment id, and reason are required!");
     }
 
     // Validate reason
@@ -27,27 +27,31 @@ export const reportComment = async (
 
     await connectDb();
 
-    // Check if article and comment exist, and get the comment author info
-    const articleComment = await Article.findOne({
-      _id: articleId,
-      "comments._id": commentId,
-    }).select("comments.$ contentsByLanguage.mainTitle");
+    // Find the comment with article info
+    const comment = await Comment.findById(commentId).populate({
+      path: "articleId",
+      select: "contentsByLanguage.mainTitle",
+    });
 
-    if (!articleComment) {
-      throw new Error("Article comment not found!");
+    if (!comment) {
+      throw new Error("Comment not found!");
     }
 
-    const comment = articleComment.comments[0];
-    const articleTitle =
-      articleComment.contentsByLanguage[0]?.mainTitle || "Unknown Article";
+    if (comment.isDeleted) {
+      throw new Error("Cannot report a deleted comment!");
+    }
+
+    // Get article title
+    const article = comment.articleId as { contentsByLanguage?: Array<{ mainTitle?: string }> };
+    const articleTitle = article?.contentsByLanguage?.[0]?.mainTitle || "Unknown Article";
 
     // Check if user already reported this comment
-    const alreadyReported = comment.commentReports?.some(
-      (report: { userId: string }) => report.userId.toString() === userId
+    const alreadyReported = comment.reports?.some(
+      (report: { userId: { toString: () => string } }) => report.userId.toString() === userId
     );
 
     if (alreadyReported) {
-      throw new Error("User already reported this comment!");
+      throw new Error("You have already reported this comment!");
     }
 
     // Get the comment author's information
@@ -60,14 +64,11 @@ export const reportComment = async (
     }
 
     // Add report to comment
-    const updatedArticle = await Article.findOneAndUpdate(
-      {
-        _id: new Types.ObjectId(articleId),
-        "comments._id": new Types.ObjectId(commentId),
-      },
+    const updatedComment = await Comment.findByIdAndUpdate(
+      commentId,
       {
         $push: {
-          "comments.$.commentReports": {
+          reports: {
             userId: new Types.ObjectId(userId),
             reason: reason,
             reportedAt: new Date(),
@@ -77,7 +78,7 @@ export const reportComment = async (
       { new: true }
     );
 
-    if (!updatedArticle) {
+    if (!updatedComment) {
       throw new Error("Failed to report comment!");
     }
 
@@ -106,8 +107,7 @@ export const reportComment = async (
     console.error("Error in reportComment:", error);
     return {
       success: false,
-      error:
-        error instanceof Error ? error.message : "Failed to report comment",
+      error: error instanceof Error ? error.message : "Failed to report comment",
     };
   }
 };

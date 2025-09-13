@@ -62,58 +62,9 @@ export const articleSchema = new Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "User" }],
       default: undefined,
     },
-    comments: {
-      type: [
-        {
-          userId: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-          },
-          comment: {
-            type: String,
-            required: true,
-            trim: true,
-            maxlength: 1000,
-          },
-          commentLikes: {
-            type: [{ type: Schema.Types.ObjectId, ref: "User" }],
-            default: undefined,
-          },
-          commentReports: {
-            type: [
-              {
-                userId: {
-                  type: Schema.Types.ObjectId,
-                  ref: "User",
-                  required: true,
-                },
-                reason: {
-                  type: String,
-                  required: true,
-                  enum: [
-                    "bad_language",
-                    "racist",
-                    "spam",
-                    "harassment",
-                    "inappropriate_content",
-                    "false_information",
-                    "other"
-                  ],
-                },
-                reportedAt: {
-                  type: Date,
-                  default: Date.now,
-                },
-              },
-            ],
-            default: undefined,
-          },      
-          createdAt: { type: Date, default: Date.now },
-          updatedAt: { type: Date, default: Date.now },
-        },
-      ],
-      default: undefined,
+    commentsCount: {
+      type: Number,
+      default: 0,
     },
     views: { type: Number, default: 0 },
     unpublishedAt: { type: Date, default: undefined },

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import Image from "next/image";
 import { useSession, signIn } from "next-auth/react";
-import { authService } from "@/services/authService";
+import { createUser } from "@/app/actions/user/createUser";
 
 interface FormData {
   username: string;
@@ -109,26 +109,43 @@ export default function SignUp() {
     setIsLoading(true);
 
     try {
-      // Use the register method from useAuth hook
-      const result = await authService.registerUser({
+      // Get browser language and region
+      const browserLanguage = navigator.language || "en";
+      const browserRegion = navigator.language.split("-")[1] || "US";
+
+      // Use the createUser server action
+      const result = await createUser({
         username: data.username.trim(),
         email: data.email,
         password: data.password,
+        role: "user",
         birthDate: data.birthDate,
+        language: browserLanguage,
+        region: browserRegion,
         imageFile: selectedImage || undefined,
       });
 
-      if ((result as unknown as { error?: string })?.error) {
-        console.error(
-          "Google sign-in error:",
-          (result as unknown as { error?: string })?.error
-        );
-        setError(t("googleSignInFailed"));
+      if (result.success) {
+        // After successful registration, automatically sign in the user with NextAuth
+        try {
+          await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            callbackUrl: "/", // Redirect to root after successful login
+            redirect: true, // Must be true for OAuth flows
+          });
+        } catch (signInError) {
+          console.error("Login error after registration:", signInError);
+          setError("Registration successful but login failed. Please sign in manually.");
+          setIsLoading(false);
+        }
+      } else {
+        setError(result.message || "Registration failed");
         setIsLoading(false);
       }
     } catch (err) {
-      console.error("Google sign-in error:", err);
-      setError(t("googleSignInFailed"));
+      console.error("Registration error:", err);
+      setError("Registration failed. Please try again.");
       setIsLoading(false);
     }
   };
