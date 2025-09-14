@@ -6,6 +6,7 @@ import Article from "@/app/api/models/article";
 import "@/app/api/models/user"; // Import User model for population
 import { ICreateCommentParams, ISerializedComment } from "@/interfaces/comment";
 import { Types } from "mongoose";
+import User from "@/app/api/models/user";
 
 
 export const createComment = async (params: ICreateCommentParams): Promise<{
@@ -71,6 +72,11 @@ export const createComment = async (params: ICreateCommentParams): Promise<{
     // Update article's comment count
     await Article.findByIdAndUpdate(articleId, {
       $inc: { commentsCount: 1 }
+    });
+
+    // Update user's commentedArticles array
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { commentedArticles: articleId }
     });
 
     // Populate user data for the comment

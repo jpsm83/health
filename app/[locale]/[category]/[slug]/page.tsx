@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
@@ -93,7 +94,7 @@ export default async function ArticlePage({
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
-
+  
   let articleData: ISerializedArticle | undefined = undefined;
 
   try {
@@ -101,6 +102,11 @@ export default async function ArticlePage({
     articleData = result ?? undefined;
   } catch (error) {
     console.error("Error fetching article:", error);
+  }
+
+  // If article doesn't exist, trigger not-found page
+  if (!articleData) {
+    notFound();
   }
 
   return (

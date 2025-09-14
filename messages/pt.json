@@ -62,10 +62,35 @@
     "title": "Painel",
     "subtitle": "Sua visão geral de saúde e insights",
     "stats": {
-      "articles": "Artigos Lidos",
-      "goals": "Objetivos de Saúde",
-      "progress": "Progresso",
-      "streak": "Sequência Atual"
+      "totalArticles": "Total de Artigos",
+      "totalViews": "Total de Visualizações",
+      "totalLikes": "Total de Curtidas",
+      "totalComments": "Total de Comentários"
+    },
+    "table": {
+      "title": "Gerenciamento de Artigos",
+      "columns": {
+        "title": "Título",
+        "category": "Categoria",
+        "likes": "Curtidas",
+        "comments": "Comentários",
+        "views": "Visualizações",
+        "created": "Criado",
+        "actions": "Ações"
+      },
+      "filter": {
+        "placeholder": "Filtrar por título...",
+        "columns": "Colunas"
+      },
+      "pagination": {
+        "rowsPerPage": "Linhas por página",
+        "selected": "linha(s) selecionada(s)",
+        "page": "Página",
+        "of": "de",
+        "previous": "Anterior",
+        "next": "Próximo"
+      },
+      "noResults": "Nenhum resultado encontrado"
     },
     "languageInfo": {
       "language": "Idioma"
@@ -807,7 +832,20 @@
     "actions": {
       "likeArticle": "Curtir artigo",
       "unlikeArticle": "Descurtir artigo",
-      "likes": "Curtidas"
+      "likes": "Curtidas",
+      "edit": "Editar Artigo",
+      "delete": "Excluir Artigo",
+      "backToList": "Voltar aos Artigos"
+    },
+    "deleteModal": {
+      "title": "Excluir Artigo",
+      "description": "Tem certeza de que deseja excluir este artigo? Esta ação não pode ser desfeita e removerá permanentemente o artigo e todos os seus comentários.",
+      "articleTitle": "Título do Artigo",
+      "confirm": "Sim, Excluir Artigo",
+      "cancel": "Cancelar",
+      "deleting": "Excluindo...",
+      "success": "Artigo excluído com sucesso",
+      "error": "Falha ao excluir artigo"
     },
     "imageAlt": " - Seção "
   },
@@ -892,5 +930,12 @@
     "errorMessage": "Houve um erro ao processar sua solicitação de cancelamento. Tente novamente.",
     "tryAgain": "Tentar Novamente",
     "goHome": "Ir para a Página Inicial"
+  },
+  "favorites": {
+    "title": "Meus Favoritos",
+    "subtitle": "Você tem {count} artigo favorito{count, plural, =1 {} other {s}}",
+    "heroImageAlt": "Meus Artigos Favoritos",
+    "noFavoritesTitle": "Nenhum Favorito Ainda",
+    "noFavoritesDescription": "Comece a curtir artigos para construir sua coleção pessoal de conteúdo favorito de saúde e bem-estar."
   }
 }

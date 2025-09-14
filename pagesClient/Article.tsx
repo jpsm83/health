@@ -10,12 +10,13 @@ import Image from "next/image";
 import { toggleArticleLike } from "@/app/actions/article/toggleArticleLike";
 import { incrementArticleViews } from "@/app/actions/article/incrementArticleViews";
 import { getComments } from "@/app/actions/comment/getComments";
-import { Heart } from "lucide-react";
+import { Heart, Trash2 } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { showToast } from "@/components/Toasts";
 import CommentsSection from "@/components/CommentsSection";
 import { Button } from "@/components/ui/button";
 import CategoryCarousel from "@/components/CategoryCarousel";
+import DeleteArticleModal from "@/components/DeleteArticleModal";
 
 export default function Article({
   articleData,
@@ -28,6 +29,7 @@ export default function Article({
   const [hasUserCommented, setHasUserCommented] = useState<boolean>(false);
   const [hasIncrementedViews, setHasIncrementedViews] =
     useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const { data: session } = useSession();
   const locale = useLocale();
@@ -161,6 +163,17 @@ export default function Article({
     }
   };
 
+  // Check if current user is admin
+  const isAdmin = () => {
+    return session?.user?.role === "admin";
+  };
+
+  // Handle successful article deletion
+  const handleDeleteSuccess = () => {
+    // Redirect to home page after successful deletion
+    router.push("/");
+  };
+
   // Calculate content distribution across 4 containers
   const calculateContentDistribution = () => {
     const containerDistribution = 4;
@@ -241,6 +254,19 @@ export default function Article({
                   {/* Overlay Header for first container only */}
                   {containerIndex === 0 && (
                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
+                      {/* Delete Button - Top Right */}
+                      {isAdmin() && (
+                        <div className="absolute top-4 right-4">
+                          <button
+                            onClick={() => setShowDeleteModal(true)}
+                            className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-600 text-white border-none transition-colors cursor-pointer rounded-full backdrop-blur-sm"
+                            title={t("article.actions.delete")}
+                          >
+                            <Trash2 className="size-4" />
+                          </button>
+                        </div>
+                      )}
+                      
                       <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default">
                         {articleData?.contentsByLanguage[0].mainTitle}
                       </h1>
@@ -359,6 +385,16 @@ export default function Article({
           <CategoryCarousel category={articleData?.category || ""} />
         </section>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteArticleModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        article={articleData || null}
+        onSuccess={handleDeleteSuccess}
+        userId={session?.user?.id || ""}
+        isAdmin={session?.user?.role === "admin"}
+      />
     </div>
   );
 }

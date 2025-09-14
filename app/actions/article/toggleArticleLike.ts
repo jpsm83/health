@@ -2,6 +2,7 @@
 
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 export const toggleArticleLike = async (articleId: string, userId: string) => {
   try {
@@ -32,6 +33,15 @@ export const toggleArticleLike = async (articleId: string, userId: string) => {
     if (!updatedArticle) {
       throw new Error("Failed to update article like");
     }
+
+    // Update user's likedArticles array
+    await User.findByIdAndUpdate(
+      userId,
+      userLiked
+        ? { $pull: { likedArticles: articleId } } // Remove from user's liked articles
+        : { $addToSet: { likedArticles: articleId } }, // Add to user's liked articles
+      { new: true }
+    );
 
     // Revalidate the page to show updated like count
     // Fixed: Added 'page' type parameter to avoid warning

@@ -77,7 +77,8 @@
         "likes": "Likes",
         "comments": "Comments",
         "views": "Views",
-        "created": "Created"
+        "created": "Created",
+        "actions": "Actions"
       },
       "filter": {
         "placeholder": "Filter by title...",
@@ -1050,6 +1051,16 @@
       "delete": "Delete Article",
       "backToList": "Back to Articles"
     },
+    "deleteModal": {
+      "title": "Delete Article",
+      "description": "Are you sure you want to delete this article? This action cannot be undone and will permanently remove the article and all its comments.",
+      "articleTitle": "Article Title",
+      "confirm": "Yes, Delete Article",
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "success": "Article deleted successfully",
+      "error": "Failed to delete article"
+    },
     "imageAlt": " - Section ",
     "exploreMore": "Selected articles just for you"
   },
@@ -1139,5 +1150,12 @@
     "invalidLinkTitle": "Invalid Unsubscribe Link",
     "invalidLinkMessage": "This unsubscribe link is invalid or has expired. Please contact support if you need help.",
     "goHome": "Go to Homepage"
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "subtitle": "You have {count} favorite article{count, plural, =1 {} other {s}}",
+    "heroImageAlt": "My Favorite Articles",
+    "noFavoritesTitle": "No Favorites Yet",
+    "noFavoritesDescription": "Start liking articles to build your personal collection of favorite health and wellness content."
   }
 }

@@ -3,6 +3,7 @@
 import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
 import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 import { IDeleteCommentParams } from "@/interfaces/comment";
 
 export const deleteComment = async (params: IDeleteCommentParams): Promise<{
@@ -44,6 +45,20 @@ export const deleteComment = async (params: IDeleteCommentParams): Promise<{
     await Article.findByIdAndUpdate(comment.articleId, {
       $inc: { commentsCount: -1 }
     });
+
+    // Check if user has any other comments on this article
+    const otherComments = await Comment.findOne({
+      articleId: comment.articleId,
+      userId: comment.userId,
+      _id: { $ne: commentId }
+    });
+
+    // If no other comments exist, remove article from user's commentedArticles array
+    if (!otherComments) {
+      await User.findByIdAndUpdate(comment.userId, {
+        $pull: { commentedArticles: comment.articleId }
+      });
+    }
 
     return { success: true };
   } catch (error) {

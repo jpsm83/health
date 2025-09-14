@@ -14,7 +14,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { mainCategories } from "@/lib/constants";
 
 interface PaginationData {
   currentPage: number;
@@ -38,15 +37,6 @@ export default function Articles({
 }: ArticlesProps) {
   const t = useTranslations("articles");
 
-  if (!mainCategories.includes(category)) {
-    return (
-      <section className="text-center py-16">
-        <h2 className="text-2xl font-semibold text-gray-600 mb-4">
-          {t("categoryNotFound")}
-        </h2>
-      </section>
-    );
-  }
 
   // Handle empty articles case
   if (featuredArticles.length === 0 && paginatedArticles.length === 0) {

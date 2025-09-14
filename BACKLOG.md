@@ -1,4 +1,2 @@
-- create "create article" page
-- user need a page of his favorites
-- create 404 page
+- test api route for create article
 - minimize size of json translations (messages folder)

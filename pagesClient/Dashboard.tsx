@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Trash2 } from "lucide-react";
 import { ISerializedArticle } from "@/interfaces/article";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Eye, Heart, MessageCircle } from 'lucide-react';
+import DeleteArticleModal from "@/components/DeleteArticleModal";
 
 interface WeeklyStats {
   totalArticles: number;
@@ -26,7 +27,11 @@ interface DashboardProps {
 
 export default function Dashboard({ articles, weeklyStats, locale }: DashboardProps) {
   const t = useTranslations("dashboard");
+  const tArticle = useTranslations("article");
   const router = useRouter();
+  const [articlesList, setArticlesList] = useState<ISerializedArticle[]>(articles);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [articleToDelete, setArticleToDelete] = useState<ISerializedArticle | null>(null);
 
   const { data: session, status } = useSession();
 
@@ -40,7 +45,20 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
     }
   }, [status, session?.user?.id, session?.user?.role, router]);
 
+  // Handle successful article deletion
+  const handleDeleteSuccess = () => {
+    // Remove article from local state
+    if (articleToDelete) {
+      setArticlesList(prev => prev.filter(article => article._id !== articleToDelete._id));
+    }
+  };
 
+  // Open delete modal
+  const openDeleteModal = (article: ISerializedArticle, event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent row click
+    setArticleToDelete(article);
+    setShowDeleteModal(true);
+  };
 
   // Helper functions
   const getArticleTitle = (article: ISerializedArticle) => 
@@ -138,6 +156,26 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
         </div>
       ),
     },
+    {
+      id: "actions",
+      header: () => <div></div>,
+      cell: ({ row }) => (
+        <div className="flex justify-center">
+          <button
+            onClick={(e) => openDeleteModal(row.original, e)}
+            className="flex items-center justify-center w-6 h-6 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
+            title={tArticle("actions.delete")}
+          >
+            <Trash2 className="size-3" />
+          </button>
+        </div>
+      ),
+      enableSorting: false,
+      enableColumnFilter: false,
+      size: 50, // Make column very thin
+      minSize: 50,
+      maxSize: 50,
+    },
   ];
 
   // Helper functions
@@ -188,7 +226,7 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
         <div className="bg-white shadow-md p-4">
         <DataTable 
           columns={columns} 
-          data={articles} 
+          data={articlesList} 
           onRowClick={handleRowClick} 
           getArticleTitle={getArticleTitle}
           translations={{
@@ -204,6 +242,19 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
           }}
         />
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteArticleModal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setArticleToDelete(null);
+        }}
+        article={articleToDelete}
+        onSuccess={handleDeleteSuccess}
+        userId={session?.user?.id || ""}
+        isAdmin={session?.user?.role === "admin"}
+      />
     </div>
   );
 }

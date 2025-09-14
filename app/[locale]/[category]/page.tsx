@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
@@ -36,6 +37,11 @@ export default async function CategoryPage({
 }) {
   const { category, locale } = await params;
   const { page = "1" } = await searchParams;
+
+  // Check if category is valid - if not, trigger not-found page
+  if (!mainCategories.includes(category)) {
+    notFound();
+  }
 
   const currentPage = Math.max(1, parseInt(page as string, 10) || 1);
 

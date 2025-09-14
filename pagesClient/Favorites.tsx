@@ -21,19 +21,17 @@ interface PaginationData {
   totalArticles: number;
 }
 
-interface SearchProps {
-  searchResults: ISerializedArticle[];
-  query: string;
+interface FavoritesProps {
+  favoriteArticles: ISerializedArticle[];
   paginationData: PaginationData;
   error?: string;
 }
 
-export default function Search({
-  searchResults,
-  query,
+export default function Favorites({
+  favoriteArticles,
   paginationData,
-}: SearchProps) {
-  const t = useTranslations("search");
+}: FavoritesProps) {
+  const t = useTranslations("favorites");
 
   return (
     <div className="flex flex-col min-h-full gap-12 md:gap-16 mb-12 md:mb-16">
@@ -41,7 +39,7 @@ export default function Search({
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
           <Image
-            src="https://res.cloudinary.com/jpsm83/image/upload/v1757237848/health/bpzafd2yt9i7evmnecoa.png"
+            src="https://res.cloudinary.com/jpsm83/image/upload/v1757872660/health/xvynlootzxmsmjhrbjxs.png"
             alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill
@@ -53,43 +51,42 @@ export default function Search({
         </div>
 
         {/* Hero Content */}
-        {searchResults.length > 0 ? (
+        {favoriteArticles.length > 0 ? (
           <div className="relative z-10 flex items-center justify-center h-full">
             <div className="text-center text-white max-w-4xl mx-auto px-6">
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                {t("resultsTitle")}
+                {t("title")}
               </h1>
               <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-                {t("resultsFound", {
-                  count: paginationData.totalArticles,
-                  query: query,
+                {t("subtitle", { 
+                  count: paginationData.totalArticles
                 })}
               </p>
             </div>
           </div>
         ) : (
           <div className="relative z-10 flex items-center justify-center h-full">
-            {/* No results message */}
+            {/* No favorites message */}
             <div className="text-center text-white max-w-4xl mx-auto px-6">
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                {t("noResultsTitle")}
+                {t("noFavoritesTitle")}
               </h1>
               <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-                {t("noResultsDescription")}
-              </p>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-                &quot;{query}&quot;
+                {t("noFavoritesDescription")}
               </p>
             </div>
           </div>
         )}
       </section>
 
-      {/* Search Results Section */}
-      <FeaturedArticles articles={searchResults} showBanner={false} />
+      {/* Favorites Section */}
+      <FeaturedArticles
+        articles={favoriteArticles}
+        showBanner={false}
+        />
 
-      {/* Newsletter Signup Section */}
-      {searchResults.length > 0 && <NewsletterSignup />}
+        {/* Newsletter Signup Section */}
+        {favoriteArticles.length > 0 && <NewsletterSignup />}
 
       {/* Pagination Section */}
       {paginationData.totalPages > 1 && (
@@ -102,9 +99,7 @@ export default function Search({
                 {paginationData.currentPage > 1 && (
                   <PaginationItem>
                     <PaginationPrevious
-                      href={`?q=${encodeURIComponent(query)}&page=${
-                        paginationData.currentPage - 1
-                      }`}
+                      href={`?page=${paginationData.currentPage - 1}`}
                     />
                   </PaginationItem>
                 )}
@@ -145,7 +140,7 @@ export default function Search({
                   return (
                     <PaginationItem key={page}>
                       <PaginationLink
-                        href={`?q=${encodeURIComponent(query)}&page=${page}`}
+                        href={`?page=${page}`}
                         isActive={page === paginationData.currentPage}
                       >
                         {page}
@@ -158,9 +153,7 @@ export default function Search({
                 {paginationData.currentPage < paginationData.totalPages && (
                   <PaginationItem>
                     <PaginationNext
-                      href={`?q=${encodeURIComponent(query)}&page=${
-                        paginationData.currentPage + 1
-                      }`}
+                      href={`?page=${paginationData.currentPage + 1}`}
                     />
                   </PaginationItem>
                 )}
