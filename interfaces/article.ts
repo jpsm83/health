@@ -31,8 +31,8 @@ export interface ISeo {
   keywords: string[];
   slug: string;
   hreflang: string;
-  urlPattern?: string;
-  canonicalUrl?: string;
+  urlPattern: string;
+  canonicalUrl: string;
 }
 
 export interface IMetaDataArticle {

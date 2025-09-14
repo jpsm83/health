@@ -19,14 +19,13 @@ const seoSchema = new Schema({
   urlPattern: { 
     type: String, 
     required: true,
-    enum: ["articles", "artigos", "articulos", "articles", "artikel", "articoli", "artikelen", "מאמרים"],
+    enum: ["articles", "artigos", "articulos", "artikel", "articoli", "artikelen", "מאמרים"],
     default: "articles"
   },
   canonicalUrl: {
     type: String,
     required: true,
   },
-  type: { type: String, required: true, default: "article" }, // DOES NOT NEED, DELETE
 });
 
 const contentsByLanguageSchema = new Schema({
@@ -77,7 +76,8 @@ export const articleSchema = new Schema(
 );
 
 // Add compound index to ensure slug uniqueness across all languages
-articleSchema.index({ "contentsByLanguage.seo.slug": 1 }, { unique: true });
+// Note: This creates a sparse index that only includes documents where the field exists
+articleSchema.index({ "contentsByLanguage.seo.slug": 1 }, { unique: true, sparse: true });
 
 const Article = models.Article || model("Article", articleSchema);
 export default Article;

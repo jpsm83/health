@@ -263,8 +263,10 @@ export const POST = async (req: Request) => {
             "keywords",
             "slug",
             "hreflang",
+            "urlPattern",
+            "canonicalUrl",
           ],
-          nonReqFields: ["urlPattern", "canonicalUrl"],
+          nonReqFields: [],
         }
       );
 
@@ -300,28 +302,25 @@ export const POST = async (req: Request) => {
         );
       }
 
-      // Validate urlPattern is valid (if provided)
-      if (content.seo.urlPattern) {
-        const validUrlPatterns = [
-          "articles",
-          "artigos",
-          "articulos",
-          "articles",
-          "artikel",
-          "articoli",
-          "artikelen",
-          "מאמרים",
-        ];
-        if (!validUrlPatterns.includes(content.seo.urlPattern)) {
-          return new NextResponse(
-            JSON.stringify({
-              message: `Invalid URL pattern: ${
-                content.seo.urlPattern
-              }. Supported patterns: ${validUrlPatterns.join(", ")}`,
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
-          );
-        }
+      // Validate urlPattern is valid (now required)
+      const validUrlPatterns = [
+        "articles",
+        "artigos",
+        "articulos",
+        "artikel",
+        "articoli",
+        "artikelen",
+        "מאמרים",
+      ];
+      if (!validUrlPatterns.includes(content.seo.urlPattern)) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Invalid URL pattern: ${
+              content.seo.urlPattern
+            }. Supported patterns: ${validUrlPatterns.join(", ")}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
       }
     }
 
