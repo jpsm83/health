@@ -97,8 +97,6 @@ export default async function ArticlePage({
   let articleData: ISerializedArticle | undefined = undefined;
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 20000)); // 20 second delay
-    
     const result = await getArticleBySlug(slug, locale);
     articleData = result ?? undefined;
   } catch (error) {

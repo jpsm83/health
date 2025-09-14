@@ -8,6 +8,7 @@ import { ISerializedArticle } from "@/interfaces/article";
 import { ISerializedComment } from "@/interfaces/comment";
 import Image from "next/image";
 import { toggleArticleLike } from "@/app/actions/article/toggleArticleLike";
+import { incrementArticleViews } from "@/app/actions/article/incrementArticleViews";
 import { getComments } from "@/app/actions/comment/getComments";
 import { Heart } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -25,6 +26,8 @@ export default function Article({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<ISerializedComment[]>([]);
   const [hasUserCommented, setHasUserCommented] = useState<boolean>(false);
+  const [hasIncrementedViews, setHasIncrementedViews] =
+    useState<boolean>(false);
 
   const { data: session } = useSession();
   const locale = useLocale();
@@ -63,28 +66,60 @@ export default function Article({
             sort: "createdAt",
             order: "desc",
           });
-          
-          if (result.success && result.comments) {
+
+          if (result && result.success && result.comments) {
             setComments(result.comments);
             // Check if current user has commented
-            const userHasCommented = result.comments.some(
-              (comment) => {
-                const commentUserId = typeof comment.userId === 'object' && comment.userId !== null && '_id' in comment.userId
+            const userHasCommented = result.comments.some((comment) => {
+              const commentUserId =
+                typeof comment.userId === "object" &&
+                comment.userId !== null &&
+                "_id" in comment.userId
                   ? (comment.userId as { _id: string })._id
-                  : comment.userId as string;
-                return commentUserId === session?.user?.id;
-              }
-            );
+                  : (comment.userId as string);
+              return commentUserId === session?.user?.id;
+            });
             setHasUserCommented(userHasCommented);
+          } else {
+            console.warn("Failed to load comments:", result?.error || "Unknown error");
+            setComments([]);
           }
         } catch (error) {
           console.error("Error loading comments:", error);
+          setComments([]);
         }
       }
     };
 
     loadComments();
   }, [articleData?._id, session?.user?.id]);
+
+  // Track time spent on page and increment views after 1.5 minutes
+  useEffect(() => {
+    if (hasIncrementedViews || !articleData?._id) return;
+
+    const incrementViews = async () => {
+      try {
+        const result = await incrementArticleViews(articleData._id);
+
+        if (result.success) {
+          setHasIncrementedViews(true);
+        } else {
+          console.error("Failed to increment views:", result.error);
+        }
+      } catch (error) {
+        console.error("Error incrementing article views:", error);
+      }
+    };
+
+    // Set timer for 1 minutes (90 seconds)
+    const timer = setTimeout(incrementViews, 60 * 1000);
+
+    // Cleanup timer on component unmount
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [articleData?._id, hasIncrementedViews]);
 
   // toggle article like
   const toggleLike = async () => {
@@ -175,7 +210,6 @@ export default function Article({
 
   const containers = calculateContentDistribution();
 
-
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
       {/* Article Content in 4 Containers */}
@@ -203,7 +237,7 @@ export default function Article({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
                     priority
                   />
-                  
+
                   {/* Overlay Header for first container only */}
                   {containerIndex === 0 && (
                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
@@ -216,7 +250,8 @@ export default function Article({
                             {t("article.info.category")} {articleData?.category}
                           </span>
                           <span>
-                            {t("article.info.published")} {formatDate(articleData?.createdAt)}
+                            {t("article.info.published")}{" "}
+                            {formatDate(articleData?.createdAt)}
                           </span>
                           <span>
                             {t("article.info.views")} {articleData?.views}
@@ -240,7 +275,9 @@ export default function Article({
                           >
                             <Heart
                               className={`size-6 ${
-                                isLiked ? "fill-current" : "stroke-current fill-none"
+                                isLiked
+                                  ? "fill-current"
+                                  : "stroke-current fill-none"
                               }`}
                             />
                           </Button>

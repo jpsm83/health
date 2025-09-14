@@ -13,14 +13,14 @@ export const getComments = async (params: IGetCommentsParams): Promise<{
   error?: string;
 }> => {
   try {
-  const {
-    articleId,
-    userId,
-    page = 1,
-    limit = 10,
-    sort = "createdAt",
-    order = "desc",
-  } = params;
+    const {
+      articleId,
+      userId,
+      page = 1,
+      limit = 10,
+      sort = "createdAt",
+      order = "desc",
+    } = params;
 
     await connectDb();
 

@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Dashboard from "@/pagesClient/Dashboard";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { getAllArticlesForDashboard } from "@/app/actions/article/getAllArticlesForDashboard";
+import { getWeeklyStats } from "@/app/actions/article/getWeeklyStats";
 
 export async function generateMetadata({
   params,
@@ -17,12 +19,21 @@ export async function generateMetadata({
   );
 }
 
-// Server Component - handles metadata generation
-export default function DashboardPage() {
+// Server Component - handles metadata generation and data fetching
+export default async function DashboardPage() {
+  // Fetch data on the server
+  const [articles, weeklyStats] = await Promise.all([
+    getAllArticlesForDashboard(),
+    getWeeklyStats()
+  ]);
+
   return (
     <main className="container mx-auto">
       <ErrorBoundary context={"Dashboard component"}>
-        <Dashboard />
+        <Dashboard 
+          articles={articles} 
+          weeklyStats={weeklyStats}
+        />
       </ErrorBoundary>
     </main>
   );
