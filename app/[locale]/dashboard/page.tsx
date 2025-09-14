@@ -20,7 +20,13 @@ export async function generateMetadata({
 }
 
 // Server Component - handles metadata generation and data fetching
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  
   // Fetch data on the server
   const [articles, weeklyStats] = await Promise.all([
     getAllArticlesForDashboard(),
@@ -33,6 +39,7 @@ export default async function DashboardPage() {
         <Dashboard 
           articles={articles} 
           weeklyStats={weeklyStats}
+          locale={locale}
         />
       </ErrorBoundary>
     </main>

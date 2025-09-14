@@ -1,6 +1,4 @@
-- add dahsboard naviagtion on the nav
 - create "create article" page
-- create dashbord page
 - user need a page of his favorites
 - create 404 page
 - minimize size of json translations (messages folder)

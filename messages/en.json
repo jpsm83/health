@@ -62,12 +62,36 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "subtitle": "Your health overview and insights",
+    "subtitle": "Manage your articles and view analytics",
     "stats": {
-      "articles": "Articles Read",
-      "goals": "Health Goals",
-      "progress": "Progress",
-      "streak": "Current Streak"
+      "totalArticles": "Total Articles",
+      "totalViews": "Total Views",
+      "totalLikes": "Total Likes",
+      "totalComments": "Total Comments"
+    },
+    "table": {
+      "title": "Articles Management",
+      "columns": {
+        "title": "Title",
+        "category": "Category",
+        "likes": "Likes",
+        "comments": "Comments",
+        "views": "Views",
+        "created": "Created"
+      },
+      "filter": {
+        "placeholder": "Filter by title...",
+        "columns": "Columns"
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "selected": "row(s) selected",
+        "page": "Page",
+        "of": "of",
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "noResults": "No results."
     },
     "languageInfo": {
       "language": "Language"

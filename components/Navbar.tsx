@@ -6,7 +6,24 @@ import { useTranslations, useLocale } from "next-intl";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { UserRound, Menu } from "lucide-react";
+import {
+  UserRound,
+  Menu,
+  UserRoundPen,
+  LayoutDashboard,
+  LogOut,
+  HeartPulse,
+  Dumbbell,
+  Salad,
+  VenusAndMars,
+  Handbag,
+  Brush,
+  Sun,
+  Plane,
+  House,
+  FolderKanban,
+  HandHeart,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -120,43 +137,14 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Existing Pages */}
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                >
-                  🏠 {t("home")}
-                </Link>
-              </DropdownMenuItem>
-
-              {session?.user && (
-                <>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={`/${locale}/dashboard`}
-                      className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                      onClick={handleNavLinkClick}
-                    >
-                      📊 {t("dashboard")}
-                    </Link>
-                  </DropdownMenuItem>
-                </>
-              )}
-
-              {/* Future Article Type Pages */}
-              <DropdownMenuItem className="text-gray-400 cursor-default">
-                ─── {t("articleCategories")} ───
-              </DropdownMenuItem>
-
+              {/* Article Categories */}
               <DropdownMenuItem asChild>
                 <Link
                   href={`/${locale}/health`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  🏥 {t("categories.health")}
+                  <HeartPulse size={16} className="text-red-600" /> {t("categories.health")}
                 </Link>
               </DropdownMenuItem>
 
@@ -166,7 +154,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  💪 {t("categories.fitness")}
+                  <Dumbbell size={16} className="text-red-600" /> {t("categories.fitness")}
                 </Link>
               </DropdownMenuItem>
 
@@ -176,7 +164,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  🥗 {t("categories.nutrition")}
+                  <Salad size={16} className="text-red-600" /> {t("categories.nutrition")}
                 </Link>
               </DropdownMenuItem>
 
@@ -186,7 +174,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  ❤️ {t("categories.sex")}
+                  <VenusAndMars size={16} className="text-red-600" /> {t("categories.sex")}
                 </Link>
               </DropdownMenuItem>
 
@@ -196,7 +184,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  💄 {t("categories.beauty")}
+                  <Brush size={16} className="text-red-600" /> {t("categories.beauty")}
                 </Link>
               </DropdownMenuItem>
 
@@ -206,7 +194,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  👗 {t("categories.fashion")}
+                  <Handbag size={16} className="text-red-600" /> {t("categories.fashion")}
                 </Link>
               </DropdownMenuItem>
 
@@ -216,7 +204,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  🌟 {t("categories.lifestyle")}
+                  <Sun size={16} className="text-red-600" /> {t("categories.lifestyle")}
                 </Link>
               </DropdownMenuItem>
 
@@ -226,7 +214,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  ✈️ {t("categories.travel")}
+                  <Plane size={16} className="text-red-600" /> {t("categories.travel")}
                 </Link>
               </DropdownMenuItem>
 
@@ -236,7 +224,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  🏠 {t("categories.decor")}
+                  <House size={16} className="text-red-600" /> {t("categories.decor")}
                 </Link>
               </DropdownMenuItem>
 
@@ -246,7 +234,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  ⚡ {t("categories.productivity")}
+                  <FolderKanban size={16} className="text-red-600" /> {t("categories.productivity")}
                 </Link>
               </DropdownMenuItem>
 
@@ -256,7 +244,7 @@ export default function Navbar() {
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  👶 {t("categories.parenting")}
+                  <HandHeart size={16} className="text-red-600" /> {t("categories.parenting")}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -346,9 +334,20 @@ export default function Navbar() {
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                         onClick={handleNavLinkClick}
                       >
-                        👤 {t("profile")}
+                        <UserRoundPen size={16} className="text-red-600" /> {t("profile")}
                       </Link>
                     </DropdownMenuItem>
+                    {session?.user?.role === "admin" && (
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href={`/${locale}/dashboard`}
+                          className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                          onClick={handleNavLinkClick}
+                        >
+                          <LayoutDashboard size={16} className="text-red-600" /> {t("dashboard")}
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem
                       onClick={() => {
                         handleLogout();
@@ -356,7 +355,7 @@ export default function Navbar() {
                       }}
                       className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                     >
-                      🚪 {t("signOut")}
+                      <LogOut size={16} className="text-red-600" /> {t("signOut")}
                     </DropdownMenuItem>
                   </>
                 ) : (
@@ -435,14 +434,24 @@ export default function Navbar() {
                         href={`/${locale}/profile`}
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                       >
-                        👤 {t("profile")}
+                        <UserRoundPen size={16} className="text-red-600" /> {t("profile")}
                       </Link>
                     </DropdownMenuItem>
+                    {session?.user?.role === "admin" && (
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href={`/${locale}/dashboard`}
+                          className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+                        >
+                          <LayoutDashboard size={16} className="text-red-600" /> {t("dashboard")}
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem
                       onClick={handleLogout}
                       className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                     >
-                      🚪 {t("signOut")}
+                      <LogOut size={16} className="text-red-600" /> {t("signOut")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

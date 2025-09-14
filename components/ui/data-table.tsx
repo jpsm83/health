@@ -38,6 +38,17 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   onRowClick?: (row: TData) => void;
   getArticleTitle?: (article: TData) => string;
+  translations?: {
+    filterPlaceholder: string;
+    columns: string;
+    rowsPerPage: string;
+    selected: string;
+    page: string;
+    of: string;
+    previous: string;
+    next: string;
+    noResults: string;
+  };
 }
 
 export function DataTable<TData, TValue>({
@@ -45,6 +56,7 @@ export function DataTable<TData, TValue>({
   data,
   onRowClick,
   getArticleTitle,
+  translations,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -79,7 +91,7 @@ export function DataTable<TData, TValue>({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-2">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <Input
-            placeholder="Filter by title..."
+            placeholder={translations?.filterPlaceholder || "Filter by title..."}
             value={
               (table.getColumn("mainTitle")?.getFilterValue() as string) ?? ""
             }
@@ -94,7 +106,7 @@ export function DataTable<TData, TValue>({
                 variant="outline"
                 className="w-full sm:w-auto border-gray-300 hover:bg-gray-50"
               >
-                Columns <ChevronDown />
+                {translations?.columns || "Columns"} <ChevronDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -237,9 +249,11 @@ export function DataTable<TData, TValue>({
               </div>
             </div>
           ))
-        ) : (
-          <div className="text-center py-8 text-gray-500">No results.</div>
-        )}
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              {translations?.noResults || "No results."}
+            </div>
+          )}
       </div>
       {/* Pagination Controls */}
       <div className="flex flex-col space-y-4 py-4">
@@ -247,14 +261,14 @@ export function DataTable<TData, TValue>({
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           {/* Row Selection Info */}
           <div className="text-sm text-gray-600 text-center sm:text-left">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} {translations?.of || "of"}{" "}
+            {table.getFilteredRowModel().rows.length} {translations?.selected || "row(s) selected"}.
           </div>
 
           {/* Page Info and Navigation */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="text-sm text-gray-600 text-center sm:text-left">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
+              {translations?.page || "Page"} {table.getState().pagination.pageIndex + 1} {translations?.of || "of"}{" "}
               {table.getPageCount()}
             </div>
             <div className="flex justify-center sm:justify-start space-x-2">
@@ -265,7 +279,7 @@ export function DataTable<TData, TValue>({
                 disabled={!table.getCanPreviousPage()}
                 className="flex-1 sm:flex-none border-gray-300 hover:bg-gray-50 text-gray-700 min-w-[80px]"
               >
-                Previous
+                {translations?.previous || "Previous"}
               </Button>
               <Button
                 variant="outline"
@@ -274,7 +288,7 @@ export function DataTable<TData, TValue>({
                 disabled={!table.getCanNextPage()}
                 className="flex-1 sm:flex-none border-gray-300 hover:bg-gray-50 text-gray-700 min-w-[80px]"
               >
-                Next
+                {translations?.next || "Next"}
               </Button>
             </div>
           </div>
@@ -287,7 +301,7 @@ export function DataTable<TData, TValue>({
                   variant="outline"
                   className="w-full sm:w-auto border-gray-300 hover:bg-gray-50"
                 >
-                  Rows per page: {table.getState().pagination.pageSize}{" "}
+                  {translations?.rowsPerPage || "Rows per page"}: {table.getState().pagination.pageSize}{" "}
                   <ChevronDown />
                 </Button>
               </DropdownMenuTrigger>

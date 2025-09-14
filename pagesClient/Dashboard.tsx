@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table";
@@ -21,10 +21,11 @@ interface WeeklyStats {
 interface DashboardProps {
   articles: ISerializedArticle[];
   weeklyStats: WeeklyStats;
+  locale: string;
 }
 
-export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
-  const locale = useLocale();
+export default function Dashboard({ articles, weeklyStats, locale }: DashboardProps) {
+  const t = useTranslations("dashboard");
   const router = useRouter();
 
   const { data: session, status } = useSession();
@@ -56,14 +57,14 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     </Button>
   );
 
-  const StatCard = ({ icon, title, value }: {
+  const StatCard = ({ icon, titleKey, value }: {
     icon: React.ReactNode;
-    title: string;
+    titleKey: string;
     value: number;
   }) => (
     <div className="bg-white shadow-md p-6 flex flex-col items-center justify-center">
       <div className="text-3xl mb-2 text-gray-500">{icon}</div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
+      <h3 className="text-lg font-semibold text-gray-900 mb-1">{t(`stats.${titleKey}`)}</h3>
       <p className="text-3xl font-bold text-red-600">{value}</p>
     </div>
   );
@@ -73,7 +74,7 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     {
       id: "mainTitle",
       accessorFn: (row) => getArticleTitle(row),
-      header: ({ column }) => createSortableHeader("Title", column),
+      header: ({ column }) => createSortableHeader(t("table.columns.title"), column),
       cell: ({ row }) => {
         const title = getArticleTitle(row.original);
         return (
@@ -93,7 +94,7 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     },
     {
       accessorKey: "category",
-      header: ({ column }) => createSortableHeader("Category", column),
+      header: ({ column }) => createSortableHeader(t("table.columns.category"), column),
       cell: ({ row }) => (
         <div className="capitalize text-gray-700 text-xs">
           {row.getValue("category")}
@@ -103,7 +104,7 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     },
     {
       accessorKey: "likes",
-      header: ({ column }) => createSortableHeader("Likes", column),
+      header: ({ column }) => createSortableHeader(t("table.columns.likes"), column),
       cell: ({ row }) => (
         <div className="text-gray-700 font-medium">
           {(row.getValue("likes") as string[])?.length || 0}
@@ -112,7 +113,7 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     },
     {
       accessorKey: "commentsCount",
-      header: ({ column }) => createSortableHeader("Comments", column),
+      header: ({ column }) => createSortableHeader(t("table.columns.comments"), column),
       cell: ({ row }) => (
         <div className="text-gray-700 font-medium">
           {row.getValue("commentsCount") || 0}
@@ -121,7 +122,7 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     },
     {
       accessorKey: "views",
-      header: ({ column }) => createSortableHeader("Views", column),
+      header: ({ column }) => createSortableHeader(t("table.columns.views"), column),
       cell: ({ row }) => (
         <div className="text-gray-700 font-medium">
           {row.getValue("views") || 0}
@@ -130,7 +131,7 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
     },
     {
       accessorKey: "createdAt",
-      header: ({ column }) => createSortableHeader("Created", column),
+      header: ({ column }) => createSortableHeader(t("table.columns.created"), column),
       cell: ({ row }) => (
         <div className="text-xs text-gray-600">
           {new Date(row.getValue("createdAt")).toLocaleDateString()}
@@ -163,22 +164,22 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard
           icon={<BookOpen />}
-          title="Total Articles"
+          titleKey="totalArticles"
           value={weeklyStats.totalArticles}
         />
         <StatCard
           icon={<Eye />}
-          title="Total Views"
+          titleKey="totalViews"
           value={weeklyStats.totalViews}
         />
         <StatCard
           icon={<Heart />}
-          title="Total Likes"
+          titleKey="totalLikes"
           value={weeklyStats.totalLikes}
         />
         <StatCard
           icon={<MessageCircle />}
-          title="Total Comments"
+          titleKey="totalComments"
           value={weeklyStats.totalComments}
         />
       </div>
@@ -190,6 +191,17 @@ export default function Dashboard({ articles, weeklyStats }: DashboardProps) {
           data={articles} 
           onRowClick={handleRowClick} 
           getArticleTitle={getArticleTitle}
+          translations={{
+            filterPlaceholder: t("table.filter.placeholder"),
+            columns: t("table.filter.columns"),
+            rowsPerPage: t("table.pagination.rowsPerPage"),
+            selected: t("table.pagination.selected"),
+            page: t("table.pagination.page"),
+            of: t("table.pagination.of"),
+            previous: t("table.pagination.previous"),
+            next: t("table.pagination.next"),
+            noResults: t("table.noResults"),
+          }}
         />
       </div>
     </div>
