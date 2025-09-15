@@ -34,7 +34,7 @@ export async function generateMetadata({
         articleData.createdBy &&
         "username" in articleData.createdBy
           ? (articleData.createdBy as { username: string }).username
-          : "Women Spot Team",
+          : "Women's Spot Team",
       articleImages: articleData.articleImages || [],
       category: articleData.category,
       createdAt: articleData.createdAt
@@ -50,7 +50,7 @@ export async function generateMetadata({
         slug: contentByLanguage.seo.slug || slug,
       } : {
         metaTitle: `Article: ${slug}`,
-        metaDescription: `Read about ${slug} on Women Spot`,
+        metaDescription: `Read about ${slug} on Women's Spot`,
         keywords: [articleData.category, "health", "women"],
         slug: slug,
         hreflang: languageMap[locale] || locale,
@@ -67,15 +67,15 @@ export async function generateMetadata({
     const fallbackCanonicalUrl = `${baseUrl}/${locale}/${slug}`;
     
     const fallbackMetaContent: IMetaDataArticle = {
-      createdBy: "Women Spot Team",
+      createdBy: "Women's Spot Team",
       articleImages: [],
       category: "health",
       createdAt: new Date(),
       updatedAt: new Date(),
       seo: {
         metaTitle: `Article: ${slug}`,
-        metaDescription: `Read about ${slug} on Women Spot - Your health and wellness resource`,
-        keywords: ["health", "women", "wellness", "Women Spot", slug],
+        metaDescription: `Read about ${slug} on Women's Spot - Your health and wellness resource`,
+        keywords: ["health", "women", "wellness", "Women's Spot", slug],
         slug: slug,
         hreflang: languageMap[locale] || locale,
         urlPattern: `/${locale}/[category]/[slug]`,

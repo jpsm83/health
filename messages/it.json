@@ -83,7 +83,7 @@
     "signIn": "Accedi",
     "signUp": "Registrati",
     "signOut": "Esci",
-    "brandName": "Women Spot",
+    "brandName": "Women's Spot",
     "searchPlaceholder": "Cerca articoli...",
     "categories": {
       "health": "Salute",
@@ -359,74 +359,74 @@
   },
   "metadata": {
     "home": {
-      "title": "Women Spot - La Tua Piattaforma Completa per Salute e Benessere",
+      "title": "Women's Spot - La Tua Piattaforma Completa per Salute e Benessere",
       "description": "Scopri articoli, consigli e risorse per migliorare la tua salute e il tuo benessere. Accedi a contenuti di salute completi in più lingue.",
       "keywords": "salute, benessere, fitness, nutrizione, articoli, consigli, risorse, multilingue"
     },
     "signin": {
-      "title": "Accedi - Women Spot",
-      "description": "Accedi al tuo account Women Spot per accedere alla tua dashboard di salute personalizzata, articoli e risorse di benessere.",
-      "keywords": "accedi, login, Women Spot, account, autenticazione, dashboard di salute"
+      "title": "Accedi - Women's Spot",
+      "description": "Accedi al tuo account Women's Spot per accedere alla tua dashboard di salute personalizzata, articoli e risorse di benessere.",
+      "keywords": "accedi, login, Women's Spot, account, autenticazione, dashboard di salute"
     },
     "signup": {
-      "title": "Registrati - Women Spot",
-      "description": "Crea il tuo account Women Spot per accedere a contenuti di salute personalizzati, tracciare il tuo percorso di benessere e unirti alla nostra comunità di salute.",
-      "keywords": "registrati, crea account, Women Spot, comunità di salute, tracciamento benessere"
+      "title": "Registrati - Women's Spot",
+      "description": "Crea il tuo account Women's Spot per accedere a contenuti di salute personalizzati, tracciare il tuo percorso di benessere e unirti alla nostra comunità di salute.",
+      "keywords": "registrati, crea account, Women's Spot, comunità di salute, tracciamento benessere"
     },
     "dashboard": {
-      "title": "Dashboard - Women Spot",
+      "title": "Dashboard - Women's Spot",
       "description": "La tua panoramica sulla salute personalizzata e approfondimenti. Traccia i tuoi obiettivi di salute, progressi e accedi ai tuoi articoli e risorse di salute.",
       "keywords": "dashboard di salute, obiettivi di salute, tracciamento progressi, approfondimenti salute, salute personale, tracciamento benessere"
     },
     "profile": {
-      "title": "Profilo - Women Spot",
-      "description": "Gestisci le impostazioni del tuo account Women Spot, preferenze e informazioni personali. Personalizza la tua esperienza di salute e preferenze linguistiche.",
-      "keywords": "profilo utente, impostazioni account, preferenze, informazioni personali, impostazioni Women Spot, preferenze linguistiche"
+      "title": "Profilo - Women's Spot",
+      "description": "Gestisci le impostazioni del tuo account Women's Spot, preferenze e informazioni personali. Personalizza la tua esperienza di salute e preferenze linguistiche.",
+      "keywords": "profilo utente, impostazioni account, preferenze, informazioni personali, impostazioni Women's Spot, preferenze linguistiche"
     },
     "createArticle": {
-      "title": "Crea Articolo - Women Spot",
+      "title": "Crea Articolo - Women's Spot",
       "description": "Condividi le tue conoscenze di salute con la comunità. Crea e pubblica articoli di salute, consigli e contenuti di benessere in più lingue.",
       "keywords": "crea articolo, scrivi contenuti di salute, pubblica consigli di salute, articoli di benessere, condivisione conoscenze di salute, creazione contenuti"
     },
     "forgotPassword": {
-      "title": "Password Dimenticata - Women Spot",
-      "description": "Reimposta la tua password Women Spot. Inserisci il tuo indirizzo email e ti invieremo un link sicuro per reimpostare la tua password.",
-      "keywords": "password dimenticata, reimposta password, recupero password, login Women Spot, recupero account"
+      "title": "Password Dimenticata - Women's Spot",
+      "description": "Reimposta la tua password Women's Spot. Inserisci il tuo indirizzo email e ti invieremo un link sicuro per reimpostare la tua password.",
+      "keywords": "password dimenticata, reimposta password, recupero password, login Women's Spot, recupero account"
     },
     "resetPassword": {
-      "title": "Reimposta Password - Women Spot",
-      "description": "Imposta la tua nuova password per il tuo account Women Spot. Inserisci la tua nuova password qui sotto per completare il processo di reset password.",
-      "keywords": "reimposta password, nuova password, cambio password, sicurezza Women Spot, sicurezza account"
+      "title": "Reimposta Password - Women's Spot",
+      "description": "Imposta la tua nuova password per il tuo account Women's Spot. Inserisci la tua nuova password qui sotto per completare il processo di reset password.",
+      "keywords": "reimposta password, nuova password, cambio password, sicurezza Women's Spot, sicurezza account"
     },
     "about": {
-      "title": "Chi Siamo - Women Spot",
-      "description": "Women Spot è la tua fonte affidabile di contenuti su salute, fitness e stile di vita. Dare alle donne i mezzi per vivere le loro vite migliori.",
-      "keywords": "chi siamo, women spot, salute, fitness, stile di vita, empowerment"
+      "title": "Chi Siamo - Women's Spot",
+      "description": "Women's Spot è la tua fonte affidabile di contenuti su salute, fitness e stile di vita. Dare alle donne i mezzi per vivere le loro vite migliori.",
+      "keywords": "chi siamo, women's spot, salute, fitness, stile di vita, empowerment"
     },
     "termsConditions": {
-      "title": "Termini e Condizioni - Women Spot",
-      "description": "Termini e condizioni per utilizzare Women Spot. Si prega di leggere prima di utilizzare la nostra piattaforma.",
-      "keywords": "termini e condizioni, Women Spot, salute, fitness, stile di vita, empowerment"
+      "title": "Termini e Condizioni - Women's Spot",
+      "description": "Termini e condizioni per utilizzare Women's Spot. Si prega di leggere prima di utilizzare la nostra piattaforma.",
+      "keywords": "termini e condizioni, Women's Spot, salute, fitness, stile di vita, empowerment"
     },
     "privacyPolicy": {
-      "title": "Informativa sulla Privacy - Women Spot",
-      "description": "Informativa sulla privacy per utilizzare Women Spot. Rispettiamo la tua privacy e ci impegniamo a proteggere le tue informazioni personali.",
-      "keywords": "informativa sulla privacy, Women Spot, salute, fitness, stile di vita, empowerment, privacy"
+      "title": "Informativa sulla Privacy - Women's Spot",
+      "description": "Informativa sulla privacy per utilizzare Women's Spot. Rispettiamo la tua privacy e ci impegniamo a proteggere le tue informazioni personali.",
+      "keywords": "informativa sulla privacy, Women's Spot, salute, fitness, stile di vita, empowerment, privacy"
     },
     "cookiePolicy": {
-      "title": "Informativa sui Cookie - Women Spot",
-      "description": "Informativa sui cookie per utilizzare Women Spot. Utilizziamo i cookie per migliorare la tua esperienza sulla nostra piattaforma.",
-      "keywords": "informativa sui cookie, Women Spot, salute, fitness, stile di vita, empowerment, cookie"
+      "title": "Informativa sui Cookie - Women's Spot",
+      "description": "Informativa sui cookie per utilizzare Women's Spot. Utilizziamo i cookie per migliorare la tua esperienza sulla nostra piattaforma.",
+      "keywords": "informativa sui cookie, Women's Spot, salute, fitness, stile di vita, empowerment, cookie"
     },
     "siteMap": {
-      "title": "Mappa del Sito - Women Spot",
-      "description": "Mappa del sito per Women Spot. Trova la tua strada sulla nostra piattaforma ed esplora i nostri contenuti.",
-      "keywords": "mappa del sito, Women Spot, salute, fitness, stile di vita, empowerment, mappa del sito"
+      "title": "Mappa del Sito - Women's Spot",
+      "description": "Mappa del sito per Women's Spot. Trova la tua strada sulla nostra piattaforma ed esplora i nostri contenuti.",
+      "keywords": "mappa del sito, Women's Spot, salute, fitness, stile di vita, empowerment, mappa del sito"
     }
   },
   "about": {
     "hero": {
-      "title": "Chi Siamo - Women Spot",
+      "title": "Chi Siamo - Women's Spot",
       "subtitle": "La tua destinazione affidabile per tutto ciò di cui le donne hanno bisogno per vivere le loro vite migliori. Ci concentriamo sulla salute, il benessere e lo stile di vita delle donne, aiutandoti a creare una vita più felice, sana e appagante attraverso contenuti basati sull'evidenza."
     },
     "mission": {
@@ -496,7 +496,7 @@
     "lastUpdated": "Ultimo Aggiornamento:",
     "highlights": {
       "title": "Informativa sulla Privacy – Punti Chiave",
-      "description": "Quando utilizzi o interagisci con il sito web di Women Spot, l'app mobile o altri servizi digitali (ciascuno un 'Servizio Digitale') o completi moduli per abbonarti ai nostri contenuti, partecipare a concorsi o fornire i tuoi dettagli durante eventi, noi e terze parti otteniamo determinate informazioni su di te. In questa sezione Punti Chiave, forniamo una panoramica delle nostre pratiche sulla privacy relative ai Servizi Digitali. Ti preghiamo di rivedere la nostra Informativa sulla Privacy completa di seguito per una spiegazione dettagliata delle nostre pratiche."
+      "description": "Quando utilizzi o interagisci con il sito web di Women's Spot, l'app mobile o altri servizi digitali (ciascuno un 'Servizio Digitale') o completi moduli per abbonarti ai nostri contenuti, partecipare a concorsi o fornire i tuoi dettagli durante eventi, noi e terze parti otteniamo determinate informazioni su di te. In questa sezione Punti Chiave, forniamo una panoramica delle nostre pratiche sulla privacy relative ai Servizi Digitali. Ti preghiamo di rivedere la nostra Informativa sulla Privacy completa di seguito per una spiegazione dettagliata delle nostre pratiche."
     },
     "sections": {
       "whatInformationWeObtain": {
@@ -571,7 +571,7 @@
       },
       "linksToThirdParty": {
         "title": "Link a Siti Web di Terze Parti, App Mobili o Altri Servizi",
-        "description1": "I Servizi Digitali contengono link a siti web e app mobili, incluse Piattaforme di Social Media, o altri canali non gestiti da o affiliati a Women Spot (collettivamente \"Servizi di Terze Parti\").",
+        "description1": "I Servizi Digitali contengono link a siti web e app mobili, incluse Piattaforme di Social Media, o altri canali non gestiti da o affiliati a Women's Spot (collettivamente \"Servizi di Terze Parti\").",
         "description2": "Gli operatori di questi Servizi di Terze Parti utilizzano cookie e altre tecnologie per raccogliere informazioni sul tuo browser o dispositivo, incluse informazioni sulla tua navigazione dai Servizi Digitali ai Servizi di Terze Parti. I dati raccolti da questi link quando lasci i nostri Servizi Digitali sono determinati dai Servizi di Terze Parti, e agiscono come controllori separati dei tuoi dati.",
         "description3": "Non siamo responsabili delle pratiche sulla privacy di alcun Servizio di Terze Parti, e ti incoraggiamo a rivedere le politiche sulla privacy o gli avvisi pubblicati dai Servizi di Terze Parti che potresti visitare."
       },
@@ -585,7 +585,7 @@
   "cookiePolicy": {
     "title": "Politica sui Cookie",
     "introduction": {
-      "paragraph1": "Questa Politica sui Cookie si applica al Servizio Digitale che collega a questa Politica sui Cookie e fa parte dell'Informativa sulla Privacy, che descrive le nostre pratiche di gestione dei dati ed è disponibile qui. Sui Servizi Digitali, Women Spot ('noi', 'nostro' o 'Women Spot') e terze parti, inclusi i nostri fornitori di servizi pubblicitari e di marketing e partner, utilizzano una varietà di tecnologie inclusi i cookie ('Cookie e Tecnologie Simili').",
+      "paragraph1": "Questa Politica sui Cookie si applica al Servizio Digitale che collega a questa Politica sui Cookie e fa parte dell'Informativa sulla Privacy, che descrive le nostre pratiche di gestione dei dati ed è disponibile qui. Sui Servizi Digitali, Women's Spot ('noi', 'nostro' o 'Women's Spot') e terze parti, inclusi i nostri fornitori di servizi pubblicitari e di marketing e partner, utilizzano una varietà di tecnologie inclusi i cookie ('Cookie e Tecnologie Simili').",
       "paragraph2": "I Cookie e Tecnologie Simili variano a seconda dei Servizi Digitali e includono cookie, web beacon, tag, script, pixel, oggetti locali condivisi (inclusi i cookie HTML5) e kit di sviluppo software ('SDK'). Puoi leggere di più qui sotto sui tipi di cookie che utilizziamo, perché li utilizziamo e come puoi esercitare le tue scelte riguardo ai Cookie e Tecnologie Simili."
     },
     "sections": {
@@ -594,7 +594,7 @@
         "paragraphs": [
           "I Servizi Digitali registrano automaticamente determinate informazioni sulle visite ai Servizi Digitali utilizzando Cookie e Tecnologie Simili, come il numero e la frequenza dei visitatori, informazioni tecniche sui browser e dispositivi utilizzati per accedere ai Servizi Digitali, e informazioni su crash o altri problemi tecnici. I Cookie e Tecnologie Simili che registrano queste informazioni sono necessari per permettere ai Servizi Digitali di funzionare.",
           "Noi e terze parti possiamo raccogliere automaticamente determinate informazioni attraverso Cookie e Tecnologie Simili sulle tue attività nel tempo attraverso i Servizi Digitali così come attraverso siti, app o altri media di terze parti. I Cookie e Tecnologie Simili possono essere inclusi nelle nostre pagine web, app mobili, email e altro contenuto digitale. Possono assegnare o raccogliere ID di cookie unici o altri identificatori associati al tuo browser o dispositivo. Possono raccogliere informazioni mentre stai utilizzando i nostri Servizi Digitali o mentre stanno funzionando in background del tuo dispositivo.",
-          "I Cookie e Tecnologie Simili sui Servizi Digitali possono essere serviti direttamente da Women Spot (riferiti come 'cookie di prima parte') o da altri come inserzionisti e aziende di analisi dei dati (riferiti come 'cookie di terze parti').",
+          "I Cookie e Tecnologie Simili sui Servizi Digitali possono essere serviti direttamente da Women's Spot (riferiti come 'cookie di prima parte') o da altri come inserzionisti e aziende di analisi dei dati (riferiti come 'cookie di terze parti').",
           "I Cookie e Tecnologie Simili sono specifici per browser e dispositivo e possono durare per diversi periodi di tempo. Alcuni vengono eliminati automaticamente una volta che chiudi il tuo browser o esci dal Servizio Digitale. Questi sono a volte riferiti come 'cookie di sessione'. Altri cookie sono 'cookie persistenti', il che significa che rimangono sul tuo dispositivo dopo che il tuo browser è chiuso."
         ]
       },
@@ -647,12 +647,12 @@
           "definition": "significa le aree di chat, bacheche o strutture forum fornite sui Siti;"
         },
         {
-          "term": "Women Spot",
-          "definition": "significa Women Spot, il nome commerciale di Women Spot Limited i cui uffici registrati sono a [Indirizzo] e qualsiasi delle sue società sussidiarie o joint venture;"
+          "term": "Women's Spot",
+          "definition": "significa Women's Spot, il nome commerciale di Women's Spot Limited i cui uffici registrati sono a [Indirizzo] e qualsiasi delle sue società sussidiarie o joint venture;"
         },
         {
           "term": "Sito(i)",
-          "definition": "significa il(i) sito(i) web posseduti e gestiti da Women Spot;"
+          "definition": "significa il(i) sito(i) web posseduti e gestiti da Women's Spot;"
         },
         {
           "term": "Termini",
@@ -664,26 +664,26 @@
       "introduction": {
         "title": "1. INTRODUZIONE AI TERMINI",
         "items": [
-          "Questo Sito è posseduto e gestito da Women Spot.",
+          "Questo Sito è posseduto e gestito da Women's Spot.",
           "Questi Termini regolano l'utilizzo del Sito, inclusa la partecipazione ai Forum di Discussione.",
-          "I Siti sono progettati per fornire un forum, piacevole per tutti, per lo scambio di opinioni, commenti e informazioni e, pertanto, Women Spot richiede ai suoi utenti di rispettare questi Termini. Il tuo utilizzo del Sito costituirà il tuo accordo per rispettare questi Termini.",
+          "I Siti sono progettati per fornire un forum, piacevole per tutti, per lo scambio di opinioni, commenti e informazioni e, pertanto, Women's Spot richiede ai suoi utenti di rispettare questi Termini. Il tuo utilizzo del Sito costituirà il tuo accordo per rispettare questi Termini.",
           "Se non sei d'accordo con questi Termini, non devi utilizzare i Siti.",
-          "Women Spot può modificare questi Termini di tanto in tanto. L'utilizzo continuato dei Siti da parte tua costituirà la tua accettazione di qualsiasi modifica o revisione dei Termini, quindi è saggio controllare questa pagina regolarmente.",
+          "Women's Spot può modificare questi Termini di tanto in tanto. L'utilizzo continuato dei Siti da parte tua costituirà la tua accettazione di qualsiasi modifica o revisione dei Termini, quindi è saggio controllare questa pagina regolarmente.",
           "Possiamo terminare il tuo accesso ai Siti, senza preavviso, in aggiunta ai nostri altri rimedi se non segui questi Termini.",
-          "Di tanto in tanto, i nostri Siti possono pubblicare articoli o caratteristiche che alcuni visitatori del sito potrebbero trovare offensivi. Women Spot non intende offendere e suggerisce che i visitatori del Sito che trovano il tono o il contenuto dei Siti offensivi non visitino più i Siti. Non si assume alcuna responsabilità per qualsiasi offesa causata."
+          "Di tanto in tanto, i nostri Siti possono pubblicare articoli o caratteristiche che alcuni visitatori del sito potrebbero trovare offensivi. Women's Spot non intende offendere e suggerisce che i visitatori del Sito che trovano il tono o il contenuto dei Siti offensivi non visitino più i Siti. Non si assume alcuna responsabilità per qualsiasi offesa causata."
         ]
       },
       "useOfSites": {
         "title": "2. UTILIZZO DEI SITI DA PARTE TUA",
         "items": [
-          "Women Spot o i suoi licenziatari possiedono tutto il materiale sui Siti. Puoi recuperare e visualizzare contenuti da questi Siti su uno schermo di computer, stampare pagine individuali su carta (ma non fotocopiarle) e memorizzare tali pagine in forma elettronica su disco (ma non su alcun server o altro dispositivo di memorizzazione collegato a una rete) per il tuo uso personale e non commerciale. Non puoi in alcun modo fare uso commerciale o non autorizzato, per pubblicazione, ritrasmissione, distribuzione, esecuzione, memorizzazione nella cache o altrimenti, del materiale ottenuto attraverso i Siti.",
-          "Riconosci che tutti i marchi di riviste sono marchi commerciali e che non puoi utilizzarli senza il permesso scritto preventivo di Women Spot.",
+          "Women's Spot o i suoi licenziatari possiedono tutto il materiale sui Siti. Puoi recuperare e visualizzare contenuti da questi Siti su uno schermo di computer, stampare pagine individuali su carta (ma non fotocopiarle) e memorizzare tali pagine in forma elettronica su disco (ma non su alcun server o altro dispositivo di memorizzazione collegato a una rete) per il tuo uso personale e non commerciale. Non puoi in alcun modo fare uso commerciale o non autorizzato, per pubblicazione, ritrasmissione, distribuzione, esecuzione, memorizzazione nella cache o altrimenti, del materiale ottenuto attraverso i Siti.",
+          "Riconosci che tutti i marchi di riviste sono marchi commerciali e che non puoi utilizzarli senza il permesso scritto preventivo di Women's Spot.",
           "Non puoi autorizzare altri a utilizzare i Siti, e sei responsabile di tutto il tuo utilizzo dei Siti. Accetti di non utilizzare alcun linguaggio osceno, indecente o offensivo, o di porre sui Siti alcun materiale che sia falso, diffamatorio, abusivo, molesto o odioso. Inoltre, non puoi porre sui Siti alcun materiale che sia crittografato, costituisca spam o pubblicità non autorizzata, invada la privacy di chiunque, incoraggi condotte che costituirebbero un reato penale o darebbe luogo a responsabilità civile, o che altrimenti violi qualsiasi legge o regolamento locale, statale, nazionale o internazionale. Accetti di utilizzare i Siti solo per scopi legali e riconosci che il tuo fallimento nel farlo può sottoporti a responsabilità civile e penale.",
           "Sei responsabile di tutte le attività sotto la tua password o account, e devi mantenere la tua password confidenziale. Devi notificarci immediatamente di qualsiasi utilizzo non autorizzato della tua password o account o di qualsiasi altra violazione della sicurezza. Non devi interrompere il funzionamento del Sito, sollecitare o utilizzare la password di un altro utente o altrimenti agire in modo da interferire con l'utilizzo del Sito da parte di altri utenti.",
-          "Oltre a connetterti ai server di Women Spot tramite richieste HTTP utilizzando un browser web, non puoi tentare di ottenere accesso ai server di Women Spot con qualsiasi mezzo, incluso, senza limitazione, utilizzando password di amministratore o spacciandoti per un amministratore mentre utilizzi i Siti o altrimenti.",
+          "Oltre a connetterti ai server di Women's Spot tramite richieste HTTP utilizzando un browser web, non puoi tentare di ottenere accesso ai server di Women's Spot con qualsiasi mezzo, incluso, senza limitazione, utilizzando password di amministratore o spacciandoti per un amministratore mentre utilizzi i Siti o altrimenti.",
           "Sei responsabile di assicurarti che qualsiasi materiale che fornisci ai Siti o pubblichi in un Forum di Discussione, incluso ma non limitato a testo, fotografie e suono, non violi i diritti d'autore, marchio commerciale, segreto commerciale o qualsiasi altro diritto personale o di proprietà di qualsiasi terza parte.",
           "Accetti di non interrompere, modificare o interferire con i Siti o il loro software, hardware e server associati in alcun modo, e accetti di non impedire o interferire con l'utilizzo dei Siti da parte di altri. Inoltre accetti di non alterare o manipolare qualsiasi informazione o materiale sui, o associato ai, Siti.",
-          "Riconosci che Women Spot non ha esaminato e non approva il contenuto di tutti i siti collegati dai Siti e non è responsabile del contenuto o delle azioni di qualsiasi altro sito collegato dai Siti. Collegare a qualsiasi altro servizio o sito da questo Sito è a tuo rischio."
+          "Riconosci che Women's Spot non ha esaminato e non approva il contenuto di tutti i siti collegati dai Siti e non è responsabile del contenuto o delle azioni di qualsiasi altro sito collegato dai Siti. Collegare a qualsiasi altro servizio o sito da questo Sito è a tuo rischio."
         ]
       },
       "ageLimit": {
@@ -695,24 +695,24 @@
         "items": [
           "Questi Termini sono stati messi in atto per aiutare a garantire che il Forum di Discussione sia una risorsa accogliente e utile per tutti gli utenti. Questi Termini descrivono ciò che è considerato comportamento inaccettabile ed è importante leggerli attentamente.",
           "Gli utenti dei Forum di Discussione garantiscono e si impegnano a non: pubblicare commenti diffamatori o calunniosi; pubblicare qualsiasi cosa relativa a qualsiasi processo in corso o pendente; pubblicare contenuti che hai copiato da qualcun altro (cioè non possiedi i diritti d'autore); utilizzare profanità; pubblicare un insulto personale su un altro utente; fare pubblicità o sollecitare; impersonare un altro utente; pubblicare materiale che è deliberatamente destinato a turbare altri utenti; o utilizzare i Forum di Discussione in qualsiasi altro modo che sarebbe considerato illegale, immorale o irresponsabile.",
-          "Non possiamo e non rivediamo ogni post prima che appaia sui Siti. Women Spot opera una politica di 'avviso e rimozione' il che significa che se Women Spot nota o viene a conoscenza di un post che contravviene a questi Termini, Women Spot si riserva il diritto di modificare o rimuovere il post.",
-          "Women Spot ti incoraggia a contattarci se ritieni che un post violi questi Termini. Per favore utilizza la funzione di segnalazione sul Sito per farcelo sapere.",
-          "Sei responsabile del contenuto dei tuoi post e Women Spot non accetta alcuna responsabilità per il contenuto o l'accuratezza dei tuoi messaggi.",
-          "Gli utenti del Sito possono inviare materiale per la pubblicazione nei Forum di Discussione. Women Spot non accetta alcuna responsabilità in relazione a qualsiasi materiale inviato dagli utenti e pubblicato da Women Spot e Women Spot non è responsabile per il suo contenuto o accuratezza.",
+          "Non possiamo e non rivediamo ogni post prima che appaia sui Siti. Women's Spot opera una politica di 'avviso e rimozione' il che significa che se Women's Spot nota o viene a conoscenza di un post che contravviene a questi Termini, Women's Spot si riserva il diritto di modificare o rimuovere il post.",
+          "Women's Spot ti incoraggia a contattarci se ritieni che un post violi questi Termini. Per favore utilizza la funzione di segnalazione sul Sito per farcelo sapere.",
+          "Sei responsabile del contenuto dei tuoi post e Women's Spot non accetta alcuna responsabilità per il contenuto o l'accuratezza dei tuoi messaggi.",
+          "Gli utenti del Sito possono inviare materiale per la pubblicazione nei Forum di Discussione. Women's Spot non accetta alcuna responsabilità in relazione a qualsiasi materiale inviato dagli utenti e pubblicato da Women's Spot e Women's Spot non è responsabile per il suo contenuto o accuratezza.",
           "Se vuoi inviare materiale ai Forum di Discussione puoi farlo su questi Termini.",
           "Garantisci che il materiale che invii non sia osceno, offensivo, molesto, diffamatorio o altrimenti illegale.",
-          "Riconosci che qualsiasi violazione di queste garanzie può causare danni o perdite a Women Spot e accetti di risarcire e mantenere indenne Women Spot completamente e permanentemente contro qualsiasi responsabilità di terze parti, reclami, costi, perdite o danni sostenuti da Women Spot come risultato della pubblicazione di qualsiasi materiale che ci invii, inclusa la perdita consequenziale.",
-          "Dovrebbe Women Spot venire a conoscenza di qualsiasi attività che sarebbe contraria ai Termini o determinare nella sua unica discrezione essere inaccettabile, allora Women Spot si riserva il diritto di intraprendere azioni inclusa la rimozione temporanea o permanente di contenuti, il filtraggio delle trasmissioni internet e/o escludere l'utente con effetto immediato e, dove necessario, inoltrare qualsiasi materiale incriminante in suo possesso alla polizia britannica o altre autorità rilevanti.",
-          "Accetti che Women Spot possa mantenere un record del tuo IP e/o indirizzo host solo per scopi di riferimento (per mantenere una traccia della quantità di visitatori per giorno). In caso di qualsiasi violazione di questi Termini, Women Spot può visualizzare e aggiungere il tuo IP e/o indirizzo host a un 'database di esclusione' per impedirti di ottenere ulteriore accesso ai Siti. Questi indirizzi non sono distribuiti o dati a nessun servizio di terze parti."
+          "Riconosci che qualsiasi violazione di queste garanzie può causare danni o perdite a Women's Spot e accetti di risarcire e mantenere indenne Women's Spot completamente e permanentemente contro qualsiasi responsabilità di terze parti, reclami, costi, perdite o danni sostenuti da Women's Spot come risultato della pubblicazione di qualsiasi materiale che ci invii, inclusa la perdita consequenziale.",
+          "Dovrebbe Women's Spot venire a conoscenza di qualsiasi attività che sarebbe contraria ai Termini o determinare nella sua unica discrezione essere inaccettabile, allora Women's Spot si riserva il diritto di intraprendere azioni inclusa la rimozione temporanea o permanente di contenuti, il filtraggio delle trasmissioni internet e/o escludere l'utente con effetto immediato e, dove necessario, inoltrare qualsiasi materiale incriminante in suo possesso alla polizia britannica o altre autorità rilevanti.",
+          "Accetti che Women's Spot possa mantenere un record del tuo IP e/o indirizzo host solo per scopi di riferimento (per mantenere una traccia della quantità di visitatori per giorno). In caso di qualsiasi violazione di questi Termini, Women's Spot può visualizzare e aggiungere il tuo IP e/o indirizzo host a un 'database di esclusione' per impedirti di ottenere ulteriore accesso ai Siti. Questi indirizzi non sono distribuiti o dati a nessun servizio di terze parti."
         ]
       },
       "useOfMaterialPosted": {
         "title": "5. UTILIZZO DEL MATERIALE PUBBLICATO DA TE",
-        "description": "I post sui Forum di Discussione non sono privati. Concedi a Women Spot una licenza perpetua libera da royalty non esclusiva per utilizzare, riprodurre, modificare, tradurre, trasmettere, distribuire e sub-licenziare qualsiasi informazione o materiale che fornisci o comunichi ai Siti tramite tali post, in qualsiasi mezzo ora esistente o sviluppato in futuro, per qualsiasi scopo."
+        "description": "I post sui Forum di Discussione non sono privati. Concedi a Women's Spot una licenza perpetua libera da royalty non esclusiva per utilizzare, riprodurre, modificare, tradurre, trasmettere, distribuire e sub-licenziare qualsiasi informazione o materiale che fornisci o comunichi ai Siti tramite tali post, in qualsiasi mezzo ora esistente o sviluppato in futuro, per qualsiasi scopo."
       },
       "privacy": {
         "title": "6. PRIVACY",
-        "description": "Le informazioni che fornisci su te stesso a Women Spot saranno utilizzate da Women Spot solo in conformità con la sua Informativa sulla Privacy disponibile nella nostra pagina dell'informativa sulla privacy. L'Informativa sulla Privacy non si applica ai siti di terze parti."
+        "description": "Le informazioni che fornisci su te stesso a Women's Spot saranno utilizzate da Women's Spot solo in conformità con la sua Informativa sulla Privacy disponibile nella nostra pagina dell'informativa sulla privacy. L'Informativa sulla Privacy non si applica ai siti di terze parti."
       },
       "safety": {
         "title": "7. SICUREZZA",
@@ -721,17 +721,17 @@
       "informationAndAvailability": {
         "title": "8. INFORMAZIONI E DISPONIBILITÀ",
         "items": [
-          "Mentre Women Spot si prende ogni cura per assicurare che le informazioni su questi Siti siano accurate e complete, alcune di esse sono fornite a Women Spot da terze parti e Women Spot non può verificarne l'accuratezza o completezza. Ti è consigliato di verificare l'accuratezza di qualsiasi informazione prima di fare affidamento su di essa.",
-          "Inoltre, a causa della natura intrinseca di Internet, errori, interruzioni e ritardi possono verificarsi nel servizio in qualsiasi momento. Di conseguenza, i Siti di Women Spot sono forniti \"così come sono\" senza alcuna garanzia di alcun tipo e Women Spot non accetta alcuna responsabilità derivante da qualsiasi inesattezza o omissione nelle informazioni o interruzione nella disponibilità."
+          "Mentre Women's Spot si prende ogni cura per assicurare che le informazioni su questi Siti siano accurate e complete, alcune di esse sono fornite a Women's Spot da terze parti e Women's Spot non può verificarne l'accuratezza o completezza. Ti è consigliato di verificare l'accuratezza di qualsiasi informazione prima di fare affidamento su di essa.",
+          "Inoltre, a causa della natura intrinseca di Internet, errori, interruzioni e ritardi possono verificarsi nel servizio in qualsiasi momento. Di conseguenza, i Siti di Women's Spot sono forniti \"così come sono\" senza alcuna garanzia di alcun tipo e Women's Spot non accetta alcuna responsabilità derivante da qualsiasi inesattezza o omissione nelle informazioni o interruzione nella disponibilità."
         ]
       },
       "links": {
         "title": "9. COLLEGAMENTI",
         "items": [
-          "Qualsiasi sito web di terze parti che si collega a questo Sito non deve: creare una cornice o qualsiasi altro ambiente di browser o bordo intorno al contenuto di questo Sito; implicare che Women Spot lo stia approvando o i suoi prodotti o servizi; utilizzare qualsiasi marchio commerciale Women Spot visualizzato su qualsiasi Sito Women Spot senza permesso da Women Spot; violare qualsiasi diritto di proprietà intellettuale o altro diritto di qualsiasi persona; essere un sito web che contiene contenuti che potrebbero essere interpretati come di cattivo gusto, offensivi o controversi.",
-          "Women Spot si riserva espressamente il diritto di richiedere che qualsiasi collegamento in violazione di questi Termini sia rimosso e di intraprendere qualsiasi altra azione che ritenga appropriata.",
-          "Su questi Siti potresti essere offerto collegamenti automatici ad altri siti. Mentre Women Spot spera che sarai interessato a quegli altri siti, riconosci che i loro proprietari possono essere indipendenti da Women Spot e Women Spot non approva né accetta alcuna responsabilità per il loro contenuto.",
-          "Le pagine del Sito possono contenere alcuni collegamenti di marketing di affiliazione contestuali creati da terze parti. Gli acquisti effettuati su questi siti di terze parti sono la sola responsabilità di quel sito. Gli acquisti effettuati attraverso questi collegamenti possono risultare in una commissione guadagnata da Women Spot."
+          "Qualsiasi sito web di terze parti che si collega a questo Sito non deve: creare una cornice o qualsiasi altro ambiente di browser o bordo intorno al contenuto di questo Sito; implicare che Women's Spot lo stia approvando o i suoi prodotti o servizi; utilizzare qualsiasi marchio commerciale Women's Spot visualizzato su qualsiasi Sito Women's Spot senza permesso da Women's Spot; violare qualsiasi diritto di proprietà intellettuale o altro diritto di qualsiasi persona; essere un sito web che contiene contenuti che potrebbero essere interpretati come di cattivo gusto, offensivi o controversi.",
+          "Women's Spot si riserva espressamente il diritto di richiedere che qualsiasi collegamento in violazione di questi Termini sia rimosso e di intraprendere qualsiasi altra azione che ritenga appropriata.",
+          "Su questi Siti potresti essere offerto collegamenti automatici ad altri siti. Mentre Women's Spot spera che sarai interessato a quegli altri siti, riconosci che i loro proprietari possono essere indipendenti da Women's Spot e Women's Spot non approva né accetta alcuna responsabilità per il loro contenuto.",
+          "Le pagine del Sito possono contenere alcuni collegamenti di marketing di affiliazione contestuali creati da terze parti. Gli acquisti effettuati su questi siti di terze parti sono la sola responsabilità di quel sito. Gli acquisti effettuati attraverso questi collegamenti possono risultare in una commissione guadagnata da Women's Spot."
         ]
       },
       "general": {
@@ -741,9 +741,9 @@
           "Se qualsiasi disposizione di questi Termini è trovata essere invalida da qualsiasi tribunale avente giurisdizione competente, l'invalidità di quella disposizione non influenzerà la validità delle disposizioni rimanenti di questi Termini, che rimarranno in pieno vigore ed effetto.",
           "Questi Termini non sono destinati a beneficiare o essere eseguibili da qualsiasi terza parte e il Contracts (Rights of Third Parties) Act 1999 non si applicherà a questi Termini.",
           "Il fallimento di qualsiasi parte nell'esercitare qualsiasi diritto o rimedio sotto questi Termini non costituisce una rinuncia a quel diritto o rimedio.",
-          "A meno che non sia specificato diversamente sui Siti, il contenuto dei Siti è diretto esclusivamente a coloro che accedono ai Siti dal Regno Unito. Women Spot non fa alcuna rappresentazione che qualsiasi contenuto dei Siti sia appropriato per l'uso altrove, o disponibile in qualsiasi altra posizione. Coloro che scelgono di accedere ai Siti da qualsiasi altra posizione sono unicamente responsabili del rispetto delle leggi e regolamenti locali se e nella misura in cui sono applicabili.",
+          "A meno che non sia specificato diversamente sui Siti, il contenuto dei Siti è diretto esclusivamente a coloro che accedono ai Siti dal Regno Unito. Women's Spot non fa alcuna rappresentazione che qualsiasi contenuto dei Siti sia appropriato per l'uso altrove, o disponibile in qualsiasi altra posizione. Coloro che scelgono di accedere ai Siti da qualsiasi altra posizione sono unicamente responsabili del rispetto delle leggi e regolamenti locali se e nella misura in cui sono applicabili.",
           "Accetti che questi Termini, per tutti gli scopi, saranno governati da e costruiti in conformità con la legge inglese. Inoltre accetti, soggetto alla seguente clausola, di sottometterti alla giurisdizione esclusiva dei tribunali inglesi per quanto riguarda qualsiasi reclamo o materia che sorge sotto questi Termini.",
-          "Per il beneficio esclusivo di Women Spot, Women Spot manterrà il diritto di portare procedimenti quanto alla sostanza della materia nei tribunali del paese della tua residenza."
+          "Per il beneficio esclusivo di Women's Spot, Women's Spot manterrà il diritto di portare procedimenti quanto alla sostanza della materia nei tribunali del paese della tua residenza."
         ]
       }
     },

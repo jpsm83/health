@@ -8,7 +8,7 @@ import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "My Favorites - Women Spot",
+    title: "My Favorites - Women's Spot",
     description: "View your favorite health and wellness articles",
   };
 }

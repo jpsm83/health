@@ -83,7 +83,7 @@
     "signIn": "Inloggen",
     "signUp": "Registreren",
     "signOut": "Uitloggen",
-    "brandName": "Women Spot",
+    "brandName": "Women's Spot",
     "searchPlaceholder": "Zoek artikelen...",
     "categories": {
       "health": "Gezondheid",
@@ -359,74 +359,74 @@
   },
   "metadata": {
     "home": {
-      "title": "Women Spot - Jouw Uitgebreide Platform voor Gezondheid en Welzijn",
+      "title": "Women's Spot - Jouw Uitgebreide Platform voor Gezondheid en Welzijn",
       "description": "Ontdek artikelen, tips en bronnen om je gezondheid en welzijn te verbeteren. Toegang tot uitgebreide gezondheidsinhoud in meerdere talen.",
       "keywords": "gezondheid, welzijn, fitness, voeding, artikelen, tips, bronnen, meertalig"
     },
     "signin": {
-      "title": "Inloggen - Women Spot",
-      "description": "Log in op je Women Spot-account om toegang te krijgen tot je gepersonaliseerde gezondheidsdashboard, artikelen en welzijnsbronnen.",
-      "keywords": "inloggen, login, Women Spot, account, authenticatie, gezondheidsdashboard"
+      "title": "Inloggen - Women's Spot",
+      "description": "Log in op je Women's Spot-account om toegang te krijgen tot je gepersonaliseerde gezondheidsdashboard, artikelen en welzijnsbronnen.",
+      "keywords": "inloggen, login, Women's Spot, account, authenticatie, gezondheidsdashboard"
     },
     "signup": {
-      "title": "Registreren - Women Spot",
-      "description": "Maak je Women Spot-account aan om toegang te krijgen tot gepersonaliseerde gezondheidsinhoud, je welzijnsreis bij te houden en je aan te sluiten bij onze gezondheidsgemeenschap.",
-      "keywords": "registreren, account aanmaken, Women Spot, gezondheidsgemeenschap, welzijnsvolging"
+      "title": "Registreren - Women's Spot",
+      "description": "Maak je Women's Spot-account aan om toegang te krijgen tot gepersonaliseerde gezondheidsinhoud, je welzijnsreis bij te houden en je aan te sluiten bij onze gezondheidsgemeenschap.",
+      "keywords": "registreren, account aanmaken, Women's Spot, gezondheidsgemeenschap, welzijnsvolging"
     },
     "dashboard": {
-      "title": "Dashboard - Women Spot",
+      "title": "Dashboard - Women's Spot",
       "description": "Jouw gepersonaliseerde gezondheidsoverzicht en inzichten. Volg je gezondheidsdoelen, voortgang en toegang tot je gezondheidsartikelen en -bronnen.",
       "keywords": "gezondheidsdashboard, gezondheidsdoelen, voortgangsvolging, gezondheidsinzichten, persoonlijke gezondheid, welzijnsvolging"
     },
     "profile": {
-      "title": "Profiel - Women Spot",
-      "description": "Beheer je Women Spot-accountinstellingen, voorkeuren en persoonlijke informatie. Personaliseer je gezondheidservaring en taalvoorkeuren.",
-      "keywords": "gebruikersprofiel, accountinstellingen, voorkeuren, persoonlijke informatie, Women Spot-instellingen, taalvoorkeuren"
+      "title": "Profiel - Women's Spot",
+      "description": "Beheer je Women's Spot-accountinstellingen, voorkeuren en persoonlijke informatie. Personaliseer je gezondheidservaring en taalvoorkeuren.",
+      "keywords": "gebruikersprofiel, accountinstellingen, voorkeuren, persoonlijke informatie, Women's Spot-instellingen, taalvoorkeuren"
     },
     "createArticle": {
-      "title": "Artikel Maken - Women Spot",
+      "title": "Artikel Maken - Women's Spot",
       "description": "Deel je gezondheidskennis met de gemeenschap. Maak en publiceer gezondheidsartikelen, tips en welzijnsinhoud in meerdere talen.",
       "keywords": "artikel maken, gezondheidsinhoud schrijven, gezondheidstips publiceren, welzijnsartikelen, gezondheidskennis delen, inhoudscreatie"
     },
     "forgotPassword": {
-      "title": "Wachtwoord Vergeten - Women Spot",
-      "description": "Reset je Women Spot-wachtwoord. Voer je e-mailadres in en we sturen je een veilige link om je wachtwoord te resetten.",
-      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, Women Spot-login, accountherstel"
+      "title": "Wachtwoord Vergeten - Women's Spot",
+      "description": "Reset je Women's Spot-wachtwoord. Voer je e-mailadres in en we sturen je een veilige link om je wachtwoord te resetten.",
+      "keywords": "wachtwoord vergeten, wachtwoord resetten, wachtwoordherstel, Women's Spot-login, accountherstel"
     },
     "resetPassword": {
-      "title": "Wachtwoord Resetten - Women Spot",
-      "description": "Stel je nieuwe wachtwoord in voor je Women Spot-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
-      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women Spot-beveiliging, accountbeveiliging"
+      "title": "Wachtwoord Resetten - Women's Spot",
+      "description": "Stel je nieuwe wachtwoord in voor je Women's Spot-account. Voer je nieuwe wachtwoord hieronder in om het wachtwoord-resetproces te voltooien.",
+      "keywords": "wachtwoord resetten, nieuw wachtwoord, wachtwoordwijziging, Women's Spot-beveiliging, accountbeveiliging"
     },
     "about": {
-      "title": "Over Ons - Women Spot",
-      "description": "Women Spot is je betrouwbare bron voor gezondheids-, fitness- en lifestyle-inhoud. Vrouwen in staat stellen om hun beste leven te leiden.",
-      "keywords": "over ons, women spot, gezondheid, fitness, lifestyle, empowerment"
+      "title": "Over Ons - Women's Spot",
+      "description": "Women's Spot is je betrouwbare bron voor gezondheids-, fitness- en lifestyle-inhoud. Vrouwen in staat stellen om hun beste leven te leiden.",
+      "keywords": "over ons, women's spot, gezondheid, fitness, lifestyle, empowerment"
     },
     "termsConditions": {
-      "title": "Algemene Voorwaarden - Women Spot",
-      "description": "Algemene voorwaarden voor het gebruik van Women Spot. Lees deze voordat je ons platform gebruikt.",
-      "keywords": "algemene voorwaarden, Women Spot, gezondheid, fitness, lifestyle, empowerment"
+      "title": "Algemene Voorwaarden - Women's Spot",
+      "description": "Algemene voorwaarden voor het gebruik van Women's Spot. Lees deze voordat je ons platform gebruikt.",
+      "keywords": "algemene voorwaarden, Women's Spot, gezondheid, fitness, lifestyle, empowerment"
     },
     "privacyPolicy": {
-      "title": "Privacybeleid - Women Spot",
-      "description": "Privacybeleid voor het gebruik van Women Spot. We respecteren je privacy en zijn toegewijd aan het beschermen van je persoonlijke informatie.",
-      "keywords": "privacybeleid, Women Spot, gezondheid, fitness, lifestyle, empowerment, privacy"
+      "title": "Privacybeleid - Women's Spot",
+      "description": "Privacybeleid voor het gebruik van Women's Spot. We respecteren je privacy en zijn toegewijd aan het beschermen van je persoonlijke informatie.",
+      "keywords": "privacybeleid, Women's Spot, gezondheid, fitness, lifestyle, empowerment, privacy"
     },
     "cookiePolicy": {
-      "title": "Cookiebeleid - Women Spot",
-      "description": "Cookiebeleid voor het gebruik van Women Spot. We gebruiken cookies om je ervaring op ons platform te verbeteren.",
-      "keywords": "cookiebeleid, Women Spot, gezondheid, fitness, lifestyle, empowerment, cookies"
+      "title": "Cookiebeleid - Women's Spot",
+      "description": "Cookiebeleid voor het gebruik van Women's Spot. We gebruiken cookies om je ervaring op ons platform te verbeteren.",
+      "keywords": "cookiebeleid, Women's Spot, gezondheid, fitness, lifestyle, empowerment, cookies"
     },
     "siteMap": {
-      "title": "Sitemap - Women Spot",
-      "description": "Sitemap voor Women Spot. Vind je weg op ons platform en verken onze inhoud.",
-      "keywords": "sitemap, Women Spot, gezondheid, fitness, lifestyle, empowerment, sitemap"
+      "title": "Sitemap - Women's Spot",
+      "description": "Sitemap voor Women's Spot. Vind je weg op ons platform en verken onze inhoud.",
+      "keywords": "sitemap, Women's Spot, gezondheid, fitness, lifestyle, empowerment, sitemap"
     }
   },
   "about": {
     "hero": {
-      "title": "Over Women Spot",
+      "title": "Over Women's Spot",
       "subtitle": "Je betrouwbare bestemming voor alles wat vrouwen nodig hebben om hun beste leven te leiden. We richten ons op de gezondheid, het welzijn en de levensstijl van vrouwen, en helpen je een gelukkiger, gezonder en vervullender leven te creëren door middel van evidence-based content."
     },
     "mission": {
@@ -496,7 +496,7 @@
     "lastUpdated": "Laatst Bijgewerkt:",
     "highlights": {
       "title": "Privacyverklaring – Hoogtepunten",
-      "description": "Wanneer je de Women Spot-website, mobiele app of andere digitale diensten gebruikt of ermee interacteert (elk een 'Digitale Dienst') of formulieren invult om je te abonneren op onze content, deel te nemen aan wedstrijden of je gegevens te verstrekken bij evenementen, verkrijgen wij en derden bepaalde informatie over jou. In dit Hoogtepunten-gedeelte geven we een overzicht van onze privacypraktijken met betrekking tot de Digitale Diensten. Lees alstublieft onze volledige Privacyverklaring hieronder voor een gedetailleerde uitleg van onze praktijken."
+      "description": "Wanneer je de Women's Spot-website, mobiele app of andere digitale diensten gebruikt of ermee interacteert (elk een 'Digitale Dienst') of formulieren invult om je te abonneren op onze content, deel te nemen aan wedstrijden of je gegevens te verstrekken bij evenementen, verkrijgen wij en derden bepaalde informatie over jou. In dit Hoogtepunten-gedeelte geven we een overzicht van onze privacypraktijken met betrekking tot de Digitale Diensten. Lees alstublieft onze volledige Privacyverklaring hieronder voor een gedetailleerde uitleg van onze praktijken."
     },
     "sections": {
       "whatInformationWeObtain": {
@@ -571,7 +571,7 @@
       },
       "linksToThirdParty": {
         "title": "Links naar Websites van Derden, Mobiele Apps of Andere Diensten",
-        "description1": "De Digitale Diensten bevatten links naar websites en mobiele apps, inclusief Social Media Platforms, of andere kanalen die niet worden geëxploiteerd door of gelieerd zijn aan Women Spot (gezamenlijk \"Diensten van Derden\").",
+        "description1": "De Digitale Diensten bevatten links naar websites en mobiele apps, inclusief Social Media Platforms, of andere kanalen die niet worden geëxploiteerd door of gelieerd zijn aan Women's Spot (gezamenlijk \"Diensten van Derden\").",
         "description2": "De exploitanten van deze Diensten van Derden gebruiken cookies en andere technologieën om informatie te verzamelen over je browser of apparaat, inclusief informatie over je navigatie van de Digitale Diensten naar de Diensten van Derden. De gegevens die worden verzameld van deze links wanneer je onze Digitale Diensten verlaat, worden bepaald door de Diensten van Derden, en ze handelen als afzonderlijke controllers van je gegevens.",
         "description3": "We zijn niet verantwoordelijk voor de privacypraktijken van Diensten van Derden, en we moedigen je aan om de privacybeleidsregels of kennisgevingen te bekijken die worden gepubliceerd door Diensten van Derden die je mogelijk bezoekt."
       },
@@ -585,7 +585,7 @@
   "cookiePolicy": {
     "title": "Cookiebeleid",
     "introduction": {
-      "paragraph1": "Dit Cookiebeleid is van toepassing op de Digitale Dienst die naar dit Cookiebeleid verwijst en maakt deel uit van het Privacybeleid, dat onze gegevensverwerkingspraktijken beschrijft en hier beschikbaar is. Op de Digitale Diensten gebruiken Women Spot ('wij', 'ons', 'onze' of 'Women Spot') en derden, inclusief onze advertentie- en marketinggerelateerde dienstverleners en partners, een verscheidenheid aan technologieën inclusief cookies ('Cookies en Vergelijkbare Technologieën').",
+      "paragraph1": "Dit Cookiebeleid is van toepassing op de Digitale Dienst die naar dit Cookiebeleid verwijst en maakt deel uit van het Privacybeleid, dat onze gegevensverwerkingspraktijken beschrijft en hier beschikbaar is. Op de Digitale Diensten gebruiken Women's Spot ('wij', 'ons', 'onze' of 'Women's Spot') en derden, inclusief onze advertentie- en marketinggerelateerde dienstverleners en partners, een verscheidenheid aan technologieën inclusief cookies ('Cookies en Vergelijkbare Technologieën').",
       "paragraph2": "Cookies en Vergelijkbare Technologieën variëren afhankelijk van de Digitale Diensten en omvatten cookies, web beacons, tags, scripts, pixels, lokale gedeelde objecten (inclusief HTML5 cookies) en software development kits ('SDK's'). U kunt hieronder meer lezen over de soorten cookies die wij gebruiken, waarom wij ze gebruiken en hoe u uw keuzes kunt uitoefenen met betrekking tot Cookies en Vergelijkbare Technologieën."
     },
     "sections": {
@@ -594,7 +594,7 @@
         "paragraphs": [
           "De Digitale Diensten loggen automatisch bepaalde informatie over bezoeken aan de Digitale Diensten op met behulp van Cookies en Vergelijkbare Technologieën, zoals het aantal en de frequentie van bezoekers, technische informatie over browsers en apparaten die worden gebruikt om toegang te krijgen tot de Digitale Diensten, en informatie over crashes of andere technische problemen. De Cookies en Vergelijkbare Technologieën die deze informatie loggen zijn noodzakelijk om de Digitale Diensten te laten functioneren.",
           "Wij en derden kunnen automatisch bepaalde informatie verzamelen door middel van Cookies en Vergelijkbare Technologieën over uw activiteiten in de loop van de tijd over de Digitale Diensten heen, evenals over websites, apps of andere media van derden. Cookies en Vergelijkbare Technologieën kunnen worden opgenomen in onze webpagina's, mobiele apps, e-mails en andere digitale content. Ze kunnen unieke cookie-ID's of andere identificatoren toewijzen of verzamelen die zijn gekoppeld aan uw browser of apparaat. Ze kunnen informatie verzamelen terwijl u onze Digitale Diensten gebruikt of terwijl ze op de achtergrond van uw apparaat draaien.",
-          "Cookies en Vergelijkbare Technologieën op de Digitale Diensten kunnen direct worden geserveerd door Women Spot (aangeduid als 'first-party cookies') of door anderen zoals adverteerders en data-analysebedrijven (aangeduid als 'third-party cookies').",
+          "Cookies en Vergelijkbare Technologieën op de Digitale Diensten kunnen direct worden geserveerd door Women's Spot (aangeduid als 'first-party cookies') of door anderen zoals adverteerders en data-analysebedrijven (aangeduid als 'third-party cookies').",
           "Cookies en Vergelijkbare Technologieën zijn browser- en apparaatspecifiek en kunnen verschillende tijdsperioden duren. Sommige worden automatisch verwijderd zodra u uw browser sluit of de Digitale Dienst verlaat. Deze worden soms aangeduid als 'sessie cookies'. Andere cookies zijn 'persistente cookies', wat betekent dat ze op uw apparaat blijven nadat uw browser is gesloten."
         ]
       },
@@ -647,12 +647,12 @@
           "definition": "betekent de chat-gebieden, prikborden of forum-faciliteiten die worden aangeboden op de Sites;"
         },
         {
-          "term": "Women Spot",
-          "definition": "betekent Women Spot, de handelsnaam van Women Spot Limited wiens geregistreerde kantoren zich bevinden in [Adres] en alle dochter- of joint venture-bedrijven;"
+          "term": "Women's Spot",
+          "definition": "betekent Women's Spot, de handelsnaam van Women's Spot Limited wiens geregistreerde kantoren zich bevinden in [Adres] en alle dochter- of joint venture-bedrijven;"
         },
         {
           "term": "Site(s)",
-          "definition": "betekent de website(s) die eigendom zijn van en worden geëxploiteerd door Women Spot;"
+          "definition": "betekent de website(s) die eigendom zijn van en worden geëxploiteerd door Women's Spot;"
         },
         {
           "term": "Voorwaarden",
@@ -664,26 +664,26 @@
       "introduction": {
         "title": "1. INLEIDING TOT DE VOORWAARDEN",
         "items": [
-          "Deze Site is eigendom van en wordt geëxploiteerd door Women Spot.",
+          "Deze Site is eigendom van en wordt geëxploiteerd door Women's Spot.",
           "Deze Voorwaarden regelen het gebruik van de Site, inclusief deelname aan de Discussiefora.",
-          "De Sites zijn ontworpen om een forum te bieden, aangenaam voor iedereen, voor de uitwisseling van meningen, commentaren en informatie en daarom vereist Women Spot dat haar gebruikers zich aan deze Voorwaarden houden. Je gebruik van de Site zal je overeenkomst vormen om je aan deze Voorwaarden te houden.",
+          "De Sites zijn ontworpen om een forum te bieden, aangenaam voor iedereen, voor de uitwisseling van meningen, commentaren en informatie en daarom vereist Women's Spot dat haar gebruikers zich aan deze Voorwaarden houden. Je gebruik van de Site zal je overeenkomst vormen om je aan deze Voorwaarden te houden.",
           "Als je het niet eens bent met deze Voorwaarden, moet je de Sites niet gebruiken.",
-          "Women Spot kan deze Voorwaarden van tijd tot tijd wijzigen. Voortgezet gebruik van de Sites door jou zal je acceptatie vormen van alle wijzigingen of herzieningen van de Voorwaarden, dus het is verstandig om deze pagina regelmatig te controleren.",
+          "Women's Spot kan deze Voorwaarden van tijd tot tijd wijzigen. Voortgezet gebruik van de Sites door jou zal je acceptatie vormen van alle wijzigingen of herzieningen van de Voorwaarden, dus het is verstandig om deze pagina regelmatig te controleren.",
           "We kunnen je toegang tot de Sites beëindigen, zonder voorafgaande kennisgeving, naast onze andere rechtsmiddelen als je deze Voorwaarden niet volgt.",
-          "Van tijd tot tijd kunnen onze Sites artikelen of functies publiceren die sommige sitebezoekers aanstootgevend kunnen vinden. Women Spot heeft niet de bedoeling om aanstoot te geven en stelt voor dat sitebezoekers die de toon of inhoud van de Sites aanstootgevend vinden, de Sites niet meer bezoeken. Er wordt geen verantwoordelijkheid aanvaard voor enige veroorzaakte aanstoot."
+          "Van tijd tot tijd kunnen onze Sites artikelen of functies publiceren die sommige sitebezoekers aanstootgevend kunnen vinden. Women's Spot heeft niet de bedoeling om aanstoot te geven en stelt voor dat sitebezoekers die de toon of inhoud van de Sites aanstootgevend vinden, de Sites niet meer bezoeken. Er wordt geen verantwoordelijkheid aanvaard voor enige veroorzaakte aanstoot."
         ]
       },
       "useOfSites": {
         "title": "2. GEBRUIK VAN DE SITES DOOR JOU",
         "items": [
-          "Women Spot of haar licentiegevers bezitten alle materialen op de Sites. Je kunt inhoud van deze Sites ophalen en weergeven op een computerscherm, individuele pagina's afdrukken op papier (maar niet fotokopiëren) en dergelijke pagina's opslaan in elektronische vorm op schijf (maar niet op een server of ander opslagapparaat dat is aangesloten op een netwerk) voor je eigen persoonlijke, niet-commerciële gebruik. Je mag op geen enkele manier commercieel of ander ongeautoriseerd gebruik maken, door publicatie, doorgave, distributie, uitvoering, caching of anderszins, van materiaal dat is verkregen via de Sites.",
-          "Je erkent dat alle tijdschriftmerken handelsmerken zijn en dat je ze niet mag gebruiken zonder voorafgaande schriftelijke toestemming van Women Spot.",
+          "Women's Spot of haar licentiegevers bezitten alle materialen op de Sites. Je kunt inhoud van deze Sites ophalen en weergeven op een computerscherm, individuele pagina's afdrukken op papier (maar niet fotokopiëren) en dergelijke pagina's opslaan in elektronische vorm op schijf (maar niet op een server of ander opslagapparaat dat is aangesloten op een netwerk) voor je eigen persoonlijke, niet-commerciële gebruik. Je mag op geen enkele manier commercieel of ander ongeautoriseerd gebruik maken, door publicatie, doorgave, distributie, uitvoering, caching of anderszins, van materiaal dat is verkregen via de Sites.",
+          "Je erkent dat alle tijdschriftmerken handelsmerken zijn en dat je ze niet mag gebruiken zonder voorafgaande schriftelijke toestemming van Women's Spot.",
           "Je mag anderen niet autoriseren om de Sites te gebruiken, en je bent verantwoordelijk voor al je eigen gebruik van de Sites. Je gaat ermee akkoord om geen obsceen, onfatsoenlijk of aanstootgevend taalgebruik te gebruiken, of materiaal op de Sites te plaatsen dat vals, lasterlijk, beledigend, intimiderend of hatelijk is. Bovendien mag je geen materiaal op de Sites plaatsen dat versleuteld is, spam of ongeautoriseerde advertenties vormt, iemands privacy schendt, gedrag aanmoedigt dat een strafbaar feit zou vormen of aanleiding zou geven tot civiele aansprakelijkheid, of dat anderszins lokale, staats-, nationale of internationale wetten of voorschriften schendt. Je gaat ermee akkoord om de Sites alleen voor wettige doeleinden te gebruiken en je erkent dat je falen om dit te doen je kan onderwerpen aan civiele en strafrechtelijke aansprakelijkheid.",
           "Je bent verantwoordelijk voor alle activiteiten onder je wachtwoord of account, en je moet je wachtwoord vertrouwelijk houden. Je moet ons onmiddellijk op de hoogte stellen van elk ongeautoriseerd gebruik van je wachtwoord of account of elke andere beveiligingsinbreuk. Je mag de functionaliteit van de Site niet verstoren, het wachtwoord van een andere gebruiker opvragen of gebruiken of anderszins handelen op een manier die het gebruik van de Site door andere gebruikers verstoort.",
-          "Naast het verbinden met Women Spot-servers door HTTP-verzoeken met een webbrowser, mag je niet proberen toegang te krijgen tot Women Spot-servers door enige middelen, inclusief, maar niet beperkt tot, het gebruik van beheerderswachtwoorden of je voordoen als een beheerder terwijl je de Sites gebruikt of anderszins.",
+          "Naast het verbinden met Women's Spot-servers door HTTP-verzoeken met een webbrowser, mag je niet proberen toegang te krijgen tot Women's Spot-servers door enige middelen, inclusief, maar niet beperkt tot, het gebruik van beheerderswachtwoorden of je voordoen als een beheerder terwijl je de Sites gebruikt of anderszins.",
           "Je bent verantwoordelijk voor het zorgen dat alle materiaal dat je aan de Sites verstrekt of plaatst in een Discussieforum, inclusief maar niet beperkt tot tekst, foto's en geluid, de auteursrechten, handelsmerken, handelsgeheimen of andere persoonlijke of eigendomsrechten van enige derde partij niet schendt.",
           "Je gaat ermee akkoord om de Sites of hun bijbehorende software, hardware en servers op geen enkele manier te verstoren, wijzigen of te verstoren, en je gaat ermee akkoord om het gebruik van de Sites door anderen niet te belemmeren of te verstoren. Je gaat er verder mee akkoord om geen informatie of materiaal op of in verband met de Sites te wijzigen of te manipuleren.",
-          "Je erkent dat Women Spot de inhoud van alle sites die vanaf de Sites zijn gelinkt niet heeft beoordeeld en niet onderschrijft en niet verantwoordelijk is voor de inhoud of acties van andere sites die vanaf de Sites zijn gelinkt. Linken naar enige andere service of site vanaf deze Site is op je eigen risico."
+          "Je erkent dat Women's Spot de inhoud van alle sites die vanaf de Sites zijn gelinkt niet heeft beoordeeld en niet onderschrijft en niet verantwoordelijk is voor de inhoud of acties van andere sites die vanaf de Sites zijn gelinkt. Linken naar enige andere service of site vanaf deze Site is op je eigen risico."
         ]
       },
       "ageLimit": {
@@ -695,24 +695,24 @@
         "items": [
           "Deze Voorwaarden zijn ingesteld om ervoor te zorgen dat het Discussieforum een gastvrije en nuttige bron is voor alle gebruikers. Deze Voorwaarden beschrijven wat wordt beschouwd als onacceptabel gedrag en het is belangrijk om ze zorgvuldig te lezen.",
           "Gebruikers van de Discussiefora garanderen en verbinden zich ertoe dat ze niet: lasterlijke of belasterende commentaren zullen plaatsen; iets zullen plaatsen met betrekking tot lopende of hangende rechtszaken; inhoud zullen plaatsen die je van iemand anders hebt gekopieerd (d.w.z. je bezit niet de auteursrechten); scheldwoorden zullen gebruiken; een persoonlijke belediging over een andere gebruiker zullen plaatsen; reclame zullen maken of zullen vragen; zich als een andere gebruiker zullen voordoen; materiaal zullen plaatsen dat bewust bedoeld is om andere gebruikers te storen; of de Discussiefora op enige andere manier zullen gebruiken die als illegaal, immoreel of onverantwoordelijk zou worden beschouwd.",
-          "We kunnen en beoordelen niet elke post voordat deze op de Sites verschijnt. Women Spot hanteert een 'kennisgeving en verwijdering'-beleid wat betekent dat als Women Spot een post opmerkt of op de hoogte wordt gesteld van een post die deze Voorwaarden schendt, Women Spot zich het recht voorbehoudt om de post te wijzigen of te verwijderen.",
-          "Women Spot moedigt je aan om contact met ons op te nemen als je vindt dat een post deze Voorwaarden schendt. Gebruik alstublieft de meldingsfunctie op de Site om het ons te laten weten.",
-          "Je bent verantwoordelijk voor de inhoud van je posts en Women Spot aanvaardt geen verantwoordelijkheid voor de inhoud of nauwkeurigheid van je berichten.",
-          "Gebruikers van de Site kunnen materiaal indienen voor publicatie in de Discussiefora. Women Spot aanvaardt geen verantwoordelijkheid met betrekking tot enig materiaal dat door gebruikers is ingediend en gepubliceerd door Women Spot en Women Spot is niet verantwoordelijk voor de inhoud of nauwkeurigheid ervan.",
+          "We kunnen en beoordelen niet elke post voordat deze op de Sites verschijnt. Women's Spot hanteert een 'kennisgeving en verwijdering'-beleid wat betekent dat als Women's Spot een post opmerkt of op de hoogte wordt gesteld van een post die deze Voorwaarden schendt, Women's Spot zich het recht voorbehoudt om de post te wijzigen of te verwijderen.",
+          "Women's Spot moedigt je aan om contact met ons op te nemen als je vindt dat een post deze Voorwaarden schendt. Gebruik alstublieft de meldingsfunctie op de Site om het ons te laten weten.",
+          "Je bent verantwoordelijk voor de inhoud van je posts en Women's Spot aanvaardt geen verantwoordelijkheid voor de inhoud of nauwkeurigheid van je berichten.",
+          "Gebruikers van de Site kunnen materiaal indienen voor publicatie in de Discussiefora. Women's Spot aanvaardt geen verantwoordelijkheid met betrekking tot enig materiaal dat door gebruikers is ingediend en gepubliceerd door Women's Spot en Women's Spot is niet verantwoordelijk voor de inhoud of nauwkeurigheid ervan.",
           "Als je materiaal aan de Discussiefora wilt indienen, kun je dat doen onder deze Voorwaarden.",
           "Je garandeert dat het materiaal dat je indient niet obsceen, aanstootgevend, intimiderend, lasterlijk of anderszins illegaal is.",
-          "Je erkent dat elke schending van deze garanties Women Spot schade of verlies kan veroorzaken en gaat ermee akkoord om Women Spot volledig en permanent te vrijwaren tegen alle aansprakelijkheid van derden, claims, kosten, verlies of schade die Women Spot lijdt als gevolg van het publiceren van enig materiaal dat je ons indient, inclusief gevolgschade.",
-          "Mocht Women Spot op de hoogte worden van enige activiteit die in strijd zou zijn met de Voorwaarden of in haar enige oordeel als onacceptabel zou worden bepaald, dan behoudt Women Spot zich het recht voor om actie te ondernemen inclusief tijdelijke of permanente verwijdering van inhoud, filtering van internet-transmissies en/of de gebruiker uit te sluiten met onmiddellijke ingang en, waar nodig, enig belastend materiaal in haar bezit door te sturen naar de Britse politie of andere relevante autoriteiten.",
-          "Je accepteert dat Women Spot een record van je IP- en/of host-adres kan bijhouden alleen voor referentiedoeleinden (om een overzicht te houden van de hoeveelheid bezoekers per dag). In het geval van enige schending van deze Voorwaarden kan Women Spot je IP- en/of host-adres bekijken en toevoegen aan een 'uitsluitingsdatabase' om te voorkomen dat je verdere toegang tot de Sites krijgt. Deze adressen worden niet verspreid of gegeven aan enige diensten van derden."
+          "Je erkent dat elke schending van deze garanties Women's Spot schade of verlies kan veroorzaken en gaat ermee akkoord om Women's Spot volledig en permanent te vrijwaren tegen alle aansprakelijkheid van derden, claims, kosten, verlies of schade die Women's Spot lijdt als gevolg van het publiceren van enig materiaal dat je ons indient, inclusief gevolgschade.",
+          "Mocht Women's Spot op de hoogte worden van enige activiteit die in strijd zou zijn met de Voorwaarden of in haar enige oordeel als onacceptabel zou worden bepaald, dan behoudt Women's Spot zich het recht voor om actie te ondernemen inclusief tijdelijke of permanente verwijdering van inhoud, filtering van internet-transmissies en/of de gebruiker uit te sluiten met onmiddellijke ingang en, waar nodig, enig belastend materiaal in haar bezit door te sturen naar de Britse politie of andere relevante autoriteiten.",
+          "Je accepteert dat Women's Spot een record van je IP- en/of host-adres kan bijhouden alleen voor referentiedoeleinden (om een overzicht te houden van de hoeveelheid bezoekers per dag). In het geval van enige schending van deze Voorwaarden kan Women's Spot je IP- en/of host-adres bekijken en toevoegen aan een 'uitsluitingsdatabase' om te voorkomen dat je verdere toegang tot de Sites krijgt. Deze adressen worden niet verspreid of gegeven aan enige diensten van derden."
         ]
       },
       "useOfMaterialPosted": {
         "title": "5. GEBRUIK VAN DOOR JOU GEPLAATST MATERIAAL",
-        "description": "Posts naar de Discussiefora zijn niet privé. Je verleent Women Spot een eeuwigdurende, royalty-vrije, niet-exclusieve licentie om alle informatie of materiaal te gebruiken, reproduceren, wijzigen, vertalen, verzenden, distribueren en sub-licentiëren die je verstrekt of communiceert naar de Sites via dergelijke posts, in elk medium dat nu bestaat of in de toekomst wordt ontwikkeld, voor enig doel."
+        "description": "Posts naar de Discussiefora zijn niet privé. Je verleent Women's Spot een eeuwigdurende, royalty-vrije, niet-exclusieve licentie om alle informatie of materiaal te gebruiken, reproduceren, wijzigen, vertalen, verzenden, distribueren en sub-licentiëren die je verstrekt of communiceert naar de Sites via dergelijke posts, in elk medium dat nu bestaat of in de toekomst wordt ontwikkeld, voor enig doel."
       },
       "privacy": {
         "title": "6. PRIVACY",
-        "description": "De informatie die je over jezelf verstrekt aan Women Spot zal alleen door Women Spot worden gebruikt in overeenstemming met haar Privacybeleid dat beschikbaar is op onze privacybeleid-pagina. Het Privacybeleid is niet van toepassing op sites van derden."
+        "description": "De informatie die je over jezelf verstrekt aan Women's Spot zal alleen door Women's Spot worden gebruikt in overeenstemming met haar Privacybeleid dat beschikbaar is op onze privacybeleid-pagina. Het Privacybeleid is niet van toepassing op sites van derden."
       },
       "safety": {
         "title": "7. VEILIGHEID",
@@ -721,17 +721,17 @@
       "informationAndAvailability": {
         "title": "8. INFORMATIE EN BESCHIKBAARHEID",
         "items": [
-          "Hoewel Women Spot alle zorg besteedt aan het zorgen dat de informatie op deze Sites nauwkeurig en volledig is, wordt een deel ervan door derden aan Women Spot geleverd en kan Women Spot de nauwkeurigheid of volledigheid ervan niet controleren. Je wordt geadviseerd om de nauwkeurigheid van alle informatie te verifiëren voordat je erop vertrouwt.",
-          "Bovendien kunnen, vanwege de inherente aard van het internet, fouten, onderbrekingen en vertragingen in de service op elk moment optreden. Dienovereenkomstig worden de Sites van Women Spot 'zoals ze zijn' geleverd zonder enige garanties van welke aard dan ook en aanvaardt Women Spot geen aansprakelijkheid die voortvloeit uit enige onnauwkeurigheid of weglating in de informatie of onderbreking in de beschikbaarheid."
+          "Hoewel Women's Spot alle zorg besteedt aan het zorgen dat de informatie op deze Sites nauwkeurig en volledig is, wordt een deel ervan door derden aan Women's Spot geleverd en kan Women's Spot de nauwkeurigheid of volledigheid ervan niet controleren. Je wordt geadviseerd om de nauwkeurigheid van alle informatie te verifiëren voordat je erop vertrouwt.",
+          "Bovendien kunnen, vanwege de inherente aard van het internet, fouten, onderbrekingen en vertragingen in de service op elk moment optreden. Dienovereenkomstig worden de Sites van Women's Spot 'zoals ze zijn' geleverd zonder enige garanties van welke aard dan ook en aanvaardt Women's Spot geen aansprakelijkheid die voortvloeit uit enige onnauwkeurigheid of weglating in de informatie of onderbreking in de beschikbaarheid."
         ]
       },
       "links": {
         "title": "9. LINKS",
         "items": [
-          "Elke website van derden die naar deze Site linkt mag niet: een frame of enige andere browser- of randomgeving rond de inhoud van deze Site creëren; impliceren dat Women Spot het of zijn producten of diensten onderschrijft; enig Women Spot-handelsmerk gebruiken dat wordt weergegeven op enige Women Spot-site zonder toestemming van Women Spot; enige intellectuele eigendomsrechten of andere rechten van enige persoon schenden; een website zijn die inhoud bevat die als smakeloos, aanstootgevend of controversieel zou kunnen worden geïnterpreteerd.",
-          "Women Spot behoudt zich uitdrukkelijk het recht voor om de verwijdering van elke link te verzoeken die in strijd is met deze Voorwaarden en alle andere acties te ondernemen die het passend acht.",
-          "Op deze Sites kun je automatische links naar andere sites worden aangeboden. Hoewel Women Spot hoopt dat je geïnteresseerd zult zijn in die andere sites, erkent je dat hun eigenaren onafhankelijk kunnen zijn van Women Spot en Women Spot onderschrijft noch aanvaardt enige verantwoordelijkheid voor hun inhoud.",
-          "Pagina's van de Site kunnen enkele contextuele affiliate marketing-links bevatten die door derden zijn gecreëerd. Aankopen die op deze sites van derden worden gedaan, zijn de enige verantwoordelijkheid van die site. Aankopen die via deze links worden gedaan, kunnen resulteren in een commissie die wordt verdiend door Women Spot."
+          "Elke website van derden die naar deze Site linkt mag niet: een frame of enige andere browser- of randomgeving rond de inhoud van deze Site creëren; impliceren dat Women's Spot het of zijn producten of diensten onderschrijft; enig Women's Spot-handelsmerk gebruiken dat wordt weergegeven op enige Women's Spot-site zonder toestemming van Women's Spot; enige intellectuele eigendomsrechten of andere rechten van enige persoon schenden; een website zijn die inhoud bevat die als smakeloos, aanstootgevend of controversieel zou kunnen worden geïnterpreteerd.",
+          "Women's Spot behoudt zich uitdrukkelijk het recht voor om de verwijdering van elke link te verzoeken die in strijd is met deze Voorwaarden en alle andere acties te ondernemen die het passend acht.",
+          "Op deze Sites kun je automatische links naar andere sites worden aangeboden. Hoewel Women's Spot hoopt dat je geïnteresseerd zult zijn in die andere sites, erkent je dat hun eigenaren onafhankelijk kunnen zijn van Women's Spot en Women's Spot onderschrijft noch aanvaardt enige verantwoordelijkheid voor hun inhoud.",
+          "Pagina's van de Site kunnen enkele contextuele affiliate marketing-links bevatten die door derden zijn gecreëerd. Aankopen die op deze sites van derden worden gedaan, zijn de enige verantwoordelijkheid van die site. Aankopen die via deze links worden gedaan, kunnen resulteren in een commissie die wordt verdiend door Women's Spot."
         ]
       },
       "general": {
@@ -741,9 +741,9 @@
           "Als enige bepaling van deze Voorwaarden ongeldig wordt bevonden door enige rechtbank met bevoegde jurisdictie, zal de ongeldigheid van die bepaling de geldigheid van de resterende bepalingen van deze Voorwaarden niet beïnvloeden, die in volledige kracht en werking zullen blijven.",
           "Deze Voorwaarden zijn niet bedoeld om enige derde partij te begunstigen of afdwingbaar te zijn door enige derde partij en de Contracts (Rights of Third Parties) Act 1999 zal niet van toepassing zijn op deze Voorwaarden.",
           "Het falen van een van beide partijen om enig recht of rechtsmiddel onder deze Voorwaarden uit te oefenen, vormt geen afstand van dat recht of rechtsmiddel.",
-          "Tenzij anders gespecificeerd op de Sites, is de inhoud van de Sites uitsluitend gericht op degenen die toegang krijgen tot de Sites vanuit het Verenigd Koninkrijk. Women Spot maakt geen enkele verklaring dat enige inhoud van de Sites geschikt is voor gebruik elders, of beschikbaar is in enige andere locatie. Degenen die ervoor kiezen om toegang te krijgen tot de Sites vanuit enige andere locatie zijn uitsluitend verantwoordelijk voor het naleven van lokale wetten en voorschriften indien en voor zover ze van toepassing zijn.",
+          "Tenzij anders gespecificeerd op de Sites, is de inhoud van de Sites uitsluitend gericht op degenen die toegang krijgen tot de Sites vanuit het Verenigd Koninkrijk. Women's Spot maakt geen enkele verklaring dat enige inhoud van de Sites geschikt is voor gebruik elders, of beschikbaar is in enige andere locatie. Degenen die ervoor kiezen om toegang te krijgen tot de Sites vanuit enige andere locatie zijn uitsluitend verantwoordelijk voor het naleven van lokale wetten en voorschriften indien en voor zover ze van toepassing zijn.",
           "Je gaat ermee akkoord dat deze Voorwaarden, voor alle doeleinden, zullen worden beheerst door en geconstrueerd in overeenstemming met de Engelse wet. Je gaat er ook mee akkoord, onder voorbehoud van de volgende clausule, om je te onderwerpen aan de exclusieve jurisdictie van de Engelse rechtbanken met betrekking tot alle claims of zaken die voortvloeien uit deze Voorwaarden.",
-          "Voor het exclusieve voordeel van Women Spot zal Women Spot het recht behouden om procedures te brengen met betrekking tot de substantie van de zaak in de rechtbanken van het land van je verblijf."
+          "Voor het exclusieve voordeel van Women's Spot zal Women's Spot het recht behouden om procedures te brengen met betrekking tot de substantie van de zaak in de rechtbanken van het land van je verblijf."
         ]
       }
     },

@@ -19,10 +19,10 @@ export async function generateArticleMetadata(
         secureUrl: img.startsWith('https') ? img : undefined,
       }))
     : [{
-        url: '/women-spot.png',
+        url: '/womens-spot.png',
         width: 1200,
         height: 630,
-        alt: 'Women Spot - Be Your Self',
+        alt: 'Women\'s Spot - Empowering Women',
         type: 'image/png',
       }];
   
@@ -31,10 +31,10 @@ export async function generateArticleMetadata(
   
   // Ensure we have valid values for all metadata fields
   const title = metaContent.seo.metaTitle || 'Article';
-  const description = metaContent.seo.metaDescription || 'Read this article on Women Spot';
+  const description = metaContent.seo.metaDescription || 'Read this article on Women\'s Spot';
   const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
-  const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/article`;
-  const author = metaContent.createdBy || 'Women Spot Team';
+  const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}`;
+  const author = metaContent.createdBy || 'Women\'s Spot Team';
 
   return {
     title,
@@ -56,7 +56,7 @@ export async function generateArticleMetadata(
       title,
       description,
       url: canonicalUrl,
-      siteName: 'Women Spot',
+      siteName: 'Women\'s Spot',
       locale: properLang,
       type: 'article',
       // Enhanced image handling for better social media display
@@ -67,22 +67,22 @@ export async function generateArticleMetadata(
       card: 'summary_large_image',
       title,
       description,
-      images: metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/women-spot.png'],
+      images: metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png'],
       // Additional Twitter properties
       creator: author,
-      site: '@womenspot', // Add your actual Twitter handle
+      site: '@womensspot', // Add your actual Twitter handle
     },
     // Additional metadata for other platforms and SEO
     other: {
       'language': metaContent.seo.hreflang || properLang,
       // Article-specific metadata
-      'article:published_time': metaContent.createdAt?.toISOString() || new Date().toISOString(),
-      'article:modified_time': metaContent.updatedAt?.toISOString() || new Date().toISOString(),
+      'article:published_time': (metaContent.createdAt instanceof Date ? metaContent.createdAt : new Date()).toISOString(),
+      'article:modified_time': (metaContent.updatedAt instanceof Date ? metaContent.updatedAt : new Date()).toISOString(),
       'article:author': author,
       'article:section': metaContent.category || 'Health',
       'article:tag': keywords,
       // LinkedIn specific
-      'linkedin:owner': 'womenspot', // Add your actual LinkedIn company page
+      'linkedin:owner': 'womensspot', // Add your actual LinkedIn company page
       // Pinterest specific
       'pinterest:rich-pin': 'true',
       // WhatsApp specific
@@ -92,14 +92,14 @@ export async function generateArticleMetadata(
       'msapplication-TileColor': '#8B5CF6',
       'mobile-web-app-capable': 'yes',
       'apple-mobile-web-app-status-bar-style': 'default',
-      'apple-mobile-web-app-title': 'Women Spot',
+      'apple-mobile-web-app-title': 'Women\'s Spot',
       // Modern mobile web app support
-      'application-name': 'Women Spot',
+      'application-name': 'Women\'s Spot',
       'msapplication-config': '/browserconfig.xml',
       'format-detection': 'telephone=no',
       // Additional SEO
-      'author': 'Women Spot Team',
-      'copyright': `© ${new Date().getFullYear()} Women Spot. All rights reserved.`,
+      'author': 'Women\'s Spot Team',
+      'copyright': `© ${new Date().getFullYear()} Women\'s Spot. All rights reserved.`,
       'distribution': 'global',
       'rating': 'general',
       'revisit-after': '7 days',

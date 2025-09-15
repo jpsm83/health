@@ -719,7 +719,7 @@ Email templates support 9 languages:
 
 ### Email Templates
 All emails follow a consistent design:
-- **Header**: Women Spot branding with pink theme
+- **Header**: Women's Spot branding with pink theme
 - **Content**: Localized messages and instructions
 - **Actions**: Call-to-action buttons
 - **Footer**: Copyright and unsubscribe links

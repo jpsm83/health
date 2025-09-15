@@ -168,12 +168,12 @@ export default async function subscribeToNewsletterAction(
       validateEmailConfig();
       
       const emailContent = {
-        subject: "Confirm Your Newsletter Subscription - Women Spot",
+        subject: "Confirm Your Newsletter Subscription - Women's Spot",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
               <h1 style="margin: 0; font-size: 24px; color: white;">
-                <span style="margin-right: 0.5em;">🤍</span>Women Spot
+                <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot
               </h1>
             </div>
             <div style="background-color: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
@@ -195,7 +195,7 @@ export default async function subscribeToNewsletterAction(
               </p>
             </div>
             <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-              <p>© 2025 Women Spot. All rights reserved.</p>
+              <p>© 2025 Women&apos;s Spot. All rights reserved.</p>
               <p style="margin-top: 10px;">
                 If you no longer wish to receive our newsletter, you can 
                 <a href="${unsubscribeLink}" style="color: #ec4899; text-decoration: underline;">unsubscribe here</a>.
@@ -203,11 +203,11 @@ export default async function subscribeToNewsletterAction(
             </div>
           </div>
         `,
-        text: `Confirm Your Newsletter Subscription - Women Spot\n\nWelcome to our community ${email.split('@')[0]}!\n\nThank you for subscribing to our newsletter! Please confirm your subscription by clicking the link below.\n\n${confirmLink}\n\nIf you didn't subscribe to our newsletter, please ignore this email.\n\n© 2025 Women Spot. All rights reserved.\n\nIf you no longer wish to receive our newsletter, you can unsubscribe here: ${unsubscribeLink}`
+        text: `Confirm Your Newsletter Subscription - Women's Spot\n\nWelcome to our community ${email.split('@')[0]}!\n\nThank you for subscribing to our newsletter! Please confirm your subscription by clicking the link below.\n\n${confirmLink}\n\nIf you didn't subscribe to our newsletter, please ignore this email.\n\n© 2025 Women's Spot. All rights reserved.\n\nIf you no longer wish to receive our newsletter, you can unsubscribe here: ${unsubscribeLink}`
       };
 
       const mailOptions = {
-        from: `"Women Spot" <${process.env.EMAIL_USER}>`,
+        from: `"Women's Spot" <${process.env.EMAIL_USER}>`,
         to: email,
         subject: emailContent.subject,
         html: emailContent.html,

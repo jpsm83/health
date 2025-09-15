@@ -2,7 +2,7 @@
 
 ## Overview
 
-The comment system in Women Spot Health Blog is a fully separated, scalable architecture that allows users to comment on articles with features like likes, reports, and moderation. The system follows the project's server actions + API routes pattern for maximum flexibility and performance.
+The comment system in Women's Spot Health Blog is a fully separated, scalable architecture that allows users to comment on articles with features like likes, reports, and moderation. The system follows the project's server actions + API routes pattern for maximum flexibility and performance.
 
 ## Architecture
 

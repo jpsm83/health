@@ -20,7 +20,7 @@ const Footer = () => {
               className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
             >
               <Heart size={24} className="text-pink-200" />
-              <span className="text-xl font-bold">Women Spot</span>
+              <span className="text-xl font-bold">Women&apos;s Spot</span>
             </Link>
             <p className="text-pink-100 text-sm text-center md:text-left max-w-xs cursor-default">
               {t("brandDescription")}
@@ -74,7 +74,7 @@ const Footer = () => {
             <div className="flex flex-col space-y-3">
               <div className="flex items-center space-x-2 text-pink-100 text-sm">
                 <Mail size={16} className="text-pink-200" />
-                <span className="cursor-default">contactus@womenspot.com</span>
+                <span className="cursor-default">womensspot@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2 text-pink-100 text-sm">
                 <Phone size={16} className="text-pink-200" />

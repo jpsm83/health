@@ -14,10 +14,10 @@ export const transformArticlesToCardProps = (articles: IArticle[]): IArticleCard
       category: article.category,
       author: typeof article.createdBy === 'object' && article.createdBy && 'username' in article.createdBy
         ? (article.createdBy as { username: string }).username
-        : 'Women Spot Team',
+        : 'Women\'s Spot Team',
       publishedAt: article.createdAt ? new Date(article.createdAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
       readTime: '5 min read', // Default read time
-      imageUrl: article.articleImages && article.articleImages.length > 0 ? article.articleImages[0] : '/placeholder-image.jpg',
+      imageUrl: article.articleImages && article.articleImages.length > 0 ? article.articleImages[0] : '/womens-spot.png',
       slug: content.seo.slug,
     };
   });

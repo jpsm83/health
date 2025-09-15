@@ -27,7 +27,7 @@ export default function NotFound() {
             {/* App Logo */}
             <div className="flex items-center justify-center space-x-2 mb-8 md:mb-16">
               <Heart size={64} className="text-white" />
-              <span className="text-2xl md:text-6xl font-bold text-white">Women Spot</span>
+              <span className="text-2xl md:text-6xl font-bold text-white">Women&apos;s Spot</span>
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold mb-6">

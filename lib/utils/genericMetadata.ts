@@ -16,9 +16,9 @@ import { getTranslations } from "next-intl/server";
  * ✅ Email clients (Outlook, Gmail, etc.)
  *
  * CUSTOMIZATION NEEDED:
- * - Replace 'contact@womenspot.com' with your actual email
- * - Replace '@womenspot' with your actual Twitter handle
- * - Replace 'womenspot' with your actual LinkedIn company page
+ * - Replace 'contact@womensspot.com' with your actual email
+ * - Replace '@womensspot' with your actual Twitter handle
+ * - Replace 'womensspot' with your actual LinkedIn company page
  * - Add verification codes when you have them (Google, Facebook, etc.)
  * - Update theme colors if different from #8B5CF6
  */
@@ -65,16 +65,16 @@ export function generateLanguageAlternates(
 
 // Base metadata configuration
 export const baseMetadata = {
-  authors: [{ name: "Women Spot Team" }],
-  creator: "Women Spot",
-  publisher: "Women Spot",
-  siteName: "Women Spot",
+  authors: [{ name: "Women's Spot Team" }],
+  creator: "Women's Spot",
+  publisher: "Women's Spot",
+  siteName: "Women's Spot",
   images: [
     {
-      url: "/women-spot.png",
+      url: "/womens-spot.png",
       width: 1200,
       height: 630,
-      alt: "Women Spot - Be Your Self",
+      alt: "Women's Spot - Empowering Women",
     },
   ],
 };
@@ -136,14 +136,14 @@ async function generateMetadataCore(
       description,
       images: baseMetadata.images.map((img) => img.url),
       // Additional Twitter properties
-      creator: "@womenspot", // Add your actual Twitter handle
-      site: "@womenspot", // Add your actual Twitter handle
+      creator: "@womensspot", // Add your actual Twitter handle
+      site: "@womensspot", // Add your actual Twitter handle
     },
     // Additional metadata for other platforms
     other: {
       language: locale,
       // LinkedIn specific
-      "linkedin:owner": "womenspot", // Add your LinkedIn company page
+      "linkedin:owner": "womensspot", // Add your LinkedIn company page
       // Pinterest specific
       "pinterest:rich-pin": "true",
       // WhatsApp specific

@@ -36,7 +36,7 @@ const sendEmailWithTransporter = async (mailOptions: {
 // Email content translations
 const emailTranslations = {
   en: {
-    subject: "Comment Report Notification - Women Spot",
+    subject: "Comment Report Notification - Women's Spot",
     greeting: "Hello",
     message: "Your comment has been reported by another user and is currently under review by our moderation team.",
     reportReason: "Report Reason",
@@ -45,10 +45,10 @@ const emailTranslations = {
     reportAppeal: "If you believe this report was made in error, you can contact our support team.",
     reportContact: "Contact Support",
     reportThankYou: "Thank you for being part of our community and helping us maintain a safe environment for everyone.",
-    copyright: "© 2025 Women Spot. All rights reserved.",
+    copyright: "© 2025 Women's Spot. All rights reserved.",
   },
   pt: {
-    subject: "Notificação de Denúncia de Comentário - Women Spot",
+    subject: "Notificação de Denúncia de Comentário - Women's Spot",
     greeting: "Olá",
     message: "Seu comentário foi denunciado por outro usuário e está atualmente sob revisão pela nossa equipe de moderação.",
     reportReason: "Motivo da Denúncia",
@@ -57,10 +57,10 @@ const emailTranslations = {
     reportAppeal: "Se você acredita que esta denúncia foi feita por engano, pode entrar em contato com nossa equipe de suporte.",
     reportContact: "Contatar Suporte",
     reportThankYou: "Obrigado por fazer parte da nossa comunidade e nos ajudar a manter um ambiente seguro para todos.",
-    copyright: "© 2025 Women Spot. Todos os direitos reservados.",
+    copyright: "© 2025 Women's Spot. Todos os direitos reservados.",
   },
   es: {
-    subject: "Notificación de Reporte de Comentario - Women Spot",
+    subject: "Notificación de Reporte de Comentario - Women's Spot",
     greeting: "Hola",
     message: "Tu comentario ha sido reportado por otro usuario y está actualmente bajo revisión por nuestro equipo de moderación.",
     reportReason: "Motivo del Reporte",
@@ -69,10 +69,10 @@ const emailTranslations = {
     reportAppeal: "Si crees que este reporte fue hecho por error, puedes contactar a nuestro equipo de soporte.",
     reportContact: "Contactar Soporte",
     reportThankYou: "Gracias por ser parte de nuestra comunidad y ayudarnos a mantener un ambiente seguro para todos.",
-    copyright: "© 2025 Women Spot. Todos los derechos reservados.",
+    copyright: "© 2025 Women's Spot. Todos los derechos reservados.",
   },
   fr: {
-    subject: "Notification de Signalement de Commentaire - Women Spot",
+    subject: "Notification de Signalement de Commentaire - Women's Spot",
     greeting: "Bonjour",
     message: "Votre commentaire a été signalé par un autre utilisateur et est actuellement en cours d'examen par notre équipe de modération.",
     reportReason: "Motif du Signalement",
@@ -81,10 +81,10 @@ const emailTranslations = {
     reportAppeal: "Si vous pensez que ce signalement a été fait par erreur, vous pouvez contacter notre équipe de support.",
     reportContact: "Contacter le Support",
     reportThankYou: "Merci de faire partie de notre communauté et de nous aider à maintenir un environnement sûr pour tous.",
-    copyright: "© 2025 Women Spot. Tous droits réservés.",
+    copyright: "© 2025 Women's Spot. Tous droits réservés.",
   },
   de: {
-    subject: "Kommentar-Meldung Benachrichtigung - Women Spot",
+    subject: "Kommentar-Meldung Benachrichtigung - Women's Spot",
     greeting: "Hallo",
     message: "Ihr Kommentar wurde von einem anderen Benutzer gemeldet und wird derzeit von unserem Moderations-Team überprüft.",
     reportReason: "Meldungsgrund",
@@ -93,10 +93,10 @@ const emailTranslations = {
     reportAppeal: "Wenn Sie glauben, dass diese Meldung fälschlicherweise gemacht wurde, können Sie unser Support-Team kontaktieren.",
     reportContact: "Support Kontaktieren",
     reportThankYou: "Vielen Dank, dass Sie Teil unserer Community sind und uns helfen, eine sichere Umgebung für alle zu schaffen.",
-    copyright: "© 2025 Women Spot. Alle Rechte vorbehalten.",
+    copyright: "© 2025 Women's Spot. Alle Rechte vorbehalten.",
   },
   it: {
-    subject: "Notifica Segnalazione Commento - Women Spot",
+    subject: "Notifica Segnalazione Commento - Women's Spot",
     greeting: "Ciao",
     message: "Il tuo commento è stato segnalato da un altro utente ed è attualmente in revisione dal nostro team di moderazione.",
     reportReason: "Motivo della Segnalazione",
@@ -105,10 +105,10 @@ const emailTranslations = {
     reportAppeal: "Se ritieni che questa segnalazione sia stata fatta per errore, puoi contattare il nostro team di supporto.",
     reportContact: "Contatta il Supporto",
     reportThankYou: "Grazie per far parte della nostra community e aiutarci a mantenere un ambiente sicuro per tutti.",
-    copyright: "© 2025 Women Spot. Tutti i diritti riservati.",
+    copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
   },
   nl: {
-    subject: "Commentaar Rapportage Melding - Women Spot",
+    subject: "Commentaar Rapportage Melding - Women's Spot",
     greeting: "Hallo",
     message: "Uw commentaar is gerapporteerd door een andere gebruiker en wordt momenteel beoordeeld door ons moderatieteam.",
     reportReason: "Rapportage Reden",
@@ -117,10 +117,10 @@ const emailTranslations = {
     reportAppeal: "Als u denkt dat deze rapportage ten onrechte is gemaakt, kunt u contact opnemen met ons supportteam.",
     reportContact: "Contact Support",
     reportThankYou: "Bedankt voor het deel uitmaken van onze community en ons helpen een veilige omgeving voor iedereen te behouden.",
-    copyright: "© 2025 Women Spot. Alle rechten voorbehouden.",
+    copyright: "© 2025 Women's Spot. Alle rechten voorbehouden.",
   },
   he: {
-    subject: "התראה על דיווח תגובה - Women Spot",
+    subject: "התראה על דיווח תגובה - Women's Spot",
     greeting: "שלום",
     message: "התגובה שלך דווחה על ידי משתמש אחר ונמצאת כעת בבדיקה על ידי צוות המודרציה שלנו.",
     reportReason: "סיבת הדיווח",
@@ -129,10 +129,10 @@ const emailTranslations = {
     reportAppeal: "אם אתה חושב שהדיווח הזה נעשה בטעות, אתה יכול ליצור קשר עם צוות התמיכה שלנו.",
     reportContact: "צור קשר עם התמיכה",
     reportThankYou: "תודה על היותך חלק מהקהילה שלנו ועל עזרתך לשמור על סביבה בטוחה לכולם.",
-    copyright: "© 2025 Women Spot. כל הזכויות שמורות.",
+    copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
   },
   ru: {
-    subject: "Уведомление о жалобе на комментарий - Women Spot",
+    subject: "Уведомление о жалобе на комментарий - Women's Spot",
     greeting: "Привет",
     message: "Ваш комментарий был пожалован другим пользователем и в настоящее время рассматривается нашей командой модерации.",
     reportReason: "Причина жалобы",
@@ -141,7 +141,7 @@ const emailTranslations = {
     reportAppeal: "Если вы считаете, что эта жалоба была подана по ошибке, вы можете связаться с нашей службой поддержки.",
     reportContact: "Связаться с поддержкой",
     reportThankYou: "Спасибо за то, что вы являетесь частью нашего сообщества и помогаете нам поддерживать безопасную среду для всех.",
-    copyright: "© 2025 Women Spot. Все права защищены.",
+    copyright: "© 2025 Women's Spot. Все права защищены.",
   }
 };
 
@@ -163,7 +163,7 @@ const commentReportTemplate = (commentText: string, reason: string, articleTitle
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
           <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center;">
             <h1 style="margin: 0; font-size: 24px; color: white;">
-              <span style="margin-right: 0.5em;">🤍</span>Women Spot
+              <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot
             </h1>
           </div>
           
@@ -244,7 +244,7 @@ export default async function sendCommentReportEmailAction(
     const emailContent = commentReportTemplate(commentText, reason, articleTitle, username, locale);
 
     const mailOptions = {
-      from: `"Women Spot" <${process.env.EMAIL_USER}>`,
+      from: `"Women's Spot" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: emailContent.subject,
       html: emailContent.html,

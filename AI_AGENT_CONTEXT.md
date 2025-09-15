@@ -1,8 +1,8 @@
-# AI Agent Context - Women Spot Health Blog
+# AI Agent Context - Women's Spot Health Blog
 
 ## Application Overview
 
-**Women Spot** is a multilingual health and wellness blog platform specifically designed for women. The application focuses on providing evidence-based content about women's health, wellness, and lifestyle topics to help women live happier, healthier, and more fulfilling lives.
+**Women's Spot** is a multilingual health and wellness blog platform specifically designed for women. The application focuses on providing evidence-based content about women's health, wellness, and lifestyle topics to help women live happier, healthier, and more fulfilling lives.
 
 ## Core Principles for AI Agent
 

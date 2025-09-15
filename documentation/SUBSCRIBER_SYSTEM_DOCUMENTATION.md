@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Subscriber System manages newsletter subscriptions for the Women Spot health blog platform. It handles the complete subscription lifecycle from initial signup to unsubscription, including email verification, preference management, and newsletter distribution.
+The Subscriber System manages newsletter subscriptions for the Women's Spot health blog platform. It handles the complete subscription lifecycle from initial signup to unsubscription, including email verification, preference management, and newsletter distribution.
 
 ## Architecture
 

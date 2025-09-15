@@ -68,16 +68,16 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
         const unsubscribeLink = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(subscriber.email)}&token=${subscriber.unsubscribeToken}`;
         
         const emailContent = {
-          subject: "Women Spot Newsletter - Health & Wellness Update",
+          subject: "Women's Spot Newsletter - Health & Wellness Update",
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
               <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
                 <h1 style="margin: 0; font-size: 24px; color: white;">
-                  <span style="margin-right: 0.5em;">🤍</span>Women Spot Newsletter
+                  <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot Newsletter
                 </h1>
               </div>
               <div style="background-color: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
-                <h2 style="color: #374151; margin-bottom: 20px;">Hello from Women Spot!</h2>
+                <h2 style="color: #374151; margin-bottom: 20px;">Hello from Women&apos;s Spot!</h2>
                 <p style="color: #6b7280; line-height: 1.6; margin-bottom: 20px;">
                   Welcome to our weekly health and wellness newsletter! We're excited to share the latest insights, tips, and articles to help you live your best life.
                 </p>
@@ -87,7 +87,7 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
                   <ul style="color: #6b7280; line-height: 1.6;">
                     <li>5 Simple Morning Routines for Better Energy</li>
                     <li>Understanding Your Hormonal Health</li>
-                    <li>Healthy Meal Prep Ideas for Busy Women</li>
+                    <li>Healthy Meal Prep Ideas for Busy Women&apos;s</li>
                     <li>The Importance of Mental Health Self-Care</li>
                   </ul>
                 </div>
@@ -110,7 +110,7 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
               </div>
               
               <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 12px;">
-                <p>© 2025 Women Spot. All rights reserved.</p>
+                <p>© 2025 Women&apos;s Spot. All rights reserved.</p>
                 <p style="margin-top: 10px;">
                   If you no longer wish to receive our newsletter, you can 
                   <a href="${unsubscribeLink}" style="color: #ec4899; text-decoration: underline;">unsubscribe here</a>.
@@ -118,11 +118,11 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
               </div>
             </div>
           `,
-          text: `Women Spot Newsletter - Health & Wellness Update\n\nHello from Women Spot!\n\nWelcome to our weekly health and wellness newsletter! We're excited to share the latest insights, tips, and articles to help you live your best life.\n\nThis Week's Featured Articles:\n- 5 Simple Morning Routines for Better Energy\n- Understanding Your Hormonal Health\n- Healthy Meal Prep Ideas for Busy Women\n- The Importance of Mental Health Self-Care\n\nRead our latest articles: ${process.env.NEXTAUTH_URL}\n\nThank you for being part of our community! We're committed to providing you with valuable, evidence-based content to support your health and wellness journey.\n\nQuick Tip: Did you know that staying hydrated can boost your energy levels by up to 25%? Try starting your day with a glass of water before your morning coffee!\n\n© 2025 Women Spot. All rights reserved.\n\nIf you no longer wish to receive our newsletter, you can unsubscribe here: ${unsubscribeLink}`
+          text: `Women's Spot Newsletter - Health & Wellness Update\n\nHello from Women's Spot!\n\nWelcome to our weekly health and wellness newsletter! We're excited to share the latest insights, tips, and articles to help you live your best life.\n\nThis Week's Featured Articles:\n- 5 Simple Morning Routines for Better Energy\n- Understanding Your Hormonal Health\n- Healthy Meal Prep Ideas for Busy Women's\n- The Importance of Mental Health Self-Care\n\nRead our latest articles: ${process.env.NEXTAUTH_URL}\n\nThank you for being part of our community! We're committed to providing you with valuable, evidence-based content to support your health and wellness journey.\n\nQuick Tip: Did you know that staying hydrated can boost your energy levels by up to 25%? Try starting your day with a glass of water before your morning coffee!\n\n© 2025 Women's Spot. All rights reserved.\n\nIf you no longer wish to receive our newsletter, you can unsubscribe here: ${unsubscribeLink}`
         };
 
         const mailOptions = {
-          from: `"Women Spot" <${process.env.EMAIL_USER}>`,
+          from: `"Women's Spot" <${process.env.EMAIL_USER}>`,
           to: subscriber.email,
           subject: emailContent.subject,
           html: emailContent.html,

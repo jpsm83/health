@@ -1,2 +1,2 @@
-- test api route for create article
+- refact whatever needs to set new url https://womensspot.org
 - minimize size of json translations (messages folder)
