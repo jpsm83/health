@@ -2,7 +2,7 @@
 
 import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
-import { IGetCommentsParams, ISerializedComment } from "@/interfaces/comment";
+import { IGetCommentsParams, ISerializedComment } from "@/types/comment";
 import { Types } from "mongoose";
 
 export const getComments = async (params: IGetCommentsParams): Promise<{

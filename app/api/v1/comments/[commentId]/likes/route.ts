@@ -8,7 +8,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 // @access  Private
 export const POST = async (
   req: NextRequest,
-  { params }: { params: { commentId: string } }
+  context: { params: Promise<{ commentId: string }> }
 ) => {
   try {
     const session = await auth();
@@ -23,7 +23,7 @@ export const POST = async (
       );
     }
 
-    const { commentId } = params;
+    const { commentId } = await context.params;
 
     if (!commentId) {
       return new NextResponse(

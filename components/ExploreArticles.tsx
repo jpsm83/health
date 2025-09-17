@@ -1,5 +1,5 @@
 import ArticleCard from "./ArticleCard";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 
 interface IFeaturedArticlesProps {
   articles: ISerializedArticle[] | null;

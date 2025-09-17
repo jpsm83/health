@@ -6,7 +6,7 @@ import { auth } from "../../auth/[...nextauth]/route";
 // @desc    Get all articles for dashboard
 // @route   GET /api/v1/articles/dashboard
 // @access  Private (Admin only)
-export const GET = async (req: Request) => {
+export const GET = async () => {
   try {
     // ------------------------
     // Check authentication

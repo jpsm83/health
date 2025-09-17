@@ -1,6 +1,6 @@
 "use server";
 
-import { IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/interfaces/article";
+import { IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";

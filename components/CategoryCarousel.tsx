@@ -1,4 +1,4 @@
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import ArticleCard from "./ArticleCard";
 import {
   Carousel,

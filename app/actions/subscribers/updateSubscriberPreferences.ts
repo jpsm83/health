@@ -8,7 +8,7 @@ import {
   ISerializedSubscriber,
   IUpdateSubscriberPreferencesParams,
   IUpdateSubscriberPreferencesResponse,
-} from "@/interfaces/subscriber";
+} from "@/types/subscriber";
 
 // Helper function to serialize MongoDB subscriber object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

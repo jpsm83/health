@@ -62,10 +62,35 @@
     "title": "Tableau de Bord",
     "subtitle": "Votre aperçu de santé et vos insights",
     "stats": {
-      "articles": "Articles Lus",
-      "goals": "Objectifs de Santé",
-      "progress": "Progrès",
-      "streak": "Série Actuelle"
+      "totalArticles": "Total des Articles",
+      "totalViews": "Total des Vues",
+      "totalLikes": "Total des J'aime",
+      "totalComments": "Total des Commentaires"
+    },
+    "table": {
+      "title": "Gestion des Articles",
+      "columns": {
+        "title": "Titre",
+        "category": "Catégorie",
+        "likes": "J'aime",
+        "comments": "Commentaires",
+        "views": "Vues",
+        "created": "Créé",
+        "actions": "Actions"
+      },
+      "filter": {
+        "placeholder": "Filtrer par titre...",
+        "columns": "Colonnes"
+      },
+      "pagination": {
+        "rowsPerPage": "Lignes par page",
+        "selected": "ligne(s) sélectionnée(s)",
+        "page": "Page",
+        "of": "de",
+        "previous": "Précédent",
+        "next": "Suivant"
+      },
+      "noResults": "Aucun résultat trouvé"
     },
     "languageInfo": {
       "language": "Langue"

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Home from "@/pagesClient/Home";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticles } from "@/app/actions/article/getArticles";
 

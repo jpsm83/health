@@ -62,10 +62,35 @@
     "title": "Panel",
     "subtitle": "Tu visión general de salud e insights",
     "stats": {
-      "articles": "Artículos Leídos",
-      "goals": "Objetivos de Salud",
-      "progress": "Progreso",
-      "streak": "Racha Actual"
+      "totalArticles": "Total de Artículos",
+      "totalViews": "Total de Visualizaciones",
+      "totalLikes": "Total de Me Gusta",
+      "totalComments": "Total de Comentarios"
+    },
+    "table": {
+      "title": "Gestión de Artículos",
+      "columns": {
+        "title": "Título",
+        "category": "Categoría",
+        "likes": "Me Gusta",
+        "comments": "Comentarios",
+        "views": "Visualizaciones",
+        "created": "Creado",
+        "actions": "Acciones"
+      },
+      "filter": {
+        "placeholder": "Filtrar por título...",
+        "columns": "Columnas"
+      },
+      "pagination": {
+        "rowsPerPage": "Filas por página",
+        "selected": "fila(s) seleccionada(s)",
+        "page": "Página",
+        "of": "de",
+        "previous": "Anterior",
+        "next": "Siguiente"
+      },
+      "noResults": "No se encontraron resultados"
     },
     "languageInfo": {
       "language": "Idioma"
@@ -245,7 +270,10 @@
     "actions": {
       "edit": "Editar Artículo",
       "delete": "Eliminar Artículo",
-      "backToList": "Volver a los Artículos"
+      "backToList": "Volver a los Artículos",
+      "likeArticle": "Me gusta el artículo",
+      "unlikeArticle": "No me gusta el artículo",
+      "likes": "Me gusta"
     },
     "info": {
       "published": "Publicado",
@@ -254,8 +282,66 @@
       "healthCategory": "Salud",
       "language": "Idioma",
       "slug": "Slug",
-      "date": "Fecha"
-    }
+      "date": "Fecha",
+      "views": "Visualizaciones:",
+      "likes": "Me gusta:"
+    },
+    "toasts": {
+      "likedSuccess": "Artículo marcado como me gusta exitosamente",
+      "likedSuccessMessage": "¡Tu me gusta fue agregado exitosamente!",
+      "unlikedSuccess": "Artículo desmarcado como me gusta exitosamente",
+      "unlikedSuccessMessage": "¡Tu me gusta fue removido exitosamente!",
+      "likeError": "Error al marcar como me gusta el artículo",
+      "likeErrorMessage": "Inténtalo de nuevo más tarde"
+    },
+    "deleteModal": {
+      "title": "Eliminar Artículo",
+      "description": "¿Estás seguro de que quieres eliminar este artículo? Esta acción no se puede deshacer y eliminará permanentemente el artículo y todos sus comentarios.",
+      "articleTitle": "Título del Artículo",
+      "confirm": "Sí, Eliminar Artículo",
+      "cancel": "Cancelar",
+      "deleting": "Eliminando...",
+      "success": "Artículo eliminado exitosamente",
+      "error": "Error al eliminar artículo"
+    },
+    "imageAlt": " - Sección "
+  },
+  "articles": {
+    "title": "Artículos",
+    "subtitle": "Descubre nuestros últimos artículos de salud y recursos",
+    "heroImageAlt": "Artículos de salud",
+    "noArticlesTitle": "No se encontraron artículos",
+    "noArticlesDescription": "No se encontraron artículos para esta categoría. ¡Vuelve más tarde!",
+    "loading": "Cargando artículos...",
+    "errorLoading": "Error al cargar artículos:",
+    "loadMore": "Cargar más",
+    "viewAll": "Ver todos"
+  },
+  "search": {
+    "title": "Buscar artículos",
+    "subtitle": "Encuentra los artículos que te interesan",
+    "heroImageAlt": "Buscar artículos",
+    "searchPlaceholder": "Buscar artículos...",
+    "noResultsTitle": "No se encontraron resultados",
+    "noResultsDescription": "Intenta con otros términos de búsqueda o explora todas las categorías.",
+    "loading": "Buscando...",
+    "errorLoading": "Error al buscar:",
+    "resultsCount": "{count} artículos encontrados",
+    "searchSuggestions": "Sugerencias de búsqueda",
+    "popularSearches": "Búsquedas populares",
+    "recentSearches": "Búsquedas recientes"
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "page": "Página",
+    "of": "de",
+    "showing": "Mostrando",
+    "to": "a",
+    "results": "resultados",
+    "goToPage": "Ir a página",
+    "pageSize": "Tamaño de página",
+    "rowsPerPage": "Filas por página"
   },
   "SignUp": {
     "createAccount": "Crea tu cuenta",
@@ -893,5 +979,12 @@
     "errorMessage": "Hubo un error al procesar tu solicitud de cancelación. Intenta de nuevo.",
     "tryAgain": "Intentar de Nuevo",
     "goHome": "Ir a la Página Principal"
+  },
+  "favorites": {
+    "title": "Mis Favoritos",
+    "subtitle": "Tienes {count} artículo favorito{count, plural, =1 {} other {s}}",
+    "heroImageAlt": "Mis Artículos Favoritos",
+    "noFavoritesTitle": "Aún No Hay Favoritos",
+    "noFavoritesDescription": "Comienza a dar me gusta a artículos para construir tu colección personal de contenido favorito de salud y bienestar."
   }
 }

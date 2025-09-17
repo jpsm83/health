@@ -2,7 +2,7 @@
 
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
-import { ISerializedUser, IUserResponse } from "@/interfaces/user";
+import { ISerializedUser, IUserResponse } from "@/types/user";
 
 // Helper function to serialize MongoDB user object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

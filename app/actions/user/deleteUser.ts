@@ -3,7 +3,7 @@
 import connectDb from "@/app/api/db/connectDb";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import User from "@/app/api/models/user";
-import { IDeleteUserResponse } from "@/interfaces/user";
+import { IDeleteUserResponse } from "@/types/user";
 
 export async function deleteUser(
   userId: string,

@@ -11,10 +11,10 @@ import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
 // @access  Public
 export const GET = async (
   req: Request,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) => {
   try {
-    const { slug } = params;
+    const { slug } = await context.params;
     const { searchParams } = new URL(req.url);
     const locale = searchParams.get("locale") || "en";
 

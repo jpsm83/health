@@ -8,7 +8,7 @@ import { auth } from "../../../auth/[...nextauth]/route";
 // @access  Private (User can only access their own liked articles)
 export const GET = async (
   req: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) => {
   try {
     // Validate session
@@ -23,7 +23,7 @@ export const GET = async (
       );
     }
 
-    const { userId } = params;
+    const { userId } = await context.params;
 
     if (!userId) {
       return new NextResponse(

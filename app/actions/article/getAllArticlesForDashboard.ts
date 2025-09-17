@@ -1,6 +1,6 @@
 "use server";
 
-import { ISerializedArticle, serializeMongoObject } from "@/interfaces/article";
+import { ISerializedArticle, serializeMongoObject } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 

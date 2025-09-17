@@ -2,7 +2,7 @@ import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import {
   calculateReadTime,
   generateExcerpt,

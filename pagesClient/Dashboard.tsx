@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Trash2 } from "lucide-react";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Eye, Heart, MessageCircle } from 'lucide-react';

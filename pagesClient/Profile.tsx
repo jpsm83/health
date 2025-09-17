@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { updateUserProfile } from "@/app/actions/user/updateUserProfile";
 import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
-import { ISerializedUser } from "@/interfaces/user";
+import { ISerializedUser } from "@/types/user";
 import { useRouter, usePathname } from "next/navigation";
 import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 import { Button } from "@/components/ui/button";

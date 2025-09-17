@@ -8,9 +8,9 @@ import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
-import { IUpdateProfileData, IUser, IUserPreferences, ISerializedUser } from "@/interfaces/user";
+import { IUpdateProfileData, IUser, IUserPreferences, ISerializedUser } from "@/types/user";
 import { roles } from "@/lib/constants";
-import { IApiResponse } from "@/interfaces/api";
+import { IApiResponse } from "@/types/api";
 
 // Helper function to serialize MongoDB user object with subscription preferences
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

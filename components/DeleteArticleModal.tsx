@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { deleteArticle } from "@/app/actions/article/deleteArticle";
 import { showToast } from "@/components/Toasts";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 
 interface DeleteArticleModalProps {
   isOpen: boolean;

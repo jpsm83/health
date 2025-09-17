@@ -6,7 +6,7 @@ import Subscriber from "@/app/api/models/subscriber";
 import {
   IGetSubscriberByIdResponse,
   ISerializedSubscriber,
-} from "@/interfaces/subscriber";
+} from "@/types/subscriber";
 
 // Helper function to serialize MongoDB subscriber object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

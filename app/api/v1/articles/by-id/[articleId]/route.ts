@@ -8,7 +8,7 @@ import { deleteArticle } from "@/app/actions/article/deleteArticle";
 // @access  Private (Author or Admin only)
 export const DELETE = async (
   req: Request,
-  { params }: { params: { articleId: string } }
+  context: { params: Promise<{ articleId: string }> }
 ) => {
   try {
     // Validate session
@@ -23,7 +23,7 @@ export const DELETE = async (
       );
     }
 
-    const { articleId } = params;
+    const { articleId } = await context.params;
 
     if (!articleId) {
       return new NextResponse(

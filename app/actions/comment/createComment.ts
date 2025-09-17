@@ -4,7 +4,7 @@ import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
 import Article from "@/app/api/models/article";
 import "@/app/api/models/user"; // Import User model for population
-import { ICreateCommentParams, ISerializedComment } from "@/interfaces/comment";
+import { ICreateCommentParams, ISerializedComment } from "@/types/comment";
 import { Types } from "mongoose";
 import User from "@/app/api/models/user";
 

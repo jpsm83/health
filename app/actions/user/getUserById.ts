@@ -4,7 +4,7 @@ import connectDb from "@/app/api/db/connectDb";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
-import { ISerializedUser, IUserResponse } from "@/interfaces/user";
+import { ISerializedUser, IUserResponse } from "@/types/user";
 
 // Helper function to serialize MongoDB user object with subscription preferences
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

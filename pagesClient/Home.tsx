@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import { mainCategories } from "@/lib/constants";
 import FeaturedArticles from "@/components/FeaturedArticles";
 

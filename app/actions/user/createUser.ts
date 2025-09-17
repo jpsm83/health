@@ -16,8 +16,8 @@ import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
 
 // imported interfaces
-import { IUser, IUserPreferences } from "@/interfaces/user";
-import { ICreateUserParams, ICreateUserResponse } from "@/interfaces/user";
+import { IUser, IUserPreferences } from "@/types/user";
+import { ICreateUserParams, ICreateUserResponse } from "@/types/user";
 
 // imported constants
 import { roles, mainCategories } from "@/lib/constants";

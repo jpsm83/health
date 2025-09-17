@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
 

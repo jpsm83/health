@@ -4,8 +4,8 @@ import connectDb from "@/app/api/db/connectDb";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import User from "@/app/api/models/user";
 import Article from "@/app/api/models/article";
-import { ISerializedArticle } from "@/interfaces/article";
-import { serializeMongoObject } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
+import { serializeMongoObject } from "@/types/article";
 
 export interface IGetUserLikedArticlesResponse {
   success: boolean;

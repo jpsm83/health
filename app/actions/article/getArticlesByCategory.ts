@@ -1,7 +1,7 @@
 "use server";
 
-import { IGetArticlesParams, IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/interfaces/article";
-import { IMongoFilter, IPaginatedResponse } from "@/interfaces/api";
+import { IGetArticlesParams, IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/types/article";
+import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 

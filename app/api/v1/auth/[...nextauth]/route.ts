@@ -10,7 +10,7 @@ import Subscriber from "@/app/api/models/subscriber";
 import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
 import { mainCategories } from "@/lib/constants";
 
-import { IUser } from "@/interfaces/user";
+import { IUser } from "@/types/user";
 
 // Helper function to generate verification token
 function generateToken(): string {

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
 // imported interfaces
-import { IGetArticlesParams } from "@/interfaces/article";
+import { IGetArticlesParams } from "@/types/article";
 
 // imported server actions
 import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";

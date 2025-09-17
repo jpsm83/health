@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 import bcrypt from "bcrypt";
-import { IUser } from "@/interfaces/user";
+import { IUser } from "@/types/user";
 
 // Extend NextAuth types to match our ISession interface
 declare module "next-auth" {

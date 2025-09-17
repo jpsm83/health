@@ -62,10 +62,35 @@
     "title": "לוח מחוונים",
     "subtitle": "הסקירה הכללית שלך על בריאות ותובנות",
     "stats": {
-      "articles": "מאמרים שנקראו",
-      "goals": "מטרות בריאות",
-      "progress": "התקדמות",
-      "streak": "רצף נוכחי"
+      "totalArticles": "סה\"כ מאמרים",
+      "totalViews": "סה\"כ צפיות",
+      "totalLikes": "סה\"כ לייקים",
+      "totalComments": "סה\"כ תגובות"
+    },
+    "table": {
+      "title": "ניהול מאמרים",
+      "columns": {
+        "title": "כותרת",
+        "category": "קטגוריה",
+        "likes": "לייקים",
+        "comments": "תגובות",
+        "views": "צפיות",
+        "created": "נוצר",
+        "actions": "פעולות"
+      },
+      "filter": {
+        "placeholder": "סנן לפי כותרת...",
+        "columns": "עמודות"
+      },
+      "pagination": {
+        "rowsPerPage": "שורות בעמוד",
+        "selected": "שורה(ות) נבחרו",
+        "page": "עמוד",
+        "of": "מתוך",
+        "previous": "הקודם",
+        "next": "הבא"
+      },
+      "noResults": "לא נמצאו תוצאות"
     },
     "languageInfo": {
       "language": "שפה"

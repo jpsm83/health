@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import Favorites from "@/pagesClient/Favorites";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 

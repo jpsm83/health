@@ -7,10 +7,10 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 // @access  Public
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { articleId: string } }
+  context: { params: Promise<{ articleId: string }> }
 ) => {
   try {
-    const { articleId } = params;
+    const { articleId } = await context.params;
     const { searchParams } = new URL(req.url);
     
     const page = parseInt(searchParams.get("page") || "1");

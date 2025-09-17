@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { IMetaDataArticle } from '@/interfaces/article';
+import { IMetaDataArticle } from '@/types/article';
 import { languageMap } from './genericMetadata';
 
 // Generate comprehensive metadata for article pages

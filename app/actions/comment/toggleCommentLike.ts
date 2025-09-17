@@ -2,7 +2,7 @@
 
 import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
-import { IToggleCommentLikeParams } from "@/interfaces/comment";
+import { IToggleCommentLikeParams } from "@/types/comment";
 import { Types } from "mongoose";
 
 export const toggleCommentLike = async (params: IToggleCommentLikeParams): Promise<{

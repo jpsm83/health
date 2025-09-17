@@ -5,8 +5,8 @@ import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import User from "@/app/api/models/user";
-import { IUser, IUserPreferences } from "@/interfaces/user";
-import { IUpdateUserParamsRequired, IUpdateUserResponse } from "@/interfaces/user";
+import { IUser, IUserPreferences } from "@/types/user";
+import { IUpdateUserParamsRequired, IUpdateUserResponse } from "@/types/user";
 import { roles } from "@/lib/constants";
 
 export async function updateUser(

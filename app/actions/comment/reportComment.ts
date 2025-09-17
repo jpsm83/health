@@ -3,7 +3,7 @@
 import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
 import User from "@/app/api/models/user";
-import { IReportCommentParams } from "@/interfaces/comment";
+import { IReportCommentParams } from "@/types/comment";
 import { commentReportReasons } from "@/lib/constants";
 import sendCommentReportEmailAction from "@/app/actions/user/commentReport";
 import { Types } from "mongoose";

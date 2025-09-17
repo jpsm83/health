@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ISerializedComment, ISerializedCommentReport } from "@/interfaces/comment";
+import { ISerializedComment, ISerializedCommentReport } from "@/types/comment";
 import { createComment } from "@/app/actions/comment/createComment";
 import { deleteComment } from "@/app/actions/comment/deleteComment";
 import { toggleCommentLike } from "@/app/actions/comment/toggleCommentLike";

@@ -1,4 +1,4 @@
-import { IArticle, IArticleCardProps } from "@/interfaces/article";
+import { IArticle, IArticleCardProps } from "@/types/article";
 
 /**
  * Convert IArticle[] to IArticleCardProps[] for display components

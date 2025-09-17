@@ -5,7 +5,7 @@ import {
   generateArticleNotFoundMetadata,
 } from "@/lib/utils/articleMetadata";
 import { languageMap } from "@/lib/utils/genericMetadata";
-import { ISerializedArticle, IMetaDataArticle } from "@/interfaces/article";
+import { ISerializedArticle, IMetaDataArticle } from "@/types/article";
 import Article from "@/pagesClient/Article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";

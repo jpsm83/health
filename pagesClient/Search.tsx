@@ -3,7 +3,7 @@
 import FeaturedArticles from "@/components/FeaturedArticles";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
-import { ISerializedArticle } from "@/interfaces/article";
+import { ISerializedArticle } from "@/types/article";
 import {
   Pagination,
   PaginationContent,

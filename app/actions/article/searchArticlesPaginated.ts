@@ -1,9 +1,9 @@
 "use server";
 
-import { IGetArticlesParams, IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/interfaces/article";
+import { IGetArticlesParams, IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
-import { IMongoFilter, IPaginatedResponse } from "@/interfaces/api";
+import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 
 export async function searchArticlesPaginated(
   params: IGetArticlesParams & { query: string }

@@ -4,7 +4,7 @@ import connectDb from "@/app/api/db/connectDb";
 import Comment from "@/app/api/models/comment";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
-import { IDeleteCommentParams } from "@/interfaces/comment";
+import { IDeleteCommentParams } from "@/types/comment";
 
 export const deleteComment = async (params: IDeleteCommentParams): Promise<{
   success: boolean;

@@ -62,10 +62,35 @@
     "title": "Dashboard",
     "subtitle": "Ihr Gesundheitsüberblick und Einblicke",
     "stats": {
-      "articles": "Gelesene Artikel",
-      "goals": "Gesundheitsziele",
-      "progress": "Fortschritt",
-      "streak": "Aktuelle Serie"
+      "totalArticles": "Gesamt Artikel",
+      "totalViews": "Gesamt Aufrufe",
+      "totalLikes": "Gesamt Likes",
+      "totalComments": "Gesamt Kommentare"
+    },
+    "table": {
+      "title": "Artikel Verwaltung",
+      "columns": {
+        "title": "Titel",
+        "category": "Kategorie",
+        "likes": "Likes",
+        "comments": "Kommentare",
+        "views": "Aufrufe",
+        "created": "Erstellt",
+        "actions": "Aktionen"
+      },
+      "filter": {
+        "placeholder": "Nach Titel filtern...",
+        "columns": "Spalten"
+      },
+      "pagination": {
+        "rowsPerPage": "Zeilen pro Seite",
+        "selected": "Zeile(n) ausgewählt",
+        "page": "Seite",
+        "of": "von",
+        "previous": "Vorherige",
+        "next": "Nächste"
+      },
+      "noResults": "Keine Ergebnisse gefunden"
     },
     "languageInfo": {
       "language": "Sprache"
@@ -245,7 +270,10 @@
     "actions": {
       "edit": "Artikel bearbeiten",
       "delete": "Artikel löschen",
-      "backToList": "Zurück zu den Artikeln"
+      "backToList": "Zurück zu den Artikeln",
+      "likeArticle": "Artikel liken",
+      "unlikeArticle": "Artikel entliken",
+      "likes": "Likes"
     },
     "info": {
       "published": "Veröffentlicht",
@@ -254,8 +282,66 @@
       "healthCategory": "Gesundheit",
       "language": "Sprache",
       "slug": "Slug",
-      "date": "Datum"
-    }
+      "date": "Datum",
+      "views": "Aufrufe:",
+      "likes": "Likes:"
+    },
+    "toasts": {
+      "likedSuccess": "Artikel erfolgreich geliked",
+      "likedSuccessMessage": "Ihr Like wurde erfolgreich hinzugefügt!",
+      "unlikedSuccess": "Artikel erfolgreich entliked",
+      "unlikedSuccessMessage": "Ihr Like wurde erfolgreich entfernt!",
+      "likeError": "Fehler beim Liken des Artikels",
+      "likeErrorMessage": "Versuchen Sie es später erneut"
+    },
+    "deleteModal": {
+      "title": "Artikel löschen",
+      "description": "Sind Sie sicher, dass Sie diesen Artikel löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden und wird den Artikel und alle seine Kommentare dauerhaft entfernen.",
+      "articleTitle": "Artikeltitel",
+      "confirm": "Ja, Artikel löschen",
+      "cancel": "Abbrechen",
+      "deleting": "Löschen...",
+      "success": "Artikel erfolgreich gelöscht",
+      "error": "Fehler beim Löschen des Artikels"
+    },
+    "imageAlt": " - Abschnitt "
+  },
+  "articles": {
+    "title": "Artikel",
+    "subtitle": "Entdecken Sie unsere neuesten Gesundheitsartikel und -ressourcen",
+    "heroImageAlt": "Gesundheitsartikel",
+    "noArticlesTitle": "Keine Artikel gefunden",
+    "noArticlesDescription": "Es wurden keine Artikel für diese Kategorie gefunden. Schauen Sie später wieder vorbei!",
+    "loading": "Artikel werden geladen...",
+    "errorLoading": "Fehler beim Laden der Artikel:",
+    "loadMore": "Mehr laden",
+    "viewAll": "Alle anzeigen"
+  },
+  "search": {
+    "title": "Artikel suchen",
+    "subtitle": "Finden Sie die Artikel, die Sie interessieren",
+    "heroImageAlt": "Artikel suchen",
+    "searchPlaceholder": "Artikel durchsuchen...",
+    "noResultsTitle": "Keine Ergebnisse gefunden",
+    "noResultsDescription": "Versuchen Sie es mit anderen Suchbegriffen oder durchsuchen Sie alle Kategorien.",
+    "loading": "Suche läuft...",
+    "errorLoading": "Fehler beim Suchen:",
+    "resultsCount": "{count} Artikel gefunden",
+    "searchSuggestions": "Suchvorschläge",
+    "popularSearches": "Beliebte Suchbegriffe",
+    "recentSearches": "Letzte Suchen"
+  },
+  "pagination": {
+    "previous": "Vorherige",
+    "next": "Nächste",
+    "page": "Seite",
+    "of": "von",
+    "showing": "Zeige",
+    "to": "bis",
+    "results": "Ergebnisse",
+    "goToPage": "Gehe zu Seite",
+    "pageSize": "Seitengröße",
+    "rowsPerPage": "Zeilen pro Seite"
   },
   "SignUp": {
     "createAccount": "Erstellen Sie Ihr Konto",
@@ -863,5 +949,37 @@
       "submit": "Kommentar melden",
       "submitting": "Wird gemeldet..."
     }
+  },
+  "newsletterConfirmation": {
+    "title": "Newsletter-Bestätigung",
+    "confirming": "Bestätigung läuft...",
+    "success": "Anmeldung bestätigt!",
+    "error": "Bestätigung fehlgeschlagen",
+    "welcomeMessage": "Willkommen bei unserem Newsletter! Sie erhalten bald unsere neuesten Gesundheits- und Wellness-Inhalte.",
+    "errorMessage": "Bei der Bestätigung Ihrer Anmeldung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "processingMessage": "Bitte warten Sie, während wir Ihre Newsletter-Anmeldung bestätigen.",
+    "goHome": "Zur Startseite"
+  },
+  "unsubscribe": {
+    "title": "Newsletter abbestellen",
+    "description": "Schade, dass Sie gehen! Geben Sie Ihre E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden.",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+    "unsubscribeButton": "Abbestellen",
+    "processing": "Verarbeitung läuft...",
+    "processingMessage": "Bitte warten Sie, während wir Ihre Abbestellungsanfrage bearbeiten.",
+    "successTitle": "Erfolgreich abbestellt",
+    "successMessage": "Sie wurden erfolgreich von unserem Newsletter abgemeldet. Sie erhalten keine E-Mails mehr von uns.",
+    "errorTitle": "Abbestellung fehlgeschlagen",
+    "errorMessage": "Bei der Bearbeitung Ihrer Abbestellungsanfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "tryAgain": "Erneut versuchen",
+    "goHome": "Zur Startseite"
+  },
+  "favorites": {
+    "title": "Meine Favoriten",
+    "subtitle": "Sie haben {count} Lieblingsartikel{count, plural, =1 {} other {}}",
+    "heroImageAlt": "Meine Lieblingsartikel",
+    "noFavoritesTitle": "Noch keine Favoriten",
+    "noFavoritesDescription": "Beginnen Sie mit dem Liken von Artikeln, um Ihre persönliche Sammlung von Lieblingsinhalten für Gesundheit und Wellness aufzubauen."
   }
 }

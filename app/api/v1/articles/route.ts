@@ -12,7 +12,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import Article from "@/app/api/models/article";
 
 // imported interfaces
-import { IArticle, IContentsByLanguage, IGetArticlesParams } from "@/interfaces/article";
+import { IArticle, IContentsByLanguage, IGetArticlesParams } from "@/types/article";
 
 // imported constants
 import { mainCategories } from "@/lib/constants";
