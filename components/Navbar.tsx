@@ -366,7 +366,7 @@ export default function Navbar() {
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                         onClick={handleNavLinkClick}
                       >
-                        🔐 {t("signIn")}
+                        <UserRound size={16} className="text-red-600" /> {t("signIn")}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
@@ -375,7 +375,7 @@ export default function Navbar() {
                         className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                         onClick={handleNavLinkClick}
                       >
-                        📝 {t("signUp")}
+                        <UserRoundPen size={16} className="text-red-600" /> {t("signUp")}
                       </Link>
                     </DropdownMenuItem>
                   </>
