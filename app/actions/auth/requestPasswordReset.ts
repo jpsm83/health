@@ -242,7 +242,7 @@ export default async function requestPasswordResetAction(
 
     // Create reset link
     const resetLink = `${
-      process.env.NEXTAUTH_URL || "http://localhost:3000"
+      process.env.NEXTAUTH_URL
     }/reset-password?token=${resetToken}`;
 
     // Send password reset email

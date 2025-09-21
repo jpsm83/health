@@ -33,7 +33,7 @@ export async function generateArticleMetadata(
   const title = metaContent.seo.metaTitle || 'Article';
   const description = metaContent.seo.metaDescription || 'Read this article on Women\'s Spot';
   const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
-  const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}`;
+  const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL}`;
   const author = metaContent.createdBy || 'Women\'s Spot Team';
 
   return {
@@ -43,7 +43,7 @@ export async function generateArticleMetadata(
     authors: [{ name: author }],
     creator: author,
     publisher: author,
-    metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
+    metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     alternates: {
       canonical: canonicalUrl,

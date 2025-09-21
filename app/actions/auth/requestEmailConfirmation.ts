@@ -248,7 +248,7 @@ export default async function requestEmailConfirmation(
 
     // Create confirmation link
     const confirmLink = `${
-      process.env.NEXTAUTH_URL || "http://localhost:3000"
+      process.env.NEXTAUTH_URL
     }/confirm-email?token=${verificationToken}`;
 
     // Send confirmation email

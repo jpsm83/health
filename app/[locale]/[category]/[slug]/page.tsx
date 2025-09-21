@@ -25,7 +25,7 @@ export async function generateMetadata({
     }
 
     const contentByLanguage = articleData.contentsByLanguage[0]; // Already filtered by API
-    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const baseUrl = process.env.NEXTAUTH_URL;
     const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
 
     const metaContent: IMetaDataArticle = {
@@ -63,7 +63,7 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating article metadata:", error);
     
-    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const baseUrl = process.env.NEXTAUTH_URL;
     const fallbackCanonicalUrl = `${baseUrl}/${locale}/${slug}`;
     
     const fallbackMetaContent: IMetaDataArticle = {

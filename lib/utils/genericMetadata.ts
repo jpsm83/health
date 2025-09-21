@@ -100,7 +100,7 @@ async function generateMetadataCore(
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
   const fullUrl = `${
-    process.env.NEXTAUTH_URL || "http://localhost:3000"
+    process.env.NEXTAUTH_URL
   }/${locale}${route}`;
 
   return {
@@ -108,7 +108,7 @@ async function generateMetadataCore(
     description,
     keywords,
     ...baseMetadata,
-    metadataBase: new URL(process.env.NEXTAUTH_URL || "http://localhost:3000"),
+    metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
     robots: isPublic ? "index, follow" : "noindex, nofollow",
     alternates: {
       canonical: `/${locale}${route}`,
