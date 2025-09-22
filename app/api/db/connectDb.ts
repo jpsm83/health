@@ -11,7 +11,9 @@ const MONGODB_URI: string | undefined = process.env.MONGODB_URI;
 const connectDb = async (): Promise<void> => {
   // Check if URI is defined
   if (!MONGODB_URI) {
-    throw new Error("MONGODB_URI is not defined in environment variables");
+    const error = "MONGODB_URI is not defined in environment variables";
+    console.error(error);
+    throw new Error(error);
   }
 
   const connectionState = mongoose.connection.readyState;
@@ -40,11 +42,13 @@ const connectDb = async (): Promise<void> => {
   } catch (error: unknown) {
     // Proper error handling with type guard
     if (error instanceof Error) {
+      const errorMessage = `Database connection failed: ${error.message}`;
       console.error("Database connection error:", error.message);
-      throw new Error(`Database connection failed: ${error.message}`);
+      throw new Error(errorMessage);
     } else {
-      console.error("Unexpected error during database connection");
-      throw new Error("Unexpected error during database connection");
+      const errorMessage = "Unexpected error during database connection";
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     }
   }
 };

@@ -1,3 +1,0 @@
-- refact whatever needs to set new url https://womensspot.org
-- minimize size of json translations (messages folder)
-- on click of a article card, it has 5 api petitions

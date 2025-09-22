@@ -24,7 +24,9 @@ const nextConfig: NextConfig = {
 	},
 	// Optimize CSS and prevent preload warnings
 	compiler: {
-		removeConsole: process.env.NODE_ENV === 'production',
+		removeConsole: process.env.NODE_ENV === 'production' ? {
+			exclude: ['error']
+		} : false,
 	},
 	// Configure allowed image domains for Next.js Image component
 	images: {
