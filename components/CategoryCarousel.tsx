@@ -15,9 +15,10 @@ import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCatego
 
 interface CategoryCarouselProps {
   category: string;
+  initialArticles?: ISerializedArticle[];
 }
 
-export default function CategoryCarousel({ category }: CategoryCarouselProps) {
+export default function CategoryCarousel({ category, initialArticles = [] }: CategoryCarouselProps) {
   const t = useTranslations("categoryCarousel");
   const locale = useLocale();
 
@@ -25,39 +26,47 @@ export default function CategoryCarousel({ category }: CategoryCarouselProps) {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   const limit = 6;
   const [api, setApi] = useState<CarouselApi>();
 
-  // Fetch initial articles
+  // Initialize with pre-fetched articles or fetch if not provided
   useEffect(() => {
-    const fetchArticles = async () => {
-      setLoading(true);
-      setError(null);
+    if (initialArticles !== undefined && initialArticles.length > 0) {
+      // Use pre-fetched articles (only if not empty)
+      setArticles(initialArticles);
+      setLoading(false);
+      setHasMore(initialArticles.length >= limit);
+    } else {
+      // Fetch articles if not provided (fallback for backward compatibility)
+      const fetchArticles = async () => {
+        setLoading(true);
+        setError(null);
 
-      try {
-        const fetchedArticles = await getArticlesByCategory({
-          category,
-          page: 1,
-          limit,
-          sort: "createdAt",
-          order: "desc",
-          locale,
-        });
-        setArticles(fetchedArticles.data);
-        setHasMore(fetchedArticles.data.length >= limit);
-      } catch (err) {
-        const message =
-          err instanceof Error ? err.message : t("failedToFetchArticles");
-        setError(message);
-        console.error(`Error fetching ${category} articles:`, err);
-      } finally {
-        setLoading(false);
-      }
-    };
+        try {
+          const fetchedArticles = await getArticlesByCategory({
+            category,
+            page: 1,
+            limit,
+            sort: "createdAt",
+            order: "desc",
+            locale,
+          });
+          setArticles(fetchedArticles.data);
+          setHasMore(fetchedArticles.data.length >= limit);
+        } catch (err) {
+          const message =
+            err instanceof Error ? err.message : t("failedToFetchArticles");
+          setError(message);
+          console.error(`Error fetching ${category} articles:`, err);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchArticles();
+      fetchArticles();
+    }
   }, [category, limit, locale, t]);
 
   // Load more articles

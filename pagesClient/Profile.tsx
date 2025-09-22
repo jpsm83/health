@@ -23,9 +23,7 @@ import {
   FR,
   DE,
   IT,
-  NL,
   IL,
-  RU,
 } from "country-flag-icons/react/1x1";
 import {
   DropdownMenu,
@@ -84,9 +82,7 @@ export default function Profile({ initialUser }: ProfileProps) {
       fr: "FR",
       de: "DE",
       it: "IT",
-      nl: "NL",
       he: "IL",
-      ru: "RU",
     };
 
     const newRegion = languageToRegion[newLanguage] || "US";
@@ -113,9 +109,7 @@ export default function Profile({ initialUser }: ProfileProps) {
       fr: "Français",
       de: "Deutsch",
       it: "Italiano",
-      nl: "Nederlands",
       he: "עברית",
-      ru: "Русский",
     };
 
     return displayNames[lang] || lang;
@@ -133,9 +127,7 @@ export default function Profile({ initialUser }: ProfileProps) {
       fr: FR,
       de: DE,
       it: IT,
-      nl: NL,
       he: IL,
-      ru: RU,
     };
 
     const FlagComponent = flagMap[lang];

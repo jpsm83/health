@@ -10,8 +10,10 @@ import FeaturedArticles from "@/components/FeaturedArticles";
 
 export default function Home({
   featuredArticles,
+  categoryArticles,
 }: {
   featuredArticles: ISerializedArticle[];
+  categoryArticles: Record<string, ISerializedArticle[]>;
 }) {
   const t = useTranslations("home");
 
@@ -71,7 +73,13 @@ export default function Home({
 
         {/* Render carousels for each category */}
         {mainCategories.map((category) => {
-          return <CategoryCarousel key={category} category={category} />;
+          return (
+            <CategoryCarousel 
+              key={category} 
+              category={category} 
+              initialArticles={categoryArticles[category] || []}
+            />
+          );
         })}
       </section>
     </div>

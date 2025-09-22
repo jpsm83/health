@@ -24,7 +24,7 @@ export async function generateMetadata({
       return generateArticleNotFoundMetadata();
     }
 
-    const contentByLanguage = articleData.contentsByLanguage[0]; // Already filtered by API
+    const languageData = articleData.languages[0]; // Already filtered by API
     const baseUrl = process.env.NEXTAUTH_URL;
     const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
 
@@ -43,11 +43,11 @@ export async function generateMetadata({
       updatedAt: articleData.updatedAt
         ? new Date(articleData.updatedAt)
         : new Date(),
-      seo: contentByLanguage?.seo ? {
-        ...contentByLanguage.seo,
-        canonicalUrl: contentByLanguage.seo.canonicalUrl || canonicalUrl,
-        hreflang: contentByLanguage.seo.hreflang || languageMap[locale] || locale,
-        slug: contentByLanguage.seo.slug || slug,
+      seo: languageData?.seo ? {
+        ...languageData.seo,
+        canonicalUrl: languageData.seo.canonicalUrl || canonicalUrl,
+        hreflang: languageData.seo.hreflang || languageMap[locale] || locale,
+        slug: languageData.seo.slug || slug,
       } : {
         metaTitle: `Article: ${slug}`,
         metaDescription: `Read about ${slug} on Women's Spot`,

@@ -107,18 +107,6 @@ const emailTranslations = {
     reportThankYou: "Grazie per far parte della nostra community e aiutarci a mantenere un ambiente sicuro per tutti.",
     copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
   },
-  nl: {
-    subject: "Commentaar Rapportage Melding - Women's Spot",
-    greeting: "Hallo",
-    message: "Uw commentaar is gerapporteerd door een andere gebruiker en wordt momenteel beoordeeld door ons moderatieteam.",
-    reportReason: "Rapportage Reden",
-    reportAction: "Wat gebeurt er nu?",
-    reportActionText: "Ons moderatieteam zal uw commentaar en de rapportage beoordelen. Als het commentaar onze communityrichtlijnen schendt, kan het worden verwijderd. Als het geschikt wordt geacht, blijft het zichtbaar.",
-    reportAppeal: "Als u denkt dat deze rapportage ten onrechte is gemaakt, kunt u contact opnemen met ons supportteam.",
-    reportContact: "Contact Support",
-    reportThankYou: "Bedankt voor het deel uitmaken van onze community en ons helpen een veilige omgeving voor iedereen te behouden.",
-    copyright: "© 2025 Women's Spot. Alle rechten voorbehouden.",
-  },
   he: {
     subject: "התראה על דיווח תגובה - Women's Spot",
     greeting: "שלום",
@@ -130,18 +118,6 @@ const emailTranslations = {
     reportContact: "צור קשר עם התמיכה",
     reportThankYou: "תודה על היותך חלק מהקהילה שלנו ועל עזרתך לשמור על סביבה בטוחה לכולם.",
     copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
-  },
-  ru: {
-    subject: "Уведомление о жалобе на комментарий - Women's Spot",
-    greeting: "Привет",
-    message: "Ваш комментарий был пожалован другим пользователем и в настоящее время рассматривается нашей командой модерации.",
-    reportReason: "Причина жалобы",
-    reportAction: "Что происходит дальше?",
-    reportActionText: "Наша команда модерации рассмотрит ваш комментарий и жалобу. Если комментарий нарушает наши правила сообщества, он может быть удален. Если он признан подходящим, он останется видимым.",
-    reportAppeal: "Если вы считаете, что эта жалоба была подана по ошибке, вы можете связаться с нашей службой поддержки.",
-    reportContact: "Связаться с поддержкой",
-    reportThankYou: "Спасибо за то, что вы являетесь частью нашего сообщества и помогаете нам поддерживать безопасную среду для всех.",
-    copyright: "© 2025 Women's Spot. Все права защищены.",
   }
 };
 

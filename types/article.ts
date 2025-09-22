@@ -49,6 +49,99 @@ export interface IArticleContent {
   articleParagraphs: string[];
 }
 
+// Canvas schema interface
+export interface ICanvas {
+  paragraphOne: string;
+  paragraphTwo: string;
+  paragraphThree: string;
+}
+
+// Social media interfaces
+export interface IInstagram {
+  caption?: string;
+  hashtags?: string[];
+  altText?: string;
+  image?: string;
+  video?: string;
+  url: string;
+}
+
+export interface IFacebook {
+  message?: string;
+  headline?: string;
+  linkDescription?: string;
+  hashtags?: string[];
+  image?: string;
+  video?: string;
+  callToAction?: string;
+  url: string;
+}
+
+export interface IXTwitter {
+  text?: string;
+  hashtags?: string[];
+  image?: string;
+  video?: string;
+  url: string;
+}
+
+export interface IPinterest {
+  title?: string;
+  description?: string;
+  hashtags?: string[];
+  image?: string;
+  altText?: string;
+  url: string;
+}
+
+export interface IYouTube {
+  title?: string;
+  description?: string;
+  tags?: string[];
+  video: string;
+  thumbnail?: string;
+  url: string;
+}
+
+export interface IThreads {
+  text?: string;
+  image?: string;
+  video?: string;
+  hashtags?: string[];
+  url: string;
+}
+
+export interface ITikTok {
+  caption?: string;
+  hashtags?: string[];
+  video: string;
+  coverImage?: string;
+  url: string;
+}
+
+export interface ISocialMedia {
+  instagram?: IInstagram;
+  facebook?: IFacebook;
+  xTwitter?: IXTwitter;
+  pinterest?: IPinterest;
+  youtube?: IYouTube;
+  threads?: IThreads;
+  tiktok?: ITikTok;
+}
+
+// New unified language-specific interface
+export interface ILanguageSpecific {
+  hreflang: string;
+  canvas: ICanvas;
+  seo: ISeo;
+  content: {
+    mainTitle: string;
+    articleContents: IArticleContent[];
+  };
+  socialMedia?: ISocialMedia;
+}
+
+// Legacy interface for backward compatibility during migration
 export interface IContentsByLanguage {
   mainTitle: string;
   articleContents: IArticleContent[];
@@ -57,10 +150,19 @@ export interface IContentsByLanguage {
 
 // Comment interfaces moved to interfaces/comment.ts
 
+// Images context interface
+export interface IImagesContext {
+  imageOne: string;
+  imageTwo: string;
+  imageThree: string;
+  imageFour: string;
+}
+
 export interface IArticle {
   _id?: Types.ObjectId;
-  contentsByLanguage: IContentsByLanguage[];
+  languages: ILanguageSpecific[];
   category: (typeof mainCategories)[number];
+  imagesContext: IImagesContext;
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
@@ -75,8 +177,9 @@ export interface IArticle {
 // MongoDB Document type for Article
 export interface IArticleDocument extends Document {
   _id: Types.ObjectId;
-  contentsByLanguage: IContentsByLanguage[];
+  languages: ILanguageSpecific[];
   category: (typeof mainCategories)[number];
+  imagesContext: IImagesContext;
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
@@ -92,8 +195,9 @@ export interface IArticleDocument extends Document {
 // Lean Article type (for .lean() queries)
 export interface IArticleLean {
   _id: Types.ObjectId;
-  contentsByLanguage: IContentsByLanguage[];
+  languages: ILanguageSpecific[];
   category: (typeof mainCategories)[number];
+  imagesContext: IImagesContext;
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
@@ -109,8 +213,9 @@ export interface IArticleLean {
 // Serialized Article type (for API responses)
 export interface ISerializedArticle {
   _id: string;
-  contentsByLanguage: IContentsByLanguage[];
+  languages: ILanguageSpecific[];
   category: (typeof mainCategories)[number];
+  imagesContext: IImagesContext;
   articleImages: string[];
   status?: (typeof articleStatus)[number];
   likes?: string[];

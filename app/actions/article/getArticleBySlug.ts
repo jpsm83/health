@@ -1,6 +1,6 @@
 "use server";
 
-import { IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/types/article";
+import { IArticleLean, ISerializedArticle, ILanguageSpecific, serializeMongoObject } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
@@ -22,7 +22,7 @@ export async function getArticleBySlug(slug: string, locale = "en"): Promise<ISe
     let article: IArticleLean | null;
     try {
       article = await Article.findOne({
-        "contentsByLanguage.seo.slug": slug,
+        "languages.seo.slug": slug,
       })
         .populate({ path: "createdBy", select: "username", model: User })
         .lean() as IArticleLean | null;
@@ -41,37 +41,37 @@ export async function getArticleBySlug(slug: string, locale = "en"): Promise<ISe
     // ------------------------
     // Post-process by locale (matching route.ts logic)
     // ------------------------
-    let contentByLanguage: IContentsByLanguage | undefined;
+    let languageSpecific: ILanguageSpecific | undefined;
 
-    // Access contentsByLanguage from the lean result
-    const contentsByLanguage = article.contentsByLanguage as IContentsByLanguage[];
+    // Access languages from the lean result
+    const languages = article.languages as ILanguageSpecific[];
 
     // Try to find content for the requested slug first
-    contentByLanguage = contentsByLanguage.find(
-      (content: IContentsByLanguage) => content.seo.slug === slug
+    languageSpecific = languages.find(
+      (lang: ILanguageSpecific) => lang.seo.slug === slug
     );
 
     // If not found by slug, try by locale
-    if (!contentByLanguage) {
-      contentByLanguage = contentsByLanguage.find(
-        (content: IContentsByLanguage) => content.seo.hreflang === locale
+    if (!languageSpecific) {
+      languageSpecific = languages.find(
+        (lang: ILanguageSpecific) => lang.hreflang === locale
       );
     }
 
     // Fallback to English if locale not found
-    if (!contentByLanguage && locale !== "en") {
-      contentByLanguage = contentsByLanguage.find(
-        (content: IContentsByLanguage) => content.seo.hreflang === "en"
+    if (!languageSpecific && locale !== "en") {
+      languageSpecific = languages.find(
+        (lang: ILanguageSpecific) => lang.hreflang === "en"
       );
     }
 
     // Final fallback: first available
-    if (!contentByLanguage && contentsByLanguage.length > 0) {
-      contentByLanguage = contentsByLanguage[0];
+    if (!languageSpecific && languages.length > 0) {
+      languageSpecific = languages[0];
     }
 
     // If still no content found, return null
-    if (!contentByLanguage) {
+    if (!languageSpecific) {
       return null;
     }
 
@@ -80,7 +80,7 @@ export async function getArticleBySlug(slug: string, locale = "en"): Promise<ISe
     // ------------------------
     const articleWithFilteredContent = {
       ...article,
-      contentsByLanguage: [contentByLanguage],
+      languages: [languageSpecific],
     };
 
     // Serialize MongoDB objects to plain objects for client components

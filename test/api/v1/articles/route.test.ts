@@ -92,15 +92,20 @@ const mockSession = {
 
 const mockArticleData = {
   category: 'health',
-  contentsByLanguage: [
+  imagesContext: {
+    imageOne: 'https://example.com/image1.jpg',
+    imageTwo: 'https://example.com/image2.jpg',
+    imageThree: 'https://example.com/image3.jpg',
+    imageFour: 'https://example.com/image4.jpg',
+  },
+  languages: [
     {
-      mainTitle: 'Test Article Title',
-      articleContents: [
-        {
-          subTitle: 'Test Subtitle',
-          articleParagraphs: ['Test paragraph 1', 'Test paragraph 2'],
-        },
-      ],
+      hreflang: 'en',
+      canvas: {
+        paragraphOne: 'Test paragraph one',
+        paragraphTwo: 'Test paragraph two',
+        paragraphThree: 'Test paragraph three',
+      },
       seo: {
         metaTitle: 'Test Meta Title',
         metaDescription: 'Test meta description',
@@ -109,6 +114,15 @@ const mockArticleData = {
         hreflang: 'en',
         urlPattern: 'articles',
         canonicalUrl: 'https://example.com/en/health/test-article-slug',
+      },
+      content: {
+        mainTitle: 'Test Article Title',
+        articleContents: [
+          {
+            subTitle: 'Test Subtitle',
+            articleParagraphs: ['Test paragraph 1', 'Test paragraph 2'],
+          },
+        ],
       },
     },
   ],
@@ -122,7 +136,8 @@ const createMockFile = (name: string, type: string, content: string = 'test cont
 const createMockFormData = (articleData: Record<string, unknown>, files: File[] = []) => {
   const formData = new FormData()
   formData.append('category', articleData.category as string)
-  formData.append('contentsByLanguage', JSON.stringify(articleData.contentsByLanguage))
+  formData.append('languages', JSON.stringify(articleData.languages))
+  formData.append('imagesContext', JSON.stringify(articleData.imagesContext))
   
   files.forEach(file => {
     formData.append('articleImages', file)
@@ -205,12 +220,13 @@ describe('POST /api/v1/articles - Final Tests', () => {
       const data = await response.json()
 
       expect(response.status).toBe(400)
-      expect(data.message).toBe('Category and contentsByLanguage are required!')
+      expect(data.message).toBe('Category, languages, and imagesContext are required!')
     })
 
-    it('should return 400 when contentsByLanguage is missing', async () => {
+    it('should return 400 when languages is missing', async () => {
       const formData = new FormData()
       formData.append('category', 'health')
+      formData.append('imagesContext', JSON.stringify(mockArticleData.imagesContext))
       formData.append('articleImages', createMockFile('test1.jpg', 'image/jpeg'))
 
       const request = createMockRequest(formData)
@@ -219,7 +235,7 @@ describe('POST /api/v1/articles - Final Tests', () => {
       const data = await response.json()
 
       expect(response.status).toBe(400)
-      expect(data.message).toBe('Category and contentsByLanguage are required!')
+      expect(data.message).toBe('Category, languages, and imagesContext are required!')
     })
 
     it('should return 400 when category is invalid', async () => {
@@ -246,7 +262,7 @@ describe('POST /api/v1/articles - Final Tests', () => {
       const data = await response.json()
 
       expect(response.status).toBe(400)
-      expect(data.message).toBe('No image files found or the number of image files does not match the number of contentsByLanguage!')
+      expect(data.message).toBe('No image files found or the number of image files does not match the number of article contents!')
     })
 
     it('should return 400 when number of images does not match content length', async () => {
@@ -261,7 +277,7 @@ describe('POST /api/v1/articles - Final Tests', () => {
       const data = await response.json()
 
       expect(response.status).toBe(400)
-      expect(data.message).toBe('No image files found or the number of image files does not match the number of contentsByLanguage!')
+      expect(data.message).toBe('No image files found or the number of image files does not match the number of article contents!')
     })
   })
 

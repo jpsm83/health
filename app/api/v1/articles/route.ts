@@ -12,7 +12,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import Article from "@/app/api/models/article";
 
 // imported interfaces
-import { IArticle, IContentsByLanguage, IGetArticlesParams } from "@/types/article";
+import { IArticle, ILanguageSpecific, IGetArticlesParams } from "@/types/article";
 
 // imported constants
 import { mainCategories } from "@/lib/constants";
@@ -144,16 +144,17 @@ export const POST = async (req: Request) => {
 
     // Extract basic article fields
     const category = formData.get("category") as string;
-    const contentsByLanguageRaw = formData.get("contentsByLanguage") as string;
+    const languagesRaw = formData.get("languages") as string;
+    const imagesContextRaw = formData.get("imagesContext") as string;
     const fileEntries = formData
       .getAll("articleImages")
       .filter((entry): entry is File => entry instanceof File);
 
     // Validate required fields
-    if (!category || !contentsByLanguageRaw) {
+    if (!category || !languagesRaw || !imagesContextRaw) {
       return new NextResponse(
         JSON.stringify({
-          message: "Category and contentsByLanguage are required!",
+          message: "Category, languages, and imagesContext are required!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -167,57 +168,97 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Parse contentsByLanguage from formData
-    const contentsByLanguage: IContentsByLanguage[] = JSON.parse(
-      contentsByLanguageRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-    ) as IContentsByLanguage[];
+    // Parse languages from formData
+    const languages: ILanguageSpecific[] = JSON.parse(
+      languagesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
+    ) as ILanguageSpecific[];
 
-    // Validate contentsByLanguage structure
-    if (!Array.isArray(contentsByLanguage) || contentsByLanguage.length === 0) {
+    // Parse imagesContext from formData
+    const imagesContext = JSON.parse(imagesContextRaw) as {
+      imageOne: string;
+      imageTwo: string;
+      imageThree: string;
+      imageFour: string;
+    };
+
+    // Validate languages structure
+    if (!Array.isArray(languages) || languages.length === 0) {
       return new NextResponse(
         JSON.stringify({
-          message: "ContentsByLanguage must be a non-empty array!",
+          message: "Languages must be a non-empty array!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // Validate contentsByLanguage
-    for (const content of contentsByLanguage) {
-      const contentByLanguageValidation = objDefaultValidation(
-        content as unknown as {
+    // Validate imagesContext structure
+    if (
+      !imagesContext ||
+      !imagesContext.imageOne ||
+      !imagesContext.imageTwo ||
+      !imagesContext.imageThree ||
+      !imagesContext.imageFour
+    ) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "ImagesContext must have imageOne, imageTwo, imageThree, and imageFour!",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate languages
+    for (const language of languages) {
+      const languageValidation = objDefaultValidation(
+        language as unknown as {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["mainTitle", "articleContents", "seo"],
-          nonReqFields: [],
+          reqFields: ["hreflang", "canvas", "seo", "content"],
+          nonReqFields: ["socialMedia"],
         }
       );
 
-      if (contentByLanguageValidation !== true) {
+      if (languageValidation !== true) {
         return new NextResponse(
           JSON.stringify({
-            message: contentByLanguageValidation,
+            message: languageValidation,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
 
-      // Validate articleContents
+      // Validate canvas structure
       if (
-        !Array.isArray(content.articleContents) ||
-        content.articleContents.length === 0
+        !language.canvas ||
+        !language.canvas.paragraphOne ||
+        !language.canvas.paragraphTwo ||
+        !language.canvas.paragraphThree
       ) {
         return new NextResponse(
           JSON.stringify({
-            message: "ArticleContents must be a non-empty array!",
+            message: "Canvas must have paragraphOne, paragraphTwo, and paragraphThree!",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate content structure
+      if (
+        !language.content ||
+        !Array.isArray(language.content.articleContents) ||
+        language.content.articleContents.length === 0
+      ) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "Content.articleContents must be a non-empty array!",
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
 
       // Validate each articleContent
-      for (const articleContent of content.articleContents) {
+      for (const articleContent of language.content.articleContents) {
         const articleContentValidation = objDefaultValidation(
           articleContent as unknown as {
             [key: string]: string | number | boolean | undefined;
@@ -253,7 +294,7 @@ export const POST = async (req: Request) => {
 
       // Validate SEO
       const seoValidationResult = objDefaultValidation(
-        content.seo as unknown as {
+        language.seo as unknown as {
           [key: string]: string | number | boolean | undefined;
         },
         {
@@ -287,15 +328,13 @@ export const POST = async (req: Request) => {
         "fr",
         "de",
         "it",
-        "nl",
         "he",
-        "ru",
       ];
-      if (!supportedLocales.includes(content.seo.hreflang)) {
+      if (!supportedLocales.includes(language.seo.hreflang)) {
         return new NextResponse(
           JSON.stringify({
             message: `Unsupported hreflang: ${
-              content.seo.hreflang
+              language.seo.hreflang
             }. Supported values: ${supportedLocales.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
@@ -312,11 +351,11 @@ export const POST = async (req: Request) => {
         "artikelen",
         "מאמרים",
       ];
-      if (!validUrlPatterns.includes(content.seo.urlPattern)) {
+      if (!validUrlPatterns.includes(language.seo.urlPattern)) {
         return new NextResponse(
           JSON.stringify({
             message: `Invalid URL pattern: ${
-              content.seo.urlPattern
+              language.seo.urlPattern
             }. Supported patterns: ${validUrlPatterns.join(", ")}`,
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
@@ -327,13 +366,13 @@ export const POST = async (req: Request) => {
     // Validate fileEntries
     if (
       !fileEntries.length ||
-      fileEntries.length !== contentsByLanguage[0].articleContents.length ||
+      fileEntries.length !== languages[0].content.articleContents.length ||
       fileEntries.some((file) => file.size === 0)
     ) {
       return new NextResponse(
         JSON.stringify({
           message:
-            "No image files found or the number of image files does not match the number of contentsByLanguage!",
+            "No image files found or the number of image files does not match the number of article contents!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -343,11 +382,11 @@ export const POST = async (req: Request) => {
     await connectDb();
 
     // Check for duplicate slugs across all languages
-    const slugs = contentsByLanguage.map((content) => content.seo.slug);
+    const slugs = languages.map((language) => language.seo.slug);
 
     // Check if any of the slugs already exist in the database
     const duplicateArticle = await Article.findOne({
-      "contentsByLanguage.seo.slug": { $in: slugs },
+      "languages.seo.slug": { $in: slugs },
     });
 
     if (duplicateArticle) {
@@ -364,8 +403,9 @@ export const POST = async (req: Request) => {
     // Prepare article for creation
     const newArticle: IArticle = {
       _id: articleId,
-      contentsByLanguage,
+      languages,
       category: category,
+      imagesContext,
       articleImages: [],
       createdBy: session.user.id,
     };

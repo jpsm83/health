@@ -98,16 +98,6 @@ const emailTranslations = {
     fallbackMessage: "Se il pulsante sopra non funziona, copia e incolla questo link nel tuo browser:",
     copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
   },
-  nl: {
-    subject: "Bevestig uw E-mail - Women's Spot",
-    greeting: "Hallo",
-    message: "Welkom bij Women's Spot! Bevestig uw e-mailadres door op de knop hieronder te klikken om de instelling van uw account te voltooien.",
-    confirmButton: "E-mail Bevestigen",
-    ignoreMessage: "Als u geen account heeft aangemaakt bij Women's Spot, negeer dan deze e-mail.",
-    expiryMessage: "Deze bevestigingslink verloopt over 24 uur om veiligheidsredenen.",
-    fallbackMessage: "Als de knop hierboven niet werkt, kopieer en plak deze link in uw browser:",
-    copyright: "© 2025 Women's Spot. Alle rechten voorbehouden.",
-  },
   he: {
     subject: "אמת את האימייל שלך - Women's Spot",
     greeting: "שלום",
@@ -117,16 +107,6 @@ const emailTranslations = {
     expiryMessage: "קישור האימות הזה יפוג תוקף תוך 24 שעות מסיבות אבטחה.",
     fallbackMessage: "אם הכפתור למעלה לא עובד, העתק והדבק את הקישור הזה בדפדפן שלך:",
     copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
-  },
-  ru: {
-    subject: "Подтвердите ваш Email - Women's Spot",
-    greeting: "Привет",
-    message: "Добро пожаловать в Women's Spot! Пожалуйста, подтвердите ваш адрес электронной почты, нажав кнопку ниже, чтобы завершить настройку вашего аккаунта.",
-    confirmButton: "Подтвердить Email",
-    ignoreMessage: "Если вы не создавали аккаунт в Women's Spot, проигнорируйте это письмо.",
-    expiryMessage: "Эта ссылка для подтверждения истечет через 24 часа по соображениям безопасности.",
-    fallbackMessage: "Если кнопка выше не работает, скопируйте и вставьте эту ссылку в ваш браузер:",
-    copyright: "© 2025 Women's Spot. Все права защищены.",
   }
 };
 

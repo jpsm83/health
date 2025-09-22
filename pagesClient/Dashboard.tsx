@@ -62,7 +62,7 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
 
   // Helper functions
   const getArticleTitle = (article: ISerializedArticle) => 
-    article.contentsByLanguage[0]?.mainTitle || "No title";
+    article.languages[0]?.content.mainTitle || "No title";
 
   const createSortableHeader = (title: string, column: { toggleSorting: (asc?: boolean) => void; getIsSorted: () => false | "asc" | "desc" }) => (
     <Button
@@ -180,7 +180,7 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
 
   // Helper functions
   const getArticleSlug = (article: ISerializedArticle) => 
-    article.contentsByLanguage[0]?.seo?.slug;
+    article.languages[0]?.seo?.slug;
 
   const handleRowClick = (article: ISerializedArticle) => {
     const slug = getArticleSlug(article);

@@ -29,7 +29,7 @@ export default function DeleteArticleModal({
 
   // Helper function to get article title
   const getArticleTitle = (article: ISerializedArticle | null) => 
-    article?.contentsByLanguage[0]?.mainTitle || "Unknown Article";
+    article?.languages[0]?.content.mainTitle || "Unknown Article";
 
   // Handle article deletion
   const handleDeleteArticle = async () => {

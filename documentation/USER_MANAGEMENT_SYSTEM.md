@@ -232,7 +232,7 @@ const handleLanguageChange = (newLanguage: string) => {
   // Map language codes to region codes
   const languageToRegion: Record<string, string> = {
     en: "US", pt: "BR", es: "ES", fr: "FR", de: "DE",
-    it: "IT", nl: "NL", he: "IL", ru: "RU",
+    it: "IT", he: "IL",
   };
 
   const newRegion = languageToRegion[newLanguage] || "US";

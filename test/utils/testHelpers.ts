@@ -13,15 +13,20 @@ export const mockSession = {
 // Mock article data
 export const mockArticleData = {
   category: 'health',
-  contentsByLanguage: [
+  imagesContext: {
+    imageOne: 'https://example.com/image1.jpg',
+    imageTwo: 'https://example.com/image2.jpg',
+    imageThree: 'https://example.com/image3.jpg',
+    imageFour: 'https://example.com/image4.jpg',
+  },
+  languages: [
     {
-      mainTitle: 'Test Article Title',
-      articleContents: [
-        {
-          subTitle: 'Test Subtitle',
-          articleParagraphs: ['Test paragraph 1', 'Test paragraph 2'],
-        },
-      ],
+      hreflang: 'en',
+      canvas: {
+        paragraphOne: 'Test paragraph one',
+        paragraphTwo: 'Test paragraph two',
+        paragraphThree: 'Test paragraph three',
+      },
       seo: {
         metaTitle: 'Test Meta Title',
         metaDescription: 'Test meta description',
@@ -30,6 +35,15 @@ export const mockArticleData = {
         hreflang: 'en',
         urlPattern: 'articles',
         canonicalUrl: 'https://example.com/en/health/test-article-slug',
+      },
+      content: {
+        mainTitle: 'Test Article Title',
+        articleContents: [
+          {
+            subTitle: 'Test Subtitle',
+            articleParagraphs: ['Test paragraph 1', 'Test paragraph 2'],
+          },
+        ],
       },
     },
   ],
@@ -45,7 +59,8 @@ export const createMockFile = (name: string, type: string, content: string = 'te
 export const createMockFormData = (articleData: Record<string, unknown>, files: File[] = []) => {
   const formData = new FormData()
   formData.append('category', articleData.category as string)
-  formData.append('contentsByLanguage', JSON.stringify(articleData.contentsByLanguage))
+  formData.append('languages', JSON.stringify(articleData.languages))
+  formData.append('imagesContext', JSON.stringify(articleData.imagesContext))
   
   files.forEach(file => {
     formData.append('articleImages', file)
@@ -83,9 +98,9 @@ export const mockCreatedArticle = {
 
 // Validation error messages
 export const validationErrors = {
-  missingCategory: 'Category and contentsByLanguage are required!',
+  missingCategory: 'Category, languages, and imagesContext are required!',
   invalidCategory: 'Invalid category!',
-  invalidContentsArray: 'ContentsByLanguage must be a non-empty array!',
+  invalidContentsArray: 'Languages must be a non-empty array!',
   missingMainTitle: 'mainTitle must have a value!',
   missingArticleContents: 'ArticleContents must be a non-empty array!',
   missingSubTitle: 'subTitle must have a value!',
@@ -100,6 +115,6 @@ export const validationErrors = {
   unsupportedHreflang: 'Unsupported hreflang: invalid. Supported values: en, pt, es, fr, de, it, nl, he, ru',
   invalidUrlPattern: 'Invalid URL pattern: invalid. Supported patterns: articles, artigos, articulos, artikel, articoli, artikelen, מאמרים',
   duplicateSlug: 'Article with slug(s) already exists: test-article-slug',
-  noImages: 'No image files found or the number of image files does not match the number of contentsByLanguage!',
+  noImages: 'No image files found or the number of image files does not match the number of article contents!',
   cloudinaryError: 'Error uploading image: upload failed',
 }

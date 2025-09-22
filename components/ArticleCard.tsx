@@ -32,14 +32,14 @@ export default function ArticleCard({
 
   return (
     <Link
-      href={`/${article.category}/${article.contentsByLanguage[0].seo.slug}`}
+      href={`/${article.category}/${article.languages[0].seo.slug}`}
       className="bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col cursor-pointer"
     >
       {/* Article Image - More height, narrower width */}
       <div className="relative overflow-hidden h-40 flex-shrink-0">
         <Image
           src={article.articleImages[0]}
-          alt={article.contentsByLanguage[0].mainTitle}
+          alt={article.languages[0].content.mainTitle}
           fill
           className="object-cover hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -56,7 +56,7 @@ export default function ArticleCard({
       <div className="p-3 flex-1 flex flex-col gap-3">
         {/* Title - Smaller fixed height */}
         <h3 className="font-semibold text-gray-900 leading-tight hover:text-pink-600 transition-colors duration-200">
-          {article.contentsByLanguage[0].mainTitle}
+          {article.languages[0].content.mainTitle}
         </h3>
 
         {/* Excerpt - Smaller minimum height */}

@@ -178,7 +178,7 @@ export default function Article({
   const calculateContentDistribution = () => {
     const containerDistribution = 4;
     const totalContent =
-      articleData?.contentsByLanguage[0].articleContents.length;
+      articleData?.languages[0].content.articleContents.length;
     const totalImages = articleData?.articleImages.length;
 
     if (totalContent === 0 || totalImages === 0) return [];
@@ -205,7 +205,7 @@ export default function Article({
       }
 
       const containerContent =
-        articleData?.contentsByLanguage[0].articleContents.slice(
+        articleData?.languages[0].content.articleContents.slice(
           contentIndex,
           contentIndex + contentCount
         );
@@ -242,7 +242,7 @@ export default function Article({
                 <div className="relative w-full h-[70vh] mb-8 md:mb-16">
                   <Image
                     src={container.image}
-                    alt={`${articleData?.contentsByLanguage[0].mainTitle}${t(
+                    alt={`${articleData?.languages[0].content.mainTitle}${t(
                       "article.imageAlt"
                     )}${containerIndex + 1}`}
                     fill
@@ -268,7 +268,7 @@ export default function Article({
                       )}
                       
                       <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default">
-                        {articleData?.contentsByLanguage[0].mainTitle}
+                        {articleData?.languages[0].content.mainTitle}
                       </h1>
                       <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
                         <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default">

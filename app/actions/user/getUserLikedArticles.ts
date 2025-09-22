@@ -67,7 +67,7 @@ export async function getUserLikedArticles(
     // Find articles that match the liked article IDs
     const articles = await Article.find({
       _id: { $in: paginatedLikedArticleIds },
-      "contentsByLanguage.seo.hreflang": locale,
+      "languages.hreflang": locale,
     })
       .sort({ createdAt: -1 })
       .lean();

@@ -30,7 +30,7 @@ export const reportComment = async (params: IReportCommentParams): Promise<{
     // Find the comment with article info
     const comment = await Comment.findById(commentId).populate({
       path: "articleId",
-      select: "contentsByLanguage.mainTitle",
+      select: "languages.content.mainTitle",
     });
 
     if (!comment) {
@@ -42,8 +42,8 @@ export const reportComment = async (params: IReportCommentParams): Promise<{
     }
 
     // Get article title
-    const article = comment.articleId as { contentsByLanguage?: Array<{ mainTitle?: string }> };
-    const articleTitle = article?.contentsByLanguage?.[0]?.mainTitle || "Unknown Article";
+    const article = comment.articleId as { languages?: Array<{ content?: { mainTitle?: string } }> };
+    const articleTitle = article?.languages?.[0]?.content?.mainTitle || "Unknown Article";
 
     // Check if user already reported this comment
     const alreadyReported = comment.reports?.some(

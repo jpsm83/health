@@ -1,6 +1,6 @@
 "use server";
 
-import { IGetArticlesParams, IArticleLean, ISerializedArticle, IContentsByLanguage, serializeMongoObject } from "@/types/article";
+import { IGetArticlesParams, IArticleLean, ISerializedArticle, ILanguageSpecific, serializeMongoObject } from "@/types/article";
 import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
@@ -61,31 +61,31 @@ export async function getArticlesByCategory(
     // ------------------------
     const articlesWithFilteredContent = articles
       .map((article: IArticleLean) => {
-        let contentByLanguage: IContentsByLanguage | undefined;
+        let languageSpecific: ILanguageSpecific | undefined;
 
         // Try requested locale
-        contentByLanguage = article.contentsByLanguage.find(
-          (content: IContentsByLanguage) => content.seo.hreflang === locale
+        languageSpecific = article.languages.find(
+          (lang: ILanguageSpecific) => lang.hreflang === locale
         );
 
         // Fallback to English if locale not found
-        if (!contentByLanguage && locale !== "en") {
-          contentByLanguage = article.contentsByLanguage.find(
-            (content: IContentsByLanguage) => content.seo.hreflang === "en"
+        if (!languageSpecific && locale !== "en") {
+          languageSpecific = article.languages.find(
+            (lang: ILanguageSpecific) => lang.hreflang === "en"
           );
         }
 
         // Final fallback: first available
-        if (!contentByLanguage && article.contentsByLanguage.length > 0) {
-          contentByLanguage = article.contentsByLanguage[0];
+        if (!languageSpecific && article.languages.length > 0) {
+          languageSpecific = article.languages[0];
         }
 
         return {
           ...article,
-          contentsByLanguage: contentByLanguage ? [contentByLanguage] : [],
+          languages: languageSpecific ? [languageSpecific] : [],
         };
       })
-      .filter((article: IArticleLean) => article.contentsByLanguage.length > 0);
+      .filter((article: IArticleLean) => article.languages.length > 0);
 
     // ------------------------
     // Pagination metadata (matching getArticles.ts logic)

@@ -31,9 +31,7 @@ export const languageMap: Record<string, string> = {
   fr: "fr-FR",
   de: "de-DE",
   it: "it-IT",
-  nl: "nl-NL",
   he: "he-IL",
-  ru: "ru-RU",
 };
 
 // Supported locales
@@ -44,9 +42,7 @@ export const supportedLocales = [
   "fr",
   "de",
   "it",
-  "nl",
   "he",
-  "ru",
 ];
 
 // Generate language alternates for a given route

@@ -1,6 +1,7 @@
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -14,6 +15,17 @@ export default function RootLayout({
           {children}
           <Toaster />
         </SessionProvider>
+        <Script
+          id="sw-register"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

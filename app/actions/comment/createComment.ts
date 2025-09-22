@@ -45,10 +45,7 @@ export const createComment = async (params: ICreateCommentParams): Promise<{
       throw new Error("Article not found");
     }
 
-    // Check if user is the author
-    if (article.createdBy?.toString() === userId) {
-      throw new Error("You cannot comment on your own article");
-    }
+    // Note: Users are now allowed to comment on their own articles
 
     // Check if user has already commented on this article
     const existingComment = await Comment.findOne({

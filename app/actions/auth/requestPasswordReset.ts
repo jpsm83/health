@@ -98,16 +98,6 @@ const emailTranslations = {
     fallbackMessage: "Se il pulsante sopra non funziona, copia e incolla questo link nel tuo browser:",
     copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
   },
-  nl: {
-    subject: "Wachtwoord Reset Verzoek - Women's Spot",
-    greeting: "Hallo",
-    message: "U heeft onlangs verzocht om uw wachtwoord voor uw Women's Spot-account opnieuw in te stellen. Klik op de knop hieronder om het opnieuw in te stellen.",
-    resetButton: "Wachtwoord Opnieuw Instellen",
-    ignoreMessage: "Als u geen wachtwoord reset heeft aangevraagd, negeer dan deze e-mail of neem contact op met ondersteuning als u vragen heeft.",
-    expiryMessage: "Deze wachtwoord reset link verloopt over 1 uur om veiligheidsredenen.",
-    fallbackMessage: "Als de knop hierboven niet werkt, kopieer en plak deze link in uw browser:",
-    copyright: "© 2025 Women's Spot. Alle rechten voorbehouden.",
-  },
   he: {
     subject: "בקשת איפוס סיסמה - Women's Spot",
     greeting: "שלום",
@@ -117,16 +107,6 @@ const emailTranslations = {
     expiryMessage: "קישור איפוס הסיסמה הזה יפוג תוקף תוך שעה מסיבות אבטחה.",
     fallbackMessage: "אם הכפתור למעלה לא עובד, העתק והדבק את הקישור הזה בדפדפן שלך:",
     copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
-  },
-  ru: {
-    subject: "Запрос на сброс пароля - Women's Spot",
-    greeting: "Привет",
-    message: "Вы недавно запросили сброс пароля для вашего аккаунта Women's Spot. Нажмите кнопку ниже, чтобы сбросить его.",
-    resetButton: "Сбросить пароль",
-    ignoreMessage: "Если вы не запрашивали сброс пароля, проигнорируйте это письмо или обратитесь в службу поддержки, если у вас есть вопросы.",
-    expiryMessage: "Эта ссылка для сброса пароля истечет через 1 час по соображениям безопасности.",
-    fallbackMessage: "Если кнопка выше не работает, скопируйте и вставьте эту ссылку в ваш браузер:",
-    copyright: "© 2025 Women's Spot. Все права защищены.",
   }
 };
 
