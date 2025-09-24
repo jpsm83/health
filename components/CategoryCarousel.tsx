@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { useTranslations, useLocale } from "next-intl";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
 
 interface CategoryCarouselProps {
@@ -30,14 +30,18 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
 
   const limit = 6;
   const [api, setApi] = useState<CarouselApi>();
+  const initialized = useRef(false);
 
   // Initialize with pre-fetched articles or fetch if not provided
   useEffect(() => {
+    if (initialized.current) return;
+    
     if (initialArticles !== undefined && initialArticles.length > 0) {
       // Use pre-fetched articles (only if not empty)
       setArticles(initialArticles);
       setLoading(false);
       setHasMore(initialArticles.length >= limit);
+      initialized.current = true;
     } else {
       // Fetch articles if not provided (fallback for backward compatibility)
       const fetchArticles = async () => {
@@ -71,6 +75,7 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
           });
         } finally {
           setLoading(false);
+          initialized.current = true;
         }
       };
 

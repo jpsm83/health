@@ -21,9 +21,9 @@ const nextConfig: NextConfig = {
 	experimental: {
 		optimizeCss: false, // Disabled to avoid critters dependency issue
 		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
-		// Mobile-specific optimizations
-		serverComponentsExternalPackages: ['mongoose'],
 	},
+	// External packages for server components
+	serverExternalPackages: ['mongoose'],
 	// Optimize CSS and prevent preload warnings
 	compiler: {
 		removeConsole: process.env.NODE_ENV === 'production' ? {

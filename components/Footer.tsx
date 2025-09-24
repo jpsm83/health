@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start md:text-left text-center space-y-4">
             <Link
               href={`/${locale}`}
-              className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+              className="flex items-center space-x-2"
             >
               <Heart size={24} className="text-pink-200" />
               <span className="text-xl font-bold">Women&apos;s Spot</span>
