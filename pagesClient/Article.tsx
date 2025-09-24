@@ -17,6 +17,7 @@ import CommentsSection from "@/components/CommentsSection";
 import { Button } from "@/components/ui/button";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import DeleteArticleModal from "@/components/DeleteArticleModal";
+import SocialShare from "@/components/SocialShare";
 
 export default function Article({
   articleData,
@@ -223,6 +224,12 @@ export default function Article({
 
   const containers = calculateContentDistribution();
 
+  // Generate share URL and data
+  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const shareTitle = articleData?.languages[0].content.mainTitle || '';
+  const shareDescription = articleData?.languages[0].content.articleContents[0]?.articleParagraphs[0] || '';
+  const shareMedia = articleData?.articleImages[0] || '';
+
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
       {/* Article Content in 4 Containers */}
@@ -290,8 +297,8 @@ export default function Article({
                         <div className="flex justify-center items-center">
                           <Button
                             onClick={toggleLike}
-                            className={`flex items-center gap-1 px-2 py-1 border-none transition-colors cursor-pointer rounded-full shadow-lg ${
-                              isLiked ? "text-red-400" : "text-gray-200"
+                            className={`flex items-center gap-1 px-2 py-1 border-none transition-colors cursor-pointer rounded-full ${
+                              isLiked ? "text-red-600" : "text-gray-200"
                             }`}
                             title={
                               isLiked
@@ -308,6 +315,16 @@ export default function Article({
                             />
                           </Button>
                         </div>
+                      </div>
+                      
+                      {/* Social Share Buttons - Inside Hero Image at Bottom */}
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-xs shadow-2xl p-2 w-full">
+                        <SocialShare
+                          url={shareUrl}
+                          title={shareTitle}
+                          description={shareDescription}
+                          media={shareMedia}
+                        />
                       </div>
                     </div>
                   )}
@@ -364,6 +381,16 @@ export default function Article({
             )}
           </Button>
         </div>
+
+        {/* Social Share Buttons - Above Comments */}
+          <div className="text-center">
+            <SocialShare
+              url={shareUrl}
+              title={shareTitle}
+              description={shareDescription}
+              media={shareMedia}
+            />
+          </div>
 
         {/* Comments Section */}
         <CommentsSection

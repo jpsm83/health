@@ -259,33 +259,33 @@ export default function CommentsSection({
   };
 
   return (
-    <div className="bg-white shadow-lg p-4 md:p-6 lg:p-8 pb-12">
-      <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
+    <div className="bg-white shadow-lg p-3 sm:p-4 md:p-6 lg:p-8 pb-8 sm:pb-12">
+      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-6">
         {t("comments.title")}
       </h3>
 
       {/* Comment Form - Only for logged in users who haven't commented */}
       {session?.user?.id && !hasUserCommented && (
-        <form onSubmit={handleComment} className="mb-6 md:mb-8">
+        <form onSubmit={handleComment} className="mb-4 sm:mb-6 md:mb-8">
           <div className="space-y-3">
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder={t("comments.form.placeholder")}
-              className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent resize-none"
+              className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent resize-none"
               rows={3}
               maxLength={1000}
               disabled={isSubmitting}
             />
 
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
               <span className="text-xs text-gray-500">
                 {newComment?.length || 0}{t("comments.form.charCount")}
               </span>
               <Button
                 type="submit"
                 disabled={!newComment?.trim() || isSubmitting}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {isSubmitting ? t("comments.form.submitting") : t("comments.form.submit")}
               </Button>
@@ -296,7 +296,7 @@ export default function CommentsSection({
 
       {/* Message for users who have already commented */}
       {session?.user?.id && hasUserCommented && (
-        <div className="mb-6 md:mb-8 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+        <div className="mb-4 sm:mb-6 md:mb-8 p-3 sm:p-4 bg-purple-50 border border-purple-200 rounded-lg">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 text-purple-500">💬</div>
             <p className="text-sm text-purple-700">
@@ -307,9 +307,9 @@ export default function CommentsSection({
       )}
 
       {/* Comments List */}
-      <div className="space-y-3 md:space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {comments.length === 0 ? (
-          <p className="text-gray-500 text-center py-6 md:py-8 text-sm md:text-base">
+          <p className="text-gray-500 text-center py-4 sm:py-6 md:py-8 text-sm">
             {t("comments.form.noComments")}
           </p>
         ) : (
@@ -345,12 +345,12 @@ export default function CommentsSection({
             return (
               <div
                 key={comment._id?.toString() || index}
-                className="border border-gray-200 rounded-lg p-3 md:p-4 relative"
+                className="border border-gray-200 rounded-lg p-3 sm:p-4 relative"
               >
-                <div className="flex items-start gap-3 mb-3">
+                <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
                   {/* User Avatar */}
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-300 rounded-full flex items-center justify-center">
                       {commentAuthorImage &&
                       commentAuthorImage.trim() !== "" ? (
                         <Image
@@ -359,10 +359,10 @@ export default function CommentsSection({
                           width={32}
                           height={32}
                           priority
-                          className="rounded-full"
+                          className="rounded-full w-8 h-8 sm:w-10 sm:h-10"
                         />
                       ) : (
-                        <User size={16} />
+                        <User size={16} className="sm:w-5 sm:h-5" />
                       )}
                     </div>
                   </div>
@@ -370,17 +370,17 @@ export default function CommentsSection({
                   {/* Comment Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1 sm:gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-gray-800 text-sm md:text-base">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                        <span className="font-semibold text-gray-800 text-sm">
                           {commentAuthorName}
                         </span>
-                        <span className="text-xs md:text-sm text-gray-500">
+                        <span className="text-xs text-gray-500">
                           {formatDate(comment.createdAt)}
                         </span>
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex items-center">
+                      <div className="flex items-center gap-1">
                         {/* Like Button */}
                         {!isReported && (
                           <Button
@@ -393,7 +393,7 @@ export default function CommentsSection({
                             title={isLiked ? t("comments.actions.unlikeComment") : t("comments.actions.likeComment")}
                           >
                             <Heart
-                              size={14}
+                              size={12}
                               className={
                                 isLiked
                                   ? "fill-current"
@@ -420,7 +420,7 @@ export default function CommentsSection({
                               className="p-1 text-gray-400 hover:text-red-600 transition-colors border-none shadow-none"
                               title={t("comments.actions.reportComment")}
                             >
-                              <Flag size={14} />
+                              <Flag size={12} />
                             </Button>
                           )}
                         {/* Delete Button */}
@@ -432,7 +432,7 @@ export default function CommentsSection({
                             className="p-1 text-gray-400 hover:text-red-600 transition-colors border-none shadow-none"
                             title={t("comments.actions.deleteComment")}
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={12} />
                           </Button>
                         )}
                       </div>
@@ -452,7 +452,7 @@ export default function CommentsSection({
                         </div>
                       </div>
                     ) : (
-                      <p className="text-gray-700 text-sm md:text-base leading-relaxed break-words">
+                      <p className="text-gray-700 text-sm leading-relaxed break-words">
                         {comment.comment}
                       </p>
                     )}
@@ -466,8 +466,8 @@ export default function CommentsSection({
 
       {/* Report Modal */}
       {reportModal.isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3 sm:p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {t("comments.reportModal.title")}
             </h3>
@@ -510,18 +510,18 @@ export default function CommentsSection({
               ))}
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button
                 onClick={closeReportModal}
                 disabled={isReporting}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {t("comments.reportModal.cancel")}
               </Button>
               <Button
                 onClick={handleCommentReport}
                 disabled={!selectedReason || isReporting}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {isReporting ? (
                   <>

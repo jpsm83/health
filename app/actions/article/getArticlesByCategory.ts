@@ -107,7 +107,23 @@ export async function getArticlesByCategory(
     };
   } catch (error) {
     console.error("Error fetching articles by category:", error);
-    // Return empty paginated response instead of throwing error
+    
+    // Check if it's a connection error (common on mobile)
+    if (error instanceof Error && (
+      error.message.includes('connection') || 
+      error.message.includes('timeout') ||
+      error.message.includes('network')
+    )) {
+      // For connection errors, throw to trigger retry mechanism
+      throw new Error(`Network error: ${error.message}`);
+    }
+    
+    // For other errors, return empty response but log the specific error
+    console.error("Specific error details:", {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      params: { page, limit, sort, order, locale, category }
+    });
+    
     return {
       page,
       limit,

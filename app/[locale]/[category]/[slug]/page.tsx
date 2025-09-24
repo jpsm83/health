@@ -102,6 +102,15 @@ export default async function ArticlePage({
     articleData = result ?? undefined;
   } catch (error) {
     console.error("Error fetching article:", error);
+    
+    // Log mobile-specific debugging info
+    console.error("Mobile article error context:", {
+      slug,
+      locale,
+      userAgent: typeof window !== 'undefined' ? window.navigator?.userAgent : 'Server-side',
+      timestamp: new Date().toISOString(),
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 
   // If article doesn't exist, trigger not-found page

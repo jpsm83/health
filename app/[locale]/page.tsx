@@ -57,6 +57,17 @@ export default async function HomePage({
     });
   } catch (error) {
     console.error("Error fetching articles:", error);
+    
+    // Log additional context for mobile debugging
+    console.error("Mobile debugging info:", {
+      userAgent: typeof window !== 'undefined' ? window.navigator?.userAgent : 'Server-side',
+      locale,
+      timestamp: new Date().toISOString(),
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    // Don't fail completely - let the app render with empty data
+    // The client components will handle the empty state gracefully
   }
 
   return (

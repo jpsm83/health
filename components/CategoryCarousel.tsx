@@ -60,6 +60,15 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
             err instanceof Error ? err.message : t("failedToFetchArticles");
           setError(message);
           console.error(`Error fetching ${category} articles:`, err);
+          
+          // Log mobile-specific debugging info
+          console.error("Mobile carousel error context:", {
+            category,
+            locale,
+            userAgent: navigator?.userAgent,
+            timestamp: new Date().toISOString(),
+            error: err instanceof Error ? err.message : 'Unknown error'
+          });
         } finally {
           setLoading(false);
         }
