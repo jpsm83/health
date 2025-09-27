@@ -48,7 +48,7 @@
       "health": "Santé",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sexe",
+      "intimacy": "Intimite",
       "beauty": "Beauté",
       "fashion": "Mode",
       "lifestyle": "Style de Vie",
@@ -114,7 +114,7 @@
       "health": "Santé",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sexe",
+      "intimacy": "Intimite",
       "beauty": "Beauté",
       "fashion": "Mode",
       "lifestyle": "Style de Vie",
@@ -221,7 +221,7 @@
       "health": "Santé",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sexe et Relations",
+      "intimacy": "Intimite et Relations",
       "beauty": "Beauté",
       "fashion": "Mode",
       "lifestyle": "Style de Vie",
@@ -434,7 +434,7 @@
       "keywords": "termes et conditions, Women's Spot, santé, forme physique, mode de vie, autonomisation"
     },
     "privacyPolicy": {
-      "title": "Politique de Confidentialité - Women's Spot",
+      "title": "Politique de Intimite - Women's Spot",
       "description": "Politique de confidentialité pour utiliser Women's Spot. Nous respectons votre vie privée et nous nous engageons à protéger vos informations personnelles.",
       "keywords": "politique de confidentialité, Women's Spot, santé, forme physique, mode de vie, autonomisation, confidentialité"
     },
@@ -490,7 +490,7 @@
         "title": "Mode de Vie et Voyage",
         "description": "Conseils pour la productivité, la parentalité, la décoration de la maison, les expériences de voyage et l'équilibre travail-vie."
       },
-      "relationshipsSex": {
+      "intimacy": {
         "title": "Relations et Sexualité",
         "description": "Discussions ouvertes et honnêtes sur les relations, l'intimité et la santé sexuelle pour les femmes."
       }
@@ -506,7 +506,7 @@
         "description": "Notre plateforme est soutenue en partie par la publicité, cependant, notre contenu est produit conformément au code de conduite éditorial. Dans certains cas, les sponsors peuvent avoir des contributions concernant des concepts larges, mais ils n'ont aucune influence matérielle sur le produit final. Ce contenu créé en collaboration avec des annonceurs est clairement marqué comme tel."
       },
       "privacy": {
-        "title": "Confidentialité",
+        "title": "Intimite",
         "description": "Nous comprenons que la santé est un sujet sensible, et nous maintenons une politique de confidentialité stricte pour protéger vos informations personnelles et vos données de navigation."
       }
     },
@@ -517,11 +517,11 @@
     }
   },
   "privacyPolicy": {
-    "title": "Avis de Confidentialité",
+    "title": "Avis de Intimite",
     "lastUpdated": "Dernière Mise à Jour :",
     "highlights": {
-      "title": "Avis de Confidentialité – Points Clés",
-      "description": "Lorsque vous utilisez ou interagissez avec le site web de Women's Spot, l'application mobile ou d'autres services numériques (chacun un 'Service Numérique') ou complétez des formulaires pour vous abonner à notre contenu, participer à des concours ou fournir vos détails lors d'événements, nous et des tiers obtenons certaines informations vous concernant. Dans cette section Points Clés, nous fournissons un aperçu de nos pratiques de confidentialité liées aux Services Numériques. Veuillez consulter notre Avis de Confidentialité complet ci-dessous pour une explication détaillée de nos pratiques."
+      "title": "Avis de Intimite – Points Clés",
+      "description": "Lorsque vous utilisez ou interagissez avec le site web de Women's Spot, l'application mobile ou d'autres services numériques (chacun un 'Service Numérique') ou complétez des formulaires pour vous abonner à notre contenu, participer à des concours ou fournir vos détails lors d'événements, nous et des tiers obtenons certaines informations vous concernant. Dans cette section Points Clés, nous fournissons un aperçu de nos pratiques de confidentialité liées aux Services Numériques. Veuillez consulter notre Avis de Intimite complet ci-dessous pour une explication détaillée de nos pratiques."
     },
     "sections": {
       "whatInformationWeObtain": {
@@ -591,7 +591,7 @@
         "description2": "Dans de telles circonstances, nous mettons en place des garanties appropriées pour protéger vos données, y compris des engagements contractuels."
       },
       "childrensPrivacyRights": {
-        "title": "Droits de Confidentialité des Enfants",
+        "title": "Droits de Intimite des Enfants",
         "description": "Les Services Numériques ne sont pas destinés à être utilisés par des enfants, en particulier ceux de moins de 13 ans, et nous ne collectons pas sciemment des informations personnelles auprès d'enfants de moins de 13 ans."
       },
       "linksToThirdParty": {
@@ -601,16 +601,16 @@
         "description3": "Nous ne sommes pas responsables des pratiques de confidentialité de tout Service de Tiers, et nous vous encourageons à examiner les politiques de confidentialité ou avis publiés par les Services de Tiers que vous pourriez visiter."
       },
       "changesToPrivacyNotice": {
-        "title": "Modifications de Cet Avis de Confidentialité",
-        "description1": "Nous mettons à jour cet Avis de Confidentialité de temps à autre pour refléter les changements dans nos pratiques de confidentialité ou les lois applicables. Lorsque les modifications de cet Avis de Confidentialité ont un impact fondamental sur la nature du traitement ou ont autrement un impact substantiel sur vous, nous vous donnerons un avis préalable afin que vous ayez l'opportunité d'exercer vos droits.",
-        "description2": "Nous publierons la version mise à jour sur les Services Numériques pertinents et indiquerons en haut de l'Avis de Confidentialité quand il a été mis à jour le plus récemment. Votre utilisation des Services Numériques sera régie par la version alors en vigueur de l'Avis de Confidentialité."
+        "title": "Modifications de Cet Avis de Intimite",
+        "description1": "Nous mettons à jour cet Avis de Intimite de temps à autre pour refléter les changements dans nos pratiques de confidentialité ou les lois applicables. Lorsque les modifications de cet Avis de Intimite ont un impact fondamental sur la nature du traitement ou ont autrement un impact substantiel sur vous, nous vous donnerons un avis préalable afin que vous ayez l'opportunité d'exercer vos droits.",
+        "description2": "Nous publierons la version mise à jour sur les Services Numériques pertinents et indiquerons en haut de l'Avis de Intimite quand il a été mis à jour le plus récemment. Votre utilisation des Services Numériques sera régie par la version alors en vigueur de l'Avis de Intimite."
       }
     }
   },
   "cookiePolicy": {
     "title": "Politique des Cookies",
     "introduction": {
-      "paragraph1": "Cette Politique des Cookies s'applique au Service Numérique qui lie à cette Politique des Cookies et fait partie de l'Avis de Confidentialité, qui décrit nos pratiques de gestion des données et est disponible ici. Sur les Services Numériques, Women's Spot ('nous', 'notre' ou 'Women's Spot') et des tiers, y compris nos fournisseurs de services publicitaires et marketing et partenaires, utilisent une variété de technologies incluant les cookies ('Cookies et Technologies Similaires').",
+      "paragraph1": "Cette Politique des Cookies s'applique au Service Numérique qui lie à cette Politique des Cookies et fait partie de l'Avis de Intimite, qui décrit nos pratiques de gestion des données et est disponible ici. Sur les Services Numériques, Women's Spot ('nous', 'notre' ou 'Women's Spot') et des tiers, y compris nos fournisseurs de services publicitaires et marketing et partenaires, utilisent une variété de technologies incluant les cookies ('Cookies et Technologies Similaires').",
       "paragraph2": "Les Cookies et Technologies Similaires varient selon les Services Numériques et incluent les cookies, web beacons, balises, scripts, pixels, objets locaux partagés (y compris les cookies HTML5) et kits de développement logiciel ('SDKs'). Vous pouvez en lire plus ci-dessous sur les types de cookies que nous utilisons, pourquoi nous les utilisons et comment vous pouvez exercer vos choix concernant les Cookies et Technologies Similaires."
     },
     "sections": {
@@ -625,7 +625,7 @@
       },
       "whichCookies": {
         "title": "QUELLES COOKIES UTILISONS-NOUS ET POURQUOI LES UTILISONS-NOUS ?",
-        "description": "Notre Tableau de Bord des Cookies fournit des informations sur les différentes catégories de Cookies et Technologies Similaires que les Services Numériques utilisent, les entreprises qui les servent et pourquoi nous les utilisons. Le Tableau de Bord des Cookies est toujours disponible depuis nos sites web. Si vous avez des questions sur notre utilisation des Cookies et Technologies Similaires, veuillez nous contacter en utilisant les détails fournis dans la section 'Nous Contacter' de notre Avis de Confidentialité."
+        "description": "Notre Tableau de Bord des Cookies fournit des informations sur les différentes catégories de Cookies et Technologies Similaires que les Services Numériques utilisent, les entreprises qui les servent et pourquoi nous les utilisons. Le Tableau de Bord des Cookies est toujours disponible depuis nos sites web. Si vous avez des questions sur notre utilisation des Cookies et Technologies Similaires, veuillez nous contacter en utilisant les détails fournis dans la section 'Nous Contacter' de notre Avis de Intimite."
       },
       "yourChoices": {
         "title": "VOS CHOIX, Y COMPRIS LES DÉSABONNEMENTS",
@@ -737,7 +737,7 @@
       },
       "privacy": {
         "title": "6. CONFIDENTIALITÉ",
-        "description": "Les informations que vous fournissez sur vous-même à Women's Spot ne seront utilisées par Women's Spot qu'en conformité avec sa Politique de Confidentialité disponible sur notre page de politique de confidentialité. La Politique de Confidentialité ne s'applique pas aux sites tiers."
+        "description": "Les informations que vous fournissez sur vous-même à Women's Spot ne seront utilisées par Women's Spot qu'en conformité avec sa Politique de Intimite disponible sur notre page de politique de confidentialité. La Politique de Intimite ne s'applique pas aux sites tiers."
       },
       "safety": {
         "title": "7. SÉCURITÉ",
@@ -799,7 +799,7 @@
     "quickLinks": "Liens Rapides",
     "aboutUs": "À Propos de Nous",
     "contact": "Contact",
-    "privacyPolicy": "Politique de Confidentialité",
+    "privacyPolicy": "Politique de Intimite",
     "getInTouch": "Contactez-nous",
     "address": "Barcelona, Spain",
     "copyright": "© 2024 Santé et Bien-être. Tous droits réservés.",

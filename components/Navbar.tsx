@@ -170,11 +170,11 @@ export default function Navbar() {
 
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${locale}/sex`}
+                  href={`/${locale}/intimacy`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
                 >
-                  <VenusAndMars size={16} className="text-red-600" /> {t("categories.sex")}
+                  <VenusAndMars size={16} className="text-red-600" /> {t("categories.intimacy")}
                 </Link>
               </DropdownMenuItem>
 

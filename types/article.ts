@@ -61,7 +61,6 @@ export interface IInstagram {
   caption?: string;
   hashtags?: string[];
   altText?: string;
-  image?: string;
   video?: string;
   url: string;
 }
@@ -71,7 +70,6 @@ export interface IFacebook {
   headline?: string;
   linkDescription?: string;
   hashtags?: string[];
-  image?: string;
   video?: string;
   callToAction?: string;
   url: string;
@@ -80,7 +78,6 @@ export interface IFacebook {
 export interface IXTwitter {
   text?: string;
   hashtags?: string[];
-  image?: string;
   video?: string;
   url: string;
 }
@@ -89,7 +86,7 @@ export interface IPinterest {
   title?: string;
   description?: string;
   hashtags?: string[];
-  image?: string;
+  video?: string;
   altText?: string;
   url: string;
 }
@@ -99,13 +96,11 @@ export interface IYouTube {
   description?: string;
   tags?: string[];
   video: string;
-  thumbnail?: string;
   url: string;
 }
 
 export interface IThreads {
   text?: string;
-  image?: string;
   video?: string;
   hashtags?: string[];
   url: string;
@@ -115,7 +110,6 @@ export interface ITikTok {
   caption?: string;
   hashtags?: string[];
   video: string;
-  coverImage?: string;
   url: string;
 }
 

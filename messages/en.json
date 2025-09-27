@@ -50,7 +50,7 @@
       "health": "Health",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sex",
+      "intimacy": "Intimacy",
       "beauty": "Beauty",
       "fashion": "Fashion",
       "lifestyle": "Lifestyle",
@@ -115,7 +115,7 @@
       "health": "Health",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sex",
+      "intimacy": "Intimacy",
       "beauty": "Beauty",
       "fashion": "Fashion",
       "lifestyle": "Lifestyle",
@@ -222,7 +222,7 @@
       "health": "Health",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "sex": "Sex & Relationships",
+      "intimacy": "Intimacy & Relationships",
       "beauty": "Beauty",
       "fashion": "Fashion",
       "lifestyle": "Lifestyle",
@@ -304,17 +304,17 @@
         "description": "Our comprehensive collection of nutrition articles, tips, everthing you need to know about nutrition and wellness."
       }
     },
-    "sex": {
-      "heroImageAlt": "Sex Articles Hero Image",
-      "title": "Sex Articles",
-      "description": "Our best insights on sex, a comprehensive collection of sex articles, tips, and guides to help you live a healthier, more fulfilling life.",
+    "intimacy": {
+      "heroImageAlt": "Intimacy Articles Hero Image",
+      "title": "Intimacy Articles",
+      "description": "Our best insights on intimacy, a comprehensive collection of intimacy articles, tips, and guides to help you live a healthier, more fulfilling life.",
       "featuredArticles": {
-        "title": " Featured Sex Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in sex and wellness."
+        "title": " Featured Intimacy Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in intimacy and wellness."
       },
       "explore": {
-        "title": "Explore Sex Articles",
-        "description": "Our comprehensive collection of sex articles, tips, everthing you need to know about sex and wellness."
+        "title": "Explore Intimacy Articles",
+        "description": "Our comprehensive collection of intimacy articles, tips, everthing you need to know about intimacy and wellness."
       }
     },
     "beauty": {
@@ -592,10 +592,10 @@
       "description": "Our best insights on nutrition, a comprehensive collection of nutrition articles, tips, and guides to help you live a healthier, more fulfilling life.",
       "keywords": "nutrition articles, healthy eating, diet tips, food guides, nutritional advice, wellness nutrition"
     },
-    "sex": {
-      "title": "Sex Articles",
-      "description": "Our best insights on sex, a comprehensive collection of sex articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "sex articles, sexual health, relationships, intimacy, sexual wellness, relationship advice"
+    "intimacy": {
+      "title": "Intimacy Articles",
+      "description": "Our best insights on intimacy, a comprehensive collection of intimacy articles, tips, and guides to help you live a healthier, more fulfilling life.",
+      "keywords": "intimacy articles, sexual health, relationships, intimacy, sexual wellness, relationship advice"
     },
     "beauty": {
       "title": "Beauty Articles",
@@ -684,8 +684,8 @@
         "title": "Lifestyle & Travel",
         "description": "Tips for productivity, parenting, home decor, travel experiences, and work-life balance."
       },
-      "relationshipsSex": {
-        "title": "Relationships & Sex",
+      "intimacy": {
+        "title": "Relationships & Intimacy",
         "description": "Open, honest discussions about relationships, intimacy, and sexual health for women's."
       }
     },
@@ -1030,7 +1030,7 @@
         "beauty": "Beauty",
         "travel": "Travel",
         "fashion": "Fashion",
-        "sex": "Sex",
+        "intimacy": "Intimacy",
         "decor": "Decor",
         "productivity": "Productivity",
         "parenting": "Parenting"

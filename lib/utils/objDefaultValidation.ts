@@ -27,24 +27,27 @@ const objDefaultValidation = (
     }
 
     // Check required fields have a value
-    if (reqFields.includes(key) && (obj[key] === undefined || obj[key] === null || obj[key] === '')) {
+    if (
+      reqFields.includes(key) &&
+      (obj[key] === undefined || obj[key] === null || obj[key] === "")
+    ) {
       return `${key} must have a value!`;
     }
 
     // Password validation
-    if (key === "password" && typeof obj.password === 'string') {
-      const passwordRegex = 
+    if (key === "password" && typeof obj.password === "string") {
+      const passwordRegex =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      
+
       if (!passwordRegex.test(obj.password)) {
         return "Password must be at least 8 characters long and contain a lowercase letter, an uppercase letter, a symbol, and a number!";
       }
     }
 
     // Email validation
-    if (key === "email" && typeof obj.email === 'string') {
+    if (key === "email" && typeof obj.email === "string") {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      
+
       if (!emailRegex.test(obj.email)) {
         return "Please enter a valid email address!";
       }
@@ -62,4 +65,3 @@ const objDefaultValidation = (
 };
 
 export default objDefaultValidation;
-  

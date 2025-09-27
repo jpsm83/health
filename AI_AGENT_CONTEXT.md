@@ -44,7 +44,7 @@ The application supports 9 languages:
 
 ### 1. Article Management
 - **Multilingual Articles**: Each article supports content in all 9 languages
-- **Categories**: 11 main categories (health, fitness, nutrition, sex, beauty, fashion, lifestyle, travel, decor, productivity, parenting)
+- **Categories**: 11 main categories (health, fitness, nutrition, intimacy, beauty, fashion, lifestyle, travel, decor, productivity, parenting)
 - **Article Status**: Published/Archived
 - **SEO Optimization**: Meta titles, descriptions, keywords, canonical URLs
 - **Image Management**: Minimum 4 images per article via Cloudinary
@@ -165,7 +165,7 @@ services/                   # Business logic services
 ```typescript
 // Main article categories
 export const mainCategories = [
-  "health", "fitness", "nutrition", "sex", "beauty", 
+  "health", "fitness", "nutrition", "intimacy", "beauty", 
   "fashion", "lifestyle", "travel", "decor", 
   "productivity", "parenting"
 ];

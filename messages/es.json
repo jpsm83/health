@@ -48,7 +48,7 @@
       "health": "Salud",
       "fitness": "Fitness",
       "nutrition": "Nutrición",
-      "sex": "Sexo",
+      "intimacy": "Intimidad",
       "beauty": "Belleza",
       "fashion": "Moda",
       "lifestyle": "Estilo de Vida",
@@ -114,7 +114,7 @@
       "health": "Salud",
       "fitness": "Fitness",
       "nutrition": "Nutrición",
-      "sex": "Sexo",
+      "intimacy": "Intimidad",
       "beauty": "Belleza",
       "fashion": "Moda",
       "lifestyle": "Estilo de Vida",
@@ -221,7 +221,7 @@
       "health": "Salud",
       "fitness": "Fitness",
       "nutrition": "Nutrición",
-      "sex": "Sexo y Relaciones",
+      "intimacy": "Intimidad y Relaciones",
       "beauty": "Belleza",
       "fashion": "Moda",
       "lifestyle": "Estilo de Vida",
@@ -556,8 +556,8 @@
         "title": "Estilo de Vida y Viajes",
         "description": "Consejos para productividad, crianza de hijos, decoración del hogar, experiencias de viaje y equilibrio trabajo-vida."
       },
-      "relationshipsSex": {
-        "title": "Relaciones y Sexo",
+      "intimacy": {
+        "title": "Relaciones y Intimidad",
         "description": "Discusiones abiertas y honestas sobre relaciones, intimidad y salud sexual para mujeres."
       }
     },

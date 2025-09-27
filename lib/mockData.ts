@@ -116,12 +116,12 @@ export const mockArticles: MockArticle[] = [
     slug: "plant-based-diet-getting-started"
   },
 
-  // Sex & Intimacy Articles
+  // Intimacy Articles
   {
     id: "20",
     title: "Building Intimacy: Communication in Relationships",
     excerpt: "Learn effective communication strategies to strengthen intimacy and connection in your relationships.",
-    category: "sex",
+    category: "intimacy",
     author: "Relationship Counselor Dr. Sarah Williams",
     publishedAt: "2024-01-14",
     readTime: "8 min read",
@@ -132,7 +132,7 @@ export const mockArticles: MockArticle[] = [
     id: "21",
     title: "Sexual Health: A Comprehensive Guide",
     excerpt: "Essential information about sexual health, safety, and wellness for adults of all ages.",
-    category: "sex",
+    category: "intimacy",
     author: "Sexual Health Specialist Dr. Michael Rodriguez",
     publishedAt: "2024-01-11",
     readTime: "10 min read",

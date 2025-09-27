@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { auth } from "../auth/[...nextauth]/route";
+// import { auth } from "../auth/[...nextauth]/route";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -12,7 +12,11 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import Article from "@/app/api/models/article";
 
 // imported interfaces
-import { IArticle, ILanguageSpecific, IGetArticlesParams } from "@/types/article";
+import {
+  IArticle,
+  ILanguageSpecific,
+  IGetArticlesParams,
+} from "@/types/article";
 
 // imported constants
 import { mainCategories } from "@/lib/constants";
@@ -86,7 +90,7 @@ export const GET = async (req: Request) => {
     };
 
     let result;
-    
+
     if (category) {
       // Use getArticlesByCategory when category is specified
       // This action is optimized for category filtering with excludeIds
@@ -126,17 +130,16 @@ export const GET = async (req: Request) => {
 // @route   POST /articles
 // @access  Private
 export const POST = async (req: Request) => {
-  // validate session
-  const session = await auth();
-
-  if (!session) {
-    return new NextResponse(
-      JSON.stringify({
-        message: "You must be signed in to create an article",
-      }),
-      { status: 401, headers: { "Content-Type": "application/json" } }
-    );
-  }
+  // // validate session
+  // const session = await auth();
+  // if (!session) {
+  //   return new NextResponse(
+  //     JSON.stringify({
+  //       message: "You must be signed in to create an article",
+  //     }),
+  //     { status: 401, headers: { "Content-Type": "application/json" } }
+  //   );
+  // }
 
   try {
     // Parse FORM DATA instead of JSON because we might have image files
@@ -173,13 +176,37 @@ export const POST = async (req: Request) => {
       languagesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
     ) as ILanguageSpecific[];
 
-    // Parse imagesContext from formData
-    const imagesContext = JSON.parse(imagesContextRaw) as {
-      imageOne: string;
-      imageTwo: string;
-      imageThree: string;
-      imageFour: string;
-    };
+    let imagesContext;
+
+    try {
+      const parsedData = JSON.parse(
+        imagesContextRaw.replace(/,\s*}/g, "}").replace(/\s+/g, " ").trim()
+      );
+
+      // Extract imagesContext from the nested structure
+      if (!parsedData.imagesContext) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "imagesContext property is missing from the parsed data",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      imagesContext = parsedData.imagesContext as {
+        imageOne: string;
+        imageTwo: string;
+        imageThree: string;
+        imageFour: string;
+      };
+    } catch (error) {
+      return new NextResponse(
+        JSON.stringify({
+          message: `Invalid imagesContext format: ${error}`,
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     // Validate languages structure
     if (!Array.isArray(languages) || languages.length === 0) {
@@ -201,7 +228,8 @@ export const POST = async (req: Request) => {
     ) {
       return new NextResponse(
         JSON.stringify({
-          message: "ImagesContext must have imageOne, imageTwo, imageThree, and imageFour!",
+          message:
+            "ImagesContext must have imageOne, imageTwo, imageThree, and imageFour!",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -237,7 +265,8 @@ export const POST = async (req: Request) => {
       ) {
         return new NextResponse(
           JSON.stringify({
-            message: "Canvas must have paragraphOne, paragraphTwo, and paragraphThree!",
+            message:
+              "Canvas must have paragraphOne, paragraphTwo, and paragraphThree!",
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
@@ -321,15 +350,7 @@ export const POST = async (req: Request) => {
       }
 
       // Validate hreflang is supported
-      const supportedLocales = [
-        "en",
-        "pt",
-        "es",
-        "fr",
-        "de",
-        "it",
-        "he",
-      ];
+      const supportedLocales = ["en", "pt", "es", "fr", "de", "it", "he"];
       if (!supportedLocales.includes(language.seo.hreflang)) {
         return new NextResponse(
           JSON.stringify({
@@ -366,7 +387,7 @@ export const POST = async (req: Request) => {
     // Validate fileEntries
     if (
       !fileEntries.length ||
-      fileEntries.length !== languages[0].content.articleContents.length ||
+      // fileEntries.length !== languages[0].content.articleContents.length ||
       fileEntries.some((file) => file.size === 0)
     ) {
       return new NextResponse(
@@ -407,7 +428,8 @@ export const POST = async (req: Request) => {
       category: category,
       imagesContext,
       articleImages: [],
-      createdBy: session.user.id,
+      // createdBy: session.user.id,
+      createdBy: "68d1b1ae6c320528f38e789d"
     };
 
     // Upload images to Cloudinary
@@ -441,7 +463,6 @@ export const POST = async (req: Request) => {
 
     // Create article in database
     const createdArticle = await Article.create(newArticle);
-
     return new NextResponse(
       JSON.stringify({
         message: "Article created successfully!",

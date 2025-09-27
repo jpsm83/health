@@ -177,10 +177,10 @@ export default async function AboutPage() {
                     </svg>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {t("whatWeCover.relationshipsSex.title")}
+                    {t("whatWeCover.intimacy.title")}
                   </h3>
                   <p className="text-gray-700">
-                    {t("whatWeCover.relationshipsSex.description")}
+                    {t("whatWeCover.intimacy.description")}
                   </p>
                 </div>
               </div>
