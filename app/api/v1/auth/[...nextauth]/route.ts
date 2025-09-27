@@ -31,7 +31,22 @@ declare module "next-auth" {
       imageUrl?: string;
     };
   }
+
+  interface User {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+    imageUrl?: string;
+  }
+
+  interface JWT {
+    id: string;
+    role: string;
+    imageUrl?: string;
+  }
 }
+
 // NextAuth configuration
 const authOptions: NextAuthConfig = {
   providers: [
