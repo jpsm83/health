@@ -187,8 +187,11 @@ const authOptions: NextAuthConfig = {
               }).session(session);
 
               if (existingSubscriber) {
-                console.log("Google signup - Linking existing subscriber:", existingSubscriber._id);
-                
+                console.log(
+                  "Google signup - Linking existing subscriber:",
+                  existingSubscriber._id
+                );
+
                 // Link existing subscription to new user
                 await Subscriber.findOneAndUpdate(
                   { email: profile.email!.toLowerCase() },
@@ -206,7 +209,7 @@ const authOptions: NextAuthConfig = {
                 newUser.subscriptionId = existingSubscriber._id;
               } else {
                 console.log("Google signup - Creating new subscriber");
-                
+
                 // Create new subscription for user
                 const subscriptionId = new mongoose.Types.ObjectId();
 
@@ -233,11 +236,14 @@ const authOptions: NextAuthConfig = {
 
               // Save user
               await newUser.save({ session });
-              
+
               // Commit the transaction
               await session.commitTransaction();
-              
-              console.log("Google signup - User created with subscriptionId:", newUser.subscriptionId);
+
+              console.log(
+                "Google signup - User created with subscriptionId:",
+                newUser.subscriptionId
+              );
             } catch (error) {
               await session.abortTransaction();
               console.error("Google signup - Transaction failed:", error);

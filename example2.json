@@ -1,0 +1,21 @@
+{
+    "imagesContext": {
+      "imageOne": "Detailed description of first realistic image with human interactivity that reflects the first main context of the article",
+      "imageTwo": "Detailed description of second realistic image with human interactivity that reflects the second main context of the article", 
+      "imageThree": "Detailed description of third realistic image with human interactivity that reflects the third main context of the article",
+      "imageFour": "Detailed description of fourth realistic image with human interactivity that reflects the fourth main context of the article"
+    },
+    "paragraphsContext": {
+      "paragraphOne": "First paragraph reflecting the article content - MAX 205 characters",
+      "paragraphTwo": "Second paragraph reflecting the article content - MAX 205 characters",
+      "paragraphThree": "Third paragraph reflecting the article content - MAX 205 characters"
+    }
+  }
+  
+
+  {
+    "imageOne": "A woman in casual, comfortable clothing sitting on a soft armchair in a bright, cozy living room. She's gently exploring a beginner-friendly personal wellness kit laid out on a coffee table, her face calm and curious. Warm natural lighting fills the room, with plants and soft pastel decor creating a welcoming atmosphere that emphasizes self-care and safe exploration of new wellness experiences.",
+    "imageTwo": "Two women sitting across from each other at a sunlit modern café, casually dressed and engaged in a warm, open conversation. They smile and share knowing looks, representing openness about personal wellness and the benefits of exploring new intimate experiences. The scene has bright natural lighting, wooden tables, and greenery outside large windows, reflecting support and empowerment in wellness discussions.",
+    "imageThree": "A close-up view of a wooden table displaying a carefully arranged selection of body-safe personal wellness products in various shapes and sizes. The setting is a peaceful, well-lit wellness store or home space with soft daylight illuminating the silicone, glass, and stainless steel items. A person's hand is gently touching one of the smaller products, emphasizing safe choice and education in selecting appropriate items for intimate exploration.", 
+    "imageFour": "A couple sitting together on a plush sofa in a softly lit modern bedroom. They hold hands and smile warmly, creating an atmosphere of intimacy and trust. On a nearby bedside table sits a small array of personal wellness products and a bottle of soothing wellness gel. The overall warm tones and soft lamps highlight safety, connection, and shared experiences in relationship wellness."
+}

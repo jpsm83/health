@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-// import { auth } from "../auth/[...nextauth]/route";
+import { auth } from "../auth/[...nextauth]/route";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -130,16 +130,16 @@ export const GET = async (req: Request) => {
 // @route   POST /articles
 // @access  Private
 export const POST = async (req: Request) => {
-  // // validate session
-  // const session = await auth();
-  // if (!session) {
-  //   return new NextResponse(
-  //     JSON.stringify({
-  //       message: "You must be signed in to create an article",
-  //     }),
-  //     { status: 401, headers: { "Content-Type": "application/json" } }
-  //   );
-  // }
+  // validate session
+  const session = await auth();
+  if (!session) {
+    return new NextResponse(
+      JSON.stringify({
+        message: "You must be signed in to create an article",
+      }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
 
   try {
     // Parse FORM DATA instead of JSON because we might have image files
@@ -179,21 +179,9 @@ export const POST = async (req: Request) => {
     let imagesContext;
 
     try {
-      const parsedData = JSON.parse(
+      imagesContext = JSON.parse(
         imagesContextRaw.replace(/,\s*}/g, "}").replace(/\s+/g, " ").trim()
-      );
-
-      // Extract imagesContext from the nested structure
-      if (!parsedData.imagesContext) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "imagesContext property is missing from the parsed data",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      imagesContext = parsedData.imagesContext as {
+      ) as {
         imageOne: string;
         imageTwo: string;
         imageThree: string;
@@ -384,20 +372,20 @@ export const POST = async (req: Request) => {
       }
     }
 
-    // Validate fileEntries
-    if (
-      !fileEntries.length ||
-      // fileEntries.length !== languages[0].content.articleContents.length ||
-      fileEntries.some((file) => file.size === 0)
-    ) {
-      return new NextResponse(
-        JSON.stringify({
-          message:
-            "No image files found or the number of image files does not match the number of article contents!",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    // // Validate fileEntries
+    // if (
+    //   !fileEntries.length ||
+    //   // fileEntries.length !== languages[0].content.articleContents.length ||
+    //   fileEntries.some((file) => file.size === 0)
+    // ) {
+    //   return new NextResponse(
+    //     JSON.stringify({
+    //       message:
+    //         "No image files found or the number of image files does not match the number of article contents!",
+    //     }),
+    //     { status: 400, headers: { "Content-Type": "application/json" } }
+    //   );
+    // }
 
     // Connect to database
     await connectDb();
@@ -428,8 +416,7 @@ export const POST = async (req: Request) => {
       category: category,
       imagesContext,
       articleImages: [],
-      // createdBy: session.user.id,
-      createdBy: "68d1b1ae6c320528f38e789d"
+      createdBy: session.user.id,
     };
 
     // Upload images to Cloudinary

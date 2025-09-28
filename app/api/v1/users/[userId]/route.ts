@@ -14,7 +14,7 @@ export const GET = async (
 ) => {
   try {
     const { userId } = await context.params;
-    
+
     const result = await getUserById(userId);
 
     if (!result.success) {
@@ -89,26 +89,26 @@ export const PATCH = async (
     );
 
     if (!result.success) {
-      const status = result.message?.includes("not authorized") ? 403 : 
-                    result.message?.includes("already taken") ? 409 : 400;
+      const status = result.message?.includes("not authorized")
+        ? 403
+        : result.message?.includes("already taken")
+        ? 409
+        : 400;
       return new NextResponse(
         JSON.stringify({ message: result.message || result.error }),
         { status, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify({ message: result.message }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new NextResponse(JSON.stringify({ message: result.message }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     return new NextResponse(
-      JSON.stringify({ 
+      JSON.stringify({
         message: "Update user failed!",
-        error: error instanceof Error ? error.message : "Unknown error"
+        error: error instanceof Error ? error.message : "Unknown error",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
@@ -141,26 +141,26 @@ export const DELETE = async (
     const result = await deleteUser(userId, session.user.id);
 
     if (!result.success) {
-      const status = result.message?.includes("not authorized") ? 403 : 
-                    result.message?.includes("not found") ? 404 : 400;
+      const status = result.message?.includes("not authorized")
+        ? 403
+        : result.message?.includes("not found")
+        ? 404
+        : 400;
       return new NextResponse(
         JSON.stringify({ message: result.message || result.error }),
         { status, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify({ message: result.message }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new NextResponse(JSON.stringify({ message: result.message }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     return new NextResponse(
-      JSON.stringify({ 
+      JSON.stringify({
         message: "Deactivate user failed!",
-        error: error instanceof Error ? error.message : "Unknown error"
+        error: error instanceof Error ? error.message : "Unknown error",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
