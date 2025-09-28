@@ -394,14 +394,21 @@ export const POST = async (req: Request) => {
     const slugs = languages.map((language) => language.seo.slug);
 
     // Check if any of the slugs already exist in the database
-    const duplicateArticle = await Article.findOne({
-      "languages.seo.slug": { $in: slugs },
-    });
+    // We need to check each slug individually to get the exact duplicate
+    const duplicateChecks = await Promise.all(
+      slugs.map(async (slug) => {
+        const existingArticle = await Article.findOne({
+          "languages.seo.slug": slug,
+        });
+        return existingArticle ? slug : null;
+      })
+    );
 
-    if (duplicateArticle) {
+    const duplicateSlugs = duplicateChecks.filter(Boolean);
+    if (duplicateSlugs.length > 0) {
       return new NextResponse(
         JSON.stringify({
-          message: `Article with slug(s) already exists: ${slugs.join(", ")}`,
+          message: `Article with slug(s) already exists: ${duplicateSlugs.join(", ")}`,
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
@@ -449,14 +456,29 @@ export const POST = async (req: Request) => {
     }
 
     // Create article in database
-    const createdArticle = await Article.create(newArticle);
-    return new NextResponse(
-      JSON.stringify({
-        message: "Article created successfully!",
-        article: createdArticle,
-      }),
-      { status: 201, headers: { "Content-Type": "application/json" } }
-    );
+    try {
+      const createdArticle = await Article.create(newArticle);
+      return new NextResponse(
+        JSON.stringify({
+          message: "Article created successfully!",
+          article: createdArticle,
+        }),
+        { status: 201, headers: { "Content-Type": "application/json" } }
+      );
+    } catch (createError: unknown) {
+      // Handle duplicate key error specifically
+      if (createError && typeof createError === 'object' && 'code' in createError && createError.code === 11000) {
+        const error = createError as { keyValue?: { slug?: string; 'languages.seo.slug'?: string } };
+        const duplicateSlug = error.keyValue?.slug || error.keyValue?.["languages.seo.slug"];
+        return new NextResponse(
+          JSON.stringify({
+            message: `Article with slug already exists: ${duplicateSlug}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+      throw createError; // Re-throw other errors to be handled by the outer catch
+    }
   } catch (error) {
     return handleApiError("Create article failed!", error as string);
   }
