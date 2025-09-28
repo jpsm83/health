@@ -22,7 +22,7 @@ const seoSchema = new Schema({
     maxlength: 1000,
   },
   keywords: { type: [String], required: true },
-  slug: { type: String, required: true, unique: true },
+  slug: { type: String, required: true },
   hreflang: {
     type: String,
     required: true,
@@ -205,12 +205,8 @@ export const articleSchema = new Schema(
   }
 );
 
-// Add compound index to ensure slug uniqueness across all languages
-// Note: This creates a sparse index that only includes documents where the field exists
-articleSchema.index(
-  { "languages.seo.slug": 1 },
-  { unique: true, sparse: true }
-);
+// Add index for slug queries (not unique)
+articleSchema.index({ "languages.seo.slug": 1 });
 
 const Article = models.Article || model("Article", articleSchema);
 export default Article;

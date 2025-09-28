@@ -390,29 +390,6 @@ export const POST = async (req: Request) => {
     // Connect to database
     await connectDb();
 
-    // Check for duplicate slugs across all languages
-    const slugs = languages.map((language) => language.seo.slug);
-
-    // Check if any of the slugs already exist in the database
-    // We need to check each slug individually to get the exact duplicate
-    const duplicateChecks = await Promise.all(
-      slugs.map(async (slug) => {
-        const existingArticle = await Article.findOne({
-          "languages.seo.slug": slug,
-        });
-        return existingArticle ? slug : null;
-      })
-    );
-
-    const duplicateSlugs = duplicateChecks.filter(Boolean);
-    if (duplicateSlugs.length > 0) {
-      return new NextResponse(
-        JSON.stringify({
-          message: `Article with slug(s) already exists: ${duplicateSlugs.join(", ")}`,
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
 
     const articleId = new mongoose.Types.ObjectId();
 
@@ -456,29 +433,14 @@ export const POST = async (req: Request) => {
     }
 
     // Create article in database
-    try {
-      const createdArticle = await Article.create(newArticle);
-      return new NextResponse(
-        JSON.stringify({
-          message: "Article created successfully!",
-          article: createdArticle,
-        }),
-        { status: 201, headers: { "Content-Type": "application/json" } }
-      );
-    } catch (createError: unknown) {
-      // Handle duplicate key error specifically
-      if (createError && typeof createError === 'object' && 'code' in createError && createError.code === 11000) {
-        const error = createError as { keyValue?: { slug?: string; 'languages.seo.slug'?: string } };
-        const duplicateSlug = error.keyValue?.slug || error.keyValue?.["languages.seo.slug"];
-        return new NextResponse(
-          JSON.stringify({
-            message: `Article with slug already exists: ${duplicateSlug}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      throw createError; // Re-throw other errors to be handled by the outer catch
-    }
+    const createdArticle = await Article.create(newArticle);
+    return new NextResponse(
+      JSON.stringify({
+        message: "Article created successfully!",
+        article: createdArticle,
+      }),
+      { status: 201, headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
     return handleApiError("Create article failed!", error as string);
   }
