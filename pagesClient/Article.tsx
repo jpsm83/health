@@ -179,37 +179,37 @@ export default function Article({
   const calculateContentDistribution = () => {
     const containerDistribution = 4;
     const totalContent =
-      articleData?.languages[0].content.articleContents.length;
-    const totalImages = articleData?.articleImages.length;
+      articleData?.languages?.[0]?.content?.articleContents?.length || 0;
+    const totalImages = articleData?.articleImages?.length || 0;
 
-    if (totalContent === 0 || totalImages === 0) return [];
+    if (totalContent === 0) return [];
 
     const containers = [];
     let contentIndex = 0;
 
     for (let i = 0; i < containerDistribution; i++) {
-      const imageIndex = i < (totalImages || 0) ? i : i % (totalImages || 0);
-      const image = articleData?.articleImages[imageIndex];
+      const imageIndex = i < totalImages ? i : i % Math.max(totalImages, 1);
+      const image = totalImages > 0 ? articleData?.articleImages?.[imageIndex] : null;
 
       // Calculate how many content sections this container should have
       let contentCount = 0;
-      if (i < (totalContent || 0)) {
+      if (i < totalContent) {
         if (i === containerDistribution - 1) {
           // Last container gets remaining content
-          contentCount = (totalContent || 0) - contentIndex;
+          contentCount = totalContent - contentIndex;
         } else {
           // Distribute content evenly among first 3 containers
           contentCount = Math.ceil(
-            ((totalContent || 0) - contentIndex) / (containerDistribution - i)
+            (totalContent - contentIndex) / (containerDistribution - i)
           );
         }
       }
 
       const containerContent =
-        articleData?.languages[0].content.articleContents.slice(
+        articleData?.languages?.[0]?.content?.articleContents?.slice(
           contentIndex,
           contentIndex + contentCount
-        );
+        ) || [];
       contentIndex += contentCount;
 
       containers.push({
@@ -226,9 +226,9 @@ export default function Article({
 
   // Generate share URL and data
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-  const shareTitle = articleData?.languages[0].content.mainTitle || '';
-  const shareDescription = articleData?.languages[0].content.articleContents[0]?.articleParagraphs[0] || '';
-  const shareMedia = articleData?.articleImages[0] || '';
+  const shareTitle = articleData?.languages[0]?.content?.mainTitle || '';
+  const shareDescription = articleData?.languages[0]?.content?.articleContents?.[0]?.articleParagraphs?.[0] || '';
+  const shareMedia = articleData?.articleImages && articleData.articleImages.length > 0 ? articleData.articleImages[0] : '';
 
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
@@ -245,11 +245,11 @@ export default function Article({
 
             <div className="overflow-hidden text-justify">
               {/* Container Image with Overlay Header for first container */}
-              {container.image && (
+              {container.image && container.image.trim() !== "" ? (
                 <div className="relative w-full h-[70vh] mb-8 md:mb-16">
                   <Image
                     src={container.image}
-                    alt={`${articleData?.languages[0].content.mainTitle}${t(
+                    alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
                       "article.imageAlt"
                     )}${containerIndex + 1}`}
                     fill
@@ -329,27 +329,37 @@ export default function Article({
                     </div>
                   )}
                 </div>
-              )}
+              ) : null}
 
               {/* Container Content */}
               <div className="px-4 md:px-18">
-                {container.content?.map((section, sectionIndex) => (
-                  <section key={sectionIndex} className="mb-8 last:mb-0">
-                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
-                      {section.subTitle}
-                    </h2>
-                    <div className="space-y-4">
-                      {section.articleParagraphs.map((paragraph, pIndex) => (
-                        <p
-                          key={pIndex}
-                          className="text-gray-700 text-lg leading-relaxed"
-                        >
-                          {paragraph}
-                        </p>
-                      ))}
-                    </div>
-                  </section>
-                ))}
+                {container.content && container.content.length > 0 ? (
+                  container.content.map((section, sectionIndex) => (
+                    <section key={sectionIndex} className="mb-8 last:mb-0">
+                      <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
+                        {section?.subTitle || 'Untitled Section'}
+                      </h2>
+                      <div className="space-y-4">
+                        {section?.articleParagraphs && section.articleParagraphs.length > 0 ? (
+                          section.articleParagraphs.map((paragraph, pIndex) => (
+                            <p
+                              key={pIndex}
+                              className="text-gray-700 text-lg leading-relaxed"
+                            >
+                              {paragraph}
+                            </p>
+                          ))
+                        ) : (
+                          <p className="text-gray-500 italic">No content available for this section.</p>
+                        )}
+                      </div>
+                    </section>
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 italic">No content available for this article.</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

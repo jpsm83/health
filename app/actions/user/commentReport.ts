@@ -106,18 +106,6 @@ const emailTranslations = {
     reportContact: "Contatta il Supporto",
     reportThankYou: "Grazie per far parte della nostra community e aiutarci a mantenere un ambiente sicuro per tutti.",
     copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
-  },
-  he: {
-    subject: "התראה על דיווח תגובה - Women's Spot",
-    greeting: "שלום",
-    message: "התגובה שלך דווחה על ידי משתמש אחר ונמצאת כעת בבדיקה על ידי צוות המודרציה שלנו.",
-    reportReason: "סיבת הדיווח",
-    reportAction: "מה קורה עכשיו?",
-    reportActionText: "צוות המודרציה שלנו יבדוק את התגובה שלך ואת הדיווח. אם התגובה מפרה את הנחיות הקהילה שלנו, היא עלולה להימחק. אם היא נחשבת מתאימה, היא תישאר גלויה.",
-    reportAppeal: "אם אתה חושב שהדיווח הזה נעשה בטעות, אתה יכול ליצור קשר עם צוות התמיכה שלנו.",
-    reportContact: "צור קשר עם התמיכה",
-    reportThankYou: "תודה על היותך חלק מהקהילה שלנו ועל עזרתך לשמור על סביבה בטוחה לכולם.",
-    copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
   }
 };
 

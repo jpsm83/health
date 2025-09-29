@@ -57,8 +57,13 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
             order: "desc",
             locale,
           });
-          setArticles(fetchedArticles.data);
-          setHasMore(fetchedArticles.data.length >= limit);
+          // Filter out any duplicate articles by ID
+          const uniqueArticles = fetchedArticles.data.filter((article, index, self) => 
+            index === self.findIndex(a => a._id?.toString() === article._id?.toString())
+          );
+          
+          setArticles(uniqueArticles);
+          setHasMore(uniqueArticles.length >= limit);
         } catch (err) {
           const message =
             err instanceof Error ? err.message : t("failedToFetchArticles");
@@ -81,7 +86,7 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
 
       fetchArticles();
     }
-  }, [category, limit, locale, t]);
+  }, [category, limit, locale, t, initialArticles]);
 
   // Load more articles
   const loadMore = useCallback(async () => {
@@ -107,7 +112,15 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
       if (newArticles.data.length === 0) {
         setHasMore(false);
       } else {
-        setArticles((prev) => [...prev, ...newArticles.data]);
+        // Filter out any duplicate articles by ID
+        setArticles((prev) => {
+          const existingIds = new Set(prev.map(article => article._id?.toString()));
+          const uniqueNewArticles = newArticles.data.filter(article => 
+            !existingIds.has(article._id?.toString())
+          );
+          
+          return [...prev, ...uniqueNewArticles];
+        });
       }
     } catch (err) {
       setError(

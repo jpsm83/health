@@ -176,7 +176,7 @@ If the article is processed successfully, return the rewritten content in this e
 ```
 Please analyze the following article content:
 
-{{ $json[""] }}
+{{ JSON.stringify($json) }}
 
 and rewrite it to make it look different while preserving the same context, following the specified JSON format:
 

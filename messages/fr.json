@@ -210,8 +210,6 @@
       "german": "Deutsch",
       "italian": "Italiano",
       "dutch": "Nederlands",
-      "hebrew": "עברית",
-      "russian": "Русский",
       "utc": "UTC",
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
@@ -221,11 +219,11 @@
       "health": "Santé",
       "fitness": "Fitness",
       "nutrition": "Nutrition",
-      "intimacy": "Intimite et Relations",
+      "intimacy": "Intimite",
       "beauty": "Beauté",
       "fashion": "Mode",
       "lifestyle": "Style de Vie",
-      "travel": "Voyages",
+      "travel": "Voyage",
       "decor": "Maison et Décoration",
       "productivity": "Productivité",
       "parenting": "Parentalité"
@@ -257,29 +255,6 @@
     },
     "languageInfo": {
       "language": "Langue"
-    }
-  },
-  "article": {
-    "title": "Article de Santé Exemple",
-    "subtitle": "Ceci est un article exemple sur la santé et le bien-être",
-    "content": {
-      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-    },
-    "actions": {
-      "edit": "Modifier l'Article",
-      "delete": "Supprimer l'Article",
-      "backToList": "Retour aux Articles"
-    },
-    "info": {
-      "published": "Publié",
-      "author": "Auteur",
-      "category": "Catégorie",
-      "healthCategory": "Santé",
-      "language": "Langue",
-      "slug": "Slug",
-      "date": "Date"
     }
   },
   "SignUp": {
@@ -447,6 +422,71 @@
       "title": "Plan du Site - Women's Spot",
       "description": "Plan du site pour Women's Spot. Trouvez votre chemin sur notre plateforme et explorez notre contenu.",
       "keywords": "plan du site, Women's Spot, santé, forme physique, mode de vie, autonomisation, plan du site"
+    },
+    "health": {
+      "title": "Articles de Santé",
+      "description": "Nos meilleurs insights sur la santé, une collection complète d'articles de santé, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de santé, contenu de bien-être, conseils de santé, conseils médicaux, articles de mode de vie, ressources de santé"
+    },
+    "fitness": {
+      "title": "Articles de Fitness",
+      "description": "Nos meilleurs insights sur le fitness, une collection complète d'articles de fitness, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de fitness, conseils d'exercice, guides d'entraînement, routines de fitness, santé et fitness, bien-être"
+    },
+    "nutrition": {
+      "title": "Articles de Nutrition",
+      "description": "Nos meilleurs insights sur la nutrition, une collection complète d'articles de nutrition, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de nutrition, alimentation saine, conseils de régime, guides alimentaires, conseils nutritionnels, nutrition de bien-être"
+    },
+    "intimacy": {
+      "title": "Articles d'Intimité",
+      "description": "Nos meilleurs insights sur l'intimité, une collection complète d'articles d'intimité, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles d'intimité, santé sexuelle, relations, intimité, bien-être sexuel, conseils de relations"
+    },
+    "beauty": {
+      "title": "Articles de Beauté",
+      "description": "Nos meilleurs insights sur la beauté, une collection complète d'articles de beauté, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de beauté, conseils de beauté, soins de la peau, maquillage, routines de beauté, conseils de beauté"
+    },
+    "fashion": {
+      "title": "Articles de Mode",
+      "description": "Nos meilleurs insights sur la mode, une collection complète d'articles de mode, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de mode, conseils de style, tendances de mode, conseils vestimentaires, guides de mode, inspiration de style"
+    },
+    "lifestyle": {
+      "title": "Articles de Mode de Vie",
+      "description": "Nos meilleurs insights sur le mode de vie, une collection complète d'articles de mode de vie, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de mode de vie, conseils de vie, mode de vie de bien-être, vie saine, conseils de vie, guides de mode de vie"
+    },
+    "travel": {
+      "title": "Articles de Voyage",
+      "description": "Nos meilleurs insights sur le voyage, une collection complète d'articles de voyage, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de voyage, conseils de voyage, guides de voyage, conseils de vacances, destinations de voyage, bien-être de voyage"
+    },
+    "decor": {
+      "title": "Articles de Décoration",
+      "description": "Nos meilleurs insights sur la décoration, une collection complète d'articles de décoration, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de décoration, décoration de maison, design d'intérieur, conseils de maison, guides de décoration, amélioration de la maison"
+    },
+    "productivity": {
+      "title": "Articles de Productivité",
+      "description": "Nos meilleurs insights sur la productivité, une collection complète d'articles de productivité, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de productivité, conseils de productivité, gestion du temps, efficacité au travail, guides de productivité, conseils de productivité"
+    },
+    "parenting": {
+      "title": "Articles de Parentalité",
+      "description": "Nos meilleurs insights sur la parentalité, une collection complète d'articles de parentalité, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
+      "keywords": "articles de parentalité, conseils de parentalité, soins aux enfants, conseils de parentalité, guides familiaux, ressources de parentalité"
+    },
+    "confirmEmail": {
+      "title": "Confirmer l'Email - Women's Spot",
+      "description": "Confirmez votre adresse email pour accéder à votre compte Women's Spot. Entrez votre adresse email et nous vous enverrons un lien de confirmation.",
+      "keywords": "confirmer email, confirmation d'email, compte Women's Spot, vérification d'email, confirmation de compte"
+    },
+    "unsubscribe": {
+      "title": "Se Désabonner du Newsletter - Women's Spot",
+      "description": "Désabonnez-vous du newsletter Women's Spot. Entrez votre adresse email pour arrêter de recevoir nos mises à jour de santé et de bien-être.",
+      "keywords": "se désabonner, newsletter, préférences d'email, arrêter les emails, newsletter Women's Spot"
     }
   },
   "about": {
@@ -828,9 +868,171 @@
     "actions": {
       "likeArticle": "Aimer l'article",
       "unlikeArticle": "Ne plus aimer l'article",
-      "likes": "Likes"
+      "likes": "Likes",
+      "edit": "Modifier l'Article",
+      "delete": "Supprimer l'Article",
+      "backToList": "Retour aux Articles"
     },
-    "imageAlt": " - Section "
+    "deleteModal": {
+      "title": "Supprimer l'Article",
+      "description": "Êtes-vous sûr de vouloir supprimer cet article ? Cette action ne peut pas être annulée et supprimera définitivement l'article et tous ses commentaires.",
+      "articleTitle": "Titre de l'Article",
+      "confirm": "Oui, Supprimer l'Article",
+      "cancel": "Annuler",
+      "deleting": "Suppression...",
+      "success": "Article supprimé avec succès",
+      "error": "Échec de la suppression de l'article"
+    },
+    "imageAlt": " - Section ",
+    "exploreMore": "Articles sélectionnés rien que pour vous"
+  },
+  "articles": {
+    "categoryNotFound": "Catégorie introuvable",
+    "noArticlesFound": "Aucun article trouvé",
+    "noArticlesAvailable": "Il n'y a actuellement aucun article disponible dans cette catégorie.",
+    "health": {
+      "heroImageAlt": "Image héro des articles de santé",
+      "title": "Articles de Santé",
+      "description": "Nos meilleures idées sur la santé, une collection complète d'articles de santé, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Santé en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en santé et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Santé",
+        "description": "Notre collection complète d'articles de santé, conseils, tout ce que vous devez savoir sur la santé et le bien-être."
+      }
+    },
+    "fitness": {
+      "heroImageAlt": "Image héro des articles de fitness",
+      "title": "Articles de Fitness",
+      "description": "Nos meilleures idées sur le fitness, une collection complète d'articles de fitness, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Fitness en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en fitness et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Fitness",
+        "description": "Notre collection complète d'articles de fitness, conseils, tout ce que vous devez savoir sur le fitness et le bien-être."
+      }
+    },
+    "nutrition": {
+      "heroImageAlt": "Image héro des articles de nutrition",
+      "title": "Articles de Nutrition",
+      "description": "Nos meilleures idées sur la nutrition, une collection complète d'articles de nutrition, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Nutrition en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en nutrition et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Nutrition",
+        "description": "Notre collection complète d'articles de nutrition, conseils, tout ce que vous devez savoir sur la nutrition et le bien-être."
+      }
+    },
+    "intimacy": {
+      "heroImageAlt": "Image héro des articles d'intimité",
+      "title": "Articles d'Intimité",
+      "description": "Nos meilleures idées sur l'intimité, une collection complète d'articles d'intimité, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles d'Intimité en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en intimité et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles d'Intimité",
+        "description": "Notre collection complète d'articles d'intimité, conseils, tout ce que vous devez savoir sur l'intimité et le bien-être."
+      }
+    },
+    "beauty": {
+      "heroImageAlt": "Image héro des articles de beauté",
+      "title": "Articles de Beauté",
+      "description": "Nos meilleures idées sur la beauté, une collection complète d'articles de beauté, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Beauté en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en beauté et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Beauté",
+        "description": "Notre collection complète d'articles de beauté, conseils, tout ce que vous devez savoir sur la beauté et le bien-être."
+      }
+    },
+    "fashion": {
+      "heroImageAlt": "Image héro des articles de mode",
+      "title": "Articles de Mode",
+      "description": "Nos meilleures idées sur la mode, une collection complète d'articles de mode, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Mode en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en mode et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Mode",
+        "description": "Notre collection complète d'articles de mode, conseils, tout ce que vous devez savoir sur la mode et le bien-être."
+      }
+    },
+    "lifestyle": {
+      "heroImageAlt": "Image héro des articles de style de vie",
+      "title": "Articles de Style de Vie",
+      "description": "Nos meilleures idées sur le style de vie, une collection complète d'articles de style de vie, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Style de Vie en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en style de vie et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Style de Vie",
+        "description": "Notre collection complète d'articles de style de vie, conseils, tout ce que vous devez savoir sur le style de vie et le bien-être."
+      }
+    },
+    "travel": {
+      "heroImageAlt": "Image héro des articles de voyage",
+      "title": "Articles de Voyage",
+      "description": "Nos meilleures idées sur le voyage, une collection complète d'articles de voyage, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Voyage en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en voyage et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Voyage",
+        "description": "Notre collection complète d'articles de voyage, conseils, tout ce que vous devez savoir sur le voyage et le bien-être."
+      }
+    },
+    "decor": {
+      "heroImageAlt": "Image héro des articles de décoration",
+      "title": "Articles de Décoration",
+      "description": "Nos meilleures idées sur la décoration, une collection complète d'articles de décoration, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Décoration en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en décoration et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Décoration",
+        "description": "Notre collection complète d'articles de décoration, conseils, tout ce que vous devez savoir sur la décoration et le bien-être."
+      }
+    },
+    "productivity": {
+      "heroImageAlt": "Image héro des articles de productivité",
+      "title": "Articles de Productivité",
+      "description": "Nos meilleures idées sur la productivité, une collection complète d'articles de productivité, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Productivité en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en productivité et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Productivité",
+        "description": "Notre collection complète d'articles de productivité, conseils, tout ce que vous devez savoir sur la productivité et le bien-être."
+      }
+    },
+    "parenting": {
+      "heroImageAlt": "Image héro des articles de parentalité",
+      "title": "Articles de Parentalité",
+      "description": "Nos meilleures idées sur la parentalité, une collection complète d'articles de parentalité, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+      "featuredArticles": {
+        "title": " Articles de Parentalité en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en parentalité et bien-être."
+      },
+      "explore": {
+        "title": "Explorer les Articles de Parentalité",
+        "description": "Notre collection complète d'articles de parentalité, conseils, tout ce que vous devez savoir sur la parentalité et le bien-être."
+      }
+    }
   },
   "comments": {
     "toasts": {
@@ -888,5 +1090,49 @@
       "submit": "Signaler le Commentaire",
       "submitting": "Signalement en cours..."
     }
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "goToPreviousPage": "Aller à la page précédente",
+    "goToNextPage": "Aller à la page suivante",
+    "morePages": "Plus de pages"
+  },
+  "search": {
+    "heroImageAlt": "Résultats de recherche",
+    "resultsTitle": "Résultats de recherche",
+    "resultsFound": "Trouvé {count} résultat{count, plural, =1 {} other {s}} pour \"{query}\"",
+    "noResultsTitle": "Aucun article trouvé !",
+    "noResultsDescription": "Essayez de rechercher avec des mots-clés différents que..."
+  },
+  "newsletterConfirmation": {
+    "title": "Confirmation de Newsletter",
+    "confirming": "Confirmation de l'abonnement...",
+    "success": "Abonnement confirmé !",
+    "error": "Échec de la confirmation",
+    "welcomeMessage": "Bienvenue dans notre newsletter ! Vous commencerez bientôt à recevoir notre dernier contenu de santé et bien-être.",
+    "errorMessage": "Il y a eu une erreur lors de la confirmation de votre abonnement. Veuillez réessayer de vous abonner.",
+    "processingMessage": "Veuillez patienter pendant que nous confirmons votre abonnement à la newsletter.",
+    "goHome": "Aller à la page d'accueil"
+  },
+  "unsubscribe": {
+    "title": "Se désabonner de la Newsletter",
+    "description": "Nous sommes désolés de vous voir partir ! Cette page traite les demandes de désabonnement des liens email.",
+    "processing": "Traitement en cours...",
+    "processingMessage": "Veuillez patienter pendant que nous traitons votre demande de désabonnement.",
+    "successTitle": "Désabonnement réussi",
+    "successMessage": "Vous avez été désabonné avec succès de notre newsletter. Vous ne recevrez plus d'emails de notre part.",
+    "errorTitle": "Échec du désabonnement",
+    "errorMessage": "Il y a eu une erreur lors du traitement de votre demande de désabonnement. Veuillez réessayer.",
+    "invalidLinkTitle": "Lien de désabonnement invalide",
+    "invalidLinkMessage": "Ce lien de désabonnement est invalide ou a expiré. Veuillez contacter le support si vous avez besoin d'aide.",
+    "goHome": "Aller à la page d'accueil"
+  },
+  "favorites": {
+    "title": "Mes Favoris",
+    "subtitle": "Vous avez {count} article{count, plural, =1 {} other {s}} favori{count, plural, =1 {} other {s}}",
+    "heroImageAlt": "Mes Articles Favoris",
+    "noFavoritesTitle": "Pas encore de favoris",
+    "noFavoritesDescription": "Commencez à aimer des articles pour construire votre collection personnelle de contenu de santé et bien-être favori."
   }
 }

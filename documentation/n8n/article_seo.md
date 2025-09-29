@@ -176,15 +176,13 @@ Please analyze the following article content:
 
 and create comprehensive SEO metadata following the specified JSON format.
 
-[ARTICLE_CONTENT_PLACEHOLDER]
-
 You must return ONLY a valid JSON object with these exact properties:
 - metaTitle: Engaging title with keywords (max 500 characters)
 - metaDescription: Compelling description that encourages clicks (max 1000 characters)
 - keywords: Array of exactly 5 relevant keywords
 - slug: SEO-friendly slug from the article title
-- hreflang: Language code (en, pt, es, fr, de, it, he)
-- urlPattern: URL pattern (articles, artigos, articulos, artikel, articoli, מאמרים)
+- hreflang: Language code (en, pt, es, fr, de, it)
+- urlPattern: URL pattern (articles, artigos, articulos, artikel, articoli)
 - canonicalUrl: Full canonical URL following the format https://womensspot.org/[locale]/intimacy/[slug]
 
 CRITICAL: Return ONLY the JSON object, no additional text, explanations, or markdown formatting.
@@ -362,12 +360,12 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Must avoid special characters and spaces
 
 **HREFLANG:**
-- Must be one of the supported locales: ["en", "pt", "es", "fr", "de", "it", "he"]
+- Must be one of the supported locales: ["en", "pt", "es", "fr", "de", "it"]
 - Should match the target audience language
 - Default to "en" if not specified
 
 **URL PATTERN:**
-- Must be one of the supported patterns: ["articles", "artigos", "articulos", "artikel", "articoli", "מאמרים"]
+- Must be one of the supported patterns: ["articles", "artigos", "articulos", "artikel", "articoli"]
 - Should match the content type and language
 - Default to "articles" for English content
 

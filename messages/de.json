@@ -210,8 +210,6 @@
       "german": "Deutsch",
       "italian": "Italiano",
       "dutch": "Nederlands",
-      "hebrew": "עברית",
-      "russian": "Русский",
       "utc": "UTC",
       "easternTime": "Eastern Time",
       "pacificTime": "Pacific Time",
@@ -221,12 +219,12 @@
       "health": "Gesundheit",
       "fitness": "Fitness",
       "nutrition": "Ernährung",
-      "intimacy": "Intimitat und Beziehungen",
+      "intimacy": "Intimitat",
       "beauty": "Schönheit",
       "fashion": "Mode",
       "lifestyle": "Lebensstil",
       "travel": "Reisen",
-      "decor": "Zuhause und Dekoration",
+      "decor": "Haus & Dekoration",
       "productivity": "Produktivität",
       "parenting": "Elternschaft"
     },
@@ -258,64 +256,6 @@
     "languageInfo": {
       "language": "Sprache"
     }
-  },
-  "article": {
-    "title": "Beispiel-Gesundheitsartikel",
-    "subtitle": "Dies ist ein Beispielartikel über Gesundheit und Wellness",
-    "content": {
-      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-    },
-    "actions": {
-      "edit": "Artikel bearbeiten",
-      "delete": "Artikel löschen",
-      "backToList": "Zurück zu den Artikeln",
-      "likeArticle": "Artikel liken",
-      "unlikeArticle": "Artikel entliken",
-      "likes": "Likes"
-    },
-    "info": {
-      "published": "Veröffentlicht",
-      "author": "Autor",
-      "category": "Kategorie",
-      "healthCategory": "Gesundheit",
-      "language": "Sprache",
-      "slug": "Slug",
-      "date": "Datum",
-      "views": "Aufrufe:",
-      "likes": "Likes:"
-    },
-    "toasts": {
-      "likedSuccess": "Artikel erfolgreich geliked",
-      "likedSuccessMessage": "Ihr Like wurde erfolgreich hinzugefügt!",
-      "unlikedSuccess": "Artikel erfolgreich entliked",
-      "unlikedSuccessMessage": "Ihr Like wurde erfolgreich entfernt!",
-      "likeError": "Fehler beim Liken des Artikels",
-      "likeErrorMessage": "Versuchen Sie es später erneut"
-    },
-    "deleteModal": {
-      "title": "Artikel löschen",
-      "description": "Sind Sie sicher, dass Sie diesen Artikel löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden und wird den Artikel und alle seine Kommentare dauerhaft entfernen.",
-      "articleTitle": "Artikeltitel",
-      "confirm": "Ja, Artikel löschen",
-      "cancel": "Abbrechen",
-      "deleting": "Löschen...",
-      "success": "Artikel erfolgreich gelöscht",
-      "error": "Fehler beim Löschen des Artikels"
-    },
-    "imageAlt": " - Abschnitt "
-  },
-  "articles": {
-    "title": "Artikel",
-    "subtitle": "Entdecken Sie unsere neuesten Gesundheitsartikel und -ressourcen",
-    "heroImageAlt": "Gesundheitsartikel",
-    "noArticlesTitle": "Keine Artikel gefunden",
-    "noArticlesDescription": "Es wurden keine Artikel für diese Kategorie gefunden. Schauen Sie später wieder vorbei!",
-    "loading": "Artikel werden geladen...",
-    "errorLoading": "Fehler beim Laden der Artikel:",
-    "loadMore": "Mehr laden",
-    "viewAll": "Alle anzeigen"
   },
   "search": {
     "title": "Artikel suchen",
@@ -508,6 +448,71 @@
       "title": "Seitenübersicht - Women's Spot",
       "description": "Seitenübersicht für Women's Spot. Finden Sie Ihren Weg auf unserer Plattform und erkunden Sie unseren Inhalt.",
       "keywords": "seitenübersicht, Women's Spot, Gesundheit, Fitness, Lifestyle, Empowerment, Seitenübersicht"
+    },
+    "health": {
+      "title": "Gesundheitsartikel",
+      "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheitsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "gesundheitsartikel, wellness-inhalte, gesundheitstipps, medizinische beratung, lifestyle-artikel, gesundheitsressourcen"
+    },
+    "fitness": {
+      "title": "Fitness-Artikel",
+      "description": "Unsere besten Einblicke in Fitness, eine umfassende Sammlung von Fitness-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "fitness-artikel, workout-tipps, trainigsleitfäden, fitness-routinen, gesundheit und fitness, wellness"
+    },
+    "nutrition": {
+      "title": "Ernährungsartikel",
+      "description": "Unsere besten Einblicke in die Ernährung, eine umfassende Sammlung von Ernährungsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "ernährungsartikel, gesunde ernährung, diättipps, lebensmittelführer, ernährungsberatung, wellness-ernährung"
+    },
+    "intimacy": {
+      "title": "Intimitätsartikel",
+      "description": "Unsere besten Einblicke in Intimität, eine umfassende Sammlung von Intimitätsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "intimitätsartikel, sexuelle gesundheit, beziehungen, intimität, sexuelles wohlbefinden, beziehungsberatung"
+    },
+    "beauty": {
+      "title": "Beauty-Artikel",
+      "description": "Unsere besten Einblicke in Beauty, eine umfassende Sammlung von Beauty-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "beauty-artikel, beauty-tipps, hautpflege, makeup, beauty-routinen, beauty-beratung"
+    },
+    "fashion": {
+      "title": "Mode-Artikel",
+      "description": "Unsere besten Einblicke in Mode, eine umfassende Sammlung von Mode-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "mode-artikel, style-tipps, modetrends, kleidungsberatung, mode-führer, style-inspiration"
+    },
+    "lifestyle": {
+      "title": "Lifestyle-Artikel",
+      "description": "Unsere besten Einblicke in Lifestyle, eine umfassende Sammlung von Lifestyle-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "lifestyle-artikel, lebenstipps, wellness-lifestyle, gesundes leben, lebensberatung, lifestyle-führer"
+    },
+    "travel": {
+      "title": "Reiseartikel",
+      "description": "Unsere besten Einblicke in Reisen, eine umfassende Sammlung von Reiseartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "reiseartikel, reisetipps, reiseführer, urlaubsberatung, reiseziele, reise-wellness"
+    },
+    "decor": {
+      "title": "Dekorationsartikel",
+      "description": "Unsere besten Einblicke in Dekoration, eine umfassende Sammlung von Dekorationsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "dekorationsartikel, wohndekoration, innenarchitektur, haustipps, dekorationsführer, hausverbesserung"
+    },
+    "productivity": {
+      "title": "Produktivitätsartikel",
+      "description": "Unsere besten Einblicke in Produktivität, eine umfassende Sammlung von Produktivitätsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "produktivitätsartikel, produktivitätstipps, zeiteinteilung, arbeiteffizienz, produktivitätsführer, produktivitätsberatung"
+    },
+    "parenting": {
+      "title": "Erziehungsartikel",
+      "description": "Unsere besten Einblicke in Erziehung, eine umfassende Sammlung von Erziehungsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "erziehungsartikel, erziehungstipps, kinderbetreuung, erziehungsberatung, familienführer, erziehungsressourcen"
+    },
+    "confirmEmail": {
+      "title": "E-Mail bestätigen - Women's Spot",
+      "description": "Bestätigen Sie Ihre E-Mail-Adresse, um auf Ihr Women's Spot-Konto zuzugreifen. Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Bestätigungslink.",
+      "keywords": "e-mail bestätigen, e-mail-bestätigung, Women's Spot-Konto, e-mail-verifizierung, kontobestätigung"
+    },
+    "unsubscribe": {
+      "title": "Newsletter abbestellen - Women's Spot",
+      "description": "Melden Sie sich vom Women's Spot-Newsletter ab. Geben Sie Ihre E-Mail-Adresse ein, um keine Gesundheits- und Wellness-Updates mehr von uns zu erhalten.",
+      "keywords": "abbestellen, newsletter, e-mail-einstellungen, e-mails stoppen, Women's Spot-newsletter"
     }
   },
   "about": {
@@ -889,9 +894,171 @@
     "actions": {
       "likeArticle": "Artikel liken",
       "unlikeArticle": "Artikel unliken",
-      "likes": "Likes"
+      "likes": "Likes",
+      "edit": "Artikel bearbeiten",
+      "delete": "Artikel löschen",
+      "backToList": "Zurück zu Artikeln"
     },
-    "imageAlt": " - Abschnitt "
+    "deleteModal": {
+      "title": "Artikel löschen",
+      "description": "Sind Sie sicher, dass Sie diesen Artikel löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden und wird den Artikel und alle seine Kommentare dauerhaft entfernen.",
+      "articleTitle": "Artikel-Titel",
+      "confirm": "Ja, Artikel löschen",
+      "cancel": "Abbrechen",
+      "deleting": "Löschen...",
+      "success": "Artikel erfolgreich gelöscht",
+      "error": "Fehler beim Löschen des Artikels"
+    },
+    "imageAlt": " - Abschnitt ",
+    "exploreMore": "Ausgewählte Artikel nur für Sie"
+  },
+  "articles": {
+    "categoryNotFound": "Kategorie nicht gefunden",
+    "noArticlesFound": "Keine Artikel gefunden",
+    "noArticlesAvailable": "Es sind derzeit keine Artikel in dieser Kategorie verfügbar.",
+    "health": {
+      "heroImageAlt": "Gesundheitsartikel Hero-Bild",
+      "title": "Gesundheitsartikel",
+      "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheitsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Gesundheitsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Gesundheit und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Gesundheitsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Gesundheitsartikeln, Tipps, alles was Sie über Gesundheit und Wellness wissen müssen."
+      }
+    },
+    "fitness": {
+      "heroImageAlt": "Fitness-Artikel Hero-Bild",
+      "title": "Fitness-Artikel",
+      "description": "Unsere besten Einblicke in Fitness, eine umfassende Sammlung von Fitness-Artikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Fitness-Artikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Fitness und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Fitness-Artikel erkunden",
+        "description": "Unsere umfassende Sammlung von Fitness-Artikeln, Tipps, alles was Sie über Fitness und Wellness wissen müssen."
+      }
+    },
+    "nutrition": {
+      "heroImageAlt": "Ernährungsartikel Hero-Bild",
+      "title": "Ernährungsartikel",
+      "description": "Unsere besten Einblicke in die Ernährung, eine umfassende Sammlung von Ernährungsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Ernährungsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Ernährung und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Ernährungsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Ernährungsartikeln, Tipps, alles was Sie über Ernährung und Wellness wissen müssen."
+      }
+    },
+    "intimacy": {
+      "heroImageAlt": "Intimitätsartikel Hero-Bild",
+      "title": "Intimitätsartikel",
+      "description": "Unsere besten Einblicke in Intimität, eine umfassende Sammlung von Intimitätsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Intimitätsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Intimität und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Intimitätsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Intimitätsartikeln, Tipps, alles was Sie über Intimität und Wellness wissen müssen."
+      }
+    },
+    "beauty": {
+      "heroImageAlt": "Schönheitsartikel Hero-Bild",
+      "title": "Schönheitsartikel",
+      "description": "Unsere besten Einblicke in Schönheit, eine umfassende Sammlung von Schönheitsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Schönheitsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Schönheit und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Schönheitsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Schönheitsartikeln, Tipps, alles was Sie über Schönheit und Wellness wissen müssen."
+      }
+    },
+    "fashion": {
+      "heroImageAlt": "Modeartikel Hero-Bild",
+      "title": "Modeartikel",
+      "description": "Unsere besten Einblicke in Mode, eine umfassende Sammlung von Modeartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Modeartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Mode und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Modeartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Modeartikeln, Tipps, alles was Sie über Mode und Wellness wissen müssen."
+      }
+    },
+    "lifestyle": {
+      "heroImageAlt": "Lifestyle-Artikel Hero-Bild",
+      "title": "Lifestyle-Artikel",
+      "description": "Unsere besten Einblicke in Lifestyle, eine umfassende Sammlung von Lifestyle-Artikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Lifestyle-Artikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Lifestyle und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Lifestyle-Artikel erkunden",
+        "description": "Unsere umfassende Sammlung von Lifestyle-Artikeln, Tipps, alles was Sie über Lifestyle und Wellness wissen müssen."
+      }
+    },
+    "travel": {
+      "heroImageAlt": "Reiseartikel Hero-Bild",
+      "title": "Reiseartikel",
+      "description": "Unsere besten Einblicke in Reisen, eine umfassende Sammlung von Reiseartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Reiseartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Reisen und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Reiseartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Reiseartikeln, Tipps, alles was Sie über Reisen und Wellness wissen müssen."
+      }
+    },
+    "decor": {
+      "heroImageAlt": "Dekorationsartikel Hero-Bild",
+      "title": "Dekorationsartikel",
+      "description": "Unsere besten Einblicke in Dekoration, eine umfassende Sammlung von Dekorationsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Dekorationsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Dekoration und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Dekorationsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Dekorationsartikeln, Tipps, alles was Sie über Dekoration und Wellness wissen müssen."
+      }
+    },
+    "productivity": {
+      "heroImageAlt": "Produktivitätsartikel Hero-Bild",
+      "title": "Produktivitätsartikel",
+      "description": "Unsere besten Einblicke in Produktivität, eine umfassende Sammlung von Produktivitätsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Produktivitätsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Produktivität und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Produktivitätsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Produktivitätsartikeln, Tipps, alles was Sie über Produktivität und Wellness wissen müssen."
+      }
+    },
+    "parenting": {
+      "heroImageAlt": "Erziehungsartikel Hero-Bild",
+      "title": "Erziehungsartikel",
+      "description": "Unsere besten Einblicke in Erziehung, eine umfassende Sammlung von Erziehungsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "featuredArticles": {
+        "title": " Ausgewählte Erziehungsartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Erziehung und Wellness auf dem Laufenden halten."
+      },
+      "explore": {
+        "title": "Erziehungsartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Erziehungsartikeln, Tipps, alles was Sie über Erziehung und Wellness wissen müssen."
+      }
+    }
   },
   "comments": {
     "toasts": {

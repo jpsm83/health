@@ -97,16 +97,6 @@ const emailTranslations = {
     expiryMessage: "Questo link di conferma scadrà tra 24 ore per motivi di sicurezza.",
     fallbackMessage: "Se il pulsante sopra non funziona, copia e incolla questo link nel tuo browser:",
     copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
-  },
-  he: {
-    subject: "אמת את האימייל שלך - Women's Spot",
-    greeting: "שלום",
-    message: "ברוכים הבאים ל-Women's Spot! אנא אמת את כתובת האימייל שלך על ידי לחיצה על הכפתור למטה כדי להשלים את הגדרת החשבון שלך.",
-    confirmButton: "אמת אימייל",
-    ignoreMessage: "אם לא יצרת חשבון ב-Women's Spot, אנא התעלם מהאימייל הזה.",
-    expiryMessage: "קישור האימות הזה יפוג תוקף תוך 24 שעות מסיבות אבטחה.",
-    fallbackMessage: "אם הכפתור למעלה לא עובד, העתק והדבק את הקישור הזה בדפדפן שלך:",
-    copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
   }
 };
 

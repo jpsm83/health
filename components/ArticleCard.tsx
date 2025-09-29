@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import SocialShare from "./SocialShare";
 import { Button } from "./ui/button";
+import { ImageOff } from 'lucide-react';
 
 export default function ArticleCard({
   article,
@@ -40,7 +41,7 @@ export default function ArticleCard({
       ? `${window.location.origin}/${article.category}/${article.languages[0].seo.slug}`
       : "";
   const shareTitle = article.languages[0].content.mainTitle;
-  const shareMedia = article.articleImages[0];
+  const shareMedia = article.articleImages && article.articleImages.length > 0 ? article.articleImages[0] : "";
 
   const handleShareClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,14 +66,23 @@ export default function ArticleCard({
       >
         {/* Article Image - More height, narrower width */}
         <div className="relative overflow-hidden h-40 flex-shrink-0">
-          <Image
-            src={article.articleImages[0]}
-            alt={article.languages[0].content.mainTitle}
-            fill
-            className="object-cover hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
+          {article.articleImages && article.articleImages.length > 0 && article.articleImages[0] ? (
+            <Image
+              src={article.articleImages[0]}
+              alt={article.languages[0].content.mainTitle}
+              fill
+              className="object-cover hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                <ImageOff size={24} />
+                <div className="text-sm font-medium">No Image</div>
+              </div>
+            </div>
+          )}
           <div className="absolute top-2 left-2 z-10">
             <span className="bg-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize">
               {t(`categories.${article.category}`)}

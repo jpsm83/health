@@ -97,16 +97,6 @@ const emailTranslations = {
     expiryMessage: "Questo link per il reset della password scadrà tra 1 ora per motivi di sicurezza.",
     fallbackMessage: "Se il pulsante sopra non funziona, copia e incolla questo link nel tuo browser:",
     copyright: "© 2025 Women's Spot. Tutti i diritti riservati.",
-  },
-  he: {
-    subject: "בקשת איפוס סיסמה - Women's Spot",
-    greeting: "שלום",
-    message: "ביקשת לאחרונה לאפס את הסיסמה שלך עבור חשבון Women's Spot שלך. לחץ על הכפתור למטה כדי לאפס אותה.",
-    resetButton: "אפס סיסמה",
-    ignoreMessage: "אם לא ביקשת איפוס סיסמה, אנא התעלם מהאימייל הזה או פנה לתמיכה אם יש לך חששות.",
-    expiryMessage: "קישור איפוס הסיסמה הזה יפוג תוקף תוך שעה מסיבות אבטחה.",
-    fallbackMessage: "אם הכפתור למעלה לא עובד, העתק והדבק את הקישור הזה בדפדפן שלך:",
-    copyright: "© 2025 Women's Spot. כל הזכויות שמורות.",
   }
 };
 

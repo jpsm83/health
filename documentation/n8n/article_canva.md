@@ -358,8 +358,6 @@ Please analyze the following article content:
 
 and create 4 detailed image descriptions and 3 short paragraphs following the specified JSON format:
 
-[ARTICLE_CONTENT_PLACEHOLDER]
-
 Remember to:
 1. Create 4 detailed image descriptions with human interactivity that reflect the article content
 2. Create 3 paragraphs of maximum 205 characters each that reflect the article content

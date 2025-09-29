@@ -37,8 +37,6 @@ The application supports 9 languages:
 - German (de)
 - Italian (it)
 - Dutch (nl)
-- Hebrew (he)
-- Russian (ru)
 
 ## Main Features
 

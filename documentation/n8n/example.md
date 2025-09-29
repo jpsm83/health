@@ -101,7 +101,6 @@ ARTICLE_ERROR: Invalid or empty ARTICLE content provided.
 - If target language is "de", return: `{"de": {translated_content}}`
 - If target language is "it", return: `{"it": {translated_content}}`
 - If target language is "pt", return: `{"pt": {translated_content}}`
-- If target language is "he", return: `{"he": {translated_content}}`
 
 **DO NOT RETURN ALL LANGUAGES. ONLY THE TARGET LANGUAGE.**
 

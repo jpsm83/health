@@ -1,1 +1,2 @@
-update article route must be done following the create route
+- subscribe login not working
+- update article route must be done following the create route

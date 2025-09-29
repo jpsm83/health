@@ -14,24 +14,23 @@ const canvasSchema = new Schema({
 
 // SEO schema - language specific
 const seoSchema = new Schema({
-  metaTitle: { type: String, required: true, maxlength: 500 },
+  metaTitle: { type: String, required: true },
   metaDescription: {
     type: String,
     required: true,
     trim: true,
-    maxlength: 1000,
   },
   keywords: { type: [String], required: true },
   slug: { type: String, required: true },
   hreflang: {
     type: String,
     required: true,
-    enum: ["en", "pt", "es", "fr", "de", "it", "he"], // Simplified locale list
+    enum: ["en", "pt", "es", "fr", "de", "it"], // Simplified locale list
   },
   urlPattern: {
     type: String,
     required: true,
-    enum: ["articles", "artigos", "articulos", "artikel", "articoli", "מאמרים"],
+    enum: ["articles", "artigos", "articulos", "artikel", "articoli"],
     default: "articles",
   },
   canonicalUrl: {
@@ -128,7 +127,7 @@ const languageSpecificSchema = new Schema({
   hreflang: {
     type: String,
     required: true,
-    enum: ["en", "pt", "es", "fr", "de", "it", "he"],
+    enum: ["en", "pt", "es", "fr", "de", "it"],
   },
 
   // Canvas content (language independent but grouped by language for consistency)
@@ -170,7 +169,7 @@ const imagesContextSchema = new Schema({
 export const articleSchema = new Schema(
   {
     // Unified language-specific content - all language-dependent data in one place
-    languages: { type: [languageSpecificSchema], required: true }, // en, pt, es, fr, de, it, he, must be done in each language
+    languages: { type: [languageSpecificSchema], required: true }, // en, pt, es, fr, de, it, must be done in each language
 
     // Article metadata - language independent
     category: {

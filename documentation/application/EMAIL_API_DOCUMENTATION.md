@@ -714,8 +714,6 @@ Email templates support 9 languages:
 - German (de)
 - Italian (it)
 - Dutch (nl)
-- Hebrew (he)
-- Russian (ru)
 
 ### Email Templates
 All emails follow a consistent design:
@@ -780,7 +778,7 @@ All endpoints return consistent JSON responses:
 ### 4. Internationalization
 - Multi-language email templates
 - Locale-specific content
-- Support for 9 languages (en, pt, es, fr, de, it, nl, he, ru)
+- Support for 9 languages (en, pt, es, fr, de, it, nl)
 
 ### 5. Security Features
 - Token-based authentication
@@ -1175,7 +1173,7 @@ app/api/v1/
 #### ✅ Internationalization Support
 - Multi-language email templates
 - Locale parameter support
-- Support for 9 languages (en, pt, es, fr, de, it, nl, he, ru)
+- Support for 9 languages (en, pt, es, fr, de, it, nl)
 
 #### ✅ Security Features
 - Token-based authentication

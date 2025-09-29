@@ -61,8 +61,6 @@ export async function generateMetadata({ params }) {
 - ✅ **German** (de) - Complete metadata
 - ✅ **Italian** (it) - Complete metadata
 - ✅ **Dutch** (nl) - Complete metadata
-- ✅ **Hebrew** (he) - Complete metadata
-- ✅ **Russian** (ru) - Complete metadata
 
 **All 9 supported languages now have complete metadata support!**
 
@@ -137,8 +135,6 @@ The multilingual metadata is currently implemented using **hardcoded translation
 - ✅ **German** (de) - Complete metadata
 - ✅ **Italian** (it) - Complete metadata
 - ✅ **Dutch** (nl) - Complete metadata
-- ✅ **Hebrew** (he) - Complete metadata
-- ✅ **Russian** (ru) - Complete metadata
 
 **All 9 supported languages now have complete metadata support!**
 

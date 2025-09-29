@@ -338,7 +338,7 @@ export const POST = async (req: Request) => {
       }
 
       // Validate hreflang is supported
-      const supportedLocales = ["en", "pt", "es", "fr", "de", "it", "he"];
+      const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
       if (!supportedLocales.includes(language.seo.hreflang)) {
         return new NextResponse(
           JSON.stringify({
@@ -358,7 +358,6 @@ export const POST = async (req: Request) => {
         "artikel",
         "articoli",
         "artikelen",
-        "מאמרים",
       ];
       if (!validUrlPatterns.includes(language.seo.urlPattern)) {
         return new NextResponse(
