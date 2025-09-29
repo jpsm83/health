@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "../../auth/[...nextauth]/route";
 import { v2 as cloudinary } from "cloudinary";
+import connectDb from "@/app/api/db/connectDb";
+import Article from "@/app/api/models/article";
 
 // Cloudinary ENV variables
 cloudinary.config({
@@ -92,6 +94,26 @@ export const POST = async (req: Request) => {
       folder: `${uploadPreset}${folderPath}`,
       resource_type: "auto",
     });
+
+    // Connect to database and update article with new image URL
+    try {
+      await connectDb();
+      
+      // Update the article's articleImages array with the new image URL
+      const updatedArticle = await Article.findByIdAndUpdate(
+        folderId,
+        { $addToSet: { articleImages: response.secure_url } },
+        { new: true }
+      );
+
+      if (!updatedArticle) {
+        console.warn(`Article with ID ${folderId} not found, but image uploaded successfully`);
+      }
+    } catch (dbError) {
+      console.error("Failed to update article with image URL:", dbError);
+      // Don't fail the entire request if database update fails
+      // The image was successfully uploaded to Cloudinary
+    }
 
     // Return success response with image URL
     return new NextResponse(
