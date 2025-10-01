@@ -3,6 +3,7 @@ import { auth } from "../../auth/[...nextauth]/route";
 import { v2 as cloudinary } from "cloudinary";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
+import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
 
 // Cloudinary ENV variables
 cloudinary.config({
@@ -14,17 +15,14 @@ cloudinary.config({
 
 // @desc    Upload single image to Cloudinary
 // @route   POST /upload/image
-// @access  Private
+// @access  Private (Session or API Key)
 export const POST = async (req: Request) => {
-  // Validate session
+  // Validate session or API key
   const session = await auth();
-  if (!session) {
-    return new NextResponse(
-      JSON.stringify({
-        message: "You must be signed in to upload an image",
-      }),
-      { status: 401, headers: { "Content-Type": "application/json" } }
-    );
+  const authError = checkAuthWithApiKey(req, session);
+  
+  if (authError) {
+    return authError;
   }
 
   try {
@@ -99,15 +97,37 @@ export const POST = async (req: Request) => {
     try {
       await connectDb();
       
-      // Update the article's articleImages array with the new image URL
-      const updatedArticle = await Article.findByIdAndUpdate(
-        folderId,
-        { $addToSet: { articleImages: response.secure_url } },
-        { new: true }
-      );
-
-      if (!updatedArticle) {
+      // Check if article exists and user has permission to update it
+      const article = await Article.findById(folderId);
+      if (!article) {
         console.warn(`Article with ID ${folderId} not found, but image uploaded successfully`);
+      } else {
+        // For API key authentication, we allow updates to any article
+        // For session authentication, check if user is the author or admin
+        if (session) {
+          const isAuthor = article.createdBy.toString() === session.user.id;
+          const isAdmin = session.user.role === "admin";
+          
+          if (!isAuthor && !isAdmin) {
+            return new NextResponse(
+              JSON.stringify({
+                message: "You are not authorized to add images to this article",
+              }),
+              { status: 403, headers: { "Content-Type": "application/json" } }
+            );
+          }
+        }
+        
+        // Update the article's articleImages array with the new image URL
+        const updatedArticle = await Article.findByIdAndUpdate(
+          folderId,
+          { $addToSet: { articleImages: response.secure_url } },
+          { new: true }
+        );
+
+        if (!updatedArticle) {
+          console.warn(`Failed to update article with image URL`);
+        }
       }
     } catch (dbError) {
       console.error("Failed to update article with image URL:", dbError);

@@ -7,9 +7,11 @@ import connectDb from "@/app/api/db/connectDb";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import { handleApiError } from "@/app/api/utils/handleApiError";
+import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
 
 // imported models
 import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 // imported interfaces
 import {
@@ -128,17 +130,14 @@ export const GET = async (req: Request) => {
 
 // @desc    Create new article
 // @route   POST /articles
-// @access  Private
+// @access  Private (Session or API Key)
 export const POST = async (req: Request) => {
-  // validate session
+  // validate session or API key
   const session = await auth();
-  if (!session) {
-    return new NextResponse(
-      JSON.stringify({
-        message: "You must be signed in to create an article",
-      }),
-      { status: 401, headers: { "Content-Type": "application/json" } }
-    );
+  const authError = checkAuthWithApiKey(req, session);
+  
+  if (authError) {
+    return authError;
   }
 
   try {
@@ -389,6 +388,25 @@ export const POST = async (req: Request) => {
     // Connect to database
     await connectDb();
 
+    // Determine the creator ID
+    let creatorId: string;
+    if (session) {
+      // Use session user ID
+      creatorId = session.user.id;
+    } else {
+      // For API key authentication, we need to find a default admin user
+      // or use a system user ID. For now, we'll look for an admin user.
+      const adminUser = await User.findOne({ role: "admin" }).select("_id").lean() as { _id: string } | null;
+      if (!adminUser || !adminUser._id) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "No admin user found for API key authentication",
+          }),
+          { status: 500, headers: { "Content-Type": "application/json" } }
+        );
+      }
+      creatorId = adminUser._id.toString();
+    }
 
     const articleId = new mongoose.Types.ObjectId();
 
@@ -399,7 +417,7 @@ export const POST = async (req: Request) => {
       category: category,
       imagesContext,
       articleImages: [],
-      createdBy: session.user.id,
+      createdBy: creatorId,
     };
 
     // Upload images to Cloudinary
