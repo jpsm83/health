@@ -48,6 +48,41 @@ Use `POST /api/v1/upload/image` for single image uploads:
 
 **Use Case:** Adding single images to existing articles (legacy support)
 
+## Custom Article ID Feature
+
+The article creation endpoint now supports an optional `id` parameter that allows you to specify a custom MongoDB ObjectId for the article:
+
+### **When to Use Custom ID:**
+- **n8n Integration**: When you need predictable article IDs for referencing
+- **Data Migration**: When importing articles with existing IDs
+- **External System Integration**: When you need to maintain ID consistency across systems
+
+### **How It Works:**
+1. **With Custom ID**: `POST /api/v1/articles` with `id` parameter → Uses your specified ID
+2. **Without Custom ID**: `POST /api/v1/articles` without `id` parameter → Generates new ObjectId automatically
+
+### **Validation:**
+- Custom ID must be a valid MongoDB ObjectId format
+- Custom ID must not already exist in the database
+- Returns 409 Conflict if ID already exists
+- Returns 400 Bad Request if ID format is invalid
+
+### **Example Usage:**
+```bash
+# Create article with custom ID
+curl -X POST http://localhost:3000/api/v1/articles \
+  -H "Authorization: Bearer your-api-key" \
+  -F "id=507f1f77bcf86cd799439011" \
+  -F "category=health" \
+  # ... other parameters
+
+# Create article with auto-generated ID (default behavior)
+curl -X POST http://localhost:3000/api/v1/articles \
+  -H "Authorization: Bearer your-api-key" \
+  -F "category=health" \
+  # ... other parameters
+```
+
 ## Setup
 
 ### 1. Environment Variable
@@ -105,6 +140,18 @@ curl -X POST http://localhost:3000/api/v1/articles \
   -F "articleImages=@image2.jpg"
 ```
 
+#### Create Article with Custom ID
+```bash
+curl -X POST http://localhost:3000/api/v1/articles \
+  -H "Authorization: Bearer your-api-key-here" \
+  -F "id=507f1f77bcf86cd799439011" \
+  -F "category=health" \
+  -F "languages=[{\"hreflang\":\"en\",\"canvas\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
+  -F "imagesContext={\"imageOne\":\"test1.jpg\",\"imageTwo\":\"test2.jpg\",\"imageThree\":\"test3.jpg\",\"imageFour\":\"test4.jpg\"}" \
+  -F "articleImages=@image1.jpg" \
+  -F "articleImages=@image2.jpg"
+```
+
 #### Update Article
 ```bash
 curl -X PUT http://localhost:3000/api/v1/articles/by-id/ARTICLE_ID_HERE \
@@ -140,6 +187,7 @@ Configure your HTTP Request node with:
    - `Authorization`: `Bearer your-api-key-here`
 4. **Body Type**: Form-Data
 5. **Body Parameters**:
+   - `id`: String (optional) - Custom MongoDB ObjectId for the article
    - `category`: String (e.g., "health", "fitness", "nutrition")
    - `languages`: JSON string (array of language objects)
    - `imagesContext`: JSON string (object with imageOne, imageTwo, etc.)

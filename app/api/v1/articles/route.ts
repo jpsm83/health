@@ -148,6 +148,7 @@ export const POST = async (req: Request) => {
     const category = formData.get("category") as string;
     const languagesRaw = formData.get("languages") as string;
     const imagesContextRaw = formData.get("imagesContext") as string;
+    const customId = formData.get("id") as string; // Optional custom ID
     const fileEntries = formData
       .getAll("articleImages")
       .filter((entry): entry is File => entry instanceof File);
@@ -168,6 +169,31 @@ export const POST = async (req: Request) => {
         JSON.stringify({ message: "Invalid category!" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
+    }
+
+    // Validate custom ID if provided
+    if (customId) {
+      // Check if custom ID is a valid MongoDB ObjectId
+      if (!mongoose.Types.ObjectId.isValid(customId)) {
+        return new NextResponse(
+          JSON.stringify({ 
+            message: "Invalid custom ID format. Must be a valid MongoDB ObjectId." 
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Check if article with this ID already exists
+      await connectDb();
+      const existingArticle = await Article.findById(customId);
+      if (existingArticle) {
+        return new NextResponse(
+          JSON.stringify({ 
+            message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
+          }),
+          { status: 409, headers: { "Content-Type": "application/json" } }
+        );
+      }
     }
 
     // Parse languages from formData
@@ -385,8 +411,10 @@ export const POST = async (req: Request) => {
     //   );
     // }
 
-    // Connect to database
-    await connectDb();
+    // Connect to database (if not already connected from custom ID validation)
+    if (!customId) {
+      await connectDb();
+    }
 
     // Determine the creator ID
     let creatorId: string;
@@ -408,7 +436,8 @@ export const POST = async (req: Request) => {
       creatorId = adminUser._id.toString();
     }
 
-    const articleId = new mongoose.Types.ObjectId();
+    // Use custom ID if provided, otherwise generate new one
+    const articleId = customId ? new mongoose.Types.ObjectId(customId) : new mongoose.Types.ObjectId();
 
     // Prepare article for creation
     const newArticle: IArticle = {
