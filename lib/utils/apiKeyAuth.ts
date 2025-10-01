@@ -68,11 +68,14 @@ export function checkApiKeyAuth(request: Request): NextResponse | null {
  * @returns NextResponse with error if both auth methods fail, null if either succeeds
  */
 export function checkAuthWithApiKey(request: Request, session: unknown): NextResponse | null {
-  // If session exists, use session authentication
-  if (session) {
-    return null; // Valid session
+  // If session exists and has a user, use session authentication
+  if (session && typeof session === 'object' && session !== null && 'user' in session) {
+    const sessionObj = session as { user?: { id?: string } };
+    if (sessionObj.user && sessionObj.user.id) {
+      return null; // Valid session
+    }
   }
 
-  // If no session, try API key authentication
+  // If no valid session, try API key authentication
   return checkApiKeyAuth(request);
 }
