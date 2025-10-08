@@ -11,7 +11,6 @@ import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
 
 // imported models
 import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user";
 
 // Helper function to validate video URLs
 function isValidVideoUrl(url: string): boolean {
@@ -205,11 +204,6 @@ export const POST = async (req: Request) => {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-
-    // Validate category
-    console.log("Received category:", JSON.stringify(category));
-    console.log("Available categories:", mainCategories);
-    console.log("Category includes check:", mainCategories.includes(category));
     
     if (!mainCategories.includes(category)) {
       return new NextResponse(
@@ -520,18 +514,8 @@ export const POST = async (req: Request) => {
       // Use session user ID
       creatorId = session.user.id;
     } else {
-      // For API key authentication, we need to find a default admin user
-      // or use a system user ID. For now, we'll look for an admin user.
-      const adminUser = await User.findOne({ role: "admin" }).select("_id").lean() as { _id: string } | null;
-      if (!adminUser || !adminUser._id) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "No admin user found for API key authentication",
-          }),
-          { status: 500, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      creatorId = adminUser._id.toString();
+      // For API key authentication, use the hardcoded system user ID
+      creatorId = "68e6a79afb1932c067f96e30";
     }
 
     // Use custom ID if provided, otherwise generate new one
