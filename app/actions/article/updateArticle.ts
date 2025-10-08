@@ -8,6 +8,21 @@ import { mainCategories } from "@/lib/constants";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 
+// Helper function to validate video URLs
+function isValidVideoUrl(url: string): boolean {
+  try {
+    const urlObj = new URL(url);
+    const videoExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mkv'];
+    const pathname = urlObj.pathname.toLowerCase();
+    return videoExtensions.some(ext => pathname.endsWith(ext)) || 
+           url.includes('youtube.com') || 
+           url.includes('vimeo.com') ||
+           url.includes('cloudinary.com');
+  } catch {
+    return false;
+  }
+}
+
 interface UpdateArticleParams {
   articleId: string;
   category?: string;
@@ -19,6 +34,7 @@ interface UpdateArticleParams {
     imageFour: string;
   };
   articleImages?: File[];
+  articleVideo?: string;
   userId: string;
   isAdmin?: boolean;
 }
@@ -29,6 +45,7 @@ export async function updateArticle({
   languages,
   imagesContext,
   articleImages,
+  articleVideo,
   userId,
   isAdmin = false,
 }: UpdateArticleParams) {
@@ -236,6 +253,17 @@ export async function updateArticle({
         };
       }
       updateData.imagesContext = imagesContext;
+    }
+
+    // Update articleVideo if provided
+    if (articleVideo) {
+      if (!isValidVideoUrl(articleVideo)) {
+        return {
+          success: false,
+          message: "Invalid video URL format",
+        };
+      }
+      updateData.articleVideo = articleVideo;
     }
 
     // Handle image uploads if provided

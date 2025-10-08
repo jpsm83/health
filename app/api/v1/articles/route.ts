@@ -13,6 +13,21 @@ import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
 
+// Helper function to validate video URLs
+function isValidVideoUrl(url: string): boolean {
+  try {
+    const urlObj = new URL(url);
+    const videoExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mkv'];
+    const pathname = urlObj.pathname.toLowerCase();
+    return videoExtensions.some(ext => pathname.endsWith(ext)) || 
+           url.includes('youtube.com') || 
+           url.includes('vimeo.com') ||
+           url.includes('cloudinary.com');
+  } catch {
+    return false;
+  }
+}
+
 // imported interfaces
 import {
   IArticle,
@@ -148,9 +163,15 @@ export const POST = async (req: Request) => {
     const category = formData.get("category") as string;
     const languagesRaw = formData.get("languages") as string;
     const imagesContextRaw = formData.get("imagesContext") as string;
+    const articleVideo = formData.get("articleVideo") as string;
     const customId = formData.get("id") as string; // Optional custom ID
+    
+    // Image handling - choose ONE method:
+    // Method 1: Upload files (articleImageFiles field)
+    // Method 2: Use pre-existing URLs (articleImages field)
+    const articleImagesRaw = formData.get("articleImages") as string; // Pre-existing image URLs (JSON array)
     const fileEntries = formData
-      .getAll("articleImages")
+      .getAll("articleImageFiles")
       .filter((entry): entry is File => entry instanceof File);
 
     // Validate required fields
@@ -163,12 +184,97 @@ export const POST = async (req: Request) => {
       );
     }
 
+    // Validate image input - must use either file uploads OR pre-existing URLs, not both
+    const hasFileEntries = fileEntries.length > 0;
+    const hasImageUrls = articleImagesRaw && articleImagesRaw.trim() !== "";
+    
+    if (hasFileEntries && hasImageUrls) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Cannot use both file uploads and pre-existing image URLs. Choose one method.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!hasFileEntries && !hasImageUrls) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Must provide either file uploads (articleImageFiles) or pre-existing image URLs (articleImages).",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     // Validate category
     if (!mainCategories.includes(category)) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid category!" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
+    }
+
+    // Validate video URL if provided
+    if (articleVideo && !isValidVideoUrl(articleVideo)) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Invalid video URL format!",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Parse and validate pre-existing image URLs if provided
+    let articleImages: string[] = [];
+    if (hasImageUrls) {
+      try {
+        articleImages = JSON.parse(articleImagesRaw) as string[];
+        
+        if (!Array.isArray(articleImages) || articleImages.length === 0) {
+          return new NextResponse(
+            JSON.stringify({
+              message: "articleImages must be a non-empty array of image URLs!",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
+
+        // Validate that all URLs are valid image URLs
+        const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
+        for (const url of articleImages) {
+          try {
+            const urlObj = new URL(url);
+            const pathname = urlObj.pathname.toLowerCase();
+            const isValidImageUrl = imageExtensions.some(ext => pathname.endsWith(ext)) || 
+                                   url.includes('cloudinary.com') ||
+                                   url.includes('amazonaws.com') ||
+                                   url.includes('googleapis.com');
+            
+            if (!isValidImageUrl) {
+              return new NextResponse(
+                JSON.stringify({
+                  message: `Invalid image URL format: ${url}. Must be a valid image URL.`,
+                }),
+                { status: 400, headers: { "Content-Type": "application/json" } }
+              );
+            }
+          } catch {
+            return new NextResponse(
+              JSON.stringify({
+                message: `Invalid URL format: ${url}`,
+              }),
+              { status: 400, headers: { "Content-Type": "application/json" } }
+            );
+          }
+        }
+      } catch (error) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Invalid articleImages format: ${error}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
     }
 
     // Validate custom ID if provided
@@ -396,20 +502,6 @@ export const POST = async (req: Request) => {
       }
     }
 
-    // // Validate fileEntries
-    // if (
-    //   !fileEntries.length ||
-    //   // fileEntries.length !== languages[0].content.articleContents.length ||
-    //   fileEntries.some((file) => file.size === 0)
-    // ) {
-    //   return new NextResponse(
-    //     JSON.stringify({
-    //       message:
-    //         "No image files found or the number of image files does not match the number of article contents!",
-    //     }),
-    //     { status: 400, headers: { "Content-Type": "application/json" } }
-    //   );
-    // }
 
     // Connect to database (if not already connected from custom ID validation)
     if (!customId) {
@@ -446,14 +538,13 @@ export const POST = async (req: Request) => {
       category: category,
       imagesContext,
       articleImages: [],
+      articleVideo: articleVideo || undefined,
       createdBy: creatorId,
     };
 
-    // Upload images to Cloudinary
-    if (
-      fileEntries?.every((file) => file instanceof File && file.size > 0) &&
-      fileEntries.length > 0
-    ) {
+    // Handle image uploads - either file uploads OR pre-existing URLs
+    if (hasFileEntries) {
+      // Upload files to Cloudinary
       const folder = `/${category}/${articleId}`;
 
       const cloudinaryUploadResponse = await uploadFilesCloudinary({
@@ -476,6 +567,9 @@ export const POST = async (req: Request) => {
       }
 
       newArticle.articleImages = cloudinaryUploadResponse;
+    } else if (hasImageUrls) {
+      // Use pre-existing image URLs
+      newArticle.articleImages = articleImages;
     }
 
     // Create article in database

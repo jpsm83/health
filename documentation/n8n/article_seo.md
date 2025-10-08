@@ -172,7 +172,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 ```
 Please analyze the following article content:
 
-{{ JSON.stringify($json.output) }}
+{{ JSON.stringify($('Rewrite article').item.json.output) }}
 
 and create comprehensive SEO metadata following the specified JSON format.
 
@@ -188,7 +188,7 @@ You must return ONLY a valid JSON object with these exact properties:
 CRITICAL: Return ONLY the JSON object, no additional text, explanations, or markdown formatting.
 ```
 
-The category type of the article will come from {{ $('Get first available article').item.json.Type }} and that will be add on the url
+The category type of the article is "{{ $('Get URL row').item.json.Type }}" and that will be add on the url
 ---
 
 # DETAILED DOCUMENTATION

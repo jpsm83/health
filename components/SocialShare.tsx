@@ -24,6 +24,7 @@ interface SocialShareProps {
   title: string;
   description?: string;
   media?: string;
+  video?: string;
   className?: string;
 }
 
@@ -31,6 +32,8 @@ export default function SocialShare({
   url,
   title,
   description,
+  media: _media, // eslint-disable-line @typescript-eslint/no-unused-vars
+  video: _video, // eslint-disable-line @typescript-eslint/no-unused-vars
   className = "",
 }: SocialShareProps) {
   const shareUrl = url;

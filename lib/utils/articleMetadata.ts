@@ -61,6 +61,13 @@ export async function generateArticleMetadata(
       type: 'article',
       // Enhanced image handling for better social media display
       images: enhancedImages,
+      // Add video support for social media
+      videos: metaContent.articleVideo ? [{
+        url: metaContent.articleVideo,
+        width: 1080,
+        height: 1920,
+        type: 'video/mp4',
+      }] : undefined,
     },
     // Enhanced Twitter Cards for better Twitter sharing
     twitter: {
@@ -81,6 +88,16 @@ export async function generateArticleMetadata(
       'article:author': author,
       'article:section': metaContent.category || 'Health',
       'article:tag': keywords,
+      // Video metadata for social media platforms
+      ...(metaContent.articleVideo && {
+        'og:video': metaContent.articleVideo,
+        'og:video:type': 'video/mp4',
+        'og:video:width': '1080',
+        'og:video:height': '1920',
+        'twitter:player': metaContent.articleVideo,
+        'twitter:player:width': '1080',
+        'twitter:player:height': '1920',
+      }),
       // LinkedIn specific
       'linkedin:owner': 'womensspot', // Add your actual LinkedIn company page
       // Pinterest specific

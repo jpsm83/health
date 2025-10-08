@@ -39,6 +39,7 @@ export default async function uploadFilesCloudinary({
 
       // Upload to Cloudinary
       const response = await cloudinary.uploader.upload(dataUri, {
+        // because we are using non signature, the invalidate is not needed
         invalidate: true,
         upload_preset: uploadPreset,
         folder: `${uploadPreset}${folder}`,

@@ -38,6 +38,7 @@ export interface ISeo {
 export interface IMetaDataArticle {
   createdBy: string;
   articleImages: string[];
+  articleVideo?: string;
   category: string;
   createdAt: Date | string;
   updatedAt: Date | string;
@@ -158,6 +159,7 @@ export interface IArticle {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
+  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
   commentsCount?: number;
@@ -175,6 +177,7 @@ export interface IArticleDocument extends Document {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
+  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
   commentsCount: number;
@@ -193,6 +196,7 @@ export interface IArticleLean {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
+  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
   commentsCount: number;
@@ -211,6 +215,7 @@ export interface ISerializedArticle {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
+  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: string[];
   commentsCount: number;

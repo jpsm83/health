@@ -112,50 +112,36 @@ Social media platforms and content filters may flag content with sexual terminol
     "caption": "Engaging caption with hashtags and call-to-action - MAX 2200 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
     "altText": "Accessibility text describing the video - MAX 600 characters",
-    "video": "https://example.com/instagram-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   },
   "facebook": {
     "message": "Engaging message with educational content and hashtags - MAX 63206 characters",
     "headline": "Compelling headline - MAX 100 characters",
     "linkDescription": "Link preview description - MAX 300 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/facebook-video.mp4",
-    "callToAction": "Learn More",
-    "url": "https://womensspot.org/en/category/article-slug"
+    "callToAction": "Learn More"
   },
   "xTwitter": {
     "text": "Engaging tweet with hashtags - MAX 280 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/twitter-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   },
   "pinterest": {
     "title": "Compelling pin title - MAX 100 characters",
     "description": "Detailed pin description with hashtags - MAX 500 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/pinterest-video.mp4",
-    "altText": "Accessibility text describing the video - MAX 500 characters",
-    "url": "https://womensspot.org/en/category/article-slug"
+    "altText": "Accessibility text describing the video - MAX 500 characters"
   },
   "youtube": {
     "title": "Engaging video title - MAX 100 characters",
     "description": "Detailed video description with timestamps and links - MAX 5000 characters",
     "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
-    "video": "https://example.com/youtube-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   },
   "threads": {
     "text": "Engaging thread post with hashtags - MAX 500 characters",
-    "video": "https://example.com/threads-video.mp4",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "url": "https://womensspot.org/en/category/article-slug"
+    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"]
   },
   "tiktok": {
     "caption": "Engaging TikTok caption with hashtags - MAX 2200 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/tiktok-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   }
 }
 
@@ -195,13 +181,11 @@ Social media platforms and content filters may flag content with sexual terminol
 ```
 Please analyze the following article content:
 
-{{ JSON.stringify($json.output) }}
+{{ JSON.stringify($('Rewrite article').item.json.output) }}
 
 and create comprehensive social media content following the specified JSON format.
 
 The URL's on each social media supose to refer to the canonicalUrl from SEO: {{ $json.output.canonicalUrl }}
-
-[ARTICLE_CONTENT_PLACEHOLDER]
 
 You must return ONLY a valid JSON object with these exact properties for each platform:
 
@@ -209,50 +193,36 @@ You must return ONLY a valid JSON object with these exact properties for each pl
 - caption: Engaging caption with hashtags (max 2200 characters)
 - hashtags: Array of relevant hashtags (max 30)
 - altText: Accessibility text describing the video (max 600 characters)
-- video: Video URL placeholder
-- url: Link to article
 
 **Facebook:**
 - message: Engaging message with educational content (max 63206 characters)
 - headline: Compelling headline (max 100 characters)
 - linkDescription: Link preview description (max 300 characters)
 - hashtags: Array of relevant hashtags (max 10)
-- video: Video URL placeholder
 - callToAction: CTA button text (max 30 characters)
-- url: Link to article
 
 **X (Twitter):**
 - text: Engaging tweet (max 280 characters)
 - hashtags: Array of relevant hashtags (max 5)
-- video: Video URL placeholder
-- url: Link to article
 
 **Pinterest:**
 - title: Compelling pin title (max 100 characters)
 - description: Detailed pin description (max 500 characters)
 - hashtags: Array of relevant hashtags (max 8)
-- video: Video URL placeholder
 - altText: Accessibility text (max 500 characters)
-- url: Link to article
 
 **YouTube:**
 - title: Engaging video title (max 100 characters)
 - description: Detailed video description (max 5000 characters)
 - tags: Array of relevant tags (total length ≤ 500 characters)
-- video: Video URL placeholder
-- url: Link to article
 
 **Threads:**
 - text: Engaging thread post (max 500 characters)
-- video: Video URL placeholder
 - hashtags: Array of relevant hashtags (max 15)
-- url: Link to article
 
 **TikTok:**
 - caption: Engaging TikTok caption (max 2200 characters)
 - hashtags: Array of relevant hashtags (max 30)
-- video: Video URL placeholder
-- url: Link to article
 
 CRITICAL: Return ONLY the JSON object, no additional text, explanations, or markdown formatting.
 ```
@@ -379,50 +349,36 @@ Social media platforms and content filters may flag content with sexual terminol
     "caption": "Engaging caption with hashtags and call-to-action - MAX 2200 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
     "altText": "Accessibility text describing the video - MAX 600 characters",
-    "video": "https://example.com/instagram-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   },
   "facebook": {
     "message": "Engaging message with educational content and hashtags - MAX 63206 characters",
     "headline": "Compelling headline - MAX 100 characters",
     "linkDescription": "Link preview description - MAX 300 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/facebook-video.mp4",
-    "callToAction": "Learn More",
-    "url": "https://womensspot.org/en/category/article-slug"
+    "callToAction": "Learn More"
   },
   "xTwitter": {
     "text": "Engaging tweet with hashtags - MAX 280 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/twitter-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   },
   "pinterest": {
     "title": "Compelling pin title - MAX 100 characters",
     "description": "Detailed pin description with hashtags - MAX 500 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/pinterest-video.mp4",
-    "altText": "Accessibility text describing the video - MAX 500 characters",
-    "url": "https://womensspot.org/en/category/article-slug"
+    "altText": "Accessibility text describing the video - MAX 500 characters"
   },
   "youtube": {
     "title": "Engaging video title - MAX 100 characters",
     "description": "Detailed video description with timestamps and links - MAX 5000 characters",
     "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
-    "video": "https://example.com/youtube-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   },
   "threads": {
     "text": "Engaging thread post with hashtags - MAX 500 characters",
-    "video": "https://example.com/threads-video.mp4",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "url": "https://womensspot.org/en/category/article-slug"
+    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"]
   },
   "tiktok": {
     "caption": "Engaging TikTok caption with hashtags - MAX 2200 characters",
     "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "video": "https://example.com/tiktok-video.mp4",
-    "url": "https://womensspot.org/en/category/article-slug"
   }
 }
 
@@ -440,8 +396,6 @@ Social media platforms and content filters may flag content with sexual terminol
 - Caption: Engaging caption with hashtags and call-to-action (max 2200 characters)
 - Hashtags: Array of relevant hashtags (max 30)
 - Alt Text: Accessibility text describing the video (max 600 characters)
-- Video: Video URL placeholder
-- URL: Link to article
 
 **FACEBOOK:**
 - Message: Engaging message with educational content (max 63206 characters)
@@ -455,8 +409,6 @@ Social media platforms and content filters may flag content with sexual terminol
 **X (TWITTER):**
 - Text: Engaging tweet (max 280 characters)
 - Hashtags: Array of relevant hashtags (max 5)
-- Video: Video URL placeholder
-- URL: Link to article
 
 **PINTEREST:**
 - Title: Compelling pin title (max 100 characters)
@@ -470,8 +422,6 @@ Social media platforms and content filters may flag content with sexual terminol
 - Title: Engaging video title (max 100 characters)
 - Description: Detailed video description (max 5000 characters)
 - Tags: Array of relevant tags (total length ≤ 500 characters)
-- Video: Video URL placeholder
-- URL: Link to article
 
 **THREADS:**
 - Text: Engaging thread post (max 500 characters)
@@ -482,8 +432,6 @@ Social media platforms and content filters may flag content with sexual terminol
 **TIKTOK:**
 - Caption: Engaging TikTok caption (max 2200 characters)
 - Hashtags: Array of relevant hashtags (max 30)
-- Video: Video URL placeholder
-- URL: Link to article
 
 ## 3. PROCESSING INSTRUCTIONS
 1. **FIRST: Read and understand the article content**

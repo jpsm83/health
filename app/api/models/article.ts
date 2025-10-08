@@ -59,8 +59,6 @@ const instagramSchema = new Schema({
   caption: { type: String, maxlength: 2200, required: true }, // max 2,200 characters
   hashtags: { type: [String], required: true, maxlength: 30 }, // max 30 hashtags
   altText: { type: String, maxlength: 600 }, // accessibility text
-  video: { type: String }, // video URL for reels
-  url: { type: String, required: true }, // link to article/landing
 });
 
 // Facebook
@@ -69,17 +67,13 @@ const facebookSchema = new Schema({
   headline: { type: String, maxlength: 100, required: true }, // suggested under 100 chars
   linkDescription: { type: String, maxlength: 500, required: true }, // link preview text
   hashtags: { type: [String], required: true, maxlength: 10 }, // hashtags // optional; facebook doesn't rely on hashtags as much but keep them short. max 10
-  video: { type: String }, // video content
   callToAction: { type: String, maxlength: 30 }, // CTA button text (e.g., "Learn More")
-  url: { type: String, required: true }, // link to article
 });
 
 // X (Twitter)
 const xTwitterSchema = new Schema({
   text: { type: String, maxlength: 280, required: true }, // 280 characters
   hashtags: { type: [String], required: true, maxlength: 5 }, // max 5 hashtags recommended
-  video: { type: String }, // video content
-  url: { type: String, required: true }, // shortened link (can add UTM params)
 });
 
 // Pinterest
@@ -87,9 +81,7 @@ const pinterestSchema = new Schema({
   title: { type: String, maxlength: 100, required: true }, // 100 characters
   description: { type: String, maxlength: 500, required: true }, // 500 characters
   hashtags: { type: [String], required: true, maxlength: 8 }, // recommended max 8
-  video: { type: String }, // video content
   altText: { type: String, maxlength: 500, required: true }, // accessibility
-  url: { type: String, required: true }, // destination link
 });
 
 // YouTube
@@ -97,24 +89,18 @@ const youtubeSchema = new Schema({
   title: { type: String, maxlength: 100, required: true }, // 100 characters
   description: { type: String, maxlength: 5000, required: true }, // 5,000 characters
   tags: { type: [String], required: true, maxlength: 10 }, // max tags of 10
-  video: { type: String, required: true }, // video URL
-  url: { type: String, required: true }, // link in description/pinned comment
 });
 
 // Threads
 const threadsSchema = new Schema({
   text: { type: String, maxlength: 500, required: true }, // 500 characters
-  video: { type: String }, // video content
   hashtags: { type: [String], required: true, maxlength: 15 }, // hashtags threads doesn't rely on hashtags as much but keep them short. max 15
-  url: { type: String, required: true }, // link back to article
 });
 
 // TikTok
 const tiktokSchema = new Schema({
   caption: { type: String, maxlength: 2200, required: true }, // 2,200 characters
   hashtags: { type: [String], required: true, maxlength: 30 }, // max 30 hashtags
-  video: { type: String, required: true }, // video URL
-  url: { type: String, required: true }, // link in bio/CTA
 });
 
 // =========================
@@ -181,6 +167,7 @@ export const articleSchema = new Schema(
     articleImages: {
       type: [String],
     }, // best if at least 4 images
+    articleVideo: { type: String }, // best if at least 1 video
     status: {
       type: String,
       enum: articleStatus,
