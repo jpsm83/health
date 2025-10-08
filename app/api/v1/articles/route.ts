@@ -293,6 +293,7 @@ export const POST = async (req: Request) => {
       await connectDb();
       const existingArticle = await Article.findById(customId);
       if (existingArticle) {
+        console.log(`Article with ID ${customId} already exists, returning 409 error`);
         return new NextResponse(
           JSON.stringify({ 
             message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
@@ -300,6 +301,7 @@ export const POST = async (req: Request) => {
           { status: 409, headers: { "Content-Type": "application/json" } }
         );
       }
+      console.log(`Article with ID ${customId} does not exist, proceeding with creation`);
     }
 
     // Parse languages from formData
@@ -562,8 +564,24 @@ export const POST = async (req: Request) => {
       newArticle.articleImages = articleImages;
     }
 
+    // Double-check if article already exists right before creation (race condition protection)
+    if (customId) {
+      const finalCheck = await Article.findById(customId);
+      if (finalCheck) {
+        console.log(`Race condition detected: Article with ID ${customId} was created between validation and creation`);
+        return new NextResponse(
+          JSON.stringify({ 
+            message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
+          }),
+          { status: 409, headers: { "Content-Type": "application/json" } }
+        );
+      }
+    }
+
     // Create article in database
+    console.log(`About to create article with ID: ${articleId}`);
     const createdArticle = await Article.create(newArticle);
+    console.log(`Article created successfully with ID: ${createdArticle._id}`);
     return new NextResponse(
       JSON.stringify({
         message: "Article created successfully!",
