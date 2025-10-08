@@ -65,22 +65,47 @@ export default function ArticleCard({
         href={`/${article.category}/${article.languages[0].seo.slug}`}
         className="flex flex-col h-full cursor-pointer"
       >
-        {/* Article Image - More height, narrower width */}
-        <div className="relative overflow-hidden h-40 flex-shrink-0">
-          {article.articleImages && article.articleImages.length > 0 && article.articleImages[0] ? (
-            <Image
-              src={article.articleImages[0]}
-              alt={article.languages[0].content.mainTitle}
-              fill
-              className="object-cover hover:scale-105 transition-transform duration-300"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
-            />
+        {/* Article Images - Two images side by side */}
+        <div className="relative overflow-hidden h-40 flex-shrink-0 flex">
+          {article.articleImages && article.articleImages.length > 0 ? (
+            <>
+              {/* First Image */}
+              <div className="relative w-1/2 h-full">
+                <Image
+                  src={article.articleImages[0]}
+                  alt={article.languages[0].content.mainTitle}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
+                  priority
+                />
+              </div>
+              {/* Second Image */}
+              <div className="relative w-1/2 h-full">
+                {article.articleImages.length > 1 && article.articleImages[1] ? (
+                  <Image
+                    src={article.articleImages[1]}
+                    alt={article.languages[0].content.mainTitle}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                      <ImageOff size={20} />
+                      <div className="text-xs font-medium">No Image</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </>
           ) : (
             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
               <div className="flex flex-col items-center justify-center text-center text-gray-500">
                 <ImageOff size={24} />
-                <div className="text-sm font-medium">No Image</div>
+                <div className="text-sm font-medium">No Images</div>
               </div>
             </div>
           )}

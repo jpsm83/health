@@ -207,9 +207,15 @@ export const POST = async (req: Request) => {
     }
 
     // Validate category
+    console.log("Received category:", JSON.stringify(category));
+    console.log("Available categories:", mainCategories);
+    console.log("Category includes check:", mainCategories.includes(category));
+    
     if (!mainCategories.includes(category)) {
       return new NextResponse(
-        JSON.stringify({ message: "Invalid category!" }),
+        JSON.stringify({ 
+          message: `Invalid category: "${category}". Available categories: ${mainCategories.join(", ")}` 
+        }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
