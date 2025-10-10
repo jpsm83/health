@@ -23,13 +23,13 @@ Your task is to:
 
 **STEP 2: CREATE SOCIAL MEDIA CONTENT**
 Create comprehensive social media content that optimizes engagement across all platforms:
-- Instagram: Caption (max 2200 chars), hashtags (max 30), alt text (max 1000 chars)
-- Facebook: Message (max 63206 chars), headline (max 100 chars), link description (max 300 chars), hashtags (no strict limit - use best practices)
-- X (Twitter): Text (max 280 chars for free accounts), hashtags (no strict limit - use best practices)
-- Pinterest: Title (max 100 chars), description (max 500 chars), hashtags (no strict limit - use best practices), alt text (max 500 chars)
-- YouTube: Title (max 100 chars), description (max 5000 chars), tags (practical constraints apply)
-- Threads: Text (max 500 chars), hashtags (no strict limit - use best practices)
-- TikTok: Caption (max 2200 chars), hashtags (no strict limit - use best practices)
+- Instagram: Caption (max 2200 chars including hashtags), hashtags (max 30), alt text (max 1000 chars)
+- Facebook: Message (max 63206 chars including hashtags), headline (max 100 chars), link description (max 300 chars), hashtags (no strict limit but must follow limit of chars)
+- X (Twitter): Text (max 280 chars for free accounts including hashtags), hashtags (no strict limit but must follow limit of chars)
+- Pinterest: Title (max 100 chars including hashtags), description (max 500 chars including hashtags), hashtags (no strict limit but must follow limit of chars), alt text (max 500 chars including hashtags)
+- YouTube: Title (max 100 chars including hashtags), description (max 5000 chars including hashtags), tags (practical constraints apply)
+- Threads: Text (max 500 chars including hashtags), hashtags (no strict limit but must follow limit of chars)
+- TikTok: Caption (max 2200 chars including hashtags), hashtags (no strict limit but must follow limit of chars)
 
 **SOCIAL MEDIA OPTIMIZATION REQUIREMENTS:**
 - Content must be engaging and encourage interaction
@@ -187,7 +187,7 @@ Social media platforms and content filters may flag content with sexual terminol
 ```
 Please analyze the following article content:
 
-{{ JSON.stringify($('Rewrite article').item.json.output) }}
+{{ JSON.stringify($('Rewrite article').item.json.message.content) }}
 
 and create comprehensive social media content following the specified JSON format.
 
@@ -248,12 +248,12 @@ Your task is to:
 Create comprehensive social media content that optimizes engagement across all platforms:
 
 - Instagram: Caption (max 2200 chars), hashtags (max 30), alt text (max 1000 chars)
-- Facebook: Message (max 63206 chars), headline (max 100 chars), link description (max 300 chars), hashtags (no strict limit - use best practices)
-- X (Twitter): Text (max 280 chars for free accounts), hashtags (no strict limit - use best practices)
-- Pinterest: Title (max 100 chars), description (max 500 chars), hashtags (no strict limit - use best practices), alt text (max 500 chars)
+- Facebook: Message (max 63206 chars), headline (max 100 chars), link description (max 300 chars), hashtags (no strict limit but must follow limit o chars)
+- X (Twitter): Text (max 280 chars for free accounts), hashtags (no strict limit but must follow limit o chars)
+- Pinterest: Title (max 100 chars), description (max 500 chars), hashtags (no strict limit but must follow limit o chars), alt text (max 500 chars)
 - YouTube: Title (max 100 chars), description (max 5000 chars), tags (practical constraints apply)
-- Threads: Text (max 500 chars), hashtags (no strict limit - use best practices)
-- TikTok: Caption (max 2200 chars), hashtags (no strict limit - use best practices)
+- Threads: Text (max 500 chars), hashtags (no strict limit but must follow limit o chars)
+- TikTok: Caption (max 2200 chars), hashtags (no strict limit but must follow limit o chars)
 
 **SOCIAL MEDIA OPTIMIZATION REQUIREMENTS:**
 
@@ -413,19 +413,19 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 - Message ≤ 63206 characters
 - Headline ≤ 100 characters
 - LinkDescription ≤ 300 characters
-- Hashtags: No strict limit - use best practices
+- Hashtags: No strict limit but must follow limit of chars
 - CallToAction ≤ 30 characters
 
 **X (TWITTER):**
 
 - Text ≤ 280 characters (for free accounts)
-- Hashtags: No strict limit - use best practices
+- Hashtags: No strict limit but must follow limit of chars
 
 **PINTEREST:**
 
 - Title ≤ 100 characters
 - Description ≤ 500 characters
-- Hashtags: No strict limit - use best practices
+- Hashtags: No strict limit but must follow limit of chars
 - AltText ≤ 500 characters
 
 **YOUTUBE:**
@@ -437,16 +437,17 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 **THREADS:**
 
 - Text ≤ 500 characters
-- Hashtags: No strict limit - use best practices
+- Hashtags: No strict limit but must follow limit of chars
 
 **TIKTOK:**
 
 - Caption ≤ 2200 characters
-- Hashtags: No strict limit - use best practices
+- Hashtags: No strict limit but must follow limit of chars
 
 **CRITICAL ENFORCEMENT RULES:**
 
 - **If ANY field exceeds its limit, you MUST rewrite that specific value to fit**
+- **Hashtags are part of the text and must be inclued and count for rules of max characters limit**
 - **Count characters for every single field before outputting**
 - **NO EXCEPTIONS - every single text field must comply**
 - **Platform limits are NON-NEGOTIABLE and must be enforced with 100% accuracy**

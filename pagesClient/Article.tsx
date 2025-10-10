@@ -188,13 +188,13 @@ export default function Article({
     let contentIndex = 0;
 
     for (let i = 0; i < containerDistribution; i++) {
-      // For the new overlapping pattern:
-      // Container 0: images 0,1
-      // Container 1: images 1,2  
-      // Container 2: images 2,3
-      // Container 3: images 3,4
-      const firstImageIndex = i;
-      const image = totalImages > 0 && firstImageIndex < totalImages ? articleData?.articleImages?.[firstImageIndex] : null;
+      // New pattern: Each container shows one specific image
+      // Container 0: image 0
+      // Container 1: image 1  
+      // Container 2: image 2
+      // Container 3: image 3
+      const imageIndex = i;
+      const image = totalImages > 0 && imageIndex < totalImages ? articleData?.articleImages?.[imageIndex] : null;
 
       // Calculate how many content sections this container should have
       let contentCount = 0;
@@ -220,7 +220,7 @@ export default function Article({
       containers.push({
         image,
         content: containerContent,
-        imageIndex: firstImageIndex,
+        imageIndex: imageIndex,
       });
     }
 
@@ -250,11 +250,11 @@ export default function Article({
             )}
 
             <div className="overflow-hidden text-justify">
-              {/* Container Images - Two images side by side with overlapping indices */}
+              {/* Container Images - Single image on mobile, two images on desktop */}
               {container.image && container.image.trim() !== "" ? (
                 <div className="relative w-full h-[70vh] mb-8 md:mb-16 flex">
-                  {/* First Image */}
-                  <div className="relative w-1/2 h-full">
+                  {/* Mobile: Single Image (full width) */}
+                  <div className="relative w-full h-full md:hidden">
                     <Image
                       src={container.image}
                       alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
@@ -262,43 +262,60 @@ export default function Article({
                       )}${containerIndex + 1}`}
                       fill
                       className="object-cover object-center"
-                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 40vw, 30vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                       priority
                     />
                   </div>
-                  {/* Second Image */}
-                  <div className="relative w-1/2 h-full">
-                    {(() => {
-                      // Calculate second image index with wrapping pattern:
-                      // Container 0: images 0,1
-                      // Container 1: images 1,2  
-                      // Container 2: images 2,3
-                      // Container 3: images 3,1 (wraps back to first)
-                      const secondImageIndex = containerIndex === 3 ? 1 : containerIndex + 1;
-                      const hasSecondImage = articleData?.articleImages && 
-                        articleData.articleImages.length > secondImageIndex && 
-                        articleData.articleImages[secondImageIndex];
-                      
-                      return hasSecondImage ? (
-                        <Image
-                          src={articleData.articleImages[secondImageIndex]}
-                          alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
-                            "article.imageAlt"
-                          )}${secondImageIndex + 1}`}
-                          fill
-                          className="object-cover object-center"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 40vw, 30vw"
-                          priority
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                          <div className="flex flex-col items-center justify-center text-center text-gray-500">
-                            <ImageOff size={24} />
-                            <div className="text-sm font-medium">No Image</div>
+                  
+                  {/* Desktop: Two Images Side by Side */}
+                  <div className="hidden md:flex w-full h-full">
+                    {/* First Image */}
+                    <div className="relative w-1/2 h-full">
+                      <Image
+                        src={container.image}
+                        alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
+                          "article.imageAlt"
+                        )}${containerIndex + 1}`}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 1200px) 50vw, 25vw"
+                        priority
+                      />
+                    </div>
+                    {/* Second Image */}
+                    <div className="relative w-1/2 h-full">
+                      {(() => {
+                        // Calculate second image index with wrapping pattern:
+                        // Container 0: images 0,1
+                        // Container 1: images 1,2  
+                        // Container 2: images 2,3
+                        // Container 3: images 3,0 (wraps back to first)
+                        const secondImageIndex = containerIndex === 3 ? 0 : containerIndex + 1;
+                        const hasSecondImage = articleData?.articleImages && 
+                          articleData.articleImages.length > secondImageIndex && 
+                          articleData.articleImages[secondImageIndex];
+                        
+                        return hasSecondImage ? (
+                          <Image
+                            src={articleData.articleImages[secondImageIndex]}
+                            alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
+                              "article.imageAlt"
+                            )}${secondImageIndex + 1}`}
+                            fill
+                            className="object-cover object-center"
+                            sizes="(max-width: 1200px) 50vw, 25vw"
+                            priority
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                              <ImageOff size={24} />
+                              <div className="text-sm font-medium">No Image</div>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })()}
+                        );
+                      })()}
+                    </div>
                   </div>
 
                   {/* Overlay Header for first container only */}
