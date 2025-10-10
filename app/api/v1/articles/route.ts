@@ -293,7 +293,6 @@ export const POST = async (req: Request) => {
       await connectDb();
       const existingArticle = await Article.findById(customId);
       if (existingArticle) {
-        console.log(`Article with ID ${customId} already exists, returning 409 error`);
         return new NextResponse(
           JSON.stringify({ 
             message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
@@ -301,7 +300,6 @@ export const POST = async (req: Request) => {
           { status: 409, headers: { "Content-Type": "application/json" } }
         );
       }
-      console.log(`Article with ID ${customId} does not exist, proceeding with creation`);
     }
 
     // Parse languages from formData
@@ -363,7 +361,7 @@ export const POST = async (req: Request) => {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["hreflang", "canvas", "seo", "content"],
+          reqFields: ["hreflang", "mediaContext", "seo", "content"],
           nonReqFields: ["socialMedia"],
         }
       );
@@ -377,12 +375,12 @@ export const POST = async (req: Request) => {
         );
       }
 
-      // Validate canvas structure
+      // Validate mediaContext structure
       if (
-        !language.canvas ||
-        !language.canvas.paragraphOne ||
-        !language.canvas.paragraphTwo ||
-        !language.canvas.paragraphThree
+        !language.mediaContext ||
+        !language.mediaContext.paragraphOne ||
+        !language.mediaContext.paragraphTwo ||
+        !language.mediaContext.paragraphThree
       ) {
         return new NextResponse(
           JSON.stringify({
@@ -568,7 +566,6 @@ export const POST = async (req: Request) => {
     if (customId) {
       const finalCheck = await Article.findById(customId);
       if (finalCheck) {
-        console.log(`Race condition detected: Article with ID ${customId} was created between validation and creation`);
         return new NextResponse(
           JSON.stringify({ 
             message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
@@ -579,9 +576,7 @@ export const POST = async (req: Request) => {
     }
 
     // Create article in database
-    console.log(`About to create article with ID: ${articleId}`);
     const createdArticle = await Article.create(newArticle);
-    console.log(`Article created successfully with ID: ${createdArticle._id}`);
     return new NextResponse(
       JSON.stringify({
         message: "Article created successfully!",

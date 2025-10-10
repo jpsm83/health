@@ -6,7 +6,7 @@ import { mainCategories, articleStatus } from "@/lib/constants";
 // =========================
 
 // Canvas schema - language independent but included in language wrapper for consistency
-const canvasSchema = new Schema({
+const mediaContextSchema = new Schema({
   paragraphOne: { type: String, required: true, maxlength: 205 },
   paragraphTwo: { type: String, required: true, maxlength: 205 },
   paragraphThree: { type: String, required: true, maxlength: 205 },
@@ -116,8 +116,8 @@ const languageSpecificSchema = new Schema({
     enum: ["en", "pt", "es", "fr", "de", "it"],
   },
 
-  // Canvas content (language independent but grouped by language for consistency)
-  canvas: { type: canvasSchema, required: true },
+  // Media context content (language independent but grouped by language for consistency)
+  mediaContext: { type: mediaContextSchema, required: true },
 
   // SEO data specific to this language
   seo: { type: seoSchema, required: true },

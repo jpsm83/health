@@ -144,6 +144,9 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 7. **MUST be valid JSON that can be parsed by a JSON parser**
 
 **ABSOLUTELY FORBIDDEN:**
+- **Do NOT use invalid URL patterns - MUST be one of: "articles", "artigos", "articulos", "artikel", "articoli", "artikelen"**
+- **Do NOT create custom URL patterns - use only the exact patterns listed above**
+- **Do NOT use category names as URL patterns - use the language-specific patterns**
 - Do NOT create meta titles longer than 500 characters
 - Do NOT create meta descriptions longer than 1000 characters
 - Do NOT include fewer than 5 keywords
@@ -182,8 +185,17 @@ You must return ONLY a valid JSON object with these exact properties:
 - keywords: Array of exactly 5 relevant keywords
 - slug: SEO-friendly slug from the article title
 - hreflang: Language code (en, pt, es, fr, de, it)
-- urlPattern: URL pattern (articles, artigos, articulos, artikel, articoli)
-- canonicalUrl: Full canonical URL following the format https://womensspot.org/[locale]/intimacy/[slug]
+- urlPattern: URL pattern (MUST be one of: "articles", "artigos", "articulos", "artikel", "articoli", "artikelen")
+- canonicalUrl: Full canonical URL following the format https://womensspot.org/[locale]/[category]/[slug]
+
+**CRITICAL URL PATTERN RULES:**
+- English (en): "articles"
+- Portuguese (pt): "artigos" 
+- Spanish (es): "articulos"
+- French (fr): "articles"
+- German (de): "artikel"
+- Italian (it): "articoli"
+- Dutch (nl): "artikelen"
 
 CRITICAL: Return ONLY the JSON object, no additional text, explanations, or markdown formatting.
 ```
@@ -365,9 +377,18 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Default to "en" if not specified
 
 **URL PATTERN:**
-- Must be one of the supported patterns: ["articles", "artigos", "articulos", "artikel", "articoli"]
+- Must be one of the supported patterns: ["articles", "artigos", "articulos", "artikel", "articoli", "artikelen"]
 - Should match the content type and language
 - Default to "articles" for English content
+
+**LANGUAGE MAPPINGS (URL PATTERN):**
+- English (en): "articles"
+- Portuguese (pt): "artigos" 
+- Spanish (es): "articulos"
+- French (fr): "articles"
+- German (de): "artikel"
+- Italian (it): "articoli"
+- Dutch (nl): "artikelen"
 
 **CANONICAL URL:**
 - Must follow the format: "https://womensspot.org/[locale]/[category]/[slug]"
@@ -396,6 +417,9 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - **CRITICAL:** Use only the most general, educational language that cannot be misinterpreted while still being relevant to women's wellness topics
 
 **ABSOLUTELY FORBIDDEN:**
+- **Do NOT use invalid URL patterns - MUST be one of: "articles", "artigos", "articulos", "artikel", "articoli", "artikelen"**
+- **Do NOT create custom URL patterns - use only the exact patterns listed above**
+- **Do NOT use category names as URL patterns - use the language-specific patterns**
 - Do NOT create meta titles longer than 500 characters
 - Do NOT create meta descriptions longer than 1000 characters
 - Do NOT include fewer than 5 keywords
@@ -460,3 +484,35 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 Any text before or after the JSON
 Comments or explanations outside the JSON
 Single quotes instead of double quotes
+
+## CRITICAL URL PATTERN VALIDATION CHECKLIST
+
+**🔍 MANDATORY VALIDATION CHECKLIST:**
+Before outputting the final JSON, verify EVERY field meets its requirements:
+
+**URL PATTERN VALIDATION:**
+- **MUST be exactly one of these patterns: "articles", "artigos", "articulos", "artikel", "articoli", "artikelen"**
+- **MUST match the language:**
+  - English (en) → "articles"
+  - Portuguese (pt) → "artigos"
+  - Spanish (es) → "articulos"
+  - French (fr) → "articles"
+  - German (de) → "artikel"
+  - Italian (it) → "articoli"
+  - Dutch (nl) → "artikelen"
+- **MUST NOT be a category name (like "intimacy", "health", etc.)**
+- **MUST NOT be a custom pattern**
+
+**OTHER VALIDATION:**
+- Meta title ≤ 500 characters
+- Meta description ≤ 1000 characters
+- Keywords = exactly 5 items
+- Slug = lowercase with hyphens
+- Hreflang = valid language code
+- Canonical URL = correct format
+
+**CRITICAL ENFORCEMENT RULES:**
+- **If ANY field is invalid, you MUST fix that specific value**
+- **URL pattern validation is MANDATORY - no exceptions**
+- **Use only the exact patterns listed above**
+- **This will cause API errors if not followed exactly**

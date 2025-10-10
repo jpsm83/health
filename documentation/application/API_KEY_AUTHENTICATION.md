@@ -134,7 +134,7 @@ Authorization: Bearer your-api-key-here
 curl -X POST http://localhost:3000/api/v1/articles \
   -H "Authorization: Bearer your-api-key-here" \
   -F "category=health" \
-  -F "languages=[{\"hreflang\":\"en\",\"canvas\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
+  -F "languages=[{\"hreflang\":\"en\",\"mediaContext\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
   -F "imagesContext={\"imageOne\":\"test1.jpg\",\"imageTwo\":\"test2.jpg\",\"imageThree\":\"test3.jpg\",\"imageFour\":\"test4.jpg\"}" \
   -F "articleImages=@image1.jpg" \
   -F "articleImages=@image2.jpg"
@@ -146,7 +146,7 @@ curl -X POST http://localhost:3000/api/v1/articles \
   -H "Authorization: Bearer your-api-key-here" \
   -F "id=507f1f77bcf86cd799439011" \
   -F "category=health" \
-  -F "languages=[{\"hreflang\":\"en\",\"canvas\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
+  -F "languages=[{\"hreflang\":\"en\",\"mediaContext\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
   -F "imagesContext={\"imageOne\":\"test1.jpg\",\"imageTwo\":\"test2.jpg\",\"imageThree\":\"test3.jpg\",\"imageFour\":\"test4.jpg\"}" \
   -F "articleImages=@image1.jpg" \
   -F "articleImages=@image2.jpg"

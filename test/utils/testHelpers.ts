@@ -22,7 +22,7 @@ export const mockArticleData = {
   languages: [
     {
       hreflang: 'en',
-      canvas: {
+      mediaContext: {
         paragraphOne: 'Test paragraph one',
         paragraphTwo: 'Test paragraph two',
         paragraphThree: 'Test paragraph three',

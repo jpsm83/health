@@ -109,7 +109,7 @@ export async function updateArticle({
             [key: string]: string | number | boolean | undefined;
           },
           {
-            reqFields: ["hreflang", "canvas", "seo", "content"],
+            reqFields: ["hreflang", "mediaContext", "seo", "content"],
             nonReqFields: ["socialMedia"],
           }
         );
@@ -121,17 +121,17 @@ export async function updateArticle({
           };
         }
 
-        // Validate canvas structure
+        // Validate mediaContext structure
         if (
-          !language.canvas ||
-          !language.canvas.paragraphOne ||
-          !language.canvas.paragraphTwo ||
-          !language.canvas.paragraphThree
+          !language.mediaContext ||
+          !language.mediaContext.paragraphOne ||
+          !language.mediaContext.paragraphTwo ||
+          !language.mediaContext.paragraphThree
         ) {
           return {
             success: false,
             message:
-              "Canvas must have paragraphOne, paragraphTwo, and paragraphThree",
+              "MediaContext must have paragraphOne, paragraphTwo, and paragraphThree",
           };
         }
 

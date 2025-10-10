@@ -127,7 +127,7 @@ export interface ISocialMedia {
 // New unified language-specific interface
 export interface ILanguageSpecific {
   hreflang: string;
-  canvas: ICanvas;
+  mediaContext: ICanvas;
   seo: ISeo;
   content: {
     mainTitle: string;
