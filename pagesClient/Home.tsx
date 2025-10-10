@@ -23,7 +23,7 @@ export default function Home({
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
           <Image
-            src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
+            src="https://res.cloudinary.com/jpsm83/image/upload/v1760114147/health/cmgka42a5k9po8gc9cxm.png"
             alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill

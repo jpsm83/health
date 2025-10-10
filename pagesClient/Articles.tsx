@@ -5,6 +5,7 @@ import FeaturedArticles from "@/components/FeaturedArticles";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
 import { ISerializedArticle } from "@/types/article";
+import { categoryHeroImages } from "@/lib/constants";
 import {
   Pagination,
   PaginationContent,
@@ -46,7 +47,7 @@ export default function Articles({
         <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
           <div className="absolute inset-0">
             <Image
-              src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
+              src={categoryHeroImages[category as keyof typeof categoryHeroImages] || categoryHeroImages.health}
               alt={t(`${category}.heroImageAlt`)}
               className="w-full h-full object-cover"
               fill
@@ -84,7 +85,7 @@ export default function Articles({
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
           <Image
-            src="https://res.cloudinary.com/jpsm83/image/upload/v1756326380/health/awevko6cerrguoaer2u1.png"
+            src={categoryHeroImages[category as keyof typeof categoryHeroImages] || categoryHeroImages.health}
             alt={t(`${category}.heroImageAlt`)}
             className="w-full h-full object-cover"
             fill

@@ -226,7 +226,7 @@ CRITICAL: Return ONLY the JSON object, no additional text, explanations, or mark
 - Support for women's intimate wellness and self-care
 - Empowerment and education around women's health topics
 - Safe spaces for women to learn about their bodies and relationships
-- Health, beauty, parenting, nutrition, fashion, lifestyle travel, decor and productivity for women
+- Health, beauty, nutrition, travel, and decor for women
 
 **CRITICAL INSTRUCTION: YOU MUST CREATE COMPREHENSIVE SOCIAL MEDIA CONTENT AND OUTPUT IN THE SPECIFIED JSON FORMAT.**
 

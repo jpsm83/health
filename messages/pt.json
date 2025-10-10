@@ -50,12 +50,8 @@
       "nutrition": "Nutrição",
       "intimacy": "Intimidade",
       "beauty": "Beleza",
-      "fashion": "Moda",
-      "lifestyle": "Estilo de Vida",
       "travel": "Viagem",
-      "decor": "Casa e Decoração",
-      "productivity": "Produtividade",
-      "parenting": "Paternidade"
+      "decor": "Casa e Decoração"
     }
   },
   "dashboard": {
@@ -115,12 +111,8 @@
       "nutrition": "Nutrição",
       "intimacy": "Intimidade",
       "beauty": "Beleza",
-      "fashion": "Moda",
-      "lifestyle": "Estilo de Vida",
       "travel": "Viagem",
-      "decor": "Casa e Decoração",
-      "productivity": "Produtividade",
-      "parenting": "Paternidade"
+      "decor": "Casa e Decoração"
     }
   },
   "profile": {
@@ -220,12 +212,8 @@
       "nutrition": "Nutrição",
       "intimacy": "Intimidade",
       "beauty": "Beleza",
-      "fashion": "Moda",
-      "lifestyle": "Estilo de Vida",
       "travel": "Viagem",
-      "decor": "Casa e Decoração",
-      "productivity": "Produtividade",
-      "parenting": "Paternidade"
+      "decor": "Casa e Decoração"
     },
     "frequencies": {
       "daily": "Diário",
@@ -349,32 +337,6 @@
         "description": "Nossa coleção completa de artigos de beleza, dicas, tudo que você precisa saber sobre beleza e bem-estar."
       }
     },
-    "fashion": {
-      "heroImageAlt": "Imagem hero dos artigos de moda",
-      "title": "Artigos de Moda",
-      "description": "Nossos melhores insights sobre moda, uma coleção completa de artigos de moda, dicas e guias para ajudá-lo a viver uma vida mais saudável e gratificante.",
-      "featuredArticles": {
-        "title": " Artigos de Moda em Destaque",
-        "description": "Descubra nossas últimas notícias, dicas e guias, mantendo-o atualizado com as últimas tendências em moda e bem-estar."
-      },
-      "explore": {
-        "title": "Explorar Artigos de Moda",
-        "description": "Nossa coleção completa de artigos de moda, dicas, tudo que você precisa saber sobre moda e bem-estar."
-      }
-    },
-    "lifestyle": {
-      "heroImageAlt": "Imagem hero dos artigos de estilo de vida",
-      "title": "Artigos de Estilo de Vida",
-      "description": "Nossos melhores insights sobre estilo de vida, uma coleção completa de artigos de estilo de vida, dicas e guias para ajudá-lo a viver uma vida mais saudável e gratificante.",
-      "featuredArticles": {
-        "title": " Artigos de Estilo de Vida em Destaque",
-        "description": "Descubra nossas últimas notícias, dicas e guias, mantendo-o atualizado com as últimas tendências em estilo de vida e bem-estar."
-      },
-      "explore": {
-        "title": "Explorar Artigos de Estilo de Vida",
-        "description": "Nossa coleção completa de artigos de estilo de vida, dicas, tudo que você precisa saber sobre estilo de vida e bem-estar."
-      }
-    },
     "travel": {
       "heroImageAlt": "Imagem hero dos artigos de viagem",
       "title": "Artigos de Viagem",
@@ -399,32 +361,6 @@
       "explore": {
         "title": "Explorar Artigos de Decoração",
         "description": "Nossa coleção completa de artigos de decoração, dicas, tudo que você precisa saber sobre decoração e bem-estar."
-      }
-    },
-    "productivity": {
-      "heroImageAlt": "Imagem hero dos artigos de produtividade",
-      "title": "Artigos de Produtividade",
-      "description": "Nossos melhores insights sobre produtividade, uma coleção completa de artigos de produtividade, dicas e guias para ajudá-lo a viver uma vida mais saudável e gratificante.",
-      "featuredArticles": {
-        "title": " Artigos de Produtividade em Destaque",
-        "description": "Descubra nossas últimas notícias, dicas e guias, mantendo-o atualizado com as últimas tendências em produtividade e bem-estar."
-      },
-      "explore": {
-        "title": "Explorar Artigos de Produtividade",
-        "description": "Nossa coleção completa de artigos de produtividade, dicas, tudo que você precisa saber sobre produtividade e bem-estar."
-      }
-    },
-    "parenting": {
-      "heroImageAlt": "Imagem hero dos artigos de parentalidade",
-      "title": "Artigos de Parentalidade",
-      "description": "Nossos melhores insights sobre parentalidade, uma coleção completa de artigos de parentalidade, dicas e guias para ajudá-lo a viver uma vida mais saudável e gratificante.",
-      "featuredArticles": {
-        "title": " Artigos de Parentalidade em Destaque",
-        "description": "Descubra nossas últimas notícias, dicas e guias, mantendo-o atualizado com as últimas tendências em parentalidade e bem-estar."
-      },
-      "explore": {
-        "title": "Explorar Artigos de Parentalidade",
-        "description": "Nossa coleção completa de artigos de parentalidade, dicas, tudo que você precisa saber sobre parentalidade e bem-estar."
       }
     }
   },
@@ -619,16 +555,6 @@
       "description": "Nossos melhores insights sobre beleza, uma coleção abrangente de artigos de beleza, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
       "keywords": "artigos de beleza, dicas de beleza, cuidados com a pele, maquiagem, rotinas de beleza, conselhos de beleza"
     },
-    "fashion": {
-      "title": "Artigos de Moda",
-      "description": "Nossos melhores insights sobre moda, uma coleção abrangente de artigos de moda, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
-      "keywords": "artigos de moda, dicas de estilo, tendências de moda, conselhos de roupas, guias de moda, inspiração de estilo"
-    },
-    "lifestyle": {
-      "title": "Artigos de Estilo de Vida",
-      "description": "Nossos melhores insights sobre estilo de vida, uma coleção abrangente de artigos de estilo de vida, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
-      "keywords": "artigos de estilo de vida, dicas de vida, estilo de vida de bem-estar, vida saudável, conselhos de vida, guias de estilo de vida"
-    },
     "travel": {
       "title": "Artigos de Viagem",
       "description": "Nossos melhores insights sobre viagem, uma coleção abrangente de artigos de viagem, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
@@ -638,16 +564,6 @@
       "title": "Artigos de Decoração",
       "description": "Nossos melhores insights sobre decoração, uma coleção abrangente de artigos de decoração, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
       "keywords": "artigos de decoração, decoração de casa, design de interiores, dicas de casa, guias de decoração, melhorias da casa"
-    },
-    "productivity": {
-      "title": "Artigos de Produtividade",
-      "description": "Nossos melhores insights sobre produtividade, uma coleção abrangente de artigos de produtividade, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
-      "keywords": "artigos de produtividade, dicas de produtividade, gestão de tempo, eficiência no trabalho, guias de produtividade, conselhos de produtividade"
-    },
-    "parenting": {
-      "title": "Artigos de Maternidade",
-      "description": "Nossos melhores insights sobre maternidade, uma coleção abrangente de artigos de maternidade, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
-      "keywords": "artigos de maternidade, dicas de maternidade, cuidados infantis, conselhos de maternidade, guias familiares, recursos de maternidade"
     },
     "confirmEmail": {
       "title": "Confirmar Email - Women's Spot",
@@ -695,11 +611,11 @@
       },
       "fitnessBeauty": {
         "title": "Fitness e Beleza",
-        "description": "Conselhos de especialistas sobre treinos, rotinas de beleza, tendências de moda e práticas de autocuidado."
+        "description": "Conselhos de especialistas sobre treinos, rotinas de beleza e práticas de autocuidado."
       },
-      "lifestyleTravel": {
-        "title": "Estilo de Vida e Viagem",
-        "description": "Dicas para produtividade, paternidade, decoração da casa, experiências de viagem e equilíbrio trabalho-vida."
+      "travelDecor": {
+        "title": "Viagem e Decoração",
+        "description": "Dicas para decoração da casa, experiências de viagem e equilíbrio trabalho-vida."
       },
       "intimacy": {
         "title": "Relacionamentos e Intimidade",

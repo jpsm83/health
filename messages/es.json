@@ -50,12 +50,8 @@
       "nutrition": "Nutrición",
       "intimacy": "Intimidad",
       "beauty": "Belleza",
-      "fashion": "Moda",
-      "lifestyle": "Estilo de Vida",
       "travel": "Viajes",
-      "decor": "Hogar y Decoración",
-      "productivity": "Productividad",
-      "parenting": "Paternidad"
+      "decor": "Hogar y Decoración"
     }
   },
   "dashboard": {
@@ -116,12 +112,8 @@
       "nutrition": "Nutrición",
       "intimacy": "Intimidad",
       "beauty": "Belleza",
-      "fashion": "Moda",
-      "lifestyle": "Estilo de Vida",
       "travel": "Viajes",
-      "decor": "Hogar y Decoración",
-      "productivity": "Productividad",
-      "parenting": "Paternidad"
+      "decor": "Hogar y Decoración"
     }
   },
   "profile": {
@@ -221,12 +213,8 @@
       "nutrition": "Nutrición",
       "intimacy": "Intimidad",
       "beauty": "Belleza",
-      "fashion": "Moda",
-      "lifestyle": "Estilo de Vida",
       "travel": "Viajes",
-      "decor": "Hogar y Decoración",
-      "productivity": "Productividad",
-      "parenting": "Paternidad"
+      "decor": "Hogar y Decoración"
     },
     "frequencies": {
       "daily": "Diario",
@@ -474,16 +462,6 @@
       "description": "Nuestros mejores insights sobre belleza, una colección completa de artículos de belleza, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
       "keywords": "artículos de belleza, consejos de belleza, cuidado de la piel, maquillaje, rutinas de belleza, consejos de belleza"
     },
-    "fashion": {
-      "title": "Artículos de Moda",
-      "description": "Nuestros mejores insights sobre moda, una colección completa de artículos de moda, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "keywords": "artículos de moda, consejos de estilo, tendencias de moda, consejos de ropa, guías de moda, inspiración de estilo"
-    },
-    "lifestyle": {
-      "title": "Artículos de Estilo de Vida",
-      "description": "Nuestros mejores insights sobre estilo de vida, una colección completa de artículos de estilo de vida, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "keywords": "artículos de estilo de vida, consejos de vida, estilo de vida de bienestar, vida saludable, consejos de vida, guías de estilo de vida"
-    },
     "travel": {
       "title": "Artículos de Viajes",
       "description": "Nuestros mejores insights sobre viajes, una colección completa de artículos de viajes, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
@@ -493,16 +471,6 @@
       "title": "Artículos de Decoración",
       "description": "Nuestros mejores insights sobre decoración, una colección completa de artículos de decoración, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
       "keywords": "artículos de decoración, decoración del hogar, diseño de interiores, consejos del hogar, guías de decoración, mejoras del hogar"
-    },
-    "productivity": {
-      "title": "Artículos de Productividad",
-      "description": "Nuestros mejores insights sobre productividad, una colección completa de artículos de productividad, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "keywords": "artículos de productividad, consejos de productividad, gestión del tiempo, eficiencia laboral, guías de productividad, consejos de productividad"
-    },
-    "parenting": {
-      "title": "Artículos de Crianza",
-      "description": "Nuestros mejores insights sobre crianza, una colección completa de artículos de crianza, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "keywords": "artículos de crianza, consejos de crianza, cuidado infantil, consejos de crianza, guías familiares, recursos de crianza"
     },
     "confirmEmail": {
       "title": "Confirmar Email - Women's Spot",
@@ -550,11 +518,11 @@
       },
       "fitnessBeauty": {
         "title": "Fitness y Belleza",
-        "description": "Consejos expertos sobre entrenamientos, rutinas de belleza, tendencias de moda y prácticas de autocuidado."
+        "description": "Consejos expertos sobre entrenamientos, rutinas de belleza y prácticas de autocuidado."
       },
-      "lifestyleTravel": {
-        "title": "Estilo de Vida y Viajes",
-        "description": "Consejos para productividad, crianza de hijos, decoración del hogar, experiencias de viaje y equilibrio trabajo-vida."
+      "travelDecor": {
+        "title": "Viajes y Decoración",
+        "description": "Consejos para decoración del hogar, experiencias de viaje y equilibrio trabajo-vida."
       },
       "intimacy": {
         "title": "Relaciones y Intimidad",
@@ -981,32 +949,6 @@
         "description": "Nuestra colección completa de artículos de belleza, consejos, todo lo que necesitas saber sobre belleza y bienestar."
       }
     },
-    "fashion": {
-      "heroImageAlt": "Imagen hero de artículos de moda",
-      "title": "Artículos de Moda",
-      "description": "Nuestros mejores insights sobre moda, una colección completa de artículos de moda, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "featuredArticles": {
-        "title": " Artículos de Moda Destacados",
-        "description": "Descubre nuestras últimas noticias, consejos y guías, manteniéndote al día con las últimas tendencias en moda y bienestar."
-      },
-      "explore": {
-        "title": "Explorar Artículos de Moda",
-        "description": "Nuestra colección completa de artículos de moda, consejos, todo lo que necesitas saber sobre moda y bienestar."
-      }
-    },
-    "lifestyle": {
-      "heroImageAlt": "Imagen hero de artículos de estilo de vida",
-      "title": "Artículos de Estilo de Vida",
-      "description": "Nuestros mejores insights sobre estilo de vida, una colección completa de artículos de estilo de vida, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "featuredArticles": {
-        "title": " Artículos de Estilo de Vida Destacados",
-        "description": "Descubre nuestras últimas noticias, consejos y guías, manteniéndote al día con las últimas tendencias en estilo de vida y bienestar."
-      },
-      "explore": {
-        "title": "Explorar Artículos de Estilo de Vida",
-        "description": "Nuestra colección completa de artículos de estilo de vida, consejos, todo lo que necesitas saber sobre estilo de vida y bienestar."
-      }
-    },
     "travel": {
       "heroImageAlt": "Imagen hero de artículos de viajes",
       "title": "Artículos de Viajes",
@@ -1031,32 +973,6 @@
       "explore": {
         "title": "Explorar Artículos de Decoración",
         "description": "Nuestra colección completa de artículos de decoración, consejos, todo lo que necesitas saber sobre decoración y bienestar."
-      }
-    },
-    "productivity": {
-      "heroImageAlt": "Imagen hero de artículos de productividad",
-      "title": "Artículos de Productividad",
-      "description": "Nuestros mejores insights sobre productividad, una colección completa de artículos de productividad, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "featuredArticles": {
-        "title": " Artículos de Productividad Destacados",
-        "description": "Descubre nuestras últimas noticias, consejos y guías, manteniéndote al día con las últimas tendencias en productividad y bienestar."
-      },
-      "explore": {
-        "title": "Explorar Artículos de Productividad",
-        "description": "Nuestra colección completa de artículos de productividad, consejos, todo lo que necesitas saber sobre productividad y bienestar."
-      }
-    },
-    "parenting": {
-      "heroImageAlt": "Imagen hero de artículos de crianza",
-      "title": "Artículos de Crianza",
-      "description": "Nuestros mejores insights sobre crianza, una colección completa de artículos de crianza, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
-      "featuredArticles": {
-        "title": " Artículos de Crianza Destacados",
-        "description": "Descubre nuestras últimas noticias, consejos y guías, manteniéndote al día con las últimas tendencias en crianza y bienestar."
-      },
-      "explore": {
-        "title": "Explorar Artículos de Crianza",
-        "description": "Nuestra colección completa de artículos de crianza, consejos, todo lo que necesitas saber sobre crianza y bienestar."
       }
     }
   },

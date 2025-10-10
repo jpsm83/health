@@ -154,10 +154,10 @@ export default async function AboutPage() {
                     </svg>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {t("whatWeCover.lifestyleTravel.title")}
+                    {t("whatWeCover.travelDecor.title")}
                   </h3>
                   <p className="text-gray-700">
-                    {t("whatWeCover.lifestyleTravel.description")}
+                    {t("whatWeCover.travelDecor.description")}
                   </p>
                 </div>
                 <div className="text-center p-6 bg-pink-50 rounded-lg shadow-md">

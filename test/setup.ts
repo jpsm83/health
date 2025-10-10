@@ -41,7 +41,7 @@ vi.mock('@/lib/utils/objDefaultValidation', () => ({
 
 // Mock constants
 vi.mock('@/lib/constants', () => ({
-  mainCategories: ['health', 'fitness', 'nutrition', 'intimacy', 'beauty', 'fashion', 'lifestyle', 'travel', 'decor', 'productivity', 'parenting'],
+  mainCategories: ['health', 'fitness', 'nutrition', 'intimacy', 'beauty', 'travel', 'decor'],
   articleStatus: ['published', 'archived'],
 }))
 

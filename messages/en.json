@@ -52,12 +52,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "fashion": "Fashion",
-      "lifestyle": "Lifestyle",
       "travel": "Travel",
-      "decor": "Decor",
-      "productivity": "Productivity",
-      "parenting": "Parenting"
+      "decor": "Decor"
     }
   },
   "dashboard": {
@@ -117,12 +113,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "fashion": "Fashion",
-      "lifestyle": "Lifestyle",
       "travel": "Travel",
-      "decor": "Decor",
-      "productivity": "Productivity",
-      "parenting": "Parenting"
+      "decor": "Decor"
     }
   },
   "profile": {
@@ -222,12 +214,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "fashion": "Fashion",
-      "lifestyle": "Lifestyle",
       "travel": "Travel",
-      "decor": "Decor",
-      "productivity": "Productivity",
-      "parenting": "Parenting"
+      "decor": "Decor"
     },
     "frequencies": {
       "daily": "Daily",
@@ -328,32 +316,6 @@
         "description": "Our comprehensive collection of beauty articles, tips, everthing you need to know about beauty and wellness."
       }
     },
-    "fashion": {
-      "heroImageAlt": "Fashion Articles Hero Image",
-      "title": "Fashion Articles",
-      "description": "Our best insights on fashion, a comprehensive collection of fashion articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "featuredArticles": {
-        "title": " Featured Fashion Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in fashion and wellness."
-      },
-      "explore": {
-        "title": "Explore Fashion Articles",
-        "description": "Our comprehensive collection of fashion articles, tips, everthing you need to know about fashion and wellness."
-      }
-    },
-    "lifestyle": {
-      "heroImageAlt": "Lifestyle Articles Hero Image",
-      "title": "Lifestyle Articles",
-      "description": "Our best insights on lifestyle, a comprehensive collection of lifestyle articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "featuredArticles": {
-        "title": " Featured Lifestyle Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in lifestyle and wellness."
-      },
-      "explore": {
-        "title": "Explore Lifestyle Articles",
-        "description": "Our comprehensive collection of lifestyle articles, tips, everthing you need to know about lifestyle and wellness."
-      }
-    },
     "travel": {
       "heroImageAlt": "Travel Articles Hero Image",
       "title": "Travel Articles",
@@ -378,32 +340,6 @@
       "explore": {
         "title": "Explore Decor Articles",
         "description": "Our comprehensive collection of decor articles, tips, everthing you need to know about decor and wellness."
-      }
-    },
-    "productivity": {
-      "heroImageAlt": "Productivity Articles Hero Image",
-      "title": "Productivity Articles",
-      "description": "Our best insights on productivity, a comprehensive collection of productivity articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "featuredArticles": {
-        "title": " Featured Productivity Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in productivity and wellness."
-      },
-      "explore": {
-        "title": "Explore Productivity Articles",
-        "description": "Our comprehensive collection of productivity articles, tips, everthing you need to know about productivity and wellness."
-      }
-    },
-    "parenting": {
-      "heroImageAlt": "Parenting Articles Hero Image",
-      "title": "Parenting Articles",
-      "description": "Our best insights on parenting, a comprehensive collection of parenting articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "featuredArticles": {
-        "title": " Featured Parenting Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in parenting and wellness."
-      },
-      "explore": {
-        "title": "Explore Parenting Articles",
-        "description": "Our comprehensive collection of parenting articles, tips, everthing you need to know about parenting and wellness."
       }
     }
   },
@@ -552,33 +488,33 @@
     },
     "about": {
       "title": "About Us - Women's Spot",
-      "description": "Women's Spot is your trusted source for health, fitness, and lifestyle content. Empowering women's to live their best lives.",
-      "keywords": "about us, Women's Spot, health, fitness, lifestyle, empowerment"
+      "description": "Women's Spot is your trusted source for health, fitness, and wellness content. Empowering women's to live their best lives.",
+      "keywords": "about us, Women's Spot, health, fitness, wellness, empowerment"
     },
     "termsConditions": {
       "title": "Terms & Conditions - Women's Spot",
       "description": "Terms and conditions for using Women's Spot. Please read before you use our platform.",
-      "keywords": "terms and conditions, Women's Spot, health, fitness, lifestyle, empowerment"
+      "keywords": "terms and conditions, Women's Spot, health, fitness, wellness, empowerment"
     },
     "privacyPolicy": {
       "title": "Privacy Policy - Women's Spot",
       "description": "Privacy policy for using Women's Spot. We respect your privacy and are committed to protecting your personal information.",
-      "keywords": "privacy policy, Women's Spot, health, fitness, lifestyle, empowerment, privacy"
+      "keywords": "privacy policy, Women's Spot, health, fitness, wellness, empowerment, privacy"
     },
     "cookiePolicy": {
       "title": "Cookie Policy - Women's Spot",
       "description": "Cookie policy for using Women's Spot. We use cookies to enhance your experience on our platform.",
-      "keywords": "cookie policy, Women's Spot, health, fitness, lifestyle, empowerment, cookies"
+      "keywords": "cookie policy, Women's Spot, health, fitness, wellness, empowerment, cookies"
     },
     "siteMap": {
       "title": "Site Map - Women's Spot",
       "description": "Site map for Women's Spot. Find your way around our platform and explore our content.",
-      "keywords": "site map, Women's Spot, health, fitness, lifestyle, empowerment, site map"
+      "keywords": "site map, Women's Spot, health, fitness, wellness, empowerment, site map"
     },
     "health": {
       "title": "Health Articles",
       "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "health articles, wellness content, health tips, medical advice, lifestyle articles, health resources"
+      "keywords": "health articles, wellness content, health tips, medical advice, wellness articles, health resources"
     },
     "fitness": {
       "title": "Fitness Articles",
@@ -600,16 +536,6 @@
       "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
       "keywords": "beauty articles, beauty tips, skincare, makeup, beauty routines, beauty advice"
     },
-    "fashion": {
-      "title": "Fashion Articles",
-      "description": "Our best insights on fashion, a comprehensive collection of fashion articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "fashion articles, style tips, fashion trends, clothing advice, fashion guides, style inspiration"
-    },
-    "lifestyle": {
-      "title": "Lifestyle Articles",
-      "description": "Our best insights on lifestyle, a comprehensive collection of lifestyle articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "lifestyle articles, life tips, wellness lifestyle, healthy living, life advice, lifestyle guides"
-    },
     "travel": {
       "title": "Travel Articles",
       "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
@@ -619,16 +545,6 @@
       "title": "Decor Articles",
       "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
       "keywords": "decor articles, home decor, interior design, home tips, decorating guides, home improvement"
-    },
-    "productivity": {
-      "title": "Productivity Articles",
-      "description": "Our best insights on productivity, a comprehensive collection of productivity articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "productivity articles, productivity tips, time management, work efficiency, productivity guides, productivity advice"
-    },
-    "parenting": {
-      "title": "Parenting Articles",
-      "description": "Our best insights on parenting, a comprehensive collection of parenting articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "parenting articles, parenting tips, child care, parenting advice, family guides, parenting resources"
     },
     "confirmEmail": {
       "title": "Confirm Email - Women's Spot",
@@ -644,11 +560,11 @@
   "about": {
     "hero": {
       "title": "About Women's Spot",
-      "subtitle": "Your trusted destination for everything women's need to live their best lives. We focus on women's health, wellness, and lifestyle, helping you create a happier, healthier, and more fulfilling life through evidence-based content."
+      "subtitle": "Your trusted destination for everything women's need to live their best lives. We focus on women's health, wellness, and well-being, helping you create a happier, healthier, and more fulfilling life through evidence-based content."
     },
     "mission": {
       "title": "Our Mission",
-      "description1": "We are committed to being your number one authority on women's health, wellness, and lifestyle, leading the charge in helping you create a happy, healthy, and fulfilling life. Daily, we produce informative and educational features to support your journey and in doing so, embrace conversation within our communities.",
+      "description1": "We are committed to being your number one authority on women's health, wellness, and well-being, leading the charge in helping you create a happy, healthy, and fulfilling life. Daily, we produce informative and educational features to support your journey and in doing so, embrace conversation within our communities.",
       "description2": "Our platform has become the one-stop destination for millions of women's seeking reliable, actionable information to enhance every aspect of their lives."
     },
     "whatWeDo": {
@@ -665,7 +581,7 @@
     "team": {
       "title": "Our Team",
       "description1": "Our team reflects our core audience: women's like you. It's how we understand and translate complex topics into informative features and news that you'll want to read and share.",
-      "description2": "Our team of editors works closely with AI to craft the most recent and reliable information, creating very reliable articles that are up-to-date. We're not only passionate about women's health and lifestyle, but also highly trained in reporting and editing on the topics you're concerned about. All our content is backed up by vetted experts who are leaders in their fields.",
+      "description2": "Our team of editors works closely with AI to craft the most recent and reliable information, creating very reliable articles that are up-to-date. We're not only passionate about women's health and wellness, but also highly trained in reporting and editing on the topics you're concerned about. All our content is backed up by vetted experts who are leaders in their fields.",
       "description3": "We're proud to share that today, our platform has become the one-stop destination for millions of women's seeking reliable information to enhance every aspect of their lives."
     },
     "whatWeCover": {
@@ -676,11 +592,11 @@
       },
       "fitnessBeauty": {
         "title": "Fitness & Beauty",
-        "description": "Expert advice on workouts, beauty routines, fashion trends, and self-care practices."
+        "description": "Expert advice on workouts, beauty routines, and self-care practices."
       },
-      "lifestyleTravel": {
-        "title": "Lifestyle & Travel",
-        "description": "Tips for productivity, parenting, home decor, travel experiences, and work-life balance."
+      "travelDecor": {
+        "title": "Travel & Decor",
+        "description": "Tips for home decor, travel experiences, and work-life balance."
       },
       "intimacy": {
         "title": "Relationships & Intimacy",
@@ -704,7 +620,7 @@
     },
     "callToAction": {
       "title": "Join Our Community",
-      "description": "Start your journey to a better life today. Explore our articles on everything from health and fitness to beauty, relationships, and lifestyle. Share your experiences, and become part of our growing community of empowered women's.",
+      "description": "Start your journey to a better life today. Explore our articles on everything from health and fitness to beauty, relationships, and wellness. Share your experiences, and become part of our growing community of empowered women's.",
       "button": "Start Exploring"
     }
   },
@@ -994,7 +910,7 @@
   },
   "footer": {
     "brandName": "Health & Wellness",
-    "brandDescription": "Your trusted source for health, fitness, and lifestyle content. Empowering women's to live their best lives.",
+    "brandDescription": "Your trusted source for health, fitness, and wellness content. Empowering women's to live their best lives.",
     "quickLinks": "Quick Links",
     "aboutUs": "About Us",
     "contact": "Contact",
@@ -1024,14 +940,7 @@
         "health": "Health",
         "fitness": "Fitness",
         "nutrition": "Nutrition",
-        "lifestyle": "Lifestyle",
-        "beauty": "Beauty",
-        "travel": "Travel",
-        "fashion": "Fashion",
-        "intimacy": "Intimacy",
-        "decor": "Decor",
-        "productivity": "Productivity",
-        "parenting": "Parenting"
+        "beauty": "Beauty"
       },
       "published": "Published:",
       "views": "Views:",

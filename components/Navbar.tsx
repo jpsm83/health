@@ -188,25 +188,6 @@ export default function Navbar() {
                 </Link>
               </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/fashion`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                >
-                  <Handbag size={16} className="text-red-600" /> {t("categories.fashion")}
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/lifestyle`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                >
-                  <Sun size={16} className="text-red-600" /> {t("categories.lifestyle")}
-                </Link>
-              </DropdownMenuItem>
 
               <DropdownMenuItem asChild>
                 <Link
@@ -228,25 +209,7 @@ export default function Navbar() {
                 </Link>
               </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/productivity`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                >
-                  <FolderKanban size={16} className="text-red-600" /> {t("categories.productivity")}
-                </Link>
-              </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/parenting`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                >
-                  <HandHeart size={16} className="text-red-600" /> {t("categories.parenting")}
-                </Link>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

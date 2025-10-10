@@ -50,12 +50,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimite",
       "beauty": "Beauté",
-      "fashion": "Mode",
-      "lifestyle": "Style de Vie",
       "travel": "Voyage",
-      "decor": "Maison et Décoration",
-      "productivity": "Productivité",
-      "parenting": "Parentalité"
+      "decor": "Maison et Décoration"
     }
   },
   "dashboard": {
@@ -116,12 +112,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimite",
       "beauty": "Beauté",
-      "fashion": "Mode",
-      "lifestyle": "Style de Vie",
       "travel": "Voyage",
-      "decor": "Maison et Décoration",
-      "productivity": "Productivité",
-      "parenting": "Parentalité"
+      "decor": "Maison et Décoration"
     }
   },
   "profile": {
@@ -221,12 +213,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimite",
       "beauty": "Beauté",
-      "fashion": "Mode",
-      "lifestyle": "Style de Vie",
       "travel": "Voyage",
-      "decor": "Maison et Décoration",
-      "productivity": "Productivité",
-      "parenting": "Parentalité"
+      "decor": "Maison et Décoration"
     },
     "frequencies": {
       "daily": "Quotidien",
@@ -448,16 +436,6 @@
       "description": "Nos meilleurs insights sur la beauté, une collection complète d'articles de beauté, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
       "keywords": "articles de beauté, conseils de beauté, soins de la peau, maquillage, routines de beauté, conseils de beauté"
     },
-    "fashion": {
-      "title": "Articles de Mode",
-      "description": "Nos meilleurs insights sur la mode, une collection complète d'articles de mode, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
-      "keywords": "articles de mode, conseils de style, tendances de mode, conseils vestimentaires, guides de mode, inspiration de style"
-    },
-    "lifestyle": {
-      "title": "Articles de Mode de Vie",
-      "description": "Nos meilleurs insights sur le mode de vie, une collection complète d'articles de mode de vie, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
-      "keywords": "articles de mode de vie, conseils de vie, mode de vie de bien-être, vie saine, conseils de vie, guides de mode de vie"
-    },
     "travel": {
       "title": "Articles de Voyage",
       "description": "Nos meilleurs insights sur le voyage, une collection complète d'articles de voyage, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
@@ -467,16 +445,6 @@
       "title": "Articles de Décoration",
       "description": "Nos meilleurs insights sur la décoration, une collection complète d'articles de décoration, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
       "keywords": "articles de décoration, décoration de maison, design d'intérieur, conseils de maison, guides de décoration, amélioration de la maison"
-    },
-    "productivity": {
-      "title": "Articles de Productivité",
-      "description": "Nos meilleurs insights sur la productivité, une collection complète d'articles de productivité, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
-      "keywords": "articles de productivité, conseils de productivité, gestion du temps, efficacité au travail, guides de productivité, conseils de productivité"
-    },
-    "parenting": {
-      "title": "Articles de Parentalité",
-      "description": "Nos meilleurs insights sur la parentalité, une collection complète d'articles de parentalité, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
-      "keywords": "articles de parentalité, conseils de parentalité, soins aux enfants, conseils de parentalité, guides familiaux, ressources de parentalité"
     },
     "confirmEmail": {
       "title": "Confirmer l'Email - Women's Spot",
@@ -524,11 +492,11 @@
       },
       "fitnessBeauty": {
         "title": "Forme Physique et Beauté",
-        "description": "Conseils d'experts sur les entraînements, les routines de beauté, les tendances de la mode et les pratiques d'auto-soins."
+        "description": "Conseils d'experts sur les entraînements, les routines de beauté et les pratiques d'auto-soins."
       },
-      "lifestyleTravel": {
-        "title": "Mode de Vie et Voyage",
-        "description": "Conseils pour la productivité, la parentalité, la décoration de la maison, les expériences de voyage et l'équilibre travail-vie."
+      "travelDecor": {
+        "title": "Voyage et Décoration",
+        "description": "Conseils pour la décoration de la maison, les expériences de voyage et l'équilibre travail-vie."
       },
       "intimacy": {
         "title": "Relations et Sexualité",
@@ -955,32 +923,6 @@
         "description": "Notre collection complète d'articles de beauté, conseils, tout ce que vous devez savoir sur la beauté et le bien-être."
       }
     },
-    "fashion": {
-      "heroImageAlt": "Image héro des articles de mode",
-      "title": "Articles de Mode",
-      "description": "Nos meilleures idées sur la mode, une collection complète d'articles de mode, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
-      "featuredArticles": {
-        "title": " Articles de Mode en Vedette",
-        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en mode et bien-être."
-      },
-      "explore": {
-        "title": "Explorer les Articles de Mode",
-        "description": "Notre collection complète d'articles de mode, conseils, tout ce que vous devez savoir sur la mode et le bien-être."
-      }
-    },
-    "lifestyle": {
-      "heroImageAlt": "Image héro des articles de style de vie",
-      "title": "Articles de Style de Vie",
-      "description": "Nos meilleures idées sur le style de vie, une collection complète d'articles de style de vie, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
-      "featuredArticles": {
-        "title": " Articles de Style de Vie en Vedette",
-        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en style de vie et bien-être."
-      },
-      "explore": {
-        "title": "Explorer les Articles de Style de Vie",
-        "description": "Notre collection complète d'articles de style de vie, conseils, tout ce que vous devez savoir sur le style de vie et le bien-être."
-      }
-    },
     "travel": {
       "heroImageAlt": "Image héro des articles de voyage",
       "title": "Articles de Voyage",
@@ -1005,32 +947,6 @@
       "explore": {
         "title": "Explorer les Articles de Décoration",
         "description": "Notre collection complète d'articles de décoration, conseils, tout ce que vous devez savoir sur la décoration et le bien-être."
-      }
-    },
-    "productivity": {
-      "heroImageAlt": "Image héro des articles de productivité",
-      "title": "Articles de Productivité",
-      "description": "Nos meilleures idées sur la productivité, une collection complète d'articles de productivité, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
-      "featuredArticles": {
-        "title": " Articles de Productivité en Vedette",
-        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en productivité et bien-être."
-      },
-      "explore": {
-        "title": "Explorer les Articles de Productivité",
-        "description": "Notre collection complète d'articles de productivité, conseils, tout ce que vous devez savoir sur la productivité et le bien-être."
-      }
-    },
-    "parenting": {
-      "heroImageAlt": "Image héro des articles de parentalité",
-      "title": "Articles de Parentalité",
-      "description": "Nos meilleures idées sur la parentalité, une collection complète d'articles de parentalité, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
-      "featuredArticles": {
-        "title": " Articles de Parentalité en Vedette",
-        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en parentalité et bien-être."
-      },
-      "explore": {
-        "title": "Explorer les Articles de Parentalité",
-        "description": "Notre collection complète d'articles de parentalité, conseils, tout ce que vous devez savoir sur la parentalité et le bien-être."
       }
     }
   },

@@ -50,12 +50,8 @@
       "nutrition": "Nutrizione",
       "intimacy": "intimità",
       "beauty": "Bellezza",
-      "fashion": "Moda",
-      "lifestyle": "Stile di Vita",
       "travel": "Viaggi",
-      "decor": "Casa e Decorazione",
-      "productivity": "Produttività",
-      "parenting": "Genitorialità"
+      "decor": "Casa e Decorazione"
     }
   },
   "dashboard": {
@@ -91,12 +87,8 @@
       "nutrition": "Nutrizione",
       "intimacy": "intimità",
       "beauty": "Bellezza",
-      "fashion": "Moda",
-      "lifestyle": "Stile di Vita",
       "travel": "Viaggi",
-      "decor": "Casa e Decorazione",
-      "productivity": "Produttività",
-      "parenting": "Genitorialità"
+      "decor": "Casa e Decorazione"
     }
   },
   "profile": {
@@ -196,12 +188,8 @@
       "nutrition": "Nutrizione",
       "intimacy": "intimità",
       "beauty": "Bellezza",
-      "fashion": "Moda",
-      "lifestyle": "Stile di Vita",
       "travel": "Viaggi",
-      "decor": "Casa e Decorazione",
-      "productivity": "Produttività",
-      "parenting": "Genitorialità"
+      "decor": "Casa e Decorazione"
     },
     "frequencies": {
       "daily": "Giornaliero",
@@ -325,32 +313,6 @@
         "description": "La nostra collezione completa di articoli di bellezza, consigli, tutto quello che devi sapere su bellezza e benessere."
       }
     },
-    "fashion": {
-      "heroImageAlt": "Immagine hero degli articoli di moda",
-      "title": "Articoli di Moda",
-      "description": "I nostri migliori approfondimenti sulla moda, una collezione completa di articoli di moda, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "featuredArticles": {
-        "title": " Articoli di Moda in Evidenza",
-        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in moda e benessere."
-      },
-      "explore": {
-        "title": "Esplora Articoli di Moda",
-        "description": "La nostra collezione completa di articoli di moda, consigli, tutto quello che devi sapere su moda e benessere."
-      }
-    },
-    "lifestyle": {
-      "heroImageAlt": "Immagine hero degli articoli di stile di vita",
-      "title": "Articoli di Stile di Vita",
-      "description": "I nostri migliori approfondimenti sullo stile di vita, una collezione completa di articoli di stile di vita, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "featuredArticles": {
-        "title": " Articoli di Stile di Vita in Evidenza",
-        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in stile di vita e benessere."
-      },
-      "explore": {
-        "title": "Esplora Articoli di Stile di Vita",
-        "description": "La nostra collezione completa di articoli di stile di vita, consigli, tutto quello che devi sapere su stile di vita e benessere."
-      }
-    },
     "travel": {
       "heroImageAlt": "Immagine hero degli articoli di viaggio",
       "title": "Articoli di Viaggio",
@@ -375,32 +337,6 @@
       "explore": {
         "title": "Esplora Articoli di Decorazione",
         "description": "La nostra collezione completa di articoli di decorazione, consigli, tutto quello che devi sapere su decorazione e benessere."
-      }
-    },
-    "productivity": {
-      "heroImageAlt": "Immagine hero degli articoli di produttività",
-      "title": "Articoli di Produttività",
-      "description": "I nostri migliori approfondimenti sulla produttività, una collezione completa di articoli di produttività, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "featuredArticles": {
-        "title": " Articoli di Produttività in Evidenza",
-        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in produttività e benessere."
-      },
-      "explore": {
-        "title": "Esplora Articoli di Produttività",
-        "description": "La nostra collezione completa di articoli di produttività, consigli, tutto quello che devi sapere su produttività e benessere."
-      }
-    },
-    "parenting": {
-      "heroImageAlt": "Immagine hero degli articoli di genitorialità",
-      "title": "Articoli di Genitorialità",
-      "description": "I nostri migliori approfondimenti sulla genitorialità, una collezione completa di articoli di genitorialità, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "featuredArticles": {
-        "title": " Articoli di Genitorialità in Evidenza",
-        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in genitorialità e benessere."
-      },
-      "explore": {
-        "title": "Esplora Articoli di Genitorialità",
-        "description": "La nostra collezione completa di articoli di genitorialità, consigli, tutto quello che devi sapere su genitorialità e benessere."
       }
     }
   },
@@ -595,16 +531,6 @@
       "description": "I nostri migliori approfondimenti sulla bellezza, una collezione completa di articoli di bellezza, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
       "keywords": "articoli di bellezza, consigli di bellezza, cura della pelle, trucco, routine di bellezza, consigli di bellezza"
     },
-    "fashion": {
-      "title": "Articoli di Moda",
-      "description": "I nostri migliori approfondimenti sulla moda, una collezione completa di articoli di moda, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "keywords": "articoli di moda, consigli di stile, tendenze di moda, consigli di abbigliamento, guide di moda, ispirazione di stile"
-    },
-    "lifestyle": {
-      "title": "Articoli di Stile di Vita",
-      "description": "I nostri migliori approfondimenti sullo stile di vita, una collezione completa di articoli di stile di vita, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "keywords": "articoli di stile di vita, consigli di vita, stile di vita del benessere, vita sana, consigli di vita, guide di stile di vita"
-    },
     "travel": {
       "title": "Articoli di Viaggio",
       "description": "I nostri migliori approfondimenti sui viaggi, una collezione completa di articoli di viaggio, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
@@ -614,16 +540,6 @@
       "title": "Articoli di Decorazione",
       "description": "I nostri migliori approfondimenti sulla decorazione, una collezione completa di articoli di decorazione, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
       "keywords": "articoli di decorazione, decorazione della casa, design d'interni, consigli per la casa, guide di decorazione, miglioramenti della casa"
-    },
-    "productivity": {
-      "title": "Articoli di Produttività",
-      "description": "I nostri migliori approfondimenti sulla produttività, una collezione completa di articoli di produttività, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "keywords": "articoli di produttività, consigli di produttività, gestione del tempo, efficienza lavorativa, guide di produttività, consigli di produttività"
-    },
-    "parenting": {
-      "title": "Articoli di Genitorialità",
-      "description": "I nostri migliori approfondimenti sulla genitorialità, una collezione completa di articoli di genitorialità, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "keywords": "articoli di genitorialità, consigli di genitorialità, cura dei bambini, consigli di genitorialità, guide familiari, risorse di genitorialità"
     },
     "confirmEmail": {
       "title": "Conferma Email - Women's Spot",
@@ -671,11 +587,11 @@
       },
       "fitnessBeauty": {
         "title": "Fitness e Bellezza",
-        "description": "Consigli di esperti su allenamenti, routine di bellezza, tendenze della moda e pratiche di autocura."
+        "description": "Consigli di esperti su allenamenti, routine di bellezza e pratiche di autocura."
       },
-      "lifestyleTravel": {
-        "title": "Stile di Vita e Viaggio",
-        "description": "Consigli per produttività, genitorialità, decorazione della casa, esperienze di viaggio ed equilibrio lavoro-vita."
+      "travelDecor": {
+        "title": "Viaggi e Decorazione",
+        "description": "Consigli per decorazione della casa, esperienze di viaggio ed equilibrio lavoro-vita."
       },
       "intimacy": {
         "title": "Relazioni e intimità",
