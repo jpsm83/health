@@ -16,13 +16,9 @@ import {
   Dumbbell,
   Salad,
   VenusAndMars,
-  Handbag,
   Brush,
-  Sun,
   Plane,
   House,
-  FolderKanban,
-  HandHeart,
 } from "lucide-react";
 import {
   DropdownMenu,
