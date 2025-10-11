@@ -7,21 +7,6 @@ import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
 import User from "@/app/api/models/user";
 import { ILanguageSpecific } from "@/types/article";
 
-// Helper function to validate video URLs
-function isValidVideoUrl(url: string): boolean {
-  try {
-    const urlObj = new URL(url);
-    const videoExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mkv'];
-    const pathname = urlObj.pathname.toLowerCase();
-    return videoExtensions.some(ext => pathname.endsWith(ext)) || 
-           url.includes('youtube.com') || 
-           url.includes('vimeo.com') ||
-           url.includes('cloudinary.com');
-  } catch {
-    return false;
-  }
-}
-
 // Interface for update parameters
 interface UpdateArticleParams {
   articleId: string;
@@ -83,6 +68,7 @@ export const PUT = async (
       articleId,
       userId: "",
       isAdmin: false,
+      articleVideo,
     };
 
     // Determine user ID and admin status
@@ -139,18 +125,6 @@ export const PUT = async (
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
-    }
-
-    if (articleVideo) {
-      if (!isValidVideoUrl(articleVideo)) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "Invalid video URL format!",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      updateParams.articleVideo = articleVideo;
     }
 
     if (fileEntries.length > 0) {
