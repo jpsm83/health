@@ -58,10 +58,10 @@ export default function Articles({
           </div>
           <div className="relative z-10 flex items-center justify-center h-full">
             <div className="text-center text-white max-w-4xl mx-auto px-6">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t(`${category}.title`)}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 {t(`${category}.description`)}
               </p>
             </div>
@@ -99,10 +99,10 @@ export default function Articles({
         {/* Hero Content */}
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center text-white max-w-4xl mx-auto px-6">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
               {t(`${category}.title`)}
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
               {t(`${category}.description`)}
             </p>
           </div>

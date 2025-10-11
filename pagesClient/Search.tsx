@@ -41,7 +41,10 @@ export default function Search({
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
           <Image
-            src="https://res.cloudinary.com/jpsm83/image/upload/v1757237848/health/bpzafd2yt9i7evmnecoa.png"
+            src={searchResults.length > 0 
+              ? "https://res.cloudinary.com/jpsm83/image/upload/v1760170369/health/krxqbddm7g2xegyjzdhj.jpg"
+              : "https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg"
+            }
             alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill
@@ -56,10 +59,10 @@ export default function Search({
         {searchResults.length > 0 ? (
           <div className="relative z-10 flex items-center justify-center h-full">
             <div className="text-center text-white max-w-4xl mx-auto px-6">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t("resultsTitle")}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 {t("resultsFound", {
                   count: paginationData.totalArticles,
                   query: query,
@@ -71,13 +74,13 @@ export default function Search({
           <div className="relative z-10 flex items-center justify-center h-full">
             {/* No results message */}
             <div className="text-center text-white max-w-4xl mx-auto px-6">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t("noResultsTitle")}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 {t("noResultsDescription")}
               </p>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 &quot;{query}&quot;
               </p>
             </div>
