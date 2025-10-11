@@ -214,34 +214,7 @@ export const POST = async (req: Request) => {
           );
         }
 
-        // Validate that all URLs are valid image URLs
-        const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
-        for (const url of articleImages) {
-          try {
-            const urlObj = new URL(url);
-            const pathname = urlObj.pathname.toLowerCase();
-            const isValidImageUrl = imageExtensions.some(ext => pathname.endsWith(ext)) || 
-                                   url.includes('cloudinary.com') ||
-                                   url.includes('amazonaws.com') ||
-                                   url.includes('googleapis.com');
-            
-            if (!isValidImageUrl) {
-              return new NextResponse(
-                JSON.stringify({
-                  message: `Invalid image URL format: ${url}. Must be a valid image URL.`,
-                }),
-                { status: 400, headers: { "Content-Type": "application/json" } }
-              );
-            }
-          } catch {
-            return new NextResponse(
-              JSON.stringify({
-                message: `Invalid URL format: ${url}`,
-              }),
-              { status: 400, headers: { "Content-Type": "application/json" } }
-            );
-          }
-        }
+        // Accept any kind of string for articleImages - no validation
       } catch (error) {
         return new NextResponse(
           JSON.stringify({
