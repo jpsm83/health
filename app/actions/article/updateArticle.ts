@@ -18,7 +18,7 @@ interface UpdateArticleParams {
     imageThree: string;
     imageFour: string;
   };
-  articleImages?: File[];
+  articleImages?: File[] | string[];
   articleVideo?: string;
   userId: string;
   isAdmin?: boolean;
@@ -245,32 +245,41 @@ export async function updateArticle({
       updateData.imagesContext = imagesContext;
     }
 
-    // Handle image uploads if provided
+    // Handle image updates if provided
     if (articleImages && articleImages.length > 0) {
-      const folder = `/${updateData.category || existingArticle.category}/${articleId}`;
+      // Check if we have File objects (for upload) or strings (existing URLs)
+      const isFileArray = articleImages.every(item => item instanceof File);
+      
+      if (isFileArray) {
+        // Handle file uploads
+        const folder = `/${updateData.category || existingArticle.category}/${articleId}`;
 
-      const cloudinaryUploadResponse = await uploadFilesCloudinary({
-        folder,
-        filesArr: articleImages,
-        onlyImages: true,
-      });
+        const cloudinaryUploadResponse = await uploadFilesCloudinary({
+          folder,
+          filesArr: articleImages as File[],
+          onlyImages: true,
+        });
 
-      if (
-        typeof cloudinaryUploadResponse === "string" ||
-        cloudinaryUploadResponse.length === 0 ||
-        !cloudinaryUploadResponse.every((str) => str.includes("https://"))
-      ) {
-        return {
-          success: false,
-          message: `Error uploading images: ${cloudinaryUploadResponse}`,
-        };
+        if (
+          typeof cloudinaryUploadResponse === "string" ||
+          cloudinaryUploadResponse.length === 0 ||
+          !cloudinaryUploadResponse.every((str) => str.includes("https://"))
+        ) {
+          return {
+            success: false,
+            message: `Error uploading images: ${cloudinaryUploadResponse}`,
+          };
+        }
+
+        // Add new images to existing ones
+        updateData.articleImages = [
+          ...(existingArticle.articleImages || []),
+          ...cloudinaryUploadResponse,
+        ];
+      } else {
+        // Handle existing URLs - replace all images
+        updateData.articleImages = articleImages as string[];
       }
-
-      // Add new images to existing ones
-      updateData.articleImages = [
-        ...(existingArticle.articleImages || []),
-        ...cloudinaryUploadResponse,
-      ];
     }
 
     // Update the article

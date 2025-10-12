@@ -18,7 +18,7 @@ interface UpdateArticleParams {
     imageThree: string;
     imageFour: string;
   };
-  articleImages?: File[];
+  articleImages?: File[] | string[];
   articleVideo?: string;
   userId: string;
   isAdmin: boolean;
@@ -59,6 +59,9 @@ export const PATCH = async (
     const languagesRaw = formData.get("languages") as string;
     const imagesContextRaw = formData.get("imagesContext") as string;
     const articleVideo = formData.get("articleVideo") as string;
+    
+    // Handle articleImages - can be File objects or URL strings
+    const articleImagesRaw = formData.get("articleImages") as string;
     const fileEntries = formData
       .getAll("articleImages")
       .filter((entry): entry is File => entry instanceof File);
@@ -127,8 +130,23 @@ export const PATCH = async (
       }
     }
 
+    // Handle articleImages - prioritize File objects, fallback to URL strings
     if (fileEntries.length > 0) {
       updateParams.articleImages = fileEntries;
+    } else if (articleImagesRaw) {
+      try {
+        const imageUrls = JSON.parse(articleImagesRaw);
+        if (Array.isArray(imageUrls)) {
+          updateParams.articleImages = imageUrls;
+        }
+      } catch (error) {
+        return new NextResponse(
+          JSON.stringify({
+            message: `Invalid articleImages format: ${error}`,
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
     }
 
     // Call the update article action
