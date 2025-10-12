@@ -80,12 +80,22 @@ export async function getArticlesByCategory(
           languageSpecific = article.languages[0];
         }
 
+        // If we still don't have a language match, but the article has languages,
+        // use the first available language to prevent data loss
+        if (!languageSpecific && article.languages && article.languages.length > 0) {
+          languageSpecific = article.languages[0];
+        }
+
         return {
           ...article,
           languages: languageSpecific ? [languageSpecific] : [],
         };
       })
-      .filter((article: IArticleLean) => article.languages.length > 0);
+      .filter((article: IArticleLean) => {
+        // Only filter out articles that have NO language content at all
+        // This ensures we don't lose articles due to language filtering issues
+        return article.languages && article.languages.length > 0;
+      });
 
     // ------------------------
     // Pagination metadata (matching getArticles.ts logic)
