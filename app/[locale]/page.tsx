@@ -7,9 +7,6 @@ import { getArticles } from "@/app/actions/article/getArticles";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
 import { mainCategories } from "@/lib/constants";
 
-// Disable caching for this page to prevent production caching issues
-export const revalidate = 0;
-
 export async function generateMetadata({
   params,
 }: {
