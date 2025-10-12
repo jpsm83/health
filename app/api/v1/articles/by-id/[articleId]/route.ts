@@ -4,7 +4,6 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { deleteArticle } from "@/app/actions/article/deleteArticle";
 import { updateArticle } from "@/app/actions/article/updateArticle";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
-import User from "@/app/api/models/user";
 import { ILanguageSpecific } from "@/types/article";
 
 // Interface for update parameters
@@ -81,17 +80,8 @@ export const PATCH = async (
       updateParams.userId = session.user.id;
       updateParams.isAdmin = session.user.role === "admin";
     } else {
-      // For API key authentication, find an admin user
-      const adminUser = await User.findOne({ role: "admin" }).select("_id").lean() as { _id: string } | null;
-      if (!adminUser || !adminUser._id) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "No admin user found for API key authentication",
-          }),
-          { status: 500, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      updateParams.userId = adminUser._id.toString();
+      // For API key authentication, use the hardcoded system user ID (same as create endpoint)
+      updateParams.userId = "68e6a79afb1932c067f96e30";
       updateParams.isAdmin = true; // API key users are treated as admin
     }
 
@@ -233,17 +223,8 @@ export const DELETE = async (
       userId = session.user.id;
       isAdmin = session.user.role === "admin";
     } else {
-      // For API key authentication, find an admin user
-      const adminUser = await User.findOne({ role: "admin" }).select("_id").lean() as { _id: string } | null;
-      if (!adminUser || !adminUser._id) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "No admin user found for API key authentication",
-          }),
-          { status: 500, headers: { "Content-Type": "application/json" } }
-        );
-      }
-      userId = adminUser._id.toString();
+      // For API key authentication, use the hardcoded system user ID (same as create endpoint)
+      userId = "68e6a79afb1932c067f96e30";
       isAdmin = true; // API key users are treated as admin
     }
 
