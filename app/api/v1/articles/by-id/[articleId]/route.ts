@@ -25,9 +25,9 @@ interface UpdateArticleParams {
 }
 
 // @desc    Update article by ID
-// @route   PUT /api/v1/articles/by-id/[articleId]
+// @route   PATH /api/v1/articles/by-id/[articleId]
 // @access  Private (Author or Admin only, Session or API Key)
-export const PUT = async (
+export const PATH = async (
   req: Request,
   context: { params: Promise<{ articleId: string }> }
 ) => {

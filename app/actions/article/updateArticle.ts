@@ -64,9 +64,12 @@ export async function updateArticle({
     }
 
     // Prepare update object
-    const updateData: Partial<IArticle> = {
-      articleVideo,
-    };
+    const updateData: Partial<IArticle> = {};
+
+    // Update articleVideo if provided
+    if (articleVideo !== undefined) {
+      updateData.articleVideo = articleVideo;
+    }
 
     // Update category if provided
     if (category) {
