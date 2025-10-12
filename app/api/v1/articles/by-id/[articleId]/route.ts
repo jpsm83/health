@@ -61,9 +61,11 @@ export const PATCH = async (
     const articleVideo = formData.get("articleVideo") as string;
     
     // Handle articleImages - can be File objects or URL strings
-    const articleImagesRaw = formData.get("articleImages") as string;
+    // Method 1: Upload files (articleImageFiles field)
+    // Method 2: Use pre-existing URLs (articleImages field)
+    const articleImagesRaw = formData.get("articleImages") as string; // Pre-existing image URLs (JSON array)
     const fileEntries = formData
-      .getAll("articleImages")
+      .getAll("articleImageFiles")
       .filter((entry): entry is File => entry instanceof File);
 
     // Prepare update parameters
@@ -130,14 +132,33 @@ export const PATCH = async (
       }
     }
 
-    // Handle articleImages - prioritize File objects, fallback to URL strings
-    if (fileEntries.length > 0) {
+    // Handle image updates - either file uploads OR pre-existing URLs, not both
+    const hasFileEntries = fileEntries.length > 0;
+    const hasImageUrls = articleImagesRaw && articleImagesRaw.trim() !== "";
+    
+    if (hasFileEntries && hasImageUrls) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Cannot use both file uploads and pre-existing URLs for images. Choose one method.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (hasFileEntries) {
       updateParams.articleImages = fileEntries;
-    } else if (articleImagesRaw) {
+    } else if (hasImageUrls) {
       try {
         const imageUrls = JSON.parse(articleImagesRaw);
         if (Array.isArray(imageUrls)) {
           updateParams.articleImages = imageUrls;
+        } else {
+          return new NextResponse(
+            JSON.stringify({
+              message: "articleImages must be a JSON array of URLs",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
         }
       } catch (error) {
         return new NextResponse(
