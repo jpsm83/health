@@ -1,5 +1,6 @@
 "use server";
 
+import { unstable_noStore as noStore } from 'next/cache';
 import { IGetArticlesParams, IArticleLean, ISerializedArticle, ILanguageSpecific, serializeMongoObject } from "@/types/article";
 import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 import connectDb from "@/app/api/db/connectDb";
@@ -8,6 +9,9 @@ import Article from "@/app/api/models/article";
 export async function getArticlesByCategoryPaginated(
   params: IGetArticlesParams & { category: string }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
+  // Disable caching for this server action
+  noStore();
+  
   const {
     page = 1,
     limit = 9,
