@@ -7,9 +7,9 @@ import { mainCategories, articleStatus } from "@/lib/constants";
 
 // Canvas schema - language independent but included in language wrapper for consistency
 const mediaContextSchema = new Schema({
-  paragraphOne: { type: String, required: true, maxlength: 205 },
-  paragraphTwo: { type: String, required: true, maxlength: 205 },
-  paragraphThree: { type: String, required: true, maxlength: 205 },
+  paragraphOne: { type: String, required: true },
+  paragraphTwo: { type: String, required: true },
+  paragraphThree: { type: String, required: true },
 });
 
 // SEO schema - language specific
@@ -41,10 +41,10 @@ const seoSchema = new Schema({
 
 // Article content schema - language specific
 const articleContentSchema = new Schema({
-  mainTitle: { type: String, required: true, maxlength: 400 },
+  mainTitle: { type: String, required: true },
   articleContents: [
     {
-      subTitle: { type: String, required: true, maxlength: 400 },
+      subTitle: { type: String, required: true },
       articleParagraphs: { type: [String], required: true },
     },
   ],
@@ -56,51 +56,51 @@ const articleContentSchema = new Schema({
 
 // Instagram
 const instagramSchema = new Schema({
-  caption: { type: String, maxlength: 2200, required: true }, // max 2,200 characters
-  hashtags: { type: [String], required: true, maxlength: 30 }, // max 30 hashtags
-  altText: { type: String, maxlength: 600 }, // accessibility text
+  caption: { type: String, required: true },
+  hashtags: { type: [String], required: true },
+  altText: { type: String }, // accessibility text
 });
 
 // Facebook
 const facebookSchema = new Schema({
-  message: { type: String, maxlength: 63206, required: true }, // max 63,206 characters
-  headline: { type: String, maxlength: 100, required: true }, // suggested under 100 chars
-  linkDescription: { type: String, maxlength: 500, required: true }, // link preview text
-  hashtags: { type: [String], required: true, maxlength: 10 }, // hashtags // optional; facebook doesn't rely on hashtags as much but keep them short. max 10
-  callToAction: { type: String, maxlength: 30 }, // CTA button text (e.g., "Learn More")
+  message: { type: String, required: true },
+  headline: { type: String, required: true },
+  linkDescription: { type: String, required: true }, // link preview text
+  hashtags: { type: [String], required: true }, // hashtags
+  callToAction: { type: String }, // CTA button text (e.g., "Learn More")
 });
 
 // X (Twitter)
 const xTwitterSchema = new Schema({
-  text: { type: String, maxlength: 280, required: true }, // 280 characters
-  hashtags: { type: [String], required: true, maxlength: 5 }, // max 5 hashtags recommended
+  text: { type: String, required: true },
+  hashtags: { type: [String], required: true },
 });
 
 // Pinterest
 const pinterestSchema = new Schema({
-  title: { type: String, maxlength: 100, required: true }, // 100 characters
-  description: { type: String, maxlength: 500, required: true }, // 500 characters
-  hashtags: { type: [String], required: true, maxlength: 8 }, // recommended max 8
-  altText: { type: String, maxlength: 500, required: true }, // accessibility
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  hashtags: { type: [String], required: true },
+  altText: { type: String, required: true }, // accessibility
 });
 
 // YouTube
 const youtubeSchema = new Schema({
-  title: { type: String, maxlength: 100, required: true }, // 100 characters
-  description: { type: String, maxlength: 5000, required: true }, // 5,000 characters
-  tags: { type: [String], required: true, maxlength: 10 }, // max tags of 10
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  tags: { type: [String], required: true },
 });
 
 // Threads
 const threadsSchema = new Schema({
-  text: { type: String, maxlength: 500, required: true }, // 500 characters
-  hashtags: { type: [String], required: true, maxlength: 15 }, // hashtags threads doesn't rely on hashtags as much but keep them short. max 15
+  text: { type: String, required: true },
+  hashtags: { type: [String], required: true },
 });
 
 // TikTok
 const tiktokSchema = new Schema({
-  caption: { type: String, maxlength: 2200, required: true }, // 2,200 characters
-  hashtags: { type: [String], required: true, maxlength: 30 }, // max 30 hashtags
+  caption: { type: String, required: true },
+  hashtags: { type: [String], required: true },
 });
 
 // =========================

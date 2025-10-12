@@ -334,11 +334,11 @@ export default function Article({
                         </div>
                       )}
                       
-                      <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default">
+                      <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                         {articleData?.languages[0].content.mainTitle}
                       </h1>
                       <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
-                        <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default">
+                        <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default drop-shadow-xl" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)'}}>
                           <span>
                             {t("article.info.category")} {articleData?.category}
                           </span>
