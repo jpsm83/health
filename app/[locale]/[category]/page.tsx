@@ -7,6 +7,9 @@ import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
 
+// Disable caching for this page to prevent production caching issues
+export const revalidate = 0;
+
 export async function generateMetadata({
   params,
 }: {

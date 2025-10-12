@@ -5,6 +5,9 @@ import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 
+// Disable caching for this server action to prevent production caching issues
+export const revalidate = 0;
+
 export async function getArticles(params: IGetArticlesParams = {}): Promise<IPaginatedResponse<ISerializedArticle>> {
   const {
     page = 1,

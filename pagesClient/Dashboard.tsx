@@ -30,6 +30,7 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
   const tArticle = useTranslations("article");
   const router = useRouter();
   const [articlesList, setArticlesList] = useState<ISerializedArticle[]>(articles);
+  const [currentStats, setCurrentStats] = useState<WeeklyStats>(weeklyStats);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [articleToDelete, setArticleToDelete] = useState<ISerializedArticle | null>(null);
 
@@ -47,9 +48,15 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
 
   // Handle successful article deletion
   const handleDeleteSuccess = () => {
-    // Remove article from local state
+    // Remove article from local state and update stats
     if (articleToDelete) {
       setArticlesList(prev => prev.filter(article => article._id !== articleToDelete._id));
+      
+      // Update stats by decrementing totalArticles
+      setCurrentStats(prev => ({
+        ...prev,
+        totalArticles: prev.totalArticles - 1
+      }));
     }
   };
 
@@ -203,22 +210,22 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
         <StatCard
           icon={<BookOpen />}
           titleKey="totalArticles"
-          value={weeklyStats.totalArticles}
+          value={currentStats.totalArticles}
         />
         <StatCard
           icon={<Eye />}
           titleKey="totalViews"
-          value={weeklyStats.totalViews}
+          value={currentStats.totalViews}
         />
         <StatCard
           icon={<Heart />}
           titleKey="totalLikes"
-          value={weeklyStats.totalLikes}
+          value={currentStats.totalLikes}
         />
         <StatCard
           icon={<MessageCircle />}
           titleKey="totalComments"
-          value={weeklyStats.totalComments}
+          value={currentStats.totalComments}
         />
       </div>
 

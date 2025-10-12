@@ -41,6 +41,7 @@ Rewrite the article to make it look different while preserving the same context:
 - Keep the same logical flow and structure
 - Use different examples, analogies, and explanations where possible
 - Ensure the rewritten content is unique but conveys the same information
+- **PRESERVE EXACT PRODUCT NAMES** - Do not change names of products, brands, merchandise, or purchasable items so users can find them for purchase
 
 **LENGTH REQUIREMENTS - ABSOLUTELY CRITICAL:**
 - **MANDATORY: The rewritten article must be longer than the original**
@@ -146,6 +147,22 @@ If the article contains specific information about individual people (names, per
 - Replace specific locations with generic terms (e.g., "Springfield General Hospital" → "Local Hospital")
 - Replace specific dates with relative terms when appropriate (e.g., "January 15th, 2023" → "recently" if the date is not crucial)
 - Maintain the factual content and medical/health information while removing personally identifiable details
+
+### 3.3 PRODUCT AND MERCHANDISE PRESERVATION
+**CRITICAL: When the article refers to products, items, merchandise, or anything purchasable, PRESERVE the exact names:**
+
+- **DO NOT change product names** (e.g., "iPhone 15 Pro", "Nike Air Max", "Maybelline Fit Me Foundation")
+- **DO NOT change brand names** (e.g., "Apple", "Samsung", "L'Oreal", "Sephora")
+- **DO NOT change model numbers or product codes** (e.g., "Model XYZ-123", "SKU 456789")
+- **DO NOT change specific item descriptions** that help users identify products for purchase
+- **PRESERVE product specifications** that are important for purchasing decisions
+- **MAINTAIN exact product titles** as they appear in stores or online marketplaces
+- **KEEP ingredient lists** for beauty, health, or food products that users need to verify
+- **PRESERVE color names, sizes, and variants** that are crucial for product identification
+- **MAINTAIN exact pricing information** if mentioned (though you can update outdated prices)
+- **KEEP store names and retailer information** that help users locate products
+
+**This ensures users can easily find and purchase the mentioned products online or in stores.**
 
 ## 4. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable unless article is ignored.**
@@ -260,6 +277,7 @@ Rewrite the article to make it look different while preserving the same context:
 - Keep the same logical flow and structure
 - Use different examples, analogies, and explanations where possible
 - Ensure the rewritten content is unique but conveys the same information
+- **PRESERVE EXACT PRODUCT NAMES** - Do not change names of products, brands, merchandise, or purchasable items so users can find them for purchase
 
 **LENGTH REQUIREMENTS - ABSOLUTELY CRITICAL:**
 - **MANDATORY & CRITICAL: The rewritten article must be longer than the original**
@@ -349,6 +367,22 @@ If the article contains specific information about individual people (names, per
 - Replace specific locations with generic terms (e.g., "Springfield General Hospital" → "Local Hospital")
 - Replace specific dates with relative terms when appropriate (e.g., "January 15th, 2023" → "recently" if the date is not crucial)
 - Maintain the factual content and medical/health information while removing personally identifiable details
+
+### 3.3 PRODUCT AND MERCHANDISE PRESERVATION
+**CRITICAL: When the article refers to products, items, merchandise, or anything purchasable, PRESERVE the exact names:**
+
+- **DO NOT change product names** (e.g., "iPhone 15 Pro", "Nike Air Max", "Maybelline Fit Me Foundation")
+- **DO NOT change brand names** (e.g., "Apple", "Samsung", "L'Oreal", "Sephora")
+- **DO NOT change model numbers or product codes** (e.g., "Model XYZ-123", "SKU 456789")
+- **DO NOT change specific item descriptions** that help users identify products for purchase
+- **PRESERVE product specifications** that are important for purchasing decisions
+- **MAINTAIN exact product titles** as they appear in stores or online marketplaces
+- **KEEP ingredient lists** for beauty, health, or food products that users need to verify
+- **PRESERVE color names, sizes, and variants** that are crucial for product identification
+- **MAINTAIN exact pricing information** if mentioned (though you can update outdated prices)
+- **KEEP store names and retailer information** that help users locate products
+
+**This ensures users can easily find and purchase the mentioned products online or in stores.**
 
 ## 4. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
