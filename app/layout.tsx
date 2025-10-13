@@ -10,6 +10,14 @@ export default function RootLayout({
 }>) {
   return (
     <html>
+      <head>
+        {/* CookieYes Banner */}
+        <Script
+          id="cookieyes"
+          src="https://cdn-cookieyes.com/client_data/51a7b20bfcdfbe3a78df8a60/script.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           {children}
