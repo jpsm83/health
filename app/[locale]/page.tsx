@@ -32,6 +32,8 @@ export default async function HomePage({
   const categoryArticles: Record<string, ISerializedArticle[]> = {};
 
   try {
+    console.log("Starting to fetch articles for locale:", locale);
+    
     // Fetch featured articles and all category articles in parallel
     const [articlesResponse, ...categoryResponses] = await Promise.all([
       getArticles({
@@ -50,6 +52,14 @@ export default async function HomePage({
         })
       ),
     ]);
+    
+    console.log("Successfully fetched articles:", {
+      featuredCount: articlesResponse.data.length,
+      categoryCounts: categoryResponses.map((resp, index) => ({
+        category: mainCategories[index],
+        count: resp.data.length
+      }))
+    });
 
     // Extract the data array from the paginated response
     featuredArticles = articlesResponse.data;

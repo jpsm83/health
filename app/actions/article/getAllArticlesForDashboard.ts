@@ -3,6 +3,9 @@
 import { ISerializedArticle, serializeMongoObject } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user"; // Import User model to ensure it's registered
+// Ensure User model is registered for populate operations
+void User;
 
 export async function getAllArticlesForDashboard(): Promise<ISerializedArticle[]> {
   try {
