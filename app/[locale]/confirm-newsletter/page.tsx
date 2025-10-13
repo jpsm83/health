@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import ConfirmNewsletter from "@/pagesClient/ConfirmNewsletter";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
@@ -5,8 +6,8 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string } | Promise<{ locale: string }>;
-}) {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
 
   return generatePrivateMetadata(

@@ -10,18 +10,21 @@ import { mainCategories } from "@/lib/constants";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string } | Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
 
   return generatePublicMetadata(locale, "", "metadata.home.title");
 }
 
+// Force fresh data on every request to prevent caching empty results
+export const revalidate = 0;
+
 // Server Component - handles metadata generation
 export default async function HomePage({
   params,
 }: {
-  params: { locale: string } | Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
@@ -58,19 +61,19 @@ export default async function HomePage({
   } catch (error) {
     console.error("Error fetching articles:", error);
 
-    // Log additional context for mobile debugging
-    console.error("Mobile debugging info:", {
-      userAgent:
-        typeof window !== "undefined"
-          ? window.navigator?.userAgent
-          : "Server-side",
+    // Log detailed error information for debugging
+    console.error("Homepage error details:", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
       locale,
       timestamp: new Date().toISOString(),
-      error: error instanceof Error ? error.message : "Unknown error",
+      environment: process.env.NODE_ENV,
+      userAgent: typeof window !== "undefined" ? window.navigator?.userAgent : "Server-side",
     });
 
-    // Don't fail completely - let the app render with empty data
-    // The client components will handle the empty state gracefully
+    // Instead of silently failing, let's throw the error to see what's really happening
+    // This will help us identify the root cause in production
+    throw new Error(`Failed to load homepage data: ${error instanceof Error ? error.message : "Unknown error"}`);
   }
 
   return (

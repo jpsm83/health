@@ -8,12 +8,13 @@ import { ISerializedArticle, IMetaDataArticle } from "@/types/article";
 import Article from "@/pagesClient/Article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
+import { Metadata } from "next";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string; locale: string } | Promise<{ slug: string; locale: string }>;
-}) {
+  params: Promise<{ slug: string; locale: string }>;
+}): Promise<Metadata> {
   const { slug, locale } = await params;
 
   try {
@@ -92,7 +93,7 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: { slug: string; locale: string } | Promise<{ slug: string; locale: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
   

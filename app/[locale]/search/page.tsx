@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Search from "@/pagesClient/Search";
 import { ISerializedArticle } from "@/types/article";
@@ -7,8 +8,8 @@ import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPag
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}): Promise<Metadata> {
   const { q } = await searchParams;
   const query = q as string;
 
@@ -22,8 +23,8 @@ export default async function SearchPage({
   params,
   searchParams,
 }: {
-  params: { locale: string } | Promise<{ locale: string }>;
-  searchParams: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { locale } = await params;
   const { page = "1", q } = await searchParams;

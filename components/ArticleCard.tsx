@@ -64,6 +64,7 @@ export default function ArticleCard({
       <Link
         href={`/${article.category}/${article.languages[0].seo.slug}`}
         className="flex flex-col h-full cursor-pointer"
+        prefetch={false}
       >
         {/* Article Images - Two images side by side */}
         <div className="relative overflow-hidden h-40 flex-shrink-0 flex">

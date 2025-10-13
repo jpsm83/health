@@ -135,28 +135,29 @@ export async function getArticles(params: IGetArticlesParams = {}): Promise<IPag
   } catch (error) {
     console.error("Error fetching articles:", error);
     
+    // Log detailed error information for debugging
+    console.error("Specific error details:", {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      params: { page, limit, sort, order, locale, category, slug },
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV
+    });
+    
     // Check if it's a connection error (common on mobile)
     if (error instanceof Error && (
       error.message.includes('connection') || 
       error.message.includes('timeout') ||
-      error.message.includes('network')
+      error.message.includes('network') ||
+      error.message.includes('MongoServerError') ||
+      error.message.includes('MongoNetworkError')
     )) {
       // For connection errors, throw to trigger retry mechanism
-      throw new Error(`Network error: ${error.message}`);
+      throw new Error(`Database connection error: ${error.message}`);
     }
     
-    // For other errors, return empty response but log the specific error
-    console.error("Specific error details:", {
-      error: error instanceof Error ? error.message : 'Unknown error',
-      params: { page, limit, sort, order, locale, category, slug }
-    });
-    
-    return {
-      page,
-      limit,
-      totalDocs: 0,
-      totalPages: 0,
-      data: [],
-    };
+    // For other errors, also throw instead of returning empty data
+    // This will help identify the real issue in production
+    throw new Error(`Failed to fetch articles: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import Favorites from "@/pagesClient/Favorites";
@@ -9,8 +10,8 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string } | Promise<{ locale: string }>;
-}) {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
 
   return generatePrivateMetadata(

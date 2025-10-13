@@ -139,6 +139,7 @@ export default function Navbar() {
                   href={`/${locale}/health`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <HeartPulse size={16} className="text-red-600" /> {t("categories.health")}
                 </Link>
@@ -149,6 +150,7 @@ export default function Navbar() {
                   href={`/${locale}/fitness`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <Dumbbell size={16} className="text-red-600" /> {t("categories.fitness")}
                 </Link>
@@ -159,6 +161,7 @@ export default function Navbar() {
                   href={`/${locale}/nutrition`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <Salad size={16} className="text-red-600" /> {t("categories.nutrition")}
                 </Link>
@@ -169,6 +172,7 @@ export default function Navbar() {
                   href={`/${locale}/intimacy`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <VenusAndMars size={16} className="text-red-600" /> {t("categories.intimacy")}
                 </Link>
@@ -179,6 +183,7 @@ export default function Navbar() {
                   href={`/${locale}/beauty`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <Brush size={16} className="text-red-600" /> {t("categories.beauty")}
                 </Link>
@@ -190,6 +195,7 @@ export default function Navbar() {
                   href={`/${locale}/travel`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <Plane size={16} className="text-red-600" /> {t("categories.travel")}
                 </Link>
@@ -200,6 +206,7 @@ export default function Navbar() {
                   href={`/${locale}/decor`}
                   className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
                   onClick={handleNavLinkClick}
+                  prefetch={false}
                 >
                   <House size={16} className="text-red-600" /> {t("categories.decor")}
                 </Link>
@@ -454,7 +461,7 @@ export default function Navbar() {
             key={category}
             className="text-gray-200 hover:bg-rose-700 hover:text-white"
           >
-            <Link href={`/${locale}/${category}`}>
+            <Link href={`/${locale}/${category}`} prefetch={false}>
               {t(`categories.${category.replace("-", "")}`)}
             </Link>
           </Button>

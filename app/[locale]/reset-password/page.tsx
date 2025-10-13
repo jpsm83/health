@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ResetPassword from "@/pagesClient/ResetPassword";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -5,8 +6,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string } | Promise<{ locale: string }>;
-}) {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
 
   return generatePrivateMetadata(
