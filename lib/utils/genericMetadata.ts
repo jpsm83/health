@@ -2,24 +2,18 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 /*
- * SOCIAL MEDIA METADATA CONFIGURATION
+ * GENERIC METADATA CONFIGURATION
  *
- * This file provides comprehensive metadata for all major social media platforms:
+ * Provides clean, optimized metadata for all major social media platforms:
  *
  * ✅ Facebook, Instagram, LinkedIn, WhatsApp, Discord (Open Graph)
  * ✅ Twitter/X (Twitter Cards)
  * ✅ Pinterest (Rich Pins)
- * ✅ LinkedIn (Company Page)
- * ✅ WhatsApp (Link Previews)
- * ✅ Telegram (Link Previews)
- * ✅ Slack (Link Previews)
- * ✅ Email clients (Outlook, Gmail, etc.)
+ * ✅ Threads (Meta's Twitter competitor)
  *
- * CUSTOMIZATION NEEDED:
- * - Replace 'contact@womensspot.com' with your actual email
- * - Replace '@womensspot' with your actual Twitter handle
- * - Replace 'womensspot' with your actual LinkedIn company page
- * - Add verification codes when you have them (Google, Facebook, etc.)
+ * CUSTOMIZATION:
+ * - Replace '@womensspot' with your actual social media handles
+ * - Add verification codes when available
  * - Update theme colors if different from #8B5CF6
  */
 
@@ -66,9 +60,10 @@ export const baseMetadata = {
   images: [
     {
       url: "/womens-spot.png",
-      width: 1200,
-      height: 630,
+      width: 1024,
+      height: 1024,
       alt: "Women's Spot - Empowering Women",
+      type: "image/png",
     },
   ],
 };
@@ -80,22 +75,27 @@ async function generateMetadataCore(
   titleKey: string,
   isPublic: boolean
 ): Promise<Metadata> {
-  // Dynamically load translations using next-intl
+  // Load translations using next-intl
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   // Extract page name from the key (e.g., 'metadata.home.title' -> 'home')
   const pageName = titleKey.split(".")[1] || "home";
 
-  // Get translated content dynamically
+  // Get translated content
   const title = t(`${pageName}.title`);
   const description = t(`${pageName}.description`);
   const keywords = t(`${pageName}.keywords`);
 
+  // Determine proper language code
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
-  const fullUrl = `${
-    process.env.NEXTAUTH_URL
-  }/${locale}${route}`;
+  const fullUrl = `${process.env.NEXTAUTH_URL}/${locale}${route}`;
+
+  // Enhanced images for social media
+  const enhancedImages = baseMetadata.images.map((img) => ({
+    ...img,
+    secureUrl: img.url.startsWith("https") ? img.url : undefined,
+  }));
 
   return {
     title,
@@ -108,7 +108,7 @@ async function generateMetadataCore(
       canonical: `/${locale}${route}`,
       languages: languageAlternates,
     },
-    // Enhanced Open Graph for Facebook, LinkedIn, WhatsApp, Discord, etc.
+    // Open Graph for Facebook, Pinterest, LinkedIn, WhatsApp, Instagram/Threads
     openGraph: {
       title,
       description,
@@ -116,67 +116,44 @@ async function generateMetadataCore(
       siteName: baseMetadata.siteName,
       locale: properLang,
       type: "website",
-      // Better image handling
-      images: baseMetadata.images.map((img) => ({
-        ...img,
-        type: "image/png",
-        secureUrl: img.url.startsWith("https") ? img.url : undefined,
-      })),
+      images: enhancedImages,
     },
-    // Enhanced Twitter Cards for better Twitter sharing
+    // Twitter Cards for better Twitter sharing
     twitter: {
       card: "summary_large_image",
       title,
       description,
       images: baseMetadata.images.map((img) => img.url),
-      // Additional Twitter properties
-      creator: "@womensspot", // Add your actual Twitter handle
-      site: "@womensspot", // Add your actual Twitter handle
+      creator: "@womensspot", // Replace with your Twitter handle
+      site: "@womensspot", // Replace with your Twitter handle
     },
-    // Additional metadata for other platforms
+    // Additional general metadata
     other: {
       language: locale,
-      // LinkedIn specific
-      "linkedin:owner": "womensspot", // Add your LinkedIn company page
-      // Pinterest specific
       "pinterest:rich-pin": "true",
-      // WhatsApp specific
       "whatsapp:description": description,
-      // General social media
-      "theme-color": "#8B5CF6", // Purple color from your brand
+      "theme-color": "#8B5CF6",
       "msapplication-TileColor": "#8B5CF6",
       "mobile-web-app-capable": "yes",
       "apple-mobile-web-app-status-bar-style": "default",
       "apple-mobile-web-app-title": baseMetadata.siteName,
-      // Modern mobile web app support
       "application-name": baseMetadata.siteName,
       "msapplication-config": "/browserconfig.xml",
       "format-detection": "telephone=no",
-      // Additional SEO
       author: baseMetadata.authors[0].name,
-      copyright: `© ${new Date().getFullYear()} ${
-        baseMetadata.siteName
-      }. All rights reserved.`,
+      copyright: `© ${new Date().getFullYear()} ${baseMetadata.siteName}. All rights reserved.`,
       distribution: "global",
       rating: "general",
       "revisit-after": "7 days",
-      robots: isPublic
-        ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-        : "noindex, nofollow",
     },
-    // Enhanced verification for social platforms
     verification: {
-      // Add these when you have them
-      // google: 'your-google-verification-code',
-      // yandex: 'your-yandex-verification-code',
-      // yahoo: 'your-yahoo-verification-code',
-      // facebook: 'your-facebook-app-id',
-      // twitter: 'your-twitter-username',
+      // Add platform verification codes here if available
+      // google, facebook, twitter, yandex, etc.
     },
   };
 }
 
-// Generate metadata for public pages (indexable) with dynamic language support
+// Generate metadata for public pages (indexable)
 export async function generatePublicMetadata(
   locale: string,
   route: string,
@@ -185,7 +162,7 @@ export async function generatePublicMetadata(
   return generateMetadataCore(locale, route, titleKey, true);
 }
 
-// Generate metadata for private pages (noindex) with dynamic language support
+// Generate metadata for private pages (noindex)
 export async function generatePrivateMetadata(
   locale: string,
   route: string,

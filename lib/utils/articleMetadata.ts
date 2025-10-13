@@ -3,17 +3,17 @@ import { IMetaDataArticle } from '@/types/article';
 import { languageMap } from './genericMetadata';
 
 // Generate comprehensive metadata for article pages
-// Optimized for all major social media platforms
+// Optimized for video prioritization on all major social media platforms
 export async function generateArticleMetadata(
   metaContent: IMetaDataArticle
 ): Promise<Metadata> {
   
   // Enhanced image handling for social media
-  const enhancedImages = metaContent.articleImages?.length > 0 
+  const enhancedImages = metaContent.articleImages?.length > 0
     ? metaContent.articleImages.map((img: string) => ({
         url: img,
-        width: 1280,
-        height: 720,
+        width: 1024,
+        height: 1024,
         alt: metaContent.seo.metaTitle || 'Article image',
         type: 'image/png',
         secureUrl: img.startsWith('https') ? img : undefined,
@@ -25,16 +25,25 @@ export async function generateArticleMetadata(
         alt: 'Women\'s Spot - Empowering Women',
         type: 'image/png',
       }];
-  
-  // Get proper language code for current locale
+
+  // Determine proper language code
   const properLang = languageMap[metaContent.seo.hreflang] || metaContent.seo.hreflang || 'en-US';
-  
-  // Ensure we have valid values for all metadata fields
+
+  // Ensure valid metadata values
   const title = metaContent.seo.metaTitle || 'Article';
   const description = metaContent.seo.metaDescription || 'Read this article on Women\'s Spot';
   const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
   const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL}`;
   const author = metaContent.createdBy || 'Women\'s Spot Team';
+  
+  // Video metadata object if video exists
+  const videoMeta = metaContent.articleVideo ? {
+    url: metaContent.articleVideo,
+    secureUrl: metaContent.articleVideo.startsWith('https') ? metaContent.articleVideo : undefined,
+    type: 'video/mp4',
+    width: 720,
+    height: 1280,
+  } : undefined;
 
   return {
     title,
@@ -51,89 +60,67 @@ export async function generateArticleMetadata(
         [properLang]: canonicalUrl,
       },
     },
-    // Enhanced Open Graph for Facebook, LinkedIn, WhatsApp, Discord, etc.
+    // Open Graph for Facebook, Pinterest, LinkedIn, WhatsApp, Instagram/Threads
     openGraph: {
       title,
       description,
       url: canonicalUrl,
       siteName: 'Women\'s Spot',
       locale: properLang,
-      type: 'article',
-      // Enhanced image handling for better social media display
+      type: videoMeta ? 'video.other' : 'article',
+      // Video comes first to maximize priority
+      videos: videoMeta ? [videoMeta] : undefined,
+      // Fallback images
       images: enhancedImages,
-      // Add video support for social media
-      videos: metaContent.articleVideo ? [{
-        url: metaContent.articleVideo,
-        width: 1080,
-        height: 1920,
-        type: 'video/mp4',
-      }] : undefined,
+      publishedTime: metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
+      modifiedTime: metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
+      authors: [author],
+      section: metaContent.category || 'Health',
+      tags: metaContent.seo.keywords || ['health', 'women', 'wellness'],
     },
-    // Enhanced Twitter Cards for better Twitter sharing
+    // Twitter Player Card support
     twitter: {
-      card: 'summary_large_image',
+      card: videoMeta ? 'player' : 'summary_large_image',
       title,
       description,
       images: metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png'],
-      // Additional Twitter properties
-      creator: author,
-      site: '@womensspot', // Add your actual Twitter handle
-    },
-    // Additional metadata for other platforms and SEO
-    other: {
-      'language': metaContent.seo.hreflang || properLang,
-      // Article-specific metadata
-      'article:published_time': (metaContent.createdAt instanceof Date ? metaContent.createdAt : new Date()).toISOString(),
-      'article:modified_time': (metaContent.updatedAt instanceof Date ? metaContent.updatedAt : new Date()).toISOString(),
-      'article:author': author,
-      'article:section': metaContent.category || 'Health',
-      'article:tag': keywords,
-      // Video metadata for social media platforms
-      ...(metaContent.articleVideo && {
-        'og:video': metaContent.articleVideo,
-        'og:video:type': 'video/mp4',
-        'og:video:width': '1080',
-        'og:video:height': '1920',
-        'twitter:player': metaContent.articleVideo,
-        'twitter:player:width': '1080',
-        'twitter:player:height': '1920',
+      ...(videoMeta && {
+        player: videoMeta.url,
+        playerWidth: videoMeta.width,
+        playerHeight: videoMeta.height,
+        // Optional: ensures Twitter prioritizes the video
+        playerStream: videoMeta.url,
       }),
-      // LinkedIn specific
-      'linkedin:owner': 'womensspot', // Add your actual LinkedIn company page
-      // Pinterest specific
+      creator: author,
+      site: '@womensspot', // Replace with your Twitter handle
+    },
+    // Additional general metadata
+    other: {
+      language: metaContent.seo.hreflang || properLang,
       'pinterest:rich-pin': 'true',
-      // WhatsApp specific
       'whatsapp:description': description,
-      // General social media
-      'theme-color': '#8B5CF6', // Purple color from your brand
+      'theme-color': '#8B5CF6',
       'msapplication-TileColor': '#8B5CF6',
       'mobile-web-app-capable': 'yes',
       'apple-mobile-web-app-status-bar-style': 'default',
       'apple-mobile-web-app-title': 'Women\'s Spot',
-      // Modern mobile web app support
       'application-name': 'Women\'s Spot',
       'msapplication-config': '/browserconfig.xml',
       'format-detection': 'telephone=no',
-      // Additional SEO
-      'author': 'Women\'s Spot Team',
-      'copyright': `© ${new Date().getFullYear()} Women\'s Spot. All rights reserved.`,
-      'distribution': 'global',
-      'rating': 'general',
+      author: 'Women\'s Spot Team',
+      copyright: `© ${new Date().getFullYear()} Women\'s Spot. All rights reserved.`,
+      distribution: 'global',
+      rating: 'general',
       'revisit-after': '7 days',
     },
-    // Enhanced verification for social platforms
     verification: {
-      // Add these when you have them
-      // google: 'your-google-verification-code',
-      // yandex: 'your-yandex-verification-code',
-      // yahoo: 'your-yahoo-verification-code',
-      // facebook: 'your-facebook-app-id',
-      // twitter: 'your-twitter-username',
+      // Add platform verification codes here if available
+      // google, facebook, twitter, yandex, etc.
     },
   };
 }
 
-// Generate fallback metadata for when article is not found
+// Fallback metadata when article not found
 export function generateArticleNotFoundMetadata(): Metadata {
   return {
     title: 'Article Not Found',
