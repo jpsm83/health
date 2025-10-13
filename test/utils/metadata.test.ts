@@ -70,15 +70,11 @@ describe('Metadata Generation', () => {
       expect(metadata.openGraph?.videos?.[0]?.width).toBe(720);
       expect(metadata.openGraph?.videos?.[0]?.height).toBe(1280);
       
-      // Check that BOTH images and video are included (ChatGPT's approach)
-      expect(metadata.openGraph?.images).toBeDefined();
-      expect(metadata.openGraph?.images?.length).toBeGreaterThan(0);
+      // Check that images are excluded when video is present (forces Pinterest to use video)
+      expect(metadata.openGraph?.images).toBeUndefined();
       
-      // Check that Twitter card is set to player for video content
-      expect(metadata.twitter?.card).toBe('player');
-      expect(metadata.twitter?.player).toBe('https://example.com/video.mp4');
-      expect(metadata.twitter?.playerWidth).toBe(720);
-      expect(metadata.twitter?.playerHeight).toBe(1280);
+      // Check that Twitter card is set to summary_large_image for better compatibility
+      expect(metadata.twitter?.card).toBe('summary_large_image');
       
       // Check that Twitter images are included as fallback
       expect(metadata.twitter?.images).toBeDefined();

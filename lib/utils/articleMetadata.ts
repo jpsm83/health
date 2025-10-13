@@ -70,27 +70,20 @@ export async function generateArticleMetadata(
       type: videoMeta ? 'video.other' : 'article',
       // Video comes first to maximize priority
       videos: videoMeta ? [videoMeta] : undefined,
-      // Fallback images
-      images: enhancedImages,
+      // Only include images if no video (forces Pinterest to use video)
+      images: videoMeta ? undefined : enhancedImages,
       publishedTime: metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
       modifiedTime: metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
       authors: [author],
       section: metaContent.category || 'Health',
       tags: metaContent.seo.keywords || ['health', 'women', 'wellness'],
     },
-    // Twitter Player Card support
+    // Twitter Cards for better Twitter sharing
     twitter: {
-      card: videoMeta ? 'player' : 'summary_large_image',
+      card: 'summary_large_image', // Use summary card for better compatibility
       title,
       description,
       images: metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png'],
-      ...(videoMeta && {
-        player: videoMeta.url,
-        playerWidth: videoMeta.width,
-        playerHeight: videoMeta.height,
-        // Optional: ensures Twitter prioritizes the video
-        playerStream: videoMeta.url,
-      }),
       creator: author,
       site: '@womensspot', // Replace with your Twitter handle
     },
@@ -99,6 +92,25 @@ export async function generateArticleMetadata(
       language: metaContent.seo.hreflang || properLang,
       'pinterest:rich-pin': 'true',
       'whatsapp:description': description,
+      // Pinterest video support (when video exists) - these come first to prioritize video
+      ...(videoMeta && {
+        'og:video': videoMeta.url,
+        'og:video:type': videoMeta.type,
+        'og:video:width': videoMeta.width.toString(),
+        'og:video:height': videoMeta.height.toString(),
+        'og:video:secure_url': videoMeta.secureUrl,
+        'pinterest:video': videoMeta.url,
+        'pinterest:video:type': videoMeta.type,
+        'pinterest:video:width': videoMeta.width.toString(),
+        'pinterest:video:height': videoMeta.height.toString(),
+      }),
+      // Twitter video support (when video exists)
+      ...(videoMeta && {
+        'twitter:player': videoMeta.url,
+        'twitter:player:width': videoMeta.width.toString(),
+        'twitter:player:height': videoMeta.height.toString(),
+        'twitter:player:stream': videoMeta.url,
+      }),
       'theme-color': '#8B5CF6',
       'msapplication-TileColor': '#8B5CF6',
       'mobile-web-app-capable': 'yes',
