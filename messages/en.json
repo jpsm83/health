@@ -511,6 +511,11 @@
       "description": "Site map for Women's Spot. Find your way around our platform and explore our content.",
       "keywords": "site map, Women's Spot, health, fitness, wellness, empowerment, site map"
     },
+    "favorites": {
+      "title": "My Favorites - Women's Spot",
+      "description": "View and manage your favorite health and wellness articles. Access your personalized collection of saved content.",
+      "keywords": "favorites, saved articles, bookmarked content, personal collection, health articles, wellness content"
+    },
     "health": {
       "title": "Health Articles",
       "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",

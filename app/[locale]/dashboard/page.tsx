@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Dashboard from "@/pagesClient/Dashboard";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -8,8 +7,8 @@ import { getWeeklyStats } from "@/app/actions/article/getWeeklyStats";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
 
   return generatePrivateMetadata(
@@ -23,7 +22,7 @@ export async function generateMetadata({
 export default async function DashboardPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   

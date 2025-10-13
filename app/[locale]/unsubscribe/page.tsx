@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
@@ -11,8 +10,8 @@ import User from "@/app/api/models/user";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
 
   return generatePrivateMetadata(
@@ -23,8 +22,8 @@ export async function generateMetadata({
 }
 
 interface UnsubscribePageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-  params: Promise<{ locale: string }>;
+  searchParams: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }
 
 export default async function UnsubscribePage({

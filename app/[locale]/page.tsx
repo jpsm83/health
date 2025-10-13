@@ -10,7 +10,7 @@ import { mainCategories } from "@/lib/constants";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
 
@@ -21,14 +21,14 @@ export async function generateMetadata({
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
   let featuredArticles: ISerializedArticle[] = [];
   const categoryArticles: Record<string, ISerializedArticle[]> = {};
 
-  try {    
+  try {
     // Fetch featured articles and all category articles in parallel
     const [articlesResponse, ...categoryResponses] = await Promise.all([
       getArticles({
@@ -36,7 +36,7 @@ export default async function HomePage({
         limit: 9, // Match the limit that was being used in the client component
       }),
       // Fetch articles for each category
-      ...mainCategories.map(category => 
+      ...mainCategories.map((category) =>
         getArticlesByCategory({
           category,
           page: 1,
@@ -45,27 +45,30 @@ export default async function HomePage({
           order: "desc",
           locale,
         })
-      )
+      ),
     ]);
 
     // Extract the data array from the paginated response
     featuredArticles = articlesResponse.data;
-    
+
     // Map category responses to category names
     mainCategories.forEach((category, index) => {
       categoryArticles[category] = categoryResponses[index].data;
     });
   } catch (error) {
     console.error("Error fetching articles:", error);
-    
+
     // Log additional context for mobile debugging
     console.error("Mobile debugging info:", {
-      userAgent: typeof window !== 'undefined' ? window.navigator?.userAgent : 'Server-side',
+      userAgent:
+        typeof window !== "undefined"
+          ? window.navigator?.userAgent
+          : "Server-side",
       locale,
       timestamp: new Date().toISOString(),
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: error instanceof Error ? error.message : "Unknown error",
     });
-    
+
     // Don't fail completely - let the app render with empty data
     // The client components will handle the empty state gracefully
   }
@@ -73,8 +76,8 @@ export default async function HomePage({
   return (
     <main className="container mx-auto">
       <ErrorBoundary context={"Home component"}>
-        <Home 
-          featuredArticles={featuredArticles} 
+        <Home
+          featuredArticles={featuredArticles}
           categoryArticles={categoryArticles}
         />
       </ErrorBoundary>

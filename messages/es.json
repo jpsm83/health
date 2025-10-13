@@ -437,6 +437,11 @@
       "description": "Mapa del sitio para Women's Spot. Encuentra tu camino por nuestra plataforma y explora nuestro contenido.",
       "keywords": "mapa del sitio, Women's Spot, salud, fitness, estilo de vida, empoderamiento, mapa del sitio"
     },
+    "favorites": {
+      "title": "Mis Favoritos - Women's Spot",
+      "description": "Ve y gestiona tus artículos favoritos de salud y bienestar. Accede a tu colección personalizada de contenido guardado.",
+      "keywords": "favoritos, artículos guardados, contenido marcado, colección personal, artículos de salud, contenido de bienestar"
+    },
     "health": {
       "title": "Artículos de Salud",
       "description": "Nuestros mejores insights sobre salud, una colección completa de artículos de salud, consejos y guías para ayudarte a vivir una vida más saludable y plena.",

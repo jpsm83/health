@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
@@ -10,8 +9,8 @@ import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticle
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string; category: string }>;
-}): Promise<Metadata> {
+  params: { locale: string; category: string } | Promise<{ locale: string; category: string }>;
+}) {
   const { category, locale } = await params;
 
   if (!mainCategories.includes(category)) {
@@ -32,8 +31,8 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string; category: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: { locale: string; category: string } | Promise<{ locale: string; category: string }>;
+  searchParams: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { category, locale } = await params;
   const { page = "1" } = await searchParams;

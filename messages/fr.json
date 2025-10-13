@@ -411,6 +411,11 @@
       "description": "Plan du site pour Women's Spot. Trouvez votre chemin sur notre plateforme et explorez notre contenu.",
       "keywords": "plan du site, Women's Spot, santé, forme physique, mode de vie, autonomisation, plan du site"
     },
+    "favorites": {
+      "title": "Mes Favoris - Women's Spot",
+      "description": "Visualisez et gérez vos articles favoris de santé et bien-être. Accédez à votre collection personnalisée de contenu sauvegardé.",
+      "keywords": "favoris, articles sauvegardés, contenu marqué, collection personnelle, articles de santé, contenu de bien-être"
+    },
     "health": {
       "title": "Articles de Santé",
       "description": "Nos meilleurs insights sur la santé, une collection complète d'articles de santé, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",

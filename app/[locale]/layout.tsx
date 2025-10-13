@@ -2,7 +2,6 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import type { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Navigation from "@/components/Navbar";
 import Footer from "../../components/Footer";
@@ -10,8 +9,8 @@ import Footer from "../../components/Footer";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
 
   // Base metadata for the locale - individual pages will override this with their own SEO data
@@ -26,7 +25,7 @@ export default async function LocaleLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }) {
   // Ensure that the incoming `locale` is valid
   const { locale } = await params;

@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   generateArticleMetadata,
@@ -13,8 +12,8 @@ import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string; locale: string }>;
-}): Promise<Metadata> {
+  params: { slug: string; locale: string } | Promise<{ slug: string; locale: string }>;
+}) {
   const { slug, locale } = await params;
 
   try {
@@ -93,7 +92,7 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ slug: string; locale: string }>;
+  params: { slug: string; locale: string } | Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
   

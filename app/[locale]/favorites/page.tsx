@@ -1,24 +1,31 @@
-import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
 import Favorites from "@/pagesClient/Favorites";
 import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
+import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "My Favorites - Women's Spot",
-    description: "View your favorite health and wellness articles",
-  };
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  return generatePrivateMetadata(
+    locale,
+    "/favorites",
+    "metadata.favorites.title"
+  );
 }
 
 export default async function FavoritesPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: { locale: string } | Promise<{ locale: string }>;
+  searchParams: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { locale } = await params;
   const { page = "1" } = await searchParams;

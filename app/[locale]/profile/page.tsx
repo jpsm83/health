@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Profile from "@/pagesClient/Profile";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -9,8 +8,8 @@ import { redirect } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
 
   return generatePrivateMetadata(locale, "/profile", "metadata.profile.title");
@@ -20,7 +19,7 @@ export async function generateMetadata({
 export default async function ProfilePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   

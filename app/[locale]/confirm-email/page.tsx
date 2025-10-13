@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getTranslations } from "next-intl/server";
@@ -8,8 +7,8 @@ import Link from "next/link";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
 
   return generatePrivateMetadata(
@@ -23,7 +22,7 @@ export async function generateMetadata({
 export default async function ConfirmEmailPage({
   searchParams,
 }: {
-  searchParams: Promise<{ token?: string }>;
+  searchParams: { token?: string } | Promise<{ token?: string }>;
 }) {
   const t = await getTranslations("confirmEmail");
   const { token } = await searchParams;

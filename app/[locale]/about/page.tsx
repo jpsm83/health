@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -7,8 +6,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+  params: { locale: string } | Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
 
   return generatePublicMetadata(locale, "/about", "metadata.about.title");

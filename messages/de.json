@@ -437,6 +437,11 @@
       "description": "Seitenübersicht für Women's Spot. Finden Sie Ihren Weg auf unserer Plattform und erkunden Sie unseren Inhalt.",
       "keywords": "seitenübersicht, Women's Spot, Gesundheit, Fitness, Lifestyle, Empowerment, Seitenübersicht"
     },
+    "favorites": {
+      "title": "Meine Favoriten - Women's Spot",
+      "description": "Sehen und verwalten Sie Ihre Lieblingsartikel zu Gesundheit und Wellness. Greifen Sie auf Ihre personalisierte Sammlung gespeicherter Inhalte zu.",
+      "keywords": "favoriten, gespeicherte artikel, markierte inhalte, persönliche sammlung, gesundheitsartikel, wellness-inhalte"
+    },
     "health": {
       "title": "Gesundheitsartikel",
       "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheitsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
