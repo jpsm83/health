@@ -177,50 +177,58 @@ export default function Article({
 
   // Calculate content distribution across 4 containers
   const calculateContentDistribution = () => {
-    const containerDistribution = 4;
     const totalContent =
       articleData?.languages?.[0]?.content?.articleContents?.length || 0;
     const totalImages = articleData?.articleImages?.length || 0;
 
-    if (totalContent === 0) return [];
-
     const containers = [];
-    let contentIndex = 0;
 
-    for (let i = 0; i < containerDistribution; i++) {
-      // New pattern: Each container shows one specific image
-      // Container 0: image 0
-      // Container 1: image 1  
-      // Container 2: image 2
-      // Container 3: image 3
-      const imageIndex = i;
-      const image = totalImages > 0 && imageIndex < totalImages ? articleData?.articleImages?.[imageIndex] : null;
+    // Always create exactly 4 containers
+    for (let i = 0; i < 4; i++) {
+      // Each container has 2 images side by side with overlapping pattern
+      // Container 0: images 0,1
+      // Container 1: images 1,2  
+      // Container 2: images 2,3
+      // Container 3: images 3,0 (wraps back to first)
+      const firstImageIndex = i;
+      const secondImageIndex = i === 3 ? 0 : i + 1;
+      
+      const firstImage = totalImages > firstImageIndex ? articleData?.articleImages?.[firstImageIndex] : null;
+      const secondImage = totalImages > secondImageIndex ? articleData?.articleImages?.[secondImageIndex] : null;
 
       // Calculate how many content sections this container should have
       let contentCount = 0;
-      if (i < totalContent) {
-        if (i === containerDistribution - 1) {
-          // Last container gets remaining content
-          contentCount = totalContent - contentIndex;
+      let startIndex = 0;
+      
+      if (totalContent > 0) {
+        // Calculate base content per container
+        const baseContentPerContainer = Math.floor(totalContent / 4);
+        const remainingContent = totalContent % 4;
+        
+        if (i < remainingContent) {
+          // First 'remainingContent' containers get one extra content
+          contentCount = baseContentPerContainer + 1;
+          startIndex = i * (baseContentPerContainer + 1);
         } else {
-          // Distribute content evenly among first 3 containers
-          contentCount = Math.ceil(
-            (totalContent - contentIndex) / (containerDistribution - i)
-          );
+          // Remaining containers get base content
+          contentCount = baseContentPerContainer;
+          startIndex = remainingContent * (baseContentPerContainer + 1) + (i - remainingContent) * baseContentPerContainer;
         }
       }
 
       const containerContent =
         articleData?.languages?.[0]?.content?.articleContents?.slice(
-          contentIndex,
-          contentIndex + contentCount
+          startIndex,
+          startIndex + contentCount
         ) || [];
-      contentIndex += contentCount;
 
       containers.push({
-        image,
+        firstImage,
+        secondImage,
         content: containerContent,
-        imageIndex: imageIndex,
+        containerIndex: i,
+        firstImageIndex,
+        secondImageIndex,
       });
     }
 
@@ -235,160 +243,141 @@ export default function Article({
   const shareDescription = articleData?.languages[0]?.content?.articleContents?.[0]?.articleParagraphs?.[0] || '';
   const shareMedia = articleData?.articleImages && articleData.articleImages.length > 0 ? articleData.articleImages[0] : '';
 
+  console.log(articleData);
+
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
       {/* Article Content in 4 Containers */}
       <div className="space-y-6 md:space-y-12">
         {containers.map((container, containerIndex) => (
           <div key={containerIndex}>
-            {/* Newsletter Signup before the last container */}
-            {containerIndex === containers.length - 1 && (
+            {/* Newsletter Signup in the 4th container (index 3) */}
+            {containerIndex === 3 && (
               <div className="mb-8 md:mb-18">
                 <NewsletterSignup />
               </div>
             )}
 
             <div className="overflow-hidden text-justify">
-              {/* Container Images - Single image on mobile, two images on desktop */}
-              {container.image && container.image.trim() !== "" ? (
-                <div className="relative w-full h-[70vh] mb-8 md:mb-16 flex">
-                  {/* Mobile: Single Image (full width) */}
-                  <div className="relative w-full h-full md:hidden">
+              {/* Container Images - Always 2 images side by side */}
+              <div className="relative w-full h-[70vh] mb-8 md:mb-16 flex">
+                {/* First Image */}
+                <div className="relative w-1/2 h-full">
+                  {container.firstImage && container.firstImage.trim() !== "" ? (
                     <Image
-                      src={container.image}
+                      src={container.firstImage}
                       alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
                         "article.imageAlt"
-                      )}${containerIndex + 1}`}
+                      )}${container.firstImageIndex + 1}`}
                       fill
                       className="object-cover object-center"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
                       priority
                     />
-                  </div>
-                  
-                  {/* Desktop: Two Images Side by Side */}
-                  <div className="hidden md:flex w-full h-full">
-                    {/* First Image */}
-                    <div className="relative w-1/2 h-full">
-                      <Image
-                        src={container.image}
-                        alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
-                          "article.imageAlt"
-                        )}${containerIndex + 1}`}
-                        fill
-                        className="object-cover object-center"
-                        sizes="(max-width: 1200px) 50vw, 25vw"
-                        priority
-                      />
-                    </div>
-                    {/* Second Image */}
-                    <div className="relative w-1/2 h-full">
-                      {(() => {
-                        // Calculate second image index with wrapping pattern:
-                        // Container 0: images 0,1
-                        // Container 1: images 1,2  
-                        // Container 2: images 2,3
-                        // Container 3: images 3,0 (wraps back to first)
-                        const secondImageIndex = containerIndex === 3 ? 0 : containerIndex + 1;
-                        const hasSecondImage = articleData?.articleImages && 
-                          articleData.articleImages.length > secondImageIndex && 
-                          articleData.articleImages[secondImageIndex];
-                        
-                        return hasSecondImage ? (
-                          <Image
-                            src={articleData.articleImages[secondImageIndex]}
-                            alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
-                              "article.imageAlt"
-                            )}${secondImageIndex + 1}`}
-                            fill
-                            className="object-cover object-center"
-                            sizes="(max-width: 1200px) 50vw, 25vw"
-                            priority
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                            <div className="flex flex-col items-center justify-center text-center text-gray-500">
-                              <ImageOff size={24} />
-                              <div className="text-sm font-medium">No Image</div>
-                            </div>
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  </div>
-
-                  {/* Overlay Header for first container only */}
-                  {containerIndex === 0 && (
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
-                      {/* Delete Button - Top Right */}
-                      {isAdmin() && (
-                        <div className="absolute top-4 right-4">
-                          <button
-                            onClick={() => setShowDeleteModal(true)}
-                            className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-600 text-white border-none transition-colors cursor-pointer rounded-full backdrop-blur-sm"
-                            title={t("article.actions.delete")}
-                          >
-                            <Trash2 className="size-4" />
-                          </button>
-                        </div>
-                      )}
-                      
-                      <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
-                        {articleData?.languages[0].content.mainTitle}
-                      </h1>
-                      <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
-                        <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default drop-shadow-xl" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)'}}>
-                          <span>
-                            {t("article.info.category")} {articleData?.category}
-                          </span>
-                          <span>
-                            {t("article.info.published")}{" "}
-                            {formatDate(articleData?.createdAt)}
-                          </span>
-                          <span>
-                            {t("article.info.views")} {articleData?.views}
-                          </span>
-                          <span>
-                            {t("article.info.likes")} {likes}
-                          </span>
-                        </div>
-                        {/* Like Button at Top */}
-                        <div className="flex justify-center items-center">
-                          <Button
-                            onClick={toggleLike}
-                            className={`flex items-center gap-1 px-2 py-1 border-none transition-colors cursor-pointer rounded-full ${
-                              isLiked ? "text-red-600" : "text-gray-200"
-                            }`}
-                            title={
-                              isLiked
-                                ? t("article.actions.unlikeArticle")
-                                : t("article.actions.likeArticle")
-                            }
-                          >
-                            <Heart
-                              className={`size-6 ${
-                                isLiked
-                                  ? "fill-current"
-                                  : "stroke-current fill-none"
-                              }`}
-                            />
-                          </Button>
-                        </div>
-                      </div>
-                      
-                      {/* Social Share Buttons - Inside Hero Image at Bottom */}
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-xs shadow-2xl p-2 w-full">
-                        <SocialShare
-                          url={shareUrl}
-                          title={shareTitle}
-                          description={shareDescription}
-                          media={shareMedia}
-                        />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                        <ImageOff size={24} />
+                        <div className="text-sm font-medium">No Image</div>
                       </div>
                     </div>
                   )}
                 </div>
-              ) : null}
+                
+                {/* Second Image */}
+                <div className="relative w-1/2 h-full">
+                  {container.secondImage && container.secondImage.trim() !== "" ? (
+                    <Image
+                      src={container.secondImage}
+                      alt={`${articleData?.languages[0]?.content?.mainTitle || 'Article'}${t(
+                        "article.imageAlt"
+                      )}${container.secondImageIndex + 1}`}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
+                      priority
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                        <ImageOff size={24} />
+                        <div className="text-sm font-medium">No Image</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Overlay Header for first container only */}
+                {containerIndex === 0 && (
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
+                    {/* Delete Button - Top Right */}
+                    {isAdmin() && (
+                      <div className="absolute top-4 right-4">
+                        <button
+                          onClick={() => setShowDeleteModal(true)}
+                          className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-600 text-white border-none transition-colors cursor-pointer rounded-full backdrop-blur-sm"
+                          title={t("article.actions.delete")}
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                    )}
+                    
+                    <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
+                      {articleData?.languages[0].content.mainTitle}
+                    </h1>
+                    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
+                      <div className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default drop-shadow-xl" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)'}}>
+                        <span>
+                          {t("article.info.category")} {articleData?.category}
+                        </span>
+                        <span>
+                          {t("article.info.published")}{" "}
+                          {formatDate(articleData?.createdAt)}
+                        </span>
+                        <span>
+                          {t("article.info.views")} {articleData?.views}
+                        </span>
+                        <span>
+                          {t("article.info.likes")} {likes}
+                        </span>
+                      </div>
+                      {/* Like Button at Top */}
+                      <div className="flex justify-center items-center">
+                        <Button
+                          onClick={toggleLike}
+                          className={`flex items-center gap-1 px-2 py-1 border-none transition-colors cursor-pointer rounded-full ${
+                            isLiked ? "text-red-600" : "text-gray-200"
+                          }`}
+                          title={
+                            isLiked
+                              ? t("article.actions.unlikeArticle")
+                              : t("article.actions.likeArticle")
+                          }
+                        >
+                          <Heart
+                            className={`size-6 ${
+                              isLiked
+                                ? "fill-current"
+                                : "stroke-current fill-none"
+                            }`}
+                          />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    {/* Social Share Buttons - Inside Hero Image at Bottom */}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-xs shadow-2xl p-2 w-full">
+                      <SocialShare
+                        url={shareUrl}
+                        title={shareTitle}
+                        description={shareDescription}
+                        media={shareMedia}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* Container Content */}
               <div className="px-4 md:px-18">

@@ -887,7 +887,12 @@
       "error": "Error al eliminar artículo"
     },
     "imageAlt": " - Sección ",
-    "exploreMore": "Artículos seleccionados solo para ti"
+    "exploreMore": "Artículos seleccionados solo para ti",
+    "error": {
+      "insufficientContent": "Contenido Insuficiente",
+      "insufficientContentMessage": "Este artículo no cumple con los requisitos mínimos de contenido para su visualización.",
+      "requiredSections": "Requerido: {required} secciones, Actual: {current} secciones"
+    }
   },
   "articles": {
     "categoryNotFound": "Categoría no encontrada",

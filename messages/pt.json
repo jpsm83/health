@@ -266,7 +266,12 @@
       "slug": "Slug",
       "date": "Data"
     },
-    "exploreMore": "Artigos selecionados apenas para você"
+    "exploreMore": "Artigos selecionados apenas para você",
+    "error": {
+      "insufficientContent": "Conteúdo Insuficiente",
+      "insufficientContentMessage": "Este artigo não atende aos requisitos mínimos de conteúdo para exibição.",
+      "requiredSections": "Requerido: {required} seções, Atual: {current} seções"
+    }
   },
   "articles": {
     "categoryNotFound": "Categoria não encontrada",

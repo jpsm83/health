@@ -861,7 +861,12 @@
       "error": "Échec de la suppression de l'article"
     },
     "imageAlt": " - Section ",
-    "exploreMore": "Articles sélectionnés rien que pour vous"
+    "exploreMore": "Articles sélectionnés rien que pour vous",
+    "error": {
+      "insufficientContent": "Contenu Insuffisant",
+      "insufficientContentMessage": "Cet article ne répond pas aux exigences minimales de contenu pour l'affichage.",
+      "requiredSections": "Requis: {required} sections, Actuel: {current} sections"
+    }
   },
   "articles": {
     "categoryNotFound": "Catégorie introuvable",

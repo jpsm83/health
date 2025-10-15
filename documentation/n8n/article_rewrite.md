@@ -28,7 +28,7 @@ Your task is to:
 Rewrite the article to make it look different while preserving the same context:
 - Rewrite the title with different wording but same meaning
 - Rewrite all paragraphs with different sentence structure and vocabulary
-- Keep steps patterns if it inclued in the original article
+- Keep steps patterns if it included in the original article
 - **Make the tone casual, conversational, and easy to connect with readers**
 - Use "you" and "your" to directly address the reader
 - Write in a friendly, approachable style that feels like talking to a friend
@@ -79,11 +79,6 @@ Organize the rewritten content into the required JSON format:
   - Subtitle (rewritten)
   - Article paragraphs (rewritten)
 
-**If the article content is invalid or empty, return exactly:**
-```
-ARTICLE_ERROR: Invalid or empty ARTICLE content provided.
-```
-
 ## 2. NOISE FILTERING
 Exclude all unrelated content such as:
 - Advertisements and sponsored content
@@ -121,26 +116,7 @@ Exclude all unrelated content such as:
 
 ## 3. CONTENT FILTERING RULES
 
-### 3.1 DATE-SPECIFIC CONTENT FILTERING
-Before processing the article, check if it contains content about specific one-time events that are no longer relevant:
-
-**IGNORE articles that are about:**
-- One-time sporting events (e.g., "World Cup Final 2018")
-- Specific conferences or events with exact dates
-- Political events tied to specific dates
-- Natural disasters with specific occurrence dates
-- Any event that happened only once and is tied to a specific date
-
-**DO NOT IGNORE articles about:**
-- Recurring holidays (Christmas, New Year, Easter, etc.)
-- Seasonal topics (summer health tips, winter wellness)
-- Annual events (Black Friday, Valentine's Day)
-- General health topics that may reference dates but aren't date-specific
-- Educational content about health, wellness, or general topics
-
-**If the article should be ignored due to date-specific content, return the default JSON with the key "mainTitle" equal to "Discarded"**
-
-### 3.2 PERSONAL INFORMATION ANONYMIZATION
+### 3.1 PERSONAL INFORMATION ANONYMIZATION
 If the article contains specific information about individual people (names, personal details, specific cases), anonymize them while preserving the informational value:
 
 - Replace specific names with generic identifiers (e.g., "John Smith" → "Sarah Connor" or "Charlotte Banks")
@@ -148,7 +124,7 @@ If the article contains specific information about individual people (names, per
 - Replace specific dates with relative terms when appropriate (e.g., "January 15th, 2023" → "recently" if the date is not crucial)
 - Maintain the factual content and medical/health information while removing personally identifiable details
 
-### 3.3 PRODUCT AND MERCHANDISE PRESERVATION
+### 3.2 PRODUCT AND MERCHANDISE PRESERVATION
 **CRITICAL: When the article refers to products, items, merchandise, or anything purchasable, PRESERVE the exact names:**
 
 - **DO NOT change product names** (e.g., "iPhone 15 Pro", "Nike Air Max", "Maybelline Fit Me Foundation")
@@ -165,9 +141,9 @@ If the article contains specific information about individual people (names, per
 **This ensures users can easily find and purchase the mentioned products online or in stores.**
 
 ## 4. OUTPUT FORMAT
-**CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable unless article is ignored.**
+**CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
-If the article is processed successfully, return the rewritten content in this exact JSON format:
+Return the rewritten content in this exact JSON format:
 
 {
   "mainTitle": "Rewritten main title here",
@@ -264,7 +240,7 @@ Your task is to:
 Rewrite the article to make it look different while preserving the same context:
 - Rewrite the title with different wording but same meaning
 - Rewrite all paragraphs with different sentence structure and vocabulary
-- Keep steps patterns if it inclued in the original article
+- Keep steps patterns if it included in the original article
 - **Make the tone casual, conversational, and easy to connect with readers**
 - Use "you" and "your" to directly address the reader
 - Write in a friendly, approachable style that feels like talking to a friend
@@ -341,26 +317,7 @@ Exclude all unrelated content such as:
 
 ## 3. CONTENT FILTERING RULES
 
-### 3.1 DATE-SPECIFIC CONTENT FILTERING
-Before processing the article, check if it contains content about specific one-time events that are no longer relevant:
-
-**IGNORE articles that are about:**
-- One-time sporting events (e.g., "World Cup Final 2018")
-- Specific conferences or events with exact dates
-- Political events tied to specific dates
-- Natural disasters with specific occurrence dates
-- Any event that happened only once and is tied to a specific date
-
-**DO NOT IGNORE articles about:**
-- Recurring holidays (Christmas, New Year, Easter, etc.)
-- Seasonal topics (summer health tips, winter wellness)
-- Annual events (Black Friday, Valentine's Day)
-- General health topics that may reference dates but aren't date-specific
-- Educational content about health, wellness, or general topics
-
-**If the article should be ignored due to date-specific content, return the default JSON with the key "mainTitle" equal to "Discarded"**
-
-### 3.2 PERSONAL INFORMATION ANONYMIZATION
+### 3.1 PERSONAL INFORMATION ANONYMIZATION
 If the article contains specific information about individual people (names, personal details, specific cases), anonymize them while preserving the informational value:
 
 - Replace specific names with generic identifiers (e.g., "John Smith" → "Sarah Connor" or "Charlotte Banks")
@@ -368,7 +325,7 @@ If the article contains specific information about individual people (names, per
 - Replace specific dates with relative terms when appropriate (e.g., "January 15th, 2023" → "recently" if the date is not crucial)
 - Maintain the factual content and medical/health information while removing personally identifiable details
 
-### 3.3 PRODUCT AND MERCHANDISE PRESERVATION
+### 3.2 PRODUCT AND MERCHANDISE PRESERVATION
 **CRITICAL: When the article refers to products, items, merchandise, or anything purchasable, PRESERVE the exact names:**
 
 - **DO NOT change product names** (e.g., "iPhone 15 Pro", "Nike Air Max", "Maybelline Fit Me Foundation")
@@ -387,7 +344,7 @@ If the article contains specific information about individual people (names, per
 ## 4. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
-If the article is processed successfully, return the rewritten content in this exact JSON format:
+Return the rewritten content in this exact JSON format:
 
 {
   "mainTitle": "Rewritten main title here",
@@ -461,16 +418,15 @@ Single quotes instead of double quotes
 
 1. **FIRST: Read and understand the article content (IN ENGLISH ONLY)**
 2. **SECOND: Count the total characters of the original article**
-3. **THIRD: Calculate minimum required length (longer tham original)**
-4. **FOURTH: Determine if the article should be ignored based on date-specific content rules**
-5. **FIFTH: Apply noise filtering**
-6. **SIXTH: Apply personal information anonymization if needed**
-7. **SEVENTH: Rewrite the content to make it look different while preserving context (IN ENGLISH ONLY)**
-8. **EIGHTH: Count the characterst of the rewritten content**
-9. **NINTH: CRITICAL - Verify the rewritten content is longer than the original AND in English only**
-10. **TENTH: If rewritten content is shorter than required, ADD MORE CONTENT immediately (IN ENGLISH ONLY)**
-11. **ELEVENTH: Structure the rewritten content into the required JSON format (IN ENGLISH ONLY)**
-12. **TWELFTH: Return the JSON output or appropriate ignore/error message (IN ENGLISH ONLY)**
+3. **THIRD: Calculate minimum required length (longer than original)**
+4. **FOURTH: Apply noise filtering**
+5. **FIFTH: Apply personal information anonymization if needed**
+6. **SIXTH: Rewrite the content to make it look different while preserving context (IN ENGLISH ONLY)**
+7. **SEVENTH: Count the characters of the rewritten content**
+8. **EIGHTH: CRITICAL - Verify the rewritten content is longer than the original AND in English only**
+9. **NINTH: If rewritten content is shorter than required, ADD MORE CONTENT immediately (IN ENGLISH ONLY)**
+10. **TENTH: Structure the rewritten content into the required JSON format (IN ENGLISH ONLY)**
+11. **ELEVENTH: Return the JSON output (IN ENGLISH ONLY)**
 
 **LENGTH VERIFICATION IS MANDATORY - DO NOT SKIP THIS STEP**
 

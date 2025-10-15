@@ -978,7 +978,12 @@
       "error": "Failed to delete article"
     },
     "imageAlt": " - Section ",
-    "exploreMore": "Selected articles just for you"
+    "exploreMore": "Selected articles just for you",
+    "error": {
+      "insufficientContent": "Insufficient Content",
+      "insufficientContentMessage": "This article does not meet the minimum content requirements for display.",
+      "requiredSections": "Required: {required} sections, Current: {current} sections"
+    }
   },
   "search": {
     "heroImageAlt": "Search Results",

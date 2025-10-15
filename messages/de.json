@@ -887,7 +887,12 @@
       "error": "Fehler beim Löschen des Artikels"
     },
     "imageAlt": " - Abschnitt ",
-    "exploreMore": "Ausgewählte Artikel nur für Sie"
+    "exploreMore": "Ausgewählte Artikel nur für Sie",
+    "error": {
+      "insufficientContent": "Unzureichender Inhalt",
+      "insufficientContentMessage": "Dieser Artikel erfüllt nicht die Mindestanforderungen für die Anzeige.",
+      "requiredSections": "Erforderlich: {required} Abschnitte, Aktuell: {current} Abschnitte"
+    }
   },
   "articles": {
     "categoryNotFound": "Kategorie nicht gefunden",
