@@ -18,8 +18,6 @@ import {
   VenusAndMars,
   Brush,
   Activity,
-  Plane,
-  House,
 } from "lucide-react";
 import {
   DropdownMenu,
