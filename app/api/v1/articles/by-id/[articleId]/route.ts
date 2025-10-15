@@ -18,7 +18,6 @@ interface UpdateArticleParams {
     imageFour: string;
   };
   articleImages?: File[] | string[];
-  articleVideo?: string;
   userId: string;
   isAdmin: boolean;
 }
@@ -57,7 +56,6 @@ export const PATCH = async (
     const category = formData.get("category") as string;
     const languagesRaw = formData.get("languages") as string;
     const imagesContextRaw = formData.get("imagesContext") as string;
-    const articleVideo = formData.get("articleVideo") as string;
     
     // Handle articleImages - can be File objects or URL strings
     // Method 1: Upload files (articleImageFiles field)
@@ -72,7 +70,6 @@ export const PATCH = async (
       articleId,
       userId: "",
       isAdmin: false,
-      articleVideo,
     };
 
     // Determine user ID and admin status

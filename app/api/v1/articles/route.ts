@@ -147,7 +147,6 @@ export const POST = async (req: Request) => {
     const category = formData.get("category") as string;
     const languagesRaw = formData.get("languages") as string;
     const imagesContextRaw = formData.get("imagesContext") as string;
-    const articleVideo = formData.get("articleVideo") as string;
     const customId = formData.get("id") as string; // Optional custom ID
     
     // Image handling - choose ONE method:
@@ -309,7 +308,7 @@ export const POST = async (req: Request) => {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["hreflang", "mediaContext", "seo", "content"],
+          reqFields: ["hreflang", "articleContext", "seo", "content"],
           nonReqFields: ["socialMedia"],
         }
       );
@@ -323,17 +322,15 @@ export const POST = async (req: Request) => {
         );
       }
 
-      // Validate mediaContext structure
+      // Validate articleContext structure
       if (
-        !language.mediaContext ||
-        !language.mediaContext.paragraphOne ||
-        !language.mediaContext.paragraphTwo ||
-        !language.mediaContext.paragraphThree
+        !language.articleContext ||
+        typeof language.articleContext !== "string" ||
+        language.articleContext.trim().length === 0
       ) {
         return new NextResponse(
           JSON.stringify({
-            message:
-              "Canvas must have paragraphOne, paragraphTwo, and paragraphThree!",
+            message: "ArticleContext must be a non-empty string!",
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
@@ -476,7 +473,6 @@ export const POST = async (req: Request) => {
       category: category,
       imagesContext,
       articleImages: [],
-      articleVideo: articleVideo || undefined,
       createdBy: creatorId,
     };
 

@@ -50,8 +50,8 @@
       "nutrition": "Ernährung",
       "intimacy": "Intimitat",
       "beauty": "Schönheit",
-      "travel": "Reisen",
-      "decor": "Haus & Dekoration"
+      "weightLoss": "Gewichtsverlust",
+      "life": "Leben"
     }
   },
   "dashboard": {
@@ -112,8 +112,8 @@
       "nutrition": "Ernährung",
       "intimacy": "Intimitat",
       "beauty": "Schönheit",
-      "travel": "Reisen",
-      "decor": "Haus & Dekoration"
+      "weightLoss": "Gewichtsverlust",
+      "life": "Leben"
     }
   },
   "profile": {
@@ -213,8 +213,8 @@
       "nutrition": "Ernährung",
       "intimacy": "Intimitat",
       "beauty": "Schönheit",
-      "travel": "Reisen",
-      "decor": "Haus & Dekoration"
+      "weightLoss": "Gewichtsverlust",
+      "life": "Leben"
     },
     "frequencies": {
       "daily": "Täglich",
@@ -467,15 +467,15 @@
       "description": "Unsere besten Einblicke in Beauty, eine umfassende Sammlung von Beauty-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "keywords": "beauty-artikel, beauty-tipps, hautpflege, makeup, beauty-routinen, beauty-beratung"
     },
-    "travel": {
-      "title": "Reiseartikel",
-      "description": "Unsere besten Einblicke in Reisen, eine umfassende Sammlung von Reiseartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
-      "keywords": "reiseartikel, reisetipps, reiseführer, urlaubsberatung, reiseziele, reise-wellness"
+    "weightLoss": {
+      "title": "Gewichtsverlust-Artikel",
+      "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
+      "keywords": "gewichtsverlust-artikel, gewichtsverlust-tipps, gesundes gewichtsmanagement, diät-tipps, fitness für gewichtsverlust, gewichtsverlust-strategien"
     },
-    "decor": {
-      "title": "Dekorationsartikel",
-      "description": "Unsere besten Einblicke in Dekoration, eine umfassende Sammlung von Dekorationsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
-      "keywords": "dekorationsartikel, wohndekoration, innenarchitektur, haustipps, dekorationsführer, hausverbesserung"
+    "life": {
+      "title": "Lebensartikel",
+      "description": "Unsere besten Einblicke ins Leben, eine umfassende Sammlung von Lebensartikeln, Tipps und Leitfäden, um Ihnen zu helfen, Ihr bestes Leben zu leben.",
+      "keywords": "lebensartikel, lebens-tipps, lebensstil-beratung, persönlichkeitsentwicklung, lebensbalance, lebensziele, lebens-inspiration"
     },
     "confirmEmail": {
       "title": "E-Mail bestätigen - Women's Spot",
@@ -525,13 +525,17 @@
         "title": "Fitness & Schönheit",
         "description": "Expertenratschläge zu Workouts, Schönheitsroutinen und Selbstpflegepraktiken."
       },
-      "travelDecor": {
-        "title": "Reisen & Dekoration",
-        "description": "Tipps für Wohnkultur, Reiseerfahrungen und Work-Life-Balance."
-      },
       "intimacy": {
         "title": "Beziehungen & Intimitat",
         "description": "Offene, ehrliche Diskussionen über Beziehungen, Intimität und sexuelle Gesundheit für Frauen."
+      },
+      "weightLoss": {
+        "title": "Gewichtsverlust und Gesundheitsziele",
+        "description": "Expertenberatung zu gesundem Gewichtsmanagement, Fitness und Erreichen Ihrer Gesundheitsziele."
+      },
+      "life": {
+        "title": "Leben und Persönlichkeitsentwicklung",
+        "description": "Lebensberatung, Persönlichkeitsentwicklung, Lebensstil-Tipps und Inspiration für Ihr bestes Leben."
       }
     },
     "editorialStandards": {
@@ -954,30 +958,30 @@
         "description": "Unsere umfassende Sammlung von Schönheitsartikeln, Tipps, alles was Sie über Schönheit und Wellness wissen müssen."
       }
     },
-    "travel": {
-      "heroImageAlt": "Reiseartikel Hero-Bild",
-      "title": "Reiseartikel",
-      "description": "Unsere besten Einblicke in Reisen, eine umfassende Sammlung von Reiseartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+    "weightLoss": {
+      "heroImageAlt": "Gewichtsverlust-Artikel Hero-Bild",
+      "title": "Gewichtsverlust-Artikel",
+      "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps und Anleitungen, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
       "featuredArticles": {
-        "title": " Ausgewählte Reiseartikel",
-        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Reisen und Wellness auf dem Laufenden halten."
+        "title": " Ausgewählte Gewichtsverlust-Artikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Gewichtsverlust und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Reiseartikel erkunden",
-        "description": "Unsere umfassende Sammlung von Reiseartikeln, Tipps, alles was Sie über Reisen und Wellness wissen müssen."
+        "title": "Gewichtsverlust-Artikel erkunden",
+        "description": "Unsere umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps, alles was Sie über gesundes Gewichtsmanagement wissen müssen."
       }
     },
-    "decor": {
-      "heroImageAlt": "Dekorationsartikel Hero-Bild",
-      "title": "Dekorationsartikel",
-      "description": "Unsere besten Einblicke in Dekoration, eine umfassende Sammlung von Dekorationsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+    "life": {
+      "heroImageAlt": "Lebensartikel Hero-Bild",
+      "title": "Lebensartikel",
+      "description": "Unsere besten Einblicke ins Leben, eine umfassende Sammlung von Lebensartikeln, Tipps und Anleitungen, um Ihnen zu helfen, Ihr bestes Leben zu leben.",
       "featuredArticles": {
-        "title": " Ausgewählte Dekorationsartikel",
-        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Dekoration und Wellness auf dem Laufenden halten."
+        "title": " Ausgewählte Lebensartikel",
+        "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends im Leben und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Dekorationsartikel erkunden",
-        "description": "Unsere umfassende Sammlung von Dekorationsartikeln, Tipps, alles was Sie über Dekoration und Wellness wissen müssen."
+        "title": "Lebensartikel erkunden",
+        "description": "Unsere umfassende Sammlung von Lebensartikeln, Tipps, alles was Sie über ein erfülltes Leben wissen müssen."
       }
     }
   },

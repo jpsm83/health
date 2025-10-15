@@ -50,8 +50,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimite",
       "beauty": "Beauté",
-      "travel": "Voyage",
-      "decor": "Maison et Décoration"
+      "weightLoss": "Perte de Poids",
+      "life": "Vie"
     }
   },
   "dashboard": {
@@ -112,8 +112,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimite",
       "beauty": "Beauté",
-      "travel": "Voyage",
-      "decor": "Maison et Décoration"
+      "weightLoss": "Perte de Poids",
+      "life": "Vie"
     }
   },
   "profile": {
@@ -213,8 +213,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimite",
       "beauty": "Beauté",
-      "travel": "Voyage",
-      "decor": "Maison et Décoration"
+      "weightLoss": "Perte de Poids",
+      "life": "Vie"
     },
     "frequencies": {
       "daily": "Quotidien",
@@ -441,15 +441,15 @@
       "description": "Nos meilleurs insights sur la beauté, une collection complète d'articles de beauté, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
       "keywords": "articles de beauté, conseils de beauté, soins de la peau, maquillage, routines de beauté, conseils de beauté"
     },
-    "travel": {
-      "title": "Articles de Voyage",
-      "description": "Nos meilleurs insights sur le voyage, une collection complète d'articles de voyage, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
-      "keywords": "articles de voyage, conseils de voyage, guides de voyage, conseils de vacances, destinations de voyage, bien-être de voyage"
+    "weightLoss": {
+      "title": "Articles de Perte de Poids",
+      "description": "Nos meilleurs insights sur la perte de poids, une collection complète d'articles de perte de poids, conseils et guides pour vous aider à atteindre vos objectifs de santé.",
+      "keywords": "articles de perte de poids, conseils de perte de poids, gestion saine du poids, conseils de régime, fitness pour perte de poids, stratégies de perte de poids"
     },
-    "decor": {
-      "title": "Articles de Décoration",
-      "description": "Nos meilleurs insights sur la décoration, une collection complète d'articles de décoration, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
-      "keywords": "articles de décoration, décoration de maison, design d'intérieur, conseils de maison, guides de décoration, amélioration de la maison"
+    "life": {
+      "title": "Articles de Vie",
+      "description": "Nos meilleurs insights sur la vie, une collection complète d'articles de vie, conseils et guides pour vous aider à vivre votre meilleure vie.",
+      "keywords": "articles de vie, conseils de vie, conseils de style de vie, développement personnel, équilibre de vie, objectifs de vie, inspiration de vie"
     },
     "confirmEmail": {
       "title": "Confirmer l'Email - Women's Spot",
@@ -499,13 +499,17 @@
         "title": "Forme Physique et Beauté",
         "description": "Conseils d'experts sur les entraînements, les routines de beauté et les pratiques d'auto-soins."
       },
-      "travelDecor": {
-        "title": "Voyage et Décoration",
-        "description": "Conseils pour la décoration de la maison, les expériences de voyage et l'équilibre travail-vie."
-      },
       "intimacy": {
         "title": "Relations et Sexualité",
         "description": "Discussions ouvertes et honnêtes sur les relations, l'intimité et la santé sexuelle pour les femmes."
+      },
+      "weightLoss": {
+        "title": "Perte de Poids et Objectifs de Santé",
+        "description": "Conseils d'experts sur la gestion saine du poids, le fitness et l'atteinte de vos objectifs de santé."
+      },
+      "life": {
+        "title": "Vie et Développement Personnel",
+        "description": "Conseils de vie, développement personnel, conseils de style de vie et inspiration pour vivre votre meilleure vie."
       }
     },
     "editorialStandards": {
@@ -928,30 +932,30 @@
         "description": "Notre collection complète d'articles de beauté, conseils, tout ce que vous devez savoir sur la beauté et le bien-être."
       }
     },
-    "travel": {
-      "heroImageAlt": "Image héro des articles de voyage",
-      "title": "Articles de Voyage",
-      "description": "Nos meilleures idées sur le voyage, une collection complète d'articles de voyage, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+    "weightLoss": {
+      "heroImageAlt": "Image héro des articles de perte de poids",
+      "title": "Articles de Perte de Poids",
+      "description": "Nos meilleures idées sur la perte de poids, une collection complète d'articles de perte de poids, conseils et guides pour vous aider à atteindre vos objectifs de santé.",
       "featuredArticles": {
-        "title": " Articles de Voyage en Vedette",
-        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en voyage et bien-être."
+        "title": " Articles de Perte de Poids en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en perte de poids et bien-être."
       },
       "explore": {
-        "title": "Explorer les Articles de Voyage",
-        "description": "Notre collection complète d'articles de voyage, conseils, tout ce que vous devez savoir sur le voyage et le bien-être."
+        "title": "Explorer les Articles de Perte de Poids",
+        "description": "Notre collection complète d'articles de perte de poids, conseils, tout ce que vous devez savoir sur la gestion saine du poids."
       }
     },
-    "decor": {
-      "heroImageAlt": "Image héro des articles de décoration",
-      "title": "Articles de Décoration",
-      "description": "Nos meilleures idées sur la décoration, une collection complète d'articles de décoration, conseils et guides pour vous aider à vivre une vie plus saine et plus épanouissante.",
+    "life": {
+      "heroImageAlt": "Image héro des articles de vie",
+      "title": "Articles de Vie",
+      "description": "Nos meilleures idées sur la vie, une collection complète d'articles de vie, conseils et guides pour vous aider à vivre votre meilleure vie.",
       "featuredArticles": {
-        "title": " Articles de Décoration en Vedette",
-        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en décoration et bien-être."
+        "title": " Articles de Vie en Vedette",
+        "description": "Découvrez nos dernières nouvelles, conseils et guides, vous tenant à jour avec les dernières tendances en vie et bien-être."
       },
       "explore": {
-        "title": "Explorer les Articles de Décoration",
-        "description": "Notre collection complète d'articles de décoration, conseils, tout ce que vous devez savoir sur la décoration et le bien-être."
+        "title": "Explorer les Articles de Vie",
+        "description": "Notre collection complète d'articles de vie, conseils, tout ce que vous devez savoir sur vivre une vie épanouie."
       }
     }
   },

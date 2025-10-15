@@ -1,6 +1,27 @@
 import { Metadata } from 'next';
-import { IMetaDataArticle } from '@/types/article';
+import { IMetaDataArticle, ISocialMedia } from '@/types/article';
 import { languageMap } from './genericMetadata';
+
+// Helper function to extract social media images from article data
+export function extractSocialMediaImages(socialMedia?: ISocialMedia): {
+  facebook?: string;
+  instagram?: string;
+  xTwitter?: string;
+  pinterest?: string;
+  tiktok?: string;
+  threads?: string;
+} | undefined {
+  if (!socialMedia) return undefined;
+  
+  return {
+    facebook: socialMedia.facebook?.postImage,
+    instagram: socialMedia.instagram?.postImage,
+    xTwitter: socialMedia.xTwitter?.postImage,
+    pinterest: socialMedia.pinterest?.postImage,
+    tiktok: socialMedia.tiktok?.postImage,
+    threads: socialMedia.threads?.postImage,
+  };
+}
 
 // Generate comprehensive metadata for article pages
 // Optimized for video prioritization on all major social media platforms
@@ -8,23 +29,83 @@ export async function generateArticleMetadata(
   metaContent: IMetaDataArticle
 ): Promise<Metadata> {
   
-  // Enhanced image handling for social media
-  const enhancedImages = metaContent.articleImages?.length > 0
-    ? metaContent.articleImages.map((img: string) => ({
-        url: img,
-        width: 1024,
-        height: 1024,
-        alt: metaContent.seo.metaTitle || 'Article image',
-        type: 'image/png',
-        secureUrl: img.startsWith('https') ? img : undefined,
-      }))
-    : [{
-        url: '/womens-spot.png',
-        width: 1200,
-        height: 630,
-        alt: 'Women\'s Spot - Empowering Women',
-        type: 'image/png',
-      }];
+  // Extract social media specific postImages
+  const socialMediaImages = extractSocialMediaImages(metaContent.socialMedia);
+
+  // Enhanced image handling for social media - prioritize platform-specific images
+  const enhancedImages = socialMediaImages 
+    ? [
+        // Facebook image (1440x1800 recommended)
+        ...(socialMediaImages.facebook ? [{
+          url: socialMediaImages.facebook,
+          width: 1440,
+          height: 1800,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: socialMediaImages.facebook.startsWith('https') ? socialMediaImages.facebook : undefined,
+        }] : []),
+        // Instagram image (1080x1440 recommended)
+        ...(socialMediaImages.instagram ? [{
+          url: socialMediaImages.instagram,
+          width: 1080,
+          height: 1440,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: socialMediaImages.instagram.startsWith('https') ? socialMediaImages.instagram : undefined,
+        }] : []),
+        // Pinterest image (1000x1500 recommended)
+        ...(socialMediaImages.pinterest ? [{
+          url: socialMediaImages.pinterest,
+          width: 1000,
+          height: 1500,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: socialMediaImages.pinterest.startsWith('https') ? socialMediaImages.pinterest : undefined,
+        }] : []),
+        // X/Twitter image (1200x600 recommended)
+        ...(socialMediaImages.xTwitter ? [{
+          url: socialMediaImages.xTwitter,
+          width: 1200,
+          height: 600,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: socialMediaImages.xTwitter.startsWith('https') ? socialMediaImages.xTwitter : undefined,
+        }] : []),
+        // TikTok image (1080x1920 recommended)
+        ...(socialMediaImages.tiktok ? [{
+          url: socialMediaImages.tiktok,
+          width: 1080,
+          height: 1920,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: socialMediaImages.tiktok.startsWith('https') ? socialMediaImages.tiktok : undefined,
+        }] : []),
+        // Threads image (1080x1920 recommended)
+        ...(socialMediaImages.threads ? [{
+          url: socialMediaImages.threads,
+          width: 1080,
+          height: 1080,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: socialMediaImages.threads.startsWith('https') ? socialMediaImages.threads : undefined,
+        }] : []),
+      ]
+    : metaContent.articleImages?.length > 0
+      ? metaContent.articleImages.map((img: string) => ({
+          url: img,
+          width: 1024,
+          height: 1024,
+          alt: metaContent.seo.metaTitle || 'Article image',
+          type: 'image/png',
+          secureUrl: img.startsWith('https') ? img : undefined,
+        }))
+      : [{
+          url: 'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png',
+          width: 1792,
+          height: 1024,
+          alt: 'Women\'s Spot - Empowering Women',
+          type: 'image/png',
+        }];
 
   // Determine proper language code
   const properLang = languageMap[metaContent.seo.hreflang] || metaContent.seo.hreflang || 'en-US';
@@ -36,14 +117,6 @@ export async function generateArticleMetadata(
   const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL}`;
   const author = metaContent.createdBy || 'Women\'s Spot Team';
   
-  // Video metadata object if video exists
-  const videoMeta = metaContent.articleVideo ? {
-    url: metaContent.articleVideo,
-    secureUrl: metaContent.articleVideo.startsWith('https') ? metaContent.articleVideo : undefined,
-    type: 'video/mp4',
-    width: 720,
-    height: 1280,
-  } : undefined;
 
   return {
     title,
@@ -67,11 +140,8 @@ export async function generateArticleMetadata(
       url: canonicalUrl,
       siteName: 'Women\'s Spot',
       locale: properLang,
-      type: videoMeta ? 'video.other' : 'article',
-      // Video comes first to maximize priority
-      videos: videoMeta ? [videoMeta] : undefined,
-      // Only include images if no video (forces Pinterest to use video)
-      images: videoMeta ? undefined : enhancedImages,
+      type: 'article',
+      images: enhancedImages,
       publishedTime: metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
       modifiedTime: metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
       authors: [author],
@@ -83,7 +153,7 @@ export async function generateArticleMetadata(
       card: 'summary_large_image', // Use summary card for better compatibility
       title,
       description,
-      images: metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png'],
+      images: socialMediaImages?.xTwitter ? [socialMediaImages.xTwitter] : (metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png']),
       creator: author,
       site: '@womensspot', // Replace with your Twitter handle
     },
@@ -92,24 +162,35 @@ export async function generateArticleMetadata(
       language: metaContent.seo.hreflang || properLang,
       'pinterest:rich-pin': 'true',
       'whatsapp:description': description,
-      // Pinterest video support (when video exists) - these come first to prioritize video
-      ...(videoMeta && {
-        'og:video': videoMeta.url,
-        'og:video:type': videoMeta.type,
-        'og:video:width': videoMeta.width.toString(),
-        'og:video:height': videoMeta.height.toString(),
-        'og:video:secure_url': videoMeta.secureUrl,
-        'pinterest:video': videoMeta.url,
-        'pinterest:video:type': videoMeta.type,
-        'pinterest:video:width': videoMeta.width.toString(),
-        'pinterest:video:height': videoMeta.height.toString(),
+      // Platform-specific image metadata
+      ...(socialMediaImages?.facebook && {
+        'og:image': socialMediaImages.facebook,
+        'og:image:width': '1440',
+        'og:image:height': '1800',
+        'og:image:type': 'image/png',
       }),
-      // Twitter video support (when video exists)
-      ...(videoMeta && {
-        'twitter:player': videoMeta.url,
-        'twitter:player:width': videoMeta.width.toString(),
-        'twitter:player:height': videoMeta.height.toString(),
-        'twitter:player:stream': videoMeta.url,
+      ...(socialMediaImages?.instagram && {
+        'og:image:instagram': socialMediaImages.instagram,
+      }),
+      ...(socialMediaImages?.pinterest && {
+        'pinterest:image': socialMediaImages.pinterest,
+        'pinterest:image:width': '1000',
+        'pinterest:image:height': '1500',
+      }),
+      ...(socialMediaImages?.xTwitter && {
+        'twitter:image': socialMediaImages.xTwitter,
+        'twitter:image:width': '1200',
+        'twitter:image:height': '600',
+      }),
+      ...(socialMediaImages?.tiktok && {
+        'tiktok:image': socialMediaImages.tiktok,
+        'tiktok:image:width': '1080',
+        'tiktok:image:height': '1920',
+      }),
+      ...(socialMediaImages?.threads && {
+        'threads:image': socialMediaImages.threads,
+        'threads:image:width': '1080',
+        'threads:image:height': '1920',
       }),
       'theme-color': '#8B5CF6',
       'msapplication-TileColor': '#8B5CF6',

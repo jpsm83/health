@@ -2,7 +2,7 @@
   "home": {
     "title": "Welcome to your spot",
     "subtitle": "Inspiring Every Chapter of Women's Everyday Life",
-    "description": "Discover a space made for women who embrace wellness, style, and everyday joy. Where fitness, health, beauty, food, travel, and home all come together in one inspiring daily destination.",
+    "description": "Discover a space made for women who embrace wellness, style, and everyday joy. Where fitness, health, beauty, and nutrition all come together in one inspiring daily destination.",
     "heroImageAlt": "Health and Wellness",
     "exploreByCategory": {
       "title": "Explore by Category",
@@ -52,8 +52,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "travel": "Travel",
-      "decor": "Decor"
+      "weightLoss": "Weight Loss",
+      "life": "Life"
     }
   },
   "dashboard": {
@@ -113,8 +113,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "travel": "Travel",
-      "decor": "Decor"
+      "weightLoss": "Weight Loss",
+      "life": "Life"
     }
   },
   "profile": {
@@ -214,8 +214,8 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "travel": "Travel",
-      "decor": "Decor"
+      "weightLoss": "Weight Loss",
+      "life": "Life"
     },
     "frequencies": {
       "daily": "Daily",
@@ -316,30 +316,30 @@
         "description": "Our comprehensive collection of beauty articles, tips, everthing you need to know about beauty and wellness."
       }
     },
-    "travel": {
-      "heroImageAlt": "Travel Articles Hero Image",
-      "title": "Travel Articles",
-      "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
+    "weightLoss": {
+      "heroImageAlt": "Weight Loss Articles Hero Image",
+      "title": "Weight Loss Articles",
+      "description": "Our best insights on weight loss, a comprehensive collection of weight loss articles, tips, and guides to help you achieve your health goals.",
       "featuredArticles": {
-        "title": " Featured Travel Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in travel and wellness."
+        "title": " Featured Weight Loss Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in weight loss and wellness."
       },
       "explore": {
-        "title": "Explore Travel Articles",
-        "description": "Our comprehensive collection of travel articles, tips, everthing you need to know about travel and wellness."
+        "title": "Explore Weight Loss Articles",
+        "description": "Our comprehensive collection of weight loss articles, tips, everything you need to know about healthy weight management."
       }
     },
-    "decor": {
-      "heroImageAlt": "Decor Articles Hero Image",
-      "title": "Decor Articles",
-      "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
+    "life": {
+      "heroImageAlt": "Life Articles Hero Image",
+      "title": "Life Articles",
+      "description": "Our best insights on life, a comprehensive collection of life articles, tips, and guides to help you live your best life.",
       "featuredArticles": {
-        "title": " Featured Decor Articles",
-        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in decor and wellness."
+        "title": " Featured Life Articles",
+        "description": "Discover our latest news, tips, and guides, keeping you up to date with the latest in life and wellness."
       },
       "explore": {
-        "title": "Explore Decor Articles",
-        "description": "Our comprehensive collection of decor articles, tips, everthing you need to know about decor and wellness."
+        "title": "Explore Life Articles",
+        "description": "Our comprehensive collection of life articles, tips, everything you need to know about living a fulfilling life."
       }
     }
   },
@@ -541,15 +541,15 @@
       "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
       "keywords": "beauty articles, beauty tips, skincare, makeup, beauty routines, beauty advice"
     },
-    "travel": {
-      "title": "Travel Articles",
-      "description": "Our best insights on travel, a comprehensive collection of travel articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "travel articles, travel tips, travel guides, vacation advice, travel destinations, travel wellness"
+    "weightLoss": {
+      "title": "Weight Loss Articles",
+      "description": "Our best insights on weight loss, a comprehensive collection of weight loss articles, tips, and guides to help you achieve your health goals.",
+      "keywords": "weight loss articles, weight loss tips, healthy weight management, diet tips, fitness for weight loss, weight loss strategies"
     },
-    "decor": {
-      "title": "Decor Articles",
-      "description": "Our best insights on decor, a comprehensive collection of decor articles, tips, and guides to help you live a healthier, more fulfilling life.",
-      "keywords": "decor articles, home decor, interior design, home tips, decorating guides, home improvement"
+    "life": {
+      "title": "Life Articles",
+      "description": "Our best insights on life, a comprehensive collection of life articles, tips, and guides to help you live your best life.",
+      "keywords": "life articles, life tips, lifestyle advice, personal development, life balance, life goals, life inspiration"
     },
     "confirmEmail": {
       "title": "Confirm Email - Women's Spot",
@@ -599,13 +599,17 @@
         "title": "Fitness & Beauty",
         "description": "Expert advice on workouts, beauty routines, and self-care practices."
       },
-      "travelDecor": {
-        "title": "Travel & Decor",
-        "description": "Tips for home decor, travel experiences, and work-life balance."
-      },
       "intimacy": {
         "title": "Relationships & Intimacy",
         "description": "Open, honest discussions about relationships, intimacy, and sexual health for women's."
+      },
+      "weightLoss": {
+        "title": "Weight Loss & Health Goals",
+        "description": "Expert guidance on healthy weight management, fitness, and achieving your health goals."
+      },
+      "life": {
+        "title": "Life & Personal Development",
+        "description": "Life advice, personal development, lifestyle tips, and inspiration for living your best life."
       }
     },
     "editorialStandards": {

@@ -38,11 +38,11 @@ export interface ISeo {
 export interface IMetaDataArticle {
   createdBy: string;
   articleImages: string[];
-  articleVideo?: string;
   category: string;
   createdAt: Date | string;
   updatedAt: Date | string;
   seo: ISeo;
+  socialMedia?: ISocialMedia;
 }
 
 export interface IArticleContent {
@@ -50,68 +50,59 @@ export interface IArticleContent {
   articleParagraphs: string[];
 }
 
-// Canvas schema interface
-export interface ICanvas {
-  paragraphOne: string;
-  paragraphTwo: string;
-  paragraphThree: string;
+// Article context interface - single string field
+export interface IArticleContext {
+  articleContext: string;
 }
 
 // Social media interfaces
 export interface IInstagram {
-  caption?: string;
-  hashtags?: string[];
+  caption: string;
+  hashtags: string[];
   altText?: string;
-  video?: string;
-  url: string;
+  postImage: string;
 }
 
 export interface IFacebook {
-  message?: string;
-  headline?: string;
-  linkDescription?: string;
-  hashtags?: string[];
-  video?: string;
+  message: string;
+  headline: string;
+  linkDescription: string;
+  hashtags: string[];
   callToAction?: string;
-  url: string;
+  postImage: string;
 }
 
 export interface IXTwitter {
-  text?: string;
-  hashtags?: string[];
-  video?: string;
-  url: string;
+  text: string;
+  hashtags: string[];
+  postImage: string;
 }
 
 export interface IPinterest {
-  title?: string;
-  description?: string;
-  hashtags?: string[];
-  video?: string;
-  altText?: string;
-  url: string;
+  title: string;
+  description: string;
+  hashtags: string[];
+  altText: string;
+  postImage: string;
 }
 
 export interface IYouTube {
-  title?: string;
-  description?: string;
-  tags?: string[];
-  video: string;
-  url: string;
+  title: string;
+  description: string;
+  tags: string[];
+  postImage: string;
 }
 
 export interface IThreads {
-  text?: string;
-  video?: string;
-  hashtags?: string[];
-  url: string;
+  text: string;
+  hashtags: string[];
+  postImage: string;
 }
 
 export interface ITikTok {
-  caption?: string;
-  hashtags?: string[];
-  video: string;
-  url: string;
+  caption: string;
+  hashtags: string[];
+  postImage: string;
 }
 
 export interface ISocialMedia {
@@ -127,7 +118,7 @@ export interface ISocialMedia {
 // New unified language-specific interface
 export interface ILanguageSpecific {
   hreflang: string;
-  mediaContext: ICanvas;
+  articleContext: string;
   seo: ISeo;
   content: {
     mainTitle: string;
@@ -159,7 +150,6 @@ export interface IArticle {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
-  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
   commentsCount?: number;
@@ -177,7 +167,6 @@ export interface IArticleDocument extends Document {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
-  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
   commentsCount: number;
@@ -196,7 +185,6 @@ export interface IArticleLean {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
-  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: Types.ObjectId[];
   commentsCount: number;
@@ -215,7 +203,6 @@ export interface ISerializedArticle {
   category: (typeof mainCategories)[number];
   imagesContext: IImagesContext;
   articleImages: string[];
-  articleVideo?: string;
   status?: (typeof articleStatus)[number];
   likes?: string[];
   commentsCount: number;

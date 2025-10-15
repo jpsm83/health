@@ -7,13 +7,9 @@ export const mainCategories = [
   "nutrition",
   "intimacy",
   "beauty",
-  "travel",
-  "decor",
+  "weightLoss",
+  "life",
 ];
-
-// [
-//   "w-health", "w-fitness", "w-nutrition", "w-intimacy", "w-beauty", "m-health", "m-fitness", "m-nutrition", "m-body-care", "travel", "decor", "finance", "procuctivity", "crypto", "gaming", "technology"
-// ];
 
 export const newsletterFrequencies = ["daily", "weekly", "monthly"];
 
@@ -30,6 +26,6 @@ export const categoryHeroImages = {
   nutrition: "https://res.cloudinary.com/jpsm83/image/upload/v1760115243/health/bpkjpqjipibnwqeuabmq.png",
   intimacy: "https://res.cloudinary.com/jpsm83/image/upload/v1760167913/health/v35vhnluyjpwab6qml2z.jpg",
   beauty: "https://res.cloudinary.com/jpsm83/image/upload/v1760116224/health/rgmecdllfqgaeborqkur.png",
-  travel: "https://res.cloudinary.com/jpsm83/image/upload/v1760116873/health/aa6zfbah9gfrohndeuho.png",
-  decor: "https://res.cloudinary.com/jpsm83/image/upload/v1760117053/health/ioitn3pi25md4ocmcca6.png",
+  weightLoss: "https://res.cloudinary.com/jpsm83/image/upload/v1760116224/health/rgmecdllfqgaeborqkur.png",
+  life: "https://res.cloudinary.com/jpsm83/image/upload/v1760116224/health/rgmecdllfqgaeborqkur.png",
 } as const;

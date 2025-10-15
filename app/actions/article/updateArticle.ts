@@ -19,7 +19,6 @@ interface UpdateArticleParams {
     imageFour: string;
   };
   articleImages?: File[] | string[];
-  articleVideo?: string;
   userId: string;
   isAdmin?: boolean;
 }
@@ -30,7 +29,6 @@ export async function updateArticle({
   languages,
   imagesContext,
   articleImages,
-  articleVideo,
   userId,
   isAdmin = false,
 }: UpdateArticleParams) {
@@ -66,10 +64,6 @@ export async function updateArticle({
     // Prepare update object
     const updateData: Partial<IArticle> = {};
 
-    // Update articleVideo if provided
-    if (articleVideo !== undefined) {
-      updateData.articleVideo = articleVideo;
-    }
 
     // Update category if provided
     if (category) {
@@ -98,10 +92,10 @@ export async function updateArticle({
           language as unknown as {
             [key: string]: string | number | boolean | undefined;
           },
-          {
-            reqFields: ["hreflang", "mediaContext", "seo", "content"],
-            nonReqFields: ["socialMedia"],
-          }
+        {
+          reqFields: ["hreflang", "articleContext", "seo", "content"],
+          nonReqFields: ["socialMedia"],
+        }
         );
 
         if (languageValidation !== true) {
@@ -111,17 +105,15 @@ export async function updateArticle({
           };
         }
 
-        // Validate mediaContext structure
+        // Validate articleContext structure
         if (
-          !language.mediaContext ||
-          !language.mediaContext.paragraphOne ||
-          !language.mediaContext.paragraphTwo ||
-          !language.mediaContext.paragraphThree
+          !language.articleContext ||
+          typeof language.articleContext !== "string" ||
+          language.articleContext.trim().length === 0
         ) {
           return {
             success: false,
-            message:
-              "MediaContext must have paragraphOne, paragraphTwo, and paragraphThree",
+            message: "ArticleContext must be a non-empty string",
           };
         }
 

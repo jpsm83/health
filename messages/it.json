@@ -50,8 +50,8 @@
       "nutrition": "Nutrizione",
       "intimacy": "intimità",
       "beauty": "Bellezza",
-      "travel": "Viaggi",
-      "decor": "Casa e Decorazione"
+      "weightLoss": "Perdita di Peso",
+      "life": "Vita"
     }
   },
   "dashboard": {
@@ -87,8 +87,8 @@
       "nutrition": "Nutrizione",
       "intimacy": "intimità",
       "beauty": "Bellezza",
-      "travel": "Viaggi",
-      "decor": "Casa e Decorazione"
+      "weightLoss": "Perdita di Peso",
+      "life": "Vita"
     }
   },
   "profile": {
@@ -188,8 +188,8 @@
       "nutrition": "Nutrizione",
       "intimacy": "intimità",
       "beauty": "Bellezza",
-      "travel": "Viaggi",
-      "decor": "Casa e Decorazione"
+      "weightLoss": "Perdita di Peso",
+      "life": "Vita"
     },
     "frequencies": {
       "daily": "Giornaliero",
@@ -313,30 +313,30 @@
         "description": "La nostra collezione completa di articoli di bellezza, consigli, tutto quello che devi sapere su bellezza e benessere."
       }
     },
-    "travel": {
-      "heroImageAlt": "Immagine hero degli articoli di viaggio",
-      "title": "Articoli di Viaggio",
-      "description": "I nostri migliori approfondimenti sui viaggi, una collezione completa di articoli di viaggio, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
+    "weightLoss": {
+      "heroImageAlt": "Immagine hero degli articoli di perdita di peso",
+      "title": "Articoli di Perdita di Peso",
+      "description": "I nostri migliori approfondimenti sulla perdita di peso, una collezione completa di articoli di perdita di peso, consigli e guide per aiutarti a raggiungere i tuoi obiettivi di salute.",
       "featuredArticles": {
-        "title": " Articoli di Viaggio in Evidenza",
-        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in viaggi e benessere."
+        "title": " Articoli di Perdita di Peso in Evidenza",
+        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in perdita di peso e benessere."
       },
       "explore": {
-        "title": "Esplora Articoli di Viaggio",
-        "description": "La nostra collezione completa di articoli di viaggio, consigli, tutto quello che devi sapere su viaggi e benessere."
+        "title": "Esplora Articoli di Perdita di Peso",
+        "description": "La nostra collezione completa di articoli di perdita di peso, consigli, tutto quello che devi sapere sulla gestione sana del peso."
       }
     },
-    "decor": {
-      "heroImageAlt": "Immagine hero degli articoli di decorazione",
-      "title": "Articoli di Decorazione",
-      "description": "I nostri migliori approfondimenti sulla decorazione, una collezione completa di articoli di decorazione, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
+    "life": {
+      "heroImageAlt": "Immagine hero degli articoli di vita",
+      "title": "Articoli di Vita",
+      "description": "I nostri migliori approfondimenti sulla vita, una collezione completa di articoli di vita, consigli e guide per aiutarti a vivere la tua migliore vita.",
       "featuredArticles": {
-        "title": " Articoli di Decorazione in Evidenza",
-        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in decorazione e benessere."
+        "title": " Articoli di Vita in Evidenza",
+        "description": "Scopri le nostre ultime notizie, consigli e guide, tenendoti aggiornato con le ultime tendenze in vita e benessere."
       },
       "explore": {
-        "title": "Esplora Articoli di Decorazione",
-        "description": "La nostra collezione completa di articoli di decorazione, consigli, tutto quello che devi sapere su decorazione e benessere."
+        "title": "Esplora Articoli di Vita",
+        "description": "La nostra collezione completa di articoli di vita, consigli, tutto quello che devi sapere su come vivere una vita appagante."
       }
     }
   },
@@ -536,15 +536,15 @@
       "description": "I nostri migliori approfondimenti sulla bellezza, una collezione completa di articoli di bellezza, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
       "keywords": "articoli di bellezza, consigli di bellezza, cura della pelle, trucco, routine di bellezza, consigli di bellezza"
     },
-    "travel": {
-      "title": "Articoli di Viaggio",
-      "description": "I nostri migliori approfondimenti sui viaggi, una collezione completa di articoli di viaggio, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "keywords": "articoli di viaggio, consigli di viaggio, guide di viaggio, consigli di vacanza, destinazioni di viaggio, benessere di viaggio"
+    "weightLoss": {
+      "title": "Articoli di Perdita di Peso",
+      "description": "I nostri migliori approfondimenti sulla perdita di peso, una collezione completa di articoli di perdita di peso, consigli e guide per aiutarti a raggiungere i tuoi obiettivi di salute.",
+      "keywords": "articoli di perdita di peso, consigli di perdita di peso, gestione sana del peso, consigli dietetici, fitness per perdita di peso, strategie di perdita di peso"
     },
-    "decor": {
-      "title": "Articoli di Decorazione",
-      "description": "I nostri migliori approfondimenti sulla decorazione, una collezione completa di articoli di decorazione, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
-      "keywords": "articoli di decorazione, decorazione della casa, design d'interni, consigli per la casa, guide di decorazione, miglioramenti della casa"
+    "life": {
+      "title": "Articoli di Vita",
+      "description": "I nostri migliori approfondimenti sulla vita, una collezione completa di articoli di vita, consigli e guide per aiutarti a vivere la tua migliore vita.",
+      "keywords": "articoli di vita, consigli di vita, consigli di stile di vita, sviluppo personale, equilibrio di vita, obiettivi di vita, ispirazione di vita"
     },
     "confirmEmail": {
       "title": "Conferma Email - Women's Spot",
@@ -594,13 +594,17 @@
         "title": "Fitness e Bellezza",
         "description": "Consigli di esperti su allenamenti, routine di bellezza e pratiche di autocura."
       },
-      "travelDecor": {
-        "title": "Viaggi e Decorazione",
-        "description": "Consigli per decorazione della casa, esperienze di viaggio ed equilibrio lavoro-vita."
-      },
       "intimacy": {
         "title": "Relazioni e intimità",
         "description": "Discussioni aperte e oneste su relazioni, intimità e salute sessuale per le donne."
+      },
+      "weightLoss": {
+        "title": "Perdita di Peso e Obiettivi di Salute",
+        "description": "Consulenza esperta su gestione sana del peso, fitness e raggiungimento dei tuoi obiettivi di salute."
+      },
+      "life": {
+        "title": "Vita e Sviluppo Personale",
+        "description": "Consigli di vita, sviluppo personale, consigli di stile di vita e ispirazione per vivere la tua migliore vita."
       }
     },
     "editorialStandards": {

@@ -5,13 +5,6 @@ import { mainCategories, articleStatus } from "@/lib/constants";
 // LANGUAGE-SPECIFIC SCHEMAS
 // =========================
 
-// Canvas schema - language independent but included in language wrapper for consistency
-const mediaContextSchema = new Schema({
-  paragraphOne: { type: String, required: true },
-  paragraphTwo: { type: String, required: true },
-  paragraphThree: { type: String, required: true },
-});
-
 // SEO schema - language specific
 const seoSchema = new Schema({
   metaTitle: { type: String, required: true },
@@ -59,6 +52,7 @@ const instagramSchema = new Schema({
   caption: { type: String, required: true },
   hashtags: { type: [String], required: true },
   altText: { type: String }, // accessibility text
+  postImage: { type: String, required: true },
 });
 
 // Facebook
@@ -68,12 +62,14 @@ const facebookSchema = new Schema({
   linkDescription: { type: String, required: true }, // link preview text
   hashtags: { type: [String], required: true }, // hashtags
   callToAction: { type: String }, // CTA button text (e.g., "Learn More")
+  postImage: { type: String, required: true },
 });
 
 // X (Twitter)
 const xTwitterSchema = new Schema({
   text: { type: String, required: true },
   hashtags: { type: [String], required: true },
+  postImage: { type: String, required: true },
 });
 
 // Pinterest
@@ -82,6 +78,7 @@ const pinterestSchema = new Schema({
   description: { type: String, required: true },
   hashtags: { type: [String], required: true },
   altText: { type: String, required: true }, // accessibility
+  postImage: { type: String, required: true },
 });
 
 // YouTube
@@ -89,18 +86,21 @@ const youtubeSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   tags: { type: [String], required: true },
+  postImage: { type: String, required: true },
 });
 
 // Threads
 const threadsSchema = new Schema({
   text: { type: String, required: true },
   hashtags: { type: [String], required: true },
+  postImage: { type: String, required: true },
 });
 
 // TikTok
 const tiktokSchema = new Schema({
   caption: { type: String, required: true },
   hashtags: { type: [String], required: true },
+  postImage: { type: String, required: true },
 });
 
 // =========================
@@ -116,8 +116,8 @@ const languageSpecificSchema = new Schema({
     enum: ["en", "pt", "es", "fr", "de", "it"],
   },
 
-  // Media context content (language independent but grouped by language for consistency)
-  mediaContext: { type: mediaContextSchema, required: true },
+  // Article context content (around 200 charecters)
+  articleContext: { type: String, required: true },
 
   // SEO data specific to this language
   seo: { type: seoSchema, required: true },
@@ -167,7 +167,6 @@ export const articleSchema = new Schema(
     articleImages: {
       type: [String],
     }, // best if at least 4 images
-    articleVideo: { type: String }, // best if at least 1 video
     status: {
       type: String,
       enum: articleStatus,

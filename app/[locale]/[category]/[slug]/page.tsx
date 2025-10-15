@@ -36,7 +36,6 @@ export async function generateMetadata({
           ? (articleData.createdBy as { username: string }).username
           : "Women's Spot Team",
       articleImages: articleData.articleImages || [],
-      articleVideo: articleData.articleVideo,
       category: articleData.category,
       createdAt: articleData.createdAt
         ? new Date(articleData.createdAt)
@@ -70,7 +69,6 @@ export async function generateMetadata({
     const fallbackMetaContent: IMetaDataArticle = {
       createdBy: "Women's Spot Team",
       articleImages: [],
-      articleVideo: undefined,
       category: "health",
       createdAt: new Date(),
       updatedAt: new Date(),

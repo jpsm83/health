@@ -17,6 +17,7 @@ import {
   Salad,
   VenusAndMars,
   Brush,
+  Activity,
   Plane,
   House,
 } from "lucide-react";
@@ -189,29 +190,27 @@ export default function Navbar() {
                 </Link>
               </DropdownMenuItem>
 
+        <DropdownMenuItem asChild>
+          <Link
+            href={`/${locale}/weight-loss`}
+            className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+            onClick={handleNavLinkClick}
+            prefetch={false}
+          >
+            <Activity size={16} className="text-red-600" /> {t("categories.weightLoss")}
+          </Link>
+        </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/travel`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                  prefetch={false}
-                >
-                  <Plane size={16} className="text-red-600" /> {t("categories.travel")}
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/${locale}/decor`}
-                  className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
-                  onClick={handleNavLinkClick}
-                  prefetch={false}
-                >
-                  <House size={16} className="text-red-600" /> {t("categories.decor")}
-                </Link>
-              </DropdownMenuItem>
-
+        <DropdownMenuItem asChild>
+          <Link
+            href={`/${locale}/life`}
+            className="cursor-pointer hover:bg-pink-50 focus:bg-pink-50"
+            onClick={handleNavLinkClick}
+            prefetch={false}
+          >
+            <Heart size={16} className="text-red-600" /> {t("categories.life")}
+          </Link>
+        </DropdownMenuItem>
 
             </DropdownMenuContent>
           </DropdownMenu>

@@ -42,7 +42,6 @@ export default function ArticleCard({
       : "";
   const shareTitle = article.languages[0].content.mainTitle;
   const shareMedia = article.articleImages && article.articleImages.length > 0 ? article.articleImages[0] : "";
-  const shareVideo = article.articleVideo || "";
 
   const handleShareClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -137,7 +136,6 @@ export default function ArticleCard({
             title={shareTitle}
             description={excerpt}
             media={shareMedia}
-            video={shareVideo}
           />
         </div>
       )}
