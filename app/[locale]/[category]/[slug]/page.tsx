@@ -10,7 +10,6 @@ import Article from "@/pagesClient/Article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
 import { Metadata, Viewport } from "next";
-import Script from "next/script";
 
 export async function generateMetadata({
   params,
@@ -113,53 +112,6 @@ export async function generateViewport(): Promise<Viewport> {
   };
 }
 
-// Generate structured data for social media crawlers
-function generateStructuredData(articleData: ISerializedArticle, locale: string, slug: string) {
-  const languageData = articleData.languages[0];
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
-  const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
-  
-  const title = languageData?.seo?.metaTitle || `${articleData.category.charAt(0).toUpperCase() + articleData.category.slice(1)} Article - Women's Spot`;
-  const description = languageData?.seo?.metaDescription || `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`;
-  const author = typeof articleData.createdBy === "object" && articleData.createdBy && "username" in articleData.createdBy
-    ? (articleData.createdBy as { username: string }).username
-    : "Women's Spot Team";
-  
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": title,
-    "description": description,
-    "image": articleData.articleImages?.[0] || 'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png',
-    "author": {
-      "@type": "Person",
-      "name": author
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Women's Spot",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png"
-      }
-    },
-    "datePublished": articleData.createdAt ? new Date(articleData.createdAt).toISOString() : new Date().toISOString(),
-    "dateModified": articleData.updatedAt ? new Date(articleData.updatedAt).toISOString() : new Date().toISOString(),
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": canonicalUrl
-    },
-    "articleSection": articleData.category || 'Health',
-    "keywords": languageData?.seo?.keywords?.join(',') || 'health, women, wellness',
-    "url": canonicalUrl,
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "Women's Spot",
-      "url": baseUrl
-    }
-  };
-}
-
 // This should return JSX, not Metadata
 export default async function ArticlePage({
   params,
@@ -192,21 +144,10 @@ export default async function ArticlePage({
   }
 
   return (
-    <>
-      {/* Structured data for social media crawlers */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateStructuredData(articleData, locale, slug))
-        }}
-      />
-      
-      <main className="container mx-auto">
-        <ErrorBoundary context={"Article component"}>
-          <Article articleData={articleData} />
-        </ErrorBoundary>
-      </main>
-    </>
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Article component"}>
+        <Article articleData={articleData} />
+      </ErrorBoundary>
+    </main>
   );
 }
