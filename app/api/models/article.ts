@@ -52,7 +52,6 @@ const instagramSchema = new Schema({
   caption: { type: String, required: true },
   hashtags: { type: [String], required: true },
   altText: { type: String }, // accessibility text
-  postImage: { type: String, required: true },
 });
 
 // Facebook
@@ -62,14 +61,12 @@ const facebookSchema = new Schema({
   linkDescription: { type: String, required: true }, // link preview text
   hashtags: { type: [String], required: true }, // hashtags
   callToAction: { type: String }, // CTA button text (e.g., "Learn More")
-  postImage: { type: String, required: true },
 });
 
 // X (Twitter)
 const xTwitterSchema = new Schema({
   text: { type: String, required: true },
   hashtags: { type: [String], required: true },
-  postImage: { type: String, required: true },
 });
 
 // Pinterest
@@ -78,7 +75,6 @@ const pinterestSchema = new Schema({
   description: { type: String, required: true },
   hashtags: { type: [String], required: true },
   altText: { type: String, required: true }, // accessibility
-  postImage: { type: String, required: true },
 });
 
 // YouTube
@@ -86,21 +82,18 @@ const youtubeSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   tags: { type: [String], required: true },
-  postImage: { type: String, required: true },
 });
 
 // Threads
 const threadsSchema = new Schema({
   text: { type: String, required: true },
   hashtags: { type: [String], required: true },
-  postImage: { type: String, required: true },
 });
 
 // TikTok
 const tiktokSchema = new Schema({
   caption: { type: String, required: true },
   hashtags: { type: [String], required: true },
-  postImage: { type: String, required: true },
 });
 
 // =========================
@@ -118,6 +111,9 @@ const languageSpecificSchema = new Schema({
 
   // Article context content (around 200 charecters)
   articleContext: { type: String, required: true },
+
+  // image url to be used in the social media post
+  postImage: { type: String, required: true },
 
   // SEO data specific to this language
   seo: { type: seoSchema, required: true },

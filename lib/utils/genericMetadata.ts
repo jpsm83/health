@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { ISocialMedia } from "@/types/article";
 
 // Helper function to extract social media images from article data
-export function extractSocialMediaImages(socialMedia?: ISocialMedia): {
+// Now uses the single postImage from languageSpecificSchema
+export function extractSocialMediaImages(postImage?: string): {
   facebook?: string;
   instagram?: string;
   xTwitter?: string;
@@ -11,15 +11,16 @@ export function extractSocialMediaImages(socialMedia?: ISocialMedia): {
   tiktok?: string;
   threads?: string;
 } | undefined {
-  if (!socialMedia) return undefined;
+  if (!postImage) return undefined;
   
+  // All social media platforms now use the same postImage
   return {
-    facebook: socialMedia.facebook?.postImage,
-    instagram: socialMedia.instagram?.postImage,
-    xTwitter: socialMedia.xTwitter?.postImage,
-    pinterest: socialMedia.pinterest?.postImage,
-    tiktok: socialMedia.tiktok?.postImage,
-    threads: socialMedia.threads?.postImage,
+    facebook: postImage,
+    instagram: postImage,
+    xTwitter: postImage,
+    pinterest: postImage,
+    tiktok: postImage,
+    threads: postImage,
   };
 }
 
@@ -282,9 +283,9 @@ export async function generatePublicMetadataWithSocialMedia(
   locale: string,
   route: string,
   titleKey: string,
-  socialMedia?: ISocialMedia
+  postImage?: string
 ): Promise<Metadata> {
-  const socialMediaImages = extractSocialMediaImages(socialMedia);
+  const socialMediaImages = extractSocialMediaImages(postImage);
   return generateMetadataCore(locale, route, titleKey, true, socialMediaImages);
 }
 
@@ -292,8 +293,8 @@ export async function generatePrivateMetadataWithSocialMedia(
   locale: string,
   route: string,
   titleKey: string,
-  socialMedia?: ISocialMedia
+  postImage?: string
 ): Promise<Metadata> {
-  const socialMediaImages = extractSocialMediaImages(socialMedia);
+  const socialMediaImages = extractSocialMediaImages(postImage);
   return generateMetadataCore(locale, route, titleKey, false, socialMediaImages);
 }

@@ -42,6 +42,7 @@ export interface IMetaDataArticle {
   createdAt: Date | string;
   updatedAt: Date | string;
   seo: ISeo;
+  postImage?: string; // Single postImage for all social media platforms
   socialMedia?: ISocialMedia;
 }
 
@@ -60,7 +61,6 @@ export interface IInstagram {
   caption: string;
   hashtags: string[];
   altText?: string;
-  postImage: string;
 }
 
 export interface IFacebook {
@@ -69,13 +69,11 @@ export interface IFacebook {
   linkDescription: string;
   hashtags: string[];
   callToAction?: string;
-  postImage: string;
 }
 
 export interface IXTwitter {
   text: string;
   hashtags: string[];
-  postImage: string;
 }
 
 export interface IPinterest {
@@ -83,26 +81,22 @@ export interface IPinterest {
   description: string;
   hashtags: string[];
   altText: string;
-  postImage: string;
 }
 
 export interface IYouTube {
   title: string;
   description: string;
   tags: string[];
-  postImage: string;
 }
 
 export interface IThreads {
   text: string;
   hashtags: string[];
-  postImage: string;
 }
 
 export interface ITikTok {
   caption: string;
   hashtags: string[];
-  postImage: string;
 }
 
 export interface ISocialMedia {
@@ -119,6 +113,7 @@ export interface ISocialMedia {
 export interface ILanguageSpecific {
   hreflang: string;
   articleContext: string;
+  postImage: string; // Single postImage for all social media platforms
   seo: ISeo;
   content: {
     mainTitle: string;

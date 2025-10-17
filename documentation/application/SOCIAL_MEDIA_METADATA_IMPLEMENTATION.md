@@ -15,11 +15,11 @@ This implementation provides comprehensive metadata generation for all 6 major s
 
 ## Key Features
 
-### 1. Platform-Specific Image Selection
-Each social media platform now uses its dedicated `postImage` from the article's social media data, ensuring optimal display across all platforms.
+### 1. Unified Image Selection
+All social media platforms now use the same `postImage` from the article's language-specific data, ensuring consistent display across all platforms.
 
 ### 2. Fallback Strategy
-- Primary: Platform-specific `postImage` from social media data
+- Primary: `postImage` from language-specific data
 - Secondary: General `articleImages` array
 - Tertiary: Default Women's Spot logo
 
@@ -37,12 +37,8 @@ import { generateArticleMetadata } from '@/lib/utils/articleMetadata';
 const metadata = await generateArticleMetadata(articleData);
 
 // The function will automatically:
-// 1. Extract postImages from socialMedia.facebook.postImage
-// 2. Extract postImages from socialMedia.instagram.postImage
-// 3. Extract postImages from socialMedia.xTwitter.postImage
-// 4. Extract postImages from socialMedia.pinterest.postImage
-// 5. Extract postImages from socialMedia.tiktok.postImage
-// 6. Extract postImages from socialMedia.threads.postImage
+// 1. Extract postImage from the language-specific data
+// 2. Use the same image for all social media platforms
 ```
 
 ### For Generic Pages
@@ -53,15 +49,15 @@ import {
   generatePrivateMetadataWithSocialMedia 
 } from '@/lib/utils/genericMetadata';
 
-// With social media data
+// With postImage
 const metadata = await generatePublicMetadataWithSocialMedia(
   'en',
   '/articles',
   'metadata.articles.title',
-  socialMediaData
+  'https://example.com/social-image.jpg'
 );
 
-// Without social media data (uses default images)
+// Without postImage (uses default images)
 const metadata = await generatePublicMetadataWithSocialMedia(
   'en',
   '/articles',
@@ -78,14 +74,7 @@ const metadata = await generatePublicMetadata(
   'en',
   '/articles',
   'metadata.articles.title',
-  {
-    facebook: 'https://example.com/facebook-image.jpg',
-    instagram: 'https://example.com/instagram-image.jpg',
-    xTwitter: 'https://example.com/twitter-image.jpg',
-    pinterest: 'https://example.com/pinterest-image.jpg',
-    tiktok: 'https://example.com/tiktok-image.jpg',
-    threads: 'https://example.com/threads-image.jpg',
-  }
+  'https://example.com/social-image.jpg'
 );
 ```
 
@@ -95,30 +84,25 @@ const metadata = await generatePublicMetadata(
 ```typescript
 {
   languages: [{
+    postImage: "https://example.com/social-media-image.jpg", // Single image for all platforms
     socialMedia: {
       facebook: {
-        postImage: "https://example.com/facebook-1200x630.jpg",
-        // ... other facebook fields
+        // ... facebook fields (no postImage)
       },
       instagram: {
-        postImage: "https://example.com/instagram-1080x1080.jpg",
-        // ... other instagram fields
+        // ... instagram fields (no postImage)
       },
       xTwitter: {
-        postImage: "https://example.com/twitter-1200x675.jpg",
-        // ... other twitter fields
+        // ... twitter fields (no postImage)
       },
       pinterest: {
-        postImage: "https://example.com/pinterest-1000x1500.jpg",
-        // ... other pinterest fields
+        // ... pinterest fields (no postImage)
       },
       tiktok: {
-        postImage: "https://example.com/tiktok-1080x1920.jpg",
-        // ... other tiktok fields
+        // ... tiktok fields (no postImage)
       },
       threads: {
-        postImage: "https://example.com/threads-1080x1080.jpg",
-        // ... other threads fields
+        // ... threads fields (no postImage)
       }
     }
   }]
@@ -129,7 +113,7 @@ const metadata = await generatePublicMetadata(
 
 ### Open Graph (Facebook, LinkedIn, WhatsApp)
 ```html
-<meta property="og:image" content="https://example.com/facebook-1200x630.jpg" />
+<meta property="og:image" content="https://example.com/social-media-image.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:type" content="image/png" />
@@ -137,14 +121,14 @@ const metadata = await generatePublicMetadata(
 
 ### Twitter Cards
 ```html
-<meta name="twitter:image" content="https://example.com/twitter-1200x675.jpg" />
+<meta name="twitter:image" content="https://example.com/social-media-image.jpg" />
 <meta name="twitter:image:width" content="1200" />
 <meta name="twitter:image:height" content="675" />
 ```
 
 ### Pinterest Rich Pins
 ```html
-<meta property="pinterest:image" content="https://example.com/pinterest-1000x1500.jpg" />
+<meta property="pinterest:image" content="https://example.com/social-media-image.jpg" />
 <meta property="pinterest:image:width" content="1000" />
 <meta property="pinterest:image:height" content="1500" />
 ```
@@ -152,12 +136,12 @@ const metadata = await generatePublicMetadata(
 ### Platform-Specific Metadata
 ```html
 <!-- TikTok -->
-<meta property="tiktok:image" content="https://example.com/tiktok-1080x1920.jpg" />
+<meta property="tiktok:image" content="https://example.com/social-media-image.jpg" />
 <meta property="tiktok:image:width" content="1080" />
 <meta property="tiktok:image:height" content="1920" />
 
 <!-- Threads -->
-<meta property="threads:image" content="https://example.com/threads-1080x1080.jpg" />
+<meta property="threads:image" content="https://example.com/social-media-image.jpg" />
 <meta property="threads:image:width" content="1080" />
 <meta property="threads:image:height" content="1080" />
 ```
@@ -168,7 +152,7 @@ const metadata = await generatePublicMetadata(
 ```typescript
 import { extractSocialMediaImages } from '@/lib/utils/articleMetadata';
 
-const socialMediaImages = extractSocialMediaImages(article.socialMedia);
+const socialMediaImages = extractSocialMediaImages(article.postImage);
 // Returns: { facebook?: string, instagram?: string, ... }
 ```
 
@@ -182,7 +166,9 @@ const socialMediaImages = extractSocialMediaImages(article.socialMedia);
 
 ## Migration Notes
 
-- The `IMetaDataArticle` interface now includes optional `socialMedia` field
-- Existing code will continue to work as the social media field is optional
-- New convenience functions are available for easier integration
+- The `IMetaDataArticle` interface now includes optional `postImage` field
+- The `ILanguageSpecific` interface now includes required `postImage` field
+- Individual social media interfaces no longer have `postImage` fields
+- All social media platforms now use the same image from the language-specific level
+- Existing code will continue to work as the postImage field is optional in metadata
 - All existing metadata generation functions maintain backward compatibility
