@@ -14,13 +14,18 @@ const nextConfig: NextConfig = {
 	},
 	// Skip static optimization during build
 	trailingSlash: false,
+	// Use stable build ID for consistent metadata generation
 	generateBuildId: async () => {
-		return 'build-' + Date.now()
+		return 'production-build'
 	},
-	// Optimize CSS loading to prevent preload warnings
+	// Force static generation for better metadata handling
+	output: 'standalone',
+	// Fix metadata streaming issue in Next.js 15.1+
 	experimental: {
 		optimizeCss: false, // Disabled to avoid critters dependency issue
 		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
+		// Disable partial pre-rendering to fix metadata issues
+		ppr: false,
 	},
 	// External packages for server components
 	serverExternalPackages: ['mongoose'],
