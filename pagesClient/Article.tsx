@@ -243,8 +243,6 @@ export default function Article({
   const shareDescription = articleData?.languages[0]?.content?.articleContents?.[0]?.articleParagraphs?.[0] || '';
   const shareMedia = articleData?.articleImages && articleData.articleImages.length > 0 ? articleData.articleImages[0] : '';
 
-  console.log(articleData);
-
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
       {/* Article Content in 4 Containers */}
