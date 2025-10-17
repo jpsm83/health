@@ -110,10 +110,10 @@ export async function generateArticleMetadata(
   // Determine proper language code
   const properLang = languageMap[metaContent.seo.hreflang] || metaContent.seo.hreflang || 'en-US';
 
-  // Ensure valid metadata values
-  const title = metaContent.seo.metaTitle || 'Article';
-  const description = metaContent.seo.metaDescription || 'Read this article on Women\'s Spot';
-  const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
+  // Ensure valid metadata values with better fallbacks
+  const title = metaContent.seo.metaTitle || `Health Article - Women's Spot`;
+  const description = metaContent.seo.metaDescription || `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`;
+  const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness, fitness, nutrition, mental health, lifestyle';
   const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL}`;
   const author = metaContent.createdBy || 'Women\'s Spot Team';
   
@@ -127,6 +127,7 @@ export async function generateArticleMetadata(
     publisher: author,
     metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
     alternates: {
       canonical: canonicalUrl,
       languages: {
@@ -205,6 +206,20 @@ export async function generateArticleMetadata(
       distribution: 'global',
       rating: 'general',
       'revisit-after': '7 days',
+      // Additional SEO metadata
+      'article:author': author,
+      'article:section': metaContent.category || 'Health',
+      'article:tag': metaContent.seo.keywords?.join(',') || 'health, women, wellness',
+      'article:published_time': metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
+      'article:modified_time': metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
+      // Schema.org structured data hints
+      'og:type': 'article',
+      'og:site_name': 'Women\'s Spot',
+      'og:locale': properLang,
+      // Additional meta tags for better SEO
+      'referrer': 'origin-when-cross-origin',
+      'color-scheme': 'light dark',
+      'supported-color-schemes': 'light dark',
     },
     verification: {
       // Add platform verification codes here if available

@@ -43,15 +43,16 @@ export async function generateMetadata({
       updatedAt: articleData.updatedAt
         ? new Date(articleData.updatedAt)
         : new Date(),
+      socialMedia: languageData?.socialMedia,
       seo: languageData?.seo ? {
         ...languageData.seo,
         canonicalUrl: languageData.seo.canonicalUrl || canonicalUrl,
         hreflang: languageData.seo.hreflang || languageMap[locale] || locale,
         slug: languageData.seo.slug || slug,
       } : {
-        metaTitle: `Article: ${slug}`,
-        metaDescription: `Read about ${slug} on Women's Spot`,
-        keywords: [articleData.category, "health", "women"],
+        metaTitle: `${articleData.category.charAt(0).toUpperCase() + articleData.category.slice(1)} Article - Women's Spot`,
+        metaDescription: `Discover valuable insights about ${articleData.category} on Women's Spot. Expert health and wellness advice for women.`,
+        keywords: [articleData.category, "health", "women", "wellness", "fitness", "nutrition"],
         slug: slug,
         hreflang: languageMap[locale] || locale,
         urlPattern: `/${locale}/${articleData.category}/[slug]`,
@@ -72,10 +73,11 @@ export async function generateMetadata({
       category: "health",
       createdAt: new Date(),
       updatedAt: new Date(),
+      socialMedia: undefined,
       seo: {
-        metaTitle: `Article: ${slug}`,
-        metaDescription: `Read about ${slug} on Women's Spot - Your health and wellness resource`,
-        keywords: ["health", "women", "wellness", "Women's Spot", slug],
+        metaTitle: `Health Article - Women's Spot`,
+        metaDescription: `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`,
+        keywords: ["health", "women", "wellness", "fitness", "nutrition", "mental health", "lifestyle", "Women's Spot"],
         slug: slug,
         hreflang: languageMap[locale] || locale,
         urlPattern: `/${locale}/[category]/[slug]`,
