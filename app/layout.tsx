@@ -74,6 +74,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Next.js will automatically inject metadata here */}
+      </head>
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           {children}
