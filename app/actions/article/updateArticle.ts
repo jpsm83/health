@@ -93,7 +93,7 @@ export async function updateArticle({
             [key: string]: string | number | boolean | undefined;
           },
         {
-          reqFields: ["hreflang", "articleContext", "seo", "content"],
+          reqFields: ["hreflang", "articleContext", "postImage", "seo", "content"],
           nonReqFields: ["socialMedia"],
         }
         );
@@ -114,6 +114,18 @@ export async function updateArticle({
           return {
             success: false,
             message: "ArticleContext must be a non-empty string",
+          };
+        }
+
+        // Validate postImage structure
+        if (
+          !language.postImage ||
+          typeof language.postImage !== "string" ||
+          language.postImage.trim().length === 0
+        ) {
+          return {
+            success: false,
+            message: "PostImage must be a non-empty string",
           };
         }
 

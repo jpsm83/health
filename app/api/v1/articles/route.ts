@@ -308,7 +308,7 @@ export const POST = async (req: Request) => {
           [key: string]: string | number | boolean | undefined;
         },
         {
-          reqFields: ["hreflang", "articleContext", "seo", "content"],
+          reqFields: ["hreflang", "articleContext", "postImage", "seo", "content"],
           nonReqFields: ["socialMedia"],
         }
       );
@@ -331,6 +331,20 @@ export const POST = async (req: Request) => {
         return new NextResponse(
           JSON.stringify({
             message: "ArticleContext must be a non-empty string!",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
+      // Validate postImage structure
+      if (
+        !language.postImage ||
+        typeof language.postImage !== "string" ||
+        language.postImage.trim().length === 0
+      ) {
+        return new NextResponse(
+          JSON.stringify({
+            message: "PostImage must be a non-empty string!",
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         );
