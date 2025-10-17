@@ -119,7 +119,10 @@ async function generateMetadataCore(
   // Determine proper language code
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
-  const fullUrl = `${process.env.NEXTAUTH_URL}/${locale}${route}`;
+  
+  // Better environment variable handling for production
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  const fullUrl = `${baseUrl}/${locale}${route}`;
 
   // Enhanced images for social media - prioritize platform-specific images
   const enhancedImages = socialMediaImages 
@@ -189,7 +192,7 @@ async function generateMetadataCore(
     description,
     keywords,
     ...baseMetadata,
-    metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
+    metadataBase: new URL(baseUrl),
     robots: isPublic ? "index, follow" : "noindex, nofollow",
     alternates: {
       canonical: `/${locale}${route}`,

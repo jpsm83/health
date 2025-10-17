@@ -114,7 +114,10 @@ export async function generateArticleMetadata(
   const title = metaContent.seo.metaTitle || `Health Article - Women's Spot`;
   const description = metaContent.seo.metaDescription || `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`;
   const keywords = metaContent.seo.keywords?.length > 0 ? metaContent.seo.keywords.join(', ') : 'health, women, wellness, fitness, nutrition, mental health, lifestyle';
-  const canonicalUrl = metaContent.seo.canonicalUrl || `${process.env.NEXTAUTH_URL}`;
+  
+  // Better environment variable handling for production
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  const canonicalUrl = metaContent.seo.canonicalUrl || baseUrl;
   const author = metaContent.createdBy || 'Women\'s Spot Team';
   
 
@@ -125,9 +128,8 @@ export async function generateArticleMetadata(
     authors: [{ name: author }],
     creator: author,
     publisher: author,
-    metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
+    metadataBase: new URL(baseUrl),
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-    viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
     alternates: {
       canonical: canonicalUrl,
       languages: {
@@ -362,7 +364,7 @@ export async function generateArticleMetadata(
         "isPartOf": {
           "@type": "WebSite",
           "name": "Women's Spot",
-          "url": process.env.NEXTAUTH_URL || "https://womensspot.com"
+          "url": baseUrl
         }
       })
     },
@@ -379,5 +381,47 @@ export function generateArticleNotFoundMetadata(): Metadata {
     title: 'Article Not Found',
     description: 'The requested article could not be found.',
     robots: 'noindex, nofollow',
+  };
+}
+
+// Simple fallback metadata that doesn't require database access
+export function generateSimpleFallbackMetadata(slug: string, locale: string, category?: string): Metadata {
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  const canonicalUrl = `${baseUrl}/${locale}/${category || 'health'}/${slug}`;
+  
+  return {
+    title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`,
+    description: `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`,
+    keywords: 'health, women, wellness, fitness, nutrition, mental health, lifestyle',
+    authors: [{ name: "Women's Spot Team" }],
+    creator: "Women's Spot Team",
+    publisher: "Women's Spot",
+    metadataBase: new URL(baseUrl),
+    robots: 'index, follow',
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`,
+      description: `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`,
+      url: canonicalUrl,
+      siteName: 'Women\'s Spot',
+      type: 'article',
+      images: [{
+        url: 'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png',
+        width: 1792,
+        height: 1024,
+        alt: 'Women\'s Spot - Empowering Women',
+        type: 'image/png',
+      }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@womensspot',
+      creator: '@womensspot',
+      title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`,
+      description: `Discover valuable health insights and wellness tips on Women's Spot.`,
+      images: ['https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png'],
+    },
   };
 }

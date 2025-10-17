@@ -2,7 +2,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -14,12 +14,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Women's Spot Team" }],
   creator: "Women's Spot Team",
   publisher: "Women's Spot",
-  metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com'),
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXTAUTH_URL ?? "http://localhost:3000",
+    url: process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com',
     siteName: "Women's Spot",
     title: "Women's Spot - Empowering Women's Health & Wellness",
     description: "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
@@ -51,6 +51,12 @@ export const metadata: Metadata = {
     "msapplication-TileColor": "#8B5CF6",
     "theme-color": "#8B5CF6",
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

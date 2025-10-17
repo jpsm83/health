@@ -2,13 +2,14 @@ import { notFound } from "next/navigation";
 import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
+  generateSimpleFallbackMetadata,
 } from "@/lib/utils/articleMetadata";
 import { languageMap } from "@/lib/utils/genericMetadata";
 import { ISerializedArticle, IMetaDataArticle } from "@/types/article";
 import Article from "@/pagesClient/Article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 export async function generateMetadata({
   params,
@@ -16,6 +17,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
   const { slug, locale } = await params;
+
+  // Debug logging for production metadata issues
+  console.log(`[Metadata] Generating metadata for: ${locale}/${slug}`);
+  console.log(`[Metadata] Environment: NODE_ENV=${process.env.NODE_ENV}`);
+  console.log(`[Metadata] Base URL: ${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com'}`);
 
   try {
     const articleData = await getArticleBySlug(slug, locale);
@@ -25,7 +31,7 @@ export async function generateMetadata({
     }
 
     const languageData = articleData.languages[0]; // Already filtered by API
-    const baseUrl = process.env.NEXTAUTH_URL;
+    const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
     const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
 
     const metaContent: IMetaDataArticle = {
@@ -60,11 +66,18 @@ export async function generateMetadata({
       },
     };
 
-    return generateArticleMetadata(metaContent);
+    const metadata = await generateArticleMetadata(metaContent);
+    return metadata;
   } catch (error) {
     console.error("Error generating article metadata:", error);
+    console.error("Error details:", {
+      slug,
+      locale,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined
+    });
     
-    const baseUrl = process.env.NEXTAUTH_URL;
+    const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
     const fallbackCanonicalUrl = `${baseUrl}/${locale}/${slug}`;
     
     const fallbackMetaContent: IMetaDataArticle = {
@@ -85,8 +98,23 @@ export async function generateMetadata({
       },
     };
     
-    return generateArticleMetadata(fallbackMetaContent);
+    try {
+      const fallbackMetadata = await generateArticleMetadata(fallbackMetaContent);
+      return fallbackMetadata;
+    } catch (fallbackError) {
+      console.error("Error generating fallback metadata:", fallbackError);
+      return generateSimpleFallbackMetadata(slug, locale, 'health');
+    }
   }
+}
+
+// Generate viewport metadata separately (Next.js 15+ requirement)
+export async function generateViewport(): Promise<Viewport> {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  };
 }
 
 // This should return JSX, not Metadata
