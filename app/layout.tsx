@@ -2,6 +2,56 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Women's Spot - Empowering Women's Health & Wellness",
+    template: "%s | Women's Spot"
+  },
+  description: "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+  keywords: ["health", "women", "wellness", "fitness", "nutrition", "mental health", "lifestyle"],
+  authors: [{ name: "Women's Spot Team" }],
+  creator: "Women's Spot Team",
+  publisher: "Women's Spot",
+  metadataBase: new URL(process.env.NEXTAUTH_URL ?? "http://localhost:3000"),
+  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: process.env.NEXTAUTH_URL ?? "http://localhost:3000",
+    siteName: "Women's Spot",
+    title: "Women's Spot - Empowering Women's Health & Wellness",
+    description: "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+    images: [
+      {
+        url: "/womens-spot-logo.png",
+        width: 630,
+        height: 630,
+        alt: "Women's Spot - Empowering Women's Health & Wellness",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@womensspot",
+    creator: "@womensspot",
+    title: "Women's Spot - Empowering Women's Health & Wellness",
+    description: "Discover valuable health insights and wellness tips specifically designed for women.",
+    images: ["/womens-spot-logo.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/womens-spot-logo.png", sizes: "any", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
+  other: {
+    "msapplication-TileColor": "#8B5CF6",
+    "theme-color": "#8B5CF6",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -9,8 +59,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html lang="en">
       <head>
+        {/* Favicon and Logo */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/womens-spot-logo.png" sizes="any" type="image/png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        
         {/* CookieYes Banner */}
         <Script
           id="cookieyes"

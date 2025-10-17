@@ -134,54 +134,128 @@ export async function generateArticleMetadata(
         [properLang]: canonicalUrl,
       },
     },
-    // Open Graph for Facebook, Pinterest, LinkedIn, WhatsApp, Instagram/Threads
+
+    // ========================================
+    // OPEN GRAPH METADATA (FACEBOOK, INSTAGRAM, THREADS)
+    // ========================================
+
+    // Used by: Facebook, Instagram Stories/DMs, Threads, Messenger, LinkedIn, WhatsApp
+    // Facebook Sharing Debugger: https://developers.facebook.com/tools/debug/
     openGraph: {
-      title,
-      description,
+      // Basic Open Graph properties
+      title: title,
+      description: description,
       url: canonicalUrl,
       siteName: 'Women\'s Spot',
       locale: properLang,
       type: 'article',
-      images: enhancedImages,
+      
+      // Article-specific properties
       publishedTime: metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
       modifiedTime: metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
       authors: [author],
       section: metaContent.category || 'Health',
       tags: metaContent.seo.keywords || ['health', 'women', 'wellness'],
+      
+      // Image optimization for different platforms
+      images: socialMediaImages?.facebook ? [
+        // Facebook-optimized image (1440x1800 recommended)
+        {
+          url: socialMediaImages.facebook,
+          width: 1440,
+          height: 1800,
+          alt: title,
+          type: 'image/jpeg',
+        }
+      ] : socialMediaImages?.instagram ? [
+        // Instagram-optimized image (1080x1080 or 1080x1350)
+        {
+          url: socialMediaImages.instagram,
+          width: 1080,
+          height: 1080,
+          alt: title,
+          type: 'image/jpeg',
+        }
+      ] : enhancedImages,
+      
+      // Pinterest-specific Open Graph enhancements
+      ...(socialMediaImages?.pinterest && {
+        images: [
+          {
+            url: socialMediaImages.pinterest,
+            width: 1000,
+            height: 1500,
+            alt: title,
+            type: 'image/jpeg',
+          }
+        ]
+      }),
     },
-    // Twitter Cards for better Twitter sharing
+
+    // ========================================
+    // X (TWITTER) CARDS METADATA
+    // ========================================
+
+    // Based on: https://developer.x.com/en/docs/x-for-websites/cards/overview/markup
     twitter: {
-      card: 'summary_large_image', // Use summary card for better compatibility
-      title,
-      description,
-      images: socialMediaImages?.xTwitter ? [socialMediaImages.xTwitter] : (metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png']),
+      // Required: Card type - summary_large_image for articles
+      card: 'summary_large_image',
+      // Required: Site username (either site or site:id required)
+      site: '@womensspot',
+      // Optional: Creator username for content attribution
       creator: author,
-      site: '@womensspot', // Replace with your Twitter handle
+      // Title (max 70 characters) - falls back to og:title
+      title: title.length > 70 ? title.substring(0, 67) + '...' : title,
+      // Description (max 200 characters) - falls back to og:description
+      description: description.length > 200 ? description.substring(0, 197) + '...' : description,
+      // Image URL - falls back to og:image
+      images: socialMediaImages?.xTwitter ? [socialMediaImages.xTwitter] : (metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png']),
     },
+
     // Additional general metadata
     other: {
       language: metaContent.seo.hreflang || properLang,
       'pinterest:rich-pin': 'true',
       'whatsapp:description': description,
-      // Platform-specific image metadata
+
+      // ========================================
+      // FACEBOOK SPECIFIC METADATA
+      // ========================================
       ...(socialMediaImages?.facebook && {
-        'og:image': socialMediaImages.facebook,
-        'og:image:width': '1440',
-        'og:image:height': '1800',
-        'og:image:type': 'image/png',
+        'fb:app_id': process.env.FACEBOOK_APP_ID || '', // Add your Facebook App ID
+        'fb:pages': process.env.FACEBOOK_PAGE_ID || '',
       }),
+      
+      // ========================================
+      // INSTAGRAM SPECIFIC METADATA
+      // ========================================
+      // Instagram uses Open Graph tags for Stories and DMs
       ...(socialMediaImages?.instagram && {
-        'og:image:instagram': socialMediaImages.instagram,
+        'instagram:app_id': process.env.INSTAGRAM_APP_ID || '', // Add your Instagram App ID
       }),
+      
+      // ========================================
+      // THREADS SPECIFIC METADATA
+      // ========================================
+      // Threads uses the same Open Graph tags as Facebook
+      // No additional metadata needed - uses standard Open Graph
       ...(socialMediaImages?.pinterest && {
         'pinterest:image': socialMediaImages.pinterest,
         'pinterest:image:width': '1000',
         'pinterest:image:height': '1500',
+        'pinterest:image:type': 'image/jpeg',
+        'pinterest:image:alt': title,
       }),
+
+      // ========================================
+      // X (TWITTER) SPECIFIC METADATA
+      // ========================================
+
       ...(socialMediaImages?.xTwitter && {
         'twitter:image': socialMediaImages.xTwitter,
         'twitter:image:width': '1200',
         'twitter:image:height': '600',
+        'twitter:image:alt': title.length > 420 ? title.substring(0, 417) + '...' : title,
       }),
       ...(socialMediaImages?.tiktok && {
         'tiktok:image': socialMediaImages.tiktok,
@@ -206,20 +280,91 @@ export async function generateArticleMetadata(
       distribution: 'global',
       rating: 'general',
       'revisit-after': '7 days',
-      // Additional SEO metadata
+
+      // ========================================
+      // COMPREHENSIVE OPEN GRAPH METADATA
+      // ========================================
+      // Core Open Graph properties for Facebook, Instagram, Threads, Pinterest
+      'og:type': 'article',
+      'og:site_name': 'Women\'s Spot',
+      'og:locale': properLang,
+      'og:title': title,
+      'og:description': description,
+      'og:url': canonicalUrl,
+      'og:image': socialMediaImages?.facebook || socialMediaImages?.instagram || socialMediaImages?.pinterest || metaContent.articleImages?.[0] || '/womens-spot.png',
+      'og:image:width': socialMediaImages?.facebook ? '1440' : socialMediaImages?.instagram ? '1080' : socialMediaImages?.pinterest ? '1000' : '1200',
+      'og:image:height': socialMediaImages?.facebook ? '1800' : socialMediaImages?.instagram ? '1080' : socialMediaImages?.pinterest ? '1500' : '630',
+      'og:image:type': 'image/jpeg',
+      'og:image:alt': title,
+      
+      // Article-specific Open Graph properties
       'article:author': author,
       'article:section': metaContent.category || 'Health',
       'article:tag': metaContent.seo.keywords?.join(',') || 'health, women, wellness',
       'article:published_time': metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
       'article:modified_time': metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
-      // Schema.org structured data hints
-      'og:type': 'article',
-      'og:site_name': 'Women\'s Spot',
-      'og:locale': properLang,
+      
+      // Additional Open Graph properties for better sharing
+      'og:updated_time': metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
+      'og:see_also': canonicalUrl,
       // Additional meta tags for better SEO
       'referrer': 'origin-when-cross-origin',
       'color-scheme': 'light dark',
       'supported-color-schemes': 'light dark',
+
+      // ========================================
+      // PINTEREST RICH PINS METADATA
+      // ========================================
+
+      'pinterest:title': title,
+      'pinterest:description': description,
+      'pinterest:author': author,
+      'pinterest:section': metaContent.category || 'Health',
+      'pinterest:tags': metaContent.seo.keywords?.join(',') || 'health, women, wellness',
+      'pinterest:published_time': metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
+      'pinterest:modified_time': metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
+      
+      // ========================================
+      // X (TWITTER) ADDITIONAL METADATA
+      // ========================================
+      // Note: Main Twitter metadata is handled in the Next.js twitter object above
+      // These are additional Twitter-specific meta tags for enhanced sharing
+      'twitter:image:alt': title.length > 420 ? title.substring(0, 417) + '...' : title,
+      
+      // Schema.org structured data for Pinterest Rich Pins
+      'application/ld+json': JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": description,
+        "image": socialMediaImages?.pinterest || metaContent.articleImages?.[0] || 'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png',
+        "author": {
+          "@type": "Person",
+          "name": author
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Women's Spot",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png"
+          }
+        },
+        "datePublished": metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
+        "dateModified": metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonicalUrl
+        },
+        "articleSection": metaContent.category || 'Health',
+        "keywords": metaContent.seo.keywords?.join(',') || 'health, women, wellness',
+        "url": canonicalUrl,
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Women's Spot",
+          "url": process.env.NEXTAUTH_URL || "https://womensspot.com"
+        }
+      })
     },
     verification: {
       // Add platform verification codes here if available

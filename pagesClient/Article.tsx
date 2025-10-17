@@ -259,10 +259,10 @@ export default function Article({
             )}
 
             <div className="overflow-hidden text-justify">
-              {/* Container Images - 2 images side by side on md+, 1 image on smaller screens */}
+              {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
               <div className="relative w-full h-[70vh] mb-8 md:mb-16 flex">
                 {/* First Image - Always visible */}
-                <div className="relative w-full md:w-1/2 h-full">
+                <div className="relative w-full lg:w-1/2 h-full">
                   {container.firstImage && container.firstImage.trim() !== "" ? (
                     <Image
                       src={container.firstImage}
@@ -271,7 +271,7 @@ export default function Article({
                       )}${container.firstImageIndex + 1}`}
                       fill
                       className="object-cover object-center"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 25vw"
+                      sizes="(max-width: 1024px) 100vw, (max-width: 1200px) 25vw, 25vw"
                       priority
                     />
                   ) : (
@@ -284,8 +284,8 @@ export default function Article({
                   )}
                 </div>
                 
-                {/* Second Image - Only visible on md+ screens */}
-                <div className="relative hidden md:block w-1/2 h-full">
+                {/* Second Image - Only visible on lg+ screens */}
+                <div className="relative hidden lg:block w-1/2 h-full">
                   {container.secondImage && container.secondImage.trim() !== "" ? (
                     <Image
                       src={container.secondImage}
