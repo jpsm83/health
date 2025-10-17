@@ -18,11 +18,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug, locale } = await params;
 
-  // Debug logging for production metadata issues
-  console.log(`[Metadata] Generating metadata for: ${locale}/${slug}`);
-  console.log(`[Metadata] Environment: NODE_ENV=${process.env.NODE_ENV}`);
-  console.log(`[Metadata] Base URL: ${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com'}`);
-
   try {
     const articleData = await getArticleBySlug(slug, locale);
 

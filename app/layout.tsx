@@ -45,8 +45,16 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "any" },
       { url: "/womens-spot-logo.png", sizes: "any", type: "image/png" },
     ],
+    apple: [
+      { url: "/womens-spot-logo.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Women's Spot",
+  },
   other: {
     "msapplication-TileColor": "#8B5CF6",
     "theme-color": "#8B5CF6",
@@ -66,11 +74,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Favicon and Logo */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/womens-spot-logo.png" sizes="any" type="image/png" />
-        <link rel="manifest" href="/site.webmanifest" />
+      <body className="min-h-screen bg-[#f9fafb]">
+        <SessionProvider basePath="/api/v1/auth">
+          {children}
+          <Toaster />
+        </SessionProvider>
         
         {/* CookieYes Banner */}
         <Script
@@ -78,12 +86,7 @@ export default function RootLayout({
           src="https://cdn-cookieyes.com/client_data/51a7b20bfcdfbe3a78df8a60/script.js"
           strategy="beforeInteractive"
         />
-      </head>
-      <body className="min-h-screen bg-[#f9fafb]">
-        <SessionProvider basePath="/api/v1/auth">
-          {children}
-          <Toaster />
-        </SessionProvider>
+        
         <Script
           id="sw-register"
           strategy="afterInteractive"
