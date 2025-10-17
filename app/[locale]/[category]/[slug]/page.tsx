@@ -3,6 +3,7 @@ import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
   generateSimpleFallbackMetadata,
+  generateStructuredData,
 } from "@/lib/utils/articleMetadata";
 import { languageMap } from "@/lib/utils/genericMetadata";
 import { ISerializedArticle, IMetaDataArticle } from "@/types/article";
@@ -10,6 +11,7 @@ import Article from "@/pagesClient/Article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
 import { Metadata, Viewport } from "next";
+import Script from "next/script";
 
 export async function generateMetadata({
   params,
@@ -143,8 +145,40 @@ export default async function ArticlePage({
     notFound();
   }
 
+  // Generate structured data for social media crawlers
+  const structuredData = articleData ? generateStructuredData({
+    createdBy: typeof articleData.createdBy === "object" && articleData.createdBy && "username" in articleData.createdBy
+      ? (articleData.createdBy as { username: string }).username
+      : "Women's Spot Team",
+    articleImages: articleData.articleImages || [],
+    category: articleData.category,
+    createdAt: articleData.createdAt ? new Date(articleData.createdAt) : new Date(),
+    updatedAt: articleData.updatedAt ? new Date(articleData.updatedAt) : new Date(),
+    socialMedia: articleData.languages[0]?.socialMedia,
+    seo: articleData.languages[0]?.seo || {
+      metaTitle: `${articleData.category.charAt(0).toUpperCase() + articleData.category.slice(1)} Article - Women's Spot`,
+      metaDescription: `Discover valuable insights about ${articleData.category} on Women's Spot. Expert health and wellness advice for women.`,
+      keywords: [articleData.category, "health", "women", "wellness", "fitness", "nutrition"],
+      slug: slug,
+      hreflang: languageMap[locale] || locale,
+      urlPattern: `/${locale}/${articleData.category}/[slug]`,
+      canonicalUrl: `${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com'}/${locale}/${articleData.category}/${slug}`,
+    },
+  }) : null;
+
   return (
     <main className="container mx-auto">
+      {/* Structured Data for Social Media Crawlers */}
+      {structuredData && (
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      )}
+      
       <ErrorBoundary context={"Article component"}>
         <Article articleData={articleData} />
       </ErrorBoundary>
