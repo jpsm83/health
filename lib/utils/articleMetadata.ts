@@ -43,7 +43,7 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
       ],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       site: '@womensspot',
       creator: '@womensspot',
       title: `Women's Spot | ${category ? category : 'Health'} Article`,
@@ -118,7 +118,7 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
 
     // TWITTER CARD — Used by Twitter/X
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       site: '@womensspot',
       creator: '@womensspot',
       title,
