@@ -71,19 +71,7 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
   // Main image (use the same for all social networks)
   const imageUrl =
     metaContent.postImage ||
-    metaContent.articleImages?.[0] ||
     'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png';
-
-
-
-
-
-    console.log('imageUrl', imageUrl);
-
-
-
-
-
 
   // Publication dates
   const publishedAt =

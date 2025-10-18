@@ -1,26 +1,54 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-// Helper function to extract social media images from article data
-// Now uses the single postImage from languageSpecificSchema
-export function extractSocialMediaImages(postImage?: string): {
-  facebook?: string;
-  instagram?: string;
-  xTwitter?: string;
-  pinterest?: string;
-  tiktok?: string;
-  threads?: string;
-} | undefined {
-  if (!postImage) return undefined;
-  
-  // All social media platforms now use the same postImage
+// Simple fallback metadata that doesn't require database access
+export function generateSimpleFallbackMetadata(slug: string, locale: string, category?: string): Metadata {
+  const baseUrl =
+    process.env.NEXTAUTH_URL ||
+    process.env.VERCEL_URL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    'https://womensspot.com';
+
+  const canonicalUrl = `${baseUrl}/${locale}/${category || 'health'}/${slug}`;
+
   return {
-    facebook: postImage,
-    instagram: postImage,
-    xTwitter: postImage,
-    pinterest: postImage,
-    tiktok: postImage,
-    threads: postImage,
+    title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`,
+    description: `Discover valuable health insights and wellness tips on Women's Spot. Expert advice for women's health and wellness.`,
+    keywords: 'health, women, wellness, fitness, nutrition, mental health, lifestyle',
+    authors: [{ name: "Women's Spot Team" }],
+    creator: "Women's Spot Team",
+    publisher: "Women's Spot",
+    metadataBase: new URL(baseUrl),
+    robots: 'index, follow',
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `Women's Spot | ${category ? category : 'Health'} Article`,
+      description: `Discover valuable health insights and wellness tips on Women's Spot.`,
+      url: canonicalUrl,
+      siteName: "Women's Spot",
+      type: 'article',
+      publishedTime: new Date().toISOString(),
+      modifiedTime: new Date().toISOString(),
+      authors: ["Women's Spot Team"],
+      section: category || 'Health',
+      tags: ['health', 'women', 'wellness', 'fitness', 'nutrition', 'mental health', 'lifestyle'],
+      images: [
+        {
+          url: 'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png',
+          width: 1200,
+          height: 630,
+          alt: "Women's Spot - Empowering Women",
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@womensspot',
+      creator: '@womensspot',
+      title: `Women's Spot | ${category ? category : 'Health'} Article`,
+      description: `Discover valuable health insights and wellness tips on Women's Spot.`,
+      images: ['https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png'],
+    },
   };
 }
 
@@ -33,6 +61,12 @@ export function extractSocialMediaImages(postImage?: string): {
  * ✅ Twitter/X (Twitter Cards)
  * ✅ Pinterest (Rich Pins)
  * ✅ Threads (Meta's Twitter competitor)
+ *
+ * STRUCTURE:
+ * - generateSimpleFallbackMetadata(): Simple fallback for basic pages
+ * - generatePublicMetadata(): Full metadata for public pages
+ * - generatePrivateMetadata(): Full metadata for private pages
+ * - generatePageNotFoundMetadata(): 404 page metadata
  *
  * CUSTOMIZATION:
  * - Replace '@womensspot' with your actual social media handles
@@ -91,21 +125,15 @@ export const baseMetadata = {
   ],
 };
 
-// Core metadata generation function (private implementation)
-async function generateMetadataCore(
+// Generate metadata for public pages (indexable)
+export async function generatePublicMetadata(
   locale: string,
   route: string,
   titleKey: string,
-  isPublic: boolean,
-  socialMediaImages?: {
-    facebook?: string;
-    instagram?: string;
-    xTwitter?: string;
-    pinterest?: string;
-    tiktok?: string;
-    threads?: string;
-  }
+  postImage?: string
 ): Promise<Metadata> {
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+
   // Load translations using next-intl
   const t = await getTranslations({ locale, namespace: "metadata" });
 
@@ -120,160 +148,90 @@ async function generateMetadataCore(
   // Determine proper language code
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
-  
-  // Better environment variable handling for production
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
   const fullUrl = `${baseUrl}/${locale}${route}`;
 
-  // Enhanced images for social media - prioritize platform-specific images
-  const enhancedImages = socialMediaImages 
-    ? [
-        // Facebook image (1200x630 recommended)
-        ...(socialMediaImages.facebook ? [{
-          url: socialMediaImages.facebook,
-          width: 1200,
-          height: 630,
-          alt: title,
-          type: 'image/png',
-          secureUrl: socialMediaImages.facebook.startsWith('https') ? socialMediaImages.facebook : undefined,
-        }] : []),
-        // Instagram image (1080x1080 recommended)
-        ...(socialMediaImages.instagram ? [{
-          url: socialMediaImages.instagram,
-          width: 1080,
-          height: 1080,
-          alt: title,
-          type: 'image/png',
-          secureUrl: socialMediaImages.instagram.startsWith('https') ? socialMediaImages.instagram : undefined,
-        }] : []),
-        // Pinterest image (1000x1500 recommended)
-        ...(socialMediaImages.pinterest ? [{
-          url: socialMediaImages.pinterest,
-          width: 1000,
-          height: 1500,
-          alt: title,
-          type: 'image/png',
-          secureUrl: socialMediaImages.pinterest.startsWith('https') ? socialMediaImages.pinterest : undefined,
-        }] : []),
-        // X/Twitter image (1200x675 recommended)
-        ...(socialMediaImages.xTwitter ? [{
-          url: socialMediaImages.xTwitter,
-          width: 1200,
-          height: 675,
-          alt: title,
-          type: 'image/png',
-          secureUrl: socialMediaImages.xTwitter.startsWith('https') ? socialMediaImages.xTwitter : undefined,
-        }] : []),
-        // TikTok image (1080x1920 recommended)
-        ...(socialMediaImages.tiktok ? [{
-          url: socialMediaImages.tiktok,
-          width: 1080,
-          height: 1920,
-          alt: title,
-          type: 'image/png',
-          secureUrl: socialMediaImages.tiktok.startsWith('https') ? socialMediaImages.tiktok : undefined,
-        }] : []),
-        // Threads image (1080x1080 recommended)
-        ...(socialMediaImages.threads ? [{
-          url: socialMediaImages.threads,
-          width: 1080,
-          height: 1080,
-          alt: title,
-          type: 'image/png',
-          secureUrl: socialMediaImages.threads.startsWith('https') ? socialMediaImages.threads : undefined,
-        }] : []),
-      ]
-    : baseMetadata.images.map((img) => ({
-        ...img,
-        secureUrl: img.url.startsWith("https") ? img.url : undefined,
-      }));
+  // Main image (use the same for all social networks)
+  const imageUrl = postImage || baseMetadata.images[0].url;
 
   return {
     title,
     description,
     keywords,
-    ...baseMetadata,
+    authors: [{ name: "Women's Spot Team" }],
+    creator: "Women's Spot Team",
+    publisher: "Women's Spot",
     metadataBase: new URL(baseUrl),
-    robots: isPublic ? "index, follow" : "noindex, nofollow",
+    robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     alternates: {
       canonical: `/${locale}${route}`,
       languages: languageAlternates,
     },
-    // Open Graph for Facebook, Pinterest, LinkedIn, WhatsApp, Instagram/Threads
+
+    // OPEN GRAPH — Used by Facebook, Pinterest, LinkedIn, WhatsApp
     openGraph: {
       title,
       description,
       url: fullUrl,
-      siteName: baseMetadata.siteName,
+      siteName: "Women's Spot",
       locale: properLang,
-      type: "website",
-      images: enhancedImages,
+      type: 'website',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
-    // Twitter Cards for better Twitter sharing
-    // Optimized for Twitter Card validation and automatic detection
+
+    // TWITTER CARD — Used by Twitter/X
     twitter: {
-      card: "summary_large_image", // Required: Card type
-      title, // Required: Page title (max 70 characters)
-      description, // Required: Page description (max 200 characters)
-      images: enhancedImages.map((img) => img.url), // Required: Image URLs
-      creator: "@womensspot", // Required: Content creator Twitter handle
-      site: "@womensspot", // Required: Website Twitter handle
-      // Note: image and imageAlt are handled via the 'other' metadata section below
+      card: 'summary_large_image',
+      site: '@womensspot',
+      creator: '@womensspot',
+      title,
+      description,
+      images: [imageUrl],
     },
-    // Additional general metadata
+
+    // OTHER METADATA — Includes Pinterest Rich Pins and SEO extensions
     other: {
       language: locale,
-      // Pinterest Rich Pins support
-      "pinterest:rich-pin": "true",
-      "pinterest:media": enhancedImages[0]?.url || baseMetadata.images[0].url,
-      "pinterest:description": description,
-      "pinterest:title": title,
-      "pinterest:author": baseMetadata.authors[0].name,
+      // Pinterest Rich Pin support
+      'pinterest:rich-pin': 'true',
+      'pinterest:media': imageUrl,
+      'pinterest:description': description,
+      'pinterest:title': title,
+      'pinterest:author': "Women's Spot Team",
       // Twitter Card validation metadata
-      "twitter:card": "summary_large_image",
-      "twitter:site": "@womensspot",
-      "twitter:creator": "@womensspot",
-      "twitter:title": title,
-      "twitter:description": description,
-      "twitter:image": enhancedImages[0]?.url || baseMetadata.images[0].url,
-      "twitter:image:alt": title,
-      "whatsapp:description": description,
-      "theme-color": "#8B5CF6",
-      "msapplication-TileColor": "#8B5CF6",
-      "mobile-web-app-capable": "yes",
-      "apple-mobile-web-app-status-bar-style": "default",
-      "apple-mobile-web-app-title": baseMetadata.siteName,
-      "application-name": baseMetadata.siteName,
-      "msapplication-config": "/browserconfig.xml",
-      "format-detection": "telephone=no",
-      author: baseMetadata.authors[0].name,
-      copyright: `© ${new Date().getFullYear()} ${baseMetadata.siteName}. All rights reserved.`,
-      distribution: "global",
-      rating: "general",
-      "revisit-after": "7 days",
+      'twitter:card': 'summary_large_image',
+      'twitter:site': '@womensspot',
+      'twitter:creator': '@womensspot',
+      'twitter:title': title,
+      'twitter:description': description,
+      'twitter:image': imageUrl,
+      'twitter:image:alt': title,
+      'whatsapp:description': description,
+      // General SEO enhancements
+      'theme-color': '#8B5CF6',
+      'msapplication-TileColor': '#8B5CF6',
+      'mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-status-bar-style': 'default',
+      'apple-mobile-web-app-title': 'Women\'s Spot',
+      'application-name': 'Women\'s Spot',
+      'format-detection': 'telephone=no',
+      author: 'Women\'s Spot Team',
+      copyright: `© ${new Date().getFullYear()} Women's Spot. All rights reserved.`,
+      distribution: 'global',
+      rating: 'general',
+      'revisit-after': '7 days',
     },
+
     verification: {
-      // Add platform verification codes here if available
-      // google, facebook, twitter, yandex, etc.
+      // You can add Google / Pinterest / Facebook verification tags here
     },
   };
-}
-
-// Generate metadata for public pages (indexable)
-export async function generatePublicMetadata(
-  locale: string,
-  route: string,
-  titleKey: string,
-  socialMediaImages?: {
-    facebook?: string;
-    instagram?: string;
-    xTwitter?: string;
-    pinterest?: string;
-    tiktok?: string;
-    threads?: string;
-  }
-): Promise<Metadata> {
-  return generateMetadataCore(locale, route, titleKey, true, socialMediaImages);
 }
 
 // Generate metadata for private pages (noindex)
@@ -281,35 +239,117 @@ export async function generatePrivateMetadata(
   locale: string,
   route: string,
   titleKey: string,
-  socialMediaImages?: {
-    facebook?: string;
-    instagram?: string;
-    xTwitter?: string;
-    pinterest?: string;
-    tiktok?: string;
-    threads?: string;
-  }
-): Promise<Metadata> {
-  return generateMetadataCore(locale, route, titleKey, false, socialMediaImages);
-}
-
-// Convenience functions that accept social media data directly
-export async function generatePublicMetadataWithSocialMedia(
-  locale: string,
-  route: string,
-  titleKey: string,
   postImage?: string
 ): Promise<Metadata> {
-  const socialMediaImages = extractSocialMediaImages(postImage);
-  return generateMetadataCore(locale, route, titleKey, true, socialMediaImages);
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+
+  // Load translations using next-intl
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  // Extract page name from the key (e.g., 'metadata.home.title' -> 'home')
+  const pageName = titleKey.split(".")[1] || "home";
+
+  // Get translated content
+  const title = t(`${pageName}.title`);
+  const description = t(`${pageName}.description`);
+  const keywords = t(`${pageName}.keywords`);
+
+  // Determine proper language code
+  const properLang = languageMap[locale] || locale;
+  const languageAlternates = generateLanguageAlternates(route);
+  const fullUrl = `${baseUrl}/${locale}${route}`;
+
+  // Main image (use the same for all social networks)
+  const imageUrl = postImage || baseMetadata.images[0].url;
+
+  return {
+    title,
+    description,
+    keywords,
+    authors: [{ name: "Women's Spot Team" }],
+    creator: "Women's Spot Team",
+    publisher: "Women's Spot",
+    metadataBase: new URL(baseUrl),
+    robots: 'noindex, nofollow',
+    alternates: {
+      canonical: `/${locale}${route}`,
+      languages: languageAlternates,
+    },
+
+    // OPEN GRAPH — Used by Facebook, Pinterest, LinkedIn, WhatsApp
+    openGraph: {
+      title,
+      description,
+      url: fullUrl,
+      siteName: "Women's Spot",
+      locale: properLang,
+      type: 'website',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+
+    // TWITTER CARD — Used by Twitter/X
+    twitter: {
+      card: 'summary_large_image',
+      site: '@womensspot',
+      creator: '@womensspot',
+      title,
+      description,
+      images: [imageUrl],
+    },
+
+    // OTHER METADATA — Includes Pinterest Rich Pins and SEO extensions
+    other: {
+      language: locale,
+      // Pinterest Rich Pin support
+      'pinterest:rich-pin': 'true',
+      'pinterest:media': imageUrl,
+      'pinterest:description': description,
+      'pinterest:title': title,
+      'pinterest:author': "Women's Spot Team",
+      // Twitter Card validation metadata
+      'twitter:card': 'summary_large_image',
+      'twitter:site': '@womensspot',
+      'twitter:creator': '@womensspot',
+      'twitter:title': title,
+      'twitter:description': description,
+      'twitter:image': imageUrl,
+      'twitter:image:alt': title,
+      'whatsapp:description': description,
+      // General SEO enhancements
+      'theme-color': '#8B5CF6',
+      'msapplication-TileColor': '#8B5CF6',
+      'mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-status-bar-style': 'default',
+      'apple-mobile-web-app-title': 'Women\'s Spot',
+      'application-name': 'Women\'s Spot',
+      'format-detection': 'telephone=no',
+      author: 'Women\'s Spot Team',
+      copyright: `© ${new Date().getFullYear()} Women's Spot. All rights reserved.`,
+      distribution: 'global',
+      rating: 'general',
+      'revisit-after': '7 days',
+    },
+
+    verification: {
+      // You can add Google / Pinterest / Facebook verification tags here
+    },
+  };
 }
 
-export async function generatePrivateMetadataWithSocialMedia(
-  locale: string,
-  route: string,
-  titleKey: string,
-  postImage?: string
-): Promise<Metadata> {
-  const socialMediaImages = extractSocialMediaImages(postImage);
-  return generateMetadataCore(locale, route, titleKey, false, socialMediaImages);
+/**
+ * Fallback metadata when page not found
+ */
+export function generatePageNotFoundMetadata(): Metadata {
+  return {
+    title: 'Page Not Found',
+    description: 'The requested page could not be found.',
+    robots: 'noindex, nofollow',
+  };
 }

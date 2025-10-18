@@ -37,7 +37,6 @@ export async function generateMetadata({
         "username" in articleData.createdBy
           ? (articleData.createdBy as { username: string }).username
           : "Women's Spot Team",
-      articleImages: articleData.articleImages || [],
       postImage: languageData?.postImage, // Add the language-specific postImage
       category: articleData.category,
       createdAt: articleData.createdAt
@@ -80,7 +79,6 @@ export async function generateMetadata({
     const fallbackMetaContent: IMetaDataArticle = {
       slug: slug,
       createdBy: "Women's Spot Team",
-      articleImages: [],
       postImage: undefined, // No postImage for fallback
       category: "health",
       createdAt: new Date(),
