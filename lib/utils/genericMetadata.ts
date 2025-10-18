@@ -42,7 +42,7 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       site: '@womensspot',
       creator: '@womensspot',
       title: `Women's Spot | ${category ? category : 'Health'} Article`,
@@ -187,7 +187,7 @@ export async function generatePublicMetadata(
 
     // TWITTER CARD — Used by Twitter/X
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       site: '@womensspot',
       creator: '@womensspot',
       title,
@@ -205,7 +205,7 @@ export async function generatePublicMetadata(
       'pinterest:title': title,
       'pinterest:author': "Women's Spot Team",
       // Twitter Card validation metadata
-      'twitter:card': 'summary_large_image',
+      'twitter:card': 'summary',
       'twitter:site': '@womensspot',
       'twitter:creator': '@womensspot',
       'twitter:title': title,
@@ -296,7 +296,7 @@ export async function generatePrivateMetadata(
 
     // TWITTER CARD — Used by Twitter/X
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       site: '@womensspot',
       creator: '@womensspot',
       title,
@@ -314,7 +314,7 @@ export async function generatePrivateMetadata(
       'pinterest:title': title,
       'pinterest:author': "Women's Spot Team",
       // Twitter Card validation metadata
-      'twitter:card': 'summary_large_image',
+      'twitter:card': 'summary',
       'twitter:site': '@womensspot',
       'twitter:creator': '@womensspot',
       'twitter:title': title,
