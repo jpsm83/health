@@ -38,6 +38,7 @@ export async function generateMetadata({
           ? (articleData.createdBy as { username: string }).username
           : "Women's Spot Team",
       articleImages: articleData.articleImages || [],
+      postImage: languageData?.postImage, // Add the language-specific postImage
       category: articleData.category,
       createdAt: articleData.createdAt
         ? new Date(articleData.createdAt)
@@ -80,6 +81,7 @@ export async function generateMetadata({
       slug: slug,
       createdBy: "Women's Spot Team",
       articleImages: [],
+      postImage: undefined, // No postImage for fallback
       category: "health",
       createdAt: new Date(),
       updatedAt: new Date(),

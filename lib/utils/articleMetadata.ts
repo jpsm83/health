@@ -74,6 +74,17 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
     metaContent.articleImages?.[0] ||
     'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png';
 
+
+
+
+
+    console.log('imageUrl', imageUrl);
+
+
+
+
+
+
   // Publication dates
   const publishedAt =
     metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString();
@@ -110,8 +121,8 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
       images: [
         {
           url: imageUrl,
-          width: 1200,
-          height: 630,
+          width: 1080,
+          height: 1440,
           alt: title,
         },
       ],

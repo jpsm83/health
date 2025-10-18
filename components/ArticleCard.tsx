@@ -66,7 +66,7 @@ export default function ArticleCard({
         prefetch={false}
       >
         {/* Article Images - Two images side by side */}
-        <div className="relative overflow-hidden h-40 flex-shrink-0 flex">
+        <div className="relative overflow-hidden h-40 flex-shrink-0 flex group">
           {article.articleImages && article.articleImages.length > 0 ? (
             <>
               {/* First Image */}
@@ -75,7 +75,7 @@ export default function ArticleCard({
                   src={article.articleImages[0]}
                   alt={article.languages[0].content.mainTitle}
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
                   priority
                 />
@@ -87,7 +87,7 @@ export default function ArticleCard({
                     src={article.articleImages[1]}
                     alt={article.languages[0].content.mainTitle}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
                     priority
                   />
@@ -110,7 +110,7 @@ export default function ArticleCard({
             </div>
           )}
           <div className="absolute top-2 left-2 z-10">
-            <span className="bg-gradient-to-r from-red-600 to-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize">
+            <span className="bg-gradient-to-r from-red-600 to-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize shadow-2xl">
               {t(`categories.${article.category}`)}
             </span>
           </div>
