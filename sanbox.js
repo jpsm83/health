@@ -2,7 +2,25 @@ import { Metadata } from 'next';
 import { IMetaDataArticle } from '@/types/article';
 import { languageMap } from './genericMetadata';
 
-// Simple fallback metadata that doesn't require database access
+/**
+ * Extract social media images from the article's post image
+ */
+export function extractSocialMediaImages(postImage?: string): Record<string, string> | undefined {
+  if (!postImage) return undefined;
+
+  return {
+    facebook: postImage,
+    instagram: postImage,
+    xTwitter: postImage,
+    pinterest: postImage,
+    tiktok: postImage,
+    threads: postImage,
+  };
+}
+
+/**
+ * Fallback metadata (when article data is unavailable)
+ */
 export function generateSimpleFallbackMetadata(slug: string, locale: string, category?: string): Metadata {
   const baseUrl =
     process.env.NEXTAUTH_URL ||
@@ -48,10 +66,12 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
   };
 }
 
-// Generate dynamic metadata for an article page
-// Supports OpenGraph, Twitter Cards, Pinterest Rich Pins, etc.
+/**
+ * Generate dynamic metadata for an article page
+ * Supports OpenGraph, Twitter Cards, Pinterest Rich Pins, etc.
+ */
 export async function generateArticleMetadata(metaContent: IMetaDataArticle): Promise<Metadata> {
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
 
   // Language
   const properLang = languageMap[metaContent.seo.hreflang] || metaContent.seo.hreflang || 'en-US';
@@ -64,7 +84,9 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
   const author = metaContent.createdBy || "Women's Spot Team";
 
   // Main image (use the same for all social networks)
+  const socialMediaImages = extractSocialMediaImages(metaContent.postImage);
   const imageUrl =
+    socialMediaImages?.facebook ||
     metaContent.postImage ||
     metaContent.articleImages?.[0] ||
     'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png';
@@ -89,7 +111,7 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
       languages: { [properLang]: canonicalUrl },
     },
 
-    // OPEN GRAPH — Used by Facebook, Pinterest, LinkedIn, WhatsApp
+    // ✅ OPEN GRAPH — Used by Facebook, Pinterest, LinkedIn, WhatsApp
     openGraph: {
       title,
       description,
@@ -112,7 +134,7 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
       ],
     },
 
-    // TWITTER CARD — Used by Twitter/X
+    // ✅ TWITTER CARD — Used by Twitter/X
     twitter: {
       card: 'summary_large_image',
       site: '@womensspot',
@@ -122,7 +144,7 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
       images: [imageUrl],
     },
 
-    // OTHER METADATA — Includes Pinterest Rich Pins and SEO extensions
+    // ✅ OTHER METADATA — Includes Pinterest Rich Pins and SEO extensions
     other: {
       // Pinterest Rich Pin support
       'pinterest:rich-pin': 'true',
