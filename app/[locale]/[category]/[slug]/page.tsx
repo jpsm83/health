@@ -30,6 +30,7 @@ export async function generateMetadata({
     const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
 
     const metaContent: IMetaDataArticle = {
+      slug: slug,
       createdBy:
         typeof articleData.createdBy === "object" &&
         articleData.createdBy &&
@@ -76,6 +77,7 @@ export async function generateMetadata({
     const fallbackCanonicalUrl = `${baseUrl}/${locale}/${slug}`;
     
     const fallbackMetaContent: IMetaDataArticle = {
+      slug: slug,
       createdBy: "Women's Spot Team",
       articleImages: [],
       category: "health",

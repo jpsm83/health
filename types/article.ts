@@ -36,7 +36,7 @@ export interface ISeo {
 }
 
 export interface IMetaDataArticle {
-  slug: any;
+  slug: string;
   createdBy: string;
   articleImages: string[];
   category: string;
