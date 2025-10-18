@@ -28,6 +28,11 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
       url: canonicalUrl,
       siteName: "Women's Spot",
       type: 'article',
+      publishedTime: new Date().toISOString(),
+      modifiedTime: new Date().toISOString(),
+      authors: ["Women's Spot Team"],
+      section: category || 'Health',
+      tags: ['health', 'women', 'wellness', 'fitness', 'nutrition', 'mental health', 'lifestyle'],
       images: [
         {
           url: 'https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png',
@@ -126,9 +131,9 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
     other: {
       // Pinterest Rich Pin support
       'pinterest:rich-pin': 'true',
-      'pinterest:title': title,
+      'pinterest:media': imageUrl,
       'pinterest:description': description,
-      'pinterest:image': imageUrl,
+      'pinterest:title': title,
       'pinterest:author': author,
       'pinterest:section': metaContent.category || 'Health',
       'pinterest:tags': keywords,
@@ -137,6 +142,8 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
       'article:author': author,
       'article:published_time': publishedAt,
       'article:modified_time': updatedAt,
+      'article:section': metaContent.category || 'Health',
+      'article:tag': keywords,
 
       // General SEO enhancements
       'theme-color': '#8B5CF6',

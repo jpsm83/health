@@ -88,6 +88,14 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   };
 
+  // Handle dropdown close to remove focus
+  const handleDropdownClose = () => {
+    // Remove focus from any active element
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
+
   return (
     <nav className="text-white shadow-lg text-base">
       {/* Top navigation */}
@@ -96,13 +104,18 @@ export default function Navbar() {
         <div className="md:hidden relative flex items-center space-x-2">
           <DropdownMenu
             open={isMobileMenuOpen}
-            onOpenChange={setIsMobileMenuOpen}
+            onOpenChange={(open) => {
+              setIsMobileMenuOpen(open);
+              if (!open) {
+                handleDropdownClose();
+              }
+            }}
           >
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 size="sm"
-                className="bg-red-600 text-white hover:bg-red-700 w-10 h-10"
+                className="bg-red-600 text-white hover:bg-red-700 w-10 h-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 <Menu size={24} />
               </Button>
@@ -217,12 +230,12 @@ export default function Navbar() {
         {/* Logo/Brand */}
         <Link href="/" className="flex items-center space-x-2">
           <Heart size={24} />
-          <span className="text-xl font-bold">{t("brandName")}</span>
+          <span className="text-xl font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>{t("brandName")}</span>
         </Link>
 
         <div className="flex items-center gap-2 md:gap-4">
           {/* Search Filter */}
-          <div className="hidden md:block relative w-[300px]">
+          <div className="hidden md:block relative w-[300px] shadow-lg">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               type="text"
@@ -240,13 +253,19 @@ export default function Navbar() {
 
           {/* Mobile Profile Button */}
           <div className="md:hidden">
-            <DropdownMenu>
+            <DropdownMenu
+              onOpenChange={(open) => {
+                if (!open) {
+                  handleDropdownClose();
+                }
+              }}
+            >
               <DropdownMenuTrigger asChild>
                 {session?.user ? (
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                    className="bg-pink-600 text-white hover:bg-pink-700 rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                   >
                     {session.user.imageUrl &&
                     session.user.imageUrl.trim() !== "" ? (
@@ -268,7 +287,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                    className="bg-pink-600 text-white hover:bg-pink-700 rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                   >
                     <UserRound size={20} />
                   </Button>
@@ -351,15 +370,21 @@ export default function Navbar() {
           <div className="hidden md:flex">
             {session?.user ? (
               <div className="relative">
-                <DropdownMenu>
+                <DropdownMenu
+                  onOpenChange={(open) => {
+                    if (!open) {
+                      handleDropdownClose();
+                    }
+                  }}
+                >
                   <DropdownMenuTrigger asChild>
                     {session?.user ? (
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full px-3 gap-2"
+                        className="h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                       >
-                        <span className="text-sm font-medium hidden lg:block">
+                        <span className="text-sm font-medium hidden lg:block" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>
                           {session.user.name}
                         </span>
                         {session.user.imageUrl &&
@@ -370,7 +395,7 @@ export default function Navbar() {
                             height={30}
                             alt="User"
                             priority
-                            className="rounded-full"
+                            className="rounded-full shadow-lg"
                           />
                         ) : (
                           <UserRound size={20} />
@@ -380,7 +405,7 @@ export default function Navbar() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full"
+                        className="w-10 h-10 bg-pink-600 text-white hover:bg-pink-700 rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                       >
                         <UserRound size={20} />
                       </Button>
@@ -422,14 +447,14 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center">
                 {pathname !== `/${locale}/signin` && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    asChild
-                    className="text-gray-300 hover:bg-pink-700 hover:text-white"
-                  >
-                    <Link href={`/${locale}/signin`}>{t("signIn")}</Link>
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                      className="text-gray-300 hover:bg-pink-700 hover:text-white"
+                    >
+                      <Link href={`/${locale}/signin`} style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>{t("signIn")}</Link>
+                    </Button>
                 )}
                 {pathname !== `/${locale}/signup` && (
                   <Button
@@ -438,7 +463,7 @@ export default function Navbar() {
                     asChild
                     className="text-gray-300 hover:bg-pink-700 hover:text-white"
                   >
-                    <Link href={`/${locale}/signup`}>{t("signUp")}</Link>
+                    <Link href={`/${locale}/signup`} style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>{t("signUp")}</Link>
                   </Button>
                 )}
               </div>
@@ -448,7 +473,7 @@ export default function Navbar() {
       </div>
 
       {/* Bottom navigation */}
-      <div className="hidden bg-rose-400 md:flex justify-center flex-wrap items-center px-6 lg:px-8 gap-2 py-2 border-t border-gray-300">
+      <div className="hidden bg-red-400 md:flex justify-center flex-wrap items-center px-6 lg:px-8 gap-2 py-2 border-t border-gray-300">
         {/* Article categories by button*/}
         {mainCategories.map((category) => (
           <Button
@@ -456,9 +481,9 @@ export default function Navbar() {
             size="sm"
             asChild
             key={category}
-            className="text-gray-200 hover:bg-rose-700 hover:text-white"
+            className="text-gray-200 hover:bg-red-500 hover:text-white"
           >
-            <Link href={`/${locale}/${category}`} prefetch={false}>
+            <Link href={`/${locale}/${category}`} prefetch={false} style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>
               {t(`categories.${category.replace("-", "")}`)}
             </Link>
           </Button>

@@ -15,7 +15,7 @@ export default function ExploteArticles({ articles, title, description }: IFeatu
   return (
     <section>
       {/* Section Header */}
-      <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
+      <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
         <h2 className="text-3xl font-bold text-white mb-4">
           {title}
         </h2>

@@ -31,7 +31,7 @@ export default function Loading() {
 
         {/* Search Results Section Skeleton */}
         <section>
-          <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
+          <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
             <Skeleton className="h-10 w-64 mx-auto bg-white/20 mb-4" />
             <Skeleton className="h-6 w-96 mx-auto bg-white/20" />
           </div>

@@ -110,7 +110,7 @@ export default function ArticleCard({
             </div>
           )}
           <div className="absolute top-2 left-2 z-10">
-            <span className="bg-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize">
+            <span className="bg-gradient-to-r from-red-600 to-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize">
               {t(`categories.${article.category}`)}
             </span>
           </div>

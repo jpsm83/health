@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start md:text-left text-center space-y-4 flex-shrink-0 min-w-[250px] md:min-w-[280px]">
             <Link href={`/${locale}`} className="flex items-center space-x-2">
               <Heart size={24} className="text-pink-200" />
-              <span className="text-xl font-bold">Women&apos;s Spot</span>
+              <span className="text-xl font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>Women&apos;s Spot</span>
             </Link>
             <p className="text-pink-100 text-sm text-center md:text-left max-w-xs cursor-default">
               {t("brandDescription")}

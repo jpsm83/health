@@ -44,7 +44,7 @@ export default function NotFound() {
             <Button 
               asChild
               size="lg"
-              className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-8 py-4 text-lg font-semibold hover:from-red-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-8 py-4 text-lg font-semibold hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <Link href="/">
                 Return Home

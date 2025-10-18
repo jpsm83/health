@@ -84,7 +84,7 @@ export default function NewsletterSignup() {
       </div>
 
       {/* Content */}
-      <h2 className="text-3xl font-bold mb-4">{t("title")}</h2>
+      <h2 className="text-3xl font-bold mb-4" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>{t("title")}</h2>
       <p className="text-red-100 text-lg mb-8">
         {session?.user 
           ? "Manage your newsletter subscription preferences and categories of interest."

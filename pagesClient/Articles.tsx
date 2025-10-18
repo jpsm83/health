@@ -54,10 +54,9 @@ export default function Articles({
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority
             />
-            <div className="absolute inset-0 bg-black/30" />
           </div>
           <div className="relative z-10 flex items-center justify-center h-full">
-            <div className="text-center text-white max-w-4xl mx-auto px-6">
+            <div className="text-center text-white max-w-4xl mx-auto px-4 md:px-6 bg-black/50 shadow-2xl py-4 md:py-8">
               <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t(`${category}.title`)}
               </h1>
@@ -92,13 +91,11 @@ export default function Articles({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
           />
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/30" />
         </div>
 
         {/* Hero Content */}
         <div className="relative z-10 flex items-center justify-center h-full">
-          <div className="text-center text-white max-w-4xl mx-auto px-6">
+          <div className="text-center text-white max-w-4xl mx-auto px-4 md:px-6 bg-black/50 shadow-2xl py-4 md:py-8">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
               {t(`${category}.title`)}
             </h1>

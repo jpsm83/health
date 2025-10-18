@@ -245,11 +245,11 @@ export default async function AboutPage() {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center bg-gradient-to-r from-blue-50 to-purple-50 py-24 px-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center bg-gradient-to-r from-red-600 to-pink-600 py-24 px-12">
+            <h2 className="text-3xl font-bold text-white mb-4">
               {t("callToAction.title")}
             </h2>
-            <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-white mb-8 max-w-2xl mx-auto">
               {t("callToAction.description")}
             </p>
             <Link

@@ -28,7 +28,7 @@ export default function Loading() {
 
         {/* First Featured Articles Section Skeleton - matches the first FeaturedArticles */}
         <section>
-          <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
+          <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
             <Skeleton className="h-10 w-64 mx-auto bg-white/20 mb-4" />
             <Skeleton className="h-6 w-96 mx-auto bg-white/20" />
           </div>
@@ -72,7 +72,7 @@ export default function Loading() {
 
         {/* Second Featured Articles Section Skeleton - matches the paginated articles */}
         <section className="mb-6 md:mb-10">
-          <div className="text-center mb-10 bg-gradient-to-r from-red-500 to-pink-500 p-4 md:p-8">
+          <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
             <Skeleton className="h-10 w-64 mx-auto bg-white/20 mb-4" />
             <Skeleton className="h-6 w-96 mx-auto bg-white/20" />
           </div>
