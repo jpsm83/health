@@ -55,14 +55,21 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
         alt: 'Women\'s Spot - Empowering Women',
         type: 'image/png',
       }],
+      // Pinterest Article Rich Pins compliance
+      publishedTime: new Date().toISOString(),
+      modifiedTime: new Date().toISOString(),
+      authors: ["Women's Spot Team"],
+      section: category || 'Health',
+      tags: ['health', 'women', 'wellness'],
     },
     twitter: {
-      card: 'summary_large_image',
-      site: '@womensspot',
-      creator: '@womensspot',
-      title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`,
-      description: `Discover valuable health insights and wellness tips on Women's Spot.`,
-      images: ['https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png'],
+      card: 'summary_large_image', // Required: Card type
+      site: '@womensspot', // Required: Website Twitter handle
+      creator: '@womensspot', // Required: Content creator Twitter handle
+      title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`, // Required: Title (max 70 chars)
+      description: `Discover valuable health insights and wellness tips on Women's Spot.`, // Required: Description (max 200 chars)
+      images: ['https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png'], // Required: Image URL
+      // Note: image and imageAlt are handled via the 'other' metadata section
     },
   };
 }
@@ -179,6 +186,7 @@ export async function generateArticleMetadata(
       },
     },
     // Open Graph for Facebook, Pinterest, LinkedIn, WhatsApp, Instagram/Threads
+    // Optimized for Pinterest Article Rich Pins compliance
     openGraph: {
       title,
       description,
@@ -187,25 +195,38 @@ export async function generateArticleMetadata(
       locale: properLang,
       type: 'article',
       images: enhancedImages,
+      // Pinterest Article Rich Pins required fields
       publishedTime: metaContent.createdAt instanceof Date ? metaContent.createdAt.toISOString() : new Date().toISOString(),
       modifiedTime: metaContent.updatedAt instanceof Date ? metaContent.updatedAt.toISOString() : new Date().toISOString(),
       authors: [author],
       section: metaContent.category || 'Health',
       tags: metaContent.seo.keywords || ['health', 'women', 'wellness'],
+      // Additional Pinterest-specific fields for better Rich Pin display
+      // Note: These fields are already included above in the main openGraph object
     },
     // Twitter Cards for better Twitter sharing
+    // Optimized for Twitter Card validation and automatic detection
     twitter: {
-      card: 'summary_large_image', // Use summary card for better compatibility
-      title,
-      description,
+      card: 'summary_large_image', // Required: Card type for articles
+      title, // Required: Article title (max 70 characters)
+      description, // Required: Article description (max 200 characters)
       images: socialMediaImages?.xTwitter ? [socialMediaImages.xTwitter] : (metaContent.articleImages?.length > 0 ? metaContent.articleImages : ['/womens-spot.png']),
-      creator: author,
-      site: '@womensspot', // Replace with your Twitter handle
+      creator: '@womensspot', // Required: Content creator's Twitter handle
+      site: '@womensspot', // Required: Website's Twitter handle
+      // Additional Twitter Card metadata for better validation
+      // Note: image and imageAlt are handled via the 'other' metadata section below
     },
     // Additional general metadata
     other: {
       language: metaContent.seo.hreflang || properLang,
+      // Pinterest Article Rich Pins specific metadata
       'pinterest:rich-pin': 'true',
+      'pinterest:media': socialMediaImages?.pinterest || enhancedImages[0]?.url,
+      'pinterest:description': description,
+      'pinterest:title': title,
+      'pinterest:author': author,
+      'pinterest:section': metaContent.category || 'Health',
+      'pinterest:tags': metaContent.seo.keywords?.join(',') || 'health, women, wellness',
       'whatsapp:description': description,
       // Platform-specific image metadata
       ...(socialMediaImages?.facebook && {
@@ -221,12 +242,23 @@ export async function generateArticleMetadata(
         'pinterest:image': socialMediaImages.pinterest,
         'pinterest:image:width': '1000',
         'pinterest:image:height': '1500',
+        'pinterest:image:type': 'image/png',
+        'pinterest:image:alt': metaContent.seo.metaTitle || 'Article image',
       }),
       ...(socialMediaImages?.xTwitter && {
         'twitter:image': socialMediaImages.xTwitter,
         'twitter:image:width': '1200',
-        'twitter:image:height': '600',
+        'twitter:image:height': '675', // Twitter's recommended 16:9 aspect ratio
+        'twitter:image:alt': metaContent.seo.metaTitle || 'Article image',
       }),
+      // Additional Twitter Card validation metadata
+      'twitter:card': 'summary_large_image',
+      'twitter:site': '@womensspot',
+      'twitter:creator': '@womensspot',
+      'twitter:title': title,
+      'twitter:description': description,
+      'twitter:image': socialMediaImages?.xTwitter || (metaContent.articleImages?.length > 0 ? metaContent.articleImages[0] : '/womens-spot.png'),
+      'twitter:image:alt': metaContent.seo.metaTitle || 'Article image',
       ...(socialMediaImages?.tiktok && {
         'tiktok:image': socialMediaImages.tiktok,
         'tiktok:image:width': '1080',

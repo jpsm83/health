@@ -33,12 +33,13 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    site: "@womensspot",
-    creator: "@womensspot",
-    title: "Women's Spot - Empowering Women's Health & Wellness",
-    description: "Discover valuable health insights and wellness tips specifically designed for women.",
-    images: ["/womens-spot-logo.png"],
+    card: "summary_large_image", // Required: Card type
+    site: "@womensspot", // Required: Website Twitter handle
+    creator: "@womensspot", // Required: Content creator Twitter handle
+    title: "Women's Spot - Empowering Women's Health & Wellness", // Required: Title (max 70 chars)
+    description: "Discover valuable health insights and wellness tips specifically designed for women.", // Required: Description (max 200 chars)
+    images: ["/womens-spot-logo.png"], // Required: Image URLs
+    // Note: image and imageAlt are handled via additional metadata
   },
   icons: {
     icon: [

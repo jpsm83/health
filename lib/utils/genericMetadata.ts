@@ -210,18 +210,33 @@ async function generateMetadataCore(
       images: enhancedImages,
     },
     // Twitter Cards for better Twitter sharing
+    // Optimized for Twitter Card validation and automatic detection
     twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: baseMetadata.images.map((img) => img.url),
-      creator: "@womensspot", // Replace with your Twitter handle
-      site: "@womensspot", // Replace with your Twitter handle
+      card: "summary_large_image", // Required: Card type
+      title, // Required: Page title (max 70 characters)
+      description, // Required: Page description (max 200 characters)
+      images: enhancedImages.map((img) => img.url), // Required: Image URLs
+      creator: "@womensspot", // Required: Content creator Twitter handle
+      site: "@womensspot", // Required: Website Twitter handle
+      // Note: image and imageAlt are handled via the 'other' metadata section below
     },
     // Additional general metadata
     other: {
       language: locale,
+      // Pinterest Rich Pins support
       "pinterest:rich-pin": "true",
+      "pinterest:media": enhancedImages[0]?.url || baseMetadata.images[0].url,
+      "pinterest:description": description,
+      "pinterest:title": title,
+      "pinterest:author": baseMetadata.authors[0].name,
+      // Twitter Card validation metadata
+      "twitter:card": "summary_large_image",
+      "twitter:site": "@womensspot",
+      "twitter:creator": "@womensspot",
+      "twitter:title": title,
+      "twitter:description": description,
+      "twitter:image": enhancedImages[0]?.url || baseMetadata.images[0].url,
+      "twitter:image:alt": title,
       "whatsapp:description": description,
       "theme-color": "#8B5CF6",
       "msapplication-TileColor": "#8B5CF6",
