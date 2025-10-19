@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { mainCategories } from "@/lib/constants";
 import { 
@@ -27,7 +27,8 @@ export async function generateMetadata({
 }
 
 // Server Component - handles metadata generation and renders static content
-export default function SiteMapPage() {
+export default async function SiteMapPage() {
+  const t = await getTranslations("siteMap");
   return (
     <main className="container mx-auto px-4 py-8">
       <ErrorBoundary context={"SiteMap component"}>
@@ -35,11 +36,10 @@ export default function SiteMapPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Site Map
+              {t("title")}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Navigate through all the pages and features available on Women's Spot. 
-              Find everything from health articles to user management tools.
+              {t("description")}
             </p>
           </div>
 
@@ -50,26 +50,26 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <Home className="w-5 h-5 mr-2 text-orange-600" />
-                Core Pages
+                {t("sections.corePages.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Home
+                    {t("sections.corePages.home")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Main landing page</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.corePages.homeDescription")}</span>
                 </li>
                 <li>
                   <Link href="/about" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    About Us
+                    {t("sections.corePages.about")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Learn about our mission</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.corePages.aboutDescription")}</span>
                 </li>
                 <li>
                   <Link href="/search" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Search Articles
+                    {t("sections.corePages.search")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Find specific content</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.corePages.searchDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -78,7 +78,7 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <BookOpen className="w-5 h-5 mr-2 text-orange-600" />
-                Article Categories
+                {t("sections.articleCategories.title")}
               </h2>
               <ul className="space-y-3">
                 {mainCategories.map((category) => (
@@ -87,10 +87,10 @@ export default function SiteMapPage() {
                       href={`/${category}`} 
                       className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
                     >
-                      {category.replace(/([A-Z])/g, ' $1').trim()}
+                      {t(`sections.articleCategories.${category}`)}
                     </Link>
                     <span className="text-gray-500 text-sm ml-2">
-                      - {category === 'weightLoss' ? 'Weight Loss' : category} articles
+                      - {t(`sections.articleCategories.${category}Description`)}
                     </span>
                   </li>
                 ))}
@@ -101,38 +101,38 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <User className="w-5 h-5 mr-2 text-orange-600" />
-                User Account
+                {t("sections.userAccount.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/signin" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Sign In
+                    {t("sections.userAccount.signIn")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Access your account</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.signInDescription")}</span>
                 </li>
                 <li>
                   <Link href="/signup" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Sign Up
+                    {t("sections.userAccount.signUp")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Create new account</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.signUpDescription")}</span>
                 </li>
                 <li>
                   <Link href="/profile" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Profile
+                    {t("sections.userAccount.profile")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Manage your profile</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.profileDescription")}</span>
                 </li>
                 <li>
                   <Link href="/dashboard" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Dashboard
+                    {t("sections.userAccount.dashboard")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Your personal dashboard</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.dashboardDescription")}</span>
                 </li>
                 <li>
                   <Link href="/favorites" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Favorites
+                    {t("sections.userAccount.favorites")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Saved articles</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.favoritesDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -141,14 +141,14 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <Plus className="w-5 h-5 mr-2 text-orange-600" />
-                Content Creation
+                {t("sections.contentCreation.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/create-article" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Create Article
+                    {t("sections.contentCreation.createArticle")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Write new articles</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.contentCreation.createArticleDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -157,20 +157,20 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <Mail className="w-5 h-5 mr-2 text-orange-600" />
-                Newsletter & Communication
+                {t("sections.newsletter.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/confirm-newsletter" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Confirm Newsletter
+                    {t("sections.newsletter.confirmNewsletter")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Newsletter confirmation</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.newsletter.confirmNewsletterDescription")}</span>
                 </li>
                 <li>
                   <Link href="/unsubscribe" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Unsubscribe
+                    {t("sections.newsletter.unsubscribe")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Manage subscriptions</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.newsletter.unsubscribeDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -179,26 +179,26 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <Shield className="w-5 h-5 mr-2 text-orange-600" />
-                Security & Account
+                {t("sections.security.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/forgot-password" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Forgot Password
+                    {t("sections.security.forgotPassword")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Reset your password</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.security.forgotPasswordDescription")}</span>
                 </li>
                 <li>
                   <Link href="/reset-password" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Reset Password
+                    {t("sections.security.resetPassword")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Set new password</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.security.resetPasswordDescription")}</span>
                 </li>
                 <li>
                   <Link href="/confirm-email" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Confirm Email
+                    {t("sections.security.confirmEmail")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Verify email address</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.security.confirmEmailDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -207,26 +207,26 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <FileText className="w-5 h-5 mr-2 text-orange-600" />
-                Legal & Policies
+                {t("sections.legal.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Privacy Policy
+                    {t("sections.legal.privacyPolicy")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Data protection information</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.legal.privacyPolicyDescription")}</span>
                 </li>
                 <li>
                   <Link href="/terms-conditions" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Terms & Conditions
+                    {t("sections.legal.termsConditions")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Terms of service</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.legal.termsConditionsDescription")}</span>
                 </li>
                 <li>
                   <Link href="/cookie-policy" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Cookie Policy
+                    {t("sections.legal.cookiePolicy")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- Cookie usage information</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.legal.cookiePolicyDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -235,19 +235,19 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <Globe className="w-5 h-5 mr-2 text-orange-600" />
-                Language Support
+                {t("sections.languageSupport.title")}
               </h2>
               <div className="space-y-2">
                 <p className="text-sm text-gray-600 mb-3">
-                  Available in multiple languages:
+                  {t("sections.languageSupport.description")}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">English</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Português</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Español</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Français</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Deutsch</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Italiano</span>
+                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.english")}</span>
+                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.portuguese")}</span>
+                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.spanish")}</span>
+                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.french")}</span>
+                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.german")}</span>
+                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.italian")}</span>
                 </div>
               </div>
             </div>
@@ -256,14 +256,14 @@ export default function SiteMapPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <HelpCircle className="w-5 h-5 mr-2 text-orange-600" />
-                Help & Support
+                {t("sections.helpSupport.title")}
               </h2>
               <ul className="space-y-3">
                 <li>
                   <Link href="/site-map" className="text-blue-600 hover:text-blue-800 hover:underline">
-                    Site Map
+                    {t("sections.helpSupport.siteMap")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- This page</span>
+                  <span className="text-gray-500 text-sm ml-2">- {t("sections.helpSupport.siteMapDescription")}</span>
                 </li>
               </ul>
             </div>
@@ -273,8 +273,7 @@ export default function SiteMapPage() {
           {/* Footer Note */}
           <div className="text-center text-gray-500 text-sm">
             <p>
-              This site map shows all the pages and features available on Women's Spot. 
-              Use the navigation menu at the top of any page to quickly access these sections.
+              {t("footer.description")}
             </p>
           </div>
         </div>

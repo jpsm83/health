@@ -1064,5 +1064,98 @@
     "heroImageAlt": "Mes Articles Favoris",
     "noFavoritesTitle": "Pas encore de favoris",
     "noFavoritesDescription": "Commencez à aimer des articles pour construire votre collection personnelle de contenu de santé et bien-être favori."
+  },
+  "siteMap": {
+    "title": "Plan du Site",
+    "description": "Naviguez à travers toutes les pages et fonctionnalités disponibles sur Women's Spot. Trouvez tout, des articles de santé aux outils de gestion des utilisateurs.",
+    "sections": {
+      "corePages": {
+        "title": "Pages Principales",
+        "home": "Accueil",
+        "homeDescription": "Page d'accueil",
+        "about": "À Propos",
+        "aboutDescription": "Découvrez notre mission",
+        "search": "Rechercher des Articles",
+        "searchDescription": "Trouvez du contenu spécifique"
+      },
+      "articleCategories": {
+        "title": "Catégories d'Articles",
+        "health": "Santé",
+        "healthDescription": "Articles de santé",
+        "fitness": "Fitness",
+        "fitnessDescription": "Articles de fitness",
+        "nutrition": "Nutrition",
+        "nutritionDescription": "Articles de nutrition",
+        "intimacy": "Intimité",
+        "intimacyDescription": "Articles d'intimité",
+        "beauty": "Beauté",
+        "beautyDescription": "Articles de beauté",
+        "weightLoss": "Perte de Poids",
+        "weightLossDescription": "Articles de perte de poids",
+        "life": "Vie",
+        "lifeDescription": "Articles de vie"
+      },
+      "userAccount": {
+        "title": "Compte Utilisateur",
+        "signIn": "Se Connecter",
+        "signInDescription": "Accédez à votre compte",
+        "signUp": "S'inscrire",
+        "signUpDescription": "Créer un nouveau compte",
+        "profile": "Profil",
+        "profileDescription": "Gérez votre profil",
+        "dashboard": "Tableau de Bord",
+        "dashboardDescription": "Votre tableau de bord personnel",
+        "favorites": "Favoris",
+        "favoritesDescription": "Articles sauvegardés"
+      },
+      "contentCreation": {
+        "title": "Création de Contenu",
+        "createArticle": "Créer un Article",
+        "createArticleDescription": "Écrire de nouveaux articles"
+      },
+      "newsletter": {
+        "title": "Newsletter et Communication",
+        "confirmNewsletter": "Confirmer la Newsletter",
+        "confirmNewsletterDescription": "Confirmation de la newsletter",
+        "unsubscribe": "Se Désabonner",
+        "unsubscribeDescription": "Gérer les abonnements"
+      },
+      "security": {
+        "title": "Sécurité et Compte",
+        "forgotPassword": "Mot de Passe Oublié",
+        "forgotPasswordDescription": "Réinitialiser votre mot de passe",
+        "resetPassword": "Réinitialiser le Mot de Passe",
+        "resetPasswordDescription": "Définir un nouveau mot de passe",
+        "confirmEmail": "Confirmer l'Email",
+        "confirmEmailDescription": "Vérifier l'adresse email"
+      },
+      "legal": {
+        "title": "Légal et Politiques",
+        "privacyPolicy": "Politique de Confidentialité",
+        "privacyPolicyDescription": "Informations sur la protection des données",
+        "termsConditions": "Termes et Conditions",
+        "termsConditionsDescription": "Conditions d'utilisation",
+        "cookiePolicy": "Politique des Cookies",
+        "cookiePolicyDescription": "Informations sur l'utilisation des cookies"
+      },
+      "languageSupport": {
+        "title": "Support Multilingue",
+        "description": "Disponible en plusieurs langues :",
+        "english": "English",
+        "portuguese": "Português",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "italian": "Italiano"
+      },
+      "helpSupport": {
+        "title": "Aide et Support",
+        "siteMap": "Plan du Site",
+        "siteMapDescription": "Cette page"
+      }
+    },
+    "footer": {
+      "description": "Ce plan du site montre toutes les pages et fonctionnalités disponibles sur Women's Spot. Utilisez le menu de navigation en haut de n'importe quelle page pour accéder rapidement à ces sections."
+    }
   }
 }

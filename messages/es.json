@@ -1078,5 +1078,98 @@
     "heroImageAlt": "Mis Artículos Favoritos",
     "noFavoritesTitle": "Aún No Hay Favoritos",
     "noFavoritesDescription": "Comienza a dar me gusta a artículos para construir tu colección personal de contenido favorito de salud y bienestar."
+  },
+  "siteMap": {
+    "title": "Mapa del Sitio",
+    "description": "Navega por todas las páginas y características disponibles en Women's Spot. Encuentra todo, desde artículos de salud hasta herramientas de gestión de usuarios.",
+    "sections": {
+      "corePages": {
+        "title": "Páginas Principales",
+        "home": "Inicio",
+        "homeDescription": "Página principal",
+        "about": "Acerca de Nosotros",
+        "aboutDescription": "Conoce nuestra misión",
+        "search": "Buscar Artículos",
+        "searchDescription": "Encuentra contenido específico"
+      },
+      "articleCategories": {
+        "title": "Categorías de Artículos",
+        "health": "Salud",
+        "healthDescription": "Artículos de salud",
+        "fitness": "Fitness",
+        "fitnessDescription": "Artículos de fitness",
+        "nutrition": "Nutrición",
+        "nutritionDescription": "Artículos de nutrición",
+        "intimacy": "Intimidad",
+        "intimacyDescription": "Artículos de intimidad",
+        "beauty": "Belleza",
+        "beautyDescription": "Artículos de belleza",
+        "weightLoss": "Pérdida de Peso",
+        "weightLossDescription": "Artículos de pérdida de peso",
+        "life": "Vida",
+        "lifeDescription": "Artículos de vida"
+      },
+      "userAccount": {
+        "title": "Cuenta de Usuario",
+        "signIn": "Iniciar Sesión",
+        "signInDescription": "Accede a tu cuenta",
+        "signUp": "Registrarse",
+        "signUpDescription": "Crear nueva cuenta",
+        "profile": "Perfil",
+        "profileDescription": "Gestiona tu perfil",
+        "dashboard": "Panel",
+        "dashboardDescription": "Tu panel personal",
+        "favorites": "Favoritos",
+        "favoritesDescription": "Artículos guardados"
+      },
+      "contentCreation": {
+        "title": "Creación de Contenido",
+        "createArticle": "Crear Artículo",
+        "createArticleDescription": "Escribir nuevos artículos"
+      },
+      "newsletter": {
+        "title": "Newsletter y Comunicación",
+        "confirmNewsletter": "Confirmar Newsletter",
+        "confirmNewsletterDescription": "Confirmación de newsletter",
+        "unsubscribe": "Cancelar Suscripción",
+        "unsubscribeDescription": "Gestionar suscripciones"
+      },
+      "security": {
+        "title": "Seguridad y Cuenta",
+        "forgotPassword": "Olvidé mi Contraseña",
+        "forgotPasswordDescription": "Restablecer tu contraseña",
+        "resetPassword": "Restablecer Contraseña",
+        "resetPasswordDescription": "Establecer nueva contraseña",
+        "confirmEmail": "Confirmar Email",
+        "confirmEmailDescription": "Verificar dirección de email"
+      },
+      "legal": {
+        "title": "Legal y Políticas",
+        "privacyPolicy": "Política de Privacidad",
+        "privacyPolicyDescription": "Información de protección de datos",
+        "termsConditions": "Términos y Condiciones",
+        "termsConditionsDescription": "Términos de servicio",
+        "cookiePolicy": "Política de Cookies",
+        "cookiePolicyDescription": "Información sobre uso de cookies"
+      },
+      "languageSupport": {
+        "title": "Soporte de Idiomas",
+        "description": "Disponible en múltiples idiomas:",
+        "english": "English",
+        "portuguese": "Português",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "italian": "Italiano"
+      },
+      "helpSupport": {
+        "title": "Ayuda y Soporte",
+        "siteMap": "Mapa del Sitio",
+        "siteMapDescription": "Esta página"
+      }
+    },
+    "footer": {
+      "description": "Este mapa del sitio muestra todas las páginas y características disponibles en Women's Spot. Usa el menú de navegación en la parte superior de cualquier página para acceder rápidamente a estas secciones."
+    }
   }
 }

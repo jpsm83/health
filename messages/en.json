@@ -1078,5 +1078,98 @@
     "heroImageAlt": "My Favorite Articles",
     "noFavoritesTitle": "No Favorites Yet",
     "noFavoritesDescription": "Start liking articles to build your personal collection of favorite health and wellness content."
+  },
+  "siteMap": {
+    "title": "Site Map",
+    "description": "Navigate through all the pages and features available on Women's Spot. Find everything from health articles to user management tools.",
+    "sections": {
+      "corePages": {
+        "title": "Core Pages",
+        "home": "Home",
+        "homeDescription": "Main landing page",
+        "about": "About Us",
+        "aboutDescription": "Learn about our mission",
+        "search": "Search Articles",
+        "searchDescription": "Find specific content"
+      },
+      "articleCategories": {
+        "title": "Article Categories",
+        "health": "Health",
+        "healthDescription": "Health articles",
+        "fitness": "Fitness",
+        "fitnessDescription": "Fitness articles",
+        "nutrition": "Nutrition",
+        "nutritionDescription": "Nutrition articles",
+        "intimacy": "Intimacy",
+        "intimacyDescription": "Intimacy articles",
+        "beauty": "Beauty",
+        "beautyDescription": "Beauty articles",
+        "weightLoss": "Weight Loss",
+        "weightLossDescription": "Weight Loss articles",
+        "life": "Life",
+        "lifeDescription": "Life articles"
+      },
+      "userAccount": {
+        "title": "User Account",
+        "signIn": "Sign In",
+        "signInDescription": "Access your account",
+        "signUp": "Sign Up",
+        "signUpDescription": "Create new account",
+        "profile": "Profile",
+        "profileDescription": "Manage your profile",
+        "dashboard": "Dashboard",
+        "dashboardDescription": "Your personal dashboard",
+        "favorites": "Favorites",
+        "favoritesDescription": "Saved articles"
+      },
+      "contentCreation": {
+        "title": "Content Creation",
+        "createArticle": "Create Article",
+        "createArticleDescription": "Write new articles"
+      },
+      "newsletter": {
+        "title": "Newsletter & Communication",
+        "confirmNewsletter": "Confirm Newsletter",
+        "confirmNewsletterDescription": "Newsletter confirmation",
+        "unsubscribe": "Unsubscribe",
+        "unsubscribeDescription": "Manage subscriptions"
+      },
+      "security": {
+        "title": "Security & Account",
+        "forgotPassword": "Forgot Password",
+        "forgotPasswordDescription": "Reset your password",
+        "resetPassword": "Reset Password",
+        "resetPasswordDescription": "Set new password",
+        "confirmEmail": "Confirm Email",
+        "confirmEmailDescription": "Verify email address"
+      },
+      "legal": {
+        "title": "Legal & Policies",
+        "privacyPolicy": "Privacy Policy",
+        "privacyPolicyDescription": "Data protection information",
+        "termsConditions": "Terms & Conditions",
+        "termsConditionsDescription": "Terms of service",
+        "cookiePolicy": "Cookie Policy",
+        "cookiePolicyDescription": "Cookie usage information"
+      },
+      "languageSupport": {
+        "title": "Language Support",
+        "description": "Available in multiple languages:",
+        "english": "English",
+        "portuguese": "Português",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "italian": "Italiano"
+      },
+      "helpSupport": {
+        "title": "Help & Support",
+        "siteMap": "Site Map",
+        "siteMapDescription": "This page"
+      }
+    },
+    "footer": {
+      "description": "This site map shows all the pages and features available on Women's Spot. Use the navigation menu at the top of any page to quickly access these sections."
+    }
   }
 }

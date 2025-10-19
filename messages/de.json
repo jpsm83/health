@@ -1078,5 +1078,98 @@
     "heroImageAlt": "Meine Lieblingsartikel",
     "noFavoritesTitle": "Noch keine Favoriten",
     "noFavoritesDescription": "Beginnen Sie mit dem Liken von Artikeln, um Ihre persönliche Sammlung von Lieblingsinhalten für Gesundheit und Wellness aufzubauen."
+  },
+  "siteMap": {
+    "title": "Sitemap",
+    "description": "Navigieren Sie durch alle verfügbaren Seiten und Funktionen auf Women's Spot. Finden Sie alles von Gesundheitsartikeln bis hin zu Benutzerverwaltungstools.",
+    "sections": {
+      "corePages": {
+        "title": "Hauptseiten",
+        "home": "Startseite",
+        "homeDescription": "Hauptseite",
+        "about": "Über Uns",
+        "aboutDescription": "Lernen Sie unsere Mission kennen",
+        "search": "Artikel Suchen",
+        "searchDescription": "Finden Sie spezifische Inhalte"
+      },
+      "articleCategories": {
+        "title": "Artikelkategorien",
+        "health": "Gesundheit",
+        "healthDescription": "Gesundheitsartikel",
+        "fitness": "Fitness",
+        "fitnessDescription": "Fitness-Artikel",
+        "nutrition": "Ernährung",
+        "nutritionDescription": "Ernährungsartikel",
+        "intimacy": "Intimität",
+        "intimacyDescription": "Intimitätsartikel",
+        "beauty": "Schönheit",
+        "beautyDescription": "Schönheitsartikel",
+        "weightLoss": "Gewichtsverlust",
+        "weightLossDescription": "Gewichtsverlust-Artikel",
+        "life": "Leben",
+        "lifeDescription": "Lebensartikel"
+      },
+      "userAccount": {
+        "title": "Benutzerkonto",
+        "signIn": "Anmelden",
+        "signInDescription": "Zugriff auf Ihr Konto",
+        "signUp": "Registrieren",
+        "signUpDescription": "Neues Konto erstellen",
+        "profile": "Profil",
+        "profileDescription": "Verwalten Sie Ihr Profil",
+        "dashboard": "Dashboard",
+        "dashboardDescription": "Ihr persönliches Dashboard",
+        "favorites": "Favoriten",
+        "favoritesDescription": "Gespeicherte Artikel"
+      },
+      "contentCreation": {
+        "title": "Inhaltserstellung",
+        "createArticle": "Artikel Erstellen",
+        "createArticleDescription": "Neue Artikel schreiben"
+      },
+      "newsletter": {
+        "title": "Newsletter und Kommunikation",
+        "confirmNewsletter": "Newsletter Bestätigen",
+        "confirmNewsletterDescription": "Newsletter-Bestätigung",
+        "unsubscribe": "Abmelden",
+        "unsubscribeDescription": "Abonnements verwalten"
+      },
+      "security": {
+        "title": "Sicherheit und Konto",
+        "forgotPassword": "Passwort Vergessen",
+        "forgotPasswordDescription": "Ihr Passwort zurücksetzen",
+        "resetPassword": "Passwort Zurücksetzen",
+        "resetPasswordDescription": "Neues Passwort festlegen",
+        "confirmEmail": "E-Mail Bestätigen",
+        "confirmEmailDescription": "E-Mail-Adresse verifizieren"
+      },
+      "legal": {
+        "title": "Rechtliches und Richtlinien",
+        "privacyPolicy": "Datenschutzrichtlinie",
+        "privacyPolicyDescription": "Datenschutzinformationen",
+        "termsConditions": "Allgemeine Geschäftsbedingungen",
+        "termsConditionsDescription": "Nutzungsbedingungen",
+        "cookiePolicy": "Cookie-Richtlinie",
+        "cookiePolicyDescription": "Informationen zur Cookie-Nutzung"
+      },
+      "languageSupport": {
+        "title": "Sprachunterstützung",
+        "description": "Verfügbar in mehreren Sprachen:",
+        "english": "English",
+        "portuguese": "Português",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "italian": "Italiano"
+      },
+      "helpSupport": {
+        "title": "Hilfe und Support",
+        "siteMap": "Sitemap",
+        "siteMapDescription": "Diese Seite"
+      }
+    },
+    "footer": {
+      "description": "Diese Sitemap zeigt alle verfügbaren Seiten und Funktionen auf Women's Spot. Verwenden Sie das Navigationsmenü oben auf jeder Seite, um schnell auf diese Bereiche zuzugreifen."
+    }
   }
 }
