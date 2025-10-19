@@ -46,7 +46,7 @@ export default async function UnsubscribePage({
         <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
           <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <div className="text-center mb-6">
-              <Mail className="w-16 h-16 text-pink-600 mx-auto mb-4" />
+              <Mail className="w-16 h-16 text-orange-600 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 {t("title")}
               </h1>
@@ -99,7 +99,7 @@ export default async function UnsubscribePage({
       <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
           <div className="text-center mb-6">
-            <Mail className="w-16 h-16 text-pink-600 mx-auto mb-4" />
+            <Mail className="w-16 h-16 text-orange-600 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               {t("title")}
             </h1>

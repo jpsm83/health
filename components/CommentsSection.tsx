@@ -272,7 +272,7 @@ export default function CommentsSection({
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder={t("comments.form.placeholder")}
-              className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent resize-none"
+              className="w-full px-3 py-2 text-sm border-1 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
               rows={3}
               maxLength={1000}
               disabled={isSubmitting}
@@ -285,7 +285,7 @@ export default function CommentsSection({
               <Button
                 type="submit"
                 disabled={!newComment?.trim() || isSubmitting}
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {isSubmitting ? t("comments.form.submitting") : t("comments.form.submit")}
               </Button>
@@ -296,10 +296,9 @@ export default function CommentsSection({
 
       {/* Message for users who have already commented */}
       {session?.user?.id && hasUserCommented && (
-        <div className="mb-4 sm:mb-6 md:mb-8 p-3 sm:p-4 bg-purple-50 border border-purple-200 rounded-lg">
+        <div className="mb-4 sm:mb-6 md:mb-8 p-3 sm:p-4 bg-orange-50 border border-orange-200 rounded-lg">
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 text-purple-500">💬</div>
-            <p className="text-sm text-purple-700">
+            <p className="text-sm text-orange-700">
               {t("comments.form.alreadyCommented")}
             </p>
           </div>
@@ -503,7 +502,7 @@ export default function CommentsSection({
                     checked={selectedReason === reason.value}
                     onChange={(e) => setSelectedReason(e.target.value)}
                     disabled={isReporting}
-                    className="w-4 h-4 text-red-600 focus:ring-red-500 disabled:cursor-not-allowed"
+                    className="w-4 h-4 text-orange-600 focus:ring-orange-500 disabled:cursor-not-allowed"
                   />
                   <span className="text-sm text-gray-700">{reason.label}</span>
                 </label>
@@ -521,7 +520,7 @@ export default function CommentsSection({
               <Button
                 onClick={handleCommentReport}
                 disabled={!selectedReason || isReporting}
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {isReporting ? (
                   <>

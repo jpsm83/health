@@ -52,7 +52,7 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
               onClick={resetErrorBoundary}
               variant="ghost"
               size="sm"
-              className="bg-rose-500 hover:bg-rose-700 text-white"
+              className="bg-orange-500 hover:bg-orange-700 text-white"
             >
               {buttonText}
             </Button>

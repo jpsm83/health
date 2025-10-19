@@ -24,7 +24,7 @@ export default async function AboutPage() {
       <ErrorBoundary context={"About component"}>
         <div className="h-full md:mt-20 mt-10 text-justify">
           {/* Hero Section */}
-          <div className="bg-gradient-to-r from-red-600 to-pink-600 text-white py-20">
+          <div className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white py-20">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center">
                 <h1 className="text-5xl font-bold mb-6">{t("hero.title")}</h1>
@@ -91,8 +91,8 @@ export default async function AboutPage() {
                 {t("whatWeCover.title")}
               </h2>
               <div className="grid md:grid-cols-4 gap-6">
-                <div className="text-center p-6 bg-blue-50 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-orange-50 rounded-lg shadow-md">
+                  <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"
@@ -114,8 +114,8 @@ export default async function AboutPage() {
                     {t("whatWeCover.healthWellness.description")}
                   </p>
                 </div>
-                <div className="text-center p-6 bg-green-50 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-orange-50 rounded-lg shadow-md">
+                  <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"
@@ -137,8 +137,8 @@ export default async function AboutPage() {
                     {t("whatWeCover.fitnessBeauty.description")}
                   </p>
                 </div>
-                <div className="text-center p-6 bg-pink-50 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-orange-50 rounded-lg shadow-md">
+                  <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"
@@ -184,8 +184,8 @@ export default async function AboutPage() {
           </p>
         </div>
 
-        <div className="text-center p-6 bg-purple-50 rounded-lg shadow-md">
-          <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="text-center p-6 bg-orange-50 rounded-lg shadow-md">
+          <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-white"
               fill="none"
@@ -216,7 +216,7 @@ export default async function AboutPage() {
                 {t("editorialStandards.title")}
               </h2>
               <div className="space-y-6">
-                <div className="border-l-4 border-blue-600 p-6 shadow-md">
+                <div className="border-l-4 border-orange-600 p-6 shadow-md">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {t("editorialStandards.accuracy.title")}
                   </h3>
@@ -224,7 +224,7 @@ export default async function AboutPage() {
                     {t("editorialStandards.accuracy.description")}
                   </p>
                 </div>
-                <div className="border-l-4 border-green-600 p-6 shadow-md">
+                <div className="border-l-4 border-orange-600 p-6 shadow-md">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {t("editorialStandards.editorialIndependence.title")}
                   </h3>
@@ -232,7 +232,7 @@ export default async function AboutPage() {
                     {t("editorialStandards.editorialIndependence.description")}
                   </p>
                 </div>
-                <div className="border-l-4 border-purple-600 p-6 shadow-md">
+                <div className="border-l-4 border-orange-600 p-6 shadow-md">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {t("editorialStandards.privacy.title")}
                   </h3>
@@ -245,7 +245,7 @@ export default async function AboutPage() {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center bg-gradient-to-r from-red-600 to-pink-600 py-24 px-12">
+          <div className="text-center bg-gradient-to-r from-orange-600 to-yellow-500 py-24 px-12">
             <h2 className="text-3xl font-bold text-white mb-4">
               {t("callToAction.title")}
             </h2>
@@ -254,7 +254,7 @@ export default async function AboutPage() {
             </p>
             <Link
               href={`/${locale}`}
-              className="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
+              className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
             >
               {t("callToAction.button")}
             </Link>

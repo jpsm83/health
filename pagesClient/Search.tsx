@@ -62,7 +62,7 @@ export default function Search({
               <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t("resultsTitle")}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
+              <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 {t("resultsFound", {
                   count: paginationData.totalArticles,
                   query: query,
@@ -77,10 +77,10 @@ export default function Search({
               <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t("noResultsTitle")}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
+              <p className="text-lg md:text-xl text-white max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 {t("noResultsDescription")}
               </p>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
+              <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 &quot;{query}&quot;
               </p>
             </div>

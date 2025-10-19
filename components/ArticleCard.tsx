@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import SocialShare from "./SocialShare";
 import { Button } from "./ui/button";
-import { ImageOff } from 'lucide-react';
+import { ImageOff } from "lucide-react";
 
 export default function ArticleCard({
   article,
@@ -41,7 +41,10 @@ export default function ArticleCard({
       ? `${window.location.origin}/${article.category}/${article.languages[0].seo.slug}`
       : "";
   const shareTitle = article.languages[0].content.mainTitle;
-  const shareMedia = article.articleImages && article.articleImages.length > 0 ? article.articleImages[0] : "";
+  const shareMedia =
+    article.articleImages && article.articleImages.length > 0
+      ? article.articleImages[0]
+      : "";
 
   const handleShareClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -82,7 +85,8 @@ export default function ArticleCard({
               </div>
               {/* Second Image */}
               <div className="relative w-1/2 h-full">
-                {article.articleImages.length > 1 && article.articleImages[1] ? (
+                {article.articleImages.length > 1 &&
+                article.articleImages[1] ? (
                   <Image
                     src={article.articleImages[1]}
                     alt={article.languages[0].content.mainTitle}
@@ -110,42 +114,41 @@ export default function ArticleCard({
             </div>
           )}
           <div className="absolute top-2 left-2 z-10">
-            <span className="bg-gradient-to-r from-red-600 to-pink-600 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize shadow-2xl">
+            <span className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white border border-white text-xs font-medium px-2 py-1 rounded-full capitalize shadow-2xl">
               {t(`categories.${article.category}`)}
             </span>
           </div>
-                {/* Share Button - Top Right */}
-      <div className="absolute bottom-2 right-2 z-10">
-        <Button
-          onClick={handleShareClick}
-          className="bg-black/40 hover:bg-black/60 text-white border border-white rounded-full transition-all duration-200 hover:shadow-sm backdrop-blur-sm"
-          title="Share article"
-        >
-          <MoreHorizontal size={16} />
-        </Button>
-      </div>
+          {/* Share Button - Top Right */}
+          <div className="absolute bottom-2 right-2 z-10">
+            <Button
+              onClick={handleShareClick}
+              className="bg-black/40 hover:bg-black/60 text-white border border-white rounded-full transition-all duration-200 hover:shadow-sm backdrop-blur-sm"
+              title="Share article"
+            >
+              <MoreHorizontal size={16} />
+            </Button>
+          </div>
 
-      {/* Share Dropdown */}
-      {showShareDropdown && (
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="absolute top-0 z-20 bg-black/60 backdrop-blur-xs shadow-2xl p-3"
-        >
-          <SocialShare
-            url={shareUrl}
-            title={shareTitle}
-            description={excerpt}
-            media={shareMedia}
-          />
-        </div>
-      )}
-
+          {/* Share Dropdown */}
+          {showShareDropdown && (
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="absolute top-0 z-20 bg-black/60 backdrop-blur-xs shadow-2xl p-3"
+            >
+              <SocialShare
+                url={shareUrl}
+                title={shareTitle}
+                description={excerpt}
+                media={shareMedia}
+              />
+            </div>
+          )}
         </div>
 
         {/* Article Content - Reduced padding and spacing */}
         <div className="p-3 flex-1 flex flex-col gap-3">
           {/* Title - Smaller fixed height */}
-          <h3 className="font-semibold text-gray-900 leading-tight hover:text-pink-600 transition-colors duration-200">
+          <h3 className="font-semibold text-gray-900 leading-tight hover:text-orange-600 transition-colors duration-200">
             {article.languages[0].content.mainTitle}
           </h3>
 
@@ -165,7 +168,6 @@ export default function ArticleCard({
           </div>
         </div>
       </Link>
-
     </div>
   );
 }

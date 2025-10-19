@@ -6,9 +6,9 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useForm } from "react-hook-form";
 import passwordValidation from "@/lib/utils/passwordValidation";
-import Image from "next/image";
 import { useSession, signIn } from "next-auth/react";
 import { createUser } from "@/app/actions/user/createUser";
+import { Trash2 } from "lucide-react";
 
 interface FormData {
   username: string;
@@ -177,14 +177,14 @@ export default function SignUp() {
     <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-white" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
             {t("createAccount")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {t("alreadyHaveAccount")}{" "}
             <Link
               href={`/${locale}/signin`}
-              className="font-medium text-pink-600 hover:text-pink-500"
+              className="font-medium text-orange-600 hover:text-orange-500"
             >
               {t("signIn")}
             </Link>
@@ -197,7 +197,7 @@ export default function SignUp() {
             type="button"
             disabled={isLoading}
             onClick={handleGoogleSignUp}
-            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
@@ -233,8 +233,8 @@ export default function SignUp() {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {error && (
-            <div className="rounded-md bg-pink-50 p-4">
-              <div className="text-sm text-pink-700">{error}</div>
+            <div className="rounded-md bg-orange-50 p-4">
+              <div className="text-sm text-orange-700">{error}</div>
             </div>
           )}
 
@@ -272,13 +272,13 @@ export default function SignUp() {
                 }}
                 className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.username
-                    ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                    : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                 } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                 placeholder={t("enterUsername")}
               />
               {errors.username && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.username.message}
                 </p>
               )}
@@ -309,13 +309,13 @@ export default function SignUp() {
                 }}
                 className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.email
-                    ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                    : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                 } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                 placeholder={t("enterEmail")}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.email.message}
                 </p>
               )}
@@ -341,12 +341,12 @@ export default function SignUp() {
                 }}
                 className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.birthDate
-                    ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                    : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                 } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
               />
               {errors.birthDate && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.birthDate.message}
                 </p>
               )}
@@ -380,8 +380,8 @@ export default function SignUp() {
                   }}
                   className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.password
-                      ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                      : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                      ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                      : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                   } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                   placeholder={t("enterPassword")}
                 />
@@ -429,7 +429,7 @@ export default function SignUp() {
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.password.message}
                 </p>
               )}
@@ -459,8 +459,8 @@ export default function SignUp() {
                   }}
                   className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.confirmPassword
-                      ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                      : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                      ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                      : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                   } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                   placeholder={t("confirmPassword")}
                 />
@@ -508,7 +508,7 @@ export default function SignUp() {
                 </button>
               </div>
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.confirmPassword.message}
                 </p>
               )}
@@ -529,26 +529,26 @@ export default function SignUp() {
                   disabled={isLoading}
                   {...register("imageFile")}
                   onChange={handleImageChange}
-                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
                 {selectedImage && (
                   <button
                     type="button"
                     onClick={removeImage}
-                    className="text-red-600 hover:text-red-900 text-sm"
+                    className="text-red-400 hover:text-red-600 text-sm"
                   >
-                    {t("removeImage")}
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 )}
               </div>
               {errors.imageFile && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.imageFile.message}
                 </p>
               )}
               {imagePreview && (
                 <div className="mt-2">
-                  <Image
+                  <img
                     src={imagePreview}
                     alt="Profile Preview"
                     className="max-w-xs h-auto rounded-md"
@@ -562,7 +562,7 @@ export default function SignUp() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <svg
@@ -594,7 +594,7 @@ export default function SignUp() {
         <div className="text-center">
           <Link
             href={`/${locale}`}
-            className={`font-medium text-pink-600 hover:text-pink-500 ${
+            className={`font-medium text-orange-600 hover:text-orange-500 ${
               isLoading ? "pointer-events-none opacity-50" : ""
             }`}
           >

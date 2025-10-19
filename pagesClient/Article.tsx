@@ -313,7 +313,7 @@ export default function Article({
                       <div className="absolute top-4 right-4">
                         <button
                           onClick={() => setShowDeleteModal(true)}
-                          className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-600 text-white border-none transition-colors cursor-pointer rounded-full backdrop-blur-sm"
+                          className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-700 text-white border-1 border-white transition-colors cursor-pointer rounded-full backdrop-blur-sm"
                           title={t("article.actions.delete")}
                         >
                           <Trash2 className="size-4" />
@@ -347,11 +347,6 @@ export default function Article({
                           className={`flex items-center gap-1 px-2 py-1 border-none transition-colors cursor-pointer rounded-full ${
                             isLiked ? "text-red-600" : "text-gray-200"
                           }`}
-                          title={
-                            isLiked
-                              ? t("article.actions.unlikeArticle")
-                              : t("article.actions.likeArticle")
-                          }
                         >
                           <Heart
                             className={`size-6 ${
@@ -419,22 +414,12 @@ export default function Article({
             className={`flex items-center gap-1 px-2 py-1 border-none shadow-none transition-colors cursor-pointer ${
               isLiked ? "text-red-600" : "text-gray-600"
             }`}
-            title={
-              isLiked
-                ? t("article.actions.unlikeArticle")
-                : t("article.actions.likeArticle")
-            }
           >
             <Heart
               className={`size-6 ${
                 isLiked ? "fill-current" : "stroke-current fill-none"
               }`}
             />
-            {likes > 0 && (
-              <span className="text-xs font-medium">
-                {likes} {t("article.actions.likes")}
-              </span>
-            )}
           </Button>
         </div>
 
@@ -459,7 +444,7 @@ export default function Article({
 
         {/* Category Carousels */}
         <section>
-          <div className="text-center bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
+          <div className="text-center bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
             <h2 className="text-3xl font-bold text-white">
               {t("article.exploreMore")}
             </h2>

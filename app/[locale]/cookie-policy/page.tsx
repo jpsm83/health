@@ -111,14 +111,14 @@ export default async function CookiePolicyPage() {
                     {t("sections.yourChoices.subsections.moreInformation.description")}
                     <a
                       href="https://www.allaboutcookies.org"
-                      className="text-blue-600 hover:underline ml-1"
+                      className="text-orange-600 font-bold hover:underline ml-1"
                     >
                       {t("sections.yourChoices.subsections.moreInformation.links.allaboutcookies")}
                     </a>{" "}
                     and
                     <a
                       href="https://www.youronlinechoices.eu"
-                      className="text-blue-600 hover:underline ml-1"
+                      className="text-orange-600 font-bold hover:underline ml-1"
                     >
                       {t("sections.yourChoices.subsections.moreInformation.links.youronlinechoices")}
                     </a>

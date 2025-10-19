@@ -50,7 +50,7 @@ export default function ConfirmNewsletter() {
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
         {status === "loading" && (
           <>
-            <Loader2 className="w-16 h-16 text-pink-600 mx-auto mb-4 animate-spin" />
+            <Loader2 className="w-16 h-16 text-orange-600 mx-auto mb-4 animate-spin" />
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               {t("confirming")}
             </h1>

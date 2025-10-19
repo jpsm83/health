@@ -112,14 +112,14 @@ export default function SignIn() {
     <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-white" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
             {t("signInToAccount")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {t("dontHaveAccount")}{" "}
             <Link
               href={`/${locale}/signup`}
-              className="font-medium text-pink-600 hover:text-pink-500"
+              className="font-medium text-orange-600 hover:text-orange-500"
             >
               {t("signUp")}
             </Link>
@@ -132,7 +132,7 @@ export default function SignIn() {
             type="button"
             disabled={isLoading}
             onClick={handleGoogleSignIn}
-            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
@@ -193,13 +193,13 @@ export default function SignIn() {
                 }}
                 className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                   errors.email
-                    ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                    : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                 } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                 placeholder={t("enterEmail")}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.email.message}
                 </p>
               )}
@@ -227,8 +227,8 @@ export default function SignIn() {
                   }}
                   className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                     errors.password
-                      ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                      : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                      ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                      : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                   } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                   placeholder={t("enterPassword")}
                 />
@@ -276,7 +276,7 @@ export default function SignIn() {
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-pink-600">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.password.message}
                 </p>
               )}
@@ -287,7 +287,7 @@ export default function SignIn() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <svg
@@ -318,7 +318,7 @@ export default function SignIn() {
           <div className="text-center">
             <Link
               href={`/${locale}/forgot-password`}
-              className={`text-sm text-pink-600 hover:text-pink-500 ${
+              className={`text-sm text-orange-600 hover:text-orange-500 ${
                 isLoading ? "pointer-events-none opacity-50" : ""
               }`}
             >
@@ -330,7 +330,7 @@ export default function SignIn() {
         <div className="text-center">
           <Link
             href={`/${locale}`}
-            className={`font-medium text-pink-600 hover:text-pink-500 ${
+            className={`font-medium text-orange-600 hover:text-orange-500 ${
               isLoading ? "pointer-events-none opacity-50" : ""
             }`}
           >

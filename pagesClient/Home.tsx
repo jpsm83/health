@@ -38,10 +38,10 @@ export default function Home({
             <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
               {t("title")}
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto drop-shadow-xl" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)'}}>
+            <p className="text-xl md:text-2xl mb-8 text-white max-w-3xl mx-auto drop-shadow-xl" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)'}}>
               {t("subtitle")}
             </p>
-            <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
+            <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
               {t("description")}
             </p>
           </div>
@@ -57,14 +57,14 @@ export default function Home({
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup />
-
+            
       {/* Category Carousels */}
       <section>
-        <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
-          <h2 className="text-3xl font-bold text-white mb-4">
+        <div className="text-center mb-10 bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
+          <h2 className="text-3xl font-bold text-white mb-4" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>
             {t("exploreByCategory.title")}
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-white max-w-2xl mx-auto">
             {t("exploreByCategory.description")}
           </p>
         </div>

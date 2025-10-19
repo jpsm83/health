@@ -60,7 +60,7 @@ export default function Articles({
               <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
                 {t(`${category}.title`)}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
+              <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
                 {t(`${category}.description`)}
               </p>
             </div>
@@ -68,7 +68,7 @@ export default function Articles({
         </section>
 
         {/* No articles message */}
-        <section className="text-center py-16">
+        <section className="text-center py-16 mb-24">
           <h2 className="text-2xl font-semibold text-gray-600 mb-4">
             {t("noArticlesFound")}
           </h2>
@@ -99,7 +99,7 @@ export default function Articles({
             <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
               {t(`${category}.title`)}
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
+            <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
               {t(`${category}.description`)}
             </p>
           </div>

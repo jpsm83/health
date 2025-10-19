@@ -57,7 +57,7 @@ export default function Favorites({
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
                 {t("title")}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto">
                 {t("subtitle", { 
                   count: paginationData.totalArticles
                 })}
@@ -71,7 +71,7 @@ export default function Favorites({
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
                 {t("noFavoritesTitle")}
               </h1>
-              <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
                 {t("noFavoritesDescription")}
               </p>
             </div>

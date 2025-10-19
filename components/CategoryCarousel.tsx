@@ -160,9 +160,15 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
       {/* Category Header */}
       <div className="flex items-center justify-between mb-6 px-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 capitalize">
+          <a
+            href={`/${category}`}
+            className="text-2xl font-bold text-white capitalize transition-colors duration-200 cursor-pointer"
+            style={{
+              textShadow: "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
+            }}
+          >
             {categoryTitle}
-          </h2>
+          </a>
         </div>
         <div className="flex items-center gap-4">
           <a

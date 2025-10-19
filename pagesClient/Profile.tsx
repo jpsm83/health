@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { User, BookOpen, Lock, CheckCircle, XCircle } from "lucide-react";
+import { User, BookOpen, Lock, CheckCircle, XCircle, Trash2 } from "lucide-react";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -428,6 +428,7 @@ export default function Profile({ initialUser }: ProfileProps) {
       }
 
       setSelectedImage(file);
+      setValue("imageFile", file); // Update form value
       setError(""); // Clear any previous errors
 
       // Create preview
@@ -539,12 +540,11 @@ export default function Profile({ initialUser }: ProfileProps) {
           {/* Profile Image Section - Centered on mobile, left on desktop */}
           <div className="flex-shrink-0">
             <div className="relative">
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-200 border-4 border-pink-100">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
                 {imagePreview ? (
-                  <Image
+                  <img
                     src={imagePreview}
                     alt="Profile Preview"
-                    priority
                     className="w-full h-full object-cover"
                   />
                 ) : user?.imageUrl ? (
@@ -564,7 +564,7 @@ export default function Profile({ initialUser }: ProfileProps) {
               </div>
 
               {/* Image Upload Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black bg-opacity-50 rounded-full">
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-gray-400 bg-opacity-50 rounded-full">
                 <label htmlFor="image" className="cursor-pointer text-white">
                   <input
                     type="file"
@@ -592,24 +592,25 @@ export default function Profile({ initialUser }: ProfileProps) {
                   </div>
                 </label>
               </div>
-            </div>
 
-            {/* Remove Image Button */}
-            {selectedImage && (
-              <Button
-                type="button"
-                onClick={removeImage}
-                className="mt-2 w-full text-center text-red-600 hover:text-red-900 text-sm bg-red-50 hover:bg-red-100 py-1 px-2 rounded-md transition-colors"
-              >
-                {t("actions.remove")}
-              </Button>
-            )}
+              {/* Remove Image Button - Only show when there's a preview */}
+              {imagePreview && (
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 transition-colors"
+                  title={t("actions.removeImage")}
+                >
+                  <Trash2 className="w-3 h-3" />
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Header Info */}
           <div className="flex-1 w-full text-center md:text-left">
             <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between space-y-4 md:space-y-0">
-              <div className="flex-1">
+              <div className="flex-1 cursor-default">
                 <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">
                   {user?.username}
                 </h1>
@@ -646,7 +647,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       <DropdownMenuItem
                         key={lang}
                         onClick={() => handleLanguageChange(lang)}
-                        className="cursor-pointer hover:bg-pink-50"
+                        className="cursor-pointer hover:bg-red-50"
                       >
                         <div className="flex items-center space-x-2">
                           {getCountryFlag(lang, "sm")}
@@ -660,7 +661,7 @@ export default function Profile({ initialUser }: ProfileProps) {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4 cursor-default">
               <div className="flex items-center space-x-2 md:space-x-3 p-2 md:p-3 bg-gray-50 rounded-lg">
                 {user?.emailVerified ? (
                   <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0" />
@@ -679,7 +680,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                 </div>
               </div>
               <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg">
-                <div className="text-xl md:text-2xl font-bold text-pink-600">
+                <div className="text-xl md:text-2xl font-bold text-orange-600">
                   {user?.likedArticles?.length || 0}
                 </div>
                 <div className="text-xs md:text-sm text-gray-500">
@@ -687,7 +688,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                 </div>
               </div>
               <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg sm:col-span-2 md:col-span-1">
-                <div className="text-xl md:text-2xl font-bold text-pink-600">
+                <div className="text-xl md:text-2xl font-bold text-orange-600">
                   {user?.commentedArticles?.length || 0}
                 </div>
                 <div className="text-xs md:text-sm text-gray-500">
@@ -705,7 +706,7 @@ export default function Profile({ initialUser }: ProfileProps) {
               type="button"
               onClick={handleRequestEmailConfirmation}
               disabled={isLoading}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
             >
               <CheckCircle className="w-4 h-4 mr-2" />
               {t("emailConfirmation.requestButton")}
@@ -718,11 +719,11 @@ export default function Profile({ initialUser }: ProfileProps) {
 
         {/* Success/Error Messages */}
         {emailConfirmationError && (
-          <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
+          <div className="rounded-md bg-red-50 border border-orange-200 p-3">
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 <svg
-                  className="h-5 w-5 text-pink-400"
+                  className="h-5 w-5 text-orange-400"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -734,10 +735,10 @@ export default function Profile({ initialUser }: ProfileProps) {
                 </svg>
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-pink-800">
+                <h3 className="text-sm font-medium text-red-800">
                   {t("messages.unexpectedErrorSendingEmailConfirmation")}
                 </h3>
-                <div className="mt-1 text-sm text-pink-700">{error}</div>
+                <div className="mt-1 text-sm text-red-700">{error}</div>
               </div>
             </div>
           </div>
@@ -777,7 +778,7 @@ export default function Profile({ initialUser }: ProfileProps) {
             {/* Personal Information Section */}
             <div>
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
+                <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-orange-600" />
                 {t("sections.personal")}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
@@ -799,13 +800,13 @@ export default function Profile({ initialUser }: ProfileProps) {
                     }}
                     className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                       errors.username
-                        ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                        : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                        ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                        : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                     } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                     placeholder={t("fields.enterUsername")}
                   />
                   {errors.username && (
-                    <p className="mt-1 text-sm text-pink-600">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.username.message}
                     </p>
                   )}
@@ -829,12 +830,12 @@ export default function Profile({ initialUser }: ProfileProps) {
                     }}
                     className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
                       errors.birthDate
-                        ? "border-pink-500 focus:ring-pink-500 focus:border-pink-500"
-                        : "border-gray-300 focus:ring-pink-500 focus:border-pink-500"
+                        ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
+                        : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
                     } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                   />
                   {errors.birthDate && (
-                    <p className="mt-1 text-sm text-pink-600">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.birthDate.message}
                     </p>
                   )}
@@ -845,7 +846,7 @@ export default function Profile({ initialUser }: ProfileProps) {
             {/* Category Interests Section */}
             <div>
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
+                <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-orange-600" />
                 {t("sections.categoryInterests")}
               </h2>
 
@@ -864,7 +865,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       e.target.value
                     );
                   }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
                 >
                   {newsletterFrequencies.map((frequency) => (
                     <option key={frequency} value={frequency}>
@@ -924,7 +925,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                               // Trigger validation to update error state
                               trigger("subscriptionPreferences.categories");
                             }}
-                            className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded flex-shrink-0 ml-2"
+                            className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded flex-shrink-0 ml-2"
                           />
                         </div>
                       </div>
@@ -937,7 +938,7 @@ export default function Profile({ initialUser }: ProfileProps) {
             <div>
               {/* Security Section */}
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-pink-600" />
+                <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-orange-600" />
                 {t("sections.security")}
               </h2>
               <div className="space-y-4">
@@ -946,7 +947,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                     type="button"
                     onClick={handleResetPassword}
                     disabled={isLoading}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                   >
                     <Lock className="w-4 h-4 mr-2" />
                     {t("actions.resetPassword")}
@@ -960,11 +961,11 @@ export default function Profile({ initialUser }: ProfileProps) {
 
             {/* Success/Error Messages */}
             {error && (
-              <div className="rounded-md bg-pink-50 border border-pink-200 p-3">
+              <div className="rounded-md bg-red-50 border border-red-200 p-3">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
                     <svg
-                      className="h-5 w-5 text-pink-400"
+                      className="h-5 w-5 text-red-400"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -976,10 +977,10 @@ export default function Profile({ initialUser }: ProfileProps) {
                     </svg>
                   </div>
                   <div className="ml-3 flex-1">
-                    <h3 className="text-sm font-medium text-pink-800">
+                    <h3 className="text-sm font-medium text-red-800">
                       {t("messages.unexpectedError")}
                     </h3>
-                    <div className="mt-1 text-sm text-pink-700">{error}</div>
+                    <div className="mt-1 text-sm text-red-700">{error}</div>
                   </div>
                 </div>
               </div>
@@ -1016,7 +1017,7 @@ export default function Profile({ initialUser }: ProfileProps) {
               <Button
                 type="submit"
                 disabled={isLoading || !hasChanges}
-                className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full md:w-auto"
+                className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full md:w-auto"
               >
                 {isLoading ? (
                   <svg

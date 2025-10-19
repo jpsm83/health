@@ -20,7 +20,7 @@ export default function Loading() {
 
         {/* Featured Articles Section Skeleton - matches FeaturedArticles component */}
         <section>
-          <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
+          <div className="text-center mb-10 bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
             <Skeleton className="h-10 w-64 mx-auto bg-white/20 mb-4" />
             <Skeleton className="h-6 w-96 mx-auto bg-white/20" />
           </div>
@@ -64,7 +64,7 @@ export default function Loading() {
 
         {/* Category Carousels Section - matches the structure */}
         <section>
-          <div className="text-center mb-10 bg-gradient-to-r from-red-600 to-pink-600 p-4 md:p-8">
+          <div className="text-center mb-10 bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
             <Skeleton className="h-10 w-80 mx-auto bg-white/20 mb-4" />
             <Skeleton className="h-6 w-96 mx-auto bg-white/20" />
           </div>
