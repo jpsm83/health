@@ -52,7 +52,7 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "weightLoss": "Weight Loss",
+      "weight-loss": "Weight Loss",
       "life": "Life"
     }
   },
@@ -113,7 +113,7 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "weightLoss": "Weight Loss",
+      "weight-loss": "Weight Loss",
       "life": "Life"
     }
   },
@@ -214,7 +214,7 @@
       "nutrition": "Nutrition",
       "intimacy": "Intimacy",
       "beauty": "Beauty",
-      "weightLoss": "Weight Loss",
+      "weight-loss": "Weight Loss",
       "life": "Life"
     },
     "frequencies": {
@@ -316,7 +316,7 @@
         "description": "Our comprehensive collection of beauty articles, tips, everthing you need to know about beauty and wellness."
       }
     },
-    "weightLoss": {
+    "weight-loss": {
       "heroImageAlt": "Weight Loss Articles Hero Image",
       "title": "Weight Loss Articles",
       "description": "Our best insights on weight loss, a comprehensive collection of weight loss articles, tips, and guides to help you achieve your health goals.",
@@ -541,7 +541,7 @@
       "description": "Our best insights on beauty, a comprehensive collection of beauty articles, tips, and guides to help you live a healthier, more fulfilling life.",
       "keywords": "beauty articles, beauty tips, skincare, makeup, beauty routines, beauty advice"
     },
-    "weightLoss": {
+    "weight-loss": {
       "title": "Weight Loss Articles",
       "description": "Our best insights on weight loss, a comprehensive collection of weight loss articles, tips, and guides to help you achieve your health goals.",
       "keywords": "weight loss articles, weight loss tips, healthy weight management, diet tips, fitness for weight loss, weight loss strategies"
@@ -603,7 +603,7 @@
         "title": "Relationships & Intimacy",
         "description": "Open, honest discussions about relationships, intimacy, and sexual health for women's."
       },
-      "weightLoss": {
+      "weight-loss": {
         "title": "Weight Loss & Health Goals",
         "description": "Expert guidance on healthy weight management, fitness, and achieving your health goals."
       },
@@ -1104,8 +1104,8 @@
         "intimacyDescription": "Intimacy articles",
         "beauty": "Beauty",
         "beautyDescription": "Beauty articles",
-        "weightLoss": "Weight Loss",
-        "weightLossDescription": "Weight Loss articles",
+        "weight-loss": "Weight Loss",
+        "weight-lossDescription": "Weight Loss articles",
         "life": "Life",
         "lifeDescription": "Life articles"
       },

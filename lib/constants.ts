@@ -7,7 +7,7 @@ export const mainCategories = [
   "nutrition",
   "intimacy",
   "beauty",
-  "weightLoss",
+  "weight-loss",
   "life",
 ];
 
@@ -26,6 +26,6 @@ export const categoryHeroImages = {
   nutrition: "https://res.cloudinary.com/jpsm83/image/upload/v1760115243/health/bpkjpqjipibnwqeuabmq.png",
   intimacy: "https://res.cloudinary.com/jpsm83/image/upload/v1760167913/health/v35vhnluyjpwab6qml2z.jpg",
   beauty: "https://res.cloudinary.com/jpsm83/image/upload/v1760116224/health/rgmecdllfqgaeborqkur.png",
-  weightLoss: "https://res.cloudinary.com/jpsm83/image/upload/v1760116224/health/rgmecdllfqgaeborqkur.png",
-  life: "https://res.cloudinary.com/jpsm83/image/upload/v1760116224/health/rgmecdllfqgaeborqkur.png",
+  "weight-loss": "https://res.cloudinary.com/jpsm83/image/upload/v1760860863/health/cxcinavpch40pcxxfooo.jpg",
+  life: "https://res.cloudinary.com/jpsm83/image/upload/v1760860888/health/oymcvrxmvggo547lsqau.jpg",
 } as const;

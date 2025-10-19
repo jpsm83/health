@@ -50,7 +50,7 @@
       "nutrition": "Ernährung",
       "intimacy": "Intimitat",
       "beauty": "Schönheit",
-      "weightLoss": "Gewichtsverlust",
+      "weight-loss": "Gewichtsverlust",
       "life": "Leben"
     }
   },
@@ -112,7 +112,7 @@
       "nutrition": "Ernährung",
       "intimacy": "Intimitat",
       "beauty": "Schönheit",
-      "weightLoss": "Gewichtsverlust",
+      "weight-loss": "Gewichtsverlust",
       "life": "Leben"
     }
   },
@@ -213,7 +213,7 @@
       "nutrition": "Ernährung",
       "intimacy": "Intimitat",
       "beauty": "Schönheit",
-      "weightLoss": "Gewichtsverlust",
+      "weight-loss": "Gewichtsverlust",
       "life": "Leben"
     },
     "frequencies": {
@@ -467,7 +467,7 @@
       "description": "Unsere besten Einblicke in Beauty, eine umfassende Sammlung von Beauty-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "keywords": "beauty-artikel, beauty-tipps, hautpflege, makeup, beauty-routinen, beauty-beratung"
     },
-    "weightLoss": {
+    "weight-loss": {
       "title": "Gewichtsverlust-Artikel",
       "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
       "keywords": "gewichtsverlust-artikel, gewichtsverlust-tipps, gesundes gewichtsmanagement, diät-tipps, fitness für gewichtsverlust, gewichtsverlust-strategien"
@@ -529,7 +529,7 @@
         "title": "Beziehungen & Intimitat",
         "description": "Offene, ehrliche Diskussionen über Beziehungen, Intimität und sexuelle Gesundheit für Frauen."
       },
-      "weightLoss": {
+      "weight-loss": {
         "title": "Gewichtsverlust und Gesundheitsziele",
         "description": "Expertenberatung zu gesundem Gewichtsmanagement, Fitness und Erreichen Ihrer Gesundheitsziele."
       },
@@ -963,7 +963,7 @@
         "description": "Unsere umfassende Sammlung von Schönheitsartikeln, Tipps, alles was Sie über Schönheit und Wellness wissen müssen."
       }
     },
-    "weightLoss": {
+    "weight-loss": {
       "heroImageAlt": "Gewichtsverlust-Artikel Hero-Bild",
       "title": "Gewichtsverlust-Artikel",
       "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps und Anleitungen, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
@@ -1104,8 +1104,8 @@
         "intimacyDescription": "Intimitätsartikel",
         "beauty": "Schönheit",
         "beautyDescription": "Schönheitsartikel",
-        "weightLoss": "Gewichtsverlust",
-        "weightLossDescription": "Gewichtsverlust-Artikel",
+        "weight-loss": "Gewichtsverlust",
+        "weight-lossDescription": "Gewichtsverlust-Artikel",
         "life": "Leben",
         "lifeDescription": "Lebensartikel"
       },

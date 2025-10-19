@@ -214,7 +214,7 @@ export default function Navbar() {
                   prefetch={false}
                 >
                   <Activity size={16} className="text-orange-600" />{" "}
-                  {t("categories.weightLoss")}
+                  {t("categories.weight-loss")}
                 </Link>
               </DropdownMenuItem>
 
@@ -533,7 +533,7 @@ export default function Navbar() {
                   "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
               }}
             >
-              {t(`categories.${category.replace("-", "")}`)}
+              {t(`categories.${category}`)}
             </Link>
           </Button>
         ))}

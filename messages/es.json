@@ -50,7 +50,7 @@
       "nutrition": "Nutrición",
       "intimacy": "Intimidad",
       "beauty": "Belleza",
-      "weightLoss": "Pérdida de Peso",
+      "weight-loss": "Pérdida de Peso",
       "life": "Vida"
     }
   },
@@ -112,7 +112,7 @@
       "nutrition": "Nutrición",
       "intimacy": "Intimidad",
       "beauty": "Belleza",
-      "weightLoss": "Pérdida de Peso",
+      "weight-loss": "Pérdida de Peso",
       "life": "Vida"
     }
   },
@@ -213,7 +213,7 @@
       "nutrition": "Nutrición",
       "intimacy": "Intimidad",
       "beauty": "Belleza",
-      "weightLoss": "Pérdida de Peso",
+      "weight-loss": "Pérdida de Peso",
       "life": "Vida"
     },
     "frequencies": {
@@ -467,7 +467,7 @@
       "description": "Nuestros mejores insights sobre belleza, una colección completa de artículos de belleza, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
       "keywords": "artículos de belleza, consejos de belleza, cuidado de la piel, maquillaje, rutinas de belleza, consejos de belleza"
     },
-    "weightLoss": {
+    "weight-loss": {
       "title": "Artículos de Pérdida de Peso",
       "description": "Nuestros mejores insights sobre pérdida de peso, una colección completa de artículos de pérdida de peso, consejos y guías para ayudarte a alcanzar tus objetivos de salud.",
       "keywords": "artículos de pérdida de peso, consejos de pérdida de peso, gestión saludable del peso, consejos de dieta, fitness para pérdida de peso, estrategias de pérdida de peso"
@@ -529,7 +529,7 @@
         "title": "Relaciones y Intimidad",
         "description": "Discusiones abiertas y honestas sobre relaciones, intimidad y salud sexual para mujeres."
       },
-      "weightLoss": {
+      "weight-loss": {
         "title": "Pérdida de Peso y Objetivos de Salud",
         "description": "Orientación experta sobre gestión saludable del peso, fitness y logro de tus objetivos de salud."
       },
@@ -963,7 +963,7 @@
         "description": "Nuestra colección completa de artículos de belleza, consejos, todo lo que necesitas saber sobre belleza y bienestar."
       }
     },
-    "weightLoss": {
+    "weight-loss": {
       "heroImageAlt": "Imagen hero de artículos de pérdida de peso",
       "title": "Artículos de Pérdida de Peso",
       "description": "Nuestros mejores insights sobre pérdida de peso, una colección completa de artículos de pérdida de peso, consejos y guías para ayudarte a alcanzar tus objetivos de salud.",
@@ -1104,8 +1104,8 @@
         "intimacyDescription": "Artículos de intimidad",
         "beauty": "Belleza",
         "beautyDescription": "Artículos de belleza",
-        "weightLoss": "Pérdida de Peso",
-        "weightLossDescription": "Artículos de pérdida de peso",
+        "weight-loss": "Pérdida de Peso",
+        "weight-lossDescription": "Artículos de pérdida de peso",
         "life": "Vida",
         "lifeDescription": "Artículos de vida"
       },
