@@ -55,10 +55,6 @@ export const GET = async (
       );
     }
 
-    // Parse query parameters for locale filtering
-    const { searchParams } = new URL(req.url);
-    const locale = searchParams.get("locale") || "en";
-
     // Connect to database
     await connectDb();
 
@@ -76,45 +72,8 @@ export const GET = async (
       );
     }
 
-    // Filter content by locale if specified
-    let languageSpecific: ILanguageSpecific | undefined;
-    const languages = article.languages as ILanguageSpecific[];
-
-    // Try to find content for the requested locale
-    languageSpecific = languages.find(
-      (lang: ILanguageSpecific) => lang.hreflang === locale
-    );
-
-    // Fallback to English if locale not found
-    if (!languageSpecific && locale !== "en") {
-      languageSpecific = languages.find(
-        (lang: ILanguageSpecific) => lang.hreflang === "en"
-      );
-    }
-
-    // Final fallback: first available
-    if (!languageSpecific && languages.length > 0) {
-      languageSpecific = languages[0];
-    }
-
-    // If still no content found, return error
-    if (!languageSpecific) {
-      return new NextResponse(
-        JSON.stringify({
-          message: "No content available for the requested locale",
-        }),
-        { status: 404, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    // Return article with filtered content
-    const articleWithFilteredContent = {
-      ...article,
-      languages: [languageSpecific],
-    };
-
     // Serialize MongoDB objects to plain objects for client components
-    const serializedArticle = serializeMongoObject(articleWithFilteredContent) as ISerializedArticle;
+    const serializedArticle = serializeMongoObject(article) as ISerializedArticle;
 
     return new NextResponse(
       JSON.stringify({
