@@ -244,35 +244,6 @@
       "language": "Idioma"
     }
   },
-  "article": {
-    "title": "Artigo de Saúde de Exemplo",
-    "subtitle": "Este é um artigo de exemplo sobre saúde e bem-estar",
-    "content": {
-      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-    },
-    "actions": {
-      "edit": "Editar Artigo",
-      "delete": "Excluir Artigo",
-      "backToList": "Voltar aos Artigos"
-    },
-    "info": {
-      "published": "Publicado",
-      "author": "Autor",
-      "category": "Categoria",
-      "healthCategory": "Saúde",
-      "language": "Idioma",
-      "slug": "Slug",
-      "date": "Data"
-    },
-    "exploreMore": "Artigos selecionados apenas para você",
-    "error": {
-      "insufficientContent": "Conteúdo Insuficiente",
-      "insufficientContentMessage": "Este artigo não atende aos requisitos mínimos de conteúdo para exibição.",
-      "requiredSections": "Requerido: {required} seções, Atual: {current} seções"
-    }
-  },
   "articles": {
     "categoryNotFound": "Categoria não encontrada",
     "noArticlesFound": "Nenhum artigo encontrado",
@@ -962,9 +933,19 @@
     },
     "info": {
       "category": "Categoria:",
+      "categotyTypes": {
+        "health": "Saúde",
+        "fitness": "Fitness",
+        "nutrition": "Nutrição",
+        "beauty": "Beleza"
+      },
       "published": "Publicado:",
       "views": "Visualizações:",
-      "likes": "Curtidas:"
+      "likes": "Curtidas:",
+      "author": "Autor",
+      "language": "Idioma",
+      "slug": "Slug",
+      "date": "Data"
     },
     "actions": {
       "likeArticle": "Curtir artigo",
@@ -984,7 +965,13 @@
       "success": "Artigo excluído com sucesso",
       "error": "Falha ao excluir artigo"
     },
-    "imageAlt": " - Seção "
+    "imageAlt": " - Seção ",
+    "exploreMore": "Artigos selecionados apenas para você",
+    "error": {
+      "insufficientContent": "Conteúdo Insuficiente",
+      "insufficientContentMessage": "Este artigo não atende aos requisitos mínimos de conteúdo para exibição.",
+      "requiredSections": "Requerido: {required} seções, Atual: {current} seções"
+    }
   },
   "comments": {
     "toasts": {
@@ -1046,26 +1033,16 @@
   "pagination": {
     "previous": "Anterior",
     "next": "Próximo",
-    "page": "Página",
-    "of": "de",
-    "goToPage": "Ir para página",
-    "showing": "Mostrando",
-    "to": "até",
-    "of": "de",
-    "results": "resultados"
+    "goToPreviousPage": "Ir para página anterior",
+    "goToNextPage": "Ir para próxima página",
+    "morePages": "Mais páginas"
   },
   "search": {
-    "placeholder": "Pesquisar artigos...",
-    "noResults": "Nenhum resultado encontrado",
-    "noResultsMessage": "Nenhum artigo corresponde à sua pesquisa",
-    "tryAgain": "Tente com palavras-chave diferentes",
-    "results": "Resultados da pesquisa",
-    "for": "para",
-    "clearSearch": "Limpar pesquisa",
-    "searchButton": "Pesquisar",
-    "searching": "Pesquisando...",
-    "searchError": "Erro na pesquisa",
-    "searchErrorMessage": "Ocorreu um erro durante a pesquisa. Tente novamente mais tarde"
+    "heroImageAlt": "Resultados da pesquisa",
+    "resultsTitle": "Resultados da pesquisa",
+    "resultsFound": "Encontrado {count} resultado{count, plural, =1 {} other {s}} para \"{query}\"",
+    "noResultsTitle": "Nenhum artigo encontrado!",
+    "noResultsDescription": "Tente pesquisar com palavras-chave diferentes de..."
   },
   "newsletterConfirmation": {
     "title": "Confirmação da Newsletter",
@@ -1080,16 +1057,14 @@
   "unsubscribe": {
     "title": "Cancelar Inscrição na Newsletter",
     "description": "Lamentamos vê-la partir! Digite seu endereço de email para cancelar a inscrição na nossa newsletter.",
-    "emailLabel": "Endereço de Email",
-    "emailPlaceholder": "Digite seu endereço de email",
-    "unsubscribeButton": "Cancelar Inscrição",
     "processing": "Processando...",
     "processingMessage": "Aguarde enquanto processamos sua solicitação de cancelamento.",
     "successTitle": "Inscrição Cancelada com Sucesso",
     "successMessage": "Você foi cancelada com sucesso da nossa newsletter. Você não receberá mais emails nossos.",
     "errorTitle": "Falha no Cancelamento",
     "errorMessage": "Houve um erro ao processar sua solicitação de cancelamento. Tente novamente.",
-    "tryAgain": "Tentar Novamente",
+    "invalidLinkTitle": "Link de Cancelamento Inválido",
+    "invalidLinkMessage": "Este link de cancelamento é inválido ou expirou. Entre em contato com o suporte se precisar de ajuda.",
     "goHome": "Ir para a Página Inicial"
   },
   "favorites": {

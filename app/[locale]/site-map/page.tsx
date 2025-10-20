@@ -35,7 +35,7 @@ export default async function SiteMapPage() {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-orange-600 mb-4">
               {t("title")}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">

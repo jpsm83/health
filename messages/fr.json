@@ -838,9 +838,19 @@
     },
     "info": {
       "category": "Catégorie :",
+      "categotyTypes": {
+        "health": "Santé",
+        "fitness": "Fitness",
+        "nutrition": "Nutrition",
+        "beauty": "Beauté"
+      },
       "published": "Publié :",
       "views": "Vues :",
-      "likes": "Likes :"
+      "likes": "Likes :",
+      "author": "Auteur",
+      "language": "Langue",
+      "slug": "Slug",
+      "date": "Date"
     },
     "actions": {
       "likeArticle": "Aimer l'article",

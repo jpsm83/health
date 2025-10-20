@@ -250,8 +250,6 @@
     "subtitle": "Encuentra los artículos que te interesan",
     "heroImageAlt": "Buscar artículos",
     "searchPlaceholder": "Buscar artículos...",
-    "noResultsTitle": "No se encontraron resultados",
-    "noResultsDescription": "Intenta con otros términos de búsqueda o explora todas las categorías.",
     "loading": "Buscando...",
     "errorLoading": "Error al buscar:",
     "resultsCount": "{count} artículos encontrados",
@@ -262,14 +260,9 @@
   "pagination": {
     "previous": "Anterior",
     "next": "Siguiente",
-    "page": "Página",
-    "of": "de",
-    "showing": "Mostrando",
-    "to": "a",
-    "results": "resultados",
-    "goToPage": "Ir a página",
-    "pageSize": "Tamaño de página",
-    "rowsPerPage": "Filas por página"
+    "goToPreviousPage": "Ir a la página anterior",
+    "goToNextPage": "Ir a la página siguiente",
+    "morePages": "Más páginas"
   },
   "SignUp": {
     "createAccount": "Crea tu cuenta",
@@ -864,9 +857,19 @@
     },
     "info": {
       "category": "Categoría:",
+      "categotyTypes": {
+        "health": "Salud",
+        "fitness": "Fitness",
+        "nutrition": "Nutrición",
+        "beauty": "Belleza"
+      },
       "published": "Publicado:",
       "views": "Vistas:",
-      "likes": "Me gusta:"
+      "likes": "Me gusta:",
+      "author": "Autor",
+      "language": "Idioma",
+      "slug": "Slug",
+      "date": "Fecha"
     },
     "actions": {
       "likeArticle": "Me gusta artículo",
@@ -1060,16 +1063,14 @@
   "unsubscribe": {
     "title": "Cancelar Suscripción al Boletín",
     "description": "¡Lamentamos verte partir! Ingresa tu dirección de email para cancelar la suscripción a nuestro boletín.",
-    "emailLabel": "Dirección de Email",
-    "emailPlaceholder": "Ingresa tu dirección de email",
-    "unsubscribeButton": "Cancelar Suscripción",
     "processing": "Procesando...",
     "processingMessage": "Espera mientras procesamos tu solicitud de cancelación.",
     "successTitle": "Suscripción Cancelada Exitosamente",
     "successMessage": "Has sido cancelado exitosamente de nuestro boletín. Ya no recibirás emails nuestros.",
     "errorTitle": "Fallo en la Cancelación",
     "errorMessage": "Hubo un error al procesar tu solicitud de cancelación. Intenta de nuevo.",
-    "tryAgain": "Intentar de Nuevo",
+    "invalidLinkTitle": "Enlace de Cancelación Inválido",
+    "invalidLinkMessage": "Este enlace de cancelación es inválido o ha expirado. Por favor contacta soporte si necesitas ayuda.",
     "goHome": "Ir a la Página Principal"
   },
   "favorites": {

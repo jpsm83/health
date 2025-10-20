@@ -170,7 +170,7 @@ export const articleSchema = new Schema(
     },
     likes: {
       type: [{ type: Schema.Types.ObjectId, ref: "User" }],
-      default: undefined,
+      default: 0,
     },
     commentsCount: {
       type: Number,

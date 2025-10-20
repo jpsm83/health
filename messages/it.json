@@ -220,35 +220,6 @@
       "language": "Lingua"
     }
   },
-  "article": {
-    "title": "Articolo di Salute di Esempio",
-    "subtitle": "Questo è un articolo di esempio su salute e benessere",
-    "content": {
-      "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "paragraph2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "paragraph3": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-    },
-    "actions": {
-      "edit": "Modifica Articolo",
-      "delete": "Elimina Articolo",
-      "backToList": "Torna agli Articoli"
-    },
-    "info": {
-      "published": "Pubblicato",
-      "author": "Autore",
-      "category": "Categoria",
-      "healthCategory": "Salute",
-      "language": "Lingua",
-      "slug": "Slug",
-      "date": "Data"
-    },
-    "exploreMore": "Articoli selezionati solo per te",
-    "error": {
-      "insufficientContent": "Contenuto Insufficiente",
-      "insufficientContentMessage": "Questo articolo non soddisfa i requisiti minimi di contenuto per la visualizzazione.",
-      "requiredSections": "Richiesto: {required} sezioni, Attuale: {current} sezioni"
-    }
-  },
   "articles": {
     "categoryNotFound": "Categoria non trovata",
     "noArticlesFound": "Nessun articolo trovato",
@@ -938,9 +909,19 @@
     },
     "info": {
       "category": "Categoria:",
+      "categotyTypes": {
+        "health": "Salute",
+        "fitness": "Fitness",
+        "nutrition": "Nutrizione",
+        "beauty": "Bellezza"
+      },
       "published": "Pubblicato:",
       "views": "Visualizzazioni:",
-      "likes": "Mi piace:"
+      "likes": "Mi piace:",
+      "author": "Autore",
+      "language": "Lingua",
+      "slug": "Slug",
+      "date": "Data"
     },
     "actions": {
       "likeArticle": "Mi piace articolo",
@@ -960,7 +941,13 @@
       "success": "Articolo eliminato con successo",
       "error": "Impossibile eliminare l'articolo"
     },
-    "imageAlt": " - Sezione "
+    "imageAlt": " - Sezione ",
+    "exploreMore": "Articoli selezionati solo per te",
+    "error": {
+      "insufficientContent": "Contenuto Insufficiente",
+      "insufficientContentMessage": "Questo articolo non soddisfa i requisiti minimi di contenuto per la visualizzazione.",
+      "requiredSections": "Richiesto: {required} sezioni, Attuale: {current} sezioni"
+    }
   },
   "comments": {
     "toasts": {
@@ -1022,26 +1009,16 @@
   "pagination": {
     "previous": "Precedente",
     "next": "Successivo",
-    "page": "Pagina",
-    "of": "di",
-    "goToPage": "Vai alla pagina",
-    "showing": "Mostrando",
-    "to": "a",
-    "of": "di",
-    "results": "risultati"
+    "goToPreviousPage": "Vai alla pagina precedente",
+    "goToNextPage": "Vai alla pagina successiva",
+    "morePages": "Più pagine"
   },
   "search": {
-    "placeholder": "Cerca articoli...",
-    "noResults": "Nessun risultato trovato",
-    "noResultsMessage": "Nessun articolo corrisponde alla tua ricerca",
-    "tryAgain": "Prova con parole chiave diverse",
-    "results": "Risultati di ricerca",
-    "for": "per",
-    "clearSearch": "Cancella ricerca",
-    "searchButton": "Cerca",
-    "searching": "Ricerca in corso...",
-    "searchError": "Errore di ricerca",
-    "searchErrorMessage": "Si è verificato un errore durante la ricerca. Riprova più tardi"
+    "heroImageAlt": "Risultati di ricerca",
+    "resultsTitle": "Risultati di ricerca",
+    "resultsFound": "Trovato {count} risultato{count, plural, =1 {} other {s}} per \"{query}\"",
+    "noResultsTitle": "Nessun articolo trovato!",
+    "noResultsDescription": "Prova a cercare con parole chiave diverse da..."
   },
   "newsletterConfirmation": {
     "title": "Grazie per esserti iscritto!",
@@ -1049,9 +1026,17 @@
     "backToHome": "Torna alla home"
   },
   "unsubscribe": {
-    "title": "Disiscrizione",
-    "message": "La tua iscrizione è stata annullata con successo. Non riceverai più aggiornamenti da noi.",
-    "backToHome": "Torna alla home"
+    "title": "Disiscriviti dalla Newsletter",
+    "description": "Ci dispiace vederti andare! Questa pagina elabora le richieste di disiscrizione dai link email.",
+    "processing": "Elaborazione in corso...",
+    "processingMessage": "Attendere mentre elaboriamo la tua richiesta di disiscrizione.",
+    "successTitle": "Disiscrizione completata con successo",
+    "successMessage": "Sei stato disiscritto con successo dalla nostra newsletter. Non riceverai più email da noi.",
+    "errorTitle": "Disiscrizione fallita",
+    "errorMessage": "Si è verificato un errore nell'elaborazione della tua richiesta di disiscrizione. Riprova.",
+    "invalidLinkTitle": "Link di disiscrizione non valido",
+    "invalidLinkMessage": "Questo link di disiscrizione non è valido o è scaduto. Contatta il supporto se hai bisogno di aiuto.",
+    "goHome": "Vai alla pagina principale"
   },
   "favorites": {
     "title": "I miei articoli preferiti",

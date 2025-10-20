@@ -109,7 +109,7 @@ export default function NewsletterSignup() {
           type="submit"
           variant="secondary"
           disabled={isLoading}
-          className={`px-6 py-3 bg-orange-100 cursor-pointer text-orange-600 hover:text-orange-800 hover:bg-orange-200 border-0 font-semibold shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
+          className={`px-6 py-3 bg-gray-100 border-1 border-white cursor-pointer text-orange-600 hover:bg-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
             session?.user ? "w-full" : ""
           }`}
         >

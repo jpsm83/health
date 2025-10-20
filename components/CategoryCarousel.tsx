@@ -57,6 +57,15 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
             order: "desc",
             locale,
           });
+          
+          // Check if fetchedArticles is valid and has data property
+          if (!fetchedArticles || !fetchedArticles.data) {
+            console.warn(`No data returned for category: ${category}`);
+            setArticles([]);
+            setHasMore(false);
+            return;
+          }
+          
           // Filter out any duplicate articles by ID
           const uniqueArticles = fetchedArticles.data.filter((article, index, self) => 
             index === self.findIndex(a => a._id?.toString() === article._id?.toString())

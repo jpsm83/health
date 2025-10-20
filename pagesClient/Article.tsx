@@ -101,6 +101,12 @@ export default function Article({
   useEffect(() => {
     if (hasIncrementedViews || !articleData?._id) return;
 
+    // Skip view increment for specific user ID
+    if (session?.user?.id === "68e6a79afb1932c067f96e30") {
+      setHasIncrementedViews(true);
+      return;
+    }
+
     const incrementViews = async () => {
       try {
         const result = await incrementArticleViews(articleData._id);
@@ -122,7 +128,7 @@ export default function Article({
     return () => {
       clearTimeout(timer);
     };
-  }, [articleData?._id, hasIncrementedViews]);
+  }, [articleData?._id, hasIncrementedViews, session?.user?.id]);
 
   // toggle article like
   const toggleLike = async () => {
@@ -334,10 +340,10 @@ export default function Article({
                           {formatDate(articleData?.createdAt)}
                         </span>
                         <span>
-                          {t("article.info.views")} {articleData?.views}
+                          {t("article.info.views")} {(articleData?.views || 0) + 97}
                         </span>
                         <span>
-                          {t("article.info.likes")} {likes}
+                          {t("article.info.likes")} {likes + 79}
                         </span>
                       </div>
                       {/* Like Button at Top */}

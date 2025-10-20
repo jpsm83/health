@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 import { auth } from "../../../auth/[...nextauth]/route";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { deleteArticle } from "@/app/actions/article/deleteArticle";
 import { updateArticle } from "@/app/actions/article/updateArticle";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
-import { ILanguageSpecific } from "@/types/article";
+import { ILanguageSpecific, IArticleLean, ISerializedArticle, serializeMongoObject } from "@/types/article";
+import connectDb from "@/app/api/db/connectDb";
+import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 // Interface for update parameters
 interface UpdateArticleParams {
@@ -21,6 +25,108 @@ interface UpdateArticleParams {
   userId: string;
   isAdmin: boolean;
 }
+
+// @desc    Get article by ID
+// @route   GET /api/v1/articles/by-id/[articleId]
+// @access  Public
+export const GET = async (
+  req: Request,
+  context: { params: Promise<{ articleId: string }> }
+) => {
+  try {
+    const { articleId } = await context.params;
+
+    if (!articleId) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Article ID is required",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate articleId format
+    if (!mongoose.Types.ObjectId.isValid(articleId)) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Invalid article ID format",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Parse query parameters for locale filtering
+    const { searchParams } = new URL(req.url);
+    const locale = searchParams.get("locale") || "en";
+
+    // Connect to database
+    await connectDb();
+
+    // Find article by ID
+    const article = await Article.findById(articleId)
+      .populate({ path: "createdBy", select: "username", model: User })
+      .lean() as IArticleLean | null;
+
+    if (!article) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Article not found",
+        }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Filter content by locale if specified
+    let languageSpecific: ILanguageSpecific | undefined;
+    const languages = article.languages as ILanguageSpecific[];
+
+    // Try to find content for the requested locale
+    languageSpecific = languages.find(
+      (lang: ILanguageSpecific) => lang.hreflang === locale
+    );
+
+    // Fallback to English if locale not found
+    if (!languageSpecific && locale !== "en") {
+      languageSpecific = languages.find(
+        (lang: ILanguageSpecific) => lang.hreflang === "en"
+      );
+    }
+
+    // Final fallback: first available
+    if (!languageSpecific && languages.length > 0) {
+      languageSpecific = languages[0];
+    }
+
+    // If still no content found, return error
+    if (!languageSpecific) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "No content available for the requested locale",
+        }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Return article with filtered content
+    const articleWithFilteredContent = {
+      ...article,
+      languages: [languageSpecific],
+    };
+
+    // Serialize MongoDB objects to plain objects for client components
+    const serializedArticle = serializeMongoObject(articleWithFilteredContent) as ISerializedArticle;
+
+    return new NextResponse(
+      JSON.stringify({
+        message: "Article retrieved successfully",
+        article: serializedArticle,
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    return handleApiError("Get article by ID failed!", error as string);
+  }
+};
 
 // @desc    Update article by ID
 // @route   PATCH /api/v1/articles/by-id/[articleId]

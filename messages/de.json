@@ -250,8 +250,6 @@
     "subtitle": "Finden Sie die Artikel, die Sie interessieren",
     "heroImageAlt": "Artikel suchen",
     "searchPlaceholder": "Artikel durchsuchen...",
-    "noResultsTitle": "Keine Ergebnisse gefunden",
-    "noResultsDescription": "Versuchen Sie es mit anderen Suchbegriffen oder durchsuchen Sie alle Kategorien.",
     "loading": "Suche läuft...",
     "errorLoading": "Fehler beim Suchen:",
     "resultsCount": "{count} Artikel gefunden",
@@ -262,14 +260,9 @@
   "pagination": {
     "previous": "Vorherige",
     "next": "Nächste",
-    "page": "Seite",
-    "of": "von",
-    "showing": "Zeige",
-    "to": "bis",
-    "results": "Ergebnisse",
-    "goToPage": "Gehe zu Seite",
-    "pageSize": "Seitengröße",
-    "rowsPerPage": "Zeilen pro Seite"
+    "goToPreviousPage": "Gehe zur vorherigen Seite",
+    "goToNextPage": "Gehe zur nächsten Seite",
+    "morePages": "Mehr Seiten"
   },
   "SignUp": {
     "createAccount": "Erstellen Sie Ihr Konto",
@@ -864,9 +857,19 @@
     },
     "info": {
       "category": "Kategorie:",
+      "categotyTypes": {
+        "health": "Gesundheit",
+        "fitness": "Fitness",
+        "nutrition": "Ernährung",
+        "beauty": "Schönheit"
+      },
       "published": "Veröffentlicht:",
       "views": "Aufrufe:",
-      "likes": "Likes:"
+      "likes": "Likes:",
+      "author": "Autor",
+      "language": "Sprache",
+      "slug": "Slug",
+      "date": "Datum"
     },
     "actions": {
       "likeArticle": "Artikel liken",
@@ -1060,16 +1063,14 @@
   "unsubscribe": {
     "title": "Newsletter abbestellen",
     "description": "Schade, dass Sie gehen! Geben Sie Ihre E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden.",
-    "emailLabel": "E-Mail-Adresse",
-    "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
-    "unsubscribeButton": "Abbestellen",
     "processing": "Verarbeitung läuft...",
     "processingMessage": "Bitte warten Sie, während wir Ihre Abbestellungsanfrage bearbeiten.",
     "successTitle": "Erfolgreich abbestellt",
     "successMessage": "Sie wurden erfolgreich von unserem Newsletter abgemeldet. Sie erhalten keine E-Mails mehr von uns.",
     "errorTitle": "Abbestellung fehlgeschlagen",
     "errorMessage": "Bei der Bearbeitung Ihrer Abbestellungsanfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-    "tryAgain": "Erneut versuchen",
+    "invalidLinkTitle": "Ungültiger Abbestellungs-Link",
+    "invalidLinkMessage": "Dieser Abbestellungs-Link ist ungültig oder abgelaufen. Bitte kontaktieren Sie den Support, wenn Sie Hilfe benötigen.",
     "goHome": "Zur Startseite"
   },
   "favorites": {
