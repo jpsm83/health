@@ -12,7 +12,7 @@
 
   /* Standard input with purple focus ring */
   .input-standard {
-    @apply bg-white text-gray-800 placeholder-gray-400 border-gray-300 rounded-md px-3 py-2 text-sm focus:border-purple-400 focus:border-2 w-full;
+    @apply bg-white text-gray-800 placeholder-gray-400 border-gray-300 rounded-md px-3 py-2 text-sm focus:border-purple-400 w-full;
   }
 
   /* Input with error state */

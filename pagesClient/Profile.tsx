@@ -788,7 +788,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="outline"
-                          className="w-full justify-between"
+                          className="w-full justify-between focus:border-purple-400 focus:ring-purple-400/50 focus:ring-[3px]"
                           disabled={isLoading}
                         >
                           {watchedValues.subscriptionPreferences?.subscriptionFrequencies
@@ -834,7 +834,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="outline"
-                          className="w-full justify-between"
+                          className="w-full justify-between focus:border-purple-400 focus:ring-purple-400/50 focus:ring-[3px]"
                           disabled={isLoading}
                         >
                           {watchedValues.subscriptionPreferences?.categories?.length > 0

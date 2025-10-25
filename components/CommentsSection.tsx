@@ -13,6 +13,7 @@ import { Heart, Trash2, User, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/components/Toasts";
 import Image from "next/image";
+import { Textarea } from "./ui/textarea";
 
 interface CommentsSectionProps {
   articleId: string;
@@ -268,12 +269,11 @@ export default function CommentsSection({
       {session?.user?.id && !hasUserCommented && (
         <form onSubmit={handleComment} className="mb-4 sm:mb-6 md:mb-8">
           <div className="space-y-3">
-            <textarea
-              value={newComment}
+            <Textarea
+              value={newComment || ""}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder={t("comments.form.placeholder")}
               className="input-standard w-full text-sm border-1 rounded-lg resize-none"
-              rows={3}
               maxLength={1000}
               disabled={isSubmitting}
             />
@@ -285,7 +285,8 @@ export default function CommentsSection({
               <Button
                 type="submit"
                 disabled={!newComment?.trim() || isSubmitting}
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed w-full sm:w-auto"
+                variant="customDefault"
+                className="w-auto"
               >
                 {isSubmitting ? t("comments.form.submitting") : t("comments.form.submit")}
               </Button>
@@ -293,18 +294,6 @@ export default function CommentsSection({
           </div>
         </form>
       )}
-
-      {/* Message for users who have already commented */}
-      {session?.user?.id && hasUserCommented && (
-        <div className="mb-4 sm:mb-6 md:mb-8 p-3 sm:p-4 bg-orange-50 border border-orange-200 rounded-lg">
-          <div className="flex items-center gap-2">
-            <p className="text-sm text-orange-700">
-              {t("comments.form.alreadyCommented")}
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* Comments List */}
       <div className="space-y-3 sm:space-y-4">
         {comments.length === 0 ? (
@@ -368,8 +357,9 @@ export default function CommentsSection({
 
                   {/* Comment Content */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1 sm:gap-2">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <div className="flex justify-between items-center mb-2 gap-2">
+
+                      <div className="cursor-default flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                         <span className="font-semibold text-gray-800 text-sm">
                           {commentAuthorName}
                         </span>
@@ -386,7 +376,7 @@ export default function CommentsSection({
                             onClick={() =>
                               handleCommentLike(comment._id?.toString() || "")
                             }
-                            className={`flex items-center gap-1 px-2 py-1 border-none shadow-none transition-colors ${
+                            className={`cursor-pointer bg-transparent border-none hover:bg-transparent transition-all duration-200 shadow-none ${
                               isLiked ? "text-red-600" : "text-gray-600"
                             }`}
                             title={isLiked ? t("comments.actions.unlikeComment") : t("comments.actions.likeComment")}
@@ -416,10 +406,10 @@ export default function CommentsSection({
                               onClick={() =>
                                 openReportModal(comment._id?.toString() || "")
                               }
-                              className="p-1 text-gray-400 hover:text-red-600 transition-colors border-none shadow-none"
+                              className="cursor-pointer text-gray-600 bg-transparent hover:bg-transparent transition-all duration-200 border-none shadow-none"
                               title={t("comments.actions.reportComment")}
                             >
-                              <Flag size={12} />
+                              <Flag />
                             </Button>
                           )}
                         {/* Delete Button */}
@@ -428,10 +418,10 @@ export default function CommentsSection({
                             onClick={() =>
                               handleCommentDelete(comment._id?.toString() || "")
                             }
-                            className="p-1 text-gray-400 hover:text-red-600 transition-colors border-none shadow-none"
+                            className="cursor-pointer text-red-600 bg-transparent hover:bg-transparent hover:text-red-500 transition-all duration-200 border-none shadow-none"
                             title={t("comments.actions.deleteComment")}
                           >
-                            <Trash2 size={12} />
+                            <Trash2 />
                           </Button>
                         )}
                       </div>

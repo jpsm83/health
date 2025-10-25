@@ -49,7 +49,7 @@ export default function SocialShare({
       name: "Facebook",
       component: (
         <FacebookShareButton url={shareUrl} className={buttonStyles}>
-          <FacebookIcon size={24} round />
+          <FacebookIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </FacebookShareButton>
       ),
     },
@@ -61,7 +61,7 @@ export default function SocialShare({
           title={shareTitle}
           className={buttonStyles}
         >
-          <TwitterIcon size={24} round />
+          <TwitterIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </TwitterShareButton>
       ),
     },
@@ -73,7 +73,7 @@ export default function SocialShare({
           title={shareTitle}
           className={buttonStyles}
         >
-          <WhatsappIcon size={24} round />
+          <WhatsappIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </WhatsappShareButton>
       ),
     },
@@ -86,7 +86,7 @@ export default function SocialShare({
           body={shareDescription}
           className={buttonStyles}
         >
-          <EmailIcon size={24} round />
+          <EmailIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </EmailShareButton>
       ),
     },
@@ -98,7 +98,7 @@ export default function SocialShare({
           title={shareTitle}
           className={buttonStyles}
         >
-          <TelegramIcon size={24} round />
+          <TelegramIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </TelegramShareButton>
       ),
     },
@@ -111,7 +111,7 @@ export default function SocialShare({
           summary={shareDescription}
           className={buttonStyles}
         >
-          <LinkedinIcon size={24} round />
+          <LinkedinIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </LinkedinShareButton>
       ),
     },
@@ -123,7 +123,7 @@ export default function SocialShare({
           appId=""
           className={buttonStyles}
         >
-          <FacebookMessengerIcon size={24} round />
+          <FacebookMessengerIcon className="size-6 hover:size-7 transition-all duration-200" round />
         </FacebookMessengerShareButton>
       ),
     },
