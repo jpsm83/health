@@ -19,7 +19,7 @@ export default function ExploteArticles({
   return (
     <section>
       {/* Section Header */}
-      <div className="text-center mb-10 bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
+      <div className="text-center mb-10 bg-gradient-left-right p-4 md:p-8">
         <h2 className="text-3xl font-bold text-white mb-4" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>{title}</h2>
         <p className="text-lg text-white max-w-2xl mx-auto">{description}</p>
       </div>

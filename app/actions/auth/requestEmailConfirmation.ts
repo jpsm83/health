@@ -108,9 +108,9 @@ const emailConfirmationTemplate = (confirmLink: string, username: string, locale
     subject: t.subject,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+        <div style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 24px; color: white;">
-            <span style="margin-right: 0.5em;">🤍</span>Women's' Spot
+            <span style="margin-right: 0.5em;">🤍</span>Women's Spot
           </h1>
         </div>
         
@@ -123,7 +123,7 @@ const emailConfirmationTemplate = (confirmLink: string, username: string, locale
           
           <div style="text-align: center; margin: 30px 0;">
             <a href="${confirmLink}" 
-               style="background-color: #ec4899; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
+               style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
               ${t.confirmButton}
             </a>
           </div>
@@ -140,7 +140,7 @@ const emailConfirmationTemplate = (confirmLink: string, username: string, locale
           
           <p style="color: #9ca3af; font-size: 14px; text-align: center;">
             ${t.fallbackMessage}<br>
-            <a href="${confirmLink}" style="color: #ec4899;">${confirmLink}</a>
+            <a href="${confirmLink}" style="color: #f43f5e;">${confirmLink}</a>
           </p>
         </div>
         

@@ -3,7 +3,17 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { User, BookOpen, Lock, CheckCircle, XCircle, Trash2 } from "lucide-react";
+import {
+  User,
+  BookOpen,
+  Lock,
+  CheckCircle,
+  XCircle,
+  Trash2,
+  Camera,
+  Loader2,
+  ChevronsUpDown,
+} from "lucide-react";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -14,22 +24,19 @@ import { useRouter, usePathname } from "next/navigation";
 import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 import { Button } from "@/components/ui/button";
 import { routing } from "@/i18n/routing";
+import { showToast } from "@/components/Toasts";
 
 // Import country flag components
-import {
-  US,
-  BR,
-  ES,
-  FR,
-  DE,
-  IT,
-} from "country-flag-icons/react/1x1";
+import { US, BR, ES, FR, DE, IT } from "country-flag-icons/react/1x1";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface FormData {
   username: string;
@@ -54,10 +61,6 @@ interface ProfileProps {
 export default function Profile({ initialUser }: ProfileProps) {
   const t = useTranslations("profile");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [emailConfirmationError, setEmailConfirmationError] = useState("");
-  const [emailConfirmationSuccess, setEmailConfirmationSuccess] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
@@ -353,25 +356,23 @@ export default function Profile({ initialUser }: ProfileProps) {
   // Handle password reset
   const handleResetPassword = async () => {
     if (!user?.email) {
-      setError(t("validation.userEmailNotFound"));
+      showToast("error", t("validation.userEmailNotFound"), "");
       return;
     }
 
-    setError("");
-    setSuccess("");
     setIsLoading(true);
 
     try {
       const result = await requestPasswordResetAction(user.email);
 
       if (result.success) {
-        setSuccess(result.message || t("passwordResetSent"));
+        showToast("success", t("passwordResetSent"), result.message || "");
       } else {
-        setError(result.message || t("passwordResetFailed"));
+        showToast("error", t("passwordResetFailed"), result.message || "");
       }
     } catch (error) {
       console.error("Password reset error:", error);
-      setError(t("unexpectedError"));
+      showToast("error", t("unexpectedError"), "");
     } finally {
       setIsLoading(false);
     }
@@ -380,12 +381,10 @@ export default function Profile({ initialUser }: ProfileProps) {
   // Handle email confirmation request
   const handleRequestEmailConfirmation = async () => {
     if (!user?.email) {
-      setError(t("validation.userEmailNotFound"));
+      showToast("error", t("validation.userEmailNotFound"), "");
       return;
     }
 
-    setError("");
-    setSuccess("");
     setIsLoading(true);
 
     try {
@@ -393,19 +392,25 @@ export default function Profile({ initialUser }: ProfileProps) {
       const result = await requestEmailConfirmation(user.email);
 
       if (result.success) {
-        setSuccess(result.message || "Email confirmation sent successfully!");
-        setEmailConfirmationSuccess(
+        showToast(
+          "success",
+          t("messages.successSendingEmailConfirmation"),
           result.message || "Email confirmation sent successfully!"
         );
       } else {
-        setError(result.message || "Failed to send email confirmation");
-        setEmailConfirmationError(
+        showToast(
+          "error",
+          t("messages.unexpectedErrorSendingEmailConfirmation"),
           result.message || "Failed to send email confirmation"
         );
       }
     } catch (error) {
       console.error("Email confirmation request error:", error);
-      setError("Failed to request email confirmation");
+      showToast(
+        "error",
+        t("messages.unexpectedErrorSendingEmailConfirmation"),
+        "Failed to request email confirmation"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -417,19 +422,18 @@ export default function Profile({ initialUser }: ProfileProps) {
     if (file) {
       // Validate file type
       if (!file.type.startsWith("image/")) {
-        setError(t("validation.invalidImageType"));
+        showToast("error", t("validation.invalidImageType"), "");
         return;
       }
 
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        setError(t("validation.imageTooLarge"));
+        showToast("error", t("validation.imageTooLarge"), "");
         return;
       }
 
       setSelectedImage(file);
       setValue("imageFile", file); // Update form value
-      setError(""); // Clear any previous errors
 
       // Create preview
       const reader = new FileReader();
@@ -449,11 +453,10 @@ export default function Profile({ initialUser }: ProfileProps) {
 
   const onSubmit = async (data: FormData) => {
     if (!session?.user?.id || !session?.user?.email) {
-      setError("User not authenticated");
+      showToast("error", "User not authenticated", "");
       return;
     }
 
-    setError("");
     setIsLoading(true);
 
     try {
@@ -495,14 +498,13 @@ export default function Profile({ initialUser }: ProfileProps) {
         setOriginalValues(data);
         setSelectedImage(null);
         setImagePreview(null);
-        setError(""); // Clear any errors
-        setSuccess(t("updateSuccess"));
+        showToast("success", t("updateSuccess"), "");
       } else {
-        setError(result?.message || t("updateFailed"));
+        showToast("error", t("updateFailed"), result?.message || "");
       }
     } catch (error) {
       console.error("Profile update error:", error);
-      setError(t("updateFailed") || "Failed to update profile");
+      showToast("error", t("updateFailed"), "Failed to update profile");
     } finally {
       setIsLoading(false);
     }
@@ -512,10 +514,6 @@ export default function Profile({ initialUser }: ProfileProps) {
     // Clear field error when user starts typing
     if (errors[fieldName]) {
       clearErrors(fieldName);
-    }
-    // Clear general error when user starts typing in any field
-    if (error) {
-      setError("");
     }
   };
 
@@ -542,18 +540,21 @@ export default function Profile({ initialUser }: ProfileProps) {
             <div className="relative">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
                 {imagePreview ? (
-                  <img
+                  <Image
                     src={imagePreview}
                     alt="Profile Preview"
+                    width={128}
+                    height={128}
                     className="w-full h-full object-cover"
+                    priority
                   />
                 ) : user?.imageUrl ? (
                   <Image
                     width={128}
                     height={128}
+                    priority
                     src={user?.imageUrl}
                     alt="Profile"
-                    priority
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -564,45 +565,31 @@ export default function Profile({ initialUser }: ProfileProps) {
               </div>
 
               {/* Image Upload Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-gray-400 bg-opacity-50 rounded-full">
-                <label htmlFor="image" className="cursor-pointer text-white">
-                  <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    disabled={isLoading}
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
-                  <div className="text-center">
-                    <div className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1">
-                      <svg
-                        className="w-full h-full"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <span className="text-xs">{t("actions.changeImage")}</span>
-                  </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 transition-all duration-300 rounded-full text-white opacity-0 hover:opacity-100">
+                <Input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  disabled={isLoading}
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+                <label htmlFor="image" className="cursor-pointer flex flex-col items-center justify-center w-full h-full">
+                  <Camera size={36} />
+                  <span className="text-xs">{t("actions.changeImage")}</span>
                 </label>
               </div>
 
               {/* Remove Image Button - Only show when there's a preview */}
               {imagePreview && (
-                <button
+                <Button
                   type="button"
                   onClick={removeImage}
-                  className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 transition-colors"
+                  className="absolute bottom-0 left-0 bg-red-600 hover:bg-red-500 text-white rounded-full border-1 border-white h-8 w-8"
                   title={t("actions.removeImage")}
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
+                  >
+                    <Trash2 />
+                </Button>
               )}
             </div>
           </div>
@@ -647,7 +634,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       <DropdownMenuItem
                         key={lang}
                         onClick={() => handleLanguageChange(lang)}
-                        className="cursor-pointer hover:bg-red-50"
+                        className="cursor-pointer hover:bg-red-60"
                       >
                         <div className="flex items-center space-x-2">
                           {getCountryFlag(lang, "sm")}
@@ -680,7 +667,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                 </div>
               </div>
               <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg">
-                <div className="text-xl md:text-2xl font-bold text-orange-600">
+                <div className="text-xl md:text-2xl font-bold text-red-600">
                   {user?.likedArticles?.length || 0}
                 </div>
                 <div className="text-xs md:text-sm text-gray-500">
@@ -688,7 +675,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                 </div>
               </div>
               <div className="text-center p-2 md:p-3 bg-gray-50 rounded-lg sm:col-span-2 md:col-span-1">
-                <div className="text-xl md:text-2xl font-bold text-orange-600">
+                <div className="text-xl md:text-2xl font-bold text-red-600">
                   {user?.commentedArticles?.length || 0}
                 </div>
                 <div className="text-xs md:text-sm text-gray-500">
@@ -706,67 +693,14 @@ export default function Profile({ initialUser }: ProfileProps) {
               type="button"
               onClick={handleRequestEmailConfirmation}
               disabled={isLoading}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+              className="customDefault"
             >
-              <CheckCircle className="w-4 h-4 mr-2" />
+              <CheckCircle className="w-4 h-4 mr-2 text-white" />
               {t("emailConfirmation.requestButton")}
             </Button>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-white">
               {t("emailConfirmation.description")}
             </p>
-          </div>
-        )}
-
-        {/* Success/Error Messages */}
-        {emailConfirmationError && (
-          <div className="rounded-md bg-red-50 border border-orange-200 p-3">
-            <div className="flex items-start">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-orange-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-red-800">
-                  {t("messages.unexpectedErrorSendingEmailConfirmation")}
-                </h3>
-                <div className="mt-1 text-sm text-red-700">{error}</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {emailConfirmationSuccess && (
-          <div className="rounded-md bg-green-50 border border-green-200 p-3">
-            <div className="flex items-start">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-green-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-green-800">
-                  {t("messages.successSendingEmailConfirmation")}
-                </h3>
-                <div className="mt-1 text-sm text-green-700">{success}</div>
-              </div>
-            </div>
           </div>
         )}
 
@@ -778,18 +712,18 @@ export default function Profile({ initialUser }: ProfileProps) {
             {/* Personal Information Section */}
             <div>
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-orange-600" />
+                <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600" />
                 {t("sections.personal")}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <div>
                   <label
                     htmlFor="username"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     {t("fields.username")}
                   </label>
-                  <input
+                  <Input
                     id="username"
                     type="text"
                     disabled={isLoading}
@@ -798,11 +732,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       setValue("username", e.target.value);
                       handleInputChange("username");
                     }}
-                    className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                      errors.username
-                        ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                        : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                    } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={ errors.username ? "input-error" : "input-standard" }
                     placeholder={t("fields.enterUsername")}
                   />
                   {errors.username && (
@@ -815,11 +745,11 @@ export default function Profile({ initialUser }: ProfileProps) {
                 <div>
                   <label
                     htmlFor="birthDate"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     {t("fields.birthDate")}
                   </label>
-                  <input
+                  <Input
                     id="birthDate"
                     type="date"
                     disabled={isLoading}
@@ -828,11 +758,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                       setValue("birthDate", e.target.value);
                       handleInputChange("birthDate");
                     }}
-                    className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                      errors.birthDate
-                        ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                        : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                    } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    className={ errors.birthDate ? "input-error" : "input-standard" }
                   />
                   {errors.birthDate && (
                     <p className="mt-1 text-sm text-red-600">
@@ -846,91 +772,114 @@ export default function Profile({ initialUser }: ProfileProps) {
             {/* Category Interests Section */}
             <div>
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-orange-600" />
+                <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600" />
                 {t("sections.categoryInterests")}
               </h2>
 
-              {/* Newsletter Frequency Dropdown */}
+              {/* Newsletter Preferences - Side by Side */}
               <div className="mb-4 md:mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t("fields.newsletterFrequency")}
-                </label>
-                <select
-                  {...register(
-                    "subscriptionPreferences.subscriptionFrequencies"
-                  )}
-                  onChange={(e) => {
-                    setValue(
-                      "subscriptionPreferences.subscriptionFrequencies",
-                      e.target.value
-                    );
-                  }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"
-                >
-                  {newsletterFrequencies.map((frequency) => (
-                    <option key={frequency} value={frequency}>
-                      {t(`frequencies.${frequency}`)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Newsletter Frequency Dropdown */}
+                  <div>
+                    <Label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t("fields.newsletterFrequency")}
+                    </Label>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                          disabled={isLoading}
+                        >
+                          {watchedValues.subscriptionPreferences?.subscriptionFrequencies
+                            ? t(`frequencies.${watchedValues.subscriptionPreferences.subscriptionFrequencies}`)
+                            : t("fields.selectFrequency")}
+                          <ChevronsUpDown className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-full" align="start">
+                        {newsletterFrequencies.map((frequency) => {
+                          const isSelected = watchedValues.subscriptionPreferences?.subscriptionFrequencies === frequency;
+                          return (
+                            <DropdownMenuItem
+                              key={frequency}
+                              onSelect={(e) => {
+                                e.preventDefault();
+                                setValue("subscriptionPreferences.subscriptionFrequencies", frequency);
+                              }}
+                              className="cursor-pointer"
+                            >
+                              <div className="flex items-center space-x-2">
+                                <Checkbox
+                                  checked={isSelected}
+                                  className="pointer-events-none"
+                                />
+                                <span>
+                                  {t(`frequencies.${frequency}`)}
+                                </span>
+                              </div>
+                            </DropdownMenuItem>
+                          );
+                        })}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
 
-              {/* Categories Grid */}
-              <div className="mb-4 md:mb-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                  {mainCategories.map((category) => {
-                    const isSelected =
-                      watchedValues.subscriptionPreferences?.categories?.includes(
-                        category
-                      );
-                    return (
-                      <div
-                        key={category}
-                        className={`border rounded-lg p-2 md:p-3 transition-colors ${
-                          isSelected
-                            ? "border-green-900 border-2 bg-green-700/20 text-white"
-                            : "border-red-700 border-2 bg-red-700/20 text-white"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-medium text-gray-900 capitalize text-xs md:text-sm flex-1 min-w-0">
-                            {t(`categories.${category}`)}
-                          </h3>
-                          <input
-                            type="checkbox"
-                            checked={isSelected}
-                            onChange={(e) => {
-                              const currentCategories =
-                                watchedValues.subscriptionPreferences
-                                  ?.categories || [];
-                              let newCategories: string[];
+                  {/* Categories Multiselect */}
+                  <div>
+                    <Label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t("fields.categoryInterests")}
+                    </Label>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                          disabled={isLoading}
+                        >
+                          {watchedValues.subscriptionPreferences?.categories?.length > 0
+                            ? `${watchedValues.subscriptionPreferences.categories.length} categories selected`
+                            : t("fields.selectCategories")}
+                          <ChevronsUpDown className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-full" align="start">
+                        {mainCategories.map((category) => {
+                          const isSelected = watchedValues.subscriptionPreferences?.categories?.includes(category);
+                          return (
+                            <DropdownMenuItem
+                              key={category}
+                              onSelect={(e) => {
+                                e.preventDefault();
+                                const currentCategories = watchedValues.subscriptionPreferences?.categories || [];
+                                let newCategories: string[];
 
-                              if (e.target.checked) {
-                                // Add category if not already present
-                                newCategories = [
-                                  ...currentCategories,
-                                  category,
-                                ];
-                              } else {
-                                // Remove category
-                                newCategories = currentCategories.filter(
-                                  (cat) => cat !== category
-                                );
-                              }
+                                if (isSelected) {
+                                  newCategories = currentCategories.filter((cat) => cat !== category);
+                                } else {
+                                  newCategories = [...currentCategories, category];
+                                }
 
-                              setValue(
-                                "subscriptionPreferences.categories",
-                                newCategories
-                              );
-                              // Trigger validation to update error state
-                              trigger("subscriptionPreferences.categories");
-                            }}
-                            className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded flex-shrink-0 ml-2"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
+                                setValue("subscriptionPreferences.categories", newCategories);
+                                trigger("subscriptionPreferences.categories");
+                              }}
+                              className="cursor-pointer"
+                            >
+                              <div className="flex items-center space-x-2">
+                                <Checkbox
+                                  checked={isSelected}
+                                  className="pointer-events-none"
+                                />
+                                <span className="capitalize">
+                                  {t(`categories.${category}`)}
+                                </span>
+                              </div>
+                            </DropdownMenuItem>
+                          );
+                        })}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </div>
               </div>
             </div>
@@ -938,7 +887,7 @@ export default function Profile({ initialUser }: ProfileProps) {
             <div>
               {/* Security Section */}
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
-                <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-orange-600" />
+                <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600" />
                 {t("sections.security")}
               </h2>
               <div className="space-y-4">
@@ -947,7 +896,8 @@ export default function Profile({ initialUser }: ProfileProps) {
                     type="button"
                     onClick={handleResetPassword}
                     disabled={isLoading}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                    variant="customDefault"
+                    className="w-40"
                   >
                     <Lock className="w-4 h-4 mr-2" />
                     {t("actions.resetPassword")}
@@ -959,87 +909,17 @@ export default function Profile({ initialUser }: ProfileProps) {
               </div>
             </div>
 
-            {/* Success/Error Messages */}
-            {error && (
-              <div className="rounded-md bg-red-50 border border-red-200 p-3">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-5 w-5 text-red-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-3 flex-1">
-                    <h3 className="text-sm font-medium text-red-800">
-                      {t("messages.unexpectedError")}
-                    </h3>
-                    <div className="mt-1 text-sm text-red-700">{error}</div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {success && (
-              <div className="rounded-md bg-green-50 border border-green-200 p-3">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-5 w-5 text-green-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-3 flex-1">
-                    <h3 className="text-sm font-medium text-green-800">
-                      {t("messages.success")}
-                    </h3>
-                    <div className="mt-1 text-sm text-green-700">{success}</div>
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Save Button - Inline with Security Section */}
             <div className="flex flex-col items-center md:items-end space-y-2">
               <Button
                 type="submit"
                 disabled={isLoading || !hasChanges}
-                className="group relative flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full md:w-auto"
+                className="w-40"
+                variant="customDefault"
               >
                 {isLoading ? (
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
+                  <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
                 ) : null}
                 {t("actions.save")}
               </Button>

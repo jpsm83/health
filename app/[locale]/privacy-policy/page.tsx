@@ -32,7 +32,7 @@ export default async function PrivacyPolicyPage() {
               {t("lastUpdated")} {new Date().toLocaleDateString()}
             </p>
 
-            <div className="bg-blue-50 p-6 rounded-lg mb-6">
+            <div className="bg-purple-50 p-6 mb-6 shadow-md">
               <h2 className="text-xl font-semibold mb-4">
                 {t("highlights.title")}
               </h2>

@@ -97,9 +97,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="text-white shadow-lg text-base">
+    <nav className="bg-gradient-left-right text-white shadow-lg text-base">
       {/* Top navigation */}
-      <div className="bg-gradient-to-r from-orange-600 to-yellow-500 flex justify-between items-center h-12 md:h-16 px-2 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center h-12 md:h-16 px-2 sm:px-6 lg:px-8">
         {/* Navigation Menu */}
         <div className="md:hidden relative flex items-center space-x-2">
           <DropdownMenu
@@ -135,7 +135,7 @@ export default function Navbar() {
                     placeholder={t("searchArticles")}
                     value={localSearchTerm}
                     onChange={handleSearchChange}
-                    className="w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-orange-400"
+                    className="w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-purple-400"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         handleSearch();
@@ -153,7 +153,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <HeartPulse size={16} className="text-orange-600" />{" "}
+                  <HeartPulse size={16} className="text-red-600" />{" "}
                   {t("categories.health")}
                 </Link>
               </DropdownMenuItem>
@@ -165,7 +165,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <Dumbbell size={16} className="text-orange-600" />{" "}
+                  <Dumbbell size={16} className="text-red-600" />{" "}
                   {t("categories.fitness")}
                 </Link>
               </DropdownMenuItem>
@@ -177,7 +177,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <Salad size={16} className="text-orange-600" />{" "}
+                  <Salad size={16} className="text-red-600" />{" "}
                   {t("categories.nutrition")}
                 </Link>
               </DropdownMenuItem>
@@ -189,7 +189,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <VenusAndMars size={16} className="text-orange-600" />{" "}
+                  <VenusAndMars size={16} className="text-red-600" />{" "}
                   {t("categories.intimacy")}
                 </Link>
               </DropdownMenuItem>
@@ -201,7 +201,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <Brush size={16} className="text-orange-600" />{" "}
+                  <Brush size={16} className="text-red-600" />{" "}
                   {t("categories.beauty")}
                 </Link>
               </DropdownMenuItem>
@@ -213,7 +213,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <Activity size={16} className="text-orange-600" />{" "}
+                  <Activity size={16} className="text-red-600" />{" "}
                   {t("categories.weight-loss")}
                 </Link>
               </DropdownMenuItem>
@@ -225,7 +225,7 @@ export default function Navbar() {
                   onClick={handleNavLinkClick}
                   prefetch={false}
                 >
-                  <Heart size={16} className="text-orange-600" />{" "}
+                  <Heart size={16} className="text-red-600" />{" "}
                   {t("categories.life")}
                 </Link>
               </DropdownMenuItem>
@@ -256,7 +256,7 @@ export default function Navbar() {
               placeholder={t("searchPlaceholder")}
               value={localSearchTerm}
               onChange={handleSearchChange}
-              className="text-gray-700 w-full bg-white border-gray-200 rounded-md h-8 pl-10 text-sm focus:ring-orange-400"
+              className="pl-10 input-standard"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSearch();
@@ -279,7 +279,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="bg-yellow-500 text-white rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                    className="text-white rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                   >
                     {session.user.imageUrl &&
                     session.user.imageUrl.trim() !== "" ? (
@@ -330,7 +330,7 @@ export default function Navbar() {
                         className="cursor-pointer"
                         onClick={handleNavLinkClick}
                       >
-                        <UserRoundPen size={16} className="text-orange-600" />{" "}
+                        <UserRoundPen size={16} className="text-red-600" />{" "}
                         {t("profile")}
                       </Link>
                     </DropdownMenuItem>
@@ -341,10 +341,7 @@ export default function Navbar() {
                           className="cursor-pointer"
                           onClick={handleNavLinkClick}
                         >
-                          <LayoutDashboard
-                            size={16}
-                            className="text-orange-600"
-                          />{" "}
+                          <LayoutDashboard size={16} className="text-red-600" />{" "}
                           {t("dashboard")}
                         </Link>
                       </DropdownMenuItem>
@@ -356,7 +353,7 @@ export default function Navbar() {
                       }}
                       className="cursor-pointer"
                     >
-                      <LogOut size={16} className="text-orange-600" />{" "}
+                      <LogOut size={16} className="text-red-600" />{" "}
                       {t("signOut")}
                     </DropdownMenuItem>
                   </>
@@ -368,7 +365,7 @@ export default function Navbar() {
                         className="cursor-pointer"
                         onClick={handleNavLinkClick}
                       >
-                        <UserRound size={16} className="text-orange-600" />{" "}
+                        <UserRound size={16} className="text-red-600" />{" "}
                         {t("signIn")}
                       </Link>
                     </DropdownMenuItem>
@@ -378,7 +375,7 @@ export default function Navbar() {
                         className="cursor-pointer"
                         onClick={handleNavLinkClick}
                       >
-                        <UserRoundPen size={16} className="text-orange-600" />{" "}
+                        <UserRoundPen size={16} className="text-red-600" />{" "}
                         {t("signUp")}
                       </Link>
                     </DropdownMenuItem>
@@ -402,19 +399,9 @@ export default function Navbar() {
                   <DropdownMenuTrigger asChild>
                     {session?.user ? (
                       <Button
-                        variant="ghost"
                         size="sm"
-                        className="h-10 text-white cursor-pointer rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                        className="h-10 bg-transparent hover:bg-transparent text-white cursor-pointer rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                       >
-                        <span
-                          className="text-sm font-medium hidden lg:block"
-                          style={{
-                            textShadow:
-                              "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
-                          }}
-                        >
-                          {session.user.name}
-                        </span>
                         {session.user.imageUrl &&
                         session.user.imageUrl.trim() !== "" ? (
                           <Image
@@ -445,12 +432,21 @@ export default function Navbar() {
                     side="bottom"
                     sideOffset={4}
                   >
+                    {/* User info header */}
+                    <div className="px-3 py-2 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {session?.user?.name || "User"}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {session?.user?.email}
+                      </p>
+                    </div>
                     <DropdownMenuItem asChild>
                       <Link
                         href={`/${locale}/profile`}
                         className="cursor-pointer"
                       >
-                        <UserRoundPen size={16} className="text-orange-600" />{" "}
+                        <UserRoundPen size={16} className="text-red-600" />{" "}
                         {t("profile")}
                       </Link>
                     </DropdownMenuItem>
@@ -460,10 +456,7 @@ export default function Navbar() {
                           href={`/${locale}/dashboard`}
                           className="cursor-pointer"
                         >
-                          <LayoutDashboard
-                            size={16}
-                            className="text-orange-600"
-                          />{" "}
+                          <LayoutDashboard size={16} className="text-red-600" />{" "}
                           {t("dashboard")}
                         </Link>
                       </DropdownMenuItem>
@@ -472,7 +465,7 @@ export default function Navbar() {
                       onClick={handleLogout}
                       className="cursor-pointer"
                     >
-                      <LogOut size={16} className="text-orange-600" />{" "}
+                      <LogOut size={16} className="text-red-600" />{" "}
                       {t("signOut")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -485,7 +478,7 @@ export default function Navbar() {
                     variant="ghost"
                     size="sm"
                     asChild
-                    className="text-gray-200 hover:bg-orange-500 hover:text-white"
+                    className="text-gray-200 hover:bg-white/20 hover:text-white"
                     style={{
                       textShadow:
                         "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
@@ -499,7 +492,7 @@ export default function Navbar() {
                     variant="ghost"
                     size="sm"
                     asChild
-                    className="text-gray-200 hover:bg-orange-500 hover:text-white"
+                    className="text-gray-200 hover:bg-white/20 hover:text-white"
                     style={{
                       textShadow:
                         "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
@@ -515,7 +508,7 @@ export default function Navbar() {
       </div>
 
       {/* Bottom navigation */}
-      <div className="hidden bg-orange-600 md:flex justify-center flex-wrap items-center px-6 lg:px-8 gap-2 py-2 border-t border-gray-300">
+      <div className="bg-black/20 hidden md:flex justify-center flex-wrap items-center px-6 lg:px-8 gap-2 py-2 border-t border-white">
         {/* Article categories by button*/}
         {mainCategories.map((category) => (
           <Button
@@ -523,7 +516,7 @@ export default function Navbar() {
             size="sm"
             asChild
             key={category}
-            className="text-gray-200 hover:bg-orange-500 hover:text-white"
+            className="text-gray-200 hover:bg-white/20 hover:text-white"
           >
             <Link
               href={`/${locale}/${category}`}

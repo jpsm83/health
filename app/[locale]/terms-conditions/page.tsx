@@ -28,8 +28,8 @@ export default async function TermsConditionsPage() {
           <h1 className="text-3xl font-bold mb-6">{t("title")}</h1>
           
           <div className="mb-8">
-            <div className="bg-orange-50 p-6 rounded-lg mb-6">
-              <h2 className="text-xl font-semibold mb-4">{t("termsOfUse.title")}</h2>
+          <div className="bg-purple-50 p-6 mb-6 shadow-md">
+          <h2 className="text-xl font-semibold mb-4">{t("termsOfUse.title")}</h2>
               <p className="mb-4">{t("termsOfUse.description")}</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
@@ -142,7 +142,7 @@ export default async function TermsConditionsPage() {
               </ol>
             </section>
 
-            <div className="bg-red-100 border-red-600 border-2 p-4 rounded-lg mt-8">
+            <div className="bg-red-50 border-red-600 border-2 p-4 mt-8">
               <p className="text-red-600 font-semibold text-center">
                 {t("warning.message")}
               </p>

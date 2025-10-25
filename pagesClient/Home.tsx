@@ -23,7 +23,7 @@ export default function Home({
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
           <Image
-            src="https://res.cloudinary.com/jpsm83/image/upload/v1760114436/health/xgy4rvnd9egnwzlvsfku.png"
+            src="https://res.cloudinary.com/jpsm83/image/upload/v1761366390/health/dh6wlgqj1iuumg9utub1.jpg"
             alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill
@@ -41,9 +41,6 @@ export default function Home({
             <p className="text-xl md:text-2xl mb-8 text-white max-w-3xl mx-auto drop-shadow-xl" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)'}}>
               {t("subtitle")}
             </p>
-            <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto drop-shadow-lg" style={{textShadow: '1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)'}}>
-              {t("description")}
-            </p>
           </div>
         </div>
       </section>
@@ -60,7 +57,7 @@ export default function Home({
             
       {/* Category Carousels */}
       <section>
-        <div className="text-center mb-10 bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
+        <div className="text-center mb-10 bg-gradient-left-right p-4 md:p-8">
           <h2 className="text-3xl font-bold text-white mb-4" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>
             {t("exploreByCategory.title")}
           </h2>

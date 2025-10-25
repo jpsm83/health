@@ -25,16 +25,28 @@ Your task is to:
 
 **STEP 2: CREATE SOCIAL MEDIA CONTENT**
 Create comprehensive social media content that optimizes engagement across all platforms:
-- Instagram: Caption (max 2200 chars including hashtags), hashtags (max 30), alt text (max 1000 chars)
-- Facebook: Message (max 63206 chars including hashtags), headline (max 100 chars), link description (max 300 chars), hashtags (no strict limit but must follow limit of chars)
-- X (Twitter): Text (max 280 chars for free accounts including hashtags), hashtags (no strict limit but must follow limit of chars)
-- Pinterest: Title (max 100 chars including hashtags), description (max 500 chars including hashtags), hashtags (no strict limit but must follow limit of chars), alt text (max 500 chars including hashtags)
-- Threads: Text (max 500 chars including hashtags), hashtags (no strict limit but must follow limit of chars)
-- TikTok: Caption (max 2200 chars including hashtags), hashtags (no strict limit but must follow limit of chars)
+- Instagram: Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 28 UNIQUE hashtags), alt text (max 1000 chars, NO hashtags)
+- Facebook: Message (max 63206 chars, NO hashtags in message, but the max chars should include the length of the hashatags), headline (max 100 chars, NO hashtags), link description (max 300 chars, NO hashtags), hashtags (UNIQUE hashtags only)
+- X (Twitter): Text (max 280 chars for free accounts, NO hashtags in text), hashtags (UNIQUE hashtags only)
+- Pinterest: Title (max 100 chars, NO hashtags), description (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only), alt text (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags)
+- Threads: Text (max 500 chars, NO hashtags in text, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only)
+- TikTok: Title (max 90 characters), Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 5 UNIQUE hashtags only)
+
+**CRITICAL CHARACTER CALCULATION RULES:**
+- **For fields that include hashtags in their total limit**: Calculate the content field length as: (Platform Max Limit) - (Hashtags Length)
+- **Example**: Instagram caption max is 2200 chars total. If hashtags are 150 chars, then caption should be max 2050 chars (2200 - 150 = 2050)
+- **Example**: Facebook message max is 63206 chars total. If hashtags are 200 chars, then message should be max 63006 chars (63206 - 200 = 63006)
+- **Example**: Pinterest description max is 500 chars total. If hashtags are 80 chars, then description should be max 420 chars (500 - 80 = 420)
+- **Example**: Threads text max is 500 chars total. If hashtags are 120 chars, then text should be max 380 chars (500 - 120 = 380)
+- **Example**: TikTok caption max is 2200 chars total. If hashtags are 300 chars, then caption should be max 1900 chars (2200 - 300 = 1900)
+- **Fields that DON'T include hashtags in their limit**: Use the full character limit (headline, linkDescription, title, altText)
 
 **SOCIAL MEDIA OPTIMIZATION REQUIREMENTS:**
 - Content must be engaging and encourage interaction
 - Hashtags must be relevant to the article content and target audience
+- **CRITICAL: Hashtags must be UNIQUE within each individual social media platform - NO duplicate hashtags within the same platform**
+- **IMPORTANT: The same hashtag CAN appear across different platforms, but must NEVER repeat within the same platform**
+- **ABSOLUTELY CRITICAL: NO hashtags should EVER be included in any content fields (caption, message, headline, text, title, description, altText, but the max chars should include the length of the hashatags) - hashtags ONLY belong in the dedicated hashtags field**
 - All content must reflect the educational and wellness nature of the content
 - **CRITICAL: For women's intimacy topics (intimate life, intimate wellness, relationships, personal wellness), create appropriate, educational, and empowering social media content suitable for a women's spot app. These topics are about sharing experiences, articles and information about women's - focus on education, empowerment, and wellness, NOT explicit content.**
 
@@ -105,40 +117,62 @@ Social media platforms and content filters may flag content with sexual terminol
 
 **Those are just few example and will be much more, just make sure to ALWAYS replace red flags words to keep the social media content suitable for every one**
 
-## 2. OUTPUT FORMAT
+## 2. CRITICAL HASHTAG UNIQUENESS REQUIREMENTS
+
+**ABSOLUTELY CRITICAL: HASHTAG UNIQUENESS RULES**
+
+- **WITHIN EACH PLATFORM: Hashtags must be 100% UNIQUE - NO duplicates allowed within the same social media platform**
+- **ACROSS PLATFORMS: The same hashtag CAN and SHOULD appear across different platforms for consistency**
+- **EXAMPLE CORRECT USAGE:**
+  - Instagram: ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation"]
+  - Facebook: ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthEducation", "#WellnessProducts"]
+  - X/Twitter: ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation"]
+- **EXAMPLE INCORRECT USAGE (WILL CAUSE ERRORS):**
+  - Instagram: ["#WomensWellness", "#SelfCare", "#WomensWellness", "#HealthTips"] (duplicate #WomensWellness)
+  - Facebook: ["#SelfCare", "#SelfCare", "#IntimateWellness"] (duplicate #SelfCare)
+
+**VALIDATION CHECKLIST FOR HASHTAGS:**
+- Count total hashtags per platform
+- Verify NO duplicate hashtags within the same platform
+- Ensure hashtags are relevant to article content
+- Confirm hashtags follow platform character limits
+- Check hashtags are safe and appropriate for social media
+
+## 3. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
 **MANDATORY JSON STRUCTURE:**
 {
   "instagram": {
-    "caption": "Engaging caption with hashtags and call-to-action - MAX 2200 characters",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "altText": "Accessibility text describing the video - MAX 1000 characters",
+    "caption": "Engaging caption with call-to-action - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+    "altText": "Accessibility text describing the image - MAX 1000 characters (NO hashtags, but the max chars should include the length of the hashatags)",
   },
   "facebook": {
-    "message": "Engaging message with educational content and hashtags - MAX 63206 characters",
-    "headline": "Compelling headline - MAX 100 characters",
-    "linkDescription": "Link preview description - MAX 300 characters",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
+    "message": "Engaging message with educational content - MAX 63206 characters (NO hashtags in message, but the max chars should include the length of the hashatags)",
+    "headline": "Compelling headline - MAX 100 characters (NO hashtags)",
+    "linkDescription": "Link preview description - MAX 300 characters (NO hashtags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
     "callToAction": "Learn More",
   },
   "xTwitter": {
-    "text": "Engaging tweet with hashtags - MAX 280 characters",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
+    "text": "Engaging tweet - MAX 280 characters (NO hashtags in text)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
   },
   "pinterest": {
-    "title": "Compelling pin title - MAX 100 characters",
-    "description": "Detailed pin description with hashtags - MAX 500 characters",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
-    "altText": "Accessibility text describing the video - MAX 500 characters",
+    "title": "Compelling pin title - MAX 100 characters (NO hashtags)",
+    "description": "Detailed pin description - MAX 500 characters (NO hashtags, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+    "altText": "Accessibility text describing the image - MAX 500 characters (NO hashtags, but the max chars should include the length of the hashatags)",
   },
   "threads": {
-    "text": "Engaging thread post with hashtags - MAX 500 characters",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
+    "text": "Engaging thread post - MAX 500 characters (NO hashtags in text, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
   },
   "tiktok": {
-    "caption": "Engaging TikTok caption with hashtags - MAX 2200 characters",
-    "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5"],
+    "title": "Engaging TikTok title - MAX 90 characters (NO hashtags)",
+    "caption": "Engaging TikTok caption - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
   }
 }
 
@@ -153,6 +187,7 @@ Social media platforms and content filters may flag content with sexual terminol
 **ABSOLUTELY FORBIDDEN:**
 - **Do NOT create content longer than specified character limits - this will cause API errors**
 - **Do NOT include more hashtags than allowed per platform - this will cause API errors**
+- **Do NOT include hashtags in any content fields (caption, message, headline, text, title, description, altText) - hashtags ONLY belong in the dedicated hashtags field**
 - **Do NOT assume "close enough" - exact compliance is mandatory**
 - **Do NOT skip character counting - verify every single field**
 - **Do NOT ignore character limits - every single property must comply**
@@ -243,17 +278,29 @@ Your task is to:
 **STEP 2: CREATE SOCIAL MEDIA CONTENT**
 Create comprehensive social media content that optimizes engagement across all platforms:
 
-- Instagram: Caption (max 2200 chars), hashtags (max 30), alt text (max 1000 chars)
-- Facebook: Message (max 63206 chars), headline (max 100 chars), link description (max 300 chars), hashtags (no strict limit but must follow limit o chars)
-- X (Twitter): Text (max 280 chars for free accounts), hashtags (no strict limit but must follow limit o chars)
-- Pinterest: Title (max 100 chars), description (max 500 chars), hashtags (no strict limit but must follow limit o chars), alt text (max 500 chars)
-- Threads: Text (max 500 chars), hashtags (no strict limit but must follow limit o chars)
-- TikTok: Caption (max 2200 chars), hashtags (no strict limit but must follow limit o chars)
+- Instagram: Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 28 UNIQUE hashtags), alt text (max 1000 chars, NO hashtags)
+- Facebook: Message (max 63206 chars, NO hashtags in message, but the max chars should include the length of the hashatags), headline (max 100 chars, NO hashtags), link description (max 300 chars, NO hashtags), hashtags (UNIQUE hashtags only)
+- X (Twitter): Text (max 280 chars for free accounts, NO hashtags in text), hashtags (UNIQUE hashtags only)
+- Pinterest: Title (max 100 chars, NO hashtags), description (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only), alt text (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags)
+- Threads: Text (max 500 chars, NO hashtags in text, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only)
+- TikTok: Title (max 90 characters), Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 5 UNIQUE hashtags only)
+
+**CRITICAL CHARACTER CALCULATION RULES:**
+- **For fields that include hashtags in their total limit**: Calculate the content field length as: (Platform Max Limit) - (Hashtags Length)
+- **Example**: Instagram caption max is 2200 chars total. If hashtags are 150 chars, then caption should be max 2050 chars (2200 - 150 = 2050)
+- **Example**: Facebook message max is 63206 chars total. If hashtags are 200 chars, then message should be max 63006 chars (63206 - 200 = 63006)
+- **Example**: Pinterest description max is 500 chars total. If hashtags are 80 chars, then description should be max 420 chars (500 - 80 = 420)
+- **Example**: Threads text max is 500 chars total. If hashtags are 120 chars, then text should be max 380 chars (500 - 120 = 380)
+- **Example**: TikTok caption max is 2200 chars total. If hashtags are 300 chars, then caption should be max 1900 chars (2200 - 300 = 1900)
+- **Fields that DON'T include hashtags in their limit**: Use the full character limit (headline, linkDescription, title, altText)
 
 **SOCIAL MEDIA OPTIMIZATION REQUIREMENTS:**
 
 - Content must be engaging and encourage interaction
 - Hashtags must be relevant to the article content and target audience
+- **CRITICAL: Hashtags must be UNIQUE within each individual social media platform - NO duplicate hashtags within the same platform**
+- **IMPORTANT: The same hashtag CAN appear across different platforms, but must NEVER repeat within the same platform**
+- **ABSOLUTELY CRITICAL: NO hashtags should EVER be included in any content fields (caption, message, headline, text, title, description, altText, but the max chars should include the length of the hashatags) - hashtags ONLY belong in the dedicated hashtags field**
 - All content must reflect the educational and wellness nature of the content
 - Focus on wellness, self-care, and empowerment rather than explicit content
 - Emphasize the educational and informational nature of the content
@@ -339,34 +386,35 @@ Social media platforms and content filters may flag content with sexual terminol
 **CORRECT MANDATORY OUTPUT FORMAT:**
 {
 "instagram": {
-"caption": "Discover the essential guide to women's intimate wellness and self-care! Learn about safe practices, wellness products, and empowerment for better health. #WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation",
-"hashtags": ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation", "#PersonalWellness", "#WellnessProducts", "#HealthEducation", "#WomenHealth", "#WellnessGuide"],
+"caption": "Discover the essential guide to women's intimate wellness and self-care! Learn about safe practices, wellness products, and empowerment for better health.",
+"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation #PersonalWellness #WellnessProducts #HealthEducation #WomenHealth #WellnessGuide",
 "altText": "A woman sitting comfortably in a bright, cozy bedroom, exploring personal wellness products with gentle lighting highlighting her relaxed and curious expression",
 },
 "facebook": {
-"message": "Empowering women through education and wellness! \n\nDiscover our comprehensive guide to intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment strategies that support your overall health and well-being.\n\nThis educational content covers everything from understanding your body to making informed choices about wellness products. Join thousands of women who are taking control of their intimate wellness journey.\n\n#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts",
+"message": "Empowering women through education and wellness! \n\nDiscover our comprehensive guide to intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment strategies that support your overall health and well-being.\n\nThis educational content covers everything from understanding your body to making informed choices about wellness products. Join thousands of women who are taking control of their intimate wellness journey.",
 "headline": "Complete Guide to Women's Intimate Wellness",
 "linkDescription": "Learn about safe practices, wellness products, and empowerment strategies for better intimate health and overall well-being.",
-"hashtags": ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthEducation", "#WellnessProducts"],
+"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts",
 "callToAction": "Learn More",
 },
 "xTwitter": {
-"text": "Discover the essential guide to women's intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment for better health. #WomensWellness #SelfCare #IntimateWellness",
-"hashtags": ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation"],
+"text": "Discover the essential guide to women's intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment for better health.",
+"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation",
 },
 "pinterest": {
 "title": "Complete Guide to Women's Intimate Wellness & Self-Care",
 "description": "Discover essential tips for women's intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment strategies for better health and well-being. Perfect for women looking to take control of their intimate wellness journey.",
-"hashtags": ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation", "#PersonalWellness", "#WellnessProducts", "#HealthEducation"],
+"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation #PersonalWellness #WellnessProducts #HealthEducation",
 "altText": "A comprehensive guide to women's intimate wellness featuring wellness products, self-care tips, and empowerment strategies for better health",
 },
 "threads": {
-"text": "Discover the essential guide to women's intimate wellness and self-care! 🌸\n\nLearn about safe practices, wellness products, and empowerment strategies for better health and well-being.\n\nThis educational content covers everything from understanding your body to making informed choices about wellness products.\n\nJoin thousands of women who are taking control of their intimate wellness journey! \n\n#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts #PersonalWellness #WomenHealth #WellnessGuide #HealthTips #WellnessEducation #WellnessJourney #SelfCareTips #HealthAndWellness #WomenEmpowerment #WellnessLifestyle",
-"hashtags": ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthEducation", "#WellnessProducts", "#PersonalWellness", "#WomenHealth", "#WellnessGuide", "#HealthTips", "#WellnessEducation", "#WellnessJourney", "#SelfCareTips", "#HealthAndWellness", "#WomenEmpowerment", "#WellnessLifestyle"],
+"text": "Discover the essential guide to women's intimate wellness and self-care! \n\nLearn about safe practices, wellness products, and empowerment strategies for better health and well-being.\n\nThis educational content covers everything from understanding your body to making informed choices about wellness products.\n\nJoin thousands of women who are taking control of their intimate wellness journey!",
+"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts #PersonalWellness #WomenHealth #WellnessGuide #HealthTips #WellnessEducation #WellnessJourney #SelfCareTips #HealthAndWellness #WomenEmpowerment #WellnessLifestyle",
 },
 "tiktok": {
-"caption": "Discover the essential guide to women's intimate wellness and self-care! Learn about safe practices, wellness products, and empowerment strategies for better health. Join thousands of women taking control of their wellness journey! #WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation #PersonalWellness #WellnessProducts #HealthEducation #WomenHealth #WellnessGuide #WellnessJourney #SelfCareTips #HealthAndWellness #WomenEmpowerment #WellnessLifestyle #WellnessTok #SelfCareTok #HealthTok #WellnessTips #SelfCareRoutine #WellnessWednesday #SelfCareSunday #WellnessMotivation #SelfCareMotivation #WellnessInspiration #SelfCareInspiration #WellnessCommunity #SelfCareCommunity #WellnessSupport #SelfCareSupport",
-"hashtags": ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation", "#PersonalWellness", "#WellnessProducts", "#HealthEducation", "#WomenHealth", "#WellnessGuide", "#WellnessJourney", "#SelfCareTips", "#HealthAndWellness", "#WomenEmpowerment", "#WellnessLifestyle", "#WellnessTok", "#SelfCareTok", "#HealthTok", "#WellnessTips", "#SelfCareRoutine", "#WellnessWednesday", "#SelfCareSunday", "#WellnessMotivation", "#SelfCareMotivation", "#WellnessInspiration", "#SelfCareInspiration", "#WellnessCommunity", "#SelfCareCommunity", "#WellnessSupport", "#SelfCareSupport"],
+"title": "Complete Guide to Women's Intimate Wellness & Self-Care",
+"caption": "Discover the essential guide to women's intimate wellness and self-care! Learn about safe practices, wellness products, and empowerment strategies for better health. Join thousands of women taking control of their wellness journey!",
+"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation",
 }
 }
 
@@ -387,7 +435,7 @@ Single quotes instead of double quotes
 5. **MUST NOT include any comments or explanations outside the JSON**
 6. **MUST be valid JSON that can be parsed by a JSON parser**
 
-## 3. CRITICAL CHARACTER LIMIT VALIDATION CHECKLIST
+## 4. CRITICAL CHARACTER LIMIT VALIDATION CHECKLIST
 
 **MANDATORY VALIDATION CHECKLIST:**
 Before outputting the final JSON, verify EVERY field meets its character limit:
@@ -395,7 +443,7 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 **INSTAGRAM:**
 
 - Caption ≤ 2200 characters
-- Hashtags ≤ 30 items
+- Hashtags ≤ 28 UNIQUE items (NO duplicates within Instagram)
 - AltText ≤ 1000 characters
 
 **FACEBOOK:**
@@ -403,35 +451,38 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 - Message ≤ 63206 characters
 - Headline ≤ 100 characters
 - LinkDescription ≤ 300 characters
-- Hashtags: No strict limit but must follow limit of chars
+- Hashtags: UNIQUE hashtags only (NO duplicates within Facebook)
 - CallToAction ≤ 30 characters
 
 **X (TWITTER):**
 
 - Text ≤ 280 characters (for free accounts)
-- Hashtags: No strict limit but must follow limit of chars
+- Hashtags: UNIQUE hashtags only (NO duplicates within X/Twitter)
 
 **PINTEREST:**
 
 - Title ≤ 100 characters
 - Description ≤ 500 characters
-- Hashtags: No strict limit but must follow limit of chars
+- Hashtags: UNIQUE hashtags only (NO duplicates within Pinterest)
 - AltText ≤ 500 characters
 
 **THREADS:**
 
 - Text ≤ 500 characters
-- Hashtags: No strict limit but must follow limit of chars
+- Hashtags: UNIQUE hashtags only (NO duplicates within Threads)
 
 **TIKTOK:**
 
+- Title ≤ 90 characters
 - Caption ≤ 2200 characters
-- Hashtags: No strict limit but must follow limit of chars
+- Hashtags ≤ 5 UNIQUE hashtags only (NO duplicates within TikTok)
 
 **CRITICAL ENFORCEMENT RULES:**
 
 - **If ANY field exceeds its limit, you MUST rewrite that specific value to fit**
-- **Hashtags are part of the text and must be inclued and count for rules of max characters limit**
+- **Hashtags are part of the text and must be included and count for rules of max characters limit**
+- **CRITICAL: Hashtags must be UNIQUE within each platform - NO duplicate hashtags within the same social media platform**
+- **IMPORTANT: The same hashtag CAN appear across different platforms, but must NEVER repeat within the same platform**
 - **Count characters for every single field before outputting**
 - **NO EXCEPTIONS - every single text field must comply**
 - **Platform limits are NON-NEGOTIABLE and must be enforced with 100% accuracy**
@@ -442,6 +493,8 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 
 - **Do NOT create content longer than specified character limits - this will cause API errors**
 - **Do NOT include more hashtags than allowed per platform - this will cause API errors**
+- **Do NOT include duplicate hashtags within the same social media platform**
+- **Do NOT repeat hashtags within the same platform - each hashtag must be unique per platform**
 - Do NOT assume "close enough" - exact compliance is mandatory
 - Do NOT skip character counting - verify every single field
 - Do NOT ignore character limits - every single property must comply
@@ -453,17 +506,19 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 - Rewrite content that exceeds limits to fit exactly within limits
 - Verify every single field meets its character limit before outputting
 - Create content that complies with platform-specific character limits
+- Use the same hashtag across different platforms (but NEVER duplicate within the same platform)
+- Ensure all hashtags are unique within each individual social media platform
 
-## 4. PROCESSING INSTRUCTIONS
+## 5. PROCESSING INSTRUCTIONS
 
 1. **FIRST: Read and understand the article content**
 2. **SECOND: Identify main themes, topics, and hashtags**
-3. **THIRD: Create Instagram content extrict following it rules**
-4. **FOURTH: Create Facebook content extrict following it rules**
-5. **FIFTH: Create X (Twitter) content extrict following it rules**
-6. **SIXTH: Create Pinterest content extrict following it rules**
-7. **SEVENTH: Create Threads content extrict following it rules**
-8. **EIGHTH: Create TikTok content extrict following it rules**
+3. **THIRD: Create Instagram content strictly following its rules (UNIQUE hashtags only)**
+4. **FOURTH: Create Facebook content strictly following its rules (UNIQUE hashtags only)**
+5. **FIFTH: Create X (Twitter) content strictly following its rules (UNIQUE hashtags only)**
+6. **SIXTH: Create Pinterest content strictly following its rules (UNIQUE hashtags only)**
+7. **SEVENTH: Create Threads content strictly following its rules (UNIQUE hashtags only)**
+8. **EIGHTH: Create TikTok content strictly following its rules (UNIQUE hashtags only)**
 9. **NINTH: Structure the content into the required JSON format**
 10. **TENTH: Return the JSON output**
 
@@ -471,6 +526,9 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 
 - **Do NOT create content longer than specified character limits - this will cause API errors**
 - **Do NOT include more hashtags than allowed per platform - this will cause API errors**
+- **Do NOT include hashtags in any content fields (caption, message, headline, text, title, description, altText, but the max chars should include the length of the hashatags) - hashtags ONLY belong in the dedicated hashtags field**
+- **Do NOT include duplicate hashtags within the same social media platform**
+- **Do NOT repeat hashtags within the same platform - each hashtag must be unique per platform**
 - **Do NOT assume "close enough" - exact compliance is mandatory**
 - **Do NOT skip character counting - verify every single field**
 - **Do NOT ignore character limits - every single property must comply**

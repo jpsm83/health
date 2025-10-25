@@ -9,6 +9,8 @@ import passwordValidation from "@/lib/utils/passwordValidation";
 import { useSession, signIn } from "next-auth/react";
 import { createUser } from "@/app/actions/user/createUser";
 import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface FormData {
   username: string;
@@ -177,15 +179,18 @@ export default function SignUp() {
     <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
+          <h2
+            className="mt-6 text-center text-3xl font-extrabold text-white"
+            style={{
+              textShadow:
+                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)",
+            }}
+          >
             {t("createAccount")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {t("alreadyHaveAccount")}{" "}
-            <Link
-              href={`/${locale}/signin`}
-              className="font-medium text-orange-600 hover:text-orange-500"
-            >
+            <Link href={`/${locale}/signin`} className="main-link">
               {t("signIn")}
             </Link>
           </p>
@@ -193,11 +198,11 @@ export default function SignUp() {
 
         {/* Google Signup Button */}
         <div className="mt-6">
-          <button
+          <Button
             type="button"
             disabled={isLoading}
             onClick={handleGoogleSignUp}
-            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-600 bg-gray-50 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed focus:border-2 focus:border-purple-400"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
@@ -218,17 +223,14 @@ export default function SignUp() {
               />
             </svg>
             {isLoading ? t("signingUpWithGoogle") : t("signUpWithGoogle")}
-          </button>
+          </Button>
         </div>
 
         {/* Divider */}
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">{t("or")}</span>
-          </div>
+        <div className="flex items-center">
+          <span className="w-full border-t border-gray-300" />
+          <span className="bg-white text-gray-500 px-2">{t("or")}</span>
+          <span className="w-full border-t border-gray-300" />
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -242,11 +244,11 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 {t("username")}
               </label>
-              <input
+              <Input
                 id="username"
                 type="text"
                 disabled={isLoading}
@@ -270,28 +272,22 @@ export default function SignUp() {
                   setValue("username", e.target.value);
                   handleInputChange("username");
                 }}
-                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                  errors.username
-                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                className={errors.username ? "input-error" : "input-standard"}
                 placeholder={t("enterUsername")}
               />
               {errors.username && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.username.message}
-                </p>
+                <p className="input-error">{errors.username.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 {t("emailAddress")}
               </label>
-              <input
+              <Input
                 id="email"
                 type="email"
                 autoComplete="email"
@@ -307,28 +303,22 @@ export default function SignUp() {
                   setValue("email", e.target.value);
                   handleInputChange("email");
                 }}
-                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                  errors.email
-                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                className={errors.email ? "input-error" : "input-standard"}
                 placeholder={t("enterEmail")}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.email.message}
-                </p>
+                <p className="input-error">{errors.email.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="birthDate"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 {t("birthDate")}
               </label>
-              <input
+              <Input
                 id="birthDate"
                 type="date"
                 disabled={isLoading}
@@ -339,28 +329,22 @@ export default function SignUp() {
                   setValue("birthDate", e.target.value);
                   handleInputChange("birthDate");
                 }}
-                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                  errors.birthDate
-                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                className={errors.birthDate ? "input-error" : "input-standard"}
               />
               {errors.birthDate && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.birthDate.message}
-                </p>
+                <p className="input-error">{errors.birthDate.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 {t("password")}
               </label>
               <div className="relative">
-                <input
+                <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
@@ -378,14 +362,10 @@ export default function SignUp() {
                     setValue("password", e.target.value);
                     handleInputChange("password");
                   }}
-                  className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                    errors.password
-                      ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                      : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                  } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  className={errors.password ? "input-error" : "input-standard"}
                   placeholder={t("enterPassword")}
                 />
-                <button
+                <Button
                   type="button"
                   disabled={isLoading}
                   onClick={() => setShowPassword(!showPassword)}
@@ -426,24 +406,22 @@ export default function SignUp() {
                       />
                     </svg>
                   )}
-                </button>
+                </Button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.password.message}
-                </p>
+                <p className="input-error">{errors.password.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 {t("confirmPassword")}
               </label>
               <div className="relative">
-                <input
+                <Input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   autoComplete="new-password"
@@ -457,14 +435,12 @@ export default function SignUp() {
                     setValue("confirmPassword", e.target.value);
                     handleInputChange("confirmPassword");
                   }}
-                  className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                    errors.confirmPassword
-                      ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                      : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                  } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  className={
+                    errors.confirmPassword ? "input-error" : "input-standard"
+                  }
                   placeholder={t("confirmPassword")}
                 />
-                <button
+                <Button
                   type="button"
                   disabled={isLoading}
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -505,46 +481,42 @@ export default function SignUp() {
                       />
                     </svg>
                   )}
-                </button>
+                </Button>
               </div>
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.confirmPassword.message}
-                </p>
+                <p className="input-error">{errors.confirmPassword.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="image"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 {t("profileImage")}
               </label>
-              <div className="flex items-center space-x-3">
-                <input
+              <div className="flex items-center">
+                <Input
                   type="file"
                   id="image"
                   accept="image/*"
                   disabled={isLoading}
                   {...register("imageFile")}
                   onChange={handleImageChange}
-                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="input-standard file:mr-2 file:py-1 file:px-4 file:rounded-md file:border-1 file:text-sm file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-50"
                 />
                 {selectedImage && (
                   <button
                     type="button"
                     onClick={removeImage}
-                    className="text-red-400 hover:text-red-600 text-sm"
+                    className="text-red-600 hover:text-red-500 text-sm ml-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 )}
               </div>
               {errors.imageFile && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.imageFile.message}
-                </p>
+                <p className="input-error">{errors.imageFile.message}</p>
               )}
               {imagePreview && (
                 <div className="mt-2">
@@ -558,43 +530,42 @@ export default function SignUp() {
             </div>
           </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-              ) : null}
-              {t("createAccount")}
-            </button>
-          </div>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            variant="customDefault"
+            className="mt-6"
+          >
+            {isLoading ? (
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            ) : null}
+            {t("createAccount")}
+          </Button>
         </form>
 
         <div className="text-center">
           <Link
             href={`/${locale}`}
-            className={`font-medium text-orange-600 hover:text-orange-500 ${
+            className={`main-link ${
               isLoading ? "pointer-events-none opacity-50" : ""
             }`}
           >

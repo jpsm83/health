@@ -9,7 +9,7 @@ const Footer = () => {
   const t = useTranslations("footer");
 
   return (
-    <footer className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-lg">
+    <footer className="bg-gradient-left-right text-white shadow-lg">
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row lg:flex-row gap-8 md:gap-16 justify-center items-center md:items-start flex-wrap">
@@ -111,7 +111,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom footer bar */}
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 bg-orange-600 border-t border-yellow-500 flex justify-center items-center">
+      <div className="bg-black/20 w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 border-t border-white flex justify-center items-center">
         <p className="text-white text-sm text-center md:text-left">
           {t("copyright")}
         </p>

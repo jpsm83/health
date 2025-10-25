@@ -60,7 +60,7 @@ export interface IArticleContext {
 // Social media interfaces
 export interface IInstagram {
   caption: string;
-  hashtags: string[];
+  hashtags: string;
   altText?: string;
 }
 
@@ -68,19 +68,19 @@ export interface IFacebook {
   message: string;
   headline: string;
   linkDescription: string;
-  hashtags: string[];
+  hashtags: string;
   callToAction?: string;
 }
 
 export interface IXTwitter {
   text: string;
-  hashtags: string[];
+  hashtags: string;
 }
 
 export interface IPinterest {
   title: string;
   description: string;
-  hashtags: string[];
+  hashtags: string;
   altText: string;
 }
 
@@ -92,12 +92,13 @@ export interface IYouTube {
 
 export interface IThreads {
   text: string;
-  hashtags: string[];
+  hashtags: string;
 }
 
 export interface ITikTok {
+  title: string;
   caption: string;
-  hashtags: string[];
+  hashtags: string;
 }
 
 export interface ISocialMedia {

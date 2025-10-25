@@ -205,11 +205,7 @@ export default function ResetPassword() {
                   setValue("newPassword", e.target.value);
                   handleInputChange("newPassword");
                 }}
-                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                  errors.newPassword
-                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                className={`${errors.newPassword ? "input-error" : "input-standard"} mt-1 appearance-none relative block w-full focus:z-10 sm:text-sm placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                 placeholder={t("enterNewPassword")}
               />
               {errors.newPassword && (
@@ -247,11 +243,7 @@ export default function ResetPassword() {
                   setValue("confirmPassword", e.target.value);
                   handleInputChange("confirmPassword");
                 }}
-                className={`bg-white mt-1 appearance-none relative block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:z-10 sm:text-sm ${
-                  errors.confirmPassword
-                    ? "border-orange-500 focus:ring-orange-500 focus:border-orange-500"
-                    : "border-gray-300 focus:ring-orange-500 focus:border-orange-500"
-                } placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+                className={`${errors.confirmPassword ? "input-error" : "input-standard"} mt-1 appearance-none relative block w-full focus:z-10 sm:text-sm placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
                 placeholder={t("confirmNewPassword")}
               />
               {errors.confirmPassword && (
@@ -269,7 +261,7 @@ export default function ResetPassword() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <svg

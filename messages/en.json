@@ -140,14 +140,17 @@
       "timezone": "Timezone",
       "notifications": "Notifications",
       "newsletterFrequency": "Newsletter Frequency",
-      "categoryInterests": "Category Interests"
+      "categoryInterests": "Category Interests",
+      "selectCategories": "Select Categories",
+      "selectFrequency": "Select Frequency"
     },
     "actions": {
       "save": "Save Changes",
       "cancel": "Cancel",
       "remove": "Remove",
       "resetPassword": "Reset Password",
-      "changeImage": "Change"
+      "changeImage": "Change",
+      "removeImage": "Remove Image"
     },
     "updateFailed": "Failed to update profile",
     "updateSuccess": "Profile updated successfully!",

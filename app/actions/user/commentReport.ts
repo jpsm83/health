@@ -125,7 +125,7 @@ const commentReportTemplate = (commentText: string, reason: string, articleTitle
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center;">
+          <div style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 20px; text-align: center;">
             <h1 style="margin: 0; font-size: 24px; color: white;">
               <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot
             </h1>
@@ -141,11 +141,11 @@ const commentReportTemplate = (commentText: string, reason: string, articleTitle
             <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
               <h3 style="color: #374151; margin-top: 0; margin-bottom: 15px;">Article: ${articleTitle}</h3>
               <p style="color: #6b7280; margin-bottom: 10px; font-weight: 600;">Your Comment:</p>
-              <p style="color: #374151; font-style: italic; background-color: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #ec4899; margin-bottom: 15px;">
+              <p style="color: #374151; font-style: italic; background-color: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #f43f5e; margin-bottom: 15px;">
                 "${commentText}"
               </p>
               <p style="color: #6b7280; margin-bottom: 5px; font-weight: 600;">${t.reportReason}:</p>
-              <p style="color: #ec4899; font-weight: bold; margin: 0;">${reason}</p>
+              <p style="color: #f43f5e; font-weight: bold; margin: 0;">${reason}</p>
             </div>
             
             <h3 style="color: #374151; margin-bottom: 15px;">${t.reportAction}</h3>

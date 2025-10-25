@@ -45,7 +45,7 @@ export default function CreateArticle() {
               type="text"
               id="title"
               name="title"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard w-full focus:ring-blue-500 focus:border-transparent"
               placeholder={t("form.title")}
             />
           </div>
@@ -61,7 +61,7 @@ export default function CreateArticle() {
               id="content"
               name="content"
               rows={8}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard w-full focus:ring-blue-500 focus:border-transparent"
               placeholder={t("form.content")}
             />
           </div>
@@ -76,7 +76,7 @@ export default function CreateArticle() {
             <select
               id="category"
               name="category"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard w-full focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">{t("form.selectCategory")}</option>
               <option value="health">{t("form.categories.health")}</option>
@@ -99,7 +99,7 @@ export default function CreateArticle() {
               type="text"
               id="tags"
               name="tags"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard w-full focus:ring-blue-500 focus:border-transparent"
               placeholder={t("form.tagsPlaceholder")}
             />
           </div>

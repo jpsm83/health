@@ -139,14 +139,17 @@
       "timezone": "Fuseau Horaire",
       "notifications": "Notifications",
       "newsletterFrequency": "Fréquence de la Newsletter",
-      "categoryInterests": "Intérêts par Catégorie"
+      "categoryInterests": "Intérêts par Catégorie",
+      "selectCategories": "Sélectionner les Catégories",
+      "selectFrequency": "Sélectionner la Fréquence"
     },
     "actions": {
       "save": "Sauvegarder les Modifications",
       "cancel": "Annuler",
       "remove": "Supprimer",
       "resetPassword": "Réinitialiser le Mot de Passe",
-      "changeImage": "Changer"
+      "changeImage": "Changer",
+      "removeImage": "Supprimer l'Image"
     },
     "updateFailed": "Échec de la mise à jour du profil",
     "updateSuccess": "Profil mis à jour avec succès !",

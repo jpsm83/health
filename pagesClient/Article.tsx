@@ -450,7 +450,7 @@ export default function Article({
 
         {/* Category Carousels */}
         <section>
-          <div className="text-center bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
+          <div className="text-center bg-gradient-left-right p-4 md:p-8">
             <h2 className="text-3xl font-bold text-white">
               {t("article.exploreMore")}
             </h2>

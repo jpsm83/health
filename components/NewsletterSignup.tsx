@@ -26,22 +26,14 @@ export default function NewsletterSignup() {
     }
 
     if (!emailInput.trim()) {
-      showToast(
-        "error",
-        "Email Required",
-        "Please enter your email address"
-      );
+      showToast("error", "Email Required", "Please enter your email address");
       return;
     }
 
     // Validate email format with regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(emailInput.trim())) {
-      showToast(
-        "error",
-        "Invalid Email",
-        "Please enter a valid email address"
-      );
+      showToast("error", "Invalid Email", "Please enter a valid email address");
       return;
     }
 
@@ -51,18 +43,10 @@ export default function NewsletterSignup() {
       const result = await subscribeToNewsletterAction(emailInput.trim());
 
       if (result.success) {
-        showToast(
-          "success",
-          "Subscription Successful",
-          result.message
-        );
+        showToast("success", "Subscription Successful", result.message);
         setEmailInput(""); // Clear the input
       } else {
-        showToast(
-          "error",
-          "Subscription Failed",
-          result.message
-        );
+        showToast("error", "Subscription Failed", result.message);
       }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
@@ -77,19 +61,25 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="w-full md:w-2/3 mx-auto bg-gradient-to-r from-orange-600 to-yellow-500 p-8 md:p-12 text-center text-white shadow-xl">
+    <section className="w-full md:w-2/3 mx-auto bg-gradient-left-right p-8 md:p-12 text-center text-white shadow-xl">
       {/* Icon */}
       <div className="mb-6 flex justify-center">
         <Mail size={60} />
       </div>
 
       {/* Content */}
-      <h2 className="text-3xl font-bold mb-4" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>{t("title")}</h2>
+      <h2
+        className="text-3xl font-bold mb-4"
+        style={{
+          textShadow: "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
+        }}
+      >
+        {t("title")}
+      </h2>
       <p className="text-white text-lg mb-8">
-        {session?.user 
+        {session?.user
           ? "Manage your newsletter subscription preferences and categories of interest."
-          : t("description")
-        }
+          : t("description")}
       </p>
 
       {/* Newsletter Form */}
@@ -100,25 +90,22 @@ export default function NewsletterSignup() {
             value={emailInput}
             onChange={(e) => setEmailInput(e.target.value)}
             placeholder={t("emailPlaceholder")}
-            className="flex-1 bg-white text-gray-900 placeholder-gray-400 border-0 focus:ring-orange-400"
+            className="input-standard"
             required
           />
         )}
         <Button
           onClick={handleSubmit}
           type="submit"
-          variant="secondary"
           disabled={isLoading}
-          className={`px-6 py-3 bg-gray-100 border-1 border-white cursor-pointer text-orange-600 hover:bg-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
-            session?.user ? "w-full" : ""
-          }`}
+          variant="customSecondary"
+          className={`${session?.user ? "w-full" : "sm:w-1/3"}`}
         >
-          {isLoading 
-            ? "Subscribing..." 
-            : session?.user 
-              ? "Manage Subscription" 
-              : t("subscribeButton")
-          }
+          {isLoading
+            ? "Subscribing..."
+            : session?.user
+            ? "Manage Subscription"
+            : t("subscribeButton")}
         </Button>
       </form>
 

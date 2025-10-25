@@ -50,7 +50,7 @@ const articleContentSchema = new Schema({
 // Instagram
 const instagramSchema = new Schema({
   caption: { type: String, required: true },
-  hashtags: { type: [String], required: true },
+  hashtags: { type: String, required: true },
   altText: { type: String }, // accessibility text
 });
 
@@ -59,41 +59,35 @@ const facebookSchema = new Schema({
   message: { type: String, required: true },
   headline: { type: String, required: true },
   linkDescription: { type: String, required: true }, // link preview text
-  hashtags: { type: [String], required: true }, // hashtags
+  hashtags: { type: String, required: true }, // hashtags
   callToAction: { type: String }, // CTA button text (e.g., "Learn More")
 });
 
 // X (Twitter)
 const xTwitterSchema = new Schema({
   text: { type: String, required: true },
-  hashtags: { type: [String], required: true },
+  hashtags: { type: String, required: true },
 });
 
 // Pinterest
 const pinterestSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  hashtags: { type: [String], required: true },
+  hashtags: { type: String, required: true },
   altText: { type: String, required: true }, // accessibility
-});
-
-// YouTube
-const youtubeSchema = new Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  tags: { type: [String], required: true },
 });
 
 // Threads
 const threadsSchema = new Schema({
   text: { type: String, required: true },
-  hashtags: { type: [String], required: true },
+  hashtags: { type: String, required: true },
 });
 
 // TikTok
 const tiktokSchema = new Schema({
+  title: { type: String, required: true },
   caption: { type: String, required: true },
-  hashtags: { type: [String], required: true },
+  hashtags: { type: String, required: true },
 });
 
 // =========================
@@ -127,7 +121,6 @@ const languageSpecificSchema = new Schema({
     facebook: facebookSchema,
     xTwitter: xTwitterSchema,
     pinterest: pinterestSchema,
-    youtube: youtubeSchema,
     threads: threadsSchema,
     tiktok: tiktokSchema,
   },

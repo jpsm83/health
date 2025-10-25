@@ -106,19 +106,19 @@ export default async function CookiePolicyPage() {
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
                     {t("sections.yourChoices.subsections.moreInformation.title")}
-                  </h3>
+                  </h3>{' '}
                   <p>
                     {t("sections.yourChoices.subsections.moreInformation.description")}
                     <a
                       href="https://www.allaboutcookies.org"
-                      className="text-orange-600 font-bold hover:underline ml-1"
+                      className="main-link"
                     >
                       {t("sections.yourChoices.subsections.moreInformation.links.allaboutcookies")}
-                    </a>{" "}
-                    and
+                    </a>{' '}
+                    and{' '}
                     <a
                       href="https://www.youronlinechoices.eu"
-                      className="text-orange-600 font-bold hover:underline ml-1"
+                      className="main-link"
                     >
                       {t("sections.yourChoices.subsections.moreInformation.links.youronlinechoices")}
                     </a>

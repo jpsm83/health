@@ -384,33 +384,33 @@ Before outputting the final JSON, verify EVERY field meets its requirements:
   "socialMedia": {
     "instagram": {
       "caption": "Rewritten Instagram caption",
-      "hashtags": ["#Rewritten", "#Hashtags"],
+      "hashtags": "#Rewritten #Hashtags",
       "altText": "Rewritten alt text",
     },
     "facebook": {
       "message": "Rewritten Facebook message",
       "headline": "Rewritten headline",
       "linkDescription": "Rewritten link description",
-      "hashtags": ["#Rewritten", "#Hashtags"],
+      "hashtags": "#Rewritten #Hashtags",
       "callToAction": "Rewritten CTA",
     },
     "xTwitter": {
       "text": "Rewritten tweet text",
-      "hashtags": ["#Rewritten", "#Hashtags"],
+      "hashtags": "#Rewritten #Hashtags",
     },
     "pinterest": {
       "title": "Rewritten pin title",
       "description": "Rewritten pin description",
-      "hashtags": ["#Rewritten", "#Hashtags"],
+      "hashtags": "#Rewritten #Hashtags",
       "altText": "Rewritten alt text",
     },
     "threads": {
       "text": "Rewritten thread text",
-      "hashtags": ["#Rewritten", "#Hashtags"],
+      "hashtags": "#Rewritten #Hashtags",
     },
     "tiktok": {
       "caption": "Rewritten TikTok caption",
-      "hashtags": ["#Rewritten", "#Hashtags"],
+      "hashtags": "#Rewritten #Hashtags",
     }
   }
 }

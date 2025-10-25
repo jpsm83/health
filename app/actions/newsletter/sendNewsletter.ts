@@ -71,7 +71,7 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
           subject: "Women's Spot Newsletter - Health & Wellness Update",
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-              <div style="background-color: #ec4899; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+              <div style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
                 <h1 style="margin: 0; font-size: 24px; color: white;">
                   <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot Newsletter
                 </h1>
@@ -82,7 +82,7 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
                   Welcome to our weekly health and wellness newsletter! We're excited to share the latest insights, tips, and articles to help you live your best life.
                 </p>
                 
-                <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ec4899;">
+                <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f43f5e;">
                   <h3 style="color: #374151; margin-bottom: 15px;">This Week's Featured Articles:</h3>
                   <ul style="color: #6b7280; line-height: 1.6;">
                     <li>5 Simple Morning Routines for Better Energy</li>
@@ -93,7 +93,7 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
                 </div>
 
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${process.env.NEXTAUTH_URL}" style="background-color: #ec4899; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
+                  <a href="${process.env.NEXTAUTH_URL}" style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
                     Read Latest Articles
                   </a>
                 </div>
@@ -113,7 +113,7 @@ export default async function sendNewsletterAction(): Promise<SendNewsletterResu
                 <p>© 2025 Women&apos;s Spot. All rights reserved.</p>
                 <p style="margin-top: 10px;">
                   If you no longer wish to receive our newsletter, you can 
-                  <a href="${unsubscribeLink}" style="color: #ec4899; text-decoration: underline;">unsubscribe here</a>.
+                  <a href="${unsubscribeLink}" style="color: #f43f5e; text-decoration: underline;">unsubscribe here</a>.
                 </p>
               </div>
             </div>

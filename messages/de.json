@@ -139,14 +139,17 @@
       "timezone": "Zeitzone",
       "notifications": "Benachrichtigungen",
       "newsletterFrequency": "Newsletter-Häufigkeit",
-      "categoryInterests": "Kategorie-Interessen"
+      "categoryInterests": "Kategorie-Interessen",
+      "selectCategories": "Kategorien auswählen",
+      "selectFrequency": "Häufigkeit auswählen"
     },
     "actions": {
       "save": "Änderungen speichern",
       "cancel": "Abbrechen",
       "remove": "Entfernen",
       "resetPassword": "Passwort zurücksetzen",
-      "changeImage": "Ändern"
+      "changeImage": "Ändern",
+      "removeImage": "Bild entfernen"
     },
     "updateFailed": "Profilaktualisierung fehlgeschlagen",
     "updateSuccess": "Profil erfolgreich aktualisiert!",

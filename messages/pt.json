@@ -138,14 +138,17 @@
       "timezone": "Fuso Horário",
       "notifications": "Notificações",
       "newsletterFrequency": "Frequência da Newsletter",
-      "categoryInterests": "Interesses por Categoria"
+      "categoryInterests": "Interesses por Categoria",
+      "selectCategories": "Selecionar Categorias",
+      "selectFrequency": "Selecionar Frequência"
     },
     "actions": {
       "save": "Salvar Alterações",
       "cancel": "Cancelar",
       "remove": "Remover",
       "resetPassword": "Redefinir Senha",
-      "changeImage": "Alterar"
+      "changeImage": "Alterar",
+      "removeImage": "Remover Imagem"
     },
     "updateFailed": "Falha ao atualizar o perfil",
     "updateSuccess": "Perfil atualizado com sucesso!",

@@ -35,7 +35,7 @@ export default async function SiteMapPage() {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-orange-600 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-4">
               {t("title")}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -49,7 +49,7 @@ export default async function SiteMapPage() {
             {/* Home & Core Pages */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <Home className="w-5 h-5 mr-2 text-orange-600" />
+                <Home className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.corePages.title")}
               </h2>
               <ul className="space-y-3">
@@ -77,7 +77,7 @@ export default async function SiteMapPage() {
             {/* Article Categories */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <BookOpen className="w-5 h-5 mr-2 text-orange-600" />
+                <BookOpen className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.articleCategories.title")}
               </h2>
               <ul className="space-y-3">
@@ -100,7 +100,7 @@ export default async function SiteMapPage() {
             {/* User Account */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <User className="w-5 h-5 mr-2 text-orange-600" />
+                <User className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.userAccount.title")}
               </h2>
               <ul className="space-y-3">
@@ -140,7 +140,7 @@ export default async function SiteMapPage() {
             {/* Content Creation */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <Plus className="w-5 h-5 mr-2 text-orange-600" />
+                <Plus className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.contentCreation.title")}
               </h2>
               <ul className="space-y-3">
@@ -156,7 +156,7 @@ export default async function SiteMapPage() {
             {/* Newsletter & Communication */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <Mail className="w-5 h-5 mr-2 text-orange-600" />
+                <Mail className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.newsletter.title")}
               </h2>
               <ul className="space-y-3">
@@ -178,7 +178,7 @@ export default async function SiteMapPage() {
             {/* Security & Account Management */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <Shield className="w-5 h-5 mr-2 text-orange-600" />
+                <Shield className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.security.title")}
               </h2>
               <ul className="space-y-3">
@@ -206,7 +206,7 @@ export default async function SiteMapPage() {
             {/* Legal & Policies */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <FileText className="w-5 h-5 mr-2 text-orange-600" />
+                <FileText className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.legal.title")}
               </h2>
               <ul className="space-y-3">
@@ -234,7 +234,7 @@ export default async function SiteMapPage() {
             {/* Language Support */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <Globe className="w-5 h-5 mr-2 text-orange-600" />
+                <Globe className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.languageSupport.title")}
               </h2>
               <div className="space-y-2">
@@ -242,12 +242,12 @@ export default async function SiteMapPage() {
                   {t("sections.languageSupport.description")}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.english")}</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.portuguese")}</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.spanish")}</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.french")}</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.german")}</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">{t("sections.languageSupport.italian")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.english")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.portuguese")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.spanish")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.french")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.german")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.italian")}</span>
                 </div>
               </div>
             </div>
@@ -255,7 +255,7 @@ export default async function SiteMapPage() {
             {/* Help & Support */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                <HelpCircle className="w-5 h-5 mr-2 text-orange-600" />
+                <HelpCircle className="w-5 h-5 mr-2 text-red-600" />
                 {t("sections.helpSupport.title")}
               </h2>
               <ul className="space-y-3">

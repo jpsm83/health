@@ -103,7 +103,7 @@ export default function Loading() {
 
           {/* Category Carousels Skeleton - matches CategoryCarousel */}
           <section>
-            <div className="text-center bg-gradient-to-r from-orange-600 to-yellow-500 p-4 md:p-8">
+            <div className="text-center bg-gradient-left-right p-4 md:p-8">
               <Skeleton className="h-8 w-64 mx-auto bg-white/20" />
             </div>
 
