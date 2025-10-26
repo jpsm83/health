@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
 			},
 		},
 	},
+	// Redirect /ads.txt to external URL
+	async redirects() {
+		return [
+			{
+				source: '/ads.txt',
+				destination: 'https://srv.adstxtmanager.com/19390/womensspot.org',
+				permanent: true,
+			},
+		];
+	},
 	// Skip static optimization during build
 	trailingSlash: false,
 	// Use stable build ID for consistent metadata generation
