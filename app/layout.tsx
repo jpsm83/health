@@ -96,51 +96,40 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* 1️⃣ Ezoic Privacy Script(s) – must come FIRST */}
-        <Script
-          id="ezoic-privacy-1"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-            `,
-          }}
-        />
-        <Script
-          id="ezoic-privacy-2"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-            `,
-          }}
-        />
-
-        {/* 2️⃣ Ezoic Header Script – after privacy scripts */}
-        <Script
-          id="ezoic-header"
-          strategy="beforeInteractive"
-          src="//www.ezojs.com/ezoic/sa.min.js"
-        />
-        <Script
-          id="ezoic-header-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              ezstandalone.cmd = ezstandalone.cmd || [];
-            `,
-          }}
-        />
-
-        {/* Next.js will automatically inject metadata here */}
-      </head>
+      <head>{/* Next.js will automatically inject metadata here */}</head>
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           {children}
           <Toaster />
         </SessionProvider>
+
+        {/* 1️⃣ Define Ezoic globals early (safe inline script) */}
+        <Script
+          id="ezoic-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.ezstandalone = window.ezstandalone || {};
+              window.ezstandalone.cmd = window.ezstandalone.cmd || [];
+              window._ezaq = window._ezaq || [];
+            `,
+          }}
+        />
+
+        {/* 2️⃣ Load Privacy scripts (optional if you have CMP elsewhere) */}
+        <Script
+          id="ezoic-privacy"
+          strategy="afterInteractive"
+          src="https://cmp.gatekeeperconsent.com/min.js"
+        />
+
+        {/* 3️⃣ Load main Ezoic ad script */}
+        <Script
+          id="ezoic-header"
+          strategy="afterInteractive"
+          src="https://www.ezojs.com/ezoic/sa.min.js"
+          onError={(e) => console.error("Ezoic script failed to load", e)}
+        />
 
         {/* CookieYes Banner */}
         <Script
