@@ -68,6 +68,7 @@
     "table": {
       "title": "Articles Management",
       "columns": {
+        "id": "ID",
         "title": "Title",
         "category": "Category",
         "likes": "Likes",

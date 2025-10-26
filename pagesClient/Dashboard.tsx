@@ -5,12 +5,13 @@ import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Trash2 } from "lucide-react";
+import { ArrowUpDown, Trash2, Eye, FileJson, ExternalLink, BookOpen, Heart, MessageCircle } from "lucide-react";
 import { ISerializedArticle } from "@/types/article";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Eye, Heart, MessageCircle } from 'lucide-react';
 import DeleteArticleModal from "@/components/DeleteArticleModal";
+import ViewJsonModal from "@/components/ViewJsonModal";
+import { showToast } from "@/components/Toasts";
 
 interface WeeklyStats {
   totalArticles: number;
@@ -33,6 +34,8 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
   const [currentStats, setCurrentStats] = useState<WeeklyStats>(weeklyStats);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [articleToDelete, setArticleToDelete] = useState<ISerializedArticle | null>(null);
+  const [showJsonModal, setShowJsonModal] = useState<boolean>(false);
+  const [articleToView, setArticleToView] = useState<ISerializedArticle | null>(null);
 
   const { data: session, status } = useSession();
 
@@ -60,11 +63,30 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
     }
   };
 
+  // Copy to clipboard function
+  const copyToClipboard = async (text: string, event: React.MouseEvent, type: string) => {
+    event.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("success", "Copied!", `${type} copied to clipboard`);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      showToast("error", "Copy Failed", "Failed to copy to clipboard");
+    }
+  };
+
   // Open delete modal
   const openDeleteModal = (article: ISerializedArticle, event: React.MouseEvent) => {
     event.stopPropagation(); // Prevent row click
     setArticleToDelete(article);
     setShowDeleteModal(true);
+  };
+
+  // Open JSON modal
+  const openJsonModal = (article: ISerializedArticle, event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent row click
+    setArticleToView(article);
+    setShowJsonModal(true);
   };
 
   // Helper functions
@@ -87,15 +109,32 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
     titleKey: string;
     value: number;
   }) => (
-    <div className="bg-white shadow-md p-6 flex flex-col items-center justify-center">
-      <div className="text-3xl mb-2 text-gray-500">{icon}</div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">{t(`stats.${titleKey}`)}</h3>
-      <p className="text-3xl font-bold text-red-600">{value}</p>
+    <div className="bg-white shadow-md p-2 flex flex-col items-center justify-center">
+      <div className="text-xl mb-1 text-gray-500">{icon}</div>
+      <h3 className="text-xs font-semibold text-gray-900 mb-0.5">{t(`stats.${titleKey}`)}</h3>
+      <p className="text-xl font-bold text-red-600">{value}</p>
     </div>
   );
 
   // Simplified column definitions
   const columns: ColumnDef<ISerializedArticle>[] = [
+    {
+      accessorKey: "_id",
+      header: ({ column }) => createSortableHeader(t("table.columns.id") || "ID", column),
+      cell: ({ row }) => {
+        const id = String(row.getValue("_id"));
+        return (
+          <div 
+            onClick={(e) => copyToClipboard(id, e, "ID")}
+            className="text-xs text-gray-600 font-mono cursor-pointer hover:bg-blue-50 px-1 py-0.5 rounded transition-colors"
+            title="Click to copy ID"
+          >
+            {id.substring(0, 8)}
+          </div>
+        );
+      },
+      enableColumnFilter: true,
+    },
     {
       id: "mainTitle",
       accessorFn: (row) => getArticleTitle(row),
@@ -103,7 +142,11 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
       cell: ({ row }) => {
         const title = getArticleTitle(row.original);
         return (
-          <div className="overflow-hidden font-medium text-gray-900 text-center whitespace-nowrap w-full" title={title}>
+          <div 
+            onClick={(e) => copyToClipboard(title, e, "Title")}
+            className="overflow-hidden font-medium text-gray-900 text-center whitespace-nowrap w-full cursor-pointer hover:bg-blue-50 px-1 py-0.5 rounded transition-colors" 
+            title="Click to copy title"
+          >
             {title}
           </div>
         );
@@ -118,20 +161,10 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
       },
     },
     {
-      accessorKey: "category",
-      header: ({ column }) => createSortableHeader(t("table.columns.category"), column),
-      cell: ({ row }) => (
-        <div className="capitalize text-gray-700 text-xs">
-          {row.getValue("category")}
-        </div>
-      ),
-      enableColumnFilter: true,
-    },
-    {
       accessorKey: "likes",
       header: ({ column }) => createSortableHeader(t("table.columns.likes"), column),
       cell: ({ row }) => (
-        <div className="text-gray-700 font-medium">
+        <div className="text-gray-700 font-medium text-center">
           {(row.getValue("likes") as string[])?.length || 0}
         </div>
       ),
@@ -140,7 +173,7 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
       accessorKey: "commentsCount",
       header: ({ column }) => createSortableHeader(t("table.columns.comments"), column),
       cell: ({ row }) => (
-        <div className="text-gray-700 font-medium">
+        <div className="text-gray-700 font-medium text-center">
           {row.getValue("commentsCount") || 0}
         </div>
       ),
@@ -149,7 +182,7 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
       accessorKey: "views",
       header: ({ column }) => createSortableHeader(t("table.columns.views"), column),
       cell: ({ row }) => (
-        <div className="text-gray-700 font-medium">
+        <div className="text-gray-700 font-medium text-center">
           {row.getValue("views") || 0}
         </div>
       ),
@@ -165,13 +198,35 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
     },
     {
       id: "actions",
-      header: () => <div></div>,
+      header: () => <div className="text-xs text-gray-600">Actions</div>,
       cell: ({ row }) => (
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-1">
+          {/* View JSON Button */}
+          <button
+            onClick={(e) => openJsonModal(row.original, e)}
+            className="flex items-center justify-center w-6 h-6 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors cursor-pointer"
+            title="View JSON"
+          >
+            <FileJson className="size-3" />
+          </button>
+          
+          {/* Go to Article Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRowClick(row.original);
+            }}
+            className="flex items-center justify-center w-6 h-6 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded transition-colors cursor-pointer"
+            title="Go to Article"
+          >
+            <ExternalLink className="size-3" />
+          </button>
+          
+          {/* Delete Article Button */}
           <button
             onClick={(e) => openDeleteModal(row.original, e)}
             className="flex items-center justify-center w-6 h-6 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
-            title={tArticle("actions.delete")}
+            title={tArticle("actions.delete") || "Delete"}
           >
             <Trash2 className="size-3" />
           </button>
@@ -179,9 +234,9 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
       ),
       enableSorting: false,
       enableColumnFilter: false,
-      size: 50, // Make column very thin
-      minSize: 50,
-      maxSize: 50,
+      size: 100,
+      minSize: 100,
+      maxSize: 100,
     },
   ];
 
@@ -204,9 +259,9 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
   }
 
   return (
-    <div className="space-y-6 m-6 md:m-12">
+    <div className="space-y-2 m-2 md:m-4">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-2">
         <StatCard
           icon={<BookOpen />}
           titleKey="totalArticles"
@@ -261,6 +316,17 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
         onSuccess={handleDeleteSuccess}
         userId={session?.user?.id || ""}
         isAdmin={session?.user?.role === "admin"}
+      />
+
+      {/* View JSON Modal */}
+      <ViewJsonModal
+        isOpen={showJsonModal}
+        onClose={() => {
+          setShowJsonModal(false);
+          setArticleToView(null);
+        }}
+        data={articleToView || undefined}
+        title={articleToView ? getArticleTitle(articleToView) : "Article JSON"}
       />
     </div>
   );

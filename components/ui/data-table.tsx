@@ -54,7 +54,6 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onRowClick,
   getArticleTitle,
   translations,
 }: DataTableProps<TData, TValue>) {
@@ -77,6 +76,11 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    initialState: {
+      pagination: {
+        pageSize: 30,
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -88,8 +92,8 @@ export function DataTable<TData, TValue>({
   return (
     <div className="w-full">
       {/* Filter and Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-2">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder={translations?.filterPlaceholder || "Filter by title..."}
             value={
@@ -132,6 +136,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenu>
         </div>
       </div>
+
       {/* Desktop Table View */}
       <div className="hidden md:block overflow-hidden border border-gray-300 shadow-sm w-full">
         <Table className="w-full table-fixed">
@@ -141,7 +146,7 @@ export function DataTable<TData, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="px-3 py-2 text-xs font-semibold text-gray-800 uppercase tracking-wide text-center"
+                    className="px-1 py-0 text-xs font-semibold text-gray-800 uppercase tracking-wide text-center"
                   >
                     {header.isPlaceholder
                       ? null
@@ -160,17 +165,16 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className={`cursor-pointer transition-colors ${
+                  className={`transition-colors ${
                     index % 2 === 0
-                      ? "bg-white hover:bg-gray-50"
-                      : "bg-gray-50/50 hover:bg-gray-100"
+                      ? "bg-white"
+                      : "bg-gray-50/50"
                   } border-b border-gray-200`}
-                  onClick={() => onRowClick?.(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className="px-3 py-2 text-sm text-gray-700 border-r border-gray-100 last:border-r-0 whitespace-nowrap text-center"
+                      className="px-1 py-0 text-xs text-gray-700 border-r border-gray-100 last:border-r-0 whitespace-nowrap text-center"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -200,8 +204,7 @@ export function DataTable<TData, TValue>({
           table.getRowModel().rows.map((row) => (
             <div
               key={row.id}
-              className="bg-white border border-gray-200 p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-              onClick={() => onRowClick?.(row.original)}
+              className="bg-white border border-gray-200 p-4 shadow-sm transition-shadow"
             >
               <div className="space-y-2">
                 {/* Title - Most important on mobile */}
@@ -237,12 +240,9 @@ export function DataTable<TData, TValue>({
                   </div>
                 </div>
 
-                {/* Category and Date */}
+                {/* Date */}
                 <div className="flex justify-between items-center text-xs text-gray-500">
-                  <span className="capitalize bg-gray-100 px-2 py-1">
-                    {row.getValue("category")}
-                  </span>
-                  <span>
+                  <span className="bg-gray-100 px-2 py-1">
                     {new Date(row.getValue("createdAt")).toLocaleDateString()}
                   </span>
                 </div>
@@ -255,10 +255,11 @@ export function DataTable<TData, TValue>({
             </div>
           )}
       </div>
+
       {/* Pagination Controls */}
-      <div className="flex flex-col space-y-4 py-4">
+      <div className="flex flex-col space-y-1 mt-4">
         {/* Pagination and Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           {/* Row Selection Info */}
           <div className="text-sm text-gray-600 text-center sm:text-left">
             {table.getFilteredSelectedRowModel().rows.length} {translations?.of || "of"}{" "}
@@ -266,7 +267,7 @@ export function DataTable<TData, TValue>({
           </div>
 
           {/* Page Info and Navigation */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
             <div className="text-sm text-gray-600 text-center sm:text-left">
               {translations?.page || "Page"} {table.getState().pagination.pageIndex + 1} {translations?.of || "of"}{" "}
               {table.getPageCount()}
@@ -309,7 +310,7 @@ export function DataTable<TData, TValue>({
                 align="end"
                 className="bg-white shadow-md border-gray-300"
               >
-                {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                {[30, 50, 70, 90].map((pageSize) => (
                   <DropdownMenuItem
                     key={pageSize}
                     onClick={() => table.setPageSize(pageSize)}

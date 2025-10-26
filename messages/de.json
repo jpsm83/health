@@ -66,6 +66,7 @@
     "table": {
       "title": "Artikel Verwaltung",
       "columns": {
+        "id": "ID",
         "title": "Titel",
         "category": "Kategorie",
         "likes": "Likes",

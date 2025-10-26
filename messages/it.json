@@ -58,10 +58,36 @@
     "title": "Dashboard",
     "subtitle": "La tua panoramica sulla salute e approfondimenti",
     "stats": {
-      "articles": "Articoli Letti",
-      "goals": "Obiettivi di Salute",
-      "progress": "Progressi",
-      "streak": "Serie Attuale"
+      "totalArticles": "Articoli Totali",
+      "totalViews": "Visualizzazioni Totali",
+      "totalLikes": "Mi Piace Totali",
+      "totalComments": "Commenti Totali"
+    },
+    "table": {
+      "title": "Gestione Articoli",
+      "columns": {
+        "id": "ID",
+        "title": "Titolo",
+        "category": "Categoria",
+        "likes": "Mi Piace",
+        "comments": "Commenti",
+        "views": "Visualizzazioni",
+        "created": "Creato",
+        "actions": "Azioni"
+      },
+      "filter": {
+        "placeholder": "Filtra per titolo...",
+        "columns": "Colonne"
+      },
+      "pagination": {
+        "rowsPerPage": "Righe per pagina",
+        "selected": "riga(e) selezionata(e)",
+        "page": "Pagina",
+        "of": "di",
+        "previous": "Precedente",
+        "next": "Successivo"
+      },
+      "noResults": "Nessun risultato trovato"
     },
     "languageInfo": {
       "language": "Lingua"

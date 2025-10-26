@@ -66,6 +66,7 @@
     "table": {
       "title": "Gerenciamento de Artigos",
       "columns": {
+        "id": "ID",
         "title": "Título",
         "category": "Categoria",
         "likes": "Curtidas",

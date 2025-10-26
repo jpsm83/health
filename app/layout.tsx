@@ -7,22 +7,42 @@ import { Metadata, Viewport } from "next";
 export const metadata: Metadata = {
   title: {
     default: "Women's Spot - Empowering Women's Health & Wellness",
-    template: "%s | Women's Spot"
+    template: "%s | Women's Spot",
   },
-  description: "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
-  keywords: ["health", "women", "wellness", "fitness", "nutrition", "mental health", "lifestyle"],
+  description:
+    "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+  keywords: [
+    "health",
+    "women",
+    "wellness",
+    "fitness",
+    "nutrition",
+    "mental health",
+    "lifestyle",
+  ],
   authors: [{ name: "Women's Spot Team" }],
   creator: "Women's Spot Team",
   publisher: "Women's Spot",
-  metadataBase: new URL(process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com'),
-  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  metadataBase: new URL(
+    process.env.NEXTAUTH_URL ||
+      process.env.VERCEL_URL ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      "https://womensspot.com"
+  ),
+  robots:
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com',
+    url:
+      process.env.NEXTAUTH_URL ||
+      process.env.VERCEL_URL ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      "https://womensspot.com",
     siteName: "Women's Spot",
     title: "Women's Spot - Empowering Women's Health & Wellness",
-    description: "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+    description:
+      "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
     images: [
       {
         url: "/womens-spot-logo.png",
@@ -37,7 +57,8 @@ export const metadata: Metadata = {
     site: "@womensspot", // Required: Website Twitter handle
     creator: "@womensspot", // Required: Content creator Twitter handle
     title: "Women's Spot - Empowering Women's Health & Wellness", // Required: Title (max 70 chars)
-    description: "Discover valuable health insights and wellness tips specifically designed for women.", // Required: Description (max 200 chars)
+    description:
+      "Discover valuable health insights and wellness tips specifically designed for women.", // Required: Description (max 200 chars)
     images: ["/womens-spot-logo.png"], // Required: Image URLs
     // Note: image and imageAlt are handled via additional metadata
   },
@@ -63,7 +84,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
@@ -75,22 +96,53 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Next.js will automatically inject metadata here */}
-      </head>
+      <head>{/* Next.js will automatically inject metadata here */}</head>
       <body className="min-h-screen bg-[#f9fafb]">
+        {/* Ezoic Privacy Scripts - Must load first */}
+        <Script
+          id="ezoic-privacy-1"
+          src="https://cmp.gatekeeperconsent.com/min.js"
+          data-cfasync="false"
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="ezoic-privacy-2"
+          src="https://the.gatekeeperconsent.com/cmp.min.js"
+          data-cfasync="false"
+          strategy="beforeInteractive"
+        />
+
+        {/* Ezoic Header Script */}
+        <Script
+          id="ezoic-header"
+          src="//www.ezojs.com/ezoic/sa.min.js"
+          strategy="beforeInteractive"
+        />
+
+        {/* Ezoic Standalone Initialization */}
+        <Script
+          id="ezoic-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.ezstandalone = window.ezstandalone || {};
+              ezstandalone.cmd = ezstandalone.cmd || [];
+            `,
+          }}
+        />
+
         <SessionProvider basePath="/api/v1/auth">
           {children}
           <Toaster />
         </SessionProvider>
-        
+
         {/* CookieYes Banner */}
         <Script
           id="cookieyes"
           src="https://cdn-cookieyes.com/client_data/51a7b20bfcdfbe3a78df8a60/script.js"
           strategy="beforeInteractive"
         />
-        
+
         <Script
           id="sw-register"
           strategy="afterInteractive"
