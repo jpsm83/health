@@ -31,8 +31,6 @@ export default function Home({
   const t = useTranslations("home");
 
   useEffect(() => {
-    // Initialize Ezoic ads after component mounts
-    // Add all your ad placement IDs here (e.g., 115, 116, 117)
     if (typeof window !== "undefined" && window.ezstandalone) {
       window.ezstandalone.cmd.push(function () {
         window.ezstandalone?.showAds(115, 114, 111, 110, 109);
