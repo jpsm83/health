@@ -97,23 +97,41 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* 1️⃣ Ezoic Privacy script (MUST come before header script) */}
+        {/* 1️⃣ Ezoic Privacy Script(s) – must come FIRST */}
         <Script
-          src="https://cmp.gatekeeperconsent.com/min.js"
-          data-cfasync="false"
-        ></Script>
+          id="ezoic-privacy-1"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+            `,
+          }}
+        />
         <Script
-          src="https://the.gatekeeperconsent.com/cmp.min.js"
-          data-cfasync="false"
-        ></Script>
+          id="ezoic-privacy-2"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+            `,
+          }}
+        />
 
-        {/* 2️⃣ Ezoic Header script */}
-        <Script async src="//www.ezojs.com/ezoic/sa.min.js"></Script>
-
+        {/* 2️⃣ Ezoic Header Script – after privacy scripts */}
         <Script
           id="ezoic-header"
           strategy="beforeInteractive"
-          src="https://g.ezoiccdn.com/header.js"
+          src="//www.ezojs.com/ezoic/sa.min.js"
+        />
+        <Script
+          id="ezoic-header-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.ezstandalone = window.ezstandalone || {};
+              ezstandalone.cmd = ezstandalone.cmd || [];
+            `,
+          }}
         />
 
         {/* Next.js will automatically inject metadata here */}
