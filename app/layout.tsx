@@ -4,16 +4,6 @@ import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
 
-// Declare Ezoic globals for TypeScript
-declare global {
-  interface Window {
-    ezstandalone?: {
-      cmd: (() => void)[];
-    };
-    _ezaq?: Array<unknown>;
-  }
-}
-
 export const metadata: Metadata = {
   title: {
     default: "Women's Spot - Empowering Women's Health & Wellness",
@@ -106,44 +96,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>{/* Next.js will automatically inject metadata here */}</head>
-      <body className="min-h-screen bg-[#f9fafb]">
-        {/* Ezoic Privacy Scripts - Must load first */}
+      <head>
+        {/* 1️⃣ Ezoic Privacy script (MUST come before header script) */}
         <Script
-          id="ezoic-privacy-1"
-          src="https://cmp.gatekeeperconsent.com/min.js"
-          data-cfasync="false"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id="ezoic-privacy-2"
-          src="https://the.gatekeeperconsent.com/cmp.min.js"
-          data-cfasync="false"
-          strategy="beforeInteractive"
-        />
-
-        {/* Ezoic Standalone Initialization - Must load before header script */}
-        <Script
-          id="ezoic-init"
+          id="ezoic-privacy"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              (function() {
-                window.ezstandalone = window.ezstandalone || {};
-                window.ezstandalone.cmd = window.ezstandalone.cmd || [];
-                window._ezaq = window._ezaq || [];
-              })();
+              // Paste your Ezoic privacy script snippet here
             `,
           }}
         />
 
-        {/* Ezoic Header Script */}
+        {/* 2️⃣ Ezoic Header script */}
         <Script
           id="ezoic-header"
-          src="//www.ezojs.com/ezoic/sa.min.js"
           strategy="beforeInteractive"
+          src="https://g.ezoiccdn.com/header.js"
         />
-
+        
+        {/* Next.js will automatically inject metadata here */}
+      </head>
+      <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           {children}
           <Toaster />
