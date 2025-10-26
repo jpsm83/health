@@ -1,12 +1,25 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
 import { ISerializedArticle } from "@/types/article";
 import { mainCategories } from "@/lib/constants";
 import FeaturedArticles from "@/components/FeaturedArticles";
+
+// Ezoic types
+interface EzoicStandalone {
+  cmd: Array<(handler: () => void) => void>;
+  showAds: (...ids: number[]) => void;
+}
+
+declare global {
+  interface Window {
+    ezstandalone?: EzoicStandalone;
+  }
+}
 
 export default function Home({
   featuredArticles,
@@ -17,8 +30,25 @@ export default function Home({
 }) {
   const t = useTranslations("home");
 
+  useEffect(() => {
+    // Initialize Ezoic ads after component mounts
+    // Add all your ad placement IDs here (e.g., 115, 116, 117)
+    if (typeof window !== "undefined" && window.ezstandalone) {
+      window.ezstandalone.cmd.push(function () {
+        window.ezstandalone?.showAds(115, 114, 111, 110, 109);
+      });
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16">
+      {/* Ezoic Ad Placeholders - Add more divs with different IDs as needed */}
+      <div id="ezoic-pub-ad-placeholder-115"></div>
+      <div id="ezoic-pub-ad-placeholder-114"></div>
+      <div id="ezoic-pub-ad-placeholder-111"></div>
+      <div id="ezoic-pub-ad-placeholder-110"></div>
+      <div id="ezoic-pub-ad-placeholder-109"></div>
+
       {/* Hero Section with Full-Width Image */}
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
