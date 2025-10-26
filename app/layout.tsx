@@ -4,6 +4,16 @@ import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
 
+// Declare Ezoic globals for TypeScript
+declare global {
+  interface Window {
+    ezstandalone?: {
+      cmd: (() => void)[];
+    };
+    _ezaq?: Array<unknown>;
+  }
+}
+
 export const metadata: Metadata = {
   title: {
     default: "Women's Spot - Empowering Women's Health & Wellness",
@@ -112,24 +122,17 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
 
-        {/* Ezoic Standalone Initialization - Must load before header script */}
-        <Script
-          id="ezoic-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              ezstandalone.cmd = ezstandalone.cmd || [];
-              window._ezaq = window._ezaq || [];
-            `,
-          }}
-        />
-
-        {/* Ezoic Header Script */}
+        {/* Ezoic Header Script with inline initialization */}
         <Script
           id="ezoic-header"
           src="//www.ezojs.com/ezoic/sa.min.js"
           strategy="beforeInteractive"
+          onLoad={() => {
+            if (typeof window !== 'undefined') {
+              window.ezstandalone = window.ezstandalone || { cmd: [] };
+              window._ezaq = window._ezaq || [];
+            }
+          }}
         />
 
         <SessionProvider basePath="/api/v1/auth">
