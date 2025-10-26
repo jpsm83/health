@@ -99,22 +99,23 @@ export default function RootLayout({
       <head>
         {/* 1️⃣ Ezoic Privacy script (MUST come before header script) */}
         <Script
-          id="ezoic-privacy"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Paste your Ezoic privacy script snippet here
-            `,
-          }}
-        />
+          src="https://cmp.gatekeeperconsent.com/min.js"
+          data-cfasync="false"
+        ></Script>
+        <Script
+          src="https://the.gatekeeperconsent.com/cmp.min.js"
+          data-cfasync="false"
+        ></Script>
 
         {/* 2️⃣ Ezoic Header script */}
+        <Script async src="//www.ezojs.com/ezoic/sa.min.js"></Script>
+
         <Script
           id="ezoic-header"
           strategy="beforeInteractive"
           src="https://g.ezoiccdn.com/header.js"
         />
-        
+
         {/* Next.js will automatically inject metadata here */}
       </head>
       <body className="min-h-screen bg-[#f9fafb]">
