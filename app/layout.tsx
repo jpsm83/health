@@ -116,11 +116,19 @@ export default function RootLayout({
           }}
         />
 
-        {/* Privacy script */}
+        {/* Privacy scripts */}
         <Script
           id="ezoic-privacy"
           strategy="afterInteractive"
           src="https://cmp.gatekeeperconsent.com/min.js"
+          data-cfasync="false"
+        />
+        
+        <Script
+          id="ezoic-gatekeeper"
+          strategy="afterInteractive"
+          src="https://the.gatekeeperconsent.com/cmp.min.js"
+          data-cfasync="false"
         />
 
         {/* Main Ezoic header script */}

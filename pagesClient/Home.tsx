@@ -41,11 +41,11 @@ export default function Home({
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16">
       {/* Ezoic Ad Placeholders - Add more divs with different IDs as needed */}
-      <div id="ezoic-pub-ad-placeholder-115"></div>
+      {/* <div id="ezoic-pub-ad-placeholder-115"></div>
       <div id="ezoic-pub-ad-placeholder-114"></div>
       <div id="ezoic-pub-ad-placeholder-111"></div>
       <div id="ezoic-pub-ad-placeholder-110"></div>
-      <div id="ezoic-pub-ad-placeholder-109"></div>
+      <div id="ezoic-pub-ad-placeholder-109"></div> */}
 
       {/* Hero Section with Full-Width Image */}
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
