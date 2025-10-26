@@ -15,9 +15,15 @@ const nextConfig: NextConfig = {
 	// Skip static optimization during build
 	trailingSlash: false,
 	// Redirect /ads.txt to Ezoic managed file (301 permanent redirect)
+	// Handle all locale versions to redirect to the root ads.txt which goes to Ezoic
 	redirects: async () => [
 		{
 			source: '/ads.txt',
+			destination: 'https://srv.adstxtmanager.com/19390/womensspot.org',
+			permanent: true,
+		},
+		{
+			source: '/:locale(en|de|es|fr|it|pt)/ads.txt',
 			destination: 'https://srv.adstxtmanager.com/19390/womensspot.org',
 			permanent: true,
 		},

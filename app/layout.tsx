@@ -112,14 +112,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
 
-        {/* Ezoic Header Script */}
-        <Script
-          id="ezoic-header"
-          src="//www.ezojs.com/ezoic/sa.min.js"
-          strategy="beforeInteractive"
-        />
-
-        {/* Ezoic Standalone Initialization */}
+        {/* Ezoic Standalone Initialization - Must load before header script */}
         <Script
           id="ezoic-init"
           strategy="beforeInteractive"
@@ -127,8 +120,16 @@ export default function RootLayout({
             __html: `
               window.ezstandalone = window.ezstandalone || {};
               ezstandalone.cmd = ezstandalone.cmd || [];
+              window._ezaq = window._ezaq || [];
             `,
           }}
+        />
+
+        {/* Ezoic Header Script */}
+        <Script
+          id="ezoic-header"
+          src="//www.ezojs.com/ezoic/sa.min.js"
+          strategy="beforeInteractive"
         />
 
         <SessionProvider basePath="/api/v1/auth">
