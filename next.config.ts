@@ -14,6 +14,14 @@ const nextConfig: NextConfig = {
 	},
 	// Skip static optimization during build
 	trailingSlash: false,
+	// Redirect /ads.txt to Ezoic managed file (301 permanent redirect)
+	redirects: async () => [
+		{
+			source: '/ads.txt',
+			destination: 'https://srv.adstxtmanager.com/19390/womensspot.org',
+			permanent: true,
+		},
+	],
 	// Use stable build ID for consistent metadata generation
 	generateBuildId: async () => {
 		return 'production-build'
