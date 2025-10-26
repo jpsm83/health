@@ -1,0 +1,11 @@
+# ads.txt file for womensspot.org
+# This file authorizes Ezoic to sell ads on your site
+# Replace the pub-0000000000000000 with your ACTUAL Google AdSense Publisher ID
+
+# Find your Publisher ID in:
+# 1. Google AdSense Dashboard → Account → Payment information
+# 2. Or in your Ezoic Dashboard → Integrations → AdSense
+
+# FORMAT: google.com, pub-XXXXXXXXXX, RESELLER, f08c47fec0942fa0
+google.com, pub-0000000000000000, RESELLER, f08c47fec0942fa0
+
