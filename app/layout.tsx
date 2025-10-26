@@ -103,7 +103,7 @@ export default function RootLayout({
           <Toaster />
         </SessionProvider>
 
-        {/* 1️⃣ Define Ezoic globals early (safe inline script) */}
+        {/* Initialize globals */}
         <Script
           id="ezoic-init"
           strategy="afterInteractive"
@@ -116,19 +116,18 @@ export default function RootLayout({
           }}
         />
 
-        {/* 2️⃣ Load Privacy scripts (optional if you have CMP elsewhere) */}
+        {/* Privacy script */}
         <Script
           id="ezoic-privacy"
           strategy="afterInteractive"
           src="https://cmp.gatekeeperconsent.com/min.js"
         />
 
-        {/* 3️⃣ Load main Ezoic ad script */}
+        {/* Main Ezoic header script */}
         <Script
           id="ezoic-header"
           strategy="afterInteractive"
           src="https://www.ezojs.com/ezoic/sa.min.js"
-          onError={(e) => console.error("Ezoic script failed to load", e)}
         />
 
         {/* CookieYes Banner */}
