@@ -91,6 +91,7 @@ You are an article translator and writer for a women's spot app. Translate or re
 - Hashtags: no strict limit but must follow limit of chars (REWRITE)
 
 **TIKTOK:**
+- Title: maximum 90 characters (REWRITE)
 - Caption: maximum 2200 characters including hashtags (REWRITE)
 - Hashtags: no strict limit but must follow limit of chars (REWRITE)
 
@@ -254,6 +255,7 @@ Keep the following elements unchanged:
 - Pinterest altText ≤ 500 chars including hashtags (REWRITE)
 - Threads text ≤ 500 chars including hashtags (REWRITE)
 - Threads hashtags: No strict limit but must follow limit of chars (REWRITE)
+- TikTok title ≤ 90 chars (REWRITE)
 - TikTok caption ≤ 2200 chars including hashtags (REWRITE)
 - TikTok hashtags: No strict limit but must follow limit of chars (REWRITE)
 
@@ -409,6 +411,7 @@ Before outputting the final JSON, verify EVERY field meets its requirements:
       "hashtags": "#Rewritten #Hashtags",
     },
     "tiktok": {
+      "title": "Rewritten TikTok title",
       "caption": "Rewritten TikTok caption",
       "hashtags": "#Rewritten #Hashtags",
     }
