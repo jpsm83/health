@@ -4,6 +4,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
+	// Ensure gzip/brotli compression for HTML/CSS/JS
+	compress: true,
+
 	turbopack: {
 		rules: {
 			'*.svg': {
@@ -32,7 +35,7 @@ const nextConfig: NextConfig = {
 	output: 'standalone',
 	// Fix metadata streaming issue in Next.js 15.1+
 	experimental: {
-		optimizeCss: false, // Disabled to avoid critters dependency issue
+		optimizeCss: true,
 		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
 		// Disable partial pre-rendering to fix metadata issues
 		ppr: false,
@@ -47,6 +50,8 @@ const nextConfig: NextConfig = {
 	},
 	// Configure allowed image domains for Next.js Image component
 	images: {
+		formats: ['image/avif', 'image/webp'],
+		minimumCacheTTL: 31536000,
 		remotePatterns: [
 			{
 				protocol: 'https',
@@ -68,6 +73,28 @@ const nextConfig: NextConfig = {
 			},
 		],
 	},
+  async headers() {
+    return [
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
+        source: '/_next/image',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
+        source: '/fonts/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -36,6 +36,8 @@ export default function Navbar() {
   const locale = useLocale();
   const t = useTranslations("navigation");
 
+  const homeHref = locale === "en" ? "/" : `/${locale}`;
+
   const { data: session } = useSession();
 
   // Get search term from URL - single source of truth
@@ -83,13 +85,14 @@ export default function Navbar() {
   // Handle search on Enter key
   const handleSearch = () => {
     if (localSearchTerm.trim()) {
+      const base = locale === "en" ? "" : `/${locale}`;
       router.push(
-        `/${locale}/search?q=${encodeURIComponent(localSearchTerm.trim())}`
+        `${base}/search?q=${encodeURIComponent(localSearchTerm.trim())}`
       );
       setIsSearchPopupOpen(false); // Close search popup after search
     } else {
       // Orangeirect to home if search input is empty
-      router.push(`/${locale}`);
+      router.push(homeHref);
       setIsSearchPopupOpen(false); // Close search popup after orangeirect
     }
   };
@@ -99,7 +102,7 @@ export default function Navbar() {
     try {
       await signOut({ redirect: false });
 
-      router.push(`/${locale}`);
+      router.push(homeHref);
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -138,6 +141,7 @@ export default function Navbar() {
                     variant="ghost"
                     size="icon"
                     className="text-white rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                    aria-label="Open profile menu"
                   >
                     {session.user.imageUrl &&
                     session.user.imageUrl.trim() !== "" ? (
@@ -146,7 +150,7 @@ export default function Navbar() {
                         alt="User"
                         width={32}
                         height={32}
-                        priority
+                        quality={60}
                         className="rounded-full"
                       />
                     ) : (
@@ -160,6 +164,7 @@ export default function Navbar() {
                     variant="ghost"
                     size="icon"
                     className="text-white rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                    aria-label="Open user menu"
                   >
                     <UserRound size={20} />
                   </Button>
@@ -243,52 +248,7 @@ export default function Navbar() {
             </DropdownMenu>
           </div>
 
-          {/* Search Filter */}
-          <div className="hidden md:block relative w-[300px] shadow-lg">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              type="text"
-              placeholder={t("searchPlaceholder")}
-              value={localSearchTerm}
-              onChange={handleSearchChange}
-              className="pl-10 input-standard"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSearch();
-                }
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Logo/Brand */}
-        <Link href="/" className="flex items-center space-x-2">
-          <Heart size={24} />
-          <span
-            className="text-xl font-bold"
-            style={{
-              textShadow:
-                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
-            }}
-          >
-            {t("brandName")}
-          </span>
-        </Link>
-
-        <div className="flex items-center gap-2 md:gap-4">
-          {/* Mobile Search Filter Button */}
-          <div className="md:hidden relative flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-white w-10 h-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 mobile-search-trigger"
-              onClick={() => setIsSearchPopupOpen(true)}
-            >
-              <Filter size={24} />
-            </Button>
-          </div>
-
-          {/* Authentication navigation desktop*/}
+          {/* Authentication navigation desktop */}
           <div className="hidden md:flex">
             {session?.user ? (
               <div className="relative">
@@ -304,6 +264,7 @@ export default function Navbar() {
                       <Button
                         size="sm"
                         className="h-10 bg-transparent hover:bg-transparent text-white cursor-pointer rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                        aria-label="Open profile menu"
                       >
                         {session.user.imageUrl &&
                         session.user.imageUrl.trim() !== "" ? (
@@ -312,7 +273,7 @@ export default function Navbar() {
                             width={30}
                             height={30}
                             alt="User"
-                            priority
+                            quality={60}
                             className="rounded-full shadow-lg"
                           />
                         ) : (
@@ -324,6 +285,7 @@ export default function Navbar() {
                         variant="ghost"
                         size="icon"
                         className="w-10 h-10 cursor-pointer text-white rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                        aria-label="Open user menu"
                       >
                         <UserRound size={20} />
                       </Button>
@@ -331,7 +293,7 @@ export default function Navbar() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     className="w-[200px] bg-white shadow-lg border border-gray-200"
-                    align="end"
+                    align="start"
                     side="bottom"
                     sideOffset={4}
                   >
@@ -408,6 +370,52 @@ export default function Navbar() {
             )}
           </div>
         </div>
+
+        {/* Logo/Brand (center on desktop) */}
+        <Link href={homeHref} className="flex items-center space-x-2 md:justify-self-center">
+          <Heart size={24} />
+          <span
+            className="text-xl font-bold"
+            style={{
+              textShadow:
+                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
+            }}
+          >
+            {t("brandName")}
+          </span>
+        </Link>
+
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Mobile Search Filter Button */}
+          <div className="md:hidden relative flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-white w-10 h-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 mobile-search-trigger"
+              onClick={() => setIsSearchPopupOpen(true)}
+              aria-label="Open search"
+            >
+              <Filter size={24} />
+            </Button>
+          </div>
+
+          {/* Search Filter (desktop) */}
+          <div className="hidden md:block relative w-[300px] shadow-lg">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              type="text"
+              placeholder={t("searchPlaceholder")}
+              value={localSearchTerm}
+              onChange={handleSearchChange}
+              className="pl-10 input-standard"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Bottom navigation */}
@@ -452,6 +460,7 @@ export default function Navbar() {
                   onClick={handleClearSearch}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 z-10"
                   type="button"
+                  aria-label="Clear search"
                 >
                   <X size={18} />
                 </button>

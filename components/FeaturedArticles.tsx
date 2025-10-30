@@ -55,7 +55,7 @@ export default function FeaturedArticles({
   }
 
   return (
-    <section>
+    <section className="cv-auto">
       {/* Section Header */}
       {showBanner && (
         <div className="text-center mb-10 bg-gradient-left-right p-4 md:p-8">
@@ -67,7 +67,7 @@ export default function FeaturedArticles({
       )}
 
       {/* Featured Articles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cv-auto">
         {articles.map((article: ISerializedArticle) => (
           <div key={article._id?.toString() || ""}>
             <ArticleCard article={article} />

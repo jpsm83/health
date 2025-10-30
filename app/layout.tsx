@@ -96,53 +96,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>{/* Next.js will automatically inject metadata here */}</head>
+      <head>
+        {/* Next.js will automatically inject metadata here */}
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://lh3.googleusercontent.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        {/* Third-party scripts intentionally not preconnected to avoid early work */}
+      </head>
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           {children}
           <Toaster />
         </SessionProvider>
 
-        {/* Initialize globals */}
-        <Script
-          id="ezoic-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              window.ezstandalone.cmd = window.ezstandalone.cmd || [];
-              window._ezaq = window._ezaq || [];
-            `,
-          }}
-        />
-
-        {/* Privacy scripts */}
-        <Script
-          id="ezoic-privacy"
-          strategy="afterInteractive"
-          src="https://cmp.gatekeeperconsent.com/min.js"
-          data-cfasync="false"
-        />
         
-        <Script
-          id="ezoic-gatekeeper"
-          strategy="afterInteractive"
-          src="https://the.gatekeeperconsent.com/cmp.min.js"
-          data-cfasync="false"
-        />
 
-        {/* Main Ezoic header script */}
-        <Script
-          id="ezoic-header"
-          strategy="afterInteractive"
-          src="https://www.ezojs.com/ezoic/sa.min.js"
-        />
-
-        {/* CookieYes Banner */}
+        {/* CookieYes Banner (defer as much as possible) */}
         <Script
           id="cookieyes"
           src="https://cdn-cookieyes.com/client_data/51a7b20bfcdfbe3a78df8a60/script.js"
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         />
 
         <Script

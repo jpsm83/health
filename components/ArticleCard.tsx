@@ -8,9 +8,11 @@ import {
   generateExcerpt,
 } from "@/lib/utils/readTimeCalculator";
 import { useState } from "react";
-import SocialShare from "./SocialShare";
+import dynamic from "next/dynamic";
+const SocialShare = dynamic(() => import("./SocialShare"), { ssr: false });
 import { Button } from "./ui/button";
 import { ImageOff } from "lucide-react";
+import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
 
 export default function ArticleCard({
   article,
@@ -75,12 +77,13 @@ export default function ArticleCard({
               {/* First Image */}
               <div className="relative w-1/2 h-full">
                 <Image
-                  src={article.articleImages[0]}
+                  src={optimizeCloudinaryUrl(article.articleImages[0])}
                   alt={article.languages[0].content.mainTitle}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
-                  priority
+                  quality={60}
+                  loading="lazy"
                 />
               </div>
               {/* Second Image */}
@@ -88,12 +91,13 @@ export default function ArticleCard({
                 {article.articleImages.length > 1 &&
                 article.articleImages[1] ? (
                   <Image
-                    src={article.articleImages[1]}
+                    src={optimizeCloudinaryUrl(article.articleImages[1])}
                     alt={article.languages[0].content.mainTitle}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
-                    priority
+                    quality={60}
+                    loading="lazy"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -124,6 +128,7 @@ export default function ArticleCard({
               onClick={handleShareClick}
               className="bg-black/40 hover:bg-black/60 text-white border border-white rounded-full transition-all duration-200 hover:shadow-sm backdrop-blur-sm"
               title="Share article"
+            aria-label="Share article"
             >
               <MoreHorizontal size={16} />
             </Button>

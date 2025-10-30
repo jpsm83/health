@@ -164,7 +164,7 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
 
   return (
-    <div className="mb-12">
+    <div className="mb-12 cv-auto">
       <hr className="my-4 border-1 border-gray-200" />
       {/* Category Header */}
       <div className="flex items-center justify-between mb-6 px-6">
@@ -197,7 +197,7 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
       )}
 
       {/* Carousel */}
-      <div className="relative sm:px-6 md:px-12">
+      <div className="relative sm:px-6 md:px-12 cv-auto">
         <Carousel
           setApi={setApi}
           opts={{

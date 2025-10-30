@@ -102,7 +102,12 @@ export function generateLanguageAlternates(
 
   supportedLocales.forEach((lang) => {
     const properLangCode = languageMap[lang] || lang;
-    languageAlternates[properLangCode] = `/${lang}${route}`;
+    if (lang === 'en') {
+      // Default locale is prefix-less
+      languageAlternates[properLangCode] = route === '' ? '/' : `${route}`;
+    } else {
+      languageAlternates[properLangCode] = `/${lang}${route}`;
+    }
   });
 
   return languageAlternates;
@@ -148,7 +153,8 @@ export async function generatePublicMetadata(
   // Determine proper language code
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
-  const fullUrl = `${baseUrl}/${locale}${route}`;
+  const canonicalPath = locale === 'en' ? (route === '' ? '/' : `${route}`) : `/${locale}${route}`;
+  const fullUrl = `${baseUrl}${canonicalPath}`;
 
   // Main image (use the same for all social networks)
   const imageUrl = postImage || baseMetadata.images[0].url;
@@ -163,7 +169,7 @@ export async function generatePublicMetadata(
     metadataBase: new URL(baseUrl),
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     alternates: {
-      canonical: `/${locale}${route}`,
+      canonical: canonicalPath,
       languages: languageAlternates,
     },
 
@@ -257,7 +263,8 @@ export async function generatePrivateMetadata(
   // Determine proper language code
   const properLang = languageMap[locale] || locale;
   const languageAlternates = generateLanguageAlternates(route);
-  const fullUrl = `${baseUrl}/${locale}${route}`;
+  const canonicalPath = locale === 'en' ? (route === '' ? '/' : `${route}`) : `/${locale}${route}`;
+  const fullUrl = `${baseUrl}${canonicalPath}`;
 
   // Main image (use the same for all social networks)
   const imageUrl = postImage || baseMetadata.images[0].url;
@@ -272,7 +279,7 @@ export async function generatePrivateMetadata(
     metadataBase: new URL(baseUrl),
     robots: 'noindex, nofollow',
     alternates: {
-      canonical: `/${locale}${route}`,
+      canonical: canonicalPath,
       languages: languageAlternates,
     },
 

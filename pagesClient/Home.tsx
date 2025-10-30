@@ -1,25 +1,26 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
-import CategoryCarousel from "@/components/CategoryCarousel";
-import NewsletterSignup from "@/components/NewsletterSignup";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ISerializedArticle } from "@/types/article";
 import { mainCategories } from "@/lib/constants";
-import FeaturedArticles from "@/components/FeaturedArticles";
+const FeaturedArticles = dynamic(
+  () => import("@/components/FeaturedArticles"),
+  { loading: () => null }
+);
 
-// Ezoic types
-interface EzoicStandalone {
-  cmd: Array<(handler: () => void) => void>;
-  showAds: (...ids: number[]) => void;
-}
+const NewsletterSignup = dynamic(
+  () => import("@/components/NewsletterSignup"),
+  { ssr: false, loading: () => null }
+);
 
-declare global {
-  interface Window {
-    ezstandalone?: EzoicStandalone;
-  }
-}
+const CategoryCarousel = dynamic(
+  () => import("@/components/CategoryCarousel"),
+  { ssr: false, loading: () => null }
+);
+
+ 
 
 export default function Home({
   featuredArticles,
@@ -30,32 +31,23 @@ export default function Home({
 }) {
   const t = useTranslations("home");
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.ezstandalone) {
-      window.ezstandalone.cmd.push(function () {
-        window.ezstandalone?.showAds(115, 114, 111, 110, 109);
-      });
-    }
-  }, []);
+  
 
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16">
-      {/* Ezoic Ad Placeholders - Add more divs with different IDs as needed */}
-      {/* <div id="ezoic-pub-ad-placeholder-115"></div>
-      <div id="ezoic-pub-ad-placeholder-114"></div>
-      <div id="ezoic-pub-ad-placeholder-111"></div>
-      <div id="ezoic-pub-ad-placeholder-110"></div>
-      <div id="ezoic-pub-ad-placeholder-109"></div> */}
+      
 
       {/* Hero Section with Full-Width Image */}
-      <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
+      <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16 cv-auto">
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1761366390/health/dh6wlgqj1iuumg9utub1.jpg"
             alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="100vw"
+            quality={60}
+            fetchPriority="high"
             priority
           />
         </div>
@@ -84,7 +76,7 @@ export default function Home({
       <NewsletterSignup />
             
       {/* Category Carousels */}
-      <section>
+      <section className="cv-auto">
         <div className="text-center mb-10 bg-gradient-left-right p-4 md:p-8">
           <h2 className="text-3xl font-bold text-white mb-4" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)'}}>
             {t("exploreByCategory.title")}

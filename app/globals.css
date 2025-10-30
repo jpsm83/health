@@ -40,6 +40,12 @@
   }
 }
 
+/* Performance helpers */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px; /* Reserve space to avoid jank */
+}
+
 /* Line clamp utilities for text truncation */
 .line-clamp-2 {
   display: -webkit-box;
