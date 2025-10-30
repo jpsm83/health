@@ -280,7 +280,7 @@ export default function Article({
 
             <div className="overflow-hidden text-justify">
               {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
-              <div className="relative w-full h-[70vh] mb-8 md:mb-16 flex">
+              <div className="relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] mb-8 md:mb-16 flex">
                 {/* First Image - Always visible */}
                 <div className="relative w-full lg:w-1/2 h-full">
                   {container.firstImage &&

@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       {/* Full-screen centered content */}
-      <div className="relative w-full h-screen">
+      <div className="relative w-full h-[60vh] min-h-[360px] md:h-screen">
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1757874787/health/t6048kq57tw9aexfqpge.png"

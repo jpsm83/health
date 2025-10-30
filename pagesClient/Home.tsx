@@ -38,7 +38,7 @@ export default function Home({
       
 
       {/* Hero Section with Full-Width Image */}
-      <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16 cv-auto">
+      <section className="relative w-full h-[55vh] min-h-[360px] md:h-[70vh] md:min-h-[500px] mt-8 md:mt-16 cv-auto">
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1761366390/health/dh6wlgqj1iuumg9utub1.jpg"

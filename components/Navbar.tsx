@@ -420,7 +420,7 @@ export default function Navbar() {
 
       {/* Bottom navigation */}
       <div className="bg-black/20 border-t border-white">
-        <div className="flex overflow-x-auto px-3 sm:px-6 lg:px-8 gap-1 sm:gap-2 py-2 scrollbar-hide">
+        <div className="flex overflow-x-auto px-3 sm:px-6 lg:px-8 gap-1 sm:gap-2 py-2 scrollbar-hide justify-start md:justify-center">
           {/* Article categories by button*/}
           {mainCategories.map((category) => (
             <Button

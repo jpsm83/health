@@ -97,14 +97,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Next.js will automatically inject metadata here */}
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://lh3.googleusercontent.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        {/* Third-party scripts intentionally not preconnected to avoid early work */}
+
+        {/* Pinterest Rich Pins Verification */}
+        <meta name="p:domain_verify" content="93396404f1ccaaec8211f816a7deda73"/>
+
+        {/* Next.js will automatically inject metadata here */}
       </head>
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
