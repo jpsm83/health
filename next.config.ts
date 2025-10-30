@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
 	output: 'standalone',
 	// Fix metadata streaming issue in Next.js 15.1+
 	experimental: {
-		optimizeCss: true,
+		optimizeCss: false,
 		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
 		// Disable partial pre-rendering to fix metadata issues
 		ppr: false,
