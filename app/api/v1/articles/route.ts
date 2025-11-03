@@ -167,7 +167,7 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Validate image input - must use either file uploads OR pre-existing URLs, not both
+    // Validate image input - can use file uploads OR pre-existing URLs, or neither (images optional)
     const hasFileEntries = fileEntries.length > 0;
     const hasImageUrls = articleImagesRaw && articleImagesRaw.trim() !== "";
     
@@ -180,14 +180,7 @@ export const POST = async (req: Request) => {
       );
     }
 
-    if (!hasFileEntries && !hasImageUrls) {
-      return new NextResponse(
-        JSON.stringify({
-          message: "Must provide either file uploads (articleImageFiles) or pre-existing image URLs (articleImages).",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    // Note: articleImages are now optional - articles can be created without images
     
     if (!mainCategories.includes(category)) {
       return new NextResponse(
@@ -204,15 +197,16 @@ export const POST = async (req: Request) => {
       try {
         articleImages = JSON.parse(articleImagesRaw) as string[];
         
-        if (!Array.isArray(articleImages) || articleImages.length === 0) {
+        if (!Array.isArray(articleImages)) {
           return new NextResponse(
             JSON.stringify({
-              message: "articleImages must be a non-empty array of image URLs!",
+              message: "articleImages must be a valid JSON array!",
             }),
             { status: 400, headers: { "Content-Type": "application/json" } }
           );
         }
 
+        // Accept empty arrays - images are optional
         // Accept any kind of string for articleImages - no validation
       } catch (error) {
         return new NextResponse(
