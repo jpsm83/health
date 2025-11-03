@@ -59,7 +59,10 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
   const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
 
   // Language
-  const properLang = languageMap[metaContent.seo.hreflang] || metaContent.seo.hreflang || 'en-US';
+  const hreflang = metaContent.seo.hreflang;
+  const properLang = (hreflang && typeof hreflang === 'string' && languageMap[hreflang]) 
+    ? languageMap[hreflang] 
+    : (hreflang && typeof hreflang === 'string' ? hreflang : 'en-US');
 
   // Core meta values
   const title = metaContent.seo.metaTitle || 'Article - Women\'s Spot';
