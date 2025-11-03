@@ -86,47 +86,32 @@ export async function updateArticle({
         };
       }
 
-      // Validate each language
+      // Validate each language (no required fields)
       for (const language of languages) {
-        const languageValidation = objDefaultValidation(
-          language as unknown as {
-            [key: string]: string | number | boolean | undefined;
-          },
-        {
-          reqFields: ["hreflang", "articleContext", "postImage", "seo", "content"],
-          nonReqFields: ["socialMedia"],
-        }
-        );
-
-        if (languageValidation !== true) {
-          return {
-            success: false,
-            message: languageValidation,
-          };
+        // Validate articleContext structure if provided
+        if (language.articleContext !== undefined) {
+          if (
+            typeof language.articleContext !== "string" ||
+            language.articleContext.trim().length === 0
+          ) {
+            return {
+              success: false,
+              message: "ArticleContext must be a non-empty string",
+            };
+          }
         }
 
-        // Validate articleContext structure
-        if (
-          !language.articleContext ||
-          typeof language.articleContext !== "string" ||
-          language.articleContext.trim().length === 0
-        ) {
-          return {
-            success: false,
-            message: "ArticleContext must be a non-empty string",
-          };
-        }
-
-        // Validate postImage structure
-        if (
-          !language.postImage ||
-          typeof language.postImage !== "string" ||
-          language.postImage.trim().length === 0
-        ) {
-          return {
-            success: false,
-            message: "PostImage must be a non-empty string",
-          };
+        // Validate postImage structure if provided
+        if (language.postImage !== undefined) {
+          if (
+            typeof language.postImage !== "string" ||
+            language.postImage.trim().length === 0
+          ) {
+            return {
+              success: false,
+              message: "PostImage must be a non-empty string",
+            };
+          }
         }
 
         // Validate content structure
@@ -172,59 +157,18 @@ export async function updateArticle({
           }
         }
 
-        // Validate SEO
-        const seoValidationResult = objDefaultValidation(
-          language.seo as unknown as {
-            [key: string]: string | number | boolean | undefined;
-          },
-          {
-            reqFields: [
-              "metaTitle",
-              "metaDescription",
-              "keywords",
-              "slug",
-              "hreflang",
-              "urlPattern",
-              "canonicalUrl",
-            ],
-            nonReqFields: [],
+        // Validate SEO (no required fields)
+        // Only validate hreflang enum if provided
+        if (language.seo?.hreflang) {
+          const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
+          if (!supportedLocales.includes(language.seo.hreflang)) {
+            return {
+              success: false,
+              message: `Unsupported hreflang: ${
+                language.seo.hreflang
+              }. Supported values: ${supportedLocales.join(", ")}`,
+            };
           }
-        );
-
-        if (seoValidationResult !== true) {
-          return {
-            success: false,
-            message: seoValidationResult,
-          };
-        }
-
-        // Validate hreflang is supported
-        const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
-        if (!supportedLocales.includes(language.seo.hreflang)) {
-          return {
-            success: false,
-            message: `Unsupported hreflang: ${
-              language.seo.hreflang
-            }. Supported values: ${supportedLocales.join(", ")}`,
-          };
-        }
-
-        // Validate urlPattern is valid
-        const validUrlPatterns = [
-          "articles",
-          "artigos",
-          "articulos",
-          "artikel",
-          "articoli",
-          "artikelen",
-        ];
-        if (!validUrlPatterns.includes(language.seo.urlPattern)) {
-          return {
-            success: false,
-            message: `Invalid URL pattern: ${
-              language.seo.urlPattern
-            }. Supported patterns: ${validUrlPatterns.join(", ")}`,
-          };
         }
       }
 

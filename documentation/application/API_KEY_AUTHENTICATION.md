@@ -134,7 +134,7 @@ Authorization: Bearer your-api-key-here
 curl -X POST http://localhost:3000/api/v1/articles \
   -H "Authorization: Bearer your-api-key-here" \
   -F "category=health" \
-  -F "languages=[{\"hreflang\":\"en\",\"mediaContext\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
+  -F "languages=[{\"hreflang\":\"en\",\"mediaContext\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
   -F "imagesContext={\"imageOne\":\"test1.jpg\",\"imageTwo\":\"test2.jpg\",\"imageThree\":\"test3.jpg\",\"imageFour\":\"test4.jpg\"}" \
   -F "articleImages=@image1.jpg" \
   -F "articleImages=@image2.jpg"
@@ -146,7 +146,7 @@ curl -X POST http://localhost:3000/api/v1/articles \
   -H "Authorization: Bearer your-api-key-here" \
   -F "id=507f1f77bcf86cd799439011" \
   -F "category=health" \
-  -F "languages=[{\"hreflang\":\"en\",\"mediaContext\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
+  -F "languages=[{\"hreflang\":\"en\",\"mediaContext\":{\"paragraphOne\":\"Test paragraph 1\",\"paragraphTwo\":\"Test paragraph 2\",\"paragraphThree\":\"Test paragraph 3\"},\"seo\":{\"metaTitle\":\"Test Article\",\"metaDescription\":\"Test description\",\"keywords\":\"test,health\",\"slug\":\"test-article\",\"hreflang\":\"en\",\"canonicalUrl\":\"https://example.com/articles/test-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Test Subtitle\",\"articleParagraphs\":[\"Test paragraph content\"]}]}}]" \
   -F "imagesContext={\"imageOne\":\"test1.jpg\",\"imageTwo\":\"test2.jpg\",\"imageThree\":\"test3.jpg\",\"imageFour\":\"test4.jpg\"}" \
   -F "articleImages=@image1.jpg" \
   -F "articleImages=@image2.jpg"
@@ -157,7 +157,7 @@ curl -X POST http://localhost:3000/api/v1/articles \
 curl -X PUT http://localhost:3000/api/v1/articles/by-id/ARTICLE_ID_HERE \
   -H "Authorization: Bearer your-api-key-here" \
   -F "category=fitness" \
-  -F "languages=[{\"hreflang\":\"en\",\"canvas\":{\"paragraphOne\":\"Updated paragraph 1\",\"paragraphTwo\":\"Updated paragraph 2\",\"paragraphThree\":\"Updated paragraph 3\"},\"seo\":{\"metaTitle\":\"Updated Article\",\"metaDescription\":\"Updated description\",\"keywords\":\"updated,fitness\",\"slug\":\"updated-article\",\"hreflang\":\"en\",\"urlPattern\":\"articles\",\"canonicalUrl\":\"https://example.com/articles/updated-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Updated Subtitle\",\"articleParagraphs\":[\"Updated paragraph content\"]}]}}]" \
+  -F "languages=[{\"hreflang\":\"en\",\"canvas\":{\"paragraphOne\":\"Updated paragraph 1\",\"paragraphTwo\":\"Updated paragraph 2\",\"paragraphThree\":\"Updated paragraph 3\"},\"seo\":{\"metaTitle\":\"Updated Article\",\"metaDescription\":\"Updated description\",\"keywords\":\"updated,fitness\",\"slug\":\"updated-article\",\"hreflang\":\"en\",\"canonicalUrl\":\"https://example.com/articles/updated-article\"},\"content\":{\"articleContents\":[{\"subTitle\":\"Updated Subtitle\",\"articleParagraphs\":[\"Updated paragraph content\"]}]}}]" \
   -F "imagesContext={\"imageOne\":\"updated1.jpg\",\"imageTwo\":\"updated2.jpg\",\"imageThree\":\"updated3.jpg\",\"imageFour\":\"updated4.jpg\"}" \
   -F "articleImages=@new-image1.jpg"
 ```

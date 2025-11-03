@@ -127,20 +127,19 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 ## 2. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
-**MANDATORY JSON STRUCTURE - COPY EXACTLY:**
+**MANDATORY JSON STRUCTURE**
 {
   "metaTitle": "Meta title will be the article title (max 500 characters) - MAX 500 characters",
   "metaDescription": "Compelling meta description that encourages clicks and summarizes the article content - MAX 1000 characters",
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
   "slug": "slug-from-article-title",
   "hreflang": "en",
-  "urlPattern": "articles",
   "canonicalUrl": "https://womensspot.org/en/intimacy/seo-friendly-slug-from-article-title"
 }
 
 **JSON FORMAT VALIDATION RULES:**
 1. **MUST start with `{` and end with `}`**
-2. **MUST have exactly 7 properties: `metaTitle`, `metaDescription`, `keywords`, `slug`, `hreflang`, `urlPattern`, `canonicalUrl`**
+2. **MUST have exactly 6 properties: `metaTitle`, `metaDescription`, `keywords`, `slug`, `hreflang` and `canonicalUrl`**
 3. **MUST have exactly 5 keywords in the keywords array**
 4. **MUST use double quotes for all keys and string values**
 5. **MUST NOT include any text before or after the JSON**
@@ -179,7 +178,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 ```
 Please analyze the following article content:
 
-{{ JSON.stringify($('Rewrite article').item.json.output) }}
+{{ JSON.stringify($('Rewrite article').item.json.message.content) }}
 
 and create comprehensive SEO metadata following the specified JSON format.
 
@@ -189,7 +188,6 @@ You must return ONLY a valid JSON object with these exact properties:
 - keywords: Array of exactly 5 relevant keywords
 - slug: SEO-friendly slug from the article title
 - hreflang: Language code (MUST ALWAYS BE "en" - ENGLISH ONLY)
-- urlPattern: URL pattern (MUST ALWAYS BE "articles" - ENGLISH ONLY)
 - canonicalUrl: Full canonical URL following the format https://womensspot.org/[locale]/[category]/[slug]
 
 **CRITICAL URL PATTERN RULES:**
@@ -326,20 +324,19 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 ## 2. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
-**MANDATORY JSON STRUCTURE - COPY EXACTLY:**
+**MANDATORY JSON STRUCTURE**
 {
   "metaTitle": "Meta title will be the article title (max 500 characters) - MAX 500 characters",
   "metaDescription": "Compelling meta description that encourages clicks and summarizes the article content - MAX 1000 characters",
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
   "slug": "slug-from-article-title",
   "hreflang": "en",
-  "urlPattern": "articles",
   "canonicalUrl": "https://womensspot.org/en/intimacy/seo-friendly-slug-from-article-title"
 }
 
 **JSON FORMAT VALIDATION RULES:**
 1. **MUST start with `{` and end with `}`**
-2. **MUST have exactly 7 properties: `metaTitle`, `metaDescription`, `keywords`, `slug`, `hreflang`, `urlPattern`, `canonicalUrl`**
+2. **MUST have exactly 6 properties: `metaTitle`, `metaDescription`, `keywords`, `slug`, `hreflang` and `canonicalUrl`**
 3. **MUST have exactly 5 keywords in the keywords array**
 4. **MUST use double quotes for all keys and string values**
 5. **MUST NOT include any text before or after the JSON**
@@ -463,14 +460,13 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 
 **CRITICAL: Your response must be ONLY the JSON object, nothing else.**
 
-**CORRECT OUTPUT FORMAT:**
+**CORRECT OUTPUT FORMAT EXAMPLE:**
 {
   "metaTitle": "Intimate Wellness Education: A Complete Guide to Personal Wellness | Women's Spot",
   "metaDescription": "Explore educational resources about intimate wellness and personal care. Learn about safe practices, wellness products, and empowerment for women's health and well-being.",
   "keywords": ["intimate wellness", "personal wellness", "wellness education", "women's health", "wellness products"],
   "slug": "intimate-wellness-education-complete-guide",
   "hreflang": "en",
-  "urlPattern": "articles",
   "canonicalUrl": "https://womensspot.org/en/intimacy/intimate-wellness-education-complete-guide"
 }
 
@@ -510,6 +506,5 @@ Before outputting the final JSON, verify EVERY field meets its requirements:
 **FINAL LANGUAGE ENFORCEMENT:**
 - **ALL OUTPUT MUST BE IN ENGLISH ONLY**
 - **hreflang MUST ALWAYS be "en"**
-- **urlPattern MUST ALWAYS be "articles"**
 - **canonicalUrl MUST ALWAYS use "/en/" in the path**
 - **NO OTHER LANGUAGES ARE ALLOWED - NO EXCEPTIONS**

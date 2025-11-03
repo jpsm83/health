@@ -7,24 +7,18 @@ import { mainCategories, articleStatus } from "@/lib/constants";
 
 // SEO schema - language specific
 const seoSchema = new Schema({
-  metaTitle: { type: String, required: true },
+  metaTitle: { type: String },
   metaDescription: {
     type: String,
     required: true,
     trim: true,
   },
-  keywords: { type: [String], required: true },
-  slug: { type: String, required: true },
+  keywords: { type: [String] },
+  slug: { type: String },
   hreflang: {
     type: String,
     required: true,
     enum: ["en", "pt", "es", "fr", "de", "it"], // Simplified locale list
-  },
-  urlPattern: {
-    type: String,
-    required: true,
-    enum: ["articles", "artigos", "articulos", "artikel", "articoli"],
-    default: "articles",
   },
   canonicalUrl: {
     type: String,
@@ -34,11 +28,11 @@ const seoSchema = new Schema({
 
 // Article content schema - language specific
 const articleContentSchema = new Schema({
-  mainTitle: { type: String, required: true },
+  mainTitle: { type: String },
   articleContents: [
     {
-      subTitle: { type: String, required: true },
-      articleParagraphs: { type: [String], required: true },
+      subTitle: { type: String },
+      articleParagraphs: { type: [String] },
     },
   ],
 }); // must be at least 4 articles content
@@ -49,45 +43,45 @@ const articleContentSchema = new Schema({
 
 // Instagram
 const instagramSchema = new Schema({
-  caption: { type: String, required: true },
-  hashtags: { type: String, required: true },
+  caption: { type: String },
+  hashtags: { type: String },
   altText: { type: String }, // accessibility text
 });
 
 // Facebook
 const facebookSchema = new Schema({
-  message: { type: String, required: true },
-  headline: { type: String, required: true },
-  linkDescription: { type: String, required: true }, // link preview text
-  hashtags: { type: String, required: true }, // hashtags
+  message: { type: String },
+  headline: { type: String },
+  linkDescription: { type: String }, // link preview text
+  hashtags: { type: String }, // hashtags
   callToAction: { type: String }, // CTA button text (e.g., "Learn More")
 });
 
 // X (Twitter)
 const xTwitterSchema = new Schema({
-  text: { type: String, required: true },
-  hashtags: { type: String, required: true },
+  text: { type: String },
+  hashtags: { type: String },
 });
 
 // Pinterest
 const pinterestSchema = new Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  hashtags: { type: String, required: true },
-  altText: { type: String, required: true }, // accessibility
+  title: { type: String },
+  description: { type: String },
+  hashtags: { type: String },
+  altText: { type: String }, // accessibility
 });
 
 // Threads
 const threadsSchema = new Schema({
-  text: { type: String, required: true },
-  hashtags: { type: String, required: true },
+  text: { type: String },
+  hashtags: { type: String },
 });
 
 // TikTok
 const tiktokSchema = new Schema({
-  title: { type: String, required: true },
-  caption: { type: String, required: true },
-  hashtags: { type: String, required: true },
+  title: { type: String },
+  caption: { type: String },
+  hashtags: { type: String },
 });
 
 // =========================
@@ -104,16 +98,16 @@ const languageSpecificSchema = new Schema({
   },
 
   // Article context content (around 200 charecters)
-  articleContext: { type: String, required: true },
+  articleContext: { type: String },
 
   // image url to be used in the social media post
-  postImage: { type: String, required: true },
+  postImage: { type: String },
 
   // SEO data specific to this language
-  seo: { type: seoSchema, required: true },
+  seo: { type: seoSchema },
 
   // Article content specific to this language
-  content: { type: articleContentSchema, required: true },
+  content: { type: articleContentSchema },
 
   // Social media content specific to this language
   socialMedia: {
@@ -131,10 +125,10 @@ const languageSpecificSchema = new Schema({
 // =========================
 
 const imagesContextSchema = new Schema({
-  imageOne: { type: String, required: true },
-  imageTwo: { type: String, required: true },
-  imageThree: { type: String, required: true },
-  imageFour: { type: String, required: true },
+  imageOne: { type: String },
+  imageTwo: { type: String },
+  imageThree: { type: String },
+  imageFour: { type: String },
 });
 
 // =========================
@@ -144,7 +138,7 @@ const imagesContextSchema = new Schema({
 export const articleSchema = new Schema(
   {
     // Unified language-specific content - all language-dependent data in one place
-    languages: { type: [languageSpecificSchema], required: true }, // en, pt, es, fr, de, it, must be done in each language
+    languages: { type: [languageSpecificSchema] }, // en, pt, es, fr, de, it, must be done in each language
 
     // Article metadata - language independent
     category: {
@@ -152,7 +146,7 @@ export const articleSchema = new Schema(
       enum: mainCategories,
       required: true,
     },
-    imagesContext: { type: imagesContextSchema, required: true },
+    imagesContext: { type: imagesContextSchema },
     articleImages: {
       type: [String],
     }, // best if at least 4 images
@@ -171,7 +165,7 @@ export const articleSchema = new Schema(
     },
     views: { type: Number, default: 0 },
     unpublishedAt: { type: Date, default: undefined },
-    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,

@@ -119,14 +119,14 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 ## 2. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
-**MANDATORY JSON STRUCTURE - COPY EXACTLY:**
+**MANDATORY JSON STRUCTURE**
 ```json
 {
   "imagesContext": {
-    "imageOne": "Detailed description of first realistic image with human interactivity that reflects the first main context of the article",
-    "imageTwo": "Detailed description of second realistic image with human interactivity that reflects the second main context of the article", 
-    "imageThree": "Detailed description of third realistic image with human interactivity that reflects the third main context of the article",
-    "imageFour": "Detailed description of fourth realistic image with human interactivity that reflects the fourth main context of the article"
+    "imageOne": "Image one description string",
+    "imageTwo": "Image two description string", 
+    "imageThree": "Image three description string",
+    "imageFour": "Image four description string"
   },
   "articleContext": "Article context string that summarizes the article - MAX 200 characters"
 }
@@ -369,16 +369,16 @@ Remember to:
 
 # DETAILED DOCUMENTATION
 
-**CORRECT OUTPUT FORMAT:**
+**MANDATORY JSON STRUCTURE**
 ```json
 {
   "imagesContext": {
-    "imageOne": "A woman sitting comfortably in a bright, cozy bedroom, exploring a beginner-friendly personal wellness kit with gentle lighting highlighting her relaxed and curious expression",
-    "imageTwo": "Two women in casual, comfortable clothing sharing a warm conversation over coffee in a bright, modern café, symbolizing openness and positive attitudes around intimacy and personal wellness",
-    "imageThree": "A close-up of a diverse selection of body-safe wellness products carefully arranged on a wooden table at a wellness shop, emphasizing education about choosing the right product",
-    "imageFour": "A couple holding hands in a softly lit modern bedroom with wellness products on the bedside table, highlighting intimacy and shared exploration in a safe, comfortable environment"
+    "imageOne": "Image one description string",
+    "imageTwo": "Image two description string", 
+    "imageThree": "Image three description string",
+    "imageFour": "Image four description string"
   },
-  "articleContext": "Discover the importance of intimate wellness and self-care in your daily routine for better overall health and happiness."
+  "articleContext": "Article context string that summarizes the article - MAX 200 characters"
 }
 ```
 

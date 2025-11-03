@@ -301,53 +301,36 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Validate languages
+    // Validate languages (no required fields)
     for (const language of languages) {
-      const languageValidation = objDefaultValidation(
-        language as unknown as {
-          [key: string]: string | number | boolean | undefined;
-        },
-        {
-          reqFields: ["hreflang", "articleContext", "postImage", "seo", "content"],
-          nonReqFields: ["socialMedia"],
+      // Validate articleContext structure if provided
+      if (language.articleContext !== undefined) {
+        if (
+          typeof language.articleContext !== "string" ||
+          language.articleContext.trim().length === 0
+        ) {
+          return new NextResponse(
+            JSON.stringify({
+              message: "ArticleContext must be a non-empty string!",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
         }
-      );
-
-      if (languageValidation !== true) {
-        return new NextResponse(
-          JSON.stringify({
-            message: languageValidation,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
       }
 
-      // Validate articleContext structure
-      if (
-        !language.articleContext ||
-        typeof language.articleContext !== "string" ||
-        language.articleContext.trim().length === 0
-      ) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "ArticleContext must be a non-empty string!",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      // Validate postImage structure
-      if (
-        !language.postImage ||
-        typeof language.postImage !== "string" ||
-        language.postImage.trim().length === 0
-      ) {
-        return new NextResponse(
-          JSON.stringify({
-            message: "PostImage must be a non-empty string!",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
+      // Validate postImage structure if provided
+      if (language.postImage !== undefined) {
+        if (
+          typeof language.postImage !== "string" ||
+          language.postImage.trim().length === 0
+        ) {
+          return new NextResponse(
+            JSON.stringify({
+              message: "PostImage must be a non-empty string!",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
       }
 
       // Validate content structure
@@ -399,65 +382,20 @@ export const POST = async (req: Request) => {
         }
       }
 
-      // Validate SEO
-      const seoValidationResult = objDefaultValidation(
-        language.seo as unknown as {
-          [key: string]: string | number | boolean | undefined;
-        },
-        {
-          reqFields: [
-            "metaTitle",
-            "metaDescription",
-            "keywords",
-            "slug",
-            "hreflang",
-            "urlPattern",
-            "canonicalUrl",
-          ],
-          nonReqFields: [],
+      // Validate SEO (no required fields)
+      // Only validate hreflang enum if provided
+      if (language.seo?.hreflang) {
+        const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
+        if (!supportedLocales.includes(language.seo.hreflang)) {
+          return new NextResponse(
+            JSON.stringify({
+              message: `Unsupported hreflang: ${
+                language.seo.hreflang
+              }. Supported values: ${supportedLocales.join(", ")}`,
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
         }
-      );
-
-      if (seoValidationResult !== true) {
-        return new NextResponse(
-          JSON.stringify({
-            message: seoValidationResult,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      // Validate hreflang is supported
-      const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
-      if (!supportedLocales.includes(language.seo.hreflang)) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Unsupported hreflang: ${
-              language.seo.hreflang
-            }. Supported values: ${supportedLocales.join(", ")}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-
-      // Validate urlPattern is valid (now required)
-      const validUrlPatterns = [
-        "articles",
-        "artigos",
-        "articulos",
-        "artikel",
-        "articoli",
-        "artikelen",
-      ];
-      if (!validUrlPatterns.includes(language.seo.urlPattern)) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Invalid URL pattern: ${
-              language.seo.urlPattern
-            }. Supported patterns: ${validUrlPatterns.join(", ")}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
       }
     }
 

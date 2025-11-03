@@ -383,39 +383,39 @@ Social media platforms and content filters may flag content with sexual terminol
 
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
-**CORRECT MANDATORY OUTPUT FORMAT:**
+**MANDATORY JSON STRUCTURE:**
 {
-"instagram": {
-"caption": "Discover the essential guide to women's intimate wellness and self-care! Learn about safe practices, wellness products, and empowerment for better health.",
-"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation #PersonalWellness #WellnessProducts #HealthEducation #WomenHealth #WellnessGuide",
-"altText": "A woman sitting comfortably in a bright, cozy bedroom, exploring personal wellness products with gentle lighting highlighting her relaxed and curious expression",
-},
-"facebook": {
-"message": "Empowering women through education and wellness! \n\nDiscover our comprehensive guide to intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment strategies that support your overall health and well-being.\n\nThis educational content covers everything from understanding your body to making informed choices about wellness products. Join thousands of women who are taking control of their intimate wellness journey.",
-"headline": "Complete Guide to Women's Intimate Wellness",
-"linkDescription": "Learn about safe practices, wellness products, and empowerment strategies for better intimate health and overall well-being.",
-"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts",
-"callToAction": "Learn More",
-},
-"xTwitter": {
-"text": "Discover the essential guide to women's intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment for better health.",
-"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation",
-},
-"pinterest": {
-"title": "Complete Guide to Women's Intimate Wellness & Self-Care",
-"description": "Discover essential tips for women's intimate wellness and self-care. Learn about safe practices, wellness products, and empowerment strategies for better health and well-being. Perfect for women looking to take control of their intimate wellness journey.",
-"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation #PersonalWellness #WellnessProducts #HealthEducation",
-"altText": "A comprehensive guide to women's intimate wellness featuring wellness products, self-care tips, and empowerment strategies for better health",
-},
-"threads": {
-"text": "Discover the essential guide to women's intimate wellness and self-care! \n\nLearn about safe practices, wellness products, and empowerment strategies for better health and well-being.\n\nThis educational content covers everything from understanding your body to making informed choices about wellness products.\n\nJoin thousands of women who are taking control of their intimate wellness journey!",
-"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts #PersonalWellness #WomenHealth #WellnessGuide #HealthTips #WellnessEducation #WellnessJourney #SelfCareTips #HealthAndWellness #WomenEmpowerment #WellnessLifestyle",
-},
-"tiktok": {
-"title": "Complete Guide to Women's Intimate Wellness & Self-Care",
-"caption": "Discover the essential guide to women's intimate wellness and self-care! Learn about safe practices, wellness products, and empowerment strategies for better health. Join thousands of women taking control of their wellness journey!",
-"hashtags": "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation",
-}
+  "instagram": {
+    "caption": "Engaging caption with call-to-action - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+    "altText": "Accessibility text describing the image - MAX 1000 characters (NO hashtags, but the max chars should include the length of the hashatags)",
+  },
+  "facebook": {
+    "message": "Engaging message with educational content - MAX 63206 characters (NO hashtags in message, but the max chars should include the length of the hashatags)",
+    "headline": "Compelling headline - MAX 100 characters (NO hashtags)",
+    "linkDescription": "Link preview description - MAX 300 characters (NO hashtags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+    "callToAction": "Learn More",
+  },
+  "xTwitter": {
+    "text": "Engaging tweet - MAX 280 characters (NO hashtags in text)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+  },
+  "pinterest": {
+    "title": "Compelling pin title - MAX 100 characters (NO hashtags)",
+    "description": "Detailed pin description - MAX 500 characters (NO hashtags, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+    "altText": "Accessibility text describing the image - MAX 500 characters (NO hashtags, but the max chars should include the length of the hashatags)",
+  },
+  "threads": {
+    "text": "Engaging thread post - MAX 500 characters (NO hashtags in text, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+  },
+  "tiktok": {
+    "title": "Engaging TikTok title - MAX 90 characters (NO hashtags)",
+    "caption": "Engaging TikTok caption - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
+  }
 }
 
 **WRONG OUTPUT FORMATS (WILL CAUSE ERRORS):**

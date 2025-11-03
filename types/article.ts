@@ -26,13 +26,12 @@ export interface IArticleCardProps {
 }
 
 export interface ISeo {
-  metaTitle: string;
-  metaDescription: string;
-  keywords: string[];
-  slug: string;
-  hreflang: string;
-  urlPattern: string;
-  canonicalUrl: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+  slug?: string;
+  hreflang?: string;
+  canonicalUrl?: string;
 }
 
 export interface IMetaDataArticle {

@@ -57,7 +57,6 @@ export async function generateMetadata({
         keywords: [articleData.category, "health", "women", "wellness", "fitness", "nutrition"],
         slug: slug,
         hreflang: languageMap[locale] || locale,
-        urlPattern: `/${locale}/${articleData.category}/[slug]`,
         canonicalUrl: canonicalUrl,
       },
     };
@@ -90,7 +89,6 @@ export async function generateMetadata({
         keywords: ["health", "women", "wellness", "fitness", "nutrition", "mental health", "lifestyle", "Women's Spot"],
         slug: slug,
         hreflang: languageMap[locale] || locale,
-        urlPattern: `/${locale}/[category]/[slug]`,
         canonicalUrl: fallbackCanonicalUrl,
       },
     };
