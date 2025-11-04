@@ -88,6 +88,25 @@ export async function updateArticle({
 
       // Validate each language (no required fields)
       for (const language of languages) {
+        // Validate hreflang is provided (required for identifying which language to update)
+        if (!language.hreflang) {
+          return {
+            success: false,
+            message: "hreflang is required for each language update",
+          };
+        }
+
+        // Validate hreflang enum
+        const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
+        if (!supportedLocales.includes(language.hreflang)) {
+          return {
+            success: false,
+            message: `Unsupported hreflang: ${
+              language.hreflang
+            }. Supported values: ${supportedLocales.join(", ")}`,
+          };
+        }
+
         // Validate articleContext structure if provided
         if (language.articleContext !== undefined) {
           if (
@@ -114,57 +133,58 @@ export async function updateArticle({
           }
         }
 
-        // Validate content structure
-        if (
-          !language.content ||
-          !Array.isArray(language.content.articleContents) ||
-          language.content.articleContents.length === 0
-        ) {
-          return {
-            success: false,
-            message: "Content.articleContents must be a non-empty array",
-          };
-        }
-
-        // Validate each articleContent
-        for (const articleContent of language.content.articleContents) {
-          const articleContentValidation = objDefaultValidation(
-            articleContent as unknown as {
-              [key: string]: string | number | boolean | undefined;
-            },
-            {
-              reqFields: ["subTitle", "articleParagraphs"],
-              nonReqFields: [],
-            }
-          );
-
-          if (articleContentValidation !== true) {
-            return {
-              success: false,
-              message: articleContentValidation,
-            };
-          }
-
-          // Validate articleParagraphs
+        // Validate content structure if provided (make it optional for partial updates)
+        if (language.content !== undefined) {
           if (
-            !Array.isArray(articleContent.articleParagraphs) ||
-            articleContent.articleParagraphs.length === 0
+            !language.content ||
+            !Array.isArray(language.content.articleContents) ||
+            language.content.articleContents.length === 0
           ) {
             return {
               success: false,
-              message: "ArticleParagraphs must be a non-empty array",
+              message: "Content.articleContents must be a non-empty array",
             };
+          }
+
+          // Validate each articleContent
+          for (const articleContent of language.content.articleContents) {
+            const articleContentValidation = objDefaultValidation(
+              articleContent as unknown as {
+                [key: string]: string | number | boolean | undefined;
+              },
+              {
+                reqFields: ["subTitle", "articleParagraphs"],
+                nonReqFields: [],
+              }
+            );
+
+            if (articleContentValidation !== true) {
+              return {
+                success: false,
+                message: articleContentValidation,
+              };
+            }
+
+            // Validate articleParagraphs
+            if (
+              !Array.isArray(articleContent.articleParagraphs) ||
+              articleContent.articleParagraphs.length === 0
+            ) {
+              return {
+                success: false,
+                message: "ArticleParagraphs must be a non-empty array",
+              };
+            }
           }
         }
 
         // Validate SEO (no required fields)
         // Only validate hreflang enum if provided
         if (language.seo?.hreflang) {
-          const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
           if (!supportedLocales.includes(language.seo.hreflang)) {
             return {
               success: false,
-              message: `Unsupported hreflang: ${
+              message: `Unsupported SEO hreflang: ${
                 language.seo.hreflang
               }. Supported values: ${supportedLocales.join(", ")}`,
             };
@@ -172,7 +192,55 @@ export async function updateArticle({
         }
       }
 
-      updateData.languages = languages;
+      // Merge partial language updates instead of replacing entire array
+      // Get existing languages from the article and convert to plain objects
+      const existingLanguages = (existingArticle.languages || []).map((lang: ILanguageSpecific | any) => {
+        // Convert Mongoose subdocument to plain object if needed
+        return lang.toObject ? lang.toObject() : JSON.parse(JSON.stringify(lang));
+      });
+      
+      // Create a map of existing languages by hreflang for quick lookup
+      const existingLanguagesMap = new Map(
+        existingLanguages.map((lang: ILanguageSpecific) => [lang.hreflang, lang])
+      );
+
+      // Merge updates: for each language in the update, merge with existing or add new
+      const mergedLanguages = existingLanguages.map((existingLang: ILanguageSpecific) => {
+        const updateLang = languages.find(
+          (lang) => lang.hreflang === existingLang.hreflang
+        );
+        
+        if (updateLang) {
+          // Merge: keep existing properties, update only provided ones
+          // Use updateLang properties where provided, otherwise keep existing
+          return {
+            ...existingLang,
+            ...updateLang,
+            // Deep merge for nested objects to preserve existing data
+            content: updateLang.content !== undefined 
+              ? updateLang.content 
+              : existingLang.content,
+            seo: updateLang.seo !== undefined
+              ? { ...existingLang.seo, ...updateLang.seo }
+              : existingLang.seo,
+            socialMedia: updateLang.socialMedia !== undefined
+              ? { ...existingLang.socialMedia, ...updateLang.socialMedia }
+              : existingLang.socialMedia,
+          };
+        }
+        
+        // No update for this language, keep existing
+        return existingLang;
+      });
+
+      // Add any new languages that don't exist in the article
+      for (const updateLang of languages) {
+        if (!existingLanguagesMap.has(updateLang.hreflang)) {
+          mergedLanguages.push(updateLang);
+        }
+      }
+
+      updateData.languages = mergedLanguages;
     }
 
     // Update imagesContext if provided
