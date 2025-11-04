@@ -194,10 +194,16 @@ export async function updateArticle({
 
       // Merge partial language updates instead of replacing entire array
       // Get existing languages from the article and convert to plain objects
-      const existingLanguages = (existingArticle.languages || []).map((lang: ILanguageSpecific | any) => {
+      // Helper function to convert Mongoose subdocument to plain object
+      const toPlainLanguage = (lang: ILanguageSpecific | (ILanguageSpecific & { toObject?: () => ILanguageSpecific })): ILanguageSpecific => {
         // Convert Mongoose subdocument to plain object if needed
-        return lang.toObject ? lang.toObject() : JSON.parse(JSON.stringify(lang));
-      });
+        if (lang && typeof lang === 'object' && 'toObject' in lang && typeof lang.toObject === 'function') {
+          return lang.toObject();
+        }
+        return JSON.parse(JSON.stringify(lang)) as ILanguageSpecific;
+      };
+
+      const existingLanguages = (existingArticle.languages || []).map(toPlainLanguage);
       
       // Create a map of existing languages by hreflang for quick lookup
       const existingLanguagesMap = new Map(
