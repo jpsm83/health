@@ -76,6 +76,30 @@ export async function updateArticle({
       updateData.category = category;
     }
 
+    // Helper function to recursively remove _id fields from objects
+    const removeIdFields = (obj: unknown): unknown => {
+      if (obj === null || obj === undefined) {
+        return obj;
+      }
+      
+      if (Array.isArray(obj)) {
+        return obj.map(removeIdFields);
+      }
+      
+      if (typeof obj === 'object') {
+        const cleaned: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(obj)) {
+          // Skip _id fields
+          if (key !== '_id') {
+            cleaned[key] = removeIdFields(value);
+          }
+        }
+        return cleaned;
+      }
+      
+      return obj;
+    };
+
     // Update languages if provided
     if (languages) {
       // Validate languages structure
@@ -172,7 +196,8 @@ export async function updateArticle({
         }
       }
 
-      updateData.languages = languages;
+      // Remove _id fields from languages before saving
+      updateData.languages = removeIdFields(languages) as ILanguageSpecific[];
     }
 
     // Update imagesContext if provided
@@ -190,7 +215,8 @@ export async function updateArticle({
             "ImagesContext must have imageOne, imageTwo, imageThree, and imageFour",
         };
       }
-      updateData.imagesContext = imagesContext;
+      // Remove _id fields from imagesContext before saving
+      updateData.imagesContext = removeIdFields(imagesContext) as typeof imagesContext;
     }
 
     // Handle image updates if provided
