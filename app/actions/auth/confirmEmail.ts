@@ -64,8 +64,6 @@ export default async function confirmEmailAction(
         await Subscriber.findByIdAndUpdate(user.subscriptionId, {
           emailVerified: true,
         }, { session });
-        
-        console.log(`Updated subscriber ${user.subscriptionId} email verification to true`);
       }
 
       // Commit the transaction

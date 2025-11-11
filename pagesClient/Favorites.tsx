@@ -39,7 +39,7 @@ export default function Favorites({
       <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
         <div className="absolute inset-0">
           <Image
-            src="https://res.cloudinary.com/jpsm83/image/upload/v1757872660/health/xvynlootzxmsmjhrbjxs.png"
+            src="https://res.cloudinary.com/jpsm83/image/upload/v1762840769/health/lctiqsxlb9szuuzphb99.jpg"
             alt={t("heroImageAlt")}
             className="w-full h-full object-cover"
             fill
@@ -52,7 +52,7 @@ export default function Favorites({
 
         {/* Hero Content */}
         {favoriteArticles.length > 0 ? (
-          <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="relative z-10 flex items-center justify-center h-full mx-3">
             <div className="text-center text-white max-w-4xl mx-auto px-6">
               <h1 className="text-5xl md:text-6xl font-bold mb-6">
                 {t("title")}
@@ -65,7 +65,7 @@ export default function Favorites({
             </div>
           </div>
         ) : (
-          <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="relative z-10 flex items-center justify-center h-full mx-3">
             {/* No favorites message */}
             <div className="text-center text-white max-w-4xl mx-auto px-6">
               <h1 className="text-5xl md:text-6xl font-bold mb-6">

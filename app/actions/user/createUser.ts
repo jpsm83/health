@@ -212,13 +212,7 @@ export async function createUser(params: ICreateUserParams): Promise<ICreateUser
     }
 
     // Verify the user was created with the correct subscriptionId
-    const createdUser = await User.findById(userId).populate("subscriptionId");
-    console.log(
-      `Verification - Created user subscriptionId: ${createdUser?.subscriptionId}`
-    );
-    console.log(
-      `Verification - Created user subscriptionId type: ${typeof createdUser?.subscriptionId}`
-    );
+    await User.findById(userId).populate("subscriptionId");
 
     // Send email confirmation
     try {

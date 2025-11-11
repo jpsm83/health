@@ -35,7 +35,6 @@ export default function Home({
 
   return (
     <div className="flex flex-col h-full gap-8 md:gap-16">
-      
 
       {/* Hero Section with Full-Width Image */}
       <section className="relative w-full h-[55vh] min-h-[360px] md:h-[70vh] md:min-h-[500px] mt-8 md:mt-16 cv-auto">
@@ -53,7 +52,7 @@ export default function Home({
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 flex items-center justify-center h-full">
+        <div className="relative z-10 flex items-center justify-center h-full mx-3">
           <div className="text-center text-white max-w-4xl mx-auto px-4 md:px-6 bg-black/50 shadow-2xl py-4 md:py-8">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)'}}>
               {t("title")}

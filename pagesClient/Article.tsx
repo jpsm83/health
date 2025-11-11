@@ -382,23 +382,23 @@ export default function Article({
                         <span>
                           {t("article.info.likes")} {likes + 79}
                         </span>
-                      </div>
-                      {/* Like Button at Top */}
-                      <div className="flex justify-center items-center">
-                        <Button
-                          onClick={toggleLike}
-                          className={`cursor-pointer bg-transparent border-none hover:bg-transparent hover:scale-110 transition-all duration-200 shadow-none ${
-                            isLiked ? "text-red-600" : "text-gray-200"
-                          }`}
-                        >
-                          <Heart
-                            className={`size-6 ${
-                              isLiked
-                                ? "fill-current"
-                                : "stroke-current fill-none"
+                        {/* Like Button at Top */}
+                        <div className="flex justify-center items-center">
+                          <Button
+                            onClick={toggleLike}
+                            className={`cursor-pointer bg-transparent border-none hover:bg-transparent hover:scale-110 transition-all duration-200 shadow-none ${
+                              isLiked ? "text-red-600" : "text-gray-200"
                             }`}
-                          />
-                        </Button>
+                          >
+                            <Heart
+                              className={`size-6 ${
+                                isLiked
+                                  ? "fill-red-600 stroke-white stroke-[1.5]"
+                                  : "stroke-current fill-none"
+                              }`}
+                            />
+                          </Button>
+                        </div>
                       </div>
                     </div>
 
@@ -465,7 +465,7 @@ export default function Article({
           >
             <Heart
               className={`size-6 ${
-                isLiked ? "fill-current" : "stroke-current fill-none"
+                isLiked ? "fill-red-600 stroke-white stroke-[1.5]" : "stroke-current fill-none"
               }`}
             />
           </Button>

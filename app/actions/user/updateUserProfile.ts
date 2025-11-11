@@ -92,7 +92,6 @@ export async function updateUserProfile(
     const sessionUserIdString = sessionUserId.toString();
     
     if (userObjectIdString !== sessionUserIdString) {
-      console.log("Authorization failed:", { userObjectIdString, sessionUserIdString });
       return {
         success: false,
         message: "You are not authorized to update this user!",

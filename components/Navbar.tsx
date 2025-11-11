@@ -124,7 +124,7 @@ export default function Navbar() {
   return (
     <nav className="bg-gradient-left-right text-white shadow-lg text-base">
       {/* Top navigation */}
-      <div className="flex justify-between items-center h-12 md:h-16 px-2 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center h-16 px-2 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2 md:gap-4">
           {/* Mobile Profile Button */}
           <div className="md:hidden">
@@ -195,6 +195,16 @@ export default function Navbar() {
                       >
                         <UserRoundPen size={16} className="text-red-600" />{" "}
                         {t("profile")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/${locale}/favorites`}
+                        className="cursor-pointer"
+                        onClick={handleNavLinkClick}
+                      >
+                        <Heart size={16} className="text-red-600" />{" "}
+                        {t("favorites")}
                       </Link>
                     </DropdownMenuItem>
                     {session?.user?.role === "admin" && (
@@ -313,6 +323,15 @@ export default function Navbar() {
                       >
                         <UserRoundPen size={16} className="text-red-600" />{" "}
                         {t("profile")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={`/${locale}/favorites`}
+                        className="cursor-pointer"
+                      >
+                        <Heart size={16} className="text-red-600" />{" "}
+                        {t("favorites")}
                       </Link>
                     </DropdownMenuItem>
                     {session?.user?.role === "admin" && (
