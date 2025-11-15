@@ -21,7 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { mainCategories } from "@/lib/constants";
 import Image from "next/image";
@@ -30,6 +30,9 @@ import { useSession, signOut } from "next-auth/react";
 export default function Navbar() {
   // All hooks must be called at the top level, unconditionally
   const [isSearchPopupOpen, setIsSearchPopupOpen] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const lastScrollY = useRef<number>(0);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -72,6 +75,77 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isSearchPopupOpen]);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    // SSR safety check
+    if (typeof window === "undefined") return;
+
+    const checkMobile = () => {
+      // Tailwind's md breakpoint is 768px
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Check on mount
+    checkMobile();
+
+    // Check on resize
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  // Handle scroll-based navbar visibility (only on mobile)
+  useEffect(() => {
+    // SSR safety check
+    if (typeof window === "undefined") return;
+
+    if (!isMobile) {
+      // Always show navbar on desktop
+      setIsVisible(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show navbar at the top of the page
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      } else {
+        // Hide when scrolling down, show when scrolling up
+        if (currentScrollY > lastScrollY.current) {
+          // Scrolling down
+          setIsVisible(false);
+        } else {
+          // Scrolling up
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", throttledHandleScroll);
+    };
+  }, [isMobile]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalSearchTerm(e.target.value);
@@ -122,7 +196,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gradient-left-right text-white shadow-lg text-base">
+    <nav
+      className={`bg-gradient-left-right text-white shadow-lg text-base fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out md:translate-y-0 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* Top navigation */}
       <div className="flex justify-between items-center h-16 px-2 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2 md:gap-4">

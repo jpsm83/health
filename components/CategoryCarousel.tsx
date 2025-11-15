@@ -221,12 +221,12 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
 
           {/* Navigation Buttons */}
           <CarouselPrevious
-            className="left-0 rounded-none border-none h-full bg-gradient-to-r from-[#d1d5db] to-transparent hover:bg-gradient-to-r hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
+            className="left-0 top-20 rounded-none border-none h-full bg-gradient-to-r from-[#d1d5db] to-transparent hover:bg-gradient-to-r hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
 "
           />
 
           <CarouselNext
-            className="right-0 rounded-none border-none h-full bg-gradient-to-l from-[#d1d5db] to-transparent hover:bg-gradient-to-l hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
+            className="right-0 top-20 rounded-none border-none h-full bg-gradient-to-l from-[#d1d5db] to-transparent hover:bg-gradient-to-l hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
 "
           />
         </Carousel>

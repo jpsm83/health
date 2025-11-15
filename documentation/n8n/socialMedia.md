@@ -25,12 +25,12 @@ Your task is to:
 
 **STEP 2: CREATE SOCIAL MEDIA CONTENT**
 Create comprehensive social media content that optimizes engagement across all platforms:
-- Instagram: Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 28 UNIQUE hashtags), alt text (max 1000 chars, NO hashtags)
+- Instagram: Caption (max 2200 chars, CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 20 UNIQUE hashtags), alt text (max 1000 chars, NO hashtags)
 - Facebook: Message (max 63206 chars, NO hashtags in message, but the max chars should include the length of the hashatags), headline (max 100 chars, NO hashtags), link description (max 300 chars, NO hashtags), hashtags (UNIQUE hashtags only)
 - X (Twitter): Text (max 280 chars for free accounts, NO hashtags in text), hashtags (UNIQUE hashtags only)
 - Pinterest: Title (max 100 chars, NO hashtags), description (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only), alt text (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags)
 - Threads: Text (max 500 chars, NO hashtags in text, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only)
-- TikTok: Title (max 90 characters), Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 5 UNIQUE hashtags only)
+- TikTok: Title (max 90 characters), Caption (max 2200 chars, CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 5 UNIQUE hashtags only)
 
 **CRITICAL CHARACTER CALCULATION RULES:**
 - **For fields that include hashtags in their total limit**: Calculate the content field length as: (Platform Max Limit) - (Hashtags Length)
@@ -124,12 +124,12 @@ Social media platforms and content filters may flag content with sexual terminol
 - **WITHIN EACH PLATFORM: Hashtags must be 100% UNIQUE - NO duplicates allowed within the same social media platform**
 - **ACROSS PLATFORMS: The same hashtag CAN and SHOULD appear across different platforms for consistency**
 - **EXAMPLE CORRECT USAGE:**
-  - Instagram: ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation"]
-  - Facebook: ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthEducation", "#WellnessProducts"]
-  - X/Twitter: ["#WomensWellness", "#SelfCare", "#IntimateWellness", "#HealthTips", "#WellnessEducation"]
+  - Instagram: "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation"
+  - Facebook: "#WomensWellness #SelfCare #IntimateWellness #HealthEducation #WellnessProducts"
+  - X/Twitter: "#WomensWellness #SelfCare #IntimateWellness #HealthTips #WellnessEducation"
 - **EXAMPLE INCORRECT USAGE (WILL CAUSE ERRORS):**
-  - Instagram: ["#WomensWellness", "#SelfCare", "#WomensWellness", "#HealthTips"] (duplicate #WomensWellness)
-  - Facebook: ["#SelfCare", "#SelfCare", "#IntimateWellness"] (duplicate #SelfCare)
+  - Instagram: "#WomensWellness #SelfCare #WomensWellness #HealthTips" (duplicate #WomensWellness)
+  - Facebook: "#SelfCare #SelfCare #IntimateWellness" (duplicate #SelfCare)
 
 **VALIDATION CHECKLIST FOR HASHTAGS:**
 - Count total hashtags per platform
@@ -144,7 +144,7 @@ Social media platforms and content filters may flag content with sexual terminol
 **MANDATORY JSON STRUCTURE:**
 {
   "instagram": {
-    "caption": "Engaging caption with call-to-action - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "caption": "Engaging caption with call-to-action - MAX 2200 characters (CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags)",
     "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
     "altText": "Accessibility text describing the image - MAX 1000 characters (NO hashtags, but the max chars should include the length of the hashatags)",
   },
@@ -171,14 +171,14 @@ Social media platforms and content filters may flag content with sexual terminol
   },
   "tiktok": {
     "title": "Engaging TikTok title - MAX 90 characters (NO hashtags)",
-    "caption": "Engaging TikTok caption - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "caption": "Engaging TikTok caption - MAX 2200 characters (CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags)",
     "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
   }
 }
 
 **JSON FORMAT VALIDATION RULES:**
 1. **MUST start with `{` and end with `}`**
-2. **MUST have exactly 7 social media platforms: `instagram`, `facebook`, `xTwitter`, `pinterest`, `threads`, `tiktok`**
+2. **MUST have exactly 6 social media platforms: `instagram`, `facebook`, `xTwitter`, `pinterest`, `threads`, `tiktok`**
 3. **MUST use double quotes for all keys and string values**
 4. **MUST NOT include any text before or after the JSON**
 5. **MUST NOT include any comments or explanations outside the JSON**
@@ -278,12 +278,12 @@ Your task is to:
 **STEP 2: CREATE SOCIAL MEDIA CONTENT**
 Create comprehensive social media content that optimizes engagement across all platforms:
 
-- Instagram: Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 28 UNIQUE hashtags), alt text (max 1000 chars, NO hashtags)
+- Instagram: Caption (max 2200 chars, CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 20 UNIQUE hashtags), alt text (max 1000 chars, NO hashtags)
 - Facebook: Message (max 63206 chars, NO hashtags in message, but the max chars should include the length of the hashatags), headline (max 100 chars, NO hashtags), link description (max 300 chars, NO hashtags), hashtags (UNIQUE hashtags only)
 - X (Twitter): Text (max 280 chars for free accounts, NO hashtags in text), hashtags (UNIQUE hashtags only)
 - Pinterest: Title (max 100 chars, NO hashtags), description (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only), alt text (max 500 chars, NO hashtags, but the max chars should include the length of the hashatags)
 - Threads: Text (max 500 chars, NO hashtags in text, but the max chars should include the length of the hashatags), hashtags (UNIQUE hashtags only)
-- TikTok: Title (max 90 characters), Caption (max 2200 chars, NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 5 UNIQUE hashtags only)
+- TikTok: Title (max 90 characters), Caption (max 2200 chars, CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags), hashtags (max 5 UNIQUE hashtags only)
 
 **CRITICAL CHARACTER CALCULATION RULES:**
 - **For fields that include hashtags in their total limit**: Calculate the content field length as: (Platform Max Limit) - (Hashtags Length)
@@ -386,7 +386,7 @@ Social media platforms and content filters may flag content with sexual terminol
 **MANDATORY JSON STRUCTURE:**
 {
   "instagram": {
-    "caption": "Engaging caption with call-to-action - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "caption": "Engaging caption with call-to-action - MAX 2200 characters (CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags)",
     "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
     "altText": "Accessibility text describing the image - MAX 1000 characters (NO hashtags, but the max chars should include the length of the hashatags)",
   },
@@ -413,7 +413,7 @@ Social media platforms and content filters may flag content with sexual terminol
   },
   "tiktok": {
     "title": "Engaging TikTok title - MAX 90 characters (NO hashtags)",
-    "caption": "Engaging TikTok caption - MAX 2200 characters (NO hashtags in caption, but the max chars should include the length of the hashatags)",
+    "caption": "Engaging TikTok caption - MAX 2200 characters (CRITICAL NO hashtags in caption, but the max chars should include the length of the hashatags)",
     "hashtags": "#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5",
   }
 }
@@ -429,7 +429,7 @@ Single quotes instead of double quotes
 **JSON FORMAT VALIDATION RULES:**
 
 1. **MUST start with `{` and end with `}`**
-2. **MUST have exactly 7 social media platforms: `instagram`, `facebook`, `xTwitter`, `pinterest`, `threads`, `tiktok`**
+2. **MUST have exactly 6 social media platforms: `instagram`, `facebook`, `xTwitter`, `pinterest`, `threads`, `tiktok`**
 3. **MUST use double quotes for all keys and string values**
 4. **MUST NOT include any text before or after the JSON**
 5. **MUST NOT include any comments or explanations outside the JSON**
@@ -443,7 +443,7 @@ Before outputting the final JSON, verify EVERY field meets its character limit:
 **INSTAGRAM:**
 
 - Caption ≤ 2200 characters
-- Hashtags ≤ 28 UNIQUE items (NO duplicates within Instagram)
+- Hashtags ≤ 20 UNIQUE items (NO duplicates within Instagram)
 - AltText ≤ 1000 characters
 
 **FACEBOOK:**
