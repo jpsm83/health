@@ -61,7 +61,7 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="md:w-2/3 mx-3 bg-gradient-left-right p-8 md:p-12 text-center text-white shadow-xl">
+    <section className="md:w-2/3 mx-auto px-3 bg-gradient-left-right p-8 md:p-12 text-center text-white shadow-xl">
       {/* Icon */}
       <div className="mb-6 flex justify-center">
         <Mail size={60} />
