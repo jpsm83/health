@@ -4,6 +4,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { getTranslations } from "next-intl/server";
 import confirmEmailAction from "@/app/actions/auth/confirmEmail";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export async function generateMetadata({
   params,
@@ -78,12 +79,14 @@ export default async function ConfirmEmailPage({
                 </h3>
                 <p className="mt-2 text-sm text-gray-600">{message}</p>
                 <div className="mt-6">
-                  <Link
-                    href="/signin"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400"
+                  <Button
+                    asChild
+                    variant="customDefault"
                   >
-                    {t("success.signInButton")}
-                  </Link>
+                    <Link href="/signin">
+                      {t("success.signInButton")}
+                    </Link>
+                  </Button>
                 </div>
               </div>
             )}
@@ -110,12 +113,14 @@ export default async function ConfirmEmailPage({
                 </h3>
                 <p className="mt-2 text-sm text-gray-600">{message}</p>
                 <div className="mt-6">
-                  <Link
-                    href="/signin"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400"
+                  <Button
+                    asChild
+                    variant="customDefault"
                   >
-                    {t("error.backToSignInButton")}
-                  </Link>
+                    <Link href="/signin">
+                      {t("error.backToSignInButton")}
+                    </Link>
+                  </Button>
                 </div>
               </div>
             )}
