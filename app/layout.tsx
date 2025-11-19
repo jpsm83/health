@@ -3,12 +3,10 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
+import SessionTracker from "@/components/SessionTracker";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Women's Spot - Empowering Women's Health & Wellness",
-    template: "%s | Women's Spot",
-  },
+  title: "Women's Spot - Empowering Women's Health & Wellness",
   description:
     "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
   keywords: [
@@ -125,10 +123,47 @@ export default function RootLayout({
           }}
         />
 
+        {/* Schema.org Structured Data */}
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Women's Spot",
+              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com",
+              "logo": `${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com"}/womens-spot-logo.png`,
+              "description": "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+              "sameAs": [
+                "https://twitter.com/womensspot"
+              ]
+            }),
+          }}
+        />
+        <Script
+          id="schema-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Women's Spot",
+              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com",
+              "description": "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+              "publisher": {
+                "@type": "Organization",
+                "name": "Women's Spot"
+              }
+            }),
+          }}
+        />
+
         {/* Next.js will automatically inject metadata here */}
       </head>
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
+          <SessionTracker />
           {children}
           <Toaster />
         </SessionProvider>

@@ -28,8 +28,6 @@ export default function Article({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<ISerializedComment[]>([]);
   const [hasUserCommented, setHasUserCommented] = useState<boolean>(false);
-  const [hasIncrementedViews, setHasIncrementedViews] =
-    useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const { data: session } = useSession();
@@ -100,38 +98,18 @@ export default function Article({
     loadComments();
   }, [articleData?._id, session?.user?.id]);
 
-  // Track time spent on page and increment views after 1 minute (60 seconds)
+  // Track article views - one view per session (session managed by SessionTracker)
   useEffect(() => {
-    if (hasIncrementedViews || !articleData?._id) return;
+    if (!articleData?._id || session?.user?.id === "68e6a79afb1932c067f96e30") return;
 
-    // Skip view increment for specific user ID
-    if (session?.user?.id === "68e6a79afb1932c067f96e30") {
-      setHasIncrementedViews(true);
-      return;
-    }
+    const sessionKey = `viewed_article_${articleData._id}`;
+    if (sessionStorage.getItem(sessionKey)) return; // Already viewed in this session
 
-    const incrementViews = async () => {
-      try {
-        const result = await incrementArticleViews(articleData._id);
-
-        if (result.success) {
-          setHasIncrementedViews(true);
-        } else {
-          console.error("Failed to increment views:", result.error);
-        }
-      } catch (error) {
-        console.error("Error incrementing article views:", error);
-      }
-    };
-
-    // Set timer for 1 minute (60 seconds) - increment view if user stays longer than a minute
-    const timer = setTimeout(incrementViews, 60 * 1000);
-
-    // Cleanup timer on component unmount
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [articleData?._id, hasIncrementedViews, session?.user?.id]);
+    // Increment view and mark as viewed
+    incrementArticleViews(articleData._id).then((result) => {
+      if (result.success) sessionStorage.setItem(sessionKey, "true");
+    });
+  }, [articleData?._id, session?.user?.id]);
 
   // toggle article like
   const toggleLike = async () => {
@@ -465,7 +443,9 @@ export default function Article({
           >
             <Heart
               className={`size-6 ${
-                isLiked ? "fill-red-600 stroke-white stroke-[1.5]" : "stroke-current fill-none"
+                isLiked
+                  ? "fill-red-600 stroke-white stroke-[1.5]"
+                  : "stroke-current fill-none"
               }`}
             />
           </Button>
