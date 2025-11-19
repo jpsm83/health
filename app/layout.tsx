@@ -107,6 +107,24 @@ export default function RootLayout({
         {/* Pinterest Rich Pins Verification */}
         <meta name="p:domain_verify" content="93396404f1ccaaec8211f816a7deda73"/>
 
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-06RKTZLN2X"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-06RKTZLN2X');
+            `,
+          }}
+        />
+
         {/* Next.js will automatically inject metadata here */}
       </head>
       <body className="min-h-screen bg-[#f9fafb]">
