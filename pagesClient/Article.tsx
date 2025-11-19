@@ -100,7 +100,7 @@ export default function Article({
     loadComments();
   }, [articleData?._id, session?.user?.id]);
 
-  // Track time spent on page and increment views after 1.5 minutes
+  // Track time spent on page and increment views after 1 minute (60 seconds)
   useEffect(() => {
     if (hasIncrementedViews || !articleData?._id) return;
 
@@ -124,7 +124,7 @@ export default function Article({
       }
     };
 
-    // Set timer for 1 minutes (90 seconds)
+    // Set timer for 1 minute (60 seconds) - increment view if user stays longer than a minute
     const timer = setTimeout(incrementViews, 60 * 1000);
 
     // Cleanup timer on component unmount

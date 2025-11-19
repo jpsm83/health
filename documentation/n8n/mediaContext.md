@@ -119,6 +119,11 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 ## 2. OUTPUT FORMAT
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
+**⚠️ MANDATORY JSON STRUCTURE AND VALUES - NO EXCEPTIONS ⚠️**
+- **ALL 5 fields are OBLIGATORY: `imageOne`, `imageTwo`, `imageThree`, `imageFour`, `articleContext`**
+- **ALL values MUST be non-empty strings - NO undefined, null, or empty values accepted**
+- **Validation will FAIL if any field is missing, undefined, null, or empty**
+
 **MANDATORY JSON STRUCTURE**
 ```json
 {
@@ -213,6 +218,8 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 - Be precise and meaningful within character limit
 
 **ABSOLUTELY FORBIDDEN:**
+- Do NOT output undefined, null, or empty values for any field
+- Do NOT omit any required JSON keys or use empty strings
 - Do NOT create article context longer than 200 characters
 - Do NOT add any emojis, symbols, or special characters in any content
 - Do NOT make up false information
@@ -363,6 +370,7 @@ Remember to:
 5. Avoid any explicit or inappropriate terminology
 6. **ABSOLUTELY NO EMOJIS** - Do not add any emojis, symbols, or special characters
 7. Output ONLY the JSON object with no additional text or explanations
+8. Ensure ALL 5 fields are present with non-empty string values (no undefined, null, or empty values)
 ```
 
 ---
@@ -383,9 +391,11 @@ Remember to:
 ```
 
 **WRONG OUTPUT FORMATS (WILL CAUSE ERRORS):**
-"Here is the JSON response: { ... }"
-"The result is: { ... }"
-"```json\n{ ... }\n```"
-Any text before or after the JSON
-Comments or explanations outside the JSON
-Single quotes instead of double quotes
+- "Here is the JSON response: { ... }"
+- "The result is: { ... }"
+- "```json\n{ ... }\n```"
+- Any text before or after the JSON
+- Comments or explanations outside the JSON
+- Single quotes instead of double quotes
+- Missing fields (e.g., missing `imageTwo` or `articleContext`)
+- Undefined, null, or empty string values for any field
