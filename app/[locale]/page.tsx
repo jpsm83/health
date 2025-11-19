@@ -6,6 +6,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticles } from "@/app/actions/article/getArticles";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
 import { mainCategories } from "@/lib/constants";
+import Script from "next/script";
 
 export async function generateMetadata({
   params,
@@ -76,14 +77,51 @@ export default async function HomePage({
     throw new Error(`Failed to load homepage data: ${error instanceof Error ? error.message : "Unknown error"}`);
   }
 
+  const baseUrl =
+    process.env.NEXTAUTH_URL ||
+    process.env.VERCEL_URL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    "https://womensspot.com";
+  const pageUrl = locale === "en" ? baseUrl : `${baseUrl}/${locale}`;
+
   return (
-    <main className="container mx-auto">
-      <ErrorBoundary context={"Home component"}>
-        <Home
-          featuredArticles={featuredArticles}
-          categoryArticles={categoryArticles}
-        />
-      </ErrorBoundary>
-    </main>
+    <>
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Women's Spot - Your Comprehensive Health and Wellness Platform",
+            "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
+            "url": pageUrl,
+            "inLanguage": locale,
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "Women's Spot",
+              "url": baseUrl
+            },
+            "about": {
+              "@type": "Organization",
+              "name": "Women's Spot"
+            },
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "Women's Spot",
+              "description": "A comprehensive health and wellness platform for women"
+            }
+          }),
+        }}
+      />
+      <main className="container mx-auto">
+        <ErrorBoundary context={"Home component"}>
+          <Home
+            featuredArticles={featuredArticles}
+            categoryArticles={categoryArticles}
+          />
+        </ErrorBoundary>
+      </main>
+    </>
   );
 }

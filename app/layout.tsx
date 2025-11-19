@@ -6,9 +6,9 @@ import { Metadata, Viewport } from "next";
 import SessionTracker from "@/components/SessionTracker";
 
 export const metadata: Metadata = {
-  title: "Women's Spot - Empowering Women's Health & Wellness",
+  title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
   description:
-    "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+    "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
   keywords: [
     "health",
     "women",
@@ -38,15 +38,15 @@ export const metadata: Metadata = {
       process.env.NEXT_PUBLIC_APP_URL ||
       "https://womensspot.com",
     siteName: "Women's Spot",
-    title: "Women's Spot - Empowering Women's Health & Wellness",
+    title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
     description:
-      "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+      "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
     images: [
       {
         url: "/womens-spot-logo.png",
         width: 630,
         height: 630,
-        alt: "Women's Spot - Empowering Women's Health & Wellness",
+          alt: "Women's Spot - Your Comprehensive Health and Wellness Platform",
       },
     ],
   },
@@ -54,9 +54,9 @@ export const metadata: Metadata = {
     card: "summary_large_image", // Required: Card type
     site: "@womensspot", // Required: Website Twitter handle
     creator: "@womensspot", // Required: Content creator Twitter handle
-    title: "Women's Spot - Empowering Women's Health & Wellness", // Required: Title (max 70 chars)
+    title: "Women's Spot - Your Comprehensive Health and Wellness Platform", // Required: Title (max 70 chars)
     description:
-      "Discover valuable health insights and wellness tips specifically designed for women.", // Required: Description (max 200 chars)
+      "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights and wellness tips.", // Required: Description (max 200 chars)
     images: ["/womens-spot-logo.png"], // Required: Image URLs
     // Note: image and imageAlt are handled via additional metadata
   },
@@ -134,7 +134,7 @@ export default function RootLayout({
               "name": "Women's Spot",
               "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com",
               "logo": `${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com"}/womens-spot-logo.png`,
-              "description": "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+              "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
               "sameAs": [
                 "https://twitter.com/womensspot"
               ]
@@ -150,7 +150,7 @@ export default function RootLayout({
               "@type": "WebSite",
               "name": "Women's Spot",
               "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com",
-              "description": "Discover valuable health insights and wellness tips specifically designed for women. Expert advice on nutrition, fitness, mental health, and lifestyle.",
+              "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
               "publisher": {
                 "@type": "Organization",
                 "name": "Women's Spot"

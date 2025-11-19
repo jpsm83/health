@@ -1,12 +1,12 @@
 {
   "home": {
     "title": "Bienvenue dans votre espace",
-    "subtitle": "Inspirant chaque chapitre de la vie quotidienne des femmes",
-    "description": "Découvrez un espace fait pour les femmes qui embrassent le bien-être, le style et la joie quotidienne. Où fitness, santé, beauté, nourriture, voyage et maison se réunissent dans une destination quotidienne inspirante.",
+    "subtitle": "Votre Plateforme Complète de Santé et de Bien-être pour les Femmes",
+    "description": "Découvrez une plateforme complète faite pour les femmes qui embrassent le bien-être, le style et la joie quotidienne. Où fitness, santé, beauté, nourriture, voyage et maison se réunissent dans une destination quotidienne inspirante. C'est votre espace pour des ressources complètes de santé et de bien-être.",
     "heroImageAlt": "Santé et Bien-être",
     "exploreByCategory": {
       "title": "Explorer par Catégorie",
-      "description": "Découvrez des insights d'experts et des conseils pratiques dans tous les domaines de santé et de bien-être."
+      "description": "Découvrez des insights d'experts et des conseils pratiques dans tous les domaines de santé et de bien-être complets sur notre plateforme."
     },
     "features": {
       "articles": "Articles de Santé",
