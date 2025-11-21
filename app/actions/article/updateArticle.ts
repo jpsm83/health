@@ -170,6 +170,23 @@ export async function updateArticle({
             };
           }
         }
+
+        // Validate salesProducts field if provided (must be an array of strings)
+        if (language.salesProducts !== undefined) {
+          if (!Array.isArray(language.salesProducts)) {
+            return {
+              success: false,
+              message: "SalesProducts must be an array of strings",
+            };
+          }
+          // Validate that all items in the array are strings
+          if (!language.salesProducts.every((item) => typeof item === "string")) {
+            return {
+              success: false,
+              message: "All items in salesProducts array must be strings",
+            };
+          }
+        }
       }
 
       updateData.languages = languages;

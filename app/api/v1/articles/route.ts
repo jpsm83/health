@@ -391,6 +391,27 @@ export const POST = async (req: Request) => {
           );
         }
       }
+
+      // Validate salesProducts field if provided (must be an array of strings)
+      if (language.salesProducts !== undefined) {
+        if (!Array.isArray(language.salesProducts)) {
+          return new NextResponse(
+            JSON.stringify({
+              message: "SalesProducts must be an array of strings!",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
+        // Validate that all items in the array are strings
+        if (!language.salesProducts.every((item) => typeof item === "string")) {
+          return new NextResponse(
+            JSON.stringify({
+              message: "All items in salesProducts array must be strings!",
+            }),
+            { status: 400, headers: { "Content-Type": "application/json" } }
+          );
+        }
+      }
     }
 
 

@@ -103,6 +103,9 @@ const languageSpecificSchema = new Schema({
   // image url to be used in the social media post
   postImage: { type: String },
 
+  // Sales products information - array of strings
+  salesProducts: { type: [String] },
+
   // SEO data specific to this language
   seo: { type: seoSchema },
 

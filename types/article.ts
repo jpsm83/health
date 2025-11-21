@@ -115,6 +115,7 @@ export interface ILanguageSpecific {
   hreflang: string;
   articleContext: string;
   postImage: string; // Single postImage for all social media platforms
+  salesProducts?: string[]; // Sales products information - array of strings
   seo: ISeo;
   content: {
     mainTitle: string;
