@@ -34,10 +34,10 @@ export default function ProductsBanner({
       : size === "970x240"
       ? "w-full lg:w-[970px] h-[240px]"
       : size === "240x390"
-      ? "w-full h-full"
+      ? "w-full h-[390px] md:w-[240px]"
       : size === "240x240"
-      ? "w-full h-full"
-      : "h-[240px]  w-full md:h-full";
+      ? "w-full h-[240px] md:w-[240px]"
+      : "w-full h-[240px] md:w-[390px]";
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
@@ -53,7 +53,7 @@ export default function ProductsBanner({
           quality={90}
           sizes={
             size === "970x90" || size === "970x240"
-              ? "100vw"
+              ? "(max-width: 1024px) 100vw, 970px"
               : size === "240x390" || size === "240x240"
               ? "(max-width: 768px) 100vw, 300px"
               : "(max-width: 768px) 100vw, 400px"

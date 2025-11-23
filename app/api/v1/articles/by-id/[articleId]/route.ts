@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { auth } from "../../../auth/[...nextauth]/route";
+import { auth } from "@/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { deleteArticle } from "@/app/actions/article/deleteArticle";
 import { updateArticle } from "@/app/actions/article/updateArticle";

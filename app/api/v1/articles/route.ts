@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { auth } from "../auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";

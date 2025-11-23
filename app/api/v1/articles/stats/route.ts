@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getWeeklyStats } from "@/app/actions/article/getWeeklyStats";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import { auth } from "../../auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
 // @desc    Get article statistics
 // @route   GET /api/v1/articles/stats

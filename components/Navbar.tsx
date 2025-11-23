@@ -32,6 +32,7 @@ export default function Navbar() {
   const [isSearchPopupOpen, setIsSearchPopupOpen] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
   const lastScrollY = useRef<number>(0);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -42,6 +43,11 @@ export default function Navbar() {
   const homeHref = locale === "en" ? "/" : `/${locale}`;
 
   const { data: session } = useSession();
+
+  // Track when component is mounted to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Get search term from URL - single source of truth
   const searchTerm = searchParams.get("q") || "";
@@ -86,8 +92,10 @@ export default function Navbar() {
       setIsMobile(window.innerWidth < 768);
     };
 
-    // Check on mount
-    checkMobile();
+    // Check on mount (only after hydration)
+    if (mounted) {
+      checkMobile();
+    }
 
     // Check on resize
     window.addEventListener("resize", checkMobile);
@@ -95,7 +103,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("resize", checkMobile);
     };
-  }, []);
+  }, [mounted]);
 
   // Handle scroll-based navbar visibility (only on mobile)
   useEffect(() => {
@@ -200,6 +208,7 @@ export default function Navbar() {
       className={`bg-gradient-left-right text-white shadow-lg text-base fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out md:translate-y-0 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
+      suppressHydrationWarning
     >
       {/* Top navigation */}
       <div className="flex justify-between items-center h-16 px-2 sm:px-6 lg:px-8">
@@ -214,7 +223,7 @@ export default function Navbar() {
               }}
             >
               <DropdownMenuTrigger asChild>
-                {session?.user ? (
+                {mounted && session?.user ? (
                   <Button
                     variant="ghost"
                     size="icon"
@@ -254,7 +263,7 @@ export default function Navbar() {
                 side="bottom"
                 sideOffset={4}
               >
-                {session?.user ? (
+                {mounted && session?.user ? (
                   <>
                     {/* User info header */}
                     <div className="px-3 py-2 border-b border-gray-100">
@@ -338,7 +347,7 @@ export default function Navbar() {
 
           {/* Authentication navigation desktop */}
           <div className="hidden md:flex">
-            {session?.user ? (
+            {mounted && session?.user ? (
               <div className="relative">
                 <DropdownMenu
                   onOpenChange={(open) => {
@@ -348,7 +357,7 @@ export default function Navbar() {
                   }}
                 >
                   <DropdownMenuTrigger asChild>
-                    {session?.user ? (
+                    {mounted && session?.user ? (
                       <Button
                         size="sm"
                         className="h-10 bg-transparent hover:bg-transparent text-white cursor-pointer rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"

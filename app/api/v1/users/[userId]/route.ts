@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 import { getUserById } from "@/app/actions/user/getUserById";
 import { updateUser } from "@/app/actions/user/updateUser";
 import { deleteUser } from "@/app/actions/user/deleteUser";

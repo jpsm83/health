@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
 import Articles from "@/pagesClient/Articles";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
@@ -91,12 +91,7 @@ export default async function CategoryPage({
 
     // Redirect to page 1 if current page is greater than total pages
     if (currentPage > totalPages && totalPages > 0) {
-      return {
-        redirect: {
-          destination: `/${locale}/${category}?page=1`,
-          permanent: false,
-        },
-      };
+      redirect(`/${locale}/${category}?page=1`);
     }
 
     // Get the paginated articles for the second section

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
 // imported utils
 import { handleApiError } from "@/app/api/utils/handleApiError";

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "../../auth/[...nextauth]/route";
+import { auth } from "@/auth";
 import { v2 as cloudinary } from "cloudinary";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
-import { auth } from "../../../auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
 // @desc    Get user's liked articles
 // @route   GET /api/v1/users/[userId]/liked-articles

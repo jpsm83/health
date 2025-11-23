@@ -3,7 +3,7 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Profile from "@/pagesClient/Profile";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getUserById } from "@/app/actions/user/getUserById";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import ProductsBanner from "@/components/ProductsBanner";
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAllArticlesForDashboard } from "@/app/actions/article/getAllArticlesForDashboard";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import { auth } from "../../auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
 // @desc    Get all articles for dashboard
 // @route   GET /api/v1/articles/dashboard

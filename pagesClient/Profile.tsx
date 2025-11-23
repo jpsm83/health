@@ -184,51 +184,19 @@ export default function Profile({ initialUser }: ProfileProps) {
         subscriptionFrequencies: "weekly",
       },
     },
-    resolver: (values) => {
-      const errors: {
-        username?: { message: string };
-        birthDate?: { message: string };
-        subscriptionPreferences?: {
-          categories?: { message: string };
-          subscriptionFrequencies?: { message: string };
-        };
-      } = {};
-
-      // Username validation
-      if (!values.username) {
-        errors.username = { message: t("validation.usernameRequired") };
-      } else if (values.username.length < 5) {
-        errors.username = { message: t("validation.usernameTooShort") };
-      } else if (values.username.length > 30) {
-        errors.username = { message: t("validation.usernameTooLong") };
-      } else if (!/^[a-zA-Z0-9_\-\s]+$/.test(values.username)) {
-        errors.username = {
-          message: t("validation.usernameInvalidChars"),
-        };
-      }
-
-      // Birth date validation
-      if (!values.birthDate) {
-        errors.birthDate = { message: t("validation.birthDateRequired") };
-      }
-
-      // Newsletter frequency validation
-      if (!values.subscriptionPreferences?.subscriptionFrequencies) {
-        errors.subscriptionPreferences = {
-          subscriptionFrequencies: {
-            message: t("validation.newsletterFrequencyRequired"),
-          },
-        };
-      }
-
-      return {
-        values,
-        errors: Object.keys(errors).length > 0 ? errors : {},
-      };
-    },
   });
 
   const watchedValues = watch();
+
+  // Validate subscription frequency when it changes
+  useEffect(() => {
+    const frequency = watchedValues.subscriptionPreferences?.subscriptionFrequencies;
+    if (!frequency) {
+      setValue("subscriptionPreferences.subscriptionFrequencies", "weekly", {
+        shouldValidate: true,
+      });
+    }
+  }, [watchedValues.subscriptionPreferences?.subscriptionFrequencies, setValue]);
 
   // Load user data and set form values when user data changes
   useEffect(() => {
@@ -454,6 +422,12 @@ export default function Profile({ initialUser }: ProfileProps) {
   const onSubmit = async (data: FormData) => {
     if (!session?.user?.id || !session?.user?.email) {
       showToast("error", "User not authenticated", "");
+      return;
+    }
+
+    // Validate subscription frequency
+    if (!data.subscriptionPreferences?.subscriptionFrequencies) {
+      showToast("error", t("validation.newsletterFrequencyRequired"), "");
       return;
     }
 
@@ -727,7 +701,21 @@ export default function Profile({ initialUser }: ProfileProps) {
                     id="username"
                     type="text"
                     disabled={isLoading}
-                    {...register("username")}
+                    {...register("username", {
+                      required: t("validation.usernameRequired"),
+                      minLength: {
+                        value: 5,
+                        message: t("validation.usernameTooShort"),
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: t("validation.usernameTooLong"),
+                      },
+                      pattern: {
+                        value: /^[a-zA-Z0-9_\-\s]+$/,
+                        message: t("validation.usernameInvalidChars"),
+                      },
+                    })}
                     onChange={(e) => {
                       setValue("username", e.target.value);
                       handleInputChange("username");
@@ -753,7 +741,9 @@ export default function Profile({ initialUser }: ProfileProps) {
                     id="birthDate"
                     type="date"
                     disabled={isLoading}
-                    {...register("birthDate")}
+                    {...register("birthDate", {
+                      required: t("validation.birthDateRequired"),
+                    })}
                     onChange={(e) => {
                       setValue("birthDate", e.target.value);
                       handleInputChange("birthDate");
@@ -806,6 +796,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                               onSelect={(e) => {
                                 e.preventDefault();
                                 setValue("subscriptionPreferences.subscriptionFrequencies", frequency);
+                                trigger("subscriptionPreferences.subscriptionFrequencies");
                               }}
                               className="cursor-pointer"
                             >
