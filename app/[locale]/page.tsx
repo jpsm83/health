@@ -37,7 +37,7 @@ export default async function HomePage({
     const [articlesResponse, ...categoryResponses] = await Promise.all([
       getArticles({
         locale,
-        limit: 9, // Match the limit that was being used in the client component
+        limit: 10, // Match the limit that was being used in the client component
       }),
       // Fetch articles for each category
       ...mainCategories.map((category) =>

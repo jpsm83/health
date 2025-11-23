@@ -36,7 +36,7 @@ export default function Favorites({
   return (
     <div className="flex flex-col min-h-full gap-12 md:gap-16 mb-12 md:mb-16">
       {/* Hero Section with Full-Width Image */}
-      <section className="relative w-full h-[70vh] min-h-[500px] mt-8 md:mt-16">
+      <section className="relative w-full h-[70vh] min-h-[500px]">
         <div className="absolute inset-0">
           <Image
             src="https://res.cloudinary.com/jpsm83/image/upload/v1762840769/health/lctiqsxlb9szuuzphb99.jpg"

@@ -195,7 +195,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft strokeWidth={4} className="text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"/>
+      <ArrowLeft strokeWidth={4} className="text-white mb-50 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"/>
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -225,7 +225,7 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight strokeWidth={4} className="text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" />
+      <ArrowRight strokeWidth={4} className="text-white mb-50 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" />
       <span className="sr-only">Next slide</span>
     </Button>
   )

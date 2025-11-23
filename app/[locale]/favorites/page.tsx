@@ -6,6 +6,7 @@ import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
+import ProductsBanner from "@/components/ProductsBanner";
 
 export async function generateMetadata({
   params,
@@ -41,7 +42,7 @@ export default async function FavoritesPage({
   const currentPage = Math.max(1, parseInt(page as string, 10) || 1);
 
   // Configuration - easily adjustable
-  const ARTICLES_PER_PAGE = 6; // Number of articles per page
+  const ARTICLES_PER_PAGE = 10; // Number of articles per page
 
   let favoriteArticles: ISerializedArticle[] = [];
   let paginationData = {
@@ -77,13 +78,21 @@ export default async function FavoritesPage({
   }
 
   return (
-    <main className="container mx-auto">
+    <div className="mb-8 md:mb-16">
+      <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
+        {/* Products Banner */}
+        <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        
       <ErrorBoundary context="Favorites component">
         <Favorites
           favoriteArticles={favoriteArticles}
           paginationData={paginationData}
         />
       </ErrorBoundary>
-    </main>
+      </div>
+
+      {/* Products Banner */}
+      <ProductsBanner size="970x240" affiliateCompany="amazon" />
+    </div>
   );
 }

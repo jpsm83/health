@@ -4,6 +4,7 @@ import Search from "@/pagesClient/Search";
 import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
+import ProductsBanner from "@/components/ProductsBanner";
 
 export async function generateMetadata({
   searchParams,
@@ -15,7 +16,9 @@ export async function generateMetadata({
 
   return {
     title: query ? `Search results for "${query}"` : "Search Articles",
-    description: query ? `Find articles related to "${query}"` : "Search through our collection of health and wellness articles",
+    description: query
+      ? `Find articles related to "${query}"`
+      : "Search through our collection of health and wellness articles",
   };
 }
 
@@ -39,7 +42,7 @@ export default async function SearchPage({
 
   // Configuration - easily adjustable
   // Change these values to customize the number of articles displayed
-  const ARTICLES_PER_PAGE = 6; // Number of articles per page
+  const ARTICLES_PER_PAGE = 10; // Number of articles per page
 
   let searchResults: ISerializedArticle[] = []; // Search results
   let paginationData = {
@@ -50,16 +53,15 @@ export default async function SearchPage({
 
   try {
     // Get search results with pagination
-    const searchResult = 
-      await searchArticlesPaginated({
-        query: query.trim(),
-        locale,
-        page: currentPage,
-        sort: "createdAt",
-        order: "desc",
-        limit: ARTICLES_PER_PAGE,
-        // No excludeIds needed for search pagination
-      });
+    const searchResult = await searchArticlesPaginated({
+      query: query.trim(),
+      locale,
+      page: currentPage,
+      sort: "createdAt",
+      order: "desc",
+      limit: ARTICLES_PER_PAGE,
+      // No excludeIds needed for search pagination
+    });
 
     searchResults = searchResult.data || [];
     const totalArticles = searchResult.totalDocs;
@@ -80,7 +82,10 @@ export default async function SearchPage({
   }
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto mt-4 mb-8 md:mt-8 md:mb-16">
+      {/* Products Banner */}
+      <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
       <ErrorBoundary context={`Search component for query "${query}"`}>
         <Search
           searchResults={searchResults}
@@ -88,6 +93,9 @@ export default async function SearchPage({
           paginationData={paginationData}
         />
       </ErrorBoundary>
+
+      {/* Products Banner */}
+      <ProductsBanner size="970x240" affiliateCompany="amazon" />
     </main>
   );
 }

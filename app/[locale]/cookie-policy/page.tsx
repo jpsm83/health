@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { getTranslations } from "next-intl/server";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import ProductsBanner from "@/components/ProductsBanner";
 
 export async function generateMetadata({
   params,
@@ -22,9 +23,13 @@ export default async function CookiePolicyPage() {
   const t = await getTranslations('cookiePolicy');
 
   return (
-    <main className="container mx-auto">
+    <div className="mb-8 md:mb-16">
+      <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
+        {/* Products Banner */}
+        <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
       <ErrorBoundary context={"CookiePolicy component"}>
-        <div className="max-w-4xl mx-auto px-4 py-8 text-justify">
+        <div className="max-w-4xl mx-auto px-4 text-justify">
           <h1 className="text-3xl font-bold mb-6">{t("title")}</h1>
 
           <div className="mb-8">
@@ -63,6 +68,9 @@ export default async function CookiePolicyPage() {
                 {t("sections.whichCookies.description")}
               </p>
             </section>
+
+        {/* Products Banner */}
+        <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
             <section>
               <h2 className="text-2xl font-semibold mb-4">
@@ -130,6 +138,10 @@ export default async function CookiePolicyPage() {
           </div>
         </div>
       </ErrorBoundary>
-    </main>
+      </div>
+
+      {/* Products Banner */}
+      <ProductsBanner size="970x240" affiliateCompany="amazon" />
+    </div>
   );
 }

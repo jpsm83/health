@@ -1,48 +1,58 @@
-import { Metadata } from 'next';
-import { generatePublicMetadata } from '@/lib/utils/genericMetadata';
-import { getTranslations } from 'next-intl/server';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import { Metadata } from "next";
+import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import { getTranslations } from "next-intl/server";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import ProductsBanner from "@/components/ProductsBanner";
 
-export async function generateMetadata({ 
-  params 
-}: { 
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-   
+
   return generatePublicMetadata(
     locale,
-    '/terms-conditions',
-    'metadata.termsConditions.title'
+    "/terms-conditions",
+    "metadata.termsConditions.title"
   );
 }
 
 // Server Component - handles metadata generation and renders static content
 export default async function TermsConditionsPage() {
-  const t = await getTranslations('termsConditions');
+  const t = await getTranslations("termsConditions");
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto mt-4 mb-8 md:mt-8 md:mb-16">
+      {/* Products Banner */}
+      <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
       <ErrorBoundary context={"TermsConditions component"}>
         <div className="max-w-4xl mx-auto px-4 py-8 text-justify">
           <h1 className="text-3xl font-bold mb-6">{t("title")}</h1>
-          
+
           <div className="mb-8">
-          <div className="bg-purple-50 p-6 mb-6 shadow-md">
-          <h2 className="text-xl font-semibold mb-4">{t("termsOfUse.title")}</h2>
+            <div className="bg-purple-50 p-6 mb-6 shadow-md">
+              <h2 className="text-xl font-semibold mb-4">
+                {t("termsOfUse.title")}
+              </h2>
               <p className="mb-4">{t("termsOfUse.description")}</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <strong>{t("termsOfUse.definitions.0.term")}</strong> {t("termsOfUse.definitions.0.definition")}
+                  <strong>{t("termsOfUse.definitions.0.term")}</strong>{" "}
+                  {t("termsOfUse.definitions.0.definition")}
                 </li>
                 <li>
-                  <strong>{t("termsOfUse.definitions.1.term")}</strong> {t("termsOfUse.definitions.1.definition")}
+                  <strong>{t("termsOfUse.definitions.1.term")}</strong>{" "}
+                  {t("termsOfUse.definitions.1.definition")}
                 </li>
                 <li>
-                  <strong>{t("termsOfUse.definitions.2.term")}</strong> {t("termsOfUse.definitions.2.definition")}
+                  <strong>{t("termsOfUse.definitions.2.term")}</strong>{" "}
+                  {t("termsOfUse.definitions.2.definition")}
                 </li>
                 <li>
-                  <strong>{t("termsOfUse.definitions.3.term")}</strong> {t("termsOfUse.definitions.3.definition")}
+                  <strong>{t("termsOfUse.definitions.3.term")}</strong>{" "}
+                  {t("termsOfUse.definitions.3.definition")}
                 </li>
               </ul>
             </div>
@@ -50,7 +60,9 @@ export default async function TermsConditionsPage() {
 
           <div className="space-y-8">
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.introduction.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.introduction.title")}
+              </h2>
               <ol className="list-decimal pl-6 space-y-3">
                 <li>{t("sections.introduction.items.0")}</li>
                 <li>{t("sections.introduction.items.1")}</li>
@@ -63,7 +75,9 @@ export default async function TermsConditionsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.useOfSites.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.useOfSites.title")}
+              </h2>
               <ol className="list-decimal pl-6 space-y-3">
                 <li>{t("sections.useOfSites.items.0")}</li>
                 <li>{t("sections.useOfSites.items.1")}</li>
@@ -76,13 +90,20 @@ export default async function TermsConditionsPage() {
               </ol>
             </section>
 
+            {/* Products Banner */}
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.ageLimit.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.ageLimit.title")}
+              </h2>
               <p>{t("sections.ageLimit.description")}</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.useOfDiscussionForums.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.useOfDiscussionForums.title")}
+              </h2>
               <ol className="list-decimal pl-6 space-y-3">
                 <li>{t("sections.useOfDiscussionForums.items.0")}</li>
                 <li>{t("sections.useOfDiscussionForums.items.1")}</li>
@@ -99,28 +120,45 @@ export default async function TermsConditionsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.useOfMaterialPosted.title")}</h2>
-              <p className="mb-4">{t("sections.useOfMaterialPosted.description")}</p>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.useOfMaterialPosted.title")}
+              </h2>
+              <p className="mb-4">
+                {t("sections.useOfMaterialPosted.description")}
+              </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.privacy.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.privacy.title")}
+              </h2>
               <p>{t("sections.privacy.description")}</p>
             </section>
 
+            {/* Products Banner */}
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.safety.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.safety.title")}
+              </h2>
               <p>{t("sections.safety.description")}</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.informationAndAvailability.title")}</h2>
-              <p className="mb-4">{t("sections.informationAndAvailability.items.0")}</p>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.informationAndAvailability.title")}
+              </h2>
+              <p className="mb-4">
+                {t("sections.informationAndAvailability.items.0")}
+              </p>
               <p>{t("sections.informationAndAvailability.items.1")}</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.links.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.links.title")}
+              </h2>
               <ol className="list-decimal pl-6 space-y-3">
                 <li>{t("sections.links.items.0")}</li>
                 <li>{t("sections.links.items.1")}</li>
@@ -130,7 +168,9 @@ export default async function TermsConditionsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">{t("sections.general.title")}</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                {t("sections.general.title")}
+              </h2>
               <ol className="list-decimal pl-6 space-y-3">
                 <li>{t("sections.general.items.0")}</li>
                 <li>{t("sections.general.items.1")}</li>
@@ -150,6 +190,9 @@ export default async function TermsConditionsPage() {
           </div>
         </div>
       </ErrorBoundary>
+
+      {/* Products Banner */}
+      <ProductsBanner size="970x240" affiliateCompany="amazon" />
     </main>
   );
 }

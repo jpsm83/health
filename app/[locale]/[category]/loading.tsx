@@ -3,8 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Loading() {
   // Configuration - easily adjustable
   // Change these values to customize the number of skeleton articles displayed
-  const FEATURED_ARTICLES_COUNT = 9; // Number of fixed articles in first section
-  const ARTICLES_PER_PAGE = 15; // Number of articles per page in second section
+  const FEATURED_ARTICLES_COUNT = 10; // Number of fixed articles in first section
+  const ARTICLES_PER_PAGE = 10; // Number of articles per page in second section
 
   // Examples:
   // FEATURED_ARTICLES_COUNT = 3, ARTICLES_PER_PAGE = 4 → First section: 3 skeletons, Second section: 4 skeletons

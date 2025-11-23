@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import DeleteArticleModal from "@/components/DeleteArticleModal";
 import SocialShare from "@/components/SocialShare";
+import ProductsBanner from "@/components/ProductsBanner";
 
 export default function Article({
   articleData,
@@ -100,7 +101,8 @@ export default function Article({
 
   // Track article views - one view per session (session managed by SessionTracker)
   useEffect(() => {
-    if (!articleData?._id || session?.user?.id === "68e6a79afb1932c067f96e30") return;
+    if (!articleData?._id || session?.user?.id === "68e6a79afb1932c067f96e30")
+      return;
 
     const sessionKey = `viewed_article_${articleData._id}`;
     if (sessionStorage.getItem(sessionKey)) return; // Already viewed in this session
@@ -244,252 +246,302 @@ export default function Article({
       : "";
 
   return (
-    <div className="flex flex-col h-full gap-8 md:gap-16 mt-8 md:mt-16">
-      {/* Article Content in 4 Containers */}
-      <div className="space-y-6 md:space-y-12">
-        {containers.map((container, containerIndex) => (
-          <div key={containerIndex}>
-            {/* Newsletter Signup in the 4th container (index 3) */}
-            {containerIndex === 3 && (
-              <div className="mb-8 md:mb-18">
-                <NewsletterSignup />
-              </div>
-            )}
-
-            <div className="overflow-hidden text-justify">
-              {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
-              <div className="relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] mb-8 md:mb-16 flex">
-                {/* First Image - Always visible */}
-                <div className="relative w-full lg:w-1/2 h-full">
-                  {container.firstImage &&
-                  container.firstImage.trim() !== "" ? (
-                    <Image
-                      src={container.firstImage}
-                      alt={`${
-                        articleData?.languages[0]?.content?.mainTitle ||
-                        "Article"
-                      }${t("article.imageAlt")}${
-                        container.firstImageIndex + 1
-                      }`}
-                      fill
-                      className="object-cover object-center"
-                      sizes="(max-width: 1024px) 100vw, (max-width: 1200px) 25vw, 25vw"
-                      priority
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <div className="flex flex-col items-center justify-center text-center text-gray-500">
-                        <ImageOff size={24} />
-                        <div className="text-sm font-medium">No Image</div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Second Image - Only visible on lg+ screens */}
-                <div className="relative hidden lg:block w-1/2 h-full">
-                  {container.secondImage &&
-                  container.secondImage.trim() !== "" ? (
-                    <Image
-                      src={container.secondImage}
-                      alt={`${
-                        articleData?.languages[0]?.content?.mainTitle ||
-                        "Article"
-                      }${t("article.imageAlt")}${
-                        container.secondImageIndex + 1
-                      }`}
-                      fill
-                      className="object-cover object-center"
-                      sizes="(max-width: 1200px) 25vw, 25vw"
-                      priority
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <div className="flex flex-col items-center justify-center text-center text-gray-500">
-                        <ImageOff size={24} />
-                        <div className="text-sm font-medium">No Image</div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Overlay Header for first container only */}
-                {containerIndex === 0 && (
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
-                    {/* Delete Button - Top Right */}
-                    {isAdmin() && (
-                      <div className="absolute top-4 right-4">
-                        <button
-                          onClick={() => setShowDeleteModal(true)}
-                          className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-700 text-white border-1 border-white transition-colors cursor-pointer rounded-full backdrop-blur-sm"
-                          title={t("article.actions.delete")}
-                        >
-                          <Trash2 className="size-4" />
-                        </button>
-                      </div>
-                    )}
-
-                    <h1
-                      className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default drop-shadow-2xl"
-                      style={{
-                        textShadow:
-                          "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)",
-                      }}
-                    >
-                      {articleData?.languages[0].content.mainTitle}
-                    </h1>
-                    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
-                      <div
-                        className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default drop-shadow-xl"
-                        style={{
-                          textShadow:
-                            "1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)",
-                        }}
-                      >
-                        <span>
-                          {t("article.info.category")} {articleData?.category}
-                        </span>
-                        <span>
-                          {t("article.info.published")}{" "}
-                          {formatDate(articleData?.createdAt)}
-                        </span>
-                        <span>
-                          {t("article.info.views")}{" "}
-                          {(articleData?.views || 0) + 97}
-                        </span>
-                        <span>
-                          {t("article.info.likes")} {likes + 79}
-                        </span>
-                        {/* Like Button at Top */}
-                        <div className="flex justify-center items-center">
-                          <Button
-                            onClick={toggleLike}
-                            className={`cursor-pointer bg-transparent border-none hover:bg-transparent hover:scale-110 transition-all duration-200 shadow-none ${
-                              isLiked ? "text-red-600" : "text-gray-200"
-                            }`}
-                          >
-                            <Heart
-                              className={`size-6 ${
-                                isLiked
-                                  ? "fill-red-600 stroke-white stroke-[1.5]"
-                                  : "stroke-current fill-none"
-                              }`}
-                            />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Social Share Buttons - Inside Hero Image at Bottom */}
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-xs shadow-2xl p-2 w-full">
-                      <SocialShare
-                        url={shareUrl}
-                        title={shareTitle}
-                        description={shareDescription}
-                        media={shareMedia}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Container Content */}
-              <div className="px-4 md:px-18">
-                {container.content && container.content.length > 0 ? (
-                  container.content.map((section, sectionIndex) => (
-                    <section key={sectionIndex} className="mb-8 last:mb-0">
-                      <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
-                        {section?.subTitle || "Untitled Section"}
-                      </h2>
-                      <div className="space-y-4">
-                        {section?.articleParagraphs &&
-                        section.articleParagraphs.length > 0 ? (
-                          section.articleParagraphs.map((paragraph, pIndex) => (
-                            <p
-                              key={pIndex}
-                              className="text-gray-700 text-lg leading-relaxed"
-                            >
-                              {paragraph}
-                            </p>
-                          ))
-                        ) : (
-                          <p className="text-gray-500 italic">
-                            No content available for this section.
-                          </p>
-                        )}
-                      </div>
-                    </section>
-                  ))
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500 italic">
-                      No content available for this article.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {/* Like Button at Bottom */}
-        <div className="flex justify-center items-center">
-          {/* Like Button at Bottom */}
-          <Button
-            onClick={toggleLike}
-            className={`cursor-pointer bg-transparent border-none hover:bg-transparent hover:scale-110 transition-all duration-200 shadow-none ${
-              isLiked ? "text-red-600" : "text-gray-200"
-            }`}
-          >
-            <Heart
-              className={`size-6 ${
-                isLiked
-                  ? "fill-red-600 stroke-white stroke-[1.5]"
-                  : "stroke-current fill-none"
-              }`}
-            />
-          </Button>
-        </div>
-
-        {/* Social Share Buttons - Above Comments */}
-        <div className="text-center">
-          <SocialShare
-            url={shareUrl}
-            title={shareTitle}
-            description={shareDescription}
-            media={shareMedia}
-          />
-        </div>
-
-        {/* Comments Section */}
-        <CommentsSection
-          articleId={articleData?._id?.toString() || ""}
-          comments={comments}
-          setComments={setComments}
-          hasUserCommented={hasUserCommented}
-          setHasUserCommented={setHasUserCommented}
+    <div className="mb-8 md:mb-16">
+      <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
+        {/* Products Banner */}
+        <ProductsBanner
+          size="970x90"
+          affiliateCompany="amazon"
+          category={articleData?.category || ""}
         />
 
-        {/* Category Carousels */}
-        <section>
-          <div className="text-center bg-gradient-left-right p-4 md:p-8">
-            <h2 className="text-3xl font-bold text-white">
-              {t("article.exploreMore")}
-            </h2>
+        {/* Article Content in 4 Containers */}
+        <div className="space-y-6 md:space-y-12">
+          {containers.map((container, containerIndex) => (
+            <div key={containerIndex}>
+              {/* Newsletter Signup in the 4th container (index 3) */}
+              {containerIndex === 3 && (
+                <div className="mb-8 md:mb-18">
+                  <NewsletterSignup />
+                </div>
+              )}
+
+              <div className="overflow-hidden text-justify">
+                {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
+                <div className="relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] mb-8 md:mb-16 flex">
+                  {/* First Image - Always visible */}
+                  <div className="relative w-full lg:w-1/2 h-full">
+                    {container.firstImage &&
+                    container.firstImage.trim() !== "" ? (
+                      <Image
+                        src={container.firstImage}
+                        alt={`${
+                          articleData?.languages[0]?.content?.mainTitle ||
+                          "Article"
+                        }${t("article.imageAlt")}${
+                          container.firstImageIndex + 1
+                        }`}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 1024px) 100vw, (max-width: 1200px) 25vw, 25vw"
+                        priority
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                          <ImageOff size={24} />
+                          <div className="text-sm font-medium">No Image</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Second Image - Only visible on lg+ screens */}
+                  <div className="relative hidden lg:block w-1/2 h-full">
+                    {container.secondImage &&
+                    container.secondImage.trim() !== "" ? (
+                      <Image
+                        src={container.secondImage}
+                        alt={`${
+                          articleData?.languages[0]?.content?.mainTitle ||
+                          "Article"
+                        }${t("article.imageAlt")}${
+                          container.secondImageIndex + 1
+                        }`}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 1200px) 25vw, 25vw"
+                        priority
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <div className="flex flex-col items-center justify-center text-center text-gray-500">
+                          <ImageOff size={24} />
+                          <div className="text-sm font-medium">No Image</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Overlay Header for first container only */}
+                  {containerIndex === 0 && (
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/30 flex flex-col justify-center items-center text-center px-4">
+                      {/* Delete Button - Top Right */}
+                      {isAdmin() && (
+                        <div className="absolute top-4 right-4">
+                          <button
+                            onClick={() => setShowDeleteModal(true)}
+                            className="flex items-center justify-center w-8 h-8 bg-white/20 hover:bg-red-700 text-white border-1 border-white transition-colors cursor-pointer rounded-full backdrop-blur-sm"
+                            title={t("article.actions.delete")}
+                          >
+                            <Trash2 className="size-4" />
+                          </button>
+                        </div>
+                      )}
+
+                      <h1
+                        className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 cursor-default drop-shadow-2xl"
+                        style={{
+                          textShadow:
+                            "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)",
+                        }}
+                      >
+                        {articleData?.languages[0].content.mainTitle}
+                      </h1>
+                      <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl">
+                        <div
+                          className="flex flex-wrap items-center justify-center font-semibold text-xs md:text-sm text-gray-200 gap-4 mb-2 md:mb-0 cursor-default drop-shadow-xl"
+                          style={{
+                            textShadow:
+                              "1px 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5)",
+                          }}
+                        >
+                          <span>
+                            {t("article.info.category")} {articleData?.category}
+                          </span>
+                          <span>
+                            {t("article.info.published")}{" "}
+                            {formatDate(articleData?.createdAt)}
+                          </span>
+                          <span>
+                            {t("article.info.views")}{" "}
+                            {(articleData?.views || 0) + 97}
+                          </span>
+                          <span>
+                            {t("article.info.likes")} {likes + 79}
+                          </span>
+                          {/* Like Button at Top */}
+                          <div className="flex justify-center items-center">
+                            <Button
+                              onClick={toggleLike}
+                              className={`cursor-pointer bg-transparent border-none hover:bg-transparent hover:scale-110 transition-all duration-200 shadow-none ${
+                                isLiked ? "text-red-600" : "text-gray-200"
+                              }`}
+                            >
+                              <Heart
+                                className={`size-6 ${
+                                  isLiked
+                                    ? "fill-red-600 stroke-white stroke-[1.5]"
+                                    : "stroke-current fill-none"
+                                }`}
+                              />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Social Share Buttons - Inside Hero Image at Bottom */}
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-xs shadow-2xl p-2 w-full">
+                        <SocialShare
+                          url={shareUrl}
+                          title={shareTitle}
+                          description={shareDescription}
+                          media={shareMedia}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Container Content */}
+                <div className="px-4 md:px-18">
+                  {container.content && container.content.length > 0 ? (
+                    container.content.map((section, sectionIndex) => {
+                      // Calculate global section index: sum of sections in previous containers + current sectionIndex
+                      const previousSectionsCount = containers
+                        .slice(0, containerIndex)
+                        .reduce((sum, c) => sum + (c.content?.length || 0), 0);
+                      const globalSectionIndex =
+                        previousSectionsCount + sectionIndex;
+
+                      return (
+                        <section
+                          key={sectionIndex}
+                          className="mb-8 last:mb-0 space-y-8"
+                        >
+                          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
+                            {section?.subTitle || "Untitled Section"}
+                          </h2>
+                          <div className="space-y-4">
+                            {section?.articleParagraphs &&
+                            section.articleParagraphs.length > 0 ? (
+                              section.articleParagraphs.map(
+                                (paragraph, pIndex) => (
+                                  <p
+                                    key={pIndex}
+                                    className="text-gray-700 text-lg leading-relaxed"
+                                  >
+                                    {paragraph}
+                                  </p>
+                                )
+                              )
+                            ) : (
+                              <p className="text-gray-500 italic">
+                                No content available for this section.
+                              </p>
+                            )}
+                          </div>
+
+                          {/* Products Banner */}
+                          <ProductsBanner
+                            size="970x240"
+                            affiliateCompany="amazon"
+                            category={articleData?.category || ""}
+                            product={
+                              articleData?.languages?.[0]?.salesProducts?.[
+                                globalSectionIndex
+                              ] || ""
+                            }
+                          />
+                        </section>
+                      );
+                    })
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-gray-500 italic">
+                        No content available for this article.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Like Button at Bottom */}
+          <div className="flex justify-center items-center">
+            {/* Like Button at Bottom */}
+            <Button
+              onClick={toggleLike}
+              className={`cursor-pointer bg-transparent border-none hover:bg-transparent hover:scale-110 transition-all duration-200 shadow-none ${
+                isLiked ? "text-red-600" : "text-gray-200"
+              }`}
+            >
+              <Heart
+                className={`size-6 ${
+                  isLiked
+                    ? "fill-red-600 stroke-white stroke-[1.5]"
+                    : "stroke-current fill-none"
+                }`}
+              />
+            </Button>
           </div>
 
-          <CategoryCarousel category={articleData?.category || ""} />
-        </section>
+          {/* Social Share Buttons - Above Comments */}
+          <div className="text-center">
+            <SocialShare
+              url={shareUrl}
+              title={shareTitle}
+              description={shareDescription}
+              media={shareMedia}
+            />
+          </div>
+
+          {/* Comments Section */}
+          <CommentsSection
+            articleId={articleData?._id?.toString() || ""}
+            comments={comments}
+            setComments={setComments}
+            hasUserCommented={hasUserCommented}
+            setHasUserCommented={setHasUserCommented}
+          />
+
+          {/* Products Banner */}
+          <ProductsBanner
+            size="970x90"
+            affiliateCompany="amazon"
+            category={articleData?.category || ""}
+          />
+
+          {/* Category Carousels */}
+          <section>
+            <div className="text-center bg-gradient-left-right p-4 md:p-8">
+              <h2 className="text-3xl font-bold text-white">
+                {t("article.exploreMore")}
+              </h2>
+            </div>
+
+            <CategoryCarousel category={articleData?.category || ""} />
+          </section>
+        </div>
+
+        {/* Delete Confirmation Modal */}
+        <DeleteArticleModal
+          isOpen={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+          article={articleData || null}
+          onSuccess={handleDeleteSuccess}
+          userId={session?.user?.id || ""}
+          isAdmin={session?.user?.role === "admin"}
+        />
       </div>
 
-      {/* Delete Confirmation Modal */}
-      <DeleteArticleModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        article={articleData || null}
-        onSuccess={handleDeleteSuccess}
-        userId={session?.user?.id || ""}
-        isAdmin={session?.user?.role === "admin"}
+      {/* Products Banner */}
+      <ProductsBanner
+        size="970x240"
+        affiliateCompany="amazon"
+        category={articleData?.category || ""}
+        product={articleData?.languages?.[0]?.salesProducts?.[0] || ""}
       />
     </div>
   );

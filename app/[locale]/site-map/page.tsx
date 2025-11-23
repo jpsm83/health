@@ -4,17 +4,18 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { mainCategories } from "@/lib/constants";
-import { 
-  Home, 
-  User, 
-  BookOpen, 
-  Plus, 
-  Mail, 
-  Shield, 
+import {
+  Home,
+  User,
+  BookOpen,
+  Plus,
+  Mail,
+  Shield,
   FileText,
   Globe,
-  HelpCircle
+  HelpCircle,
 } from "lucide-react";
+import ProductsBanner from "@/components/ProductsBanner";
 
 export async function generateMetadata({
   params,
@@ -31,8 +32,11 @@ export default async function SiteMapPage() {
   const t = await getTranslations("siteMap");
   return (
     <main className="container mx-auto px-4 py-8">
+      {/* Products Banner */}
+      <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
       <ErrorBoundary context={"SiteMap component"}>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto mt-8 md:mt-16 mb-8 md:mb-16">
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-4">
@@ -45,7 +49,6 @@ export default async function SiteMapPage() {
 
           {/* Main Navigation Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            
             {/* Home & Core Pages */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
@@ -54,22 +57,37 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.corePages.home")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.corePages.homeDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.corePages.homeDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/about" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/about"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.corePages.about")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.corePages.aboutDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.corePages.aboutDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/search" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/search"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.corePages.search")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.corePages.searchDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.corePages.searchDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -83,8 +101,8 @@ export default async function SiteMapPage() {
               <ul className="space-y-3">
                 {mainCategories.map((category) => (
                   <li key={category}>
-                    <Link 
-                      href={`/${category}`} 
+                    <Link
+                      href={`/${category}`}
                       className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
                     >
                       {t(`sections.articleCategories.${category}`)}
@@ -105,34 +123,59 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/signin" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/signin"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.userAccount.signIn")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.signInDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.userAccount.signInDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/signup" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/signup"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.userAccount.signUp")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.signUpDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.userAccount.signUpDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/profile" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/profile"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.userAccount.profile")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.profileDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.userAccount.profileDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/dashboard" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/dashboard"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.userAccount.dashboard")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.dashboardDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.userAccount.dashboardDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/favorites" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/favorites"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.userAccount.favorites")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.userAccount.favoritesDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.userAccount.favoritesDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -145,10 +188,15 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/create-article" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/create-article"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.contentCreation.createArticle")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.contentCreation.createArticleDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.contentCreation.createArticleDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -161,16 +209,26 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/confirm-newsletter" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/confirm-newsletter"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.newsletter.confirmNewsletter")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.newsletter.confirmNewsletterDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.newsletter.confirmNewsletterDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/unsubscribe" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/unsubscribe"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.newsletter.unsubscribe")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.newsletter.unsubscribeDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.newsletter.unsubscribeDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -183,22 +241,37 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/forgot-password" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/forgot-password"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.security.forgotPassword")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.security.forgotPasswordDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.security.forgotPasswordDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/reset-password" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/reset-password"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.security.resetPassword")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.security.resetPasswordDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.security.resetPasswordDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/confirm-email" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/confirm-email"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.security.confirmEmail")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.security.confirmEmailDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.security.confirmEmailDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -211,22 +284,37 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/privacy-policy"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.legal.privacyPolicy")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.legal.privacyPolicyDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.legal.privacyPolicyDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/terms-conditions" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/terms-conditions"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.legal.termsConditions")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.legal.termsConditionsDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.legal.termsConditionsDescription")}
+                  </span>
                 </li>
                 <li>
-                  <Link href="/cookie-policy" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/cookie-policy"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.legal.cookiePolicy")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.legal.cookiePolicyDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.legal.cookiePolicyDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -242,12 +330,24 @@ export default async function SiteMapPage() {
                   {t("sections.languageSupport.description")}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.english")}</span>
-                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.portuguese")}</span>
-                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.spanish")}</span>
-                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.french")}</span>
-                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.german")}</span>
-                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">{t("sections.languageSupport.italian")}</span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">
+                    {t("sections.languageSupport.english")}
+                  </span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">
+                    {t("sections.languageSupport.portuguese")}
+                  </span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">
+                    {t("sections.languageSupport.spanish")}
+                  </span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">
+                    {t("sections.languageSupport.french")}
+                  </span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">
+                    {t("sections.languageSupport.german")}
+                  </span>
+                  <span className="px-2 py-1 bg-gradient-left-right text-white text-xs rounded">
+                    {t("sections.languageSupport.italian")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -260,24 +360,29 @@ export default async function SiteMapPage() {
               </h2>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/site-map" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/site-map"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     {t("sections.helpSupport.siteMap")}
                   </Link>
-                  <span className="text-gray-500 text-sm ml-2">- {t("sections.helpSupport.siteMapDescription")}</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    - {t("sections.helpSupport.siteMapDescription")}
+                  </span>
                 </li>
               </ul>
             </div>
           </div>
 
-
           {/* Footer Note */}
           <div className="text-center text-gray-500 text-sm">
-            <p>
-              {t("footer.description")}
-            </p>
+            <p>{t("footer.description")}</p>
           </div>
         </div>
       </ErrorBoundary>
+
+      {/* Products Banner */}
+      <ProductsBanner size="970x240" affiliateCompany="amazon" />
     </main>
   );
 }

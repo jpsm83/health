@@ -41,6 +41,12 @@
     "loadMore": "Charger plus",
     "errorLoading": "Erreur lors du chargement des articles:"
   },
+  "productsBanner": {
+    "salesNow": "Promotions MAINTENANT... Ne Manquez Pas Nos Meilleures Offres sur {category}!",
+    "salesNowNoCategory": "Promotions MAINTENANT... Ne Manquez Pas Nos Meilleures Offres!",
+    "grabDealsProduct": "Profitez de Ces Offres sur {product} Avant qu'elles Ne Disparaissent!",
+    "grabDealsCategory": "Profitez des Meilleures Offres sur {category} Avant qu'elles Ne Disparaissent!"
+  },
   "articleCard": {
     "readTime": "{time} min de lecture",
     "noContentAvailable": "Aucun contenu disponible",

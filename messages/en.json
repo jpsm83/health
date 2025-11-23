@@ -43,6 +43,12 @@
     "failedToFetchArticles": "Failed to fetch articles",
     "failedToFetchMoreArticles": "Failed to fetch more articles"
   },
+  "productsBanner": {
+    "salesNow": "Sales On NOW... Don't Miss Out on Our Best Deals on {category}!",
+    "salesNowNoCategory": "Sales On NOW... Don't Miss Out on Our Best Deals!",
+    "grabDealsProduct": "Grab These Deals on {product} Before They're Gone!",
+    "grabDealsCategory": "Grab Best Deals on {category} Before They're Gone!"
+  },
   "articleCard": {
     "readTime": "{time} min read",
     "noContentAvailable": "No content available",

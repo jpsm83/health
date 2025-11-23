@@ -1,5 +1,6 @@
 import { ISerializedArticle } from "@/types/article";
 import ArticleCard from "./ArticleCard";
+import ProductsBanner from "./ProductsBanner";
 import {
   Carousel,
   CarouselContent,
@@ -18,7 +19,10 @@ interface CategoryCarouselProps {
   initialArticles?: ISerializedArticle[];
 }
 
-export default function CategoryCarousel({ category, initialArticles = [] }: CategoryCarouselProps) {
+export default function CategoryCarousel({
+  category,
+  initialArticles = [],
+}: CategoryCarouselProps) {
   const t = useTranslations("categoryCarousel");
   const locale = useLocale();
 
@@ -35,7 +39,7 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
   // Initialize with pre-fetched articles or fetch if not provided
   useEffect(() => {
     if (initialized.current) return;
-    
+
     if (initialArticles !== undefined && initialArticles.length > 0) {
       // Use pre-fetched articles (only if not empty)
       setArticles(initialArticles);
@@ -57,7 +61,7 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
             order: "desc",
             locale,
           });
-          
+
           // Check if fetchedArticles is valid and has data property
           if (!fetchedArticles || !fetchedArticles.data) {
             console.warn(`No data returned for category: ${category}`);
@@ -65,12 +69,16 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
             setHasMore(false);
             return;
           }
-          
+
           // Filter out any duplicate articles by ID
-          const uniqueArticles = fetchedArticles.data.filter((article, index, self) => 
-            index === self.findIndex(a => a._id?.toString() === article._id?.toString())
+          const uniqueArticles = fetchedArticles.data.filter(
+            (article, index, self) =>
+              index ===
+              self.findIndex(
+                (a) => a._id?.toString() === article._id?.toString()
+              )
           );
-          
+
           setArticles(uniqueArticles);
           setHasMore(uniqueArticles.length >= limit);
         } catch (err) {
@@ -78,14 +86,14 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
             err instanceof Error ? err.message : t("failedToFetchArticles");
           setError(message);
           console.error(`Error fetching ${category} articles:`, err);
-          
+
           // Log mobile-specific debugging info
           console.error("Mobile carousel error context:", {
             category,
             locale,
             userAgent: navigator?.userAgent,
             timestamp: new Date().toISOString(),
-            error: err instanceof Error ? err.message : 'Unknown error'
+            error: err instanceof Error ? err.message : "Unknown error",
           });
         } finally {
           setLoading(false);
@@ -123,11 +131,13 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
       } else {
         // Filter out any duplicate articles by ID
         setArticles((prev) => {
-          const existingIds = new Set(prev.map(article => article._id?.toString()));
-          const uniqueNewArticles = newArticles.data.filter(article => 
-            !existingIds.has(article._id?.toString())
+          const existingIds = new Set(
+            prev.map((article) => article._id?.toString())
           );
-          
+          const uniqueNewArticles = newArticles.data.filter(
+            (article) => !existingIds.has(article._id?.toString())
+          );
+
           return [...prev, ...uniqueNewArticles];
         });
       }
@@ -168,17 +178,15 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
       <hr className="my-4 border-1 border-gray-200" />
       {/* Category Header */}
       <div className="flex items-center justify-between mb-6 px-6">
-        <div>
-          <a
-            href={`/${category}`}
-            className="text-2xl font-bold text-white capitalize transition-colors duration-200 cursor-pointer"
-            style={{
-              textShadow: "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
-            }}
-          >
-            {categoryTitle}
-          </a>
-        </div>
+        <a
+          href={`/${category}`}
+          className="text-2xl font-bold text-white capitalize transition-colors duration-200 cursor-pointer"
+          style={{
+            textShadow: "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
+          }}
+        >
+          {categoryTitle}
+        </a>
         <div className="flex items-center gap-4">
           <a
             href={`/${category}`}
@@ -208,25 +216,54 @@ export default function CategoryCarousel({ category, initialArticles = [] }: Cat
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {articles.map((article, index) => (
-              <CarouselItem
-                key={`${article._id?.toString() || "unknown"}-${index}`}
-                className="pl-2 md:pl-4 basis-64 flex-shrink-0"
-              >
-                <ArticleCard article={article} />
-              </CarouselItem>
-            ))}
+          <CarouselContent className="-ml-2 md:-ml-4 pb-4">
+            {articles
+              .map((article, index) => {
+                const items = [];
+
+                // Add article card
+                items.push(
+                  <CarouselItem
+                    key={`article-${
+                      article._id?.toString() || "unknown"
+                    }-${index}`}
+                    className="pl-2 md:pl-4 basis-64 flex-shrink-0"
+                  >
+                    <ArticleCard article={article} />
+                  </CarouselItem>
+                );
+
+                // Add banner after every 5 articles (after index 4, 9, 14, etc.)
+                if ((index + 1) % 5 === 0 && index < articles.length - 1) {
+                  items.push(
+                    <CarouselItem
+                      key={`banner-${index}`}
+                      className="pl-2 md:pl-4 basis-64 flex-shrink-0"
+                    >
+                      <div className="h-full">
+                        <ProductsBanner
+                          size="240x390"
+                          category={category}
+                          affiliateCompany="amazon"
+                        />
+                      </div>
+                    </CarouselItem>
+                  );
+                }
+
+                return items;
+              })
+              .flat()}
           </CarouselContent>
 
           {/* Navigation Buttons */}
           <CarouselPrevious
-            className="left-0 top-20 rounded-none border-none h-full bg-gradient-to-r from-[#d1d5db] to-transparent hover:bg-gradient-to-r hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
+            className="left-0 rounded-none border-none h-full bg-gradient-to-r from-[#d1d5db] to-transparent hover:bg-gradient-to-r hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
 "
           />
 
           <CarouselNext
-            className="right-0 top-20 rounded-none border-none h-full bg-gradient-to-l from-[#d1d5db] to-transparent hover:bg-gradient-to-l hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
+            className="right-0 rounded-none border-none h-full bg-gradient-to-l from-[#d1d5db] to-transparent hover:bg-gradient-to-l hover:from-[#a9adb1] hover:to-transparent transition-colors duration-500 ease-in-out
 "
           />
         </Carousel>
