@@ -5,7 +5,12 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ISerializedArticle } from "@/types/article";
 import { mainCategories } from "@/lib/constants";
-import ProductsBanner from "@/components/ProductsBanner";
+
+const ProductsBanner = dynamic(
+  () => import("@/components/ProductsBanner"),
+  { ssr: false }
+);
+
 const FeaturedArticles = dynamic(
   () => import("@/components/FeaturedArticles"),
   { loading: () => null }

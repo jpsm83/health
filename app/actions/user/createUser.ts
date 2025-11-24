@@ -1,7 +1,6 @@
 "use server";
 
 import { ICreateUserParams, ICreateUserResponse } from "@/types/user";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function createUser(
   params: ICreateUserParams

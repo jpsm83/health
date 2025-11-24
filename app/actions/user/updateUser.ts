@@ -4,8 +4,7 @@ import { IUpdateUserParamsRequired, IUpdateUserResponse } from "@/types/user";
 
 export async function updateUser(
   userId: string,
-  params: IUpdateUserParamsRequired,
-  sessionUserId: string
+  params: IUpdateUserParamsRequired
 ): Promise<IUpdateUserResponse> {
   try {
     // For file uploads, we need to use FormData

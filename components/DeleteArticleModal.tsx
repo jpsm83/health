@@ -12,8 +12,6 @@ interface DeleteArticleModalProps {
   onClose: () => void;
   article: ISerializedArticle | null;
   onSuccess?: () => void;
-  userId: string;
-  isAdmin: boolean;
 }
 
 export default function DeleteArticleModal({
@@ -21,8 +19,6 @@ export default function DeleteArticleModal({
   onClose,
   article,
   onSuccess,
-  userId,
-  isAdmin,
 }: DeleteArticleModalProps) {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const t = useTranslations("article");
@@ -33,16 +29,14 @@ export default function DeleteArticleModal({
 
   // Handle article deletion
   const handleDeleteArticle = async () => {
-    if (!userId || !article?._id) {
+    if (!article?._id) {
       return;
     }
 
     setIsDeleting(true);
     try {
       const result = await deleteArticle(
-        article._id.toString(),
-        userId,
-        isAdmin
+        article._id.toString()
       );
 
       if (result.success) {

@@ -160,7 +160,6 @@ export default function CommentsSection({
       const result = await deleteComment({
         commentId,
         userId: session?.user?.id || "",
-        isAdmin: session?.user?.role === "admin",
       });
       if (result.success) {
         setComments((prev) =>

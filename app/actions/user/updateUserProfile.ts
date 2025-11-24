@@ -6,8 +6,7 @@ import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function updateUserProfile(
   userId: string | { toString(): string },
-  profileData: IUpdateProfileData,
-  sessionUserId: string
+  profileData: IUpdateProfileData
 ): Promise<IApiResponse<ISerializedUser>> {
   try {
     // Convert userId to string if it's an object

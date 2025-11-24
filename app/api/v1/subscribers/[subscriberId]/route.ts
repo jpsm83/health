@@ -11,7 +11,6 @@ import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import { ISerializedSubscriber } from "@/types/subscriber";
 
 // Helper function to serialize MongoDB subscriber object
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function serializeSubscriber(subscriber: unknown): ISerializedSubscriber {
   const s = subscriber as {
     _id?: { toString: () => string };
@@ -34,7 +33,7 @@ function serializeSubscriber(subscriber: unknown): ISerializedSubscriber {
     unsubscribeToken: s.unsubscribeToken,
     userId: s.userId?.toString() || null,
     subscriptionPreferences: {
-      categories: s.subscriptionPreferences?.categories || [],
+      categories: (s.subscriptionPreferences?.categories as string[]) || [],
       subscriptionFrequencies:
         s.subscriptionPreferences?.subscriptionFrequencies || "weekly",
     },
@@ -134,7 +133,7 @@ export const PATCH = async (
     // Validate categories
     if (
       !Array.isArray(subscriptionPreferences.categories) ||
-      !subscriptionPreferences.categories.every((cat) =>
+      !subscriptionPreferences.categories.every((cat: string) =>
         mainCategories.includes(cat)
       )
     ) {

@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
 		optimizePackageImports: ['lucide-react', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
 		// Disable partial pre-rendering to fix metadata issues
 		ppr: false,
+		// Fix stream handling issue in Next.js 15.5+
+		serverActions: {
+			bodySizeLimit: '2mb',
+		},
 	},
 	// External packages for server components
 	serverExternalPackages: ['mongoose'],

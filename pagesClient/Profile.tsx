@@ -455,8 +455,7 @@ export default function Profile({ initialUser }: ProfileProps) {
       // Use server action directly - this works in client components!
       const result = await updateUserProfile(
         session.user.id,
-        updateData,
-        session.user.id
+        updateData
       );
 
       if (result?.success) {

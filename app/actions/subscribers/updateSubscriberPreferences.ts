@@ -8,8 +8,7 @@ import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function updateSubscriberPreferences(
   subscriberId: string,
-  params: IUpdateSubscriberPreferencesParams,
-  sessionUserId: string
+  params: IUpdateSubscriberPreferencesParams
 ): Promise<IUpdateSubscriberPreferencesResponse> {
   try {
     const { subscriptionPreferences } = params;
@@ -21,10 +20,6 @@ export async function updateSubscriberPreferences(
     }>(`/api/v1/subscribers/${subscriberId}`, {
       method: "PATCH",
       body: { subscriptionPreferences },
-      headers: {
-        // Note: sessionUserId is validated in the route via auth()
-        // This is just for reference - the route will get the session itself
-      },
     });
 
     if (!result.success) {

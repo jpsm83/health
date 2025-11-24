@@ -22,7 +22,6 @@ function generateToken(): string {
 }
 
 // Helper function to serialize MongoDB user object
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function serializeUser(user: unknown): ISerializedUser {
   const u = user as {
     _id?: { toString: () => string };

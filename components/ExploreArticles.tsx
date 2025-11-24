@@ -1,3 +1,5 @@
+"use client";
+
 import ArticleCard from "./ArticleCard";
 import { ISerializedArticle } from "@/types/article";
 

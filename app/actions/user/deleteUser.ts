@@ -4,8 +4,7 @@ import { IDeleteUserResponse } from "@/types/user";
 import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function deleteUser(
-  userId: string,
-  sessionUserId: string
+  userId: string
 ): Promise<IDeleteUserResponse> {
   try {
     const result = await internalFetch<{ message: string }>(

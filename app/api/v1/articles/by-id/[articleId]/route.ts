@@ -135,60 +135,6 @@ export const PATCH = async (
       .getAll("articleImageFiles")
       .filter((entry): entry is File => entry instanceof File);
 
-    // Prepare update parameters
-    const updateParams: UpdateArticleParams = {
-      articleId,
-      userId: "",
-      isAdmin: false,
-    };
-
-    // Determine user ID and admin status
-    if (session) {
-      updateParams.userId = session.user.id;
-      updateParams.isAdmin = session.user.role === "admin";
-    } else {
-      // For API key authentication, use the hardcoded system user ID (same as create endpoint)
-      updateParams.userId = "68e6a79afb1932c067f96e30";
-      updateParams.isAdmin = true; // API key users are treated as admin
-    }
-
-    // Add optional fields if provided
-    if (category) {
-      updateParams.category = category;
-    }
-
-    if (languagesRaw) {
-      try {
-        const languages = JSON.parse(
-          languagesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-        );
-        updateParams.languages = languages;
-      } catch (error) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Invalid languages format: ${error}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-    }
-
-    if (imagesContextRaw) {
-      try {
-        const imagesContext = JSON.parse(
-          imagesContextRaw.replace(/,\s*}/g, "}").replace(/\s+/g, " ").trim()
-        );
-        updateParams.imagesContext = imagesContext;
-      } catch (error) {
-        return new NextResponse(
-          JSON.stringify({
-            message: `Invalid imagesContext format: ${error}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
-        );
-      }
-    }
-
     // Validate articleId format
     if (!mongoose.Types.ObjectId.isValid(articleId)) {
       return NextResponse.json(

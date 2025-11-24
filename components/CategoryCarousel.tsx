@@ -1,8 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { ISerializedArticle } from "@/types/article";
 import ArticleCard from "./ArticleCard";
-import ProductsBanner from "./ProductsBanner";
+
+const ProductsBanner = dynamic(
+  () => import("./ProductsBanner"),
+  { ssr: false }
+);
 import {
   Carousel,
   CarouselContent,

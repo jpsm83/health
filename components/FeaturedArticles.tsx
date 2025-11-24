@@ -1,6 +1,13 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import ArticleCard from "./ArticleCard";
 import { ISerializedArticle } from "@/types/article";
-import ProductsBanner from "./ProductsBanner";
+
+const ProductsBanner = dynamic(
+  () => import("./ProductsBanner"),
+  { ssr: false }
+);
 
 // Simple loading skeleton for mobile
 const LoadingSkeleton = () => (

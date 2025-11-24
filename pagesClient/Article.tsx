@@ -531,8 +531,6 @@ export default function Article({
           onClose={() => setShowDeleteModal(false)}
           article={articleData || null}
           onSuccess={handleDeleteSuccess}
-          userId={session?.user?.id || ""}
-          isAdmin={session?.user?.role === "admin"}
         />
       </div>
 

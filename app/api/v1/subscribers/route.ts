@@ -8,7 +8,6 @@ import * as nodemailer from "nodemailer";
 import { mainCategories } from "@/lib/constants";
 
 // Helper function to serialize MongoDB subscriber object
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function serializeSubscriber(subscriber: unknown): ISerializedSubscriber {
   const s = subscriber as {
     _id?: { toString: () => string };
@@ -31,7 +30,7 @@ function serializeSubscriber(subscriber: unknown): ISerializedSubscriber {
     unsubscribeToken: s.unsubscribeToken,
     userId: s.userId?.toString() || null,
     subscriptionPreferences: {
-      categories: s.subscriptionPreferences?.categories || [],
+      categories: (s.subscriptionPreferences?.categories as string[]) || [],
       subscriptionFrequencies:
         s.subscriptionPreferences?.subscriptionFrequencies || "weekly",
     },

@@ -314,8 +314,6 @@ export default function Dashboard({ articles, weeklyStats, locale }: DashboardPr
         }}
         article={articleToDelete}
         onSuccess={handleDeleteSuccess}
-        userId={session?.user?.id || ""}
-        isAdmin={session?.user?.role === "admin"}
       />
 
       {/* View JSON Modal */}

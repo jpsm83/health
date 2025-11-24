@@ -12,10 +12,8 @@ import { IUser, IUserPreferences } from "@/types/user";
 import { roles } from "@/lib/constants";
 
 // Helper function to serialize MongoDB user object with subscription preferences
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function serializeUser(user: unknown, subscriptionPreferences?: unknown): ISerializedUser {
   // Helper function to ensure plain object conversion
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const toPlainObject = (obj: unknown): unknown => {
     if (obj === null || obj === undefined) return obj;
     if (typeof obj !== "object") return obj;
@@ -126,9 +124,10 @@ export const GET = async (
 
     // Get subscription preferences if user has a subscription
     let subscriptionPreferences = null;
-    if (user && !Array.isArray(user) && (user as { subscriptionId?: unknown }).subscriptionId) {
+    const userWithSubscription = user as unknown as { subscriptionId?: unknown };
+    if (user && !Array.isArray(user) && userWithSubscription.subscriptionId) {
       const subscriber = await Subscriber.findById(
-        (user as { subscriptionId: unknown }).subscriptionId
+        userWithSubscription.subscriptionId
       )
         .select("subscriptionPreferences")
         .lean();
@@ -136,13 +135,12 @@ export const GET = async (
       if (
         subscriber &&
         !Array.isArray(subscriber) &&
-        (subscriber as { subscriptionPreferences?: unknown }).subscriptionPreferences
+        (subscriber as unknown as { subscriptionPreferences?: unknown }).subscriptionPreferences
       ) {
         // Ensure plain object conversion
+        const subscriberWithPrefs = subscriber as unknown as { subscriptionPreferences: unknown };
         subscriptionPreferences = JSON.parse(
-          JSON.stringify(
-            (subscriber as { subscriptionPreferences: unknown }).subscriptionPreferences
-          )
+          JSON.stringify(subscriberWithPrefs.subscriptionPreferences)
         );
       }
     }

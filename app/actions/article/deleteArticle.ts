@@ -9,9 +9,7 @@ export interface IDeleteArticleResponse {
 }
 
 export async function deleteArticle(
-  articleId: string,
-  userId: string,
-  isAdmin: boolean = false
+  articleId: string
 ): Promise<IDeleteArticleResponse> {
   try {
     const result = await internalFetch<{

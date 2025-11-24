@@ -8,7 +8,7 @@ export const deleteComment = async (params: IDeleteCommentParams): Promise<{
   error?: string;
 }> => {
   try {
-    const { commentId, userId, isAdmin = false } = params;
+    const { commentId, userId } = params;
 
     if (!userId) {
       throw new Error("You must be signed in to delete comments");

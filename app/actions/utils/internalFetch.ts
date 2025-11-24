@@ -54,11 +54,26 @@ export async function internalFetch<T = unknown>(
     const response = await fetch(url, fetchOptions);
     
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ message: "Unknown error" }));
+      const text = await response.text();
+      let errorData;
+      try {
+        errorData = JSON.parse(text);
+      } catch {
+        errorData = { message: text || "Unknown error" };
+      }
       throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
     }
     
-    return await response.json();
+    const text = await response.text();
+    if (!text) {
+      return {} as T;
+    }
+    
+    try {
+      return JSON.parse(text) as T;
+    } catch {
+      return text as T;
+    }
   } catch (error) {
     if (error instanceof Error) {
       throw error;

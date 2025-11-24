@@ -78,7 +78,6 @@ export interface IUpdateCommentParams {
 export interface IDeleteCommentParams {
   commentId: string;
   userId: string;
-  isAdmin?: boolean;
 }
 
 // Parameters for liking a comment

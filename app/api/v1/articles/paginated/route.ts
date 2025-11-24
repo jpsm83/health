@@ -7,11 +7,9 @@ import { fieldProjections, FieldProjectionType } from "@/app/api/utils/fieldProj
 
 // imported models
 import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user";
 
 // imported interfaces
 import {
-  IGetArticlesParams,
   IArticleLean,
   ISerializedArticle,
   ILanguageSpecific,

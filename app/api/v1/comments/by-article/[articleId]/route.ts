@@ -100,7 +100,15 @@ export const GET = async (
             const reportObj = report as Record<string, unknown>;
             return {
               userId: (reportObj.userId as { toString: () => string }).toString(),
-              reason: reportObj.reason as string,
+              reason: reportObj.reason as
+                | "bad_language"
+                | "racist"
+                | "spam"
+                | "harassment"
+                | "inappropriate_content"
+                | "false_information"
+                | "other",
+              reportedAt: (reportObj.reportedAt as Date)?.toISOString() || new Date().toISOString(),
             };
           }) || [],
           createdAt: (comment.createdAt as Date)?.toISOString() || new Date().toISOString(),
