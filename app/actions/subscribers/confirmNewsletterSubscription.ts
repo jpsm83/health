@@ -1,15 +1,6 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import Subscriber from "@/app/api/models/subscriber";
-
-// Helper function to generate unsubscribe token
-function generateUnsubscribeToken(): string {
-  return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  );
-}
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export interface NewsletterConfirmResult {
   success: boolean;
@@ -30,36 +21,21 @@ export default async function confirmNewsletterSubscriptionAction(
       };
     }
 
-    await connectDb();
-
-    const subscriber = await Subscriber.findOne({
-      email: email.toLowerCase(),
-      verificationToken: token,
+    const result = await internalFetch<{
+      success: boolean;
+      message: string;
+      error?: string;
+    }>("/api/v1/subscribers/confirm-newsletter-subscription", {
+      method: "POST",
+      body: { token, email },
     });
 
-    if (!subscriber) {
-      return {
-        success: false,
-        message: "Invalid or expired confirmation link!",
-        error: "INVALID_TOKEN",
-      };
-    }
-
-    // Mark email as verified and clear verification token
-    subscriber.emailVerified = true;
-    subscriber.verificationToken = undefined;
-    subscriber.unsubscribeToken = generateUnsubscribeToken();
-    await subscriber.save();
-
-    return {
-      success: true,
-      message: "Newsletter subscription confirmed successfully!",
-    };
+    return result;
   } catch (error) {
     console.error("Newsletter confirmation error:", error);
     return {
       success: false,
-      message: "Something went wrong. Please try again.",
+      message: error instanceof Error ? error.message : "Something went wrong. Please try again.",
       error: "CONFIRMATION_FAILED",
     };
   }

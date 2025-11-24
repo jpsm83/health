@@ -1,3 +1,5 @@
+"use client";
+
 import { ISerializedArticle } from "@/types/article";
 import ArticleCard from "./ArticleCard";
 import ProductsBanner from "./ProductsBanner";
@@ -60,6 +62,8 @@ export default function CategoryCarousel({
             sort: "createdAt",
             order: "desc",
             locale,
+            fields: "featured", // Only fetch fields needed for ArticleCard
+            skipCount: true,    // Skip expensive countDocuments
           });
 
           // Check if fetchedArticles is valid and has data property
@@ -124,6 +128,7 @@ export default function CategoryCarousel({
         order: "desc",
         excludeIds,
         locale,
+        fields: "featured", // Only fetch fields needed for ArticleCard
       });
 
       if (newArticles.data.length === 0) {

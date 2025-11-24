@@ -1,7 +1,6 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 interface WeeklyStats {
   totalArticles: number;
@@ -12,24 +11,17 @@ interface WeeklyStats {
 
 export async function getWeeklyStats(): Promise<WeeklyStats> {
   try {
-    await connectDb();
+    const result = await internalFetch<{
+      success: boolean;
+      data: WeeklyStats;
+      message: string;
+    }>("/api/v1/articles/stats");
 
-    // Get total articles count
-    const totalArticles = await Article.countDocuments({});
-
-    // Get ALL articles to calculate total stats
-    const allArticles = await Article.find({}).select('views likes commentsCount');
-
-    // Calculate total stats
-    const totalViews = allArticles.reduce((sum, article) => sum + (article.views || 0), 0);
-    const totalLikes = allArticles.reduce((sum, article) => sum + (article.likes?.length || 0), 0);
-    const totalComments = allArticles.reduce((sum, article) => sum + (article.commentsCount || 0), 0);
-
-    return {
-      totalArticles,
-      totalViews,
-      totalLikes,
-      totalComments,
+    return result.data || {
+      totalArticles: 0,
+      totalViews: 0,
+      totalLikes: 0,
+      totalComments: 0,
     };
   } catch (error) {
     console.error("Error fetching stats:", error);

@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
-import { deleteComment } from "@/app/actions/comment/deleteComment";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
+import connectDb from "@/app/api/db/connectDb";
+import Comment from "@/app/api/models/comment";
+import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 // @desc    Delete comment
 // @route   DELETE /api/v1/comments/[commentId]
@@ -26,37 +29,73 @@ export const DELETE = async (
     const { commentId } = await context.params;
 
     if (!commentId) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           success: false,
           message: "Comment ID is required",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
-    const result = await deleteComment({
-      commentId,
-      userId: session.user.id,
-      isAdmin: session.user.role === "admin",
+    await connectDb();
+
+    // Find the comment
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return NextResponse.json(
+        { success: false, message: "Comment not found" },
+        { status: 404 }
+      );
+    }
+
+    // Check permissions
+    const isAdmin = session.user.role === "admin";
+    if (!isAdmin && comment.userId.toString() !== session.user.id) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "You don't have permission to delete this comment",
+        },
+        { status: 403 }
+      );
+    }
+
+    // Permanently delete the comment
+    const deletedComment = await Comment.findByIdAndDelete(commentId);
+
+    if (!deletedComment) {
+      return NextResponse.json(
+        { success: false, message: "Failed to delete comment" },
+        { status: 500 }
+      );
+    }
+
+    // Update article's comment count
+    await Article.findByIdAndUpdate(comment.articleId, {
+      $inc: { commentsCount: -1 },
     });
 
-    if (!result.success) {
-      return new NextResponse(
-        JSON.stringify({
-          success: false,
-          message: result.error || "Failed to delete comment",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
+    // Check if user has any other comments on this article
+    const otherComments = await Comment.findOne({
+      articleId: comment.articleId,
+      userId: comment.userId,
+      _id: { $ne: commentId },
+    });
+
+    // If no other comments exist, remove article from user's commentedArticles array
+    if (!otherComments) {
+      await User.findByIdAndUpdate(comment.userId, {
+        $pull: { commentedArticles: comment.articleId },
+      });
     }
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         success: true,
         message: "Comment deleted successfully",
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+      },
+      { status: 200 }
     );
   } catch (error) {
     return handleApiError("Delete comment failed!", error as string);

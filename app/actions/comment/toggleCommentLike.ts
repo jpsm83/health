@@ -1,9 +1,7 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import Comment from "@/app/api/models/comment";
 import { IToggleCommentLikeParams } from "@/types/comment";
-import { Types } from "mongoose";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export const toggleCommentLike = async (params: IToggleCommentLikeParams): Promise<{
   success: boolean;
@@ -23,41 +21,30 @@ export const toggleCommentLike = async (params: IToggleCommentLikeParams): Promi
       throw new Error("Comment ID is required");
     }
 
-    await connectDb();
+    const result = await internalFetch<{
+      success: boolean;
+      data: {
+        liked: boolean;
+        likeCount: number;
+        message: string;
+      };
+      message?: string;
+    }>(`/api/v1/comments/${commentId}/likes`, {
+      method: "POST",
+    });
 
-    // Find the comment
-    const comment = await Comment.findById(commentId);
-    if (!comment) {
-      throw new Error("Comment not found");
+    if (!result.success) {
+      return {
+        success: false,
+        error: result.message || "Failed to toggle comment like",
+      };
     }
-
-    if (comment.isDeleted) {
-      throw new Error("Cannot like a deleted comment");
-    }
-
-    // Check if user already liked the comment
-    const userLiked = comment.likes?.includes(new Types.ObjectId(userId));
-
-    // Toggle like status using atomic operation
-    const updatedComment = await Comment.findByIdAndUpdate(
-      commentId,
-      userLiked
-        ? { $pull: { likes: new Types.ObjectId(userId) } } // Remove like
-        : { $addToSet: { likes: new Types.ObjectId(userId) } }, // Add like
-      { new: true }
-    );
-
-    if (!updatedComment) {
-      throw new Error("Failed to update comment like");
-    }
-
-    const newLikeCount = updatedComment.likes?.length || 0;
 
     return {
       success: true,
-      liked: !userLiked,
-      likeCount: newLikeCount,
-      message: userLiked ? "Comment unliked" : "Comment liked",
+      liked: result.data.liked,
+      likeCount: result.data.likeCount,
+      message: result.data.message,
     };
   } catch (error) {
     console.error("Error in toggleCommentLike:", error);

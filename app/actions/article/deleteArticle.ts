@@ -1,10 +1,6 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
-import Article from "@/app/api/models/article";
-import Comment from "@/app/api/models/comment";
-import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export interface IDeleteArticleResponse {
   success: boolean;
@@ -18,62 +14,53 @@ export async function deleteArticle(
   isAdmin: boolean = false
 ): Promise<IDeleteArticleResponse> {
   try {
-    // Validate ObjectId
-    if (!isObjectIdValid([articleId])) {
+    const result = await internalFetch<{
+      success: boolean;
+      message: string;
+    }>(`/api/v1/articles/by-id/${articleId}`, {
+      method: "DELETE",
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        message: result.message || "Failed to delete article",
+      };
+    }
+
+    return {
+      success: true,
+      message: result.message || "Article deleted successfully!",
+    };
+  } catch (error) {
+    console.error("Delete article failed:", error);
+    const errorMessage = error instanceof Error ? error.message : "Delete article failed!";
+    
+    // Check for specific error types
+    if (errorMessage.includes("Invalid article ID format")) {
       return {
         success: false,
         message: "Invalid article ID format!",
       };
     }
-
-    // Connect to database
-    await connectDb();
-
-    // Find the article
-    const article = await Article.findById(articleId);
-
-    if (!article) {
+    
+    if (errorMessage.includes("not found")) {
       return {
         success: false,
         message: "Article not found!",
       };
     }
-
-    // Check authorization - only admin can delete
-    if (!isAdmin) {
+    
+    if (errorMessage.includes("not authorized")) {
       return {
         success: false,
         message: "You are not authorized to delete this article! Only administrators can delete articles.",
       };
     }
 
-    // Delete associated comments first
-    await Comment.deleteMany({ articleId: articleId });
-
-    // Delete images from Cloudinary
-    if (article.articleImages && article.articleImages.length > 0) {
-      for (const imageUrl of article.articleImages) {
-        try {
-          await deleteFilesCloudinary(imageUrl);
-        } catch (error) {
-          console.warn(`Failed to delete image from Cloudinary: ${imageUrl}`, error);
-          // Continue with article deletion even if image deletion fails
-        }
-      }
-    }
-
-    // Delete the article
-    await Article.findByIdAndDelete(articleId);
-
-    return {
-      success: true,
-      message: "Article deleted successfully!",
-    };
-  } catch (error) {
-    console.error("Delete article failed:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Delete article failed!",
+      error: errorMessage,
     };
   }
 }

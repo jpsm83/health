@@ -67,6 +67,7 @@ export default async function CategoryPage({
 
   try {
     // Get the featured articles (fixed section - always the same)
+    // Using fields: "featured" and skipCount: true for better performance
     const featuredResult = await getArticlesByCategoryPaginated({
       category,
       locale,
@@ -74,6 +75,8 @@ export default async function CategoryPage({
       sort: "createdAt",
       order: "desc",
       limit: FEATURED_ARTICLES_COUNT,
+      fields: "featured", // Only fetch fields needed for ArticleCard
+      skipCount: true, // Skip expensive countDocuments for featured section
     });
 
     featuredArticles = featuredResult.data || [];
@@ -104,6 +107,7 @@ export default async function CategoryPage({
       order: "desc",
       limit: ARTICLES_PER_PAGE,
       excludeIds: featuredIds,
+      fields: "featured", // Only fetch fields needed for ArticleCard
     });
 
     paginatedArticles = paginatedResult.data || [];

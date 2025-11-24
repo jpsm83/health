@@ -1,11 +1,7 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
-import User from "@/app/api/models/user";
-import Article from "@/app/api/models/article";
 import { ISerializedArticle } from "@/types/article";
-import { serializeMongoObject } from "@/types/article";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export interface IGetUserLikedArticlesResponse {
   success: boolean;
@@ -24,71 +20,37 @@ export async function getUserLikedArticles(
   locale: string = "en"
 ): Promise<IGetUserLikedArticlesResponse> {
   try {
-    // Validate ObjectId
-    if (!isObjectIdValid([userId])) {
-      return {
-        success: false,
-        message: "Invalid user ID format!",
-      };
-    }
+    const queryParams = new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+      locale,
+    });
 
-    // Connect to database
-    await connectDb();
-
-    // Find the user and populate liked articles
-    const user = await User.findById(userId).select("likedArticles");
-    
-    if (!user) {
-      return {
-        success: false,
-        message: "User not found!",
-      };
-    }
-
-    if (!user.likedArticles || user.likedArticles.length === 0) {
-      return {
-        success: true,
-        data: [],
-        totalDocs: 0,
-        totalPages: 0,
-        currentPage: page,
-        message: "No liked articles found!",
-      };
-    }
-
-    // Calculate pagination
-    const skip = (page - 1) * limit;
-    const totalDocs = user.likedArticles.length;
-    const totalPages = Math.ceil(totalDocs / limit);
-
-    // Get the paginated liked article IDs
-    const paginatedLikedArticleIds = user.likedArticles.slice(skip, skip + limit);
-
-    // Find articles that match the liked article IDs
-    const articles = await Article.find({
-      _id: { $in: paginatedLikedArticleIds },
-      "languages.hreflang": locale,
-    })
-      .sort({ createdAt: -1 })
-      .lean();
-
-    // Serialize the articles
-    const serializedArticles = articles.map((article) =>
-      serializeMongoObject(article)
-    ) as ISerializedArticle[];
+    const result = await internalFetch<{
+      success: boolean;
+      data: ISerializedArticle[];
+      totalDocs: number;
+      totalPages: number;
+      currentPage: number;
+      message?: string;
+    }>(`/api/v1/users/${userId}/liked-articles?${queryParams.toString()}`);
 
     return {
       success: true,
-      data: serializedArticles,
-      totalDocs,
-      totalPages,
-      currentPage: page,
+      data: result.data || [],
+      totalDocs: result.totalDocs || 0,
+      totalPages: result.totalPages || 0,
+      currentPage: result.currentPage || page,
+      message: result.message,
     };
   } catch (error) {
     console.error("Get user liked articles failed:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Get user liked articles failed!",
+      error:
+        error instanceof Error
+          ? error.message
+          : "Get user liked articles failed!",
     };
   }
 }

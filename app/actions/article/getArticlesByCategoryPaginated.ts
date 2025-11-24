@@ -1,168 +1,60 @@
 "use server";
 
-import { IGetArticlesParams, IArticleLean, ISerializedArticle, ILanguageSpecific, serializeMongoObject } from "@/types/article";
-import { IMongoFilter, IPaginatedResponse } from "@/types/api";
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user"; // Import User model to ensure it's registered
-// Ensure User model is registered for populate operations
-void User;
+import { IGetArticlesParams, ISerializedArticle } from "@/types/article";
+import { IPaginatedResponse } from "@/types/api";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function getArticlesByCategoryPaginated(
-  params: IGetArticlesParams & { category: string; skipCount?: boolean }
+  params: IGetArticlesParams & { category: string; skipCount?: boolean; fields?: string }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
-  
-  const {
-    page = 1,
-    limit = 9,
-    sort = "createdAt",
-    order = "desc",
-    locale = "en",
-    category,
-    slug,
-    query,
-    excludeIds,
-    skipCount = false,
-  } = params;
-
   try {
-    await connectDb();
+    const {
+      page = 1,
+      limit = 9,
+      sort = "createdAt",
+      order = "desc",
+      locale = "en",
+      category,
+      slug,
+      query,
+      excludeIds,
+      skipCount = false,
+      fields = "full",
+    } = params;
 
-    // ------------------------
-    // Build filter (matching paginated route logic)
-    // ------------------------
-    if (category && slug) {
-      throw new Error("Category and slug are not allowed together!");
-    }
-
-    const mongoFilter: IMongoFilter = {
-      category, // Always filter by category
-    };
+    // Build query string
+    const queryParams = new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+      sort,
+      order,
+      locale,
+      category,
+      fields,
+      skipCount: String(skipCount),
+    });
 
     if (slug) {
-      mongoFilter["languages.seo.slug"] = slug;
+      queryParams.set("slug", slug);
     }
 
-    if (query && query.trim()) {
-      mongoFilter["languages"] = { 
-        $elemMatch: { 
-          "content.mainTitle": { $regex: query.trim(), $options: "i" } 
-        } 
-      };
+    if (query) {
+      queryParams.set("query", query);
     }
 
-    // Exclude already loaded IDs
     if (excludeIds && excludeIds.length > 0) {
-      mongoFilter._id = { $nin: excludeIds };
+      queryParams.set("excludeIds", JSON.stringify(excludeIds));
     }
 
-    // ------------------------
-    // Query DB (matching paginated route logic)
-    // ------------------------
-    // Use database-level pagination even with excludeIds (much faster than fetching all)
-    const skip = (page - 1) * limit;
-    const articles = await Article.find(mongoFilter)
-      .populate({ path: "createdBy", select: "username" })
-      .sort({ [sort]: order === "asc" ? 1 : -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean() as IArticleLean[];
+    const result = await internalFetch<IPaginatedResponse<ISerializedArticle>>(
+      `/api/v1/articles/paginated?${queryParams.toString()}`
+    );
 
-    // ------------------------
-    // Handle no results
-    // ------------------------
-    if (!articles) {
-      return {
-        page,
-        limit,
-        totalDocs: 0,
-        totalPages: 0,
-        data: [],
-      };
-    }
-
-    // ------------------------
-    // Post-process by locale (matching paginated route logic)
-    // ------------------------
-    const articlesWithFilteredContent = articles
-      .map((article: IArticleLean) => {
-        let languageSpecific: ILanguageSpecific | undefined;
-
-        if (slug) {
-          // Exact slug match
-          languageSpecific = article.languages.find(
-            (lang: ILanguageSpecific) => lang.seo.slug === slug
-          );
-        } else {
-          // Try requested locale
-          languageSpecific = article.languages.find(
-            (lang: ILanguageSpecific) => lang.hreflang === locale
-          );
-
-          // Fallback to English if locale not found
-          if (!languageSpecific && locale !== "en") {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.hreflang === "en"
-            );
-          }
-
-          // Final fallback: first available
-          if (!languageSpecific && article.languages.length > 0) {
-            languageSpecific = article.languages[0];
-          }
-        }
-
-        return {
-          ...article,
-          languages: languageSpecific ? [languageSpecific] : [],
-        };
-      })
-      .filter((article: IArticleLean) => article.languages.length > 0);
-
-    // ------------------------
-    // Pagination metadata (matching paginated route logic)
-    // ------------------------
-    // Skip expensive countDocuments if skipCount is true (for performance)
-    const totalDocs = skipCount ? 0 : await Article.countDocuments(mongoFilter);
-    const totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
-
-    // Serialize MongoDB objects to plain objects for client components
-    const serializedArticles = articlesWithFilteredContent.map((article: IArticleLean): ISerializedArticle => {
-      return serializeMongoObject(article) as ISerializedArticle;
-    });
-
-    return {
-      page,
-      limit,
-      totalDocs,
-      totalPages,
-      data: serializedArticles,
-    };
+    return result;
   } catch (error) {
     console.error("Error fetching articles by category paginated:", error);
-    
-    // Check if it's a connection error (common on mobile)
-    if (error instanceof Error && (
-      error.message.includes('connection') || 
-      error.message.includes('timeout') ||
-      error.message.includes('network')
-    )) {
-      // For connection errors, throw to trigger retry mechanism
-      throw new Error(`Network error: ${error.message}`);
-    }
-    
-    // For other errors, return empty response but log the specific error
-    console.error("Specific error details:", {
-      error: error instanceof Error ? error.message : 'Unknown error',
-      params: { page, limit, sort, order, locale, category }
-    });
-    
-    return {
-      page,
-      limit,
-      totalDocs: 0,
-      totalPages: 0,
-      data: [],
-    };
+    throw new Error(
+      `Failed to fetch articles by category paginated: ${error instanceof Error ? error.message : "Unknown error"}`
+    );
   }
 }

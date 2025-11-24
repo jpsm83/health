@@ -34,11 +34,13 @@ export default async function HomePage({
   try {
     // Fetch featured articles and all category articles in parallel
     // Using skipCount: true to skip expensive countDocuments queries for better performance
+    // Using fields: "featured" to only fetch minimal fields needed for ArticleCard
     const [articlesResponse, ...categoryResponses] = await Promise.all([
       getArticles({
         locale,
         limit: 10,
         skipCount: true, // Skip expensive countDocuments
+        fields: "featured", // Only fetch fields needed for ArticleCard
       }),
       // Fetch articles for each category in parallel
       ...mainCategories.map((category) =>
@@ -50,6 +52,7 @@ export default async function HomePage({
           order: "desc",
           locale,
           skipCount: true, // Skip expensive countDocuments
+          fields: "featured", // Only fetch fields needed for ArticleCard
         })
       ),
     ]);

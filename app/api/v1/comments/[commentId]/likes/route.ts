@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
-import { toggleCommentLike } from "@/app/actions/comment/toggleCommentLike";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
+import connectDb from "@/app/api/db/connectDb";
+import Comment from "@/app/api/models/comment";
+import { Types } from "mongoose";
 
 // @desc    Toggle comment like
 // @route   POST /api/v1/comments/[commentId]/likes
@@ -26,40 +28,64 @@ export const POST = async (
     const { commentId } = await context.params;
 
     if (!commentId) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           success: false,
           message: "Comment ID is required",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
-    const result = await toggleCommentLike({
+    await connectDb();
+
+    // Find the comment
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return NextResponse.json(
+        { success: false, message: "Comment not found" },
+        { status: 404 }
+      );
+    }
+
+    if (comment.isDeleted) {
+      return NextResponse.json(
+        { success: false, message: "Cannot like a deleted comment" },
+        { status: 400 }
+      );
+    }
+
+    // Check if user already liked the comment
+    const userLiked = comment.likes?.includes(new Types.ObjectId(session.user.id));
+
+    // Toggle like status using atomic operation
+    const updatedComment = await Comment.findByIdAndUpdate(
       commentId,
-      userId: session.user.id,
-    });
+      userLiked
+        ? { $pull: { likes: new Types.ObjectId(session.user.id) } } // Remove like
+        : { $addToSet: { likes: new Types.ObjectId(session.user.id) } }, // Add like
+      { new: true }
+    );
 
-    if (!result.success) {
-      return new NextResponse(
-        JSON.stringify({
-          success: false,
-          message: result.error || "Failed to toggle comment like",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+    if (!updatedComment) {
+      return NextResponse.json(
+        { success: false, message: "Failed to update comment like" },
+        { status: 500 }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify({
+    const newLikeCount = updatedComment.likes?.length || 0;
+
+    return NextResponse.json(
+      {
         success: true,
         data: {
-          liked: result.liked,
-          likeCount: result.likeCount,
-          message: result.message,
+          liked: !userLiked,
+          likeCount: newLikeCount,
+          message: userLiked ? "Comment unliked" : "Comment liked",
         },
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+      },
+      { status: 200 }
     );
   } catch (error) {
     return handleApiError("Toggle comment like failed!", error as string);

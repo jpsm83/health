@@ -1,176 +1,58 @@
 "use server";
 
-import { IGetArticlesParams, IArticleLean, ISerializedArticle, ILanguageSpecific, serializeMongoObject } from "@/types/article";
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user"; // Import User model to ensure it's registered
-import { IMongoFilter, IPaginatedResponse } from "@/types/api";
-// Ensure User model is registered for populate operations
-void User;
+import { IGetArticlesParams, ISerializedArticle } from "@/types/article";
+import { IPaginatedResponse } from "@/types/api";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function searchArticlesPaginated(
-  params: IGetArticlesParams & { query: string }
+  params: IGetArticlesParams & { query: string; fields?: string }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
-  const {
-    page = 1,
-    limit = 9,
-    sort = "createdAt",
-    order = "desc",
-    locale = "en",
-    query,
-    slug,
-    category,
-    excludeIds,
-  } = params;
-
   try {
-    await connectDb();
+    const {
+      page = 1,
+      limit = 9,
+      sort = "createdAt",
+      order = "desc",
+      locale = "en",
+      query,
+      slug,
+      category,
+      excludeIds,
+      fields = "full",
+    } = params;
 
-    // ------------------------
-    // Build filter (matching paginated route logic)
-    // ------------------------
-    if (category && slug) {
-      throw new Error("Category and slug are not allowed together!");
-    }
-
-    const mongoFilter: IMongoFilter = {};
+    // Build query string
+    const queryParams = new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+      sort,
+      order,
+      locale,
+      query: query.trim(),
+      fields,
+    });
 
     if (slug) {
-      mongoFilter["languages.seo.slug"] = slug;
+      queryParams.set("slug", slug);
     }
 
     if (category) {
-      mongoFilter.category = category;
+      queryParams.set("category", category);
     }
 
-    // Search query using languages structure (matching paginated route)
-    if (query && query.trim()) {
-      mongoFilter["languages"] = { 
-        $elemMatch: { 
-          "content.mainTitle": { $regex: query.trim(), $options: "i" } 
-        } 
-      };
-    }
-
-    // Exclude already loaded IDs
     if (excludeIds && excludeIds.length > 0) {
-      mongoFilter._id = { $nin: excludeIds };
+      queryParams.set("excludeIds", JSON.stringify(excludeIds));
     }
 
-    // ------------------------
-    // Query DB (always use fetch all then paginate for search)
-    // ------------------------
-    // For search, we always need to fetch all results first because of locale filtering
-    // This ensures consistent pagination after post-processing
-    const allFilteredArticles = await Article.find(mongoFilter)
-      .populate({ path: "createdBy", select: "username" })
-      .sort({ [sort]: order === "asc" ? 1 : -1 })
-      .lean() as IArticleLean[];
-    
-    // Apply pagination to the filtered results (after locale filtering)
-    // First apply locale filtering to all articles
-    const allArticlesWithLocaleFilter = allFilteredArticles
-      .map((article: IArticleLean) => {
-        let languageSpecific: ILanguageSpecific | undefined;
+    const result = await internalFetch<IPaginatedResponse<ISerializedArticle>>(
+      `/api/v1/articles/paginated?${queryParams.toString()}`
+    );
 
-        if (slug) {
-          // Exact slug match
-          languageSpecific = article.languages.find(
-            (lang: ILanguageSpecific) => lang.seo.slug === slug
-          );
-        } else {
-          // Try requested locale
-          languageSpecific = article.languages.find(
-            (lang: ILanguageSpecific) => lang.hreflang === locale
-          );
-
-          // Fallback to English if locale not found
-          if (!languageSpecific && locale !== "en") {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.hreflang === "en"
-            );
-          }
-
-          // Final fallback: first available
-          if (!languageSpecific && article.languages.length > 0) {
-            languageSpecific = article.languages[0];
-          }
-        }
-
-        return {
-          ...article,
-          languages: languageSpecific ? [languageSpecific] : [],
-        };
-      })
-      .filter((article: IArticleLean) => article.languages.length > 0);
-
-    // Apply pagination to the locale-filtered results
-    const skip = (page - 1) * limit;
-    const articles = allArticlesWithLocaleFilter.slice(skip, skip + limit);
-
-    // ------------------------
-    // Handle no results
-    // ------------------------
-    if (!articles) {
-      return {
-        page,
-        limit,
-        totalDocs: 0,
-        totalPages: 0,
-        data: [],
-      };
-    }
-
-    // ------------------------
-    // Articles are already filtered by locale above
-    // ------------------------
-    const articlesWithFilteredContent = articles;
-
-    // ------------------------
-    // Pagination metadata (count after locale filtering for search)
-    // ------------------------
-    // For search, we need to count after locale filtering to ensure accurate pagination
-    // We already have allArticlesWithLocaleFilter from above
-    const totalDocs = allArticlesWithLocaleFilter.length;
-    const totalPages = Math.ceil(totalDocs / limit);
-
-    // Serialize MongoDB objects to plain objects for client components
-    const serializedArticles = articlesWithFilteredContent.map((article: IArticleLean): ISerializedArticle => {
-      return serializeMongoObject(article) as ISerializedArticle;
-    });
-
-    return {
-      page,
-      limit,
-      totalDocs,
-      totalPages,
-      data: serializedArticles,
-    };
+    return result;
   } catch (error) {
     console.error("Error searching articles paginated:", error);
-    
-    // Check if it's a connection error (common on mobile)
-    if (error instanceof Error && (
-      error.message.includes('connection') || 
-      error.message.includes('timeout') ||
-      error.message.includes('network')
-    )) {
-      // For connection errors, throw to trigger retry mechanism
-      throw new Error(`Network error: ${error.message}`);
-    }
-    
-    // For other errors, return empty response but log the specific error
-    console.error("Specific error details:", {
-      error: error instanceof Error ? error.message : 'Unknown error',
-      params: { page, limit, sort, order, locale, query }
-    });
-    
-    return {
-      page,
-      limit,
-      totalDocs: 0,
-      totalPages: 0,
-      data: [],
-    };
+    throw new Error(
+      `Failed to search articles: ${error instanceof Error ? error.message : "Unknown error"}`
+    );
   }
 }

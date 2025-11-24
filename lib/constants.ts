@@ -126,7 +126,7 @@ export const banners = {
   },
   life: {
     "970x90":
-      "https://res.cloudinary.com/jpsm83/image/upload/v1763897847/health/banner/Life%20-%20Default/zoznlgigswjrkmpjwh95.png",
+      "https://res.cloudinary.com/jpsm83/image/upload/v1763979847/health/banner/Life%20-%20Default/ynrghdyj7j8lhaqpps9q.png",
     "970x240":
       "https://res.cloudinary.com/jpsm83/image/upload/v1763897846/health/banner/Life%20-%20Default/qwpbttgrgdrrhrryznna.png",
     "240x240":

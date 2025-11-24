@@ -1,8 +1,6 @@
 'use server';
 
-import connectDb from "@/app/api/db/connectDb";
-import Subscriber from "@/app/api/models/subscriber";
-import User from "@/app/api/models/user";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export interface NewsletterUnsubscribeResult {
   success: boolean;
@@ -23,69 +21,21 @@ export default async function unsubscribeFromNewsletterAction(
       };
     }
 
-    await connectDb();
-    
-    // Try to find subscriber with different email formats
-    const subscriber = await Subscriber.findOne({ 
-      email: email.toLowerCase()
+    const result = await internalFetch<{
+      success: boolean;
+      message: string;
+      error?: string;
+    }>("/api/v1/subscribers", {
+      method: "DELETE",
+      body: { email, token },
     });
-    
-    let finalSubscriber = subscriber;
-    
-    if (!subscriber) {
-      // Try to find with original email case
-      const subscriberOriginalCase = await Subscriber.findOne({ 
-        email: email
-      });
-      
-      if (subscriberOriginalCase) {
-        finalSubscriber = subscriberOriginalCase;
-      } else {
-        return {
-          success: false,
-          message: "Subscriber not found!",
-          error: "SUBSCRIBER_NOT_FOUND"
-        };
-      }
-    }
 
-    // If token is provided, validate it
-    if (token && finalSubscriber.unsubscribeToken !== token) {
-      return {
-        success: false,
-        message: "Invalid unsubscribe link!",
-        error: "INVALID_TOKEN"
-      };
-    }
-
-    // Check if subscriber has a linked user account by email
-    const actualUser = await User.findOne({ email: email.toLowerCase() });
-    const hasUserAccount = !!actualUser;
-    
-    if (hasUserAccount) {
-      // User has account - only deactivate subscription (don't delete data)
-      finalSubscriber.emailVerified = false;
-      await finalSubscriber.save();
-      
-      return {
-        success: true,
-        message: "Successfully unsubscribed from newsletter! You can manage your preferences in your profile."
-      };
-    } else {
-      // No user account - delete all subscriber data
-      await Subscriber.findByIdAndDelete(finalSubscriber._id);
-      
-      return {
-        success: true,
-        message: "Successfully unsubscribed from newsletter! All your data has been removed."
-      };
-    }
-
+    return result;
   } catch (error) {
     console.error("Unsubscribe error:", error);
     return {
       success: false,
-      message: "Something went wrong. Please try again.",
+      message: error instanceof Error ? error.message : "Something went wrong. Please try again.",
       error: "UNSUBSCRIBE_FAILED"
     };
   }

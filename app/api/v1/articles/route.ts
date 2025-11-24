@@ -8,23 +8,25 @@ import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
+import { fieldProjections, FieldProjectionType } from "@/app/api/utils/fieldProjections";
 
 // imported models
 import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 // imported interfaces
 import {
   IArticle,
   ILanguageSpecific,
   IGetArticlesParams,
+  IArticleLean,
+  ISerializedArticle,
+  serializeMongoObject,
 } from "@/types/article";
+import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 
 // imported constants
 import { mainCategories } from "@/lib/constants";
-
-// imported server actions
-import { getArticles } from "@/app/actions/article/getArticles";
-import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
 
 // @desc    Get all articles
 // @route   GET /articles
@@ -45,6 +47,8 @@ export const GET = async (req: Request) => {
     const category = searchParams.get("category") || undefined;
     const locale = searchParams.get("locale") || "en";
     const excludeIds = searchParams.get("excludeIds") || undefined;
+    const fields = (searchParams.get("fields") || "full") as FieldProjectionType;
+    const skipCount = searchParams.get("skipCount") === "true";
 
     // ------------------------
     // Validate excludeIds format
@@ -74,46 +78,153 @@ export const GET = async (req: Request) => {
     }
 
     // ------------------------
-    // Use appropriate server action based on parameters
+    // Validate fields parameter
     // ------------------------
-    // Decision logic:
-    // - If category is provided → use getArticlesByCategory (optimized for category filtering)
-    // - If no category → use getArticles (handles general queries, slug filtering, etc.)
-    const params: IGetArticlesParams = {
-      page,
-      limit,
-      sort,
-      order,
-      locale,
-      category,
-      slug,
-      excludeIds: excludeIdsArray,
-    };
+    if (!["featured", "dashboard", "full"].includes(fields)) {
+      return NextResponse.json(
+        {
+          message: "Invalid fields parameter. Must be 'featured', 'dashboard', or 'full'.",
+        },
+        { status: 400 }
+      );
+    }
 
-    let result;
+    // ------------------------
+    // Build filter
+    // ------------------------
+    if (category && slug) {
+      return NextResponse.json(
+        {
+          message: "Category and slug are not allowed together!",
+        },
+        { status: 400 }
+      );
+    }
+
+    await connectDb();
+
+    const mongoFilter: IMongoFilter = {};
+
+    if (slug) {
+      mongoFilter["languages.seo.slug"] = slug;
+    }
 
     if (category) {
-      // Use getArticlesByCategory when category is specified
-      // This action is optimized for category filtering with excludeIds
-      result = await getArticlesByCategory({
-        ...params,
-        category, // Ensure category is explicitly passed
-      });
-    } else {
-      // Use getArticles for general article fetching (no category filter)
-      // This action handles slug filtering and general queries
-      result = await getArticles(params);
+      mongoFilter.category = category;
     }
+
+    // Exclude already loaded IDs
+    if (excludeIdsArray && excludeIdsArray.length > 0) {
+      mongoFilter._id = { $nin: excludeIdsArray };
+    }
+
+    // ------------------------
+    // Get field projection
+    // ------------------------
+    const projection = fieldProjections[fields] || {};
+
+    // ------------------------
+    // Query DB
+    // ------------------------
+    const query = Article.find(mongoFilter, projection)
+      .populate({ path: "createdBy", select: "username" })
+      .sort({ [sort]: order === "asc" ? 1 : -1 })
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .lean();
+
+    const articles = (await query) as IArticleLean[];
 
     // ------------------------
     // Handle no results
     // ------------------------
-    if (result.data.length === 0) {
-      return NextResponse.json({ message: "No articles found!" }, { status: 404 });
+    if (!articles || articles.length === 0) {
+      return NextResponse.json(
+        {
+          page,
+          limit,
+          totalDocs: 0,
+          totalPages: 0,
+          data: [],
+        },
+        { status: 200 }
+      );
     }
+
+    // ------------------------
+    // Post-process by locale
+    // ------------------------
+    const articlesWithFilteredContent = articles
+      .map((article: IArticleLean) => {
+        let languageSpecific: ILanguageSpecific | undefined;
+
+        if (slug) {
+          // Exact slug match
+          languageSpecific = article.languages.find(
+            (lang: ILanguageSpecific) => lang.seo.slug === slug
+          );
+        } else {
+          // Try requested locale
+          languageSpecific = article.languages.find(
+            (lang: ILanguageSpecific) => lang.hreflang === locale
+          );
+
+          // Fallback to English if locale not found
+          if (!languageSpecific && locale !== "en") {
+            languageSpecific = article.languages.find(
+              (lang: ILanguageSpecific) => lang.hreflang === "en"
+            );
+          }
+
+          // Final fallback: first available
+          if (!languageSpecific && article.languages.length > 0) {
+            languageSpecific = article.languages[0];
+          }
+        }
+
+        // If we still don't have a language match, but the article has languages,
+        // use the first available language to prevent data loss
+        if (!languageSpecific && article.languages && article.languages.length > 0) {
+          languageSpecific = article.languages[0];
+        }
+
+        return {
+          ...article,
+          languages: languageSpecific ? [languageSpecific] : [],
+        };
+      })
+      .filter((article: IArticleLean) => {
+        // Only filter out articles that have NO language content at all
+        return article.languages && article.languages.length > 0;
+      });
+
+    // ------------------------
+    // Pagination metadata
+    // ------------------------
+    // Skip expensive countDocuments query if skipCount is true (for home page performance)
+    const totalDocs = skipCount ? 0 : await Article.countDocuments(mongoFilter);
+    const totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
+
+    // ------------------------
+    // Serialize MongoDB objects
+    // ------------------------
+    const serializedArticles = articlesWithFilteredContent.map(
+      (article: IArticleLean): ISerializedArticle => {
+        return serializeMongoObject(article) as ISerializedArticle;
+      }
+    );
+
+    const result: IPaginatedResponse<ISerializedArticle> = {
+      page,
+      limit,
+      totalDocs,
+      totalPages,
+      data: serializedArticles,
+    };
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
+    console.error("Error fetching articles:", error);
     return handleApiError("Get all articles failed!", error as string);
   }
 };

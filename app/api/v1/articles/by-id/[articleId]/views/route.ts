@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { incrementArticleViews } from "@/app/actions/article/incrementArticleViews";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { handleApiError } from "@/app/api/utils/handleApiError";
+import connectDb from "@/app/api/db/connectDb";
+import Article from "@/app/api/models/article";
 
 // @desc    Increment article views
 // @route   POST /api/v1/articles/by-id/[articleId]/views
@@ -17,49 +18,49 @@ export const POST = async (
     // Validate articleId format
     // ------------------------
     if (!isObjectIdValid([articleId])) {
-      return new NextResponse(
-        JSON.stringify({ 
+      return NextResponse.json(
+        { 
           success: false,
           message: "Invalid article ID format" 
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
     // ------------------------
-    // Increment article views using server action
+    // Connect to database
     // ------------------------
-    const result = await incrementArticleViews(articleId);
+    await connectDb();
 
     // ------------------------
-    // Handle server action response
+    // Increment the views count using atomic operation
     // ------------------------
-    if (!result.success) {
-      return new NextResponse(
-        JSON.stringify({
+    const updatedArticle = await Article.findByIdAndUpdate(
+      articleId,
+      { $inc: { views: 1 } }, // Increment views by 1
+      { new: true, select: "views" } // Return only the views field
+    );
+
+    if (!updatedArticle) {
+      return NextResponse.json(
+        {
           success: false,
-          message: result.error || "Failed to increment article views",
-        }),
-        { 
-          status: result.error?.includes("not found") ? 404 : 400,
-          headers: { "Content-Type": "application/json" } 
-        }
+          message: "Article not found",
+        },
+        { status: 404 }
       );
     }
 
     // ------------------------
     // Return success response
     // ------------------------
-    return new NextResponse(
-      JSON.stringify({
-        success: true,
-        views: result.views,
-        message: result.message,
-      }),
+    return NextResponse.json(
       {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+        success: true,
+        views: updatedArticle.views,
+        message: "Article views incremented successfully",
+      },
+      { status: 200 }
     );
   } catch (error) {
     return handleApiError("Increment article views failed!", error as string);

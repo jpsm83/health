@@ -1,7 +1,6 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export const incrementArticleViews = async (articleId: string) => {
   try {
@@ -9,23 +8,26 @@ export const incrementArticleViews = async (articleId: string) => {
       throw new Error("Article ID is required");
     }
 
-    await connectDb();
+    const result = await internalFetch<{
+      success: boolean;
+      views: number;
+      message: string;
+      error?: string;
+    }>(`/api/v1/articles/by-id/${articleId}/views`, {
+      method: "POST",
+    });
 
-    // Increment the views count using atomic operation
-    const updatedArticle = await Article.findByIdAndUpdate(
-      articleId,
-      { $inc: { views: 1 } }, // Increment views by 1
-      { new: true, select: "views" } // Return only the views field
-    );
-
-    if (!updatedArticle) {
-      throw new Error("Article not found");
+    if (!result.success) {
+      return {
+        success: false,
+        error: result.error || "Failed to increment views",
+      };
     }
 
     return {
       success: true,
-      views: updatedArticle.views,
-      message: "Article views incremented successfully",
+      views: result.views,
+      message: result.message,
     };
   } catch (error) {
     return {

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { banners, affiliateCompanies } from "@/lib/constants";
@@ -20,13 +22,14 @@ export default function ProductsBanner({
   const t = useTranslations("productsBanner");
   
   // Get banner URL with type safety
+  // All categories have all banner sizes defined in constants, so URL will always exist
   const bannerCategory = category ? category : "life";
+  const bannerUrl = banners[bannerCategory as keyof typeof banners]?.[size] || "";
 
-  const bannerUrl =
-    bannerCategory in banners &&
-    size in banners[bannerCategory as keyof typeof banners]
-      ? banners[bannerCategory as keyof typeof banners][size]
-      : "";
+  // Safety check: return null if no banner URL to prevent Image component errors
+  if (!bannerUrl) {
+    return null;
+  }
 
   const sizeClass =
     size === "970x90"
@@ -34,10 +37,10 @@ export default function ProductsBanner({
       : size === "970x240"
       ? "w-full lg:w-[970px] h-[240px]"
       : size === "240x390"
-      ? "w-full h-[390px] md:w-[240px]"
+      ? "w-full h-full"
       : size === "240x240"
-      ? "w-full h-[240px] md:w-[240px]"
-      : "w-full h-[240px] md:w-[390px]";
+      ? "w-full h-full"
+      : "h-[240px] w-full md:h-full";
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
@@ -52,7 +55,7 @@ export default function ProductsBanner({
           className="object-cover object-right"
           sizes={
             size === "970x90" || size === "970x240"
-              ? "(max-width: 1024px) 100vw, 970px"
+              ? "100vw"
               : size === "240x390" || size === "240x240"
               ? "(max-width: 768px) 100vw, 300px"
               : "(max-width: 768px) 100vw, 400px"

@@ -1,9 +1,6 @@
 'use server';
 
-import connectDb from "@/app/api/db/connectDb";
-import User from "@/app/api/models/user";
-import Subscriber from "@/app/api/models/subscriber";
-import mongoose from "mongoose";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export interface ConfirmEmailResult {
   success: boolean;
@@ -24,66 +21,21 @@ export default async function confirmEmailAction(
       };
     }
 
-    await connectDb();
-
-    // Find user with valid verification token
-    const user = await User.findOne({
-      verificationToken: token,
+    const result = await internalFetch<{
+      success: boolean;
+      message: string;
+      error?: string;
+    }>("/api/v1/auth/confirm-email", {
+      method: "POST",
+      body: { token },
     });
 
-    if (!user) {
-      return {
-        success: false,
-        message: "Invalid verification token. Please request a new confirmation link.",
-        error: "Invalid token"
-      };
-    }
-
-    // Check if email is already verified
-    if (user.emailVerified) {
-      return {
-        success: false,
-        message: "Email is already verified.",
-        error: "Email already verified"
-      };
-    }
-
-    // Start database transaction to update both user and subscriber
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
-    try {
-      // Update user to mark email as verified and clear verification token
-      await User.findByIdAndUpdate(user._id, {
-        emailVerified: true,
-        verificationToken: undefined,
-      }, { session });
-
-      // Also update linked subscriber's email verification status
-      if (user.subscriptionId) {
-        await Subscriber.findByIdAndUpdate(user.subscriptionId, {
-          emailVerified: true,
-        }, { session });
-      }
-
-      // Commit the transaction
-      await session.commitTransaction();
-
-      return {
-        success: true,
-        message: "Email confirmed successfully! You can now sign in to your account."
-      };
-    } catch (error) {
-      await session.abortTransaction();
-      throw error;
-    } finally {
-      await session.endSession();
-    }
+    return result;
   } catch (error) {
     console.error('Confirm email action failed:', error);
     return {
       success: false,
-      message: "Email confirmation failed",
+      message: error instanceof Error ? error.message : "Email confirmation failed",
       error: error instanceof Error ? error.message : "Unknown error"
     };
   }

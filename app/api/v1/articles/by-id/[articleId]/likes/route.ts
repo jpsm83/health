@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
-import { toggleArticleLike } from "@/app/actions/article/toggleArticleLike";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
+import connectDb from "@/app/api/db/connectDb";
+import Article from "@/app/api/models/article";
+import User from "@/app/api/models/user";
 
 // @desc    Toggle article like (add if not liked, remove if already liked)
 // @route   POST /api/v1/likes/articles/[articleId]
@@ -43,40 +45,70 @@ export const POST = async (
     }
 
     // ------------------------
-    // Toggle article like using server action
+    // Connect to database
     // ------------------------
-    const result = await toggleArticleLike(articleId, session.user.id);
+    await connectDb();
 
     // ------------------------
-    // Handle server action response
+    // Check if user already liked the article
     // ------------------------
-    if (!result.success) {
-      return new NextResponse(
-        JSON.stringify({
+    const article = await Article.findById(articleId);
+
+    if (!article) {
+      return NextResponse.json(
+        {
           success: false,
-          message: result.error || "Failed to toggle article like",
-        }),
-        { 
-          status: result.error?.includes("not found") ? 404 : 400,
-          headers: { "Content-Type": "application/json" } 
-        }
+          message: "Article not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    const userLiked = article.likes?.includes(session.user.id);
+
+    // ------------------------
+    // Toggle like status using atomic operation
+    // ------------------------
+    const updatedArticle = await Article.findByIdAndUpdate(
+      articleId,
+      userLiked
+        ? { $pull: { likes: session.user.id } } // Remove like
+        : { $addToSet: { likes: session.user.id } }, // Add like (prevents duplicates)
+      { new: true }
+    );
+
+    if (!updatedArticle) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Failed to update article like",
+        },
+        { status: 400 }
       );
     }
 
     // ------------------------
+    // Update user's likedArticles array
+    // ------------------------
+    await User.findByIdAndUpdate(
+      session.user.id,
+      userLiked
+        ? { $pull: { likedArticles: articleId } } // Remove from user's liked articles
+        : { $addToSet: { likedArticles: articleId } }, // Add to user's liked articles
+      { new: true }
+    );
+
+    // ------------------------
     // Return success response
     // ------------------------
-    return new NextResponse(
-      JSON.stringify({
-        success: true,
-        liked: result.liked,
-        likeCount: result.likeCount,
-        message: result.message,
-      }),
+    return NextResponse.json(
       {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+        success: true,
+        liked: !userLiked, // Return new like status
+        likeCount: updatedArticle.likes?.length || 0,
+        message: userLiked ? "Article unliked" : "Article liked",
+      },
+      { status: 200 }
     );
   } catch (error) {
     return handleApiError("Toggle article like failed!", error as string);

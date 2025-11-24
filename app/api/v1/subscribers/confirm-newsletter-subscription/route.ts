@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import confirmNewsletterSubscriptionAction from "@/app/actions/subscribers/confirmNewsletterSubscription";
 import { handleApiError } from "@/app/api/utils/handleApiError";
+import connectDb from "@/app/api/db/connectDb";
+import Subscriber from "@/app/api/models/subscriber";
+
+// Helper function to generate unsubscribe token
+function generateUnsubscribeToken(): string {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
 
 // @desc    Confirm newsletter subscription with token
 // @route   POST /api/v1/subscribers/confirm-newsletter-subscription
@@ -11,39 +20,49 @@ export const POST = async (req: NextRequest) => {
 
     // Validate required fields
     if (!token || !email) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           success: false,
-          message: "Token and email are required",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+          message: "Token and email are required!",
+          error: "MISSING_PARAMETERS",
+        },
+        { status: 400 }
       );
     }
 
-    // Use the action to handle newsletter subscription confirmation
-    const result = await confirmNewsletterSubscriptionAction(token, email);
+    await connectDb();
 
-    if (!result.success) {
-      const statusCode = result.error === "MISSING_PARAMETERS" || 
-                        result.error === "INVALID_TOKEN" ? 400 : 500;
-      return new NextResponse(
-        JSON.stringify({
+    const subscriber = await Subscriber.findOne({
+      email: email.toLowerCase(),
+      verificationToken: token,
+    });
+
+    if (!subscriber) {
+      return NextResponse.json(
+        {
           success: false,
-          message: result.message,
-          error: result.error,
-        }),
-        { status: statusCode, headers: { "Content-Type": "application/json" } }
+          message: "Invalid or expired confirmation link!",
+          error: "INVALID_TOKEN",
+        },
+        { status: 400 }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify({
+    // Mark email as verified and clear verification token
+    subscriber.emailVerified = true;
+    subscriber.verificationToken = undefined;
+    subscriber.unsubscribeToken = generateUnsubscribeToken();
+    await subscriber.save();
+
+    return NextResponse.json(
+      {
         success: true,
-        message: result.message,
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+        message: "Newsletter subscription confirmed successfully!",
+      },
+      { status: 200 }
     );
   } catch (error) {
+    console.error("Newsletter confirmation error:", error);
     return handleApiError("Newsletter subscription confirmation failed!", error as string);
   }
 };

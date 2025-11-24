@@ -1,55 +1,27 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import Subscriber from "@/app/api/models/subscriber";
-import {
-  IGetSubscribersResponse,
-  ISerializedSubscriber,
-} from "@/types/subscriber";
-
-// Helper function to serialize MongoDB subscriber object
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function serializeSubscriber(subscriber: any): ISerializedSubscriber {
-  return {
-    _id: subscriber._id?.toString() || "",
-    email: subscriber.email,
-    emailVerified: subscriber.emailVerified,
-    unsubscribeToken: subscriber.unsubscribeToken,
-    userId: subscriber.userId?.toString() || null,
-    subscriptionPreferences: {
-      categories: subscriber.subscriptionPreferences?.categories || [],
-      subscriptionFrequencies:
-        subscriber.subscriptionPreferences?.subscriptionFrequencies || "weekly",
-    },
-    createdAt: subscriber.createdAt?.toISOString() || new Date().toISOString(),
-    updatedAt: subscriber.updatedAt?.toISOString() || new Date().toISOString(),
-  };
-}
+import { IGetSubscribersResponse } from "@/types/subscriber";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function getSubscribers(): Promise<IGetSubscribersResponse> {
   try {
-    // Connect to database
-    await connectDb();
+    const result = await internalFetch<{
+      success: boolean;
+      count: number;
+      data: unknown[];
+      message?: string;
+    }>("/api/v1/subscribers");
 
-    // Fetch all subscribers excluding verification token
-    const subscribers = await Subscriber.find()
-      .select("-verificationToken")
-      .sort({ createdAt: -1 })
-      .lean();
-
-    if (!subscribers || subscribers.length === 0) {
+    if (!result.success) {
       return {
         success: false,
-        message: "No subscribers found!",
+        message: result.message || "No subscribers found!",
       };
     }
 
-    // Serialize subscribers for client components
-    const serializedSubscribers = subscribers.map(serializeSubscriber);
-
     return {
       success: true,
-      data: serializedSubscribers,
+      data: result.data as IGetSubscribersResponse["data"],
     };
   } catch (error) {
     console.error("Get subscribers failed:", error);

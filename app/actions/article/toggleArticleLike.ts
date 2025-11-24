@@ -1,8 +1,6 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export const toggleArticleLike = async (articleId: string, userId: string) => {
   try {
@@ -10,49 +8,28 @@ export const toggleArticleLike = async (articleId: string, userId: string) => {
       throw new Error("You must be signed in to like articles");
     }
 
-    await connectDb();
+    const result = await internalFetch<{
+      success: boolean;
+      liked: boolean;
+      likeCount: number;
+      message: string;
+      error?: string;
+    }>(`/api/v1/articles/by-id/${articleId}/likes`, {
+      method: "POST",
+    });
 
-    // Check if user already liked the article
-    const article = await Article.findById(articleId);
-
-    if (!article) {
-      throw new Error("Article not found");
+    if (!result.success) {
+      return {
+        success: false,
+        error: result.error || "Failed to toggle like",
+      };
     }
-
-    const userLiked = article.likes?.includes(userId);
-
-    // Toggle like status using atomic operation
-    const updatedArticle = await Article.findByIdAndUpdate(
-      articleId,
-      userLiked
-        ? { $pull: { likes: userId } } // Remove like
-        : { $addToSet: { likes: userId } }, // Add like (prevents duplicates)
-      { new: true }
-    );
-
-    if (!updatedArticle) {
-      throw new Error("Failed to update article like");
-    }
-
-    // Update user's likedArticles array
-    await User.findByIdAndUpdate(
-      userId,
-      userLiked
-        ? { $pull: { likedArticles: articleId } } // Remove from user's liked articles
-        : { $addToSet: { likedArticles: articleId } }, // Add to user's liked articles
-      { new: true }
-    );
-
-    // Revalidate the page to show updated like count
-    // Fixed: Added 'page' type parameter to avoid warning
-    // Temporarily disable revalidatePath to fix stack overflow
-    // revalidatePath(`/[locale]/[category]/[slug]`, "page");
 
     return {
       success: true,
-      liked: !userLiked, // Return new like status
-      likeCount: updatedArticle.likes?.length || 0,
-      message: userLiked ? "Article unliked" : "Article liked",
+      liked: result.liked,
+      likeCount: result.likeCount,
+      message: result.message,
     };
   } catch (error) {
     return {

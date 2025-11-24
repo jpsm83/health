@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 
 // @desc    Unsubscribe from newsletter
@@ -11,39 +10,29 @@ export const POST = async (req: NextRequest) => {
 
     // Validate required fields
     if (!email) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           success: false,
           message: "Email address is required",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
-    // Use the action to handle newsletter unsubscription
-    const result = await unsubscribeFromNewsletterAction(email, token);
+    // Forward to main subscribers route
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "http://localhost:3000");
+    
+    const response = await fetch(`${baseUrl}/api/v1/subscribers`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, token }),
+    });
 
-    if (!result.success) {
-      const statusCode = result.error === "MISSING_EMAIL" ? 400 : 
-                        result.error === "SUBSCRIBER_NOT_FOUND" ? 404 : 
-                        result.error === "INVALID_TOKEN" ? 400 : 500;
-      return new NextResponse(
-        JSON.stringify({
-          success: false,
-          message: result.message,
-          error: result.error,
-        }),
-        { status: statusCode, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    return new NextResponse(
-      JSON.stringify({
-        success: true,
-        message: result.message,
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    );
+    const result = await response.json();
+    return NextResponse.json(result, { status: response.status });
   } catch (error) {
     return handleApiError("Newsletter unsubscription failed!", error as string);
   }

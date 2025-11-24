@@ -1,56 +1,47 @@
 "use server";
 
-import connectDb from "@/app/api/db/connectDb";
-import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
-import User from "@/app/api/models/user";
 import { IDeleteUserResponse } from "@/types/user";
+import { internalFetch } from "@/app/actions/utils/internalFetch";
 
 export async function deleteUser(
   userId: string,
   sessionUserId: string
 ): Promise<IDeleteUserResponse> {
   try {
-    // Validate ObjectId
-    if (!isObjectIdValid([userId])) {
-      return {
-        success: false,
-        message: "Invalid user ID format!",
-      };
-    }
+    const result = await internalFetch<{ message: string }>(
+      `/api/v1/users/${userId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-    // Connect to database
-    await connectDb();
+    return {
+      success: true,
+      message: result.message || "User deactivated successfully",
+    };
+  } catch (error) {
+    console.error("Deactivate user failed:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Deactivate user failed!";
 
-    // Check if user exists
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return {
-        success: false,
-        message: "User not found!",
-      };
-    }
-
-    // Check if the user is the same user (authorization)
-    if (user.id !== sessionUserId) {
+    // Check error status
+    if (errorMessage.includes("not authorized") || errorMessage.includes("403")) {
       return {
         success: false,
         message: "You are not authorized to deactivate this user!",
       };
     }
 
-    // Deactivate user
-    await User.findByIdAndUpdate(userId, { $set: { isActive: false } });
+    if (errorMessage.includes("not found") || errorMessage.includes("404")) {
+      return {
+        success: false,
+        message: "User not found!",
+      };
+    }
 
     return {
-      success: true,
-      message: "User deactivated successfully",
-    };
-  } catch (error) {
-    console.error("Deactivate user failed:", error);
-    return {
       success: false,
-      error: error instanceof Error ? error.message : "Deactivate user failed!",
+      error: errorMessage,
     };
   }
 }
