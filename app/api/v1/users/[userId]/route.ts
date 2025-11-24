@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
 import { getUserById } from "@/app/actions/user/getUserById";
 import { updateUser } from "@/app/actions/user/updateUser";
 import { deleteUser } from "@/app/actions/user/deleteUser";
@@ -19,21 +19,15 @@ export const GET = async (
 
     if (!result.success) {
       const status = result.message === "User not found" ? 404 : 400;
-      return new NextResponse(
-        JSON.stringify({ message: result.message || result.error }),
-        { status, headers: { "Content-Type": "application/json" } }
+      return NextResponse.json(
+        { message: result.message || result.error },
+        { status }
       );
     }
 
-    return new NextResponse(JSON.stringify(result.data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(result.data, { status: 200 });
   } catch {
-    return new NextResponse(
-      JSON.stringify({ message: "Get user by userId failed!" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return NextResponse.json({ message: "Get user by userId failed!" }, { status: 500 });
   }
 };
 
@@ -49,11 +43,11 @@ export const PATCH = async (
     const session = await auth();
 
     if (!session) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "You must be signed in to update a user",
-        }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 401 }
       );
     }
 
@@ -94,23 +88,20 @@ export const PATCH = async (
         : result.message?.includes("already taken")
         ? 409
         : 400;
-      return new NextResponse(
-        JSON.stringify({ message: result.message || result.error }),
-        { status, headers: { "Content-Type": "application/json" } }
+      return NextResponse.json(
+        { message: result.message || result.error },
+        { status }
       );
     }
 
-    return new NextResponse(JSON.stringify({ message: result.message }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json({ message: result.message }, { status: 200 });
   } catch (error) {
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         message: "Update user failed!",
         error: error instanceof Error ? error.message : "Unknown error",
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      },
+      { status: 500 }
     );
   }
 };
@@ -127,11 +118,11 @@ export const DELETE = async (
     const session = await auth();
 
     if (!session) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "You must be signed in to deactivate a user",
-        }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 401 }
       );
     }
 
@@ -146,23 +137,20 @@ export const DELETE = async (
         : result.message?.includes("not found")
         ? 404
         : 400;
-      return new NextResponse(
-        JSON.stringify({ message: result.message || result.error }),
-        { status, headers: { "Content-Type": "application/json" } }
+      return NextResponse.json(
+        { message: result.message || result.error },
+        { status }
       );
     }
 
-    return new NextResponse(JSON.stringify({ message: result.message }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json({ message: result.message }, { status: 200 });
   } catch (error) {
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         message: "Deactivate user failed!",
         error: error instanceof Error ? error.message : "Unknown error",
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      },
+      { status: 500 }
     );
   }
 };

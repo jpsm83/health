@@ -215,139 +215,140 @@ export default function Navbar() {
         <div className="flex items-center gap-2 md:gap-4">
           {/* Mobile Profile Button */}
           <div className="md:hidden">
-            <DropdownMenu
-              onOpenChange={(open) => {
-                if (!open) {
-                  handleDropdownClose();
-                }
-              }}
-            >
-              <DropdownMenuTrigger asChild>
-                {mounted && session?.user ? (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-white rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
-                    aria-label="Open profile menu"
-                  >
-                    {session.user.imageUrl &&
-                    session.user.imageUrl.trim() !== "" ? (
-                      <Image
-                        src={session.user.imageUrl}
-                        alt="User"
-                        width={32}
-                        height={32}
-                        quality={60}
-                        className="rounded-full"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center">
-                        <UserRound size={16} className="text-white" />
-                      </div>
-                    )}
-                  </Button>
-                ) : (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-white rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
-                    aria-label="Open user menu"
-                  >
-                    <UserRound size={20} />
-                  </Button>
-                )}
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-[200px] bg-white shadow-lg border border-gray-200 ml-2 mt-1"
-                align="end"
-                side="bottom"
-                sideOffset={4}
+            {mounted && (
+              <DropdownMenu
+                onOpenChange={(open) => {
+                  if (!open) {
+                    handleDropdownClose();
+                  }
+                }}
               >
-                {mounted && session?.user ? (
-                  <>
-                    {/* User info header */}
-                    <div className="px-3 py-2 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">
-                        {session?.user?.name || "User"}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {session?.user?.email}
-                      </p>
-                    </div>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/${locale}/profile`}
-                        className="cursor-pointer"
-                        onClick={handleNavLinkClick}
-                      >
-                        <UserRoundPen size={16} className="text-red-600" />{" "}
-                        {t("profile")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/${locale}/favorites`}
-                        className="cursor-pointer"
-                        onClick={handleNavLinkClick}
-                      >
-                        <Heart size={16} className="text-red-600" />{" "}
-                        {t("favorites")}
-                      </Link>
-                    </DropdownMenuItem>
-                    {session?.user?.role === "admin" && (
+                <DropdownMenuTrigger asChild>
+                  {session?.user ? (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-white rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                      aria-label="Open profile menu"
+                    >
+                      {session.user.imageUrl &&
+                      session.user.imageUrl.trim() !== "" ? (
+                        <Image
+                          src={session.user.imageUrl}
+                          alt="User"
+                          width={32}
+                          height={32}
+                          className="rounded-full"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center">
+                          <UserRound size={16} className="text-white" />
+                        </div>
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-white rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                      aria-label="Open user menu"
+                    >
+                      <UserRound size={20} />
+                    </Button>
+                  )}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-[200px] bg-white shadow-lg border border-gray-200 ml-2 mt-1"
+                  align="end"
+                  side="bottom"
+                  sideOffset={4}
+                >
+                  {session?.user ? (
+                    <>
+                      {/* User info header */}
+                      <div className="px-3 py-2 border-b border-gray-100">
+                        <p className="text-sm font-medium text-gray-900">
+                          {session?.user?.name || "User"}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {session?.user?.email}
+                        </p>
+                      </div>
                       <DropdownMenuItem asChild>
                         <Link
-                          href={`/${locale}/dashboard`}
+                          href={`/${locale}/profile`}
                           className="cursor-pointer"
                           onClick={handleNavLinkClick}
                         >
-                          <LayoutDashboard size={16} className="text-red-600" />{" "}
-                          {t("dashboard")}
+                          <UserRoundPen size={16} className="text-red-600" />{" "}
+                          {t("profile")}
                         </Link>
                       </DropdownMenuItem>
-                    )}
-                    <DropdownMenuItem
-                      onClick={() => {
-                        handleLogout();
-                        setIsSearchPopupOpen(false);
-                      }}
-                      className="cursor-pointer"
-                    >
-                      <LogOut size={16} className="text-red-600" />{" "}
-                      {t("signOut")}
-                    </DropdownMenuItem>
-                  </>
-                ) : (
-                  <>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/${locale}/signin`}
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href={`/${locale}/favorites`}
+                          className="cursor-pointer"
+                          onClick={handleNavLinkClick}
+                        >
+                          <Heart size={16} className="text-red-600" />{" "}
+                          {t("favorites")}
+                        </Link>
+                      </DropdownMenuItem>
+                      {session?.user?.role === "admin" && (
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/${locale}/dashboard`}
+                            className="cursor-pointer"
+                            onClick={handleNavLinkClick}
+                          >
+                            <LayoutDashboard size={16} className="text-red-600" />{" "}
+                            {t("dashboard")}
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem
+                        onClick={() => {
+                          handleLogout();
+                          setIsSearchPopupOpen(false);
+                        }}
                         className="cursor-pointer"
-                        onClick={handleNavLinkClick}
                       >
-                        <UserRound size={16} className="text-red-600" />{" "}
-                        {t("signIn")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/${locale}/signup`}
-                        className="cursor-pointer"
-                        onClick={handleNavLinkClick}
-                      >
-                        <UserRoundPen size={16} className="text-red-600" />{" "}
-                        {t("signUp")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                        <LogOut size={16} className="text-red-600" />{" "}
+                        {t("signOut")}
+                      </DropdownMenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href={`/${locale}/signin`}
+                          className="cursor-pointer"
+                          onClick={handleNavLinkClick}
+                        >
+                          <UserRound size={16} className="text-red-600" />{" "}
+                          {t("signIn")}
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href={`/${locale}/signup`}
+                          className="cursor-pointer"
+                          onClick={handleNavLinkClick}
+                        >
+                          <UserRoundPen size={16} className="text-red-600" />{" "}
+                          {t("signUp")}
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           {/* Authentication navigation desktop */}
           <div className="hidden md:flex">
-            {mounted && session?.user ? (
+            {mounted && (
               <div className="relative">
                 <DropdownMenu
                   onOpenChange={(open) => {
@@ -357,7 +358,7 @@ export default function Navbar() {
                   }}
                 >
                   <DropdownMenuTrigger asChild>
-                    {mounted && session?.user ? (
+                    {session?.user ? (
                       <Button
                         size="sm"
                         className="h-10 bg-transparent hover:bg-transparent text-white cursor-pointer rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
@@ -370,7 +371,6 @@ export default function Navbar() {
                             width={30}
                             height={30}
                             alt="User"
-                            quality={60}
                             className="rounded-full shadow-lg"
                           />
                         ) : (
@@ -394,55 +394,86 @@ export default function Navbar() {
                     side="bottom"
                     sideOffset={4}
                   >
-                    {/* User info header */}
-                    <div className="px-3 py-2 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">
-                        {session?.user?.name || "User"}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {session?.user?.email}
-                      </p>
-                    </div>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/${locale}/profile`}
-                        className="cursor-pointer"
-                      >
-                        <UserRoundPen size={16} className="text-red-600" />{" "}
-                        {t("profile")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={`/${locale}/favorites`}
-                        className="cursor-pointer"
-                      >
-                        <Heart size={16} className="text-red-600" />{" "}
-                        {t("favorites")}
-                      </Link>
-                    </DropdownMenuItem>
-                    {session?.user?.role === "admin" && (
-                      <DropdownMenuItem asChild>
-                        <Link
-                          href={`/${locale}/dashboard`}
+                    {session?.user ? (
+                      <>
+                        {/* User info header */}
+                        <div className="px-3 py-2 border-b border-gray-100">
+                          <p className="text-sm font-medium text-gray-900">
+                            {session?.user?.name || "User"}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {session?.user?.email}
+                          </p>
+                        </div>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/${locale}/profile`}
+                            className="cursor-pointer"
+                            onClick={handleNavLinkClick}
+                          >
+                            <UserRoundPen size={16} className="text-red-600" />{" "}
+                            {t("profile")}
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/${locale}/favorites`}
+                            className="cursor-pointer"
+                            onClick={handleNavLinkClick}
+                          >
+                            <Heart size={16} className="text-red-600" />{" "}
+                            {t("favorites")}
+                          </Link>
+                        </DropdownMenuItem>
+                        {session?.user?.role === "admin" && (
+                          <DropdownMenuItem asChild>
+                            <Link
+                              href={`/${locale}/dashboard`}
+                              className="cursor-pointer"
+                              onClick={handleNavLinkClick}
+                            >
+                              <LayoutDashboard size={16} className="text-red-600" />{" "}
+                              {t("dashboard")}
+                            </Link>
+                          </DropdownMenuItem>
+                        )}
+                        <DropdownMenuItem
+                          onClick={handleLogout}
                           className="cursor-pointer"
                         >
-                          <LayoutDashboard size={16} className="text-red-600" />{" "}
-                          {t("dashboard")}
-                        </Link>
-                      </DropdownMenuItem>
+                          <LogOut size={16} className="text-red-600" />{" "}
+                          {t("signOut")}
+                        </DropdownMenuItem>
+                      </>
+                    ) : (
+                      <>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/${locale}/signin`}
+                            className="cursor-pointer"
+                            onClick={handleNavLinkClick}
+                          >
+                            <UserRound size={16} className="text-red-600" />{" "}
+                            {t("signIn")}
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/${locale}/signup`}
+                            className="cursor-pointer"
+                            onClick={handleNavLinkClick}
+                          >
+                            <UserRoundPen size={16} className="text-red-600" />{" "}
+                            {t("signUp")}
+                          </Link>
+                        </DropdownMenuItem>
+                      </>
                     )}
-                    <DropdownMenuItem
-                      onClick={handleLogout}
-                      className="cursor-pointer"
-                    >
-                      <LogOut size={16} className="text-red-600" />{" "}
-                      {t("signOut")}
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-            ) : (
+            )}
+            {!mounted && (
               <div className="flex items-center gap-2">
                 {pathname !== `/${locale}/signin` && (
                   <Button

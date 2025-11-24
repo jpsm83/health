@@ -1,4 +1,4 @@
-import { type NextAuthConfig } from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
@@ -48,7 +48,7 @@ declare module "next-auth" {
 }
 
 // NextAuth configuration
-export const authOptions: NextAuthConfig = {
+const authOptions: NextAuthConfig = {
   providers: [
     // Google OAuth (sign in + signup if not exists)
     Google({
@@ -302,3 +302,5 @@ export const authOptions: NextAuthConfig = {
   },
 };
 
+// This gives you handlers + helpers automatically
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);

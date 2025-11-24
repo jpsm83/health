@@ -10,24 +10,15 @@ export const GET = async () => {
     const result = await getUsers();
 
     if (!result.success) {
-      return new NextResponse(
-        JSON.stringify({ message: result.message || result.error }),
-        {
-          status: result.message === "No users found!" ? 404 : 500,
-          headers: { "Content-Type": "application/json" },
-        }
+      return NextResponse.json(
+        { message: result.message || result.error },
+        { status: result.message === "No users found!" ? 404 : 500 }
       );
     }
 
-    return new NextResponse(JSON.stringify(result.data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(result.data, { status: 200 });
   } catch {
-    return new NextResponse(
-      JSON.stringify({ message: "Get all users failed!" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return NextResponse.json({ message: "Get all users failed!" }, { status: 500 });
   }
 };
 
@@ -65,26 +56,20 @@ export const POST = async (req: Request) => {
 
     if (!result.success) {
       const status = result.message?.includes("already exists") ? 409 : 400;
-      return new NextResponse(
-        JSON.stringify({ message: result.message || result.error }),
-        { status, headers: { "Content-Type": "application/json" } }
+      return NextResponse.json(
+        { message: result.message || result.error },
+        { status }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify({ message: result.message }),
-      {
-        status: 201,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return NextResponse.json({ message: result.message }, { status: 201 });
   } catch (error) {
-    return new NextResponse(
-      JSON.stringify({ 
+    return NextResponse.json(
+      { 
         message: "Create user failed!",
         error: error instanceof Error ? error.message : "Unknown error"
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      },
+      { status: 500 }
     );
   }
 };

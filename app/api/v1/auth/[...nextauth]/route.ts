@@ -1,7 +1,3 @@
-import NextAuth from "next-auth";
-import { authOptions } from "@/lib/auth-config";
-
-// Only expose route handlers from this file
-const { handlers } = NextAuth(authOptions);
+import { handlers } from "./auth";
 
 export const { GET, POST } = handlers;

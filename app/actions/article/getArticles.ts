@@ -8,7 +8,7 @@ import User from "@/app/api/models/user"; // Import User model to ensure it's re
 // Ensure User model is registered for populate operations
 void User;
 
-export async function getArticles(params: IGetArticlesParams = {}): Promise<IPaginatedResponse<ISerializedArticle>> {
+export async function getArticles(params: IGetArticlesParams & { skipCount?: boolean } = {}): Promise<IPaginatedResponse<ISerializedArticle>> {
   
   const {
     page = 1,
@@ -19,6 +19,7 @@ export async function getArticles(params: IGetArticlesParams = {}): Promise<IPag
     excludeIds,
     category,
     slug,
+    skipCount = false,
   } = params;
 
   try {
@@ -120,8 +121,9 @@ export async function getArticles(params: IGetArticlesParams = {}): Promise<IPag
     // ------------------------
     // Pagination metadata (matching route.ts logic)
     // ------------------------
-    const totalDocs = await Article.countDocuments(mongoFilter);
-    const totalPages = Math.ceil(totalDocs / limit);
+    // Skip expensive countDocuments query if skipCount is true (for home page performance)
+    const totalDocs = skipCount ? 0 : await Article.countDocuments(mongoFilter);
+    const totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
 
     // Serialize MongoDB objects to plain objects for client components
     const serializedArticles = articlesWithFilteredContent.map((article: IArticleLean): ISerializedArticle => {

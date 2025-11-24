@@ -22,14 +22,11 @@ export const GET = async (
     // Validate slug parameter
     // ------------------------
     if (!slug || typeof slug !== "string") {
-      return new NextResponse(
-        JSON.stringify({
-          message: "Valid slug parameter is required!",
-        }),
+      return NextResponse.json(
         {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
+          message: "Valid slug parameter is required!",
+        },
+        { status: 400 }
       );
     }
 
@@ -42,19 +39,10 @@ export const GET = async (
     // Handle no results
     // ------------------------
     if (!article) {
-      return new NextResponse(
-        JSON.stringify({ message: "Article not found!" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return NextResponse.json({ message: "Article not found!" }, { status: 404 });
     }
 
-    return new NextResponse(JSON.stringify(article), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(article, { status: 200 });
   } catch (error) {
     console.error("Error in route.ts:", error);
     return handleApiError("Get article by slug failed!", error as string);

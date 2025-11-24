@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { toggleArticleLike } from "@/app/actions/article/toggleArticleLike";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
 
 // @desc    Toggle article like (add if not liked, remove if already liked)
 // @route   POST /api/v1/likes/articles/[articleId]

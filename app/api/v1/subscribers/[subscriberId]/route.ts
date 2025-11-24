@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
 
 // imported utils
 import { handleApiError } from "@/app/api/utils/handleApiError";
@@ -25,16 +25,10 @@ export const GET = async (
     if (!result.success) {
       const statusCode =
         result.message === "Invalid subscriber ID format" ? 400 : 404;
-      return new NextResponse(JSON.stringify({ message: result.message }), {
-        status: statusCode,
-        headers: { "Content-Type": "application/json" },
-      });
+      return NextResponse.json({ message: result.message }, { status: statusCode });
     }
 
-    return new NextResponse(JSON.stringify(result.data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(result.data, { status: 200 });
   } catch (error) {
     return handleApiError(
       "Get subscriber by subscriberId failed!",
@@ -55,11 +49,11 @@ export const PATCH = async (
     const session = await auth();
 
     if (!session) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "You must be signed in to update subscriber preferences",
-        }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 401 }
       );
     }
 
@@ -89,23 +83,20 @@ export const PATCH = async (
           ? 400
           : 500;
 
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: result.message,
-        }),
-        { status: statusCode, headers: { "Content-Type": "application/json" } }
+        },
+        { status: statusCode }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         message: result.message,
         data: result.data,
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      },
+      { status: 200 }
     );
   } catch (error) {
     return handleApiError(

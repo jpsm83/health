@@ -9,7 +9,7 @@ import User from "@/app/api/models/user"; // Import User model to ensure it's re
 void User;
 
 export async function getArticlesByCategoryPaginated(
-  params: IGetArticlesParams & { category: string }
+  params: IGetArticlesParams & { category: string; skipCount?: boolean }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
   
   const {
@@ -22,6 +22,7 @@ export async function getArticlesByCategoryPaginated(
     slug,
     query,
     excludeIds,
+    skipCount = false,
   } = params;
 
   try {
@@ -58,29 +59,14 @@ export async function getArticlesByCategoryPaginated(
     // ------------------------
     // Query DB (matching paginated route logic)
     // ------------------------
-    let articles: IArticleLean[];
-    
-    if (excludeIds && excludeIds.length > 0) {
-      // When using excludeIds, we need to get all filtered results first
-      // then apply pagination to the filtered results
-      const allFilteredArticles = await Article.find(mongoFilter)
-        .populate({ path: "createdBy", select: "username" })
-        .sort({ [sort]: order === "asc" ? 1 : -1 })
-        .lean() as IArticleLean[];
-      
-      // Apply pagination to the filtered results
-      const skip = (page - 1) * limit;
-      articles = allFilteredArticles.slice(skip, skip + limit);
-    } else {
-      // Normal pagination without exclusions
-      const skip = (page - 1) * limit;
-      articles = await Article.find(mongoFilter)
-        .populate({ path: "createdBy", select: "username" })
-        .sort({ [sort]: order === "asc" ? 1 : -1 })
-        .skip(skip)
-        .limit(limit)
-        .lean() as IArticleLean[];
-    }
+    // Use database-level pagination even with excludeIds (much faster than fetching all)
+    const skip = (page - 1) * limit;
+    const articles = await Article.find(mongoFilter)
+      .populate({ path: "createdBy", select: "username" })
+      .sort({ [sort]: order === "asc" ? 1 : -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean() as IArticleLean[];
 
     // ------------------------
     // Handle no results
@@ -136,22 +122,9 @@ export async function getArticlesByCategoryPaginated(
     // ------------------------
     // Pagination metadata (matching paginated route logic)
     // ------------------------
-    let totalDocs, totalPages;
-    
-    if (excludeIds && excludeIds.length > 0) {
-      // When using excludeIds, count the filtered results
-      const allFilteredArticles = await Article.find(mongoFilter)
-        .populate({ path: "createdBy", select: "username" })
-        .sort({ [sort]: order === "asc" ? 1 : -1 })
-        .lean() as IArticleLean[];
-      
-      totalDocs = allFilteredArticles.length;
-      totalPages = Math.ceil(totalDocs / limit);
-    } else {
-      // Normal count without exclusions
-      totalDocs = await Article.countDocuments(mongoFilter);
-      totalPages = Math.ceil(totalDocs / limit);
-    }
+    // Skip expensive countDocuments if skipCount is true (for performance)
+    const totalDocs = skipCount ? 0 : await Article.countDocuments(mongoFilter);
+    const totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
 
     // Serialize MongoDB objects to plain objects for client components
     const serializedArticles = articlesWithFilteredContent.map((article: IArticleLean): ISerializedArticle => {

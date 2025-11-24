@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
 import { deleteComment } from "@/app/actions/comment/deleteComment";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 

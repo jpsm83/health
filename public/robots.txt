@@ -18,12 +18,8 @@ Disallow: /confirm-email
 Disallow: /confirm-newsletter
 Disallow: /unsubscribe
 
-# Allow sitemap
-Allow: /sitemap.xml
+# Allow site-map page (the UI page, not the XML sitemap)
 Allow: /site-map
-
-# Sitemap location
-Sitemap: https://womensspot.com/sitemap.xml
 
 # Crawl-delay (optional, adjust as needed)
 Crawl-delay: 1

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
 
 // imported utils
 import connectDb from "@/app/api/db/connectDb";
@@ -54,21 +54,21 @@ export const GET = async (req: Request) => {
       try {
         excludeIdsArray = JSON.parse(excludeIds);
         if (!Array.isArray(excludeIdsArray) || excludeIdsArray.length === 0) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message:
                 "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       } catch {
-        return new NextResponse(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             message:
               "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 400 }
         );
       }
     }
@@ -109,19 +109,10 @@ export const GET = async (req: Request) => {
     // Handle no results
     // ------------------------
     if (result.data.length === 0) {
-      return new NextResponse(
-        JSON.stringify({ message: "No articles found!" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return NextResponse.json({ message: "No articles found!" }, { status: 404 });
     }
 
-    return new NextResponse(JSON.stringify(result), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     return handleApiError("Get all articles failed!", error as string);
   }
@@ -159,11 +150,11 @@ export const POST = async (req: Request) => {
 
     // Validate required fields
     if (!category || !languagesRaw || !imagesContextRaw) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "Category, languages, and imagesContext are required!",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
@@ -172,22 +163,22 @@ export const POST = async (req: Request) => {
     const hasImageUrls = articleImagesRaw && articleImagesRaw.trim() !== "";
     
     if (hasFileEntries && hasImageUrls) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "Cannot use both file uploads and pre-existing image URLs. Choose one method.",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
     // Note: articleImages are now optional - articles can be created without images
     
     if (!mainCategories.includes(category)) {
-      return new NextResponse(
-        JSON.stringify({ 
+      return NextResponse.json(
+        { 
           message: `Invalid category: "${category}". Available categories: ${mainCategories.join(", ")}` 
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
@@ -198,22 +189,22 @@ export const POST = async (req: Request) => {
         articleImages = JSON.parse(articleImagesRaw) as string[];
         
         if (!Array.isArray(articleImages)) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: "articleImages must be a valid JSON array!",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
 
         // Accept empty arrays - images are optional
         // Accept any kind of string for articleImages - no validation
       } catch (error) {
-        return new NextResponse(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             message: `Invalid articleImages format: ${error}`,
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 400 }
         );
       }
     }
@@ -222,11 +213,11 @@ export const POST = async (req: Request) => {
     if (customId) {
       // Check if custom ID is a valid MongoDB ObjectId
       if (!mongoose.Types.ObjectId.isValid(customId)) {
-        return new NextResponse(
-          JSON.stringify({ 
+        return NextResponse.json(
+          { 
             message: "Invalid custom ID format. Must be a valid MongoDB ObjectId." 
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 400 }
         );
       }
 
@@ -234,11 +225,11 @@ export const POST = async (req: Request) => {
       await connectDb();
       const existingArticle = await Article.findById(customId);
       if (existingArticle) {
-        return new NextResponse(
-          JSON.stringify({ 
+        return NextResponse.json(
+          { 
             message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
-          }),
-          { status: 409, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 409 }
         );
       }
     }
@@ -260,21 +251,21 @@ export const POST = async (req: Request) => {
         imageFour: string;
       };
     } catch (error) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: `Invalid imagesContext format: ${error}`,
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
     // Validate languages structure
     if (!Array.isArray(languages) || languages.length === 0) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "Languages must be a non-empty array!",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
@@ -286,12 +277,12 @@ export const POST = async (req: Request) => {
       !imagesContext.imageThree ||
       !imagesContext.imageFour
     ) {
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message:
             "ImagesContext must have imageOne, imageTwo, imageThree, and imageFour!",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
@@ -303,11 +294,11 @@ export const POST = async (req: Request) => {
           typeof language.articleContext !== "string" ||
           language.articleContext.trim().length === 0
         ) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: "ArticleContext must be a non-empty string!",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       }
@@ -318,11 +309,11 @@ export const POST = async (req: Request) => {
           typeof language.postImage !== "string" ||
           language.postImage.trim().length === 0
         ) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: "PostImage must be a non-empty string!",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       }
@@ -333,11 +324,11 @@ export const POST = async (req: Request) => {
         !Array.isArray(language.content.articleContents) ||
         language.content.articleContents.length === 0
       ) {
-        return new NextResponse(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             message: "Content.articleContents must be a non-empty array!",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 400 }
         );
       }
 
@@ -354,11 +345,11 @@ export const POST = async (req: Request) => {
         );
 
         if (articleContentValidation !== true) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: articleContentValidation,
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
 
@@ -367,11 +358,11 @@ export const POST = async (req: Request) => {
           !Array.isArray(articleContent.articleParagraphs) ||
           articleContent.articleParagraphs.length === 0
         ) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: "ArticleParagraphs must be a non-empty array!",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       }
@@ -381,13 +372,13 @@ export const POST = async (req: Request) => {
       if (language.seo?.hreflang) {
         const supportedLocales = ["en", "pt", "es", "fr", "de", "it"];
         if (!supportedLocales.includes(language.seo.hreflang)) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: `Unsupported hreflang: ${
                 language.seo.hreflang
               }. Supported values: ${supportedLocales.join(", ")}`,
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       }
@@ -395,20 +386,20 @@ export const POST = async (req: Request) => {
       // Validate salesProducts field if provided (must be an array of strings)
       if (language.salesProducts !== undefined) {
         if (!Array.isArray(language.salesProducts)) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: "SalesProducts must be an array of strings!",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
         // Validate that all items in the array are strings
         if (!language.salesProducts.every((item) => typeof item === "string")) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message: "All items in salesProducts array must be strings!",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       }
@@ -459,11 +450,11 @@ export const POST = async (req: Request) => {
         cloudinaryUploadResponse.length === 0 ||
         !cloudinaryUploadResponse.every((str) => str.includes("https://"))
       ) {
-        return new NextResponse(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             message: `Error uploading image: ${cloudinaryUploadResponse}`,
-          }),
-          { status: 500, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 500 }
         );
       }
 
@@ -477,23 +468,23 @@ export const POST = async (req: Request) => {
     if (customId) {
       const finalCheck = await Article.findById(customId);
       if (finalCheck) {
-        return new NextResponse(
-          JSON.stringify({ 
+        return NextResponse.json(
+          { 
             message: `Article with ID ${customId} already exists. Please use a different ID or update the existing article.` 
-          }),
-          { status: 409, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 409 }
         );
       }
     }
 
     // Create article in database
     const createdArticle = await Article.create(newArticle);
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         message: "Article created successfully!",
         article: createdArticle,
-      }),
-      { status: 201, headers: { "Content-Type": "application/json" } }
+      },
+      { status: 201 }
     );
   } catch (error) {
     return handleApiError("Create article failed!", error as string);

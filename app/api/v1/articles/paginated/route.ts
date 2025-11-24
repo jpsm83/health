@@ -39,21 +39,21 @@ export const GET = async (req: Request) => {
       try {
         excludeIdsArray = JSON.parse(excludeIds);
         if (!Array.isArray(excludeIdsArray) || excludeIdsArray.length === 0) {
-          return new NextResponse(
-            JSON.stringify({
+          return NextResponse.json(
+            {
               message:
                 "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
-            }),
-            { status: 400, headers: { "Content-Type": "application/json" } }
+            },
+            { status: 400 }
           );
         }
       } catch {
-        return new NextResponse(
-          JSON.stringify({
+        return NextResponse.json(
+          {
             message:
               "Invalid excludeIds format. Must be a JSON array of ObjectIds.",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } }
+          },
+          { status: 400 }
         );
       }
     }
@@ -95,11 +95,11 @@ export const GET = async (req: Request) => {
       });
     } else {
       // Neither query nor category provided
-      return new NextResponse(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           message: "Either 'query' or 'category' parameter is required for paginated articles endpoint.",
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        },
+        { status: 400 }
       );
     }
 
@@ -107,19 +107,10 @@ export const GET = async (req: Request) => {
     // Handle no results
     // ------------------------
     if (result.data.length === 0) {
-      return new NextResponse(
-        JSON.stringify({ message: "No articles found!" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return NextResponse.json({ message: "No articles found!" }, { status: 404 });
     }
 
-    return new NextResponse(JSON.stringify(result), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     return handleApiError("Get paginated articles failed!", error as string);
   }

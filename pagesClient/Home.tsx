@@ -45,7 +45,6 @@ export default function Home({
               className="w-full h-full object-cover"
               fill
               sizes="100vw"
-              quality={60}
               fetchPriority="high"
               priority
             />

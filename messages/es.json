@@ -485,6 +485,11 @@
       "description": "Confirma tu dirección de email para acceder a tu cuenta Women's Spot. Ingresa tu dirección de email y te enviaremos un enlace de confirmación.",
       "keywords": "confirmar email, confirmación de email, cuenta Women's Spot, verificación de email, confirmación de cuenta"
     },
+    "confirm-newsletter": {
+      "title": "Confirmar Suscripción al Newsletter - Women's Spot",
+      "description": "Confirma tu suscripción al newsletter para comenzar a recibir el contenido más reciente sobre salud y bienestar, consejos e insights de expertos de Women's Spot.",
+      "keywords": "confirmación de newsletter, suscribirse newsletter, newsletter de salud, actualizaciones de bienestar, newsletter Women's Spot, suscripción por email"
+    },
     "unsubscribe": {
       "title": "Cancelar Suscripción al Newsletter - Women's Spot",
       "description": "Cancela tu suscripción al newsletter Women's Spot. Ingresa tu dirección de email para dejar de recibir nuestras actualizaciones de salud y bienestar.",

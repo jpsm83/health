@@ -6,6 +6,9 @@ import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
+import connectDb from "@/app/api/db/connectDb";
+import Article from "@/app/api/models/article";
+import { IMongoFilter } from "@/types/api";
 
 export async function generateMetadata({
   params,
@@ -75,17 +78,10 @@ export default async function CategoryPage({
 
     featuredArticles = featuredResult.data || [];
 
-    // Get total count for pagination calculation
-    const totalResult = await getArticlesByCategoryPaginated({
-      category,
-      locale,
-      page: 1,
-      sort: "createdAt",
-      order: "desc",
-      limit: 1000, // Get a large number to count total
-    });
-
-    const totalArticles = totalResult.totalDocs;
+    // Get total count using countDocuments (much faster than fetching 1000 articles)
+    await connectDb();
+    const countFilter: IMongoFilter = { category };
+    const totalArticles = await Article.countDocuments(countFilter);
     const remainingArticles = totalArticles - FEATURED_ARTICLES_COUNT; // Subtract featured articles
     const totalPages = Math.ceil(remainingArticles / ARTICLES_PER_PAGE);
 

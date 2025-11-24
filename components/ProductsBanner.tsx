@@ -50,7 +50,6 @@ export default function ProductsBanner({
           alt={`${product || category} banner`}
           fill
           className="object-cover object-right"
-          quality={90}
           sizes={
             size === "970x90" || size === "970x240"
               ? "(max-width: 1024px) 100vw, 970px"

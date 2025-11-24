@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
 import Favorites from "@/pagesClient/Favorites";
 import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -78,7 +78,7 @@ export default async function FavoritesPage({
   }
 
   return (
-    <div className="mb-8 md:mb-16">
+    <main className="container mx-auto mb-8 md:mb-16">
       <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
         {/* Products Banner */}
         <ProductsBanner size="970x90" affiliateCompany="amazon" />
@@ -93,6 +93,6 @@ export default async function FavoritesPage({
 
       {/* Products Banner */}
       <ProductsBanner size="970x240" affiliateCompany="amazon" />
-    </div>
+    </main>
   );
 }
