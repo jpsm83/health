@@ -1,6 +1,8 @@
 // Helper function for server actions to make internal API calls
 // This allows actions to be thin bridges that call API routes
+// Using axios instead of fetch to avoid stream transform issues
 
+import axios from 'axios';
 import { cookies } from "next/headers";
 
 const getBaseUrl = (): string => {
@@ -37,44 +39,48 @@ export async function internalFetch<T = unknown>(
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}${path}`;
   
-  const fetchOptions: RequestInit = {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(cookieHeader && { Cookie: cookieHeader }), // Forward cookies for authentication
-      ...headers,
-    },
-  };
-  
-  if (body && method !== "GET") {
-    fetchOptions.body = JSON.stringify(body);
-  }
-  
   try {
-    const response = await fetch(url, fetchOptions);
+    const response = await axios({
+      method: method.toLowerCase(),
+      url,
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+        ...(cookieHeader && { Cookie: cookieHeader }), // Forward cookies for authentication
+        ...headers,
+      },
+      validateStatus: () => true, // Don't throw on any status, we'll handle it manually
+    });
     
-    if (!response.ok) {
-      const text = await response.text();
-      let errorData;
-      try {
-        errorData = JSON.parse(text);
-      } catch {
-        errorData = { message: text || "Unknown error" };
-      }
-      throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+    if (response.status >= 400) {
+      const errorData = typeof response.data === 'string' 
+        ? { message: response.data } 
+        : response.data;
+      throw new Error(
+        errorData.message || `HTTP ${response.status}: ${response.statusText || 'Request failed'}`
+      );
     }
     
-    const text = await response.text();
-    if (!text) {
+    // Handle empty responses
+    if (!response.data) {
       return {} as T;
     }
     
-    try {
-      return JSON.parse(text) as T;
-    } catch {
-      return text as T;
-    }
+    // Axios automatically parses JSON, but we handle both cases
+    return response.data as T;
   } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Handle axios-specific errors
+      if (error.response) {
+        const errorData = typeof error.response.data === 'string'
+          ? { message: error.response.data }
+          : error.response.data;
+        throw new Error(
+          errorData?.message || `HTTP ${error.response.status}: ${error.message}`
+        );
+      }
+      throw new Error(error.message || "Internal fetch failed");
+    }
     if (error instanceof Error) {
       throw error;
     }
