@@ -1,14 +1,15 @@
-import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
   generateSimpleFallbackMetadata,
 } from "@/lib/utils/articleMetadata";
 import { languageMap } from "@/lib/utils/genericMetadata";
-import { ISerializedArticle, IMetaDataArticle } from "@/types/article";
-import Article from "@/pagesClient/Article";
+import { IMetaDataArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
+import ArticleDetailSection from "@/components/server/ArticleDetailSection";
+import { ArticleDetailSkeleton } from "@/components/skeletons/ArticleDetailSkeleton";
 import { Metadata, Viewport } from "next";
 
 export async function generateMetadata({
@@ -112,41 +113,21 @@ export async function generateViewport(): Promise<Viewport> {
   };
 }
 
-// This should return JSX, not Metadata
+export const revalidate = 3600; // 1 hour
+
 export default async function ArticlePage({
   params,
 }: {
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
-  
-  let articleData: ISerializedArticle | undefined = undefined;
-
-  try {
-    const result = await getArticleBySlug(slug, locale);
-    articleData = result ?? undefined;
-  } catch (error) {
-    console.error("Error fetching article:", error);
-    
-    // Log mobile-specific debugging info
-    console.error("Mobile article error context:", {
-      slug,
-      locale,
-      userAgent: typeof window !== 'undefined' ? window.navigator?.userAgent : 'Server-side',
-      timestamp: new Date().toISOString(),
-      error: error instanceof Error ? error.message : 'Unknown error'
-    });
-  }
-
-  // If article doesn't exist, trigger not-found page
-  if (!articleData) {
-    notFound();
-  }
 
   return (
     <main className="container mx-auto">
       <ErrorBoundary context={"Article component"}>
-        <Article articleData={articleData} />
+        <Suspense fallback={<ArticleDetailSkeleton />}>
+          <ArticleDetailSection slug={slug} locale={locale} />
+        </Suspense>
       </ErrorBoundary>
     </main>
   );

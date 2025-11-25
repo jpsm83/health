@@ -285,6 +285,8 @@ export default function Article({
                         className="object-cover object-center"
                         sizes="(max-width: 1024px) 100vw, (max-width: 1200px) 25vw, 25vw"
                         priority
+                        fetchPriority="high"
+                        quality={85}
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -312,6 +314,8 @@ export default function Article({
                         className="object-cover object-center"
                         sizes="(max-width: 1200px) 25vw, 25vw"
                         priority
+                        fetchPriority="high"
+                        quality={85}
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">

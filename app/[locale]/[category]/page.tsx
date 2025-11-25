@@ -1,14 +1,21 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
-import Articles from "@/pagesClient/Articles";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
-import { IMongoFilter } from "@/types/api";
+import CategoryHeroSection from "@/components/server/CategoryHeroSection";
+import CategoryFeaturedArticlesSection from "@/components/server/CategoryFeaturedArticlesSection";
+import NewsletterSection from "@/components/server/NewsletterSection";
+import CategoryPaginatedArticlesSection from "@/components/server/CategoryPaginatedArticlesSection";
+import CategoryPaginationSection from "@/components/server/CategoryPaginationSection";
+import { CategoryHeroSkeleton } from "@/components/skeletons/CategoryHeroSkeleton";
+import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
+import { NewsletterSkeleton } from "@/components/skeletons/NewsletterSkeleton";
+
+// Lazy load below-fold banners (they're not critical for initial render)
+const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
 
 export async function generateMetadata({
   params,
@@ -31,6 +38,8 @@ export async function generateMetadata({
   );
 }
 
+export const revalidate = 3600; // 1 hour
+
 export default async function CategoryPage({
   params,
   searchParams,
@@ -46,90 +55,65 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const currentPage = Math.max(1, parseInt(page as string, 10) || 1);
-
-  // Configuration - easily adjustable
-  // Change these values to customize the number of articles displayed
-  const FEATURED_ARTICLES_COUNT = 10; // Number of fixed articles in first section
-  const ARTICLES_PER_PAGE = 10; // Number of articles per page in second section
-
-  // Examples:
-  // FEATURED_ARTICLES_COUNT = 3, ARTICLES_PER_PAGE = 4 → First section: 3 articles, Second section: 4 per page
-  // FEATURED_ARTICLES_COUNT = 1, ARTICLES_PER_PAGE = 6 → First section: 1 article, Second section: 6 per page
-
-  let featuredArticles: ISerializedArticle[] = []; // Fixed articles (first section)
-  let paginatedArticles: ISerializedArticle[] = []; // Paginated articles (second section)
-  let paginationData = {
-    currentPage: 1,
-    totalPages: 1,
-    totalArticles: 0,
-  };
-
-  try {
-    // Get the featured articles (fixed section - always the same)
-    // Using fields: "featured" and skipCount: true for better performance
-    const featuredResult = await getArticlesByCategoryPaginated({
-      category,
-      locale,
-      page: 1,
-      sort: "createdAt",
-      order: "desc",
-      limit: FEATURED_ARTICLES_COUNT,
-      fields: "featured", // Only fetch fields needed for ArticleCard
-      skipCount: true, // Skip expensive countDocuments for featured section
-    });
-
-    featuredArticles = featuredResult.data || [];
-
-    // Get total count using countDocuments (much faster than fetching 1000 articles)
-    await connectDb();
-    const countFilter: IMongoFilter = { category };
-    const totalArticles = await Article.countDocuments(countFilter);
-    const remainingArticles = totalArticles - FEATURED_ARTICLES_COUNT; // Subtract featured articles
-    const totalPages = Math.ceil(remainingArticles / ARTICLES_PER_PAGE);
-
-    // Redirect to page 1 if current page is greater than total pages
-    if (currentPage > totalPages && totalPages > 0) {
-      redirect(`/${locale}/${category}?page=1`);
-    }
-
-    // Get the paginated articles for the second section
-    // Use excludeIds to skip the featured articles
-    const featuredIds = featuredArticles
-      .map((article) => article._id?.toString())
-      .filter((id): id is string => Boolean(id));
-
-    const paginatedResult = await getArticlesByCategoryPaginated({
-      category,
-      locale,
-      page: currentPage,
-      sort: "createdAt",
-      order: "desc",
-      limit: ARTICLES_PER_PAGE,
-      excludeIds: featuredIds,
-      fields: "featured", // Only fetch fields needed for ArticleCard
-    });
-
-    paginatedArticles = paginatedResult.data || [];
-
-    paginationData = {
-      currentPage,
-      totalPages,
-      totalArticles: remainingArticles, // Total articles minus the featured ones
-    };
-  } catch (error) {
-    console.error("Error fetching articles:", error);
-  }
-
   return (
     <main className="container mx-auto">
       <ErrorBoundary context={`Articles component for category ${category}`}>
-        <Articles
-          featuredArticles={featuredArticles}
-          paginatedArticles={paginatedArticles}
-          category={category}
-          paginationData={paginationData}
-        />
+        <div className="mb-8 md:mb-16">
+          <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
+            {/* Products Banner */}
+            <ProductsBanner
+              size="970x90"
+              affiliateCompany="amazon"
+              category={category}
+            />
+
+            {/* Hero Section */}
+            <Suspense fallback={<CategoryHeroSkeleton />}>
+              <CategoryHeroSection category={category} locale={locale} />
+            </Suspense>
+
+            {/* Featured Articles Section */}
+            <Suspense fallback={<FeaturedArticlesSkeleton />}>
+              <CategoryFeaturedArticlesSection
+                category={category}
+                locale={locale}
+              />
+            </Suspense>
+
+            {/* Newsletter Section */}
+            <Suspense fallback={<NewsletterSkeleton />}>
+              <NewsletterSection />
+            </Suspense>
+
+            {/* Products Banner */}
+            <ProductsBanner
+              size="970x90"
+              affiliateCompany="amazon"
+              category={category}
+            />
+
+            {/* Paginated Articles Section */}
+            <Suspense fallback={<FeaturedArticlesSkeleton />}>
+              <CategoryPaginatedArticlesSection
+                category={category}
+                locale={locale}
+                page={page as string}
+              />
+            </Suspense>
+
+            {/* Pagination Controls */}
+            <Suspense fallback={null}>
+              <CategoryPaginationSection
+                category={category}
+                locale={locale}
+                page={page as string}
+              />
+            </Suspense>
+          </div>
+
+          {/* Bottom banner - lazy loaded */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

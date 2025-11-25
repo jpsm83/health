@@ -413,11 +413,22 @@ export default function Loading() {
 **Configuration** (`next.config.ts`):
 ```typescript
 images: {
-  qualities: [75, 85], // Required for Next.js 16
+  qualities: [75, 85], // Required for Next.js 16 - must include all quality values used
   formats: ['image/avif', 'image/webp'],
-  // ... remotePatterns
+  minimumCacheTTL: 31536000,
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'res.cloudinary.com',
+      port: '',
+      pathname: '/**',
+    },
+    // ... other patterns
+  ],
 }
 ```
+
+**Important**: The `qualities` array must include all quality values used in Image components. If you use `quality={75}` or `quality={85}`, both must be declared in the config. This is required starting in Next.js 16.
 
 ### 2. Code Splitting
 
@@ -468,6 +479,7 @@ const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
 import { getTranslations } from "next-intl/server";
 import { fetchDataAction } from "@/app/actions/data/fetchData";
 import ClientComponent from "@/components/ClientComponent";
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 
 interface SectionComponentProps {
   locale: string;
@@ -480,6 +492,7 @@ export default async function SectionComponent({ locale }: SectionComponentProps
     locale,
     limit: 10,
     skipCount: true,
+    fields: "featured" as FieldProjectionType, // Use proper type, not string
   });
 
   if (!response.data.length) {
@@ -499,6 +512,8 @@ export default async function SectionComponent({ locale }: SectionComponentProps
   );
 }
 ```
+
+**Note**: When using `fields` parameter in article actions, always use `FieldProjectionType` ("featured" | "dashboard" | "full"), not `string`. This ensures type safety and prevents build errors.
 
 ### Pattern 2: Client Component with Interactivity
 
@@ -676,6 +691,7 @@ export default async function ArticlesSection({ locale }: ArticlesSectionProps) 
     locale,
     limit: 20,
     skipCount: true,
+    fields: "featured", // Optional: FieldProjectionType ("featured" | "dashboard" | "full")
   });
 
   return (
@@ -779,7 +795,9 @@ export default function Loading() {
 - [ ] Add proper `sizes` attribute for responsive images
 - [ ] Use `priority` only for above-fold images
 - [ ] Use `fetchPriority="high"` for critical images
-- [ ] Configure `qualities` in `next.config.ts`
+- [ ] Configure `qualities` in `next.config.ts` (required for Next.js 16)
+  - Must include all quality values used (e.g., `qualities: [75, 85]`)
+  - Build will fail if quality values are not declared
 
 ### ✅ Performance Checklist
 
@@ -794,10 +812,14 @@ export default function Loading() {
 
 - [ ] Follow consistent file naming conventions
 - [ ] Use TypeScript for type safety
+  - Use proper types (e.g., `FieldProjectionType` instead of `string` for fields)
+  - Import all required types and utilities
 - [ ] Keep components focused and single-purpose
 - [ ] Extract reusable logic into utilities
 - [ ] Document complex logic with comments
 - [ ] Remove unused code and imports
+- [ ] Ensure all imports are present (check for missing `connectDb`, `mongoose`, etc.)
+- [ ] Verify build passes without TypeScript errors
 
 ---
 
@@ -890,6 +912,7 @@ return <h1>{t("title")}</h1>;
 The home page includes performance monitoring via `PerformanceMonitor` component:
 
 - **Core Web Vitals**: LCP, CLS, TTFB, INP
+  - **Note**: FID (First Input Delay) is deprecated in favor of INP (Interaction to Next Paint)
 - **Page Load Time**: Tracks full page load
 - **First Contentful Paint**: Tracks initial content visibility
 - **Google Analytics Integration**: All metrics sent automatically
@@ -897,6 +920,8 @@ The home page includes performance monitoring via `PerformanceMonitor` component
 View metrics:
 - **Development**: Browser console
 - **Production**: Google Analytics → Events → Web Vitals
+
+**Implementation**: The `PerformanceMonitor` component is integrated in the root layout (`app/layout.tsx`) and automatically tracks all metrics without requiring any additional setup.
 
 ---
 
@@ -926,5 +951,63 @@ This architecture provides:
 
 ---
 
-**Last Updated**: Based on Next.js 15.5.6 and current home page implementation
+## Type Safety & Build Requirements
+
+### FieldProjectionType Usage
+
+When working with article actions that accept a `fields` parameter, always use the proper type:
+
+```typescript
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
+
+// ✅ Correct
+const response = await getArticles({
+  locale,
+  fields: "featured" as FieldProjectionType,
+});
+
+// ❌ Incorrect - will cause build error
+const response = await getArticles({
+  locale,
+  fields: "featured" as string, // Type error!
+});
+```
+
+**Available FieldProjectionType values**:
+- `"featured"` - Minimal fields for ArticleCard component
+- `"dashboard"` - Stats + basic info for admin dashboard
+- `"full"` - All fields (default)
+
+### Image Quality Configuration
+
+**Required for Next.js 16**: All quality values used in Image components must be declared in `next.config.ts`:
+
+```typescript
+// next.config.ts
+images: {
+  qualities: [75, 85], // Must include all values used
+  // ...
+}
+```
+
+**Build will fail** if you use `quality={75}` or `quality={85}` without declaring them in the config.
+
+### Common Build Errors & Solutions
+
+1. **Type Error: `fields` parameter**
+   - **Error**: `Type 'string' is not assignable to type 'FieldProjectionType'`
+   - **Solution**: Import `FieldProjectionType` and use proper type casting
+
+2. **Missing Import Errors**
+   - **Error**: `Cannot find name 'connectDb'` or `Cannot find name 'mongoose'`
+   - **Solution**: Add missing imports at the top of the file
+
+3. **Image Quality Warning**
+   - **Warning**: `Image is using quality "85" which is not configured in images.qualities`
+   - **Solution**: Add quality value to `qualities` array in `next.config.ts`
+
+---
+
+**Last Updated**: Based on Next.js 15.5.6 and current home page implementation  
+**Build Status**: ✅ All TypeScript errors resolved, build passes successfully
 

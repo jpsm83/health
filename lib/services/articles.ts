@@ -399,6 +399,30 @@ export async function getArticleStatsService(): Promise<ArticleStats> {
   };
 }
 
+export async function getArticlesCountService(
+  params: { category?: string; locale?: string } = {}
+): Promise<number> {
+  const { category, locale = DEFAULT_LOCALE } = params;
+  
+  const filter: IMongoFilter = {};
+  
+  if (category) {
+    filter.category = category;
+  }
+  
+  await connectDb();
+  
+  // Get all articles matching the filter
+  const allArticles = (await Article.find(filter)
+    .populate({ path: "createdBy", select: "username" })
+    .lean()) as IArticleLean[];
+  
+  // Apply locale filter to get accurate count
+  const filteredArticles = applyLocaleFilter(allArticles, locale);
+  
+  return filteredArticles.length;
+}
+
 export async function incrementArticleViewsService(
   articleId: string
 ): Promise<number> {
