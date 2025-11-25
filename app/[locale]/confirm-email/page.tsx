@@ -1,11 +1,13 @@
 import { Metadata } from "next";
-import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { getTranslations } from "next-intl/server";
-import confirmEmailAction from "@/app/actions/auth/confirmEmail";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import ProductsBanner from "@/components/ProductsBanner";
+import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
+import ConfirmEmailSection from "@/components/server/ConfirmEmailSection";
+import { ConfirmEmailSkeleton } from "@/components/skeletons/ConfirmEmailSkeleton";
+
+// Lazy load below-fold banners (they're not critical for initial render)
+const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
 
 export async function generateMetadata({
   params,
@@ -21,37 +23,17 @@ export async function generateMetadata({
   );
 }
 
-// Server Component - handles email confirmation
+export const revalidate = 3600; // 1 hour
+
 export default async function ConfirmEmailPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ token?: string }>;
 }) {
-  const t = await getTranslations("confirmEmail");
+  const { locale } = await params;
   const { token } = await searchParams;
-
-  let status: "success" | "error" = "error";
-  let message = "";
-
-  if (!token) {
-    message = t("messages.noToken");
-  } else {
-    try {
-      const result = await confirmEmailAction(token);
-
-      if (result.success) {
-        status = "success";
-        message = result.message;
-      } else {
-        status = "error";
-        message = result.message || t("messages.confirmationFailed");
-      }
-    } catch (error) {
-      console.error("Error confirming email:", error);
-      status = "error";
-      message = t("messages.unexpectedError");
-    }
-  }
 
   return (
     <main className="container mx-auto mt-4 mb-8 md:mt-8 md:mb-16">
@@ -59,71 +41,9 @@ export default async function ConfirmEmailPage({
       <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
       <ErrorBoundary context={"ConfirmEmail component"}>
-        <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-          <div className="max-w-md w-full space-y-8">
-            <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-              {status === "success" && (
-                <div className="text-center">
-                  <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                    <svg
-                      className="h-6 w-6 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="mt-4 text-lg font-medium text-gray-900">
-                    {t("success.title")}
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-600">{message}</p>
-                  <div className="mt-6">
-                    <Button asChild variant="customDefault">
-                      <Link href="/signin">{t("success.signInButton")}</Link>
-                    </Button>
-                  </div>
-                </div>
-              )}
-
-              {status === "error" && (
-                <div className="text-center">
-                  <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                    <svg
-                      className="h-6 w-6 text-red-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="mt-4 text-lg font-medium text-gray-900">
-                    {t("error.title")}
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-600">{message}</p>
-                  <div className="mt-6">
-                    <Button asChild variant="customDefault">
-                      <Link href="/signin">
-                        {t("error.backToSignInButton")}
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <Suspense fallback={<ConfirmEmailSkeleton />}>
+          <ConfirmEmailSection locale={locale} token={token} />
+        </Suspense>
       </ErrorBoundary>
 
       {/* Products Banner */}
