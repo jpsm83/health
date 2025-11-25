@@ -6,9 +6,10 @@ import {
   getArticlesPaginatedService,
   GetArticlesServiceParams,
 } from "@/lib/services/articles";
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 
 export async function searchArticlesPaginated(
-  params: IGetArticlesParams & { query: string; fields?: string }
+  params: IGetArticlesParams & { query: string; fields?: FieldProjectionType }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
   try {
     const serviceParams: GetArticlesServiceParams & { query: string } = {

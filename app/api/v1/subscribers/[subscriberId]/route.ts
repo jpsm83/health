@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
+import connectDb from "@/app/api/db/connectDb";
 import Subscriber from "@/app/api/models/subscriber";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import {

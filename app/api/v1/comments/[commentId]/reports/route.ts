@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { reportCommentService } from "@/lib/services/comments";
-import Comment from "@/app/api/models/comment";
-import User from "@/app/api/models/user";
 import sendCommentReportEmailAction from "@/app/actions/user/commentReport";
 
 // @desc    Report comment
@@ -49,43 +47,19 @@ export const POST = async (
       );
     }
 
-    // Report comment using service
-    await reportCommentService(commentId, session.user.id, reason);
+    // Report comment using service (returns data needed for email)
+    const reportResult = await reportCommentService(commentId, session.user.id, reason);
 
     // Send email notification (external integration - keep in route)
     try {
-      const { default: connectDb } = await import("@/app/api/db/connectDb");
-      await connectDb();
-
-      const comment = await Comment.findById(commentId).populate({
-        path: "articleId",
-        select: "languages.content.mainTitle",
-      });
-
-      if (comment && !comment.isDeleted) {
-        const article = comment.articleId as {
-          languages?: Array<{ content?: { mainTitle?: string } }>;
-        };
-        const articleTitle =
-          article?.languages?.[0]?.content?.mainTitle || "Unknown Article";
-
-        const commentAuthor = await User.findById(comment.userId).select(
-          "email username preferences.language"
-        );
-
-        if (commentAuthor) {
-          const authorLanguage = commentAuthor.preferences?.language || "en";
-
-          await sendCommentReportEmailAction(
-            commentAuthor.email,
-            commentAuthor.username,
-            comment.comment,
-            reason,
-            articleTitle,
-            authorLanguage
-          );
-        }
-      }
+      await sendCommentReportEmailAction(
+        reportResult.comment.authorEmail,
+        reportResult.comment.authorUsername,
+        reportResult.comment.comment,
+        reason,
+        reportResult.comment.articleTitle,
+        reportResult.comment.authorLanguage
+      );
     } catch (emailError) {
       console.error("Failed to send comment report email:", emailError);
       // Don't fail the entire operation if email fails

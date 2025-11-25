@@ -6,9 +6,10 @@ import {
   getArticlesService,
   GetArticlesServiceParams,
 } from "@/lib/services/articles";
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 
 export async function getArticlesByCategory(
-  params: IGetArticlesParams & { category: string; skipCount?: boolean; fields?: string }
+  params: IGetArticlesParams & { category: string; skipCount?: boolean; fields?: FieldProjectionType }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
   try {
     const serviceParams: GetArticlesServiceParams = {

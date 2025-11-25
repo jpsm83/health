@@ -1,16 +1,69 @@
 # Server Actions Architecture
 
-This document explains the comprehensive Next.js architecture where all database logic is handled by server actions that can be used by both server components and API routes, with a focus on the articles system implementation.
+This document explains the comprehensive Next.js 15 architecture with a service-oriented design where all database logic is centralized in services, used by both server actions and API routes.
 
 ## Overview
 
 The architecture follows this pattern:
-1. **Server Actions** (`app/actions/`) - Handle all database operations
-2. **API Routes** (`app/api/`) - Import and use server actions for third-party access
-3. **Server Components** - Can directly import and use server actions
-4. **Client Components** - Receive serialized data from server components
+1. **Service Layer** (`lib/services/`) - Centralized database operations and business logic
+2. **Server Actions** (`app/actions/`) - Thin wrappers that call services or routes
+3. **API Routes** (`app/api/v1/`) - Thin wrappers that call services, handle HTTP concerns
+4. **Server Components** - Can directly import and use server actions or services
+5. **Client Components** - Receive serialized data from server components
 
-## System Implementation
+## Architecture Pattern
+
+```
+┌─────────────────┐
+│ Server Component│
+└────────┬────────┘
+         │
+         ├─────────────────┐
+         │                 │
+         ▼                 ▼
+┌────────────────┐  ┌──────────────┐
+│ Server Action  │  │  API Route   │
+└────────┬───────┘  └──────┬───────┘
+         │                 │
+         └────────┬────────┘
+                  │
+                  ▼
+         ┌─────────────────┐
+         │  Service Layer   │
+         │ (lib/services/)  │
+         └────────┬─────────┘
+                  │
+                  ▼
+         ┌─────────────────┐
+         │   Database      │
+         │   (MongoDB)     │
+         └─────────────────┘
+```
+
+### Key Principles
+
+1. **Single Source of Truth**: Services contain all DB logic
+2. **No `internalFetch`**: Direct service calls (no server-side HTTP hops)
+3. **Separation of Concerns**: 
+   - Services = DB operations
+   - Routes = HTTP handling, file uploads, email sending
+   - Actions = Thin bridges to services or routes
+
+## Service Layer Structure
+
+All business logic lives in `lib/services/`:
+
+```
+lib/services/
+├── articles.ts      # Article CRUD, likes, views, stats
+├── comments.ts      # Comment CRUD, likes, reports
+├── users.ts         # User CRUD, liked articles
+├── subscribers.ts  # Subscriber CRUD, subscribe/unsubscribe
+├── newsletter.ts    # Newsletter operations
+├── auth.ts          # Email confirmation, password reset
+├── upload.ts        # Image upload, Cloudinary operations
+└── README.md        # Service layer guidelines
+```
 
 ### Server Actions Structure
 ```
@@ -146,62 +199,72 @@ app/api/v1/
 
 ### 1. General Article Fetching
 
-#### Server Action (`app/actions/article/getArticles.ts`)
+#### Service (`lib/services/articles.ts`)
 ```typescript
-"use server";
-
-export async function getArticles(
-  params: IGetArticlesParams = {}
+export async function getArticlesService(
+  params: GetArticlesServiceParams = {}
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
-  const { page = 1, limit = 6, locale = 'en', ...filters } = params;
+  const { page = 1, limit = 9, locale = "en", ...filters } = params;
   
   await connectDb();
   
-  // Build MongoDB filter
-  const mongoFilter = buildFilter(filters);
+  const filter = buildFilter(filters);
+  const projection = fieldProjections[fields] || {};
   
-  // Query with pagination
-  const articles = await Article.find(mongoFilter)
+  const articles = await Article.find(filter, projection)
     .populate({ path: "createdBy", select: "username" })
-    .sort({ createdAt: -1 })
-    .skip((page - 1) * limit)
+    .sort({ [sort]: order === "asc" ? 1 : -1 })
     .limit(limit)
-    .lean();
+    .skip((page - 1) * limit)
+    .lean() as IArticleLean[];
   
-  // Apply locale filtering and serialization
-  const serializedArticles = articles
-    .map(applyLocaleFilter)
-    .map(serializeMongoObject);
+  const filteredArticles = applyLocaleFilter(articles, locale);
+  
+  const totalDocs = await Article.countDocuments(filter);
   
   return {
     page,
     limit,
-    totalDocs: await Article.countDocuments(mongoFilter),
+    totalDocs,
     totalPages: Math.ceil(totalDocs / limit),
-    data: serializedArticles
+    data: filteredArticles.map(serializeMongoObject) as ISerializedArticle[],
   };
+}
+```
+
+#### Server Action (`app/actions/article/getArticles.ts`)
+```typescript
+"use server";
+
+import { getArticlesService } from "@/lib/services/articles";
+
+export async function getArticles(
+  params: IGetArticlesParams = {}
+): Promise<IPaginatedResponse<ISerializedArticle>> {
+  try {
+    return await getArticlesService(params);
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    throw new Error(`Failed to fetch articles: ${error instanceof Error ? error.message : "Unknown error"}`);
+  }
 }
 ```
 
 #### API Route (`app/api/v1/articles/route.ts`)
 ```typescript
-import { getArticles, getArticlesByCategoryPaginated, searchArticlesPaginated } from "@/app/actions/article/...";
+import { getArticlesService } from "@/lib/services/articles";
 
 export const GET = async (req: Request) => {
-  const params = parseQueryParams(req);
-  
-  let result;
-  
-  // Smart routing based on parameters
-  if (params.query?.trim()) {
-    result = await searchArticlesPaginated(params);
-  } else if (params.category) {
-    result = await getArticlesByCategoryPaginated(params);
-  } else {
-    result = await getArticles(params);
+  try {
+    const { searchParams } = new URL(req.url);
+    const params = parseQueryParams(searchParams);
+    
+    const result = await getArticlesService(params);
+    
+    return NextResponse.json(result, { status: 200 });
+  } catch (error) {
+    return handleApiError("Get all articles failed!", error as string);
   }
-  
-  return NextResponse.json(result);
 };
 ```
 
@@ -226,88 +289,113 @@ export default async function HomePage() {
 
 ### 2. Search with Pagination
 
+#### Service (`lib/services/articles.ts`)
+```typescript
+export async function getArticlesPaginatedService(
+  params: GetArticlesServiceParams
+): Promise<IPaginatedResponse<ISerializedArticle>> {
+  // Service handles search query in buildFilter
+  // Returns paginated results with locale filtering
+  return await getArticlesService({ ...params, query: params.query });
+}
+```
+
 #### Server Action (`app/actions/article/searchArticlesPaginated.ts`)
 ```typescript
 "use server";
 
+import { getArticlesPaginatedService } from "@/lib/services/articles";
+
 export async function searchArticlesPaginated(
   params: IGetArticlesParams & { query: string }
 ): Promise<IPaginatedResponse<ISerializedArticle>> {
-  // Fetch all articles matching search
-  const allArticles = await Article.find({
-    "contentsByLanguage": { 
-      $elemMatch: { 
-        mainTitle: { $regex: params.query, $options: "i" } 
-      } 
-    }
-  }).lean();
-  
-  // Apply locale filtering to all articles
-  const filteredArticles = allArticles
-    .map(applyLocaleFilter)
-    .filter(hasContent);
-  
-  // Apply pagination after filtering
-  const skip = (params.page - 1) * params.limit;
-  const paginatedArticles = filteredArticles.slice(skip, skip + params.limit);
-  
-  return {
-    page: params.page,
-    limit: params.limit,
-    totalDocs: filteredArticles.length,
-    totalPages: Math.ceil(filteredArticles.length / params.limit),
-    data: paginatedArticles.map(serializeMongoObject)
-  };
+  try {
+    return await getArticlesPaginatedService(params);
+  } catch (error) {
+    console.error("Error searching articles:", error);
+    throw new Error(`Failed to search articles: ${error instanceof Error ? error.message : "Unknown error"}`);
+  }
 }
 ```
 
 ### 3. Article Likes
 
+#### Service (`lib/services/articles.ts`)
+```typescript
+export async function toggleArticleLikeService(
+  articleId: string, 
+  userId: string
+): Promise<{ liked: boolean; likeCount: number }> {
+  await connectDb();
+  
+  const article = await Article.findById(articleId);
+  if (!article) {
+    throw new Error("Article not found");
+  }
+  
+  const userLiked = article.likes?.includes(new mongoose.Types.ObjectId(userId));
+  
+  const updateOperation = userLiked
+    ? { $pull: { likes: userId } }
+    : { $addToSet: { likes: userId } };
+  
+  const updatedArticle = await Article.findByIdAndUpdate(
+    articleId,
+    updateOperation,
+    { new: true }
+  );
+  
+  return {
+    liked: !userLiked,
+    likeCount: updatedArticle.likes?.length || 0,
+  };
+}
+```
+
 #### Server Action (`app/actions/article/toggleArticleLike.ts`)
 ```typescript
 "use server";
+
+import { toggleArticleLikeService } from "@/lib/services/articles";
 
 export async function toggleArticleLike(
   articleId: string, 
   userId: string
 ): Promise<LikeResponse> {
-  await connectDb();
-  
-  const article = await Article.findById(articleId);
-  if (!article) {
-    return { success: false, error: "Article not found" };
+  try {
+    const result = await toggleArticleLikeService(articleId, userId);
+    return {
+      success: true,
+      ...result,
+      message: result.liked ? "Article liked" : "Article unliked"
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to toggle like"
+    };
   }
-  
-  const userLiked = article.likes?.includes(userId);
-  
-  const updatedArticle = await Article.findByIdAndUpdate(
-    articleId,
-    userLiked 
-      ? { $pull: { likes: userId } }
-      : { $addToSet: { likes: userId } },
-    { new: true }
-  );
-  
-  return {
-    success: true,
-    liked: !userLiked,
-    likeCount: updatedArticle.likes?.length || 0,
-    message: userLiked ? "Article unliked" : "Article liked"
-  };
 }
 ```
 
-#### API Route (`app/api/v1/likes/articles/[articleId]/route.ts`)
+#### API Route (`app/api/v1/articles/by-id/[articleId]/likes/route.ts`)
 ```typescript
-export const POST = async (req: Request, { params }: { params: { articleId: string } }) => {
+import { toggleArticleLikeService } from "@/lib/services/articles";
+
+export const POST = async (req: Request, context: { params: Promise<{ articleId: string }> }) => {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   
-  const result = await toggleArticleLike(params.articleId, session.user.id);
+  const { articleId } = await context.params;
   
-  return NextResponse.json(result);
+  try {
+    const result = await toggleArticleLikeService(articleId, session.user.id);
+    return NextResponse.json({ success: true, ...result }, { status: 200 });
+  } catch (error) {
+    return handleApiError("Toggle article like failed!", error as string);
+  }
 };
 ```
 
@@ -385,46 +473,66 @@ Different pagination strategies optimized for different use cases:
 
 ## Data Flow Patterns
 
-### 1. Server Component Flow
+### 1. Server Component Flow (Simple DB Operation)
 ```
-User Request → Server Component → Server Action → Database → Serialization → Client Component
-```
-
-### 2. API Route Flow
-```
-Third-party Request → API Route → Server Action → Database → Serialization → JSON Response
+User Request → Server Component → Server Action → Service → Database → Serialization → Client Component
 ```
 
-### 3. Mixed Flow (Server + API)
+### 2. API Route Flow (Simple DB Operation)
 ```
-User Request → Server Component → Server Action → Database
-Third-party Request → API Route → Same Server Action → Same Database
+Third-party Request → API Route → Service → Database → Serialization → JSON Response
 ```
+
+### 3. Server Component Flow (Complex Operation with Files/Email)
+```
+User Request → Server Component → Server Action → API Route → Service → Database
+                                                      ↓
+                                              File Upload/Email
+```
+
+### 4. API Route Flow (Complex Operation with Files/Email)
+```
+Third-party Request → API Route → File Upload/Email → Service → Database → JSON Response
+```
+
+### Key Difference from Old Architecture
+
+**Old Pattern:**
+- Server Action → `internalFetch` → API Route → Database
+- Double HTTP overhead on server-side
+
+**New Pattern:**
+- Server Action → Service → Database (direct)
+- API Route → Service → Database (direct)
+- No server-side HTTP hops
 
 ## Migration Strategy
 
-When migrating existing API routes to use server actions:
+When migrating to service-oriented architecture:
 
-1. **Extract Logic**: Move database logic from API route to server action
-2. **Update Response Format**: Ensure server action returns consistent format
-3. **Update API Route**: Replace logic with server action call
-4. **Test Both Interfaces**: Verify both server action and API route work correctly
-5. **Update Components**: Update server components to use server actions directly
-6. **Handle Type Changes**: Update all components to use serialized types
-7. **Test Pagination**: Ensure pagination works correctly across all interfaces
+1. **Create Service**: Extract database logic to `lib/services/<domain>.ts`
+2. **Update API Route**: Replace DB logic with service call
+3. **Update Server Action**: Replace `internalFetch` with direct service call
+4. **Handle Complex Operations**: For file uploads/email, route handles orchestration, service handles DB
+5. **Test Both Interfaces**: Verify both server action and API route work correctly
+6. **Update Components**: Server components can use actions or services directly
+7. **Handle Type Changes**: Ensure all components use serialized types
+8. **Remove `internalFetch`**: Once all domains migrate (except deferred complex operations)
 
 ## Best Practices
 
-1. **Keep Server Actions Pure**: Don't include HTTP-specific logic in server actions
-2. **Use Shared Interfaces**: Define interfaces in shared locations
-3. **Handle Errors Gracefully**: Return appropriate responses instead of throwing
-4. **Document Parameters**: Clearly document what parameters each action accepts
-5. **Test Both Paths**: Always test both server action and API route functionality
-6. **Choose Right Pagination Strategy**: Use appropriate pagination method for each use case
-7. **Optimize Queries**: Use lean queries and proper indexing
-8. **Handle Serialization**: Ensure all MongoDB objects are properly serialized
-9. **Validate Inputs**: Validate parameters in server actions
-10. **Use TypeScript**: Leverage TypeScript for type safety
+1. **Services are Pure**: Services contain only DB logic, no HTTP/file handling
+2. **Routes Handle HTTP**: Routes parse requests, handle files/email, call services
+3. **Actions are Thin**: Actions either call services directly or routes (for complex ops)
+4. **Use Shared Interfaces**: Define interfaces in shared locations (`types/`)
+5. **Consistent Error Handling**: Services throw `Error`, routes wrap with `handleApiError`
+6. **Reuse Helpers**: Services use `fieldProjections`, `serializeMongoObject`, etc.
+7. **No `internalFetch`**: Direct service calls eliminate server-side HTTP overhead
+8. **Test Both Paths**: Always test both server action and API route functionality
+9. **Optimize Queries**: Use lean queries, proper projections, and indexing
+10. **Handle Serialization**: Services return serialized data ready for client consumption
+11. **Validate Inputs**: Validate parameters in services (throw errors)
+12. **Use TypeScript**: Leverage TypeScript for type safety across all layers
 
 ## Troubleshooting
 
@@ -449,7 +557,7 @@ When migrating existing API routes to use server actions:
 
 ```
 app/
-├── actions/           # Server actions (database logic)
+├── actions/           # Server actions (thin wrappers)
 │   ├── article/       # Article-related actions
 │   ├── auth/          # Authentication actions
 │   ├── newsletter/    # Newsletter actions
@@ -462,9 +570,34 @@ app/
 │       ├── auth/      # Authentication endpoints
 │       ├── newsletter/# Newsletter endpoints
 │       ├── subscribers/# Subscriber endpoints
-│       └── users/     # User endpoints
-└── [locale]/         # Server components (can use server actions directly)
+│       ├── users/     # User endpoints
+│       └── upload/    # Upload endpoints
+└── [locale]/         # Server components (use actions or services)
     └── page.tsx
+
+lib/
+└── services/         # Service layer (database logic)
+    ├── articles.ts    # Article operations
+    ├── comments.ts   # Comment operations
+    ├── users.ts      # User operations
+    ├── subscribers.ts# Subscriber operations
+    ├── newsletter.ts # Newsletter operations
+    ├── auth.ts       # Auth operations
+    ├── upload.ts     # Upload operations
+    └── README.md     # Service guidelines
 ```
 
-This architecture provides a clean separation of concerns while maintaining flexibility and reusability.
+## Benefits of Service-Oriented Architecture
+
+1. **Single Source of Truth**: All DB logic in one place (services)
+2. **No Server-Side HTTP**: Direct service calls eliminate `internalFetch` overhead
+3. **Better Performance**: No unnecessary network hops on server
+4. **Easier Testing**: Services are pure functions, easy to test
+5. **Consistent Error Handling**: Services throw, routes wrap
+6. **Reusability**: Same service used by actions and routes
+7. **Maintainability**: Changes to DB logic in one place
+8. **Type Safety**: Shared interfaces ensure consistency
+9. **Separation of Concerns**: Clear boundaries between layers
+10. **Scalability**: Easy to add new operations or domains
+
+This architecture provides a clean separation of concerns while maintaining flexibility, performance, and reusability.

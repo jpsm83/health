@@ -85,6 +85,7 @@ export default function ArticleCard({
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
                   loading="lazy"
+                  quality={75}
                 />
               </div>
               {/* Second Image */}
@@ -98,6 +99,7 @@ export default function ArticleCard({
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
                     loading="lazy"
+                    quality={75}
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">

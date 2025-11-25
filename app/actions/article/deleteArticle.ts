@@ -1,7 +1,5 @@
 "use server";
 
-import { deleteArticleService } from "@/lib/services/articles";
-
 export interface IDeleteArticleResponse {
   success: boolean;
   message?: string;

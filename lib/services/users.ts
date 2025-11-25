@@ -4,7 +4,6 @@ import Subscriber from "@/app/api/models/subscriber";
 import Article from "@/app/api/models/article";
 import { ISerializedUser, IUserPreferences, IUser } from "@/types/user";
 import { ISerializedArticle, serializeMongoObject } from "@/types/article";
-import { Types } from "mongoose";
 import { mainCategories } from "@/lib/constants";
 import { hash } from "bcrypt";
 import crypto from "crypto";

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { mainCategories } from "@/lib/constants";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import ProductsBanner from "@/components/ProductsBanner";
 import HeroSection from "@/components/server/HeroSection";
 import FeaturedArticlesSection from "@/components/server/FeaturedArticlesSection";
 import NewsletterSection from "@/components/server/NewsletterSection";
@@ -14,6 +14,9 @@ import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
 import { NewsletterSkeleton } from "@/components/skeletons/NewsletterSkeleton";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
+
+// Lazy load below-fold banners (they're not critical for initial render)
+const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
 
 export async function generateMetadata({
   params,
@@ -53,6 +56,7 @@ export default async function HomePage({
               <NewsletterSection />
             </Suspense>
 
+            {/* Below-fold banner - lazy loaded */}
             <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
             <section className="cv-auto">
@@ -82,6 +86,7 @@ export default async function HomePage({
             </section>
           </div>
 
+          {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
         </div>
       </ErrorBoundary>

@@ -2,6 +2,7 @@ import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
 import Comment from "@/app/api/models/comment";
+import mongoose from "mongoose";
 import {
   fieldProjections,
   FieldProjectionType,

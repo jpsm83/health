@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import SessionTracker from "@/components/SessionTracker";
+import PerformanceMonitor from "@/components/PerformanceMonitor";
 
 export const metadata: Metadata = {
   title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
@@ -164,11 +165,10 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#f9fafb]">
         <SessionProvider basePath="/api/v1/auth">
           <SessionTracker />
+          <PerformanceMonitor />
           {children}
           <Toaster />
         </SessionProvider>
-
-        
 
         {/* CookieYes Banner (defer as much as possible) */}
         <Script

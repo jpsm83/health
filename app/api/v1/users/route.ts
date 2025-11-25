@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import connectDb from "@/app/api/db/connectDb";
-import User from "@/app/api/models/user";
 import mongoose from "mongoose";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
@@ -135,9 +133,8 @@ export const POST = async (req: Request) => {
     }
 
     // Create user using service
-    let result;
     try {
-      result = await createUserService({
+      await createUserService({
         username,
         email,
         password,
@@ -165,9 +162,6 @@ export const POST = async (req: Request) => {
         { status: 500 }
       );
     }
-
-    // Verify the user was created with the correct subscriptionId
-    await User.findById(result.userId).populate("subscriptionId");
 
     // Send email confirmation
     try {

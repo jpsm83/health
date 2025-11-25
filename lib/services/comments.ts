@@ -5,7 +5,6 @@ import User from "@/app/api/models/user";
 import {
   IGetCommentsParams,
   ISerializedComment,
-  ISerializedCommentReport,
 } from "@/types/comment";
 import { Types } from "mongoose";
 
@@ -305,11 +304,21 @@ export async function toggleCommentLikeService(
   };
 }
 
+export interface ReportCommentResult {
+  comment: {
+    comment: string;
+    articleTitle: string;
+    authorEmail: string;
+    authorUsername: string;
+    authorLanguage: string;
+  };
+}
+
 export async function reportCommentService(
   commentId: string,
   userId: string,
   reason: string
-): Promise<void> {
+): Promise<ReportCommentResult> {
   if (!commentId) {
     throw new Error("Comment ID is required");
   }
@@ -328,6 +337,9 @@ export async function reportCommentService(
   const comment = await Comment.findById(commentId).populate({
     path: "articleId",
     select: "languages.content.mainTitle",
+  }).populate({
+    path: "userId",
+    select: "email username preferences.language",
   });
 
   if (!comment) {
@@ -366,5 +378,32 @@ export async function reportCommentService(
   if (!updatedComment) {
     throw new Error("Failed to report comment!");
   }
+
+  // Extract data needed for email
+  const article = comment.articleId as {
+    languages?: Array<{ content?: { mainTitle?: string } }>;
+  } | null;
+  const articleTitle =
+    article?.languages?.[0]?.content?.mainTitle || "Unknown Article";
+
+  const commentAuthor = comment.userId as {
+    email?: string;
+    username?: string;
+    preferences?: { language?: string };
+  } | null;
+
+  if (!commentAuthor || !commentAuthor.email || !commentAuthor.username) {
+    throw new Error("Comment author information not found");
+  }
+
+  return {
+    comment: {
+      comment: comment.comment as string,
+      articleTitle,
+      authorEmail: commentAuthor.email,
+      authorUsername: commentAuthor.username,
+      authorLanguage: commentAuthor.preferences?.language || "en",
+    },
+  };
 }
 

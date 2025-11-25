@@ -56,6 +56,7 @@ const nextConfig: NextConfig = {
 	images: {
 		formats: ['image/avif', 'image/webp'],
 		minimumCacheTTL: 31536000,
+		qualities: [75, 85], // Required for Next.js 16 - quality values used in Image components
 		remotePatterns: [
 			{
 				protocol: 'https',

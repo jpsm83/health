@@ -1,6 +1,6 @@
 "use server";
 
-import { ISerializedUser, IUserResponse } from "@/types/user";
+import { IUserResponse } from "@/types/user";
 import { getUsersService } from "@/lib/services/users";
 
 export async function getUsers(): Promise<IUserResponse> {

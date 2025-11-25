@@ -29,5 +29,26 @@ All business logic that touches the database or external integrations should liv
    - Separate files per domain: `lib/services/articles.ts`, `lib/services/comments.ts`, ...  
    - If a domain grows large, create a folder: `lib/services/<domain>/index.ts`.
 
-Following these rules keeps the architecture consistent, improves performance (no server-side HTTP hops), and simplifies maintenance. Use the checklist in `ARCHITECTURE_TODO.md` to migrate each domain.***
+Following these rules keeps the architecture consistent, improves performance (no server-side HTTP hops), and simplifies maintenance. Use the checklist in `ARCHITECTURE_TODO.md` to migrate each domain.
+
+## Return Type Patterns
+
+See `RETURN_TYPE_PATTERNS.md` for detailed documentation on service return type patterns:
+- Get Single: Returns `T | null` if not found
+- Get Multiple: Returns empty array `[]` if no results
+- Paginated: Returns pagination object with empty `data: []`
+- Create/Update: Returns created/updated object
+- Delete: Returns `void` (throws on error)
+- Toggle/Increment: Returns result object with status
+- Complex Operations: Returns object with result + additional data
+- Auth Operations: Returns `void` or result object
+
+## Error Handling Patterns
+
+See `ERROR_HANDLING_PATTERNS.md` for detailed documentation:
+- **Services**: Always throw `Error` with descriptive messages
+- **Routes**: Catch and wrap with `handleApiError`
+- **Actions**: Pattern A (throw) for simple operations, Pattern B (return object) for complex
+
+All services throw `Error` with descriptive messages for failures.***
 

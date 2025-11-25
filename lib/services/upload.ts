@@ -2,6 +2,8 @@ import { v2 as cloudinary } from "cloudinary";
 import connectDb from "@/app/api/db/connectDb";
 import Article from "@/app/api/models/article";
 import mongoose from "mongoose";
+import uploadFilesCloudinaryLib from "@/lib/cloudinary/uploadFilesCloudinary";
+import deleteFilesCloudinaryLib from "@/lib/cloudinary/deleteFilesCloudinary";
 
 // Cloudinary configuration
 cloudinary.config({
@@ -119,5 +121,87 @@ export async function checkArticlePermissionService(
   const isAdmin = userRole === "admin";
 
   return isAuthor || isAdmin;
+}
+
+// Service wrapper for multiple file uploads
+export interface UploadFilesServiceParams {
+  folder: string;
+  filesArr: File[];
+  onlyImages?: boolean;
+}
+
+export async function uploadFilesService(
+  params: UploadFilesServiceParams
+): Promise<string[]> {
+  const { folder, filesArr, onlyImages = true } = params;
+
+  if (!folder || !filesArr || filesArr.length === 0) {
+    throw new Error("Folder and files array are required");
+  }
+
+  // Validate files
+  if (onlyImages) {
+    const invalidFiles = filesArr.filter(
+      (file) => !(file instanceof File) || !file.type.startsWith("image/")
+    );
+    if (invalidFiles.length > 0) {
+      throw new Error("Only image files are allowed");
+    }
+  }
+
+  // Validate file sizes (10MB limit per file)
+  const maxSize = 10 * 1024 * 1024; // 10MB
+  const oversizedFiles = filesArr.filter((file) => file.size > maxSize);
+  if (oversizedFiles.length > 0) {
+    throw new Error("File size must be less than 10MB per file");
+  }
+
+  // Call the Cloudinary library function
+  const result = await uploadFilesCloudinaryLib({
+    folder,
+    filesArr,
+    onlyImages,
+  });
+
+  // Validate result
+  if (typeof result === "string") {
+    throw new Error(`Upload failed: ${result}`);
+  }
+
+  if (!Array.isArray(result) || result.length === 0) {
+    throw new Error("Upload failed: No files were uploaded");
+  }
+
+  if (!result.every((url) => typeof url === "string" && url.includes("https://"))) {
+    throw new Error("Upload failed: Invalid response format");
+  }
+
+  return result;
+}
+
+// Service wrapper for file deletion (single image URL)
+export interface DeleteFileServiceParams {
+  imageUrl: string | undefined;
+}
+
+export async function deleteFileService(
+  params: DeleteFileServiceParams
+): Promise<void> {
+  const { imageUrl } = params;
+
+  // Call the Cloudinary library function
+  const result = await deleteFilesCloudinaryLib(imageUrl);
+
+  // Validate result
+  if (result === true) {
+    return; // Success
+  }
+
+  // If result is a string, it's an error message
+  if (typeof result === "string") {
+    throw new Error(result);
+  }
+
+  throw new Error("Delete file failed");
 }
 

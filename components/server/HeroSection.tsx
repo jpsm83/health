@@ -24,6 +24,7 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
             sizes="100vw"
             fetchPriority="high"
             priority
+            quality={85}
           />
         </div>
 

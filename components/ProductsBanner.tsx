@@ -61,6 +61,7 @@ export default function ProductsBanner({
               : "(max-width: 768px) 100vw, 400px"
           }
           priority={size === "970x90" || size === "970x240"}
+          quality={size === "970x90" || size === "970x240" ? 85 : 75}
         />
 
         {/* Product Name Overlay for 970x240*/}
@@ -76,6 +77,7 @@ export default function ProductsBanner({
                 fill
                 className="object-contain"
                 sizes="170px"
+                quality={85}
               />
             </div>
             <h3

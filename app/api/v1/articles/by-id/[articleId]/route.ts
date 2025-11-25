@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
-import { ILanguageSpecific, ISerializedArticle, IArticle } from "@/types/article";
+import { ILanguageSpecific, IArticle } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
 import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import Article from "@/app/api/models/article";

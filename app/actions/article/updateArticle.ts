@@ -48,7 +48,7 @@ export async function updateArticle(
     if (params.articleImages) {
       // Handle both File[] and string[]
       if (Array.isArray(params.articleImages)) {
-        params.articleImages.forEach((img, idx) => {
+        params.articleImages.forEach((img) => {
           if (img instanceof File) {
             formData.append("articleImageFiles", img);
           } else {
