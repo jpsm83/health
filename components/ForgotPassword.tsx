@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -14,16 +12,16 @@ interface FormData {
   email: string;
 }
 
-export default function ForgotPassword() {
-  const locale = useLocale();
+interface ForgotPasswordProps {
+  locale: string;
+}
+
+export default function ForgotPassword({ locale }: ForgotPasswordProps) {
   const t = useTranslations("ForgotPassword");
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-  const { data: session, status } = useSession();
-  const router = useRouter();
 
   const {
     register,
@@ -34,17 +32,6 @@ export default function ForgotPassword() {
   } = useForm<FormData>({
     mode: "onChange",
   });
-
-  // Redirect if already authenticated (this page is only for guests)
-  useEffect(() => {
-    if (status === "authenticated" && session?.user?.id) {
-      if (session?.user?.role === "admin") {
-        router.push(`/${locale}/dashboard`);
-      } else {
-        router.push(`/${locale}/profile`);
-      }
-    }
-  }, [status, session?.user?.id, session?.user?.role, router, locale]);
 
   const onSubmit = async (data: FormData) => {
     setError("");
@@ -61,8 +48,7 @@ export default function ForgotPassword() {
       } else {
         setError(result.message || t("failedToSendResetEmail"));
       }
-    } catch (error) {
-      console.error("Forgot password error:", error);
+    } catch {
       setError(t("unexpectedError"));
     } finally {
       setIsLoading(false);
@@ -132,7 +118,9 @@ export default function ForgotPassword() {
                 setValue("email", e.target.value);
                 handleInputChange("email");
               }}
-              className={`${errors.email ? "input-error" : "input-standard"} mt-1 appearance-none relative block w-full focus:z-10 sm:text-sm placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
+              className={`${
+                errors.email ? "input-error" : "input-standard"
+              } mt-1 appearance-none relative block w-full focus:z-10 sm:text-sm placeholder-gray-500 text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed`}
               placeholder={t("emailPlaceholder")}
             />
             {errors.email && (
@@ -192,3 +180,4 @@ export default function ForgotPassword() {
     </div>
   );
 }
+

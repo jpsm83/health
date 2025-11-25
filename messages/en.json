@@ -104,6 +104,7 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
+    "createArticle": "Create Article",
     "profile": "Profile",
     "favorites": "Favorites",
     "articles": "Articles",
@@ -240,18 +241,37 @@
     "form": {
       "title": "Article Title",
       "content": "Article Content",
+      "contentHint": "Write the main content of your article",
       "category": "Category",
       "selectCategory": "Select a category",
       "categories": {
         "health": "Health",
         "fitness": "Fitness",
         "nutrition": "Nutrition",
-        "wellness": "Wellness"
+        "wellness": "Wellness",
+        "intimacy": "Intimacy",
+        "beauty": "Beauty",
+        "weight-loss": "Weight Loss",
+        "life": "Life"
       },
       "tags": "Tags",
       "tagsPlaceholder": "health, fitness, tips",
+      "tagsHint": "Separate tags with commas",
+      "images": "Article Images",
+      "imagesHint": "Upload images (JPEG, PNG, or WebP). Max 5MB per file. Optional.",
       "submit": "Create Article",
-      "cancel": "Cancel"
+      "submitting": "Creating...",
+      "cancel": "Cancel",
+      "validation": {
+        "required": "Please fill in all required fields",
+        "imageType": "Please select only image files (JPEG, PNG, or WebP)",
+        "imageSize": "Image files must be less than 5MB each"
+      },
+      "error": {
+        "submit": "Failed to create article. Please try again.",
+        "network": "Network error. Please check your connection and try again."
+      },
+      "success": "Article created successfully! Redirecting..."
     },
     "languageInfo": {
       "language": "Language"

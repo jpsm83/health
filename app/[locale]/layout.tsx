@@ -47,7 +47,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
         <Navigation />
-        <main className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">{children}</main>
+        <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">{children}</div>
         <Footer />
       </div>
     </NextIntlClientProvider>

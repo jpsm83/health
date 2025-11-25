@@ -118,7 +118,9 @@ const authOptions: NextAuthConfig = {
   session: { strategy: "jwt" },
   // secret: process.env.NEXTAUTH_SECRET!,
   basePath: "/api/v1/auth",
-  debug: process.env.NODE_ENV === "development",
+  // Only enable debug mode when explicitly set via AUTH_DEBUG environment variable
+  // This prevents the warning message in development
+  debug: process.env.AUTH_DEBUG === "true",
   // Enable CSRF protection in production
   useSecureCookies: process.env.NODE_ENV === "production",
   trustHost: true, // Required for CSRF protection in development

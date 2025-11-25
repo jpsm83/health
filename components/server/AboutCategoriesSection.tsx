@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { Heart, Zap, HeartHandshake, Activity, Sparkles } from "lucide-react";
 import AboutCategoriesUI from "@/components/AboutCategoriesUI";
 
 interface AboutCategoriesSectionProps {
@@ -14,23 +13,23 @@ export default async function AboutCategoriesSection({
   const categories = [
     {
       key: "healthWellness",
-      icon: Heart,
+      iconName: "Heart",
     },
     {
       key: "fitnessBeauty",
-      icon: Zap,
+      iconName: "Zap",
     },
     {
       key: "intimacy",
-      icon: HeartHandshake,
+      iconName: "HeartHandshake",
     },
     {
       key: "weight-loss",
-      icon: Activity,
+      iconName: "Activity",
     },
     {
       key: "life",
-      icon: Sparkles,
+      iconName: "Sparkles",
     },
   ];
 
@@ -40,7 +39,7 @@ export default async function AboutCategoriesSection({
         <h2 className="text-3xl font-bold text-gray-900 mb-6">
           {t("whatWeCover.title")}
         </h2>
-        <AboutCategoriesUI categories={categories} locale={locale} />
+        <AboutCategoriesUI categories={categories} />
       </div>
     </div>
   );

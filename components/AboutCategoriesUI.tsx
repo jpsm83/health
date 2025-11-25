@@ -1,28 +1,37 @@
 "use client";
 
-import { LucideIcon } from "lucide-react";
+import { Heart, Zap, HeartHandshake, Activity, Sparkles, LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface Category {
   key: string;
-  icon: LucideIcon;
+  iconName: string;
 }
 
 interface AboutCategoriesUIProps {
   categories: Category[];
-  locale: string;
 }
+
+const iconMap: Record<string, LucideIcon> = {
+  Heart,
+  Zap,
+  HeartHandshake,
+  Activity,
+  Sparkles,
+};
 
 export default function AboutCategoriesUI({
   categories,
-  locale,
 }: AboutCategoriesUIProps) {
   const t = useTranslations("about");
 
   return (
     <div className="grid md:grid-cols-4 gap-6">
       {categories.map((category) => {
-        const IconComponent = category.icon;
+        const IconComponent = iconMap[category.iconName];
+        if (!IconComponent) {
+          return null;
+        }
         return (
           <div
             key={category.key}

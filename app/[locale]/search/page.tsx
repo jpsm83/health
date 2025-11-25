@@ -1,26 +1,45 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import Search from "@/pagesClient/Search";
+import Search from "@/components/Search";
 import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 import ProductsBanner from "@/components/ProductsBanner";
+import { SearchSkeleton } from "@/components/skeletons/SearchSkeleton";
+import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 
 export async function generateMetadata({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
   const { q } = await searchParams;
   const query = q as string;
 
-  return {
-    title: query ? `Search results for "${query}"` : "Search Articles",
-    description: query
-      ? `Find articles related to "${query}"`
-      : "Search through our collection of health and wellness articles",
-  };
+  // Use generatePublicMetadata helper
+  const metadata = await generatePublicMetadata(
+    locale,
+    "/search",
+    "metadata.search.title"
+  );
+
+  // Enhance with query if present
+  if (query) {
+    return {
+      ...metadata,
+      title: `Search results for "${query}" | ${metadata.title}`,
+      description: `Find articles related to "${query}"`,
+    };
+  }
+
+  return metadata;
 }
+
+export const revalidate = 3600; // Public page, cache for 1 hour
 
 export default async function SearchPage({
   params,
@@ -82,20 +101,23 @@ export default async function SearchPage({
   }
 
   return (
-    <main className="container mx-auto mt-4 mb-8 md:mt-8 md:mb-16">
-      {/* Products Banner */}
-      <ProductsBanner size="970x90" affiliateCompany="amazon" />
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Search page"}>
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-      <ErrorBoundary context={`Search component for query "${query}"`}>
-        <Search
-          searchResults={searchResults}
-          query={query}
-          paginationData={paginationData}
-        />
+        <Suspense fallback={<SearchSkeleton />}>
+          <Search
+            locale={locale}
+            searchResults={searchResults}
+            query={query}
+            paginationData={paginationData}
+          />
+        </Suspense>
+
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x240" affiliateCompany="amazon" />
       </ErrorBoundary>
-
-      {/* Products Banner */}
-      <ProductsBanner size="970x240" affiliateCompany="amazon" />
     </main>
   );
 }

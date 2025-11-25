@@ -1,9 +1,11 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { CheckCircle, XCircle, Mail } from "lucide-react";
+import ProductsBanner from "@/components/ProductsBanner";
+import UnsubscribeContentSection from "@/components/server/UnsubscribeContentSection";
+import { UnsubscribeSkeleton } from "@/components/skeletons/UnsubscribeSkeleton";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
@@ -22,18 +24,17 @@ export async function generateMetadata({
   );
 }
 
-interface UnsubscribePageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-  params: Promise<{ locale: string }>;
-}
+export const revalidate = 0; // Dynamic page with searchParams, no caching needed
 
 export default async function UnsubscribePage({
   searchParams,
   params,
-}: UnsubscribePageProps) {
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   const searchParamsData = await searchParams;
-  const t = await getTranslations("unsubscribe");
 
   // Get email and token from URL parameters
   const email = searchParamsData.email as string;
@@ -42,27 +43,25 @@ export default async function UnsubscribePage({
   // If no email parameter, show invalid link error
   if (!email) {
     return (
-      <ErrorBoundary context={"Unsubscribe component"}>
-        <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-          <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-            <div className="text-center mb-6">
-              <Mail className="w-16 h-16 text-orange-600 mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                {t("title")}
-              </h1>
-              <p className="text-gray-600">{t("description")}</p>
-            </div>
+      <main className="container mx-auto">
+        <ErrorBoundary context={"Unsubscribe page"}>
+          {/* Products Banner - Client Component, can be direct */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-            <div className="text-center">
-              <XCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                {t("invalidLinkTitle")}
-              </h2>
-              <p className="text-gray-600 mb-6">{t("invalidLinkMessage")}</p>
-            </div>
-          </div>
-        </div>
-      </ErrorBoundary>
+          <Suspense fallback={<UnsubscribeSkeleton />}>
+            <UnsubscribeContentSection
+              locale={locale}
+              email={undefined}
+              token={undefined}
+              result={undefined}
+              hasUserAccount={false}
+            />
+          </Suspense>
+
+          {/* Products Banner - Client Component, can be direct */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </ErrorBoundary>
+      </main>
     );
   }
 
@@ -95,38 +94,24 @@ export default async function UnsubscribePage({
   }
 
   return (
-    <ErrorBoundary context={"Unsubscribe component"}>
-      <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-          <div className="text-center mb-6">
-            <Mail className="w-16 h-16 text-orange-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              {t("title")}
-            </h1>
-            <p className="text-gray-600">{t("description")}</p>
-          </div>
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Unsubscribe page"}>
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-          {result.success ? (
-            <div className="text-center">
-              <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                {t("successTitle")}
-              </h2>
-              <p className="text-gray-600 mb-6">{t("successMessage")}</p>
-            </div>
-          ) : (
-            <div className="text-center">
-              <XCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                {t("errorTitle")}
-              </h2>
-              <p className="text-gray-600 mb-6">
-                {result.message || t("errorMessage")}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </ErrorBoundary>
+        <Suspense fallback={<UnsubscribeSkeleton />}>
+          <UnsubscribeContentSection
+            locale={locale}
+            email={email}
+            token={token}
+            result={result}
+            hasUserAccount={hasUserAccount}
+          />
+        </Suspense>
+
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x240" affiliateCompany="amazon" />
+      </ErrorBoundary>
+    </main>
   );
 }

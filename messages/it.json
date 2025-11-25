@@ -102,6 +102,7 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
+    "createArticle": "Crea Articolo",
     "profile": "Profilo",
     "favorites": "Preferiti",
     "articles": "Articoli",

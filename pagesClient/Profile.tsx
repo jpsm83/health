@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import {
   User,
@@ -55,10 +55,11 @@ interface FormData {
 }
 
 interface ProfileProps {
-  initialUser?: ISerializedUser;
+  locale: string;
+  initialUser: ISerializedUser;
 }
 
-export default function Profile({ initialUser }: ProfileProps) {
+export default function Profile({ locale, initialUser }: ProfileProps) {
   const t = useTranslations("profile");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -66,13 +67,12 @@ export default function Profile({ initialUser }: ProfileProps) {
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
   const isInitialized = useRef(false);
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useLocale();
 
-  // Use initial user data from server or fallback to hook
-  const [user, setUser] = useState<ISerializedUser | null>(initialUser || null);
+  // Use initial user data from server
+  const [user, setUser] = useState<ISerializedUser>(initialUser);
 
   // Handle language change - immediate language switch like Navbar
   const handleLanguageChange = (newLanguage: string) => {
@@ -314,13 +314,6 @@ export default function Profile({ initialUser }: ProfileProps) {
     );
   }, [watchedValues, originalValues, selectedImage, locale]);
 
-  // Simple auth check - redirect if not authenticated
-  useEffect(() => {
-    if (status !== "loading" && !session?.user) {
-      router.push(`/${locale}/signin`);
-    }
-  }, [status, session?.user, router, locale]);
-
   // Handle password reset
   const handleResetPassword = async () => {
     if (!user?.email) {
@@ -489,20 +482,6 @@ export default function Profile({ initialUser }: ProfileProps) {
       clearErrors(fieldName);
     }
   };
-
-  // Show error state if user data failed to load
-  if (!user) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="text-center">
-          <div className="text-red-600 text-lg mb-4">
-            {t("errors.loadingUserData")}
-          </div>
-          <div className="text-gray-600">User data not available</div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex items-start justify-center py-8 md:py-16 px-4 sm:px-6 lg:px-8">
@@ -887,7 +866,7 @@ export default function Profile({ initialUser }: ProfileProps) {
                     onClick={handleResetPassword}
                     disabled={isLoading}
                     variant="customDefault"
-                    className="w-40"
+                    className="w-60"
                   >
                     <Lock className="w-4 h-4 mr-2" />
                     {t("actions.resetPassword")}

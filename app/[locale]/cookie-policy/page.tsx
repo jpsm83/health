@@ -1,8 +1,10 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import { getTranslations } from "next-intl/server";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ProductsBanner from "@/components/ProductsBanner";
+import CookiePolicyContentSection from "@/components/server/CookiePolicyContentSection";
+import { CookiePolicySkeleton } from "@/components/skeletons/CookiePolicySkeleton";
 
 export async function generateMetadata({
   params,
@@ -18,130 +20,29 @@ export async function generateMetadata({
   );
 }
 
-// Server Component - handles metadata generation and renders static content
-export default async function CookiePolicyPage() {
-  const t = await getTranslations('cookiePolicy');
+export const revalidate = 3600; // 1 hour
+
+export default async function CookiePolicyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
 
   return (
-    <div className="mb-8 md:mb-16">
-      <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
-        {/* Products Banner */}
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Cookie Policy page"}>
+        {/* Products Banner - Client Component, can be direct */}
         <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-      <ErrorBoundary context={"CookiePolicy component"}>
-        <div className="max-w-4xl mx-auto px-4 text-justify">
-          <h1 className="text-3xl font-bold mb-6">{t("title")}</h1>
+        {/* Main Content */}
+        <Suspense fallback={<CookiePolicySkeleton />}>
+          <CookiePolicyContentSection locale={locale} />
+        </Suspense>
 
-          <div className="mb-8">
-            <p className="mb-4">
-              {t("introduction.paragraph1")}
-            </p>
-            <p className="mb-4">
-              {t("introduction.paragraph2")}
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                {t("sections.whatAreCookies.title")}
-              </h2>
-              <p className="mb-4">
-                {t("sections.whatAreCookies.paragraphs.0")}
-              </p>
-              <p className="mb-4">
-                {t("sections.whatAreCookies.paragraphs.1")}
-              </p>
-              <p className="mb-4">
-                {t("sections.whatAreCookies.paragraphs.2")}
-              </p>
-              <p>
-                {t("sections.whatAreCookies.paragraphs.3")}
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                {t("sections.whichCookies.title")}
-              </h2>
-              <p className="mb-4">
-                {t("sections.whichCookies.description")}
-              </p>
-            </section>
-
-        {/* Products Banner */}
-        <ProductsBanner size="970x90" affiliateCompany="amazon" />
-
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                {t("sections.yourChoices.title")}
-              </h2>
-              <p className="mb-4">
-                {t("sections.yourChoices.paragraphs.0")}
-              </p>
-              <p className="mb-6">
-                {t("sections.yourChoices.paragraphs.1")}
-              </p>
-
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    {t("sections.yourChoices.subsections.websiteOptOut.title")}
-                  </h3>
-                  <p className="mb-3">
-                    {t("sections.yourChoices.subsections.websiteOptOut.paragraphs.0")}
-                  </p>
-                  <p className="mb-3">
-                    {t("sections.yourChoices.subsections.websiteOptOut.paragraphs.1")}
-                  </p>
-                  <p>
-                    {t("sections.yourChoices.subsections.websiteOptOut.paragraphs.2")}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    {t("sections.yourChoices.subsections.mobileAppOptOut.title")}
-                  </h3>
-                  <p className="mb-3">
-                    {t("sections.yourChoices.subsections.mobileAppOptOut.paragraphs.0")}
-                  </p>
-                  <p>
-                    {t("sections.yourChoices.subsections.mobileAppOptOut.paragraphs.1")}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    {t("sections.yourChoices.subsections.moreInformation.title")}
-                  </h3>{' '}
-                  <p>
-                    {t("sections.yourChoices.subsections.moreInformation.description")}
-                    <a
-                      href="https://www.allaboutcookies.org"
-                      className="main-link"
-                    >
-                      {t("sections.yourChoices.subsections.moreInformation.links.allaboutcookies")}
-                    </a>{' '}
-                    and{' '}
-                    <a
-                      href="https://www.youronlinechoices.eu"
-                      className="main-link"
-                    >
-                      {t("sections.yourChoices.subsections.moreInformation.links.youronlinechoices")}
-                    </a>
-                    .
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x240" affiliateCompany="amazon" />
       </ErrorBoundary>
-      </div>
-
-      {/* Products Banner */}
-      <ProductsBanner size="970x240" affiliateCompany="amazon" />
-    </div>
+    </main>
   );
 }

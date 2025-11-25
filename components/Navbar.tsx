@@ -14,6 +14,7 @@ import {
   Filter,
   Search,
   X,
+  FileText,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -295,6 +296,7 @@ export default function Navbar() {
                         </Link>
                       </DropdownMenuItem>
                       {session?.user?.role === "admin" && (
+                        <>
                         <DropdownMenuItem asChild>
                           <Link
                             href={`/${locale}/dashboard`}
@@ -305,6 +307,17 @@ export default function Navbar() {
                             {t("dashboard")}
                           </Link>
                         </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link
+                              href={`/${locale}/create-article`}
+                              className="cursor-pointer"
+                              onClick={handleNavLinkClick}
+                            >
+                              <FileText size={16} className="text-red-600" />{" "}
+                              {t("createArticle")}
+                            </Link>
+                          </DropdownMenuItem>
+                        </>
                       )}
                       <DropdownMenuItem
                         onClick={() => {
@@ -426,6 +439,7 @@ export default function Navbar() {
                           </Link>
                         </DropdownMenuItem>
                         {session?.user?.role === "admin" && (
+                          <>
                           <DropdownMenuItem asChild>
                             <Link
                               href={`/${locale}/dashboard`}
@@ -436,6 +450,17 @@ export default function Navbar() {
                               {t("dashboard")}
                             </Link>
                           </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link
+                                href={`/${locale}/create-article`}
+                                className="cursor-pointer"
+                                onClick={handleNavLinkClick}
+                              >
+                                <FileText size={16} className="text-red-600" />{" "}
+                                {t("createArticle")}
+                              </Link>
+                            </DropdownMenuItem>
+                          </>
                         )}
                         <DropdownMenuItem
                           onClick={handleLogout}

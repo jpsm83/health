@@ -102,6 +102,7 @@
   "navigation": {
     "home": "Accueil",
     "dashboard": "Tableau de Bord",
+    "createArticle": "Créer un Article",
     "profile": "Profil",
     "favorites": "Favoris",
     "articles": "Articles",

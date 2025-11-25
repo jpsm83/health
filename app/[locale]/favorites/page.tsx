@@ -1,9 +1,11 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
-import Favorites from "@/pagesClient/Favorites";
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import Favorites from "@/components/Favorites";
+import { FavoritesSkeleton } from "@/components/skeletons/FavoritesSkeleton";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ProductsBanner from "@/components/ProductsBanner";
@@ -22,6 +24,8 @@ export async function generateMetadata({
   );
 }
 
+export const revalidate = 3600; // User page, cache for 1 hour
+
 export default async function FavoritesPage({
   params,
   searchParams,
@@ -32,7 +36,7 @@ export default async function FavoritesPage({
   const { locale } = await params;
   const { page = "1" } = await searchParams;
 
-  // Check if user is authenticated
+  // Server-side auth check
   const session = await auth();
   
   if (!session?.user?.id) {
@@ -69,7 +73,10 @@ export default async function FavoritesPage({
       };
 
       // Redirect to page 1 if current page is greater than total pages
-      if (currentPage > paginationData.totalPages && paginationData.totalPages > 0) {
+      if (
+        currentPage > paginationData.totalPages &&
+        paginationData.totalPages > 0
+      ) {
         redirect(`/${locale}/favorites?page=1`);
       }
     }
@@ -78,21 +85,22 @@ export default async function FavoritesPage({
   }
 
   return (
-    <main className="container mx-auto mb-8 md:mb-16">
-      <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
-        {/* Products Banner */}
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Favorites page"}>
+        {/* Products Banner - Client Component, can be direct */}
         <ProductsBanner size="970x90" affiliateCompany="amazon" />
         
-      <ErrorBoundary context="Favorites component">
+        <Suspense fallback={<FavoritesSkeleton />}>
         <Favorites
+            locale={locale}
           favoriteArticles={favoriteArticles}
           paginationData={paginationData}
         />
-      </ErrorBoundary>
-      </div>
+        </Suspense>
 
-      {/* Products Banner */}
-      <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x240" affiliateCompany="amazon" />
+      </ErrorBoundary>
     </main>
   );
 }

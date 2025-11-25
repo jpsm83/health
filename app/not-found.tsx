@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { routing } from "@/i18n/routing";
 import Navigation from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 export default async function NotFound() {
   // Detect locale from Accept-Language header, fallback to default
@@ -35,18 +36,20 @@ export default async function NotFound() {
     <NextIntlClientProvider messages={messages}>
       <div className="min-h-screen flex flex-col">
         <Navigation />
-        <main className="flex-1 flex flex-col items-center justify-center my-8 md:my-16 mx-3">
-          {/* Full-screen centered content */}
-          <div className="relative w-full h-[60vh] min-h-[360px] md:h-screen">
-            <div className="absolute inset-0">
-              <Image
-                src="https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg"
-                alt="404 Not Found"
-                className="w-full h-full object-cover"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority
-              />
+        <ErrorBoundary context={"Not Found page"}>
+          <main className="flex-1 flex flex-col items-center justify-center my-8 md:my-16 mx-3">
+            {/* Full-screen centered content */}
+            <div className="relative w-full h-[60vh] min-h-[360px] md:h-screen">
+              <div className="absolute inset-0">
+                <Image
+                  src="https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg"
+                  alt="404 Not Found"
+                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={85}
+                  priority
+                />
               {/* Dark overlay for better text readability */}
               <div className="absolute inset-0 bg-black/60" />
             </div>
@@ -83,6 +86,7 @@ export default async function NotFound() {
             </div>
           </div>
         </main>
+        </ErrorBoundary>
         <Footer />
       </div>
     </NextIntlClientProvider>

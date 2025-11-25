@@ -102,6 +102,7 @@
   "navigation": {
     "home": "Inicio",
     "dashboard": "Panel",
+    "createArticle": "Crear Artículo",
     "profile": "Perfil",
     "favorites": "Favoritos",
     "articles": "Artículos",

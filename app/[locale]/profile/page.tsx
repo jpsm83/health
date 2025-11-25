@@ -1,11 +1,13 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
-import Profile from "@/pagesClient/Profile";
+import Profile from "@/components/Profile";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getUserById } from "@/app/actions/user/getUserById";
-import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";;
+import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { redirect } from "next/navigation";
 import ProductsBanner from "@/components/ProductsBanner";
+import { ProfileSkeleton } from "@/components/skeletons/ProfileSkeleton";
 
 export async function generateMetadata({
   params,
@@ -17,7 +19,8 @@ export async function generateMetadata({
   return generatePrivateMetadata(locale, "/profile", "metadata.profile.title");
 }
 
-// Server Component - handles metadata generation and data fetching
+export const revalidate = 0; // User page, no caching needed
+
 export default async function ProfilePage({
   params,
 }: {
@@ -25,7 +28,7 @@ export default async function ProfilePage({
 }) {
   const { locale } = await params;
 
-  // Get session on server
+  // Server-side auth check
   const session = await auth();
 
   // Redirect if not authenticated
@@ -37,7 +40,6 @@ export default async function ProfilePage({
   const userResult = await getUserById(session.user.id);
 
   if (!userResult.success || !userResult.data) {
-    // Handle error - could redirect or show error page
     redirect(`/${locale}/signin`);
   }
 
@@ -47,16 +49,18 @@ export default async function ProfilePage({
     : userResult.data;
 
   return (
-    <main className="container mx-auto mt-4 mb-8 md:mt-8 md:mb-16">
-      {/* Products Banner */}
-      <ProductsBanner size="970x90" affiliateCompany="amazon" />
+    <main className="container mx-auto">
+      <ErrorBoundary context={"Profile page"}>
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-      <ErrorBoundary context={"Profile component"}>
-        <Profile initialUser={userData} />
+        <Suspense fallback={<ProfileSkeleton />}>
+          <Profile locale={locale} initialUser={userData} />
+        </Suspense>
+
+        {/* Products Banner - Client Component, can be direct */}
+        <ProductsBanner size="970x240" affiliateCompany="amazon" />
       </ErrorBoundary>
-
-      {/* Products Banner */}
-      <ProductsBanner size="970x240" affiliateCompany="amazon" />
     </main>
   );
 }
