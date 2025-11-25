@@ -1,92 +1,21 @@
 import { NextResponse } from "next/server";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
-import Subscriber from "@/app/api/models/subscriber";
-import { ISerializedUser } from "@/types/user";
-import { hash } from "bcrypt";
 import mongoose from "mongoose";
-import crypto from "crypto";
 import { isValidUrl } from "@/lib/utils/isValidUrl";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import passwordValidation from "@/lib/utils/passwordValidation";
 import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
-import { IUser, IUserPreferences } from "@/types/user";
-import { roles, mainCategories } from "@/lib/constants";
-
-// Helper function to generate verification token
-function generateToken(): string {
-  return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  );
-}
-
-// Helper function to serialize MongoDB user object
-function serializeUser(user: unknown): ISerializedUser {
-  const u = user as {
-    _id?: { toString: () => string };
-    username: string;
-    email: string;
-    role: string;
-    birthDate?: Date;
-    imageFile?: string;
-    imageUrl?: string;
-    preferences?: unknown;
-    subscriptionId?: { toString: () => string };
-    likedArticles?: unknown[];
-    commentedArticles?: unknown[];
-    lastLogin?: Date;
-    isActive?: boolean;
-    emailVerified?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
-
-  return {
-    _id: u._id?.toString() || "",
-    username: u.username,
-    email: u.email,
-    role: u.role,
-    birthDate: u.birthDate?.toISOString() || new Date().toISOString(),
-    imageFile: u.imageFile,
-    imageUrl: u.imageUrl,
-    preferences: u.preferences as ISerializedUser["preferences"],
-    subscriptionId: u.subscriptionId?.toString() || null,
-    subscriptionPreferences: {
-      categories: [],
-      subscriptionFrequencies: "weekly",
-    },
-    likedArticles:
-      u.likedArticles?.map((id: unknown) => {
-        if (id && typeof id === "object" && "toString" in id) {
-          return id.toString();
-        }
-        return String(id);
-      }) || [],
-    commentedArticles:
-      u.commentedArticles?.map((id: unknown) => {
-        if (id && typeof id === "object" && "toString" in id) {
-          return id.toString();
-        }
-        return String(id);
-      }) || [],
-    lastLogin: u.lastLogin?.toISOString(),
-    isActive: u.isActive,
-    emailVerified: u.emailVerified,
-    createdAt: u.createdAt?.toISOString(),
-    updatedAt: u.updatedAt?.toISOString(),
-  };
-}
+import { IUserPreferences } from "@/types/user";
+import { roles } from "@/lib/constants";
+import { getUsersService, createUserService } from "@/lib/services/users";
 
 // @desc    Get all users
 // @route   GET /users
 // @access  Public
 export const GET = async () => {
   try {
-    await connectDb();
-
-    // Fetch all users excluding password
-    const users = await User.find().select("-password").lean();
+    const users = await getUsersService();
 
     if (!users || users.length === 0) {
       return NextResponse.json(
@@ -95,10 +24,7 @@ export const GET = async () => {
       );
     }
 
-    // Serialize users for client components
-    const serializedUsers = users.map(serializeUser);
-
-    return NextResponse.json(serializedUsers, { status: 200 });
+    return NextResponse.json(users, { status: 200 });
   } catch (error) {
     console.error("Get all users failed:", error);
     return NextResponse.json(
@@ -175,49 +101,18 @@ export const POST = async (req: Request) => {
       region,
     };
 
-    // Connect to database
-    await connectDb();
+    // Generate userId first for potential image upload folder path
+    const tempUserId = new mongoose.Types.ObjectId().toString();
+    let imageUrl: string | undefined;
+    let imageFileName: string | undefined;
 
-    // Check for duplicate email
-    const duplicateUser = await User.findOne({
-      email,
-    });
-
-    if (duplicateUser) {
-      return NextResponse.json(
-        { message: "User with email already exists!" },
-        { status: 409 }
-      );
-    }
-
-    // Hash password asynchronously
-    const hashedPassword = await hash(password, 10);
-
-    const userId = new mongoose.Types.ObjectId();
-
-    // Generate verification token for email confirmation
-    const verificationToken = crypto.randomBytes(32).toString("hex");
-
-    const newUser: IUser = {
-      _id: userId,
-      username,
-      email,
-      password: hashedPassword,
-      role,
-      birthDate: new Date(birthDate),
-      preferences,
-      lastLogin: new Date(), // Set to current date automatically
-      verificationToken,
-      emailVerified: false,
-    };
-
-    // Upload image to cloudinary if provided
+    // Upload image to cloudinary if provided (before creating user)
     if (imageFile && imageFile instanceof File && imageFile.size > 0) {
-      const folder = `/users/${userId}`;
+      const folder = `/users/${tempUserId}`;
 
       const cloudinaryUploadResponse = await uploadFilesCloudinary({
         folder,
-        filesArr: [imageFile], // only one image
+        filesArr: [imageFile],
         onlyImages: true,
       });
 
@@ -235,81 +130,44 @@ export const POST = async (req: Request) => {
         );
       }
 
-      newUser.imageUrl = cloudinaryUploadResponse[0];
-      newUser.imageFile = imageFile.name;
+      imageUrl = cloudinaryUploadResponse[0];
+      imageFileName = imageFile.name;
     }
 
-    // Start database transaction
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
+    // Create user using service
+    let result;
     try {
-      // Check if user was previously a newsletter subscriber
-      const existingSubscriber = await Subscriber.findOne({
-        email: email.toLowerCase(),
-      }).session(session);
-
-      if (existingSubscriber) {
-        // Link existing subscription to new user
-        await Subscriber.findOneAndUpdate(
-          { email: email.toLowerCase() },
-          {
-            $set: {
-              userId: newUser._id,
-            },
-          },
-          {
-            new: true,
-            session: session,
-          }
+      result = await createUserService({
+        username,
+        email,
+        password,
+        role,
+        birthDate,
+        preferences,
+        imageUrl,
+        imageFile: imageFileName,
+      });
+    } catch (serviceError) {
+      const errorMessage = serviceError instanceof Error ? serviceError.message : "Unknown error";
+      
+      if (errorMessage.includes("already exists")) {
+        return NextResponse.json(
+          { message: "User with email already exists!" },
+          { status: 409 }
         );
-        // Use existing subscriber's ID
-        newUser.subscriptionId = existingSubscriber._id;
-      } else {
-        // Create new subscription for user
-        const subscriptionId = new mongoose.Types.ObjectId();
-
-        await Subscriber.create(
-          [
-            {
-              _id: subscriptionId,
-              email: email.toLowerCase(),
-              userId: newUser._id,
-              emailVerified: false,
-              verificationToken: generateToken(),
-              unsubscribeToken: generateToken(),
-              subscriptionPreferences: {
-                categories: mainCategories,
-                subscriptionFrequencies: "weekly",
-              },
-            },
-          ],
-          { session }
-        );
-        // Use new subscription's ID
-        newUser.subscriptionId = subscriptionId;
       }
-
-      // Create user
-      await User.create([newUser], { session });
-
-      // Commit the transaction
-      await session.commitTransaction();
-    } catch (error) {
-      await session.abortTransaction();
+      
       return NextResponse.json(
         {
           message: "Failed to create user and subscription",
-          error: error instanceof Error ? error.message : "Unknown error",
+          error: errorMessage,
         },
         { status: 500 }
       );
-    } finally {
-      await session.endSession();
     }
 
     // Verify the user was created with the correct subscriptionId
-    await User.findById(userId).populate("subscriptionId");
+    await User.findById(result.userId).populate("subscriptionId");
 
     // Send email confirmation
     try {

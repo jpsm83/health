@@ -1,6 +1,14 @@
 'use server';
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+// Note: This action calls the API route because the route handles
+// the email sending orchestration. The service layer only provides
+// the subscriber data. Email sending is handled at the route level.
+
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "http://localhost:3000");
 
 export interface SendNewsletterResult {
   success: boolean;
@@ -11,14 +19,22 @@ export interface SendNewsletterResult {
 
 export default async function sendNewsletterAction(): Promise<SendNewsletterResult> {
   try {
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-      error?: string;
-      sentCount?: number;
-    }>("/api/v1/newsletter/send-newsletter", {
+    const response = await fetch(`${baseUrl}/api/v1/newsletter/send-newsletter`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        message: result.message || "Failed to send newsletter",
+        error: result.error || "NEWSLETTER_SEND_FAILED",
+      };
+    }
 
     return result;
   } catch (error) {

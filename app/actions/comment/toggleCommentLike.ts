@@ -1,7 +1,7 @@
 "use server";
 
 import { IToggleCommentLikeParams } from "@/types/comment";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { toggleCommentLikeService } from "@/lib/services/comments";
 
 export const toggleCommentLike = async (params: IToggleCommentLikeParams): Promise<{
   success: boolean;
@@ -21,30 +21,13 @@ export const toggleCommentLike = async (params: IToggleCommentLikeParams): Promi
       throw new Error("Comment ID is required");
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      data: {
-        liked: boolean;
-        likeCount: number;
-        message: string;
-      };
-      message?: string;
-    }>(`/api/v1/comments/${commentId}/likes`, {
-      method: "POST",
-    });
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.message || "Failed to toggle comment like",
-      };
-    }
+    const { liked, likeCount } = await toggleCommentLikeService(commentId, userId);
 
     return {
       success: true,
-      liked: result.data.liked,
-      likeCount: result.data.likeCount,
-      message: result.data.message,
+      liked,
+      likeCount,
+      message: liked ? "Comment liked" : "Comment unliked",
     };
   } catch (error) {
     console.error("Error in toggleCommentLike:", error);

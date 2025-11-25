@@ -1,6 +1,6 @@
 "use server";
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { confirmNewsletterSubscriptionService } from "@/lib/services/subscribers";
 
 export interface NewsletterConfirmResult {
   success: boolean;
@@ -21,21 +21,27 @@ export default async function confirmNewsletterSubscriptionAction(
       };
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-      error?: string;
-    }>("/api/v1/subscribers/confirm-newsletter-subscription", {
-      method: "POST",
-      body: { token, email },
-    });
+    await confirmNewsletterSubscriptionService({ token, email });
 
-    return result;
+    return {
+      success: true,
+      message: "Newsletter subscription confirmed successfully!",
+    };
   } catch (error) {
     console.error("Newsletter confirmation error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+    
+    if (errorMessage.includes("Invalid or expired") || errorMessage.includes("INVALID_TOKEN")) {
+      return {
+        success: false,
+        message: "Invalid or expired confirmation link!",
+        error: "INVALID_TOKEN",
+      };
+    }
+    
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+      message: errorMessage,
       error: "CONFIRMATION_FAILED",
     };
   }

@@ -2,6 +2,9 @@
 
 import { IUpdateUserParamsRequired, IUpdateUserResponse } from "@/types/user";
 
+// Note: This action calls the API route because the route handles
+// FormData parsing, file uploads, Cloudinary cleanup, and validation.
+
 export async function updateUser(
   userId: string,
   params: IUpdateUserParamsRequired

@@ -1,6 +1,6 @@
 'use server';
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { confirmEmailService } from "@/lib/services/auth";
 
 export interface ConfirmEmailResult {
   success: boolean;
@@ -21,22 +21,36 @@ export default async function confirmEmailAction(
       };
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-      error?: string;
-    }>("/api/v1/auth/confirm-email", {
-      method: "POST",
-      body: { token },
-    });
+    await confirmEmailService(token);
 
-    return result;
+    return {
+      success: true,
+      message: "Email confirmed successfully! You can now sign in to your account.",
+    };
   } catch (error) {
     console.error('Confirm email action failed:', error);
+    const errorMessage = error instanceof Error ? error.message : "Email confirmation failed";
+    
+    if (errorMessage.includes("Invalid verification token") || errorMessage.includes("Invalid token")) {
+      return {
+        success: false,
+        message: "Invalid verification token. Please request a new confirmation link.",
+        error: "Invalid token"
+      };
+    }
+    
+    if (errorMessage.includes("already verified")) {
+      return {
+        success: false,
+        message: "Email is already verified.",
+        error: "Email already verified"
+      };
+    }
+    
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Email confirmation failed",
-      error: error instanceof Error ? error.message : "Unknown error"
+      message: errorMessage,
+      error: errorMessage
     };
   }
 }

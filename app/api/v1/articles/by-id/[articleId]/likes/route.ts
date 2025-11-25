@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user";
+import {
+  toggleArticleLikeService,
+  getArticleLikeStatusService,
+} from "@/lib/services/articles";
 
 // @desc    Toggle article like (add if not liked, remove if already liked)
 // @route   POST /api/v1/likes/articles/[articleId]
@@ -45,57 +46,11 @@ export const POST = async (
     }
 
     // ------------------------
-    // Connect to database
+    // Toggle like using service
     // ------------------------
-    await connectDb();
-
-    // ------------------------
-    // Check if user already liked the article
-    // ------------------------
-    const article = await Article.findById(articleId);
-
-    if (!article) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Article not found",
-        },
-        { status: 404 }
-      );
-    }
-
-    const userLiked = article.likes?.includes(session.user.id);
-
-    // ------------------------
-    // Toggle like status using atomic operation
-    // ------------------------
-    const updatedArticle = await Article.findByIdAndUpdate(
+    const { liked, likeCount } = await toggleArticleLikeService(
       articleId,
-      userLiked
-        ? { $pull: { likes: session.user.id } } // Remove like
-        : { $addToSet: { likes: session.user.id } }, // Add like (prevents duplicates)
-      { new: true }
-    );
-
-    if (!updatedArticle) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Failed to update article like",
-        },
-        { status: 400 }
-      );
-    }
-
-    // ------------------------
-    // Update user's likedArticles array
-    // ------------------------
-    await User.findByIdAndUpdate(
-      session.user.id,
-      userLiked
-        ? { $pull: { likedArticles: articleId } } // Remove from user's liked articles
-        : { $addToSet: { likedArticles: articleId } }, // Add to user's liked articles
-      { new: true }
+      session.user.id
     );
 
     // ------------------------
@@ -104,9 +59,9 @@ export const POST = async (
     return NextResponse.json(
       {
         success: true,
-        liked: !userLiked, // Return new like status
-        likeCount: updatedArticle.likes?.length || 0,
-        message: userLiked ? "Article unliked" : "Article liked",
+        liked,
+        likeCount,
+        message: liked ? "Article liked" : "Article unliked",
       },
       { status: 200 }
     );
@@ -144,26 +99,10 @@ export const GET = async (
     const session = await auth();
     const userId = session?.user?.id;
 
-    // Import Article model for direct query
-    const { default: connectDb } = await import("@/app/api/db/connectDb");
-    const { default: Article } = await import("@/app/api/models/article");
-    
-    await connectDb();
-    
-    const article = await Article.findById(articleId).select("likes");
-    
-    if (!article) {
-      return new NextResponse(
-        JSON.stringify({
-          success: false,
-          message: "Article not found",
-        }),
-        { status: 404, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    const likeCount = article.likes?.length || 0;
-    const userLiked = userId ? article.likes?.includes(userId) : false;
+    const { likeCount, userLiked } = await getArticleLikeStatusService(
+      articleId,
+      userId
+    );
 
     return new NextResponse(
       JSON.stringify({

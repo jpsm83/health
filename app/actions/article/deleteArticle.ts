@@ -1,6 +1,6 @@
 "use server";
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { deleteArticleService } from "@/lib/services/articles";
 
 export interface IDeleteArticleResponse {
   success: boolean;
@@ -12,14 +12,24 @@ export async function deleteArticle(
   articleId: string
 ): Promise<IDeleteArticleResponse> {
   try {
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-    }>(`/api/v1/articles/by-id/${articleId}`, {
+    // Note: This action calls the API route because the route handles
+    // Cloudinary image deletion before calling the service.
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      (process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "http://localhost:3000");
+
+    const response = await fetch(`${baseUrl}/api/v1/articles/by-id/${articleId}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
-    if (!result.success) {
+    const result = await response.json();
+
+    if (!response.ok) {
       return {
         success: false,
         message: result.message || "Failed to delete article",
@@ -34,7 +44,6 @@ export async function deleteArticle(
     console.error("Delete article failed:", error);
     const errorMessage = error instanceof Error ? error.message : "Delete article failed!";
     
-    // Check for specific error types
     if (errorMessage.includes("Invalid article ID format")) {
       return {
         success: false,

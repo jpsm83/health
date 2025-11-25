@@ -1,28 +1,10 @@
 "use server";
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { getArticleStatsService, ArticleStats } from "@/lib/services/articles";
 
-interface WeeklyStats {
-  totalArticles: number;
-  totalViews: number;
-  totalLikes: number;
-  totalComments: number;
-}
-
-export async function getWeeklyStats(): Promise<WeeklyStats> {
+export async function getWeeklyStats(): Promise<ArticleStats> {
   try {
-    const result = await internalFetch<{
-      success: boolean;
-      data: WeeklyStats;
-      message: string;
-    }>("/api/v1/articles/stats");
-
-    return result.data || {
-      totalArticles: 0,
-      totalViews: 0,
-      totalLikes: 0,
-      totalComments: 0,
-    };
+    return await getArticleStatsService();
   } catch (error) {
     console.error("Error fetching stats:", error);
     return {

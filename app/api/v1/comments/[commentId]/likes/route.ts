@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
-import Comment from "@/app/api/models/comment";
-import { Types } from "mongoose";
+import { toggleCommentLikeService } from "@/lib/services/comments";
 
 // @desc    Toggle comment like
 // @route   POST /api/v1/comments/[commentId]/likes
@@ -37,52 +35,18 @@ export const POST = async (
       );
     }
 
-    await connectDb();
-
-    // Find the comment
-    const comment = await Comment.findById(commentId);
-    if (!comment) {
-      return NextResponse.json(
-        { success: false, message: "Comment not found" },
-        { status: 404 }
-      );
-    }
-
-    if (comment.isDeleted) {
-      return NextResponse.json(
-        { success: false, message: "Cannot like a deleted comment" },
-        { status: 400 }
-      );
-    }
-
-    // Check if user already liked the comment
-    const userLiked = comment.likes?.includes(new Types.ObjectId(session.user.id));
-
-    // Toggle like status using atomic operation
-    const updatedComment = await Comment.findByIdAndUpdate(
+    const { liked, likeCount } = await toggleCommentLikeService(
       commentId,
-      userLiked
-        ? { $pull: { likes: new Types.ObjectId(session.user.id) } } // Remove like
-        : { $addToSet: { likes: new Types.ObjectId(session.user.id) } }, // Add like
-      { new: true }
+      session.user.id
     );
-
-    if (!updatedComment) {
-      return NextResponse.json(
-        { success: false, message: "Failed to update comment like" },
-        { status: 500 }
-      );
-    }
-
-    const newLikeCount = updatedComment.likes?.length || 0;
 
     return NextResponse.json(
       {
         success: true,
         data: {
-          liked: !userLiked,
-          likeCount: newLikeCount,
-          message: userLiked ? "Comment unliked" : "Comment liked",
+          liked,
+          likeCount,
+          message: liked ? "Comment liked" : "Comment unliked",
         },
       },
       { status: 200 }

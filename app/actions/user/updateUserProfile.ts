@@ -2,7 +2,16 @@
 
 import { IUpdateProfileData, ISerializedUser } from "@/types/user";
 import { IApiResponse } from "@/types/api";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+
+// Note: This action calls the API route because the route handles
+// FormData parsing, file uploads, and Cloudinary cleanup.
+// For file uploads, call the route directly with FormData from the frontend.
+
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "http://localhost:3000");
 
 export async function updateUserProfile(
   userId: string | { toString(): string },
@@ -12,23 +21,29 @@ export async function updateUserProfile(
     // Convert userId to string if it's an object
     const userIdStr = typeof userId === 'string' ? userId : userId.toString();
 
-    // Note: The route PATCH handler currently uses FormData, but this action accepts JSON
-    // For now, we'll call the route with JSON body. If the route needs FormData,
-    // we may need to enhance it to support both JSON and FormData.
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-      data?: ISerializedUser;
-    }>(`/api/v1/users/${userIdStr}`, {
+    // Note: The route expects FormData for file uploads
+    // For JSON-only updates, we can send JSON, but for file uploads use FormData
+    const formData = new FormData();
+    if (profileData.username) formData.append("username", profileData.username);
+    if (profileData.email) formData.append("email", profileData.email);
+    if (profileData.role) formData.append("role", profileData.role);
+    if (profileData.birthDate) formData.append("birthDate", profileData.birthDate);
+    if (profileData.preferences) {
+      formData.append("language", profileData.preferences.language);
+      formData.append("region", profileData.preferences.region);
+    }
+    if (profileData.imageFile) {
+      formData.append("imageFile", profileData.imageFile);
+    }
+
+    const response = await fetch(`${baseUrl}/api/v1/users/${userIdStr}`, {
       method: "PATCH",
-      body: {
-        ...profileData,
-        // Note: File uploads via imageFile may need special handling
-        // The route currently expects FormData, so this may need adjustment
-      },
+      body: formData,
     });
 
-    if (!result.success) {
+    const result = await response.json();
+
+    if (!response.ok) {
       return {
         success: false,
         message: result.message || "Failed to update user profile",
@@ -37,14 +52,12 @@ export async function updateUserProfile(
 
     return {
       success: true,
-      data: result.data,
       message: result.message || "User profile updated successfully",
     };
   } catch (error) {
     console.error("Error updating user profile:", error);
     const errorMessage = error instanceof Error ? error.message : "Failed to update user profile";
     
-    // Check for specific error types
     if (errorMessage.includes("Invalid user ID format")) {
       return {
         success: false,

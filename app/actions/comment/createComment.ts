@@ -1,7 +1,7 @@
 "use server";
 
 import { ICreateCommentParams, ISerializedComment } from "@/types/comment";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { createCommentService } from "@/lib/services/comments";
 
 export const createComment = async (params: ICreateCommentParams): Promise<{
   success: boolean;
@@ -11,7 +11,6 @@ export const createComment = async (params: ICreateCommentParams): Promise<{
   try {
     const { articleId, userId, comment } = params;
 
-    // Validation
     if (!userId) {
       throw new Error("You must be signed in to comment");
     }
@@ -20,28 +19,11 @@ export const createComment = async (params: ICreateCommentParams): Promise<{
       throw new Error("Article ID is required");
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      data: ISerializedComment;
-      message?: string;
-    }>("/api/v1/comments", {
-      method: "POST",
-      body: {
-        articleId,
-        comment,
-      },
-    });
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.message || "Failed to create comment",
-      };
-    }
+    const commentData = await createCommentService(articleId, userId, comment);
 
     return {
       success: true,
-      comment: result.data,
+      comment: commentData,
     };
   } catch (error) {
     console.error("Create comment failed:", error);

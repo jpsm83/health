@@ -1,19 +1,24 @@
 "use server";
 
-import { IGetSubscriberByIdResponse, ISerializedSubscriber } from "@/types/subscriber";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { IGetSubscriberByIdResponse } from "@/types/subscriber";
+import { getSubscriberByIdService } from "@/lib/services/subscribers";
 
 export async function getSubscriberById(
   subscriberId: string
 ): Promise<IGetSubscriberByIdResponse> {
   try {
-    const result = await internalFetch<ISerializedSubscriber>(
-      `/api/v1/subscribers/${subscriberId}`
-    );
+    const subscriber = await getSubscriberByIdService(subscriberId);
+
+    if (!subscriber) {
+      return {
+        success: false,
+        message: "Subscriber not found",
+      };
+    }
 
     return {
       success: true,
-      data: result,
+      data: subscriber,
     };
   } catch (error) {
     console.error("Get subscriber by ID failed:", error);

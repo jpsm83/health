@@ -1,6 +1,6 @@
 'use server';
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { resetPasswordService } from "@/lib/services/auth";
 
 export interface ResetPasswordResult {
   success: boolean;
@@ -13,22 +13,36 @@ export default async function resetPassword(
   newPassword: string
 ): Promise<ResetPasswordResult> {
   try {
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-      error?: string;
-    }>("/api/v1/auth/reset-password", {
-      method: "POST",
-      body: { token, newPassword },
-    });
+    await resetPasswordService(token, newPassword);
 
-    return result;
+    return {
+      success: true,
+      message: "Password reset successfully! You can now sign in with your new password.",
+    };
   } catch (error) {
     console.error('Reset password action failed:', error);
+    const errorMessage = error instanceof Error ? error.message : "Password reset failed";
+    
+    if (errorMessage.includes("Invalid or expired") || errorMessage.includes("Invalid token")) {
+      return {
+        success: false,
+        message: "Invalid or expired reset token. Please request a new password reset link.",
+        error: "Invalid or expired token"
+      };
+    }
+    
+    if (errorMessage.includes("at least 6 characters") || errorMessage.includes("Password too short")) {
+      return {
+        success: false,
+        message: "New password must be at least 6 characters long",
+        error: "Password too short"
+      };
+    }
+    
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Password reset failed",
-      error: error instanceof Error ? error.message : "Unknown error"
+      message: errorMessage,
+      error: errorMessage
     };
   }
 }

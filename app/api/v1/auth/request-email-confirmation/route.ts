@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 import * as nodemailer from "nodemailer";
-import crypto from "crypto";
+import { requestEmailConfirmationService } from "@/lib/services/auth";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -186,13 +185,28 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    await connectDb();
+    let result;
+    try {
+      result = await requestEmailConfirmationService(email);
+    } catch (serviceError) {
+      const errorMessage = serviceError instanceof Error ? serviceError.message : "Unknown error";
+      
+      if (errorMessage.includes("already verified")) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Email is already verified.",
+            error: "Email already verified"
+          },
+          { status: 400 }
+        );
+      }
+      
+      throw serviceError;
+    }
 
-    // Check if user exists
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      // Don't reveal if user exists or not for security
+    // If user doesn't exist, don't reveal it for security
+    if (!result.user) {
       return NextResponse.json(
         {
           success: true,
@@ -202,28 +216,8 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Check if email is already verified
-    if (user.emailVerified) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Email is already verified.",
-          error: "Email already verified"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Generate new verification token
-    const verificationToken = crypto.randomBytes(32).toString("hex");
-
-    // Update user with new verification token
-    await User.findByIdAndUpdate(user._id, {
-      verificationToken,
-    });
-
     // Create confirmation link
-    const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-email?token=${verificationToken}`;
+    const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-email?token=${result.verificationToken}`;
 
     // Send confirmation email
     try {
@@ -231,8 +225,8 @@ export const POST = async (req: NextRequest) => {
 
       const emailContent = emailConfirmationTemplate(
         confirmLink, 
-        user.username, 
-        (user.preferences as { language?: string })?.language || "en"
+        result.user.username, 
+        result.user.preferences?.language || "en"
       );
 
       const mailOptions = {
@@ -256,7 +250,7 @@ export const POST = async (req: NextRequest) => {
       console.error("Failed to send confirmation email:", emailError);
 
       // Remove the verification token if email failed
-      await User.findByIdAndUpdate(user._id, {
+      await User.findByIdAndUpdate(result.user._id, {
         verificationToken: undefined,
       });
 

@@ -1,14 +1,14 @@
 "use server";
 
 import { IDeleteCommentParams } from "@/types/comment";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { deleteCommentService } from "@/lib/services/comments";
 
-export const deleteComment = async (params: IDeleteCommentParams): Promise<{
+export const deleteComment = async (params: IDeleteCommentParams & { isAdmin?: boolean }): Promise<{
   success: boolean;
   error?: string;
 }> => {
   try {
-    const { commentId, userId } = params;
+    const { commentId, userId, isAdmin = false } = params;
 
     if (!userId) {
       throw new Error("You must be signed in to delete comments");
@@ -18,19 +18,7 @@ export const deleteComment = async (params: IDeleteCommentParams): Promise<{
       throw new Error("Comment ID is required");
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      message?: string;
-    }>(`/api/v1/comments/${commentId}`, {
-      method: "DELETE",
-    });
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.message || "Failed to delete comment",
-      };
-    }
+    await deleteCommentService(commentId, userId, isAdmin);
 
     return { success: true };
   } catch (error) {

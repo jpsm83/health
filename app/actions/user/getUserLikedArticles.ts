@@ -1,7 +1,7 @@
 "use server";
 
 import { ISerializedArticle } from "@/types/article";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { getUserLikedArticlesService } from "@/lib/services/users";
 
 export interface IGetUserLikedArticlesResponse {
   success: boolean;
@@ -20,28 +20,14 @@ export async function getUserLikedArticles(
   locale: string = "en"
 ): Promise<IGetUserLikedArticlesResponse> {
   try {
-    const queryParams = new URLSearchParams({
-      page: String(page),
-      limit: String(limit),
-      locale,
-    });
-
-    const result = await internalFetch<{
-      success: boolean;
-      data: ISerializedArticle[];
-      totalDocs: number;
-      totalPages: number;
-      currentPage: number;
-      message?: string;
-    }>(`/api/v1/users/${userId}/liked-articles?${queryParams.toString()}`);
+    const result = await getUserLikedArticlesService(userId, page, limit, locale);
 
     return {
       success: true,
-      data: result.data || [],
-      totalDocs: result.totalDocs || 0,
-      totalPages: result.totalPages || 0,
-      currentPage: result.currentPage || page,
-      message: result.message,
+      data: result.articles,
+      totalDocs: result.totalDocs,
+      totalPages: result.totalPages,
+      currentPage: result.currentPage,
     };
   } catch (error) {
     console.error("Get user liked articles failed:", error);

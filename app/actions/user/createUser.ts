@@ -2,14 +2,14 @@
 
 import { ICreateUserParams, ICreateUserResponse } from "@/types/user";
 
+// Note: This action calls the API route because the route handles
+// FormData parsing, file uploads, and email sending.
+
 export async function createUser(
   params: ICreateUserParams
 ): Promise<ICreateUserResponse> {
   try {
     // For file uploads, we need to use FormData
-    // Since internalFetch doesn't support FormData directly,
-    // we'll need to handle this differently
-    // For now, we'll call the route which already handles formData
     const formData = new FormData();
     formData.append("username", params.username);
     formData.append("email", params.email);

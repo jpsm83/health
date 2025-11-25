@@ -1,11 +1,11 @@
 "use server";
 
 import { ISerializedUser, IUserResponse } from "@/types/user";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { getUsersService } from "@/lib/services/users";
 
 export async function getUsers(): Promise<IUserResponse> {
   try {
-    const users = await internalFetch<ISerializedUser[]>("/api/v1/users");
+    const users = await getUsersService();
 
     if (!users || users.length === 0) {
       return {

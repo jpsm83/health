@@ -3,17 +3,16 @@ import mongoose from "mongoose";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
-import { ILanguageSpecific, IArticleLean, ISerializedArticle, serializeMongoObject, IArticle } from "@/types/article";
+import { ILanguageSpecific, ISerializedArticle, IArticle } from "@/types/article";
 import connectDb from "@/app/api/db/connectDb";
-import { fieldProjections, FieldProjectionType } from "@/app/api/utils/fieldProjections";
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import Article from "@/app/api/models/article";
-import User from "@/app/api/models/user";
-import Comment from "@/app/api/models/comment";
 import { mainCategories } from "@/lib/constants";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
+import { getArticleByIdService, updateArticleService, deleteArticleService } from "@/lib/services/articles";
 
 
 // @desc    Get article by ID
@@ -57,16 +56,8 @@ export const GET = async (
       );
     }
 
-    // Connect to database
-    await connectDb();
-
-    // Get field projection
-    const projection = fieldProjections[fields] || {};
-
-    // Find article by ID
-    const article = await Article.findById(articleId, projection)
-      .populate({ path: "createdBy", select: "username", model: User })
-      .lean() as IArticleLean | null;
+    // Get article using service
+    const article = await getArticleByIdService(articleId, fields);
 
     if (!article) {
       return NextResponse.json(
@@ -77,13 +68,10 @@ export const GET = async (
       );
     }
 
-    // Serialize MongoDB objects to plain objects for client components
-    const serializedArticle = serializeMongoObject(article) as ISerializedArticle;
-
     return NextResponse.json(
       {
         message: "Article retrieved successfully",
-        article: serializedArticle,
+        article,
       },
       { status: 200 }
     );
@@ -147,8 +135,8 @@ export const PATCH = async (
 
     await connectDb();
 
-    // Find the article
-    const existingArticle = await Article.findById(articleId);
+    // Find the article (for authorization check)
+    const existingArticle = await Article.findById(articleId).select("createdBy category articleImages");
     if (!existingArticle) {
       return NextResponse.json(
         {
@@ -440,24 +428,11 @@ export const PATCH = async (
       }
     }
 
-    // Update the article
-    const updatedArticle = await Article.findByIdAndUpdate(
+    // Update the article using service
+    const serializedArticle = await updateArticleService({
       articleId,
       updateData,
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedArticle) {
-      return NextResponse.json(
-        {
-          message: "Failed to update article",
-        },
-        { status: 500 }
-      );
-    }
-
-    // Serialize the updated article
-    const serializedArticle = serializeMongoObject(updatedArticle.toObject()) as ISerializedArticle;
+    });
 
     return NextResponse.json(
       {
@@ -520,8 +495,8 @@ export const DELETE = async (
 
     await connectDb();
 
-    // Find the article
-    const article = await Article.findById(articleId);
+    // Find the article (for authorization and image cleanup)
+    const article = await Article.findById(articleId).select("articleImages");
 
     if (!article) {
       return NextResponse.json(
@@ -542,10 +517,7 @@ export const DELETE = async (
       );
     }
 
-    // Delete associated comments first
-    await Comment.deleteMany({ articleId: articleId });
-
-    // Delete images from Cloudinary
+    // Delete images from Cloudinary (before DB deletion)
     if (article.articleImages && article.articleImages.length > 0) {
       for (const imageUrl of article.articleImages) {
         try {
@@ -557,8 +529,8 @@ export const DELETE = async (
       }
     }
 
-    // Delete the article
-    await Article.findByIdAndDelete(articleId);
+    // Delete the article using service (includes comment deletion)
+    await deleteArticleService(articleId);
 
     return NextResponse.json(
       {

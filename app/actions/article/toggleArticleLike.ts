@@ -1,6 +1,6 @@
 "use server";
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { toggleArticleLikeService } from "@/lib/services/articles";
 
 export const toggleArticleLike = async (articleId: string, userId: string) => {
   try {
@@ -8,28 +8,13 @@ export const toggleArticleLike = async (articleId: string, userId: string) => {
       throw new Error("You must be signed in to like articles");
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      liked: boolean;
-      likeCount: number;
-      message: string;
-      error?: string;
-    }>(`/api/v1/articles/by-id/${articleId}/likes`, {
-      method: "POST",
-    });
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.error || "Failed to toggle like",
-      };
-    }
+    const { liked, likeCount } = await toggleArticleLikeService(articleId, userId);
 
     return {
       success: true,
-      liked: result.liked,
-      likeCount: result.likeCount,
-      message: result.message,
+      liked,
+      likeCount,
+      message: liked ? "Article liked" : "Article unliked",
     };
   } catch (error) {
     return {

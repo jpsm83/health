@@ -1,21 +1,9 @@
 import { NextResponse } from "next/server";
 
 // imported utils
-import connectDb from "@/app/api/db/connectDb";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import { fieldProjections, FieldProjectionType } from "@/app/api/utils/fieldProjections";
-
-// imported models
-import Article from "@/app/api/models/article";
-
-// imported interfaces
-import {
-  IArticleLean,
-  ISerializedArticle,
-  ILanguageSpecific,
-  serializeMongoObject,
-} from "@/types/article";
-import { IMongoFilter, IPaginatedResponse } from "@/types/api";
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
+import { getArticlesPaginatedService } from "@/lib/services/articles";
 
 // @desc    Get paginated articles with advanced features
 // @route   GET /articles/paginated
@@ -103,175 +91,19 @@ export const GET = async (req: Request) => {
       );
     }
 
-    await connectDb();
-
-    const mongoFilter: IMongoFilter = {};
-
-    if (category) {
-      mongoFilter.category = category;
-    }
-
-    if (slug) {
-      mongoFilter["languages.seo.slug"] = slug;
-    }
-
-    // Search query using languages structure
-    if (query && query.trim()) {
-      mongoFilter["languages"] = {
-        $elemMatch: {
-          "content.mainTitle": { $regex: query.trim(), $options: "i" },
-        },
-      };
-    }
-
-    // Exclude already loaded IDs
-    if (excludeIdsArray && excludeIdsArray.length > 0) {
-      mongoFilter._id = { $nin: excludeIdsArray };
-    }
-
-    // ------------------------
-    // Get field projection
-    // ------------------------
-    const projection = fieldProjections[fields] || {};
-
-    // ------------------------
-    // Query DB
-    // ------------------------
-    // For search queries, we need to fetch all and filter by locale first
-    // For category queries, we can use database-level pagination
-    const isSearchQuery = query && query.trim();
-
-    let articles: IArticleLean[];
-    let totalDocs: number;
-    let totalPages: number;
-
-    if (isSearchQuery) {
-      // For search: fetch all, filter by locale, then paginate in memory
-      const allFilteredArticles = await Article.find(mongoFilter, projection)
-        .populate({ path: "createdBy", select: "username" })
-        .sort({ [sort]: order === "asc" ? 1 : -1 })
-        .lean() as IArticleLean[];
-
-      // Apply locale filtering to all articles
-      const allArticlesWithLocaleFilter = allFilteredArticles
-        .map((article: IArticleLean) => {
-          let languageSpecific: ILanguageSpecific | undefined;
-
-          if (slug) {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.seo.slug === slug
-            );
-          } else {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.hreflang === locale
-            );
-
-            if (!languageSpecific && locale !== "en") {
-              languageSpecific = article.languages.find(
-                (lang: ILanguageSpecific) => lang.hreflang === "en"
-              );
-            }
-
-            if (!languageSpecific && article.languages.length > 0) {
-              languageSpecific = article.languages[0];
-            }
-          }
-
-          return {
-            ...article,
-            languages: languageSpecific ? [languageSpecific] : [],
-          };
-        })
-        .filter((article: IArticleLean) => article.languages.length > 0);
-
-      // Apply pagination to the locale-filtered results
-      const skip = (page - 1) * limit;
-      articles = allArticlesWithLocaleFilter.slice(skip, skip + limit);
-
-      // Count after locale filtering for search
-      totalDocs = skipCount ? 0 : allArticlesWithLocaleFilter.length;
-      totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
-    } else {
-      // For category: use database-level pagination
-      const skip = (page - 1) * limit;
-      articles = (await Article.find(mongoFilter, projection)
-        .populate({ path: "createdBy", select: "username" })
-        .sort({ [sort]: order === "asc" ? 1 : -1 })
-        .skip(skip)
-        .limit(limit)
-        .lean()) as IArticleLean[];
-
-      // Apply locale filtering
-      const articlesWithFilteredContent = articles
-        .map((article: IArticleLean) => {
-          let languageSpecific: ILanguageSpecific | undefined;
-
-          if (slug) {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.seo.slug === slug
-            );
-          } else {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.hreflang === locale
-            );
-
-            if (!languageSpecific && locale !== "en") {
-              languageSpecific = article.languages.find(
-                (lang: ILanguageSpecific) => lang.hreflang === "en"
-              );
-            }
-
-            if (!languageSpecific && article.languages.length > 0) {
-              languageSpecific = article.languages[0];
-            }
-          }
-
-          return {
-            ...article,
-            languages: languageSpecific ? [languageSpecific] : [],
-          };
-        })
-        .filter((article: IArticleLean) => article.languages.length > 0);
-
-      articles = articlesWithFilteredContent;
-
-      // Count documents (before locale filtering for category queries)
-      totalDocs = skipCount ? 0 : await Article.countDocuments(mongoFilter);
-      totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
-    }
-
-    // ------------------------
-    // Handle no results
-    // ------------------------
-    if (!articles || articles.length === 0) {
-      return NextResponse.json(
-        {
-          page,
-          limit,
-          totalDocs: 0,
-          totalPages: 0,
-          data: [],
-        },
-        { status: 200 }
-      );
-    }
-
-    // ------------------------
-    // Serialize MongoDB objects
-    // ------------------------
-    const serializedArticles = articles.map(
-      (article: IArticleLean): ISerializedArticle => {
-        return serializeMongoObject(article) as ISerializedArticle;
-      }
-    );
-
-    const result: IPaginatedResponse<ISerializedArticle> = {
+    const result = await getArticlesPaginatedService({
       page,
       limit,
-      totalDocs,
-      totalPages,
-      data: serializedArticles,
-    };
+      sort,
+      order,
+      locale,
+      category: category || undefined,
+      slug,
+      query: query || undefined,
+      excludeIds: excludeIdsArray,
+      skipCount,
+      fields,
+    });
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {

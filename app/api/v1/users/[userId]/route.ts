@@ -4,95 +4,11 @@ import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import connectDb from "@/app/api/db/connectDb";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import User from "@/app/api/models/user";
-import Subscriber from "@/app/api/models/subscriber";
-import { ISerializedUser } from "@/types/user";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import { IUser, IUserPreferences } from "@/types/user";
 import { roles } from "@/lib/constants";
-
-// Helper function to serialize MongoDB user object with subscription preferences
-function serializeUser(user: unknown, subscriptionPreferences?: unknown): ISerializedUser {
-  // Helper function to ensure plain object conversion
-  const toPlainObject = (obj: unknown): unknown => {
-    if (obj === null || obj === undefined) return obj;
-    if (typeof obj !== "object") return obj;
-    if (obj instanceof Date) return obj.toISOString();
-    if (Array.isArray(obj)) return obj.map(toPlainObject);
-
-    // Convert to plain object to remove any MongoDB-specific methods
-    return JSON.parse(JSON.stringify(obj));
-  };
-
-  const u = user as {
-    _id?: { toString: () => string };
-    username: string;
-    email: string;
-    role: string;
-    birthDate?: Date;
-    imageFile?: string;
-    imageUrl?: string;
-    preferences?: unknown;
-    subscriptionId?: { toString: () => string };
-    likedArticles?: unknown[];
-    commentedArticles?: unknown[];
-    lastLogin?: Date;
-    isActive?: boolean;
-    emailVerified?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
-
-  const subPrefs = subscriptionPreferences as {
-    categories?: unknown[];
-    subscriptionFrequencies?: string;
-  } | null;
-
-  return {
-    _id: u._id?.toString() || "",
-    username: u.username,
-    email: u.email,
-    role: u.role,
-    birthDate: u.birthDate?.toISOString() || new Date().toISOString(),
-    imageFile: u.imageFile,
-    imageUrl: u.imageUrl,
-    preferences: (toPlainObject(u.preferences) as ISerializedUser["preferences"]) || {
-      language: "en",
-      region: "US",
-    },
-    subscriptionId: u.subscriptionId?.toString() || null,
-    subscriptionPreferences: subPrefs
-      ? {
-          categories: Array.isArray(subPrefs.categories)
-            ? subPrefs.categories.map((cat: unknown) => String(cat))
-            : [],
-          subscriptionFrequencies: String(subPrefs.subscriptionFrequencies || "weekly"),
-        }
-      : {
-          categories: [],
-          subscriptionFrequencies: "weekly",
-        },
-    likedArticles:
-      u.likedArticles?.map((id: unknown) => {
-        if (id && typeof id === "object" && "toString" in id) {
-          return id.toString();
-        }
-        return String(id);
-      }) || [],
-    commentedArticles:
-      u.commentedArticles?.map((id: unknown) => {
-        if (id && typeof id === "object" && "toString" in id) {
-          return id.toString();
-        }
-        return String(id);
-      }) || [],
-    lastLogin: u.lastLogin?.toISOString(),
-    isActive: u.isActive,
-    emailVerified: u.emailVerified,
-    createdAt: u.createdAt?.toISOString(),
-    updatedAt: u.updatedAt?.toISOString(),
-  };
-}
+import { getUserByIdService, deactivateUserService, updateUserService } from "@/lib/services/users";
 
 // @desc    Get user by userId
 // @route   GET /users/[userId]
@@ -112,43 +28,13 @@ export const GET = async (
       );
     }
 
-    // Connect to database
-    await connectDb();
-
-    // Check if user exists
-    const user = await User.findById(userId).select("-password").lean();
+    const user = await getUserByIdService(userId);
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Get subscription preferences if user has a subscription
-    let subscriptionPreferences = null;
-    const userWithSubscription = user as unknown as { subscriptionId?: unknown };
-    if (user && !Array.isArray(user) && userWithSubscription.subscriptionId) {
-      const subscriber = await Subscriber.findById(
-        userWithSubscription.subscriptionId
-      )
-        .select("subscriptionPreferences")
-        .lean();
-
-      if (
-        subscriber &&
-        !Array.isArray(subscriber) &&
-        (subscriber as unknown as { subscriptionPreferences?: unknown }).subscriptionPreferences
-      ) {
-        // Ensure plain object conversion
-        const subscriberWithPrefs = subscriber as unknown as { subscriptionPreferences: unknown };
-        subscriptionPreferences = JSON.parse(
-          JSON.stringify(subscriberWithPrefs.subscriptionPreferences)
-        );
-      }
-    }
-
-    // Serialize user for client components with subscription preferences
-    const serializedUser = serializeUser(user, subscriptionPreferences);
-
-    return NextResponse.json(serializedUser, { status: 200 });
+    return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error("Get user by userId failed:", error);
     return NextResponse.json(
@@ -365,28 +251,29 @@ export const PATCH = async (
       }
     }
 
-    // Update user
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $set: updateData },
-      {
-        new: true,
-        lean: true,
-      }
-    );
+    // Update user using service
+    try {
+      await updateUserService({
+        userId,
+        updateData,
+      });
 
-    // Check if updatedUser is undefined
-    if (!updatedUser) {
       return NextResponse.json(
-        { message: "User not found" },
-        { status: 404 }
+        { message: "User updated successfully" },
+        { status: 200 }
       );
+    } catch (serviceError) {
+      const errorMessage = serviceError instanceof Error ? serviceError.message : "Unknown error";
+      
+      if (errorMessage.includes("not found")) {
+        return NextResponse.json(
+          { message: "User not found" },
+          { status: 404 }
+        );
+      }
+      
+      throw serviceError;
     }
-
-    return NextResponse.json(
-      { message: "User updated successfully" },
-      { status: 200 }
-    );
   } catch (error) {
     return NextResponse.json(
       {
@@ -428,17 +315,14 @@ export const DELETE = async (
       );
     }
 
-    // Connect to database
+    // Check authorization first
     await connectDb();
-
-    // Check if user exists
     const user = await User.findById(userId);
-
+    
     if (!user) {
       return NextResponse.json({ message: "User not found!" }, { status: 404 });
     }
 
-    // Check if the user is the same user (authorization)
     if (user.id !== session.user.id) {
       return NextResponse.json(
         { message: "You are not authorized to deactivate this user!" },
@@ -446,8 +330,8 @@ export const DELETE = async (
       );
     }
 
-    // Deactivate user
-    await User.findByIdAndUpdate(userId, { $set: { isActive: false } });
+    // Deactivate user using service
+    await deactivateUserService(userId);
 
     return NextResponse.json(
       { message: "User deactivated successfully" },

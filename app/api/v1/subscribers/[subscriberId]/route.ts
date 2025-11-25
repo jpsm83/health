@@ -1,46 +1,14 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
-
-// imported utils
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import Subscriber from "@/app/api/models/subscriber";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
-import { ISerializedSubscriber } from "@/types/subscriber";
-
-// Helper function to serialize MongoDB subscriber object
-function serializeSubscriber(subscriber: unknown): ISerializedSubscriber {
-  const s = subscriber as {
-    _id?: { toString: () => string };
-    email: string;
-    emailVerified: boolean;
-    unsubscribeToken: string;
-    userId?: { toString: () => string };
-    subscriptionPreferences?: {
-      categories?: unknown[];
-      subscriptionFrequencies?: string;
-    };
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
-
-  return {
-    _id: s._id?.toString() || "",
-    email: s.email,
-    emailVerified: s.emailVerified,
-    unsubscribeToken: s.unsubscribeToken,
-    userId: s.userId?.toString() || null,
-    subscriptionPreferences: {
-      categories: (s.subscriptionPreferences?.categories as string[]) || [],
-      subscriptionFrequencies:
-        s.subscriptionPreferences?.subscriptionFrequencies || "weekly",
-    },
-    createdAt: s.createdAt?.toISOString() || new Date().toISOString(),
-    updatedAt: s.updatedAt?.toISOString() || new Date().toISOString(),
-  };
-}
+import {
+  getSubscriberByIdService,
+  updateSubscriberPreferencesService,
+} from "@/lib/services/subscribers";
 
 // @desc    Get subscriber by subscriberId
 // @route   GET /subscribers/[subscriberId]
@@ -60,10 +28,7 @@ export const GET = async (
       );
     }
 
-    await connectDb();
-
-    // Check if subscriber exists
-    const subscriber = await Subscriber.findById(subscriberId).lean();
+    const subscriber = await getSubscriberByIdService(subscriberId);
 
     if (!subscriber) {
       return NextResponse.json(
@@ -72,10 +37,7 @@ export const GET = async (
       );
     }
 
-    // Serialize subscriber for client components
-    const serializedSubscriber = serializeSubscriber(subscriber);
-
-    return NextResponse.json(serializedSubscriber, { status: 200 });
+    return NextResponse.json(subscriber, { status: 200 });
   } catch (error) {
     return handleApiError(
       "Get subscriber by subscriberId failed!",
@@ -155,9 +117,8 @@ export const PATCH = async (
       );
     }
 
+    // Check authorization first
     await connectDb();
-
-    // Check if subscriber exists
     const subscriber = await Subscriber.findById(subscriberId);
 
     if (!subscriber) {
@@ -175,30 +136,16 @@ export const PATCH = async (
       );
     }
 
-    // Update subscriber preferences
-    const updatedSubscriber = await Subscriber.findByIdAndUpdate(
+    // Update subscriber preferences using service
+    const updatedSubscriber = await updateSubscriberPreferencesService({
       subscriberId,
-      { $set: { subscriptionPreferences } },
-      {
-        new: true,
-        lean: true,
-      }
-    );
-
-    if (!updatedSubscriber) {
-      return NextResponse.json(
-        { message: "Subscriber not found" },
-        { status: 404 }
-      );
-    }
-
-    // Serialize subscriber for client components
-    const serializedSubscriber = serializeSubscriber(updatedSubscriber);
+      subscriptionPreferences,
+    });
 
     return NextResponse.json(
       {
         message: "Subscriber preferences updated successfully",
-        data: serializedSubscriber,
+        data: updatedSubscriber,
       },
       { status: 200 }
     );

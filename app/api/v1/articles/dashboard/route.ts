@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
-import connectDb from "@/app/api/db/connectDb";
-import { fieldProjections } from "@/app/api/utils/fieldProjections";
-import Article from "@/app/api/models/article";
-import { ISerializedArticle, serializeMongoObject } from "@/types/article";
+import { getAllArticlesForDashboardService } from "@/lib/services/articles";
 
 // @desc    Get all articles for dashboard
 // @route   GET /api/v1/articles/dashboard
@@ -40,26 +37,9 @@ export const GET = async () => {
     }
 
     // ------------------------
-    // Connect to database
+    // Get articles using service
     // ------------------------
-    await connectDb();
-
-    // ------------------------
-    // Get articles with dashboard projection
-    // ------------------------
-    const articles = await Article.find({}, fieldProjections.dashboard)
-      .populate({ path: "createdBy", select: "username" })
-      .sort({ createdAt: -1 })
-      .lean();
-
-    // ------------------------
-    // Serialize MongoDB objects
-    // ------------------------
-    const serializedArticles = articles.map(
-      (article): ISerializedArticle => {
-        return serializeMongoObject(article) as ISerializedArticle;
-      }
-    );
+    const serializedArticles = await getAllArticlesForDashboardService();
 
     // ------------------------
     // Return success response

@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
-import Article from "@/app/api/models/article";
+import { incrementArticleViewsService } from "@/lib/services/articles";
 
 // @desc    Increment article views
 // @route   POST /api/v1/articles/by-id/[articleId]/views
@@ -28,28 +27,9 @@ export const POST = async (
     }
 
     // ------------------------
-    // Connect to database
+    // Increment views using service
     // ------------------------
-    await connectDb();
-
-    // ------------------------
-    // Increment the views count using atomic operation
-    // ------------------------
-    const updatedArticle = await Article.findByIdAndUpdate(
-      articleId,
-      { $inc: { views: 1 } }, // Increment views by 1
-      { new: true, select: "views" } // Return only the views field
-    );
-
-    if (!updatedArticle) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Article not found",
-        },
-        { status: 404 }
-      );
-    }
+    const views = await incrementArticleViewsService(articleId);
 
     // ------------------------
     // Return success response
@@ -57,7 +37,7 @@ export const POST = async (
     return NextResponse.json(
       {
         success: true,
-        views: updatedArticle.views,
+        views,
         message: "Article views incremented successfully",
       },
       { status: 200 }

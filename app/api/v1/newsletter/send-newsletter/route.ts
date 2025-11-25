@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
-import Subscriber from "@/app/api/models/subscriber";
 import * as nodemailer from "nodemailer";
+import { getSubscribersForNewsletterService } from "@/lib/services/newsletter";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -40,10 +39,7 @@ const sendEmailWithTransporter = async (mailOptions: {
 // @access  Private (Admin only)
 export const POST = async () => {
   try {
-    await connectDb();
-
-    // Get all subscribers
-    const subscribers = await Subscriber.find().select('email unsubscribeToken');
+    const subscribers = await getSubscribersForNewsletterService();
 
     if (subscribers.length === 0) {
       return NextResponse.json(

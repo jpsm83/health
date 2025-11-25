@@ -1,7 +1,7 @@
 "use server";
 
 import { IReportCommentParams } from "@/types/comment";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { reportCommentService } from "@/lib/services/comments";
 
 export const reportComment = async (params: IReportCommentParams): Promise<{
   success: boolean;
@@ -15,26 +15,11 @@ export const reportComment = async (params: IReportCommentParams): Promise<{
       throw new Error("User id, comment id, and reason are required!");
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      message?: string;
-    }>(`/api/v1/comments/${commentId}/reports`, {
-      method: "POST",
-      body: {
-        reason,
-      },
-    });
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.message || "Failed to report comment",
-      };
-    }
+    await reportCommentService(commentId, userId, reason);
 
     return {
       success: true,
-      message: result.message || "Comment reported successfully",
+      message: "Comment reported successfully",
     };
   } catch (error) {
     console.error("Error in reportComment:", error);

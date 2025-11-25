@@ -1,6 +1,6 @@
 "use server";
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { incrementArticleViewsService } from "@/lib/services/articles";
 
 export const incrementArticleViews = async (articleId: string) => {
   try {
@@ -8,26 +8,12 @@ export const incrementArticleViews = async (articleId: string) => {
       throw new Error("Article ID is required");
     }
 
-    const result = await internalFetch<{
-      success: boolean;
-      views: number;
-      message: string;
-      error?: string;
-    }>(`/api/v1/articles/by-id/${articleId}/views`, {
-      method: "POST",
-    });
-
-    if (!result.success) {
-      return {
-        success: false,
-        error: result.error || "Failed to increment views",
-      };
-    }
+    const views = await incrementArticleViewsService(articleId);
 
     return {
       success: true,
-      views: result.views,
-      message: result.message,
+      views,
+      message: "Article views incremented successfully",
     };
   } catch (error) {
     return {

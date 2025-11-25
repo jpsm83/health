@@ -1,56 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
 import Subscriber from "@/app/api/models/subscriber";
-import User from "@/app/api/models/user";
-import { ISerializedSubscriber } from "@/types/subscriber";
 import * as nodemailer from "nodemailer";
-import { mainCategories } from "@/lib/constants";
-
-// Helper function to serialize MongoDB subscriber object
-function serializeSubscriber(subscriber: unknown): ISerializedSubscriber {
-  const s = subscriber as {
-    _id?: { toString: () => string };
-    email: string;
-    emailVerified: boolean;
-    unsubscribeToken: string;
-    userId?: { toString: () => string };
-    subscriptionPreferences?: {
-      categories?: unknown[];
-      subscriptionFrequencies?: string;
-    };
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
-
-  return {
-    _id: s._id?.toString() || "",
-    email: s.email,
-    emailVerified: s.emailVerified,
-    unsubscribeToken: s.unsubscribeToken,
-    userId: s.userId?.toString() || null,
-    subscriptionPreferences: {
-      categories: (s.subscriptionPreferences?.categories as string[]) || [],
-      subscriptionFrequencies:
-        s.subscriptionPreferences?.subscriptionFrequencies || "weekly",
-    },
-    createdAt: s.createdAt?.toISOString() || new Date().toISOString(),
-    updatedAt: s.updatedAt?.toISOString() || new Date().toISOString(),
-  };
-}
+import {
+  getSubscribersService,
+  subscribeToNewsletterService,
+  unsubscribeFromNewsletterService,
+} from "@/lib/services/subscribers";
 
 // @desc    Get all subscribers
 // @route   GET /subscribers
 // @access  Private (Admin only)
 export const GET = async () => {
   try {
-    await connectDb();
-
-    // Fetch all subscribers excluding verification token
-    const subscribers = await Subscriber.find()
-      .select("-verificationToken")
-      .sort({ createdAt: -1 })
-      .lean();
+    const subscribers = await getSubscribersService();
 
     if (!subscribers || subscribers.length === 0) {
       return NextResponse.json(
@@ -62,14 +25,11 @@ export const GET = async () => {
       );
     }
 
-    // Serialize subscribers for client components
-    const serializedSubscribers = subscribers.map(serializeSubscriber);
-
     return NextResponse.json(
       {
         success: true,
-        count: serializedSubscribers.length,
-        data: serializedSubscribers,
+        count: subscribers.length,
+        data: subscribers,
       },
       { status: 200 }
     );
@@ -139,17 +99,6 @@ const sendEmailWithTransporter = async (mailOptions: {
   return { success: true, data: { messageId: info.messageId } };
 };
 
-// Helper function to generate verification token
-function generateVerificationToken(): string {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
-}
-
-// Helper function to generate unsubscribe token
-function generateUnsubscribeToken(): string {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
-}
 
 // @desc    Subscribe to newsletter
 // @route   POST /subscribers
@@ -182,49 +131,39 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    await connectDb();
-
-    // Check if user already has an account (to prevent duplicate subscriptions)
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
-    if (existingUser) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "This email is already registered. Please manage your newsletter preferences in your profile.",
-          error: "USER_EXISTS"
-        },
-        { status: 400 }
-      );
+    // Subscribe using service
+    let subscribeResult;
+    try {
+      subscribeResult = await subscribeToNewsletterService({ email, preferences });
+    } catch (serviceError) {
+      const errorMessage = serviceError instanceof Error ? serviceError.message : "Unknown error";
+      
+      if (errorMessage.includes("already registered") || errorMessage.includes("USER_EXISTS")) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: errorMessage,
+            error: "USER_EXISTS"
+          },
+          { status: 400 }
+        );
+      }
+      
+      if (errorMessage.includes("valid email")) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: errorMessage,
+            error: "INVALID_EMAIL"
+          },
+          { status: 400 }
+        );
+      }
+      
+      throw serviceError;
     }
 
-    // Check if subscriber already exists
-    let subscriber = await Subscriber.findOne({ email: email.toLowerCase() });
-
-    if (subscriber) {
-      // Update existing subscriber preferences and resend confirmation
-      subscriber.emailVerified = false;
-      subscriber.verificationToken = generateVerificationToken();
-      subscriber.unsubscribeToken = generateUnsubscribeToken();
-      subscriber.subscriptionPreferences = {
-        categories: preferences?.categories || mainCategories,
-        subscriptionFrequencies: preferences?.subscriptionFrequencies || "weekly",
-      };
-      await subscriber.save();
-    } else {
-      // Create new subscriber
-      const subscriberData = {
-        email: email.toLowerCase(),
-        userId: null, // No user account yet
-        subscriptionPreferences: {
-          categories: preferences?.categories || mainCategories,
-          subscriptionFrequencies: preferences?.subscriptionFrequencies || "weekly",
-        },
-        verificationToken: generateVerificationToken(),
-        unsubscribeToken: generateUnsubscribeToken(),
-      };
-
-      subscriber = await Subscriber.create(subscriberData);
-    }
+    const subscriber = subscribeResult.subscriber;
 
     // Validate email before sending confirmation
     const isEmailValid = await validateEmailExists(subscriber.email);
@@ -241,9 +180,21 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    // Get verification token from DB for email link
+    const subscriberWithToken = await Subscriber.findById(subscriber._id).select("verificationToken unsubscribeToken");
+    if (!subscriberWithToken) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Failed to retrieve subscriber token",
+        },
+        { status: 500 }
+      );
+    }
+
     // Send confirmation email
-    const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-newsletter?token=${subscriber.verificationToken}&email=${encodeURIComponent(subscriber.email)}`;
-    const unsubscribeLink = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(subscriber.email)}&token=${subscriber.unsubscribeToken}`;
+    const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-newsletter?token=${subscriberWithToken.verificationToken}&email=${encodeURIComponent(subscriber.email)}`;
+    const unsubscribeLink = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(subscriber.email)}&token=${subscriberWithToken.unsubscribeToken}`;
     
     try {
       validateEmailConfig();
@@ -353,24 +304,30 @@ export const DELETE = async (req: NextRequest) => {
       );
     }
 
-    await connectDb();
-    
-    // Try to find subscriber with different email formats
-    const subscriber = await Subscriber.findOne({ 
-      email: email.toLowerCase()
-    });
-    
-    let finalSubscriber = subscriber;
-    
-    if (!subscriber) {
-      // Try to find with original email case
-      const subscriberOriginalCase = await Subscriber.findOne({ 
-        email: email
-      });
-      
-      if (subscriberOriginalCase) {
-        finalSubscriber = subscriberOriginalCase;
+    try {
+      const result = await unsubscribeFromNewsletterService({ email, token });
+
+      if (result.hasUserAccount) {
+        return NextResponse.json(
+          {
+            success: true,
+            message: "Successfully unsubscribed from newsletter! You can manage your preferences in your profile."
+          },
+          { status: 200 }
+        );
       } else {
+        return NextResponse.json(
+          {
+            success: true,
+            message: "Successfully unsubscribed from newsletter! All your data has been removed."
+          },
+          { status: 200 }
+        );
+      }
+    } catch (serviceError) {
+      const errorMessage = serviceError instanceof Error ? serviceError.message : "Unknown error";
+      
+      if (errorMessage.includes("not found")) {
         return NextResponse.json(
           {
             success: false,
@@ -380,47 +337,19 @@ export const DELETE = async (req: NextRequest) => {
           { status: 404 }
         );
       }
-    }
-
-    // If token is provided, validate it
-    if (token && finalSubscriber.unsubscribeToken !== token) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid unsubscribe link!",
-          error: "INVALID_TOKEN"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Check if subscriber has a linked user account by email
-    const actualUser = await User.findOne({ email: email.toLowerCase() });
-    const hasUserAccount = !!actualUser;
-    
-    if (hasUserAccount) {
-      // User has account - only deactivate subscription (don't delete data)
-      finalSubscriber.emailVerified = false;
-      await finalSubscriber.save();
       
-      return NextResponse.json(
-        {
-          success: true,
-          message: "Successfully unsubscribed from newsletter! You can manage your preferences in your profile."
-        },
-        { status: 200 }
-      );
-    } else {
-      // No user account - delete all subscriber data
-      await Subscriber.findByIdAndDelete(finalSubscriber._id);
+      if (errorMessage.includes("Invalid unsubscribe link") || errorMessage.includes("INVALID_TOKEN")) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Invalid unsubscribe link!",
+            error: "INVALID_TOKEN"
+          },
+          { status: 400 }
+        );
+      }
       
-      return NextResponse.json(
-        {
-          success: true,
-          message: "Successfully unsubscribed from newsletter! All your data has been removed."
-        },
-        { status: 200 }
-      );
+      throw serviceError;
     }
   } catch (error) {
     console.error("Unsubscribe error:", error);

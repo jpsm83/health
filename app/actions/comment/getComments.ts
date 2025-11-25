@@ -1,7 +1,7 @@
 "use server";
 
 import { IGetCommentsParams, ISerializedComment } from "@/types/comment";
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+import { getCommentsService } from "@/lib/services/comments";
 
 export const getComments = async (params: IGetCommentsParams): Promise<{
   success: boolean;
@@ -11,46 +11,13 @@ export const getComments = async (params: IGetCommentsParams): Promise<{
   error?: string;
 }> => {
   try {
-    const {
-      articleId,
-      userId,
-      page = 1,
-      limit = 10,
-      sort = "createdAt",
-      order = "desc",
-    } = params;
-
-    const queryParams = new URLSearchParams({
-      page: String(page),
-      limit: String(limit),
-      sort,
-      order,
-    });
-
-    if (articleId) {
-      queryParams.set("articleId", articleId);
-    }
-
-    if (userId) {
-      queryParams.set("userId", userId);
-    }
-
-    const result = await internalFetch<{
-      success: boolean;
-      data: {
-        comments: ISerializedComment[];
-        totalCount: number;
-        hasMore: boolean;
-        page: number;
-        limit: number;
-      };
-    }>(`/api/v1/comments?${queryParams.toString()}`);
+    const result = await getCommentsService(params);
 
     return {
       success: true,
-      comments: result.data.comments,
-      totalCount: result.data.totalCount,
-      hasMore: result.data.hasMore,
+      comments: result.comments,
+      totalCount: result.totalCount,
+      hasMore: result.hasMore,
     };
   } catch (error) {
     console.error("Error in getComments:", error);

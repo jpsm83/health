@@ -8,7 +8,8 @@ import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
-import { fieldProjections, FieldProjectionType } from "@/app/api/utils/fieldProjections";
+import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
+import { getArticlesService } from "@/lib/services/articles";
 
 // imported models
 import Article from "@/app/api/models/article";
@@ -17,11 +18,7 @@ import Article from "@/app/api/models/article";
 import {
   IArticle,
   ILanguageSpecific,
-  IArticleLean,
-  ISerializedArticle,
-  serializeMongoObject,
 } from "@/types/article";
-import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 
 // imported constants
 import { mainCategories } from "@/lib/constants";
@@ -99,126 +96,18 @@ export const GET = async (req: Request) => {
       );
     }
 
-    await connectDb();
-
-    const mongoFilter: IMongoFilter = {};
-
-    if (slug) {
-      mongoFilter["languages.seo.slug"] = slug;
-    }
-
-    if (category) {
-      mongoFilter.category = category;
-    }
-
-    // Exclude already loaded IDs
-    if (excludeIdsArray && excludeIdsArray.length > 0) {
-      mongoFilter._id = { $nin: excludeIdsArray };
-    }
-
-    // ------------------------
-    // Get field projection
-    // ------------------------
-    const projection = fieldProjections[fields] || {};
-
-    // ------------------------
-    // Query DB
-    // ------------------------
-    const query = Article.find(mongoFilter, projection)
-      .populate({ path: "createdBy", select: "username" })
-      .sort({ [sort]: order === "asc" ? 1 : -1 })
-      .limit(limit)
-      .skip((page - 1) * limit)
-      .lean();
-
-    const articles = (await query) as IArticleLean[];
-
-    // ------------------------
-    // Handle no results
-    // ------------------------
-    if (!articles || articles.length === 0) {
-      return NextResponse.json(
-        {
-          page,
-          limit,
-          totalDocs: 0,
-          totalPages: 0,
-          data: [],
-        },
-        { status: 200 }
-      );
-    }
-
-    // ------------------------
-    // Post-process by locale
-    // ------------------------
-    const articlesWithFilteredContent = articles
-      .map((article: IArticleLean) => {
-        let languageSpecific: ILanguageSpecific | undefined;
-
-        if (slug) {
-          // Exact slug match
-          languageSpecific = article.languages.find(
-            (lang: ILanguageSpecific) => lang.seo.slug === slug
-          );
-        } else {
-          // Try requested locale
-          languageSpecific = article.languages.find(
-            (lang: ILanguageSpecific) => lang.hreflang === locale
-          );
-
-          // Fallback to English if locale not found
-          if (!languageSpecific && locale !== "en") {
-            languageSpecific = article.languages.find(
-              (lang: ILanguageSpecific) => lang.hreflang === "en"
-            );
-          }
-
-          // Final fallback: first available
-          if (!languageSpecific && article.languages.length > 0) {
-            languageSpecific = article.languages[0];
-          }
-        }
-
-        // If we still don't have a language match, but the article has languages,
-        // use the first available language to prevent data loss
-        if (!languageSpecific && article.languages && article.languages.length > 0) {
-          languageSpecific = article.languages[0];
-        }
-
-        return {
-          ...article,
-          languages: languageSpecific ? [languageSpecific] : [],
-        };
-      })
-      .filter((article: IArticleLean) => {
-        // Only filter out articles that have NO language content at all
-        return article.languages && article.languages.length > 0;
-      });
-
-    // ------------------------
-    // Pagination metadata
-    // ------------------------
-    // Skip expensive countDocuments query if skipCount is true (for home page performance)
-    const totalDocs = skipCount ? 0 : await Article.countDocuments(mongoFilter);
-    const totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
-
-    // ------------------------
-    // Serialize MongoDB objects
-    // ------------------------
-    const serializedArticles = articlesWithFilteredContent.map(
-      (article: IArticleLean): ISerializedArticle => {
-        return serializeMongoObject(article) as ISerializedArticle;
-      }
-    );
-
-    const result: IPaginatedResponse<ISerializedArticle> = {
+    const result = await getArticlesService({
       page,
       limit,
-      totalDocs,
-      totalPages,
-      data: serializedArticles,
-    };
+      sort,
+      order,
+      locale,
+      category: category || undefined,
+      slug,
+      excludeIds: excludeIdsArray,
+      skipCount,
+      fields,
+    });
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {

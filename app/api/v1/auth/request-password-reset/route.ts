@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
-import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
 import * as nodemailer from "nodemailer";
-import crypto from "crypto";
+import { requestPasswordResetService } from "@/lib/services/auth";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -186,13 +185,15 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    await connectDb();
+    let result;
+    try {
+      result = await requestPasswordResetService(email);
+    } catch (serviceError) {
+      throw serviceError;
+    }
 
-    // Check if user exists
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      // Don't reveal if user exists or not for security
+    // If user doesn't exist, don't reveal it for security
+    if (!result.user) {
       return NextResponse.json(
         {
           success: true,
@@ -202,18 +203,8 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Generate reset token
-    const resetToken = crypto.randomBytes(32).toString("hex");
-    const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
-
-    // Save reset token to user
-    await User.findByIdAndUpdate(user._id, {
-      resetPasswordToken: resetToken,
-      resetPasswordExpires: resetTokenExpiry,
-    });
-
     // Create reset link
-    const resetLink = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.NEXTAUTH_URL}/reset-password?token=${result.resetToken}`;
 
     // Send password reset email
     try {
@@ -221,8 +212,8 @@ export const POST = async (req: NextRequest) => {
 
       const emailContent = passwordResetTemplate(
         resetLink, 
-        user.username, 
-        (user.preferences as { language?: string })?.language || "en"
+        result.user.username, 
+        result.user.preferences?.language || "en"
       );
 
       const mailOptions = {
@@ -247,7 +238,7 @@ export const POST = async (req: NextRequest) => {
       console.error("Failed to send password reset email:", emailError);
 
       // Remove the reset token if email failed
-      await User.findByIdAndUpdate(user._id, {
+      await User.findByIdAndUpdate(result.user._id, {
         resetPasswordToken: undefined,
         resetPasswordExpires: undefined,
       });

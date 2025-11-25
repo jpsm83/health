@@ -1,11 +1,19 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
+
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import Home from "@/pagesClient/Home";
-import { ISerializedArticle } from "@/types/article";
-import ErrorBoundary from "@/components/ErrorBoundary";
-import { getArticles } from "@/app/actions/article/getArticles";
-import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
 import { mainCategories } from "@/lib/constants";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import ProductsBanner from "@/components/ProductsBanner";
+import HeroSection from "@/components/server/HeroSection";
+import FeaturedArticlesSection from "@/components/server/FeaturedArticlesSection";
+import NewsletterSection from "@/components/server/NewsletterSection";
+import CategoryCarouselSection from "@/components/server/CategoryCarouselSection";
+import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
+import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
+import { NewsletterSkeleton } from "@/components/skeletons/NewsletterSkeleton";
+import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
 
 export async function generateMetadata({
   params,
@@ -17,8 +25,7 @@ export async function generateMetadata({
   return generatePublicMetadata(locale, "", "metadata.home.title");
 }
 
-// Force fresh data on every request to prevent caching empty results
-export const revalidate = 0;
+export const revalidate = 3600;
 
 // Server Component - handles metadata generation
 export default async function HomePage({
@@ -27,68 +34,56 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
-  let featuredArticles: ISerializedArticle[] = [];
-  const categoryArticles: Record<string, ISerializedArticle[]> = {};
-
-  try {
-    // Fetch featured articles and all category articles in parallel
-    // Using skipCount: true to skip expensive countDocuments queries for better performance
-    // Using fields: "featured" to only fetch minimal fields needed for ArticleCard
-    const [articlesResponse, ...categoryResponses] = await Promise.all([
-      getArticles({
-        locale,
-        limit: 10,
-        skipCount: true, // Skip expensive countDocuments
-        fields: "featured", // Only fetch fields needed for ArticleCard
-      }),
-      // Fetch articles for each category in parallel
-      ...mainCategories.map((category) =>
-        getArticlesByCategory({
-          category,
-          page: 1,
-          limit: 10,
-          sort: "createdAt",
-          order: "desc",
-          locale,
-          skipCount: true, // Skip expensive countDocuments
-          fields: "featured", // Only fetch fields needed for ArticleCard
-        })
-      ),
-    ]);
-
-    // Extract the data array from the paginated response
-    featuredArticles = articlesResponse.data;
-
-    // Map category responses to category names
-    mainCategories.forEach((category, index) => {
-      categoryArticles[category] = categoryResponses[index].data;
-    });
-  } catch (error) {
-    console.error("Error fetching articles:", error);
-
-    // Log detailed error information for debugging
-    console.error("Homepage error details:", {
-      error: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined,
-      locale,
-      timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV,
-      userAgent: typeof window !== "undefined" ? window.navigator?.userAgent : "Server-side",
-    });
-
-    // Instead of silently failing, let's throw the error to see what's really happening
-    // This will help us identify the root cause in production
-    throw new Error(`Failed to load homepage data: ${error instanceof Error ? error.message : "Unknown error"}`);
-  }
+  const t = await getTranslations({ locale, namespace: "home" });
 
   return (
     <main className="container mx-auto">
       <ErrorBoundary context={"Home component"}>
-        <Home
-          featuredArticles={featuredArticles}
-          categoryArticles={categoryArticles}
-        />
+        <div className="mb-8 md:mb-16">
+          <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
+            <Suspense fallback={<HeroSkeleton />}>
+              <HeroSection locale={locale} />
+            </Suspense>
+
+            <Suspense fallback={<FeaturedArticlesSkeleton />}>
+              <FeaturedArticlesSection locale={locale} />
+            </Suspense>
+
+            <Suspense fallback={<NewsletterSkeleton />}>
+              <NewsletterSection />
+            </Suspense>
+
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+            <section className="cv-auto">
+              <div className="text-center mb-10 bg-gradient-left-right p-4 md:p-8">
+                <h2
+                  className="text-3xl font-bold text-white mb-4"
+                  style={{
+                    textShadow:
+                      "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  {t("exploreByCategory.title")}
+                </h2>
+                <p className="text-lg text-white max-w-2xl mx-auto">
+                  {t("exploreByCategory.description")}
+                </p>
+              </div>
+
+              {mainCategories.map((category) => (
+                <Suspense
+                  key={category}
+                  fallback={<CategoryCarouselSkeleton />}
+                >
+                  <CategoryCarouselSection category={category} locale={locale} />
+                </Suspense>
+              ))}
+            </section>
+          </div>
+
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

@@ -1,6 +1,14 @@
 "use server";
 
-import { internalFetch } from "@/app/actions/utils/internalFetch";
+// Note: This action calls the API route because the route handles
+// FormData parsing, file uploads, and validation before calling the service.
+
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "http://localhost:3000");
+
 import { ISerializedArticle } from "@/types/article";
 
 interface UpdateArticleParams {
@@ -29,28 +37,44 @@ export async function updateArticle(
   params: UpdateArticleParams
 ): Promise<IUpdateArticleResponse> {
   try {
-    // Note: This action is a thin bridge. The route handler expects FormData,
-    // but this action accepts a params object. The route handler should be called
-    // directly with FormData when updating articles from the frontend.
-    // This action is kept for backward compatibility but may not work correctly
-    // for file uploads. Consider using the API route directly for updates.
+    // Note: This action calls the API route because the route handles
+    // FormData parsing, file uploads, and validation. For file uploads,
+    // call the API route directly with FormData from the frontend.
     
-    const result = await internalFetch<{
-      success: boolean;
-      message: string;
-      article?: ISerializedArticle;
-    }>(`/api/v1/articles/by-id/${params.articleId}`, {
+    const formData = new FormData();
+    if (params.category) formData.append("category", params.category);
+    if (params.languages) formData.append("languages", JSON.stringify(params.languages));
+    if (params.imagesContext) formData.append("imagesContext", JSON.stringify(params.imagesContext));
+    if (params.articleImages) {
+      // Handle both File[] and string[]
+      if (Array.isArray(params.articleImages)) {
+        params.articleImages.forEach((img, idx) => {
+          if (img instanceof File) {
+            formData.append("articleImageFiles", img);
+          } else {
+            // For string URLs, send as JSON array
+            formData.append("articleImages", JSON.stringify(params.articleImages));
+          }
+        });
+      }
+    }
+
+    const response = await fetch(`${baseUrl}/api/v1/articles/by-id/${params.articleId}`, {
       method: "PATCH",
-      body: {
-        category: params.category,
-        languages: params.languages,
-        imagesContext: params.imagesContext,
-        articleImages: params.articleImages,
-      },
+      body: formData,
     });
 
+    const result = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        message: result.message || "Failed to update article",
+      };
+    }
+
     return {
-      success: result.success || true,
+      success: true,
       message: result.message || "Article updated successfully",
       article: result.article,
     };
