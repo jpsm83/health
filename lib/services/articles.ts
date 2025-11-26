@@ -3,6 +3,7 @@ import Article from "@/app/api/models/article";
 import User from "@/app/api/models/user";
 import Comment from "@/app/api/models/comment";
 import mongoose from "mongoose";
+import { unstable_cache } from "next/cache";
 import {
   fieldProjections,
   FieldProjectionType,
@@ -404,23 +405,33 @@ export async function getArticlesCountService(
 ): Promise<number> {
   const { category, locale = DEFAULT_LOCALE } = params;
   
-  const filter: IMongoFilter = {};
+  // Use Next.js cache for expensive count operations
+  const getCachedCount = unstable_cache(
+    async () => {
+      const filter: IMongoFilter = {};
+      
+      if (category) {
+        filter.category = category;
+      }
+      
+      await connectDb();
+      
+      // Use countDocuments for better performance (approximation for locale filtering)
+      // This is much faster than fetching all articles
+      // Note: This is an approximation since locale filtering happens post-fetch
+      // For exact counts, use getArticlesPaginatedService with skipCount: false
+      const count = await Article.countDocuments(filter);
+      
+      return count;
+    },
+    [`articles-count-${category || "all"}-${locale}`],
+    {
+      revalidate: 3600, // Cache for 1 hour (matches page revalidate)
+      tags: [`articles-count-${category || "all"}-${locale}`],
+    }
+  );
   
-  if (category) {
-    filter.category = category;
-  }
-  
-  await connectDb();
-  
-  // Get all articles matching the filter
-  const allArticles = (await Article.find(filter)
-    .populate({ path: "createdBy", select: "username" })
-    .lean()) as IArticleLean[];
-  
-  // Apply locale filter to get accurate count
-  const filteredArticles = applyLocaleFilter(allArticles, locale);
-  
-  return filteredArticles.length;
+  return await getCachedCount();
 }
 
 export async function incrementArticleViewsService(

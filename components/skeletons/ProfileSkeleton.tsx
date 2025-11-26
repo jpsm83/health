@@ -2,14 +2,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ProfileSkeleton() {
   return (
-    <div className="flex items-start justify-center py-8 md:py-16 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-start justify-center px-4 md:px-8">
       <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
           {/* Profile Image Section Skeleton */}
-          <div className="flex-shrink-0">
-            <div className="relative">
-              <Skeleton className="w-24 h-24 md:w-32 md:h-32 rounded-full" />
-            </div>
+          <div className="relative">
+            <Skeleton className="w-24 h-24 md:w-32 md:h-32 rounded-full" />
           </div>
 
           {/* Header Info Skeleton */}
@@ -127,4 +125,3 @@ export function ProfileSkeleton() {
     </div>
   );
 }
-

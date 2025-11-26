@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Profile from "@/components/Profile";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -7,7 +6,6 @@ import { getUserById } from "@/app/actions/user/getUserById";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { redirect } from "next/navigation";
 import ProductsBanner from "@/components/ProductsBanner";
-import { ProfileSkeleton } from "@/components/skeletons/ProfileSkeleton";
 
 export async function generateMetadata({
   params,
@@ -49,17 +47,18 @@ export default async function ProfilePage({
     : userResult.data;
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Profile page"}>
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-        <Suspense fallback={<ProfileSkeleton />}>
+          {/* Profile Form Section */}
           <Profile locale={locale} initialUser={userData} />
-        </Suspense>
 
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          {/* Products Banner */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

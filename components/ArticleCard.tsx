@@ -64,7 +64,7 @@ export default function ArticleCard({
 
   return (
     <div
-      className="bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col relative"
+      className="bg-white shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col relative"
       onClick={handleCardClick}
     >
       <Link

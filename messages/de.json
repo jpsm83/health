@@ -446,6 +446,11 @@
       "description": "Sehen und verwalten Sie Ihre Lieblingsartikel zu Gesundheit und Wellness. Greifen Sie auf Ihre personalisierte Sammlung gespeicherter Inhalte zu.",
       "keywords": "favoriten, gespeicherte artikel, markierte inhalte, persönliche sammlung, gesundheitsartikel, wellness-inhalte"
     },
+    "search": {
+      "title": "Suchen - Women's Spot",
+      "description": "Suchen Sie nach Gesundheits- und Wellness-Artikeln, Tipps und Leitfäden. Finden Sie die Informationen, die Sie benötigen, um Ihr Wohlbefinden zu verbessern.",
+      "keywords": "suchen, gesundheitsartikel, wellness-inhalte, artikel suchen, gesundheitstipps finden, wellness-suche, artikelsuche"
+    },
     "health": {
       "title": "Gesundheitsartikel",
       "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheitsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
@@ -495,6 +500,11 @@
       "title": "Newsletter abbestellen - Women's Spot",
       "description": "Melden Sie sich vom Women's Spot-Newsletter ab. Geben Sie Ihre E-Mail-Adresse ein, um keine Gesundheits- und Wellness-Updates mehr von uns zu erhalten.",
       "keywords": "abbestellen, newsletter, e-mail-einstellungen, e-mails stoppen, Women's Spot-newsletter"
+    },
+    "notFound": {
+      "title": "404 - Seite Nicht Gefunden | Women's Spot",
+      "description": "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
+      "keywords": "404, seite nicht gefunden, fehler, Women's Spot"
     }
   },
   "about": {
@@ -569,6 +579,10 @@
     }
   },
   "privacyPolicy": {
+    "hero": {
+      "title": "Datenschutzrichtlinie",
+      "subtitle": "Wir respektieren Ihre Privatsphäre und verpflichten uns, Ihre persönlichen Informationen zu schützen. Erfahren Sie, wie wir Ihre Daten sammeln, verwenden und schützen."
+    },
     "title": "Datenschutzhinweis",
     "lastUpdated": "Zuletzt Aktualisiert:",
     "highlights": {
@@ -660,6 +674,10 @@
     }
   },
   "cookiePolicy": {
+    "hero": {
+      "title": "Cookie-Richtlinie",
+      "subtitle": "Wir verwenden Cookies und ähnliche Technologien, um Ihre Erfahrung auf unserer Plattform zu verbessern. Erfahren Sie, wie wir Cookies verwenden und wie Sie Ihre Einstellungen verwalten können."
+    },
     "title": "Cookie-Richtlinie",
     "introduction": {
       "paragraph1": "Diese Cookie-Richtlinie gilt für den Digitalen Dienst, der mit dieser Cookie-Richtlinie verlinkt, und ist Teil der Datenschutzerklärung, die unsere Datenverarbeitungspraktiken beschreibt und hier verfügbar ist. Auf den Digitalen Diensten verwenden Women's Spot ('wir', 'uns', 'unser' oder 'Women's Spot') und Dritte, einschließlich unserer werbe- und marketingbezogenen Dienstleister und Partner, eine Vielzahl von Technologien einschließlich Cookies ('Cookies und Ähnliche Technologien').",
@@ -714,6 +732,10 @@
     }
   },
   "termsConditions": {
+    "hero": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "subtitle": "Bitte lesen Sie diese Allgemeinen Geschäftsbedingungen sorgfältig durch, bevor Sie unsere Plattform nutzen. Durch den Zugriff auf oder die Nutzung von Women's Spot stimmen Sie zu, an diese Bedingungen gebunden zu sein."
+    },
     "title": "Allgemeine Geschäftsbedingungen",
     "termsOfUse": {
       "title": "Nutzungsbedingungen",
@@ -907,6 +929,7 @@
     },
     "imageAlt": " - Abschnitt ",
     "exploreMore": "Ausgewählte Artikel nur für Sie",
+    "exploreMoreDescription": "Entdecken Sie weitere Artikel in dieser Kategorie, die Sie interessieren könnten",
     "error": {
       "insufficientContent": "Unzureichender Inhalt",
       "insufficientContentMessage": "Dieser Artikel erfüllt nicht die Mindestanforderungen für die Anzeige.",
@@ -1088,6 +1111,12 @@
     "invalidLinkTitle": "Ungültiger Abbestellungs-Link",
     "invalidLinkMessage": "Dieser Abbestellungs-Link ist ungültig oder abgelaufen. Bitte kontaktieren Sie den Support, wenn Sie Hilfe benötigen.",
     "goHome": "Zur Startseite"
+  },
+  "notFound": {
+    "title": "404 - Seite Nicht Gefunden",
+    "description": "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
+    "heroImageAlt": "404 Seite Nicht Gefunden",
+    "returnHome": "Zur Startseite"
   },
   "favorites": {
     "title": "Meine Favoriten",

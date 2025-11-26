@@ -1,11 +1,9 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import SignIn from "@/components/SignIn";
-import { SignInSkeleton } from "@/components/skeletons/SignInSkeleton";
 import ProductsBanner from "@/components/ProductsBanner";
 
 export async function generateMetadata({
@@ -43,9 +41,7 @@ export default async function SignInPage({
         {/* Products Banner - Client Component, can be direct */}
         <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-        <Suspense fallback={<SignInSkeleton />}>
-          <SignIn locale={locale} />
-        </Suspense>
+        <SignIn locale={locale} />
 
         {/* Products Banner - Client Component, can be direct */}
         <ProductsBanner size="970x240" affiliateCompany="amazon" />

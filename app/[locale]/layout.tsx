@@ -45,11 +45,11 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
+      <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
         <Navigation />
         <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">{children}</div>
         <Footer />
-      </div>
+      </main>
     </NextIntlClientProvider>
   );
 }

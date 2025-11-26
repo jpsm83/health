@@ -29,6 +29,7 @@ export const commentReportReasons = [
 
 // Category-specific hero images
 export const categoryHeroImages = {
+  home: "https://res.cloudinary.com/jpsm83/image/upload/v1761366390/health/dh6wlgqj1iuumg9utub1.jpg",
   health:
     "https://res.cloudinary.com/jpsm83/image/upload/v1760114147/health/cmgka42a5k9po8gc9cxm.png",
   fitness:
@@ -42,6 +43,9 @@ export const categoryHeroImages = {
   "weight-loss":
     "https://res.cloudinary.com/jpsm83/image/upload/v1760860863/health/cxcinavpch40pcxxfooo.jpg",
   life: "https://res.cloudinary.com/jpsm83/image/upload/v1760860888/health/oymcvrxmvggo547lsqau.jpg",
+  "search-results": "https://res.cloudinary.com/jpsm83/image/upload/v1760170369/health/krxqbddm7g2xegyjzdhj.jpg",
+  "search-no-results": "https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg",
+  favorites: "https://res.cloudinary.com/jpsm83/image/upload/v1762840769/health/lctiqsxlb9szuuzphb99.jpg",
 } as const;
 
 export const affiliateCompanies = {

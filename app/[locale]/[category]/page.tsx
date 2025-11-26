@@ -5,14 +5,11 @@ import { notFound } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import CategoryHeroSection from "@/components/server/CategoryHeroSection";
-import CategoryFeaturedArticlesSection from "@/components/server/CategoryFeaturedArticlesSection";
+import HeroSection from "@/components/server/HeroSection";
 import NewsletterSection from "@/components/server/NewsletterSection";
-import CategoryPaginatedArticlesSection from "@/components/server/CategoryPaginatedArticlesSection";
-import CategoryPaginationSection from "@/components/server/CategoryPaginationSection";
-import { CategoryHeroSkeleton } from "@/components/skeletons/CategoryHeroSkeleton";
-import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
-import { NewsletterSkeleton } from "@/components/skeletons/NewsletterSkeleton";
+import CategoryArticlesWithPagination from "@/components/server/CategoryArticlesWithPagination";
+import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
+import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -55,11 +52,11 @@ export default async function CategoryPage({
     notFound();
   }
 
+
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={`Articles component for category ${category}`}>
-        <div className="mb-8 md:mb-16">
-          <div className="flex flex-col h-full gap-8 md:gap-16 my-4 md:my-8">
+        <div className="flex flex-col h-full gap-8 md:gap-16">
             {/* Products Banner */}
             <ProductsBanner
               size="970x90"
@@ -67,49 +64,22 @@ export default async function CategoryPage({
               category={category}
             />
 
-            {/* Hero Section */}
-            <Suspense fallback={<CategoryHeroSkeleton />}>
-              <CategoryHeroSection category={category} locale={locale} />
-            </Suspense>
+          {/* Hero Section */}
+          <Suspense fallback={<HeroSkeleton />}>
+            <HeroSection category={category} locale={locale} />
+          </Suspense>
 
-            {/* Featured Articles Section */}
-            <Suspense fallback={<FeaturedArticlesSkeleton />}>
-              <CategoryFeaturedArticlesSection
-                category={category}
-                locale={locale}
-              />
-            </Suspense>
-
-            {/* Newsletter Section */}
-            <Suspense fallback={<NewsletterSkeleton />}>
-              <NewsletterSection />
-            </Suspense>
-
-            {/* Products Banner */}
-            <ProductsBanner
-              size="970x90"
-              affiliateCompany="amazon"
+          {/* Paginated Articles Section with Pagination */}
+          <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+            <CategoryArticlesWithPagination
               category={category}
+              locale={locale}
+              page={page as string}
             />
+          </Suspense>
 
-            {/* Paginated Articles Section */}
-            <Suspense fallback={<FeaturedArticlesSkeleton />}>
-              <CategoryPaginatedArticlesSection
-                category={category}
-                locale={locale}
-                page={page as string}
-              />
-            </Suspense>
-
-            {/* Pagination Controls */}
-            <Suspense fallback={null}>
-              <CategoryPaginationSection
-                category={category}
-                locale={locale}
-                page={page as string}
-              />
-            </Suspense>
-          </div>
+          {/* Newsletter Section */}
+          <NewsletterSection />
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />

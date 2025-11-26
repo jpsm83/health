@@ -446,6 +446,11 @@
       "description": "Ve y gestiona tus artículos favoritos de salud y bienestar. Accede a tu colección personalizada de contenido guardado.",
       "keywords": "favoritos, artículos guardados, contenido marcado, colección personal, artículos de salud, contenido de bienestar"
     },
+    "search": {
+      "title": "Buscar - Women's Spot",
+      "description": "Busca artículos de salud y bienestar, consejos y guías. Encuentra la información que necesitas para mejorar tu bienestar.",
+      "keywords": "buscar, artículos de salud, contenido de bienestar, buscar artículos, encontrar consejos de salud, búsqueda de bienestar, búsqueda de artículos"
+    },
     "health": {
       "title": "Artículos de Salud",
       "description": "Nuestros mejores insights sobre salud, una colección completa de artículos de salud, consejos y guías para ayudarte a vivir una vida más saludable y plena.",
@@ -495,6 +500,11 @@
       "title": "Cancelar Suscripción al Newsletter - Women's Spot",
       "description": "Cancela tu suscripción al newsletter Women's Spot. Ingresa tu dirección de email para dejar de recibir nuestras actualizaciones de salud y bienestar.",
       "keywords": "cancelar suscripción, newsletter, preferencias de email, parar emails, newsletter Women's Spot"
+    },
+    "notFound": {
+      "title": "404 - Página No Encontrada | Women's Spot",
+      "description": "La página que estás buscando no existe o ha sido movida.",
+      "keywords": "404, página no encontrada, error, Women's Spot"
     }
   },
   "about": {
@@ -569,6 +579,10 @@
     }
   },
   "privacyPolicy": {
+    "hero": {
+      "title": "Política de Privacidad",
+      "subtitle": "Respetamos tu privacidad y nos comprometemos a proteger tu información personal. Descubre cómo recopilamos, utilizamos y protegemos tus datos."
+    },
     "title": "Aviso de Privacidad",
     "lastUpdated": "Última Actualización:",
     "highlights": {
@@ -660,6 +674,10 @@
     }
   },
   "cookiePolicy": {
+    "hero": {
+      "title": "Política de Cookies",
+      "subtitle": "Utilizamos cookies y tecnologías similares para mejorar tu experiencia en nuestra plataforma. Descubre cómo utilizamos cookies y cómo puedes gestionar tus preferencias."
+    },
     "title": "Política de Cookies",
     "introduction": {
       "paragraph1": "Esta Política de Cookies se aplica al Servicio Digital que enlaza a esta Política de Cookies y forma parte del Aviso de Privacidad, que describe nuestras prácticas de manejo de datos y está disponible aquí. En los Servicios Digitales, Women's Spot ('nosotros', 'nosotras', 'nuestro' o 'Women's Spot') y terceros, incluyendo nuestros proveedores de servicios publicitarios y de marketing y socios, utilizan una variedad de tecnologías incluyendo cookies ('Cookies y Tecnologías Similares').",
@@ -714,6 +732,10 @@
     }
   },
   "termsConditions": {
+    "hero": {
+      "title": "Términos y Condiciones",
+      "subtitle": "Por favor, lee estos términos y condiciones cuidadosamente antes de usar nuestra plataforma. Al acceder o usar Women's Spot, aceptas estar sujeto a estos términos."
+    },
     "title": "Términos y Condiciones",
     "termsOfUse": {
       "title": "Términos de uso",
@@ -907,6 +929,7 @@
     },
     "imageAlt": " - Sección ",
     "exploreMore": "Artículos seleccionados solo para ti",
+    "exploreMoreDescription": "Descubre más artículos en esta categoría que puedan interesarte",
     "error": {
       "insufficientContent": "Contenido Insuficiente",
       "insufficientContentMessage": "Este artículo no cumple con los requisitos mínimos de contenido para su visualización.",
@@ -1088,6 +1111,12 @@
     "invalidLinkTitle": "Enlace de Cancelación Inválido",
     "invalidLinkMessage": "Este enlace de cancelación es inválido o ha expirado. Por favor contacta soporte si necesitas ayuda.",
     "goHome": "Ir a la Página Principal"
+  },
+  "notFound": {
+    "title": "404 - Página No Encontrada",
+    "description": "La página que estás buscando no existe o ha sido movida.",
+    "heroImageAlt": "404 Página No Encontrada",
+    "returnHome": "Volver al Inicio"
   },
   "favorites": {
     "title": "Mis Favoritos",

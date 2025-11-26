@@ -547,6 +547,11 @@
       "description": "View and manage your favorite health and wellness articles. Access your personalized collection of saved content.",
       "keywords": "favorites, saved articles, bookmarked content, personal collection, health articles, wellness content"
     },
+    "search": {
+      "title": "Search - Women's Spot",
+      "description": "Search for health and wellness articles, tips, and guides. Find the information you need to improve your well-being.",
+      "keywords": "search, health articles, wellness content, search articles, find health tips, wellness search, article search"
+    },
     "health": {
       "title": "Health Articles",
       "description": "Our best insights on health, a comprehensive collection of health articles, tips, and guides to help you live a healthier, more fulfilling life.",
@@ -596,6 +601,11 @@
       "title": "Unsubscribe from Newsletter - Women's Spot",
       "description": "Unsubscribe from Women's Spot newsletter. Enter your email address to stop receiving our health and wellness updates.",
       "keywords": "unsubscribe, newsletter, email preferences, stop emails, Women's Spot newsletter"
+    },
+    "notFound": {
+      "title": "404 - Page Not Found | Women's Spot",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "keywords": "404, page not found, error, Women's Spot"
     }
   },
   "about": {
@@ -670,6 +680,10 @@
     }
   },
   "privacyPolicy": {
+    "hero": {
+      "title": "Privacy Policy",
+      "subtitle": "We respect your privacy and are committed to protecting your personal information. Learn how we collect, use, and safeguard your data."
+    },
     "title": "Privacy Notice",
     "lastUpdated": "Last Updated:",
     "highlights": {
@@ -761,6 +775,10 @@
     }
   },
   "cookiePolicy": {
+    "hero": {
+      "title": "Cookie Policy",
+      "subtitle": "We use cookies and similar technologies to enhance your experience on our platform. Learn how we use cookies and how you can manage your preferences."
+    },
     "title": "Cookies Policy",
     "introduction": {
       "paragraph1": "This Cookies Policy applies to the Digital Service linking to this Cookies Policy and forms part of the Privacy Notice, which describes our data handling practices and is available here. On the Digital Services, Women's Spot ('we', 'us', 'our' or 'Women's Spot') and third parties, including our advertising- and marketing-related service providers and partners, use a variety of technologies including cookies ('Cookies and Similar Technologies').",
@@ -815,6 +833,10 @@
     }
   },
   "termsConditions": {
+    "hero": {
+      "title": "Terms and Conditions",
+      "subtitle": "Please read these terms and conditions carefully before using our platform. By accessing or using Women's Spot, you agree to be bound by these terms."
+    },
     "title": "Terms and Conditions",
     "termsOfUse": {
       "title": "Terms of use",
@@ -1015,6 +1037,7 @@
     },
     "imageAlt": " - Section ",
     "exploreMore": "Selected articles just for you",
+    "exploreMoreDescription": "Discover more articles in this category that might interest you",
     "error": {
       "insufficientContent": "Insufficient Content",
       "insufficientContentMessage": "This article does not meet the minimum content requirements for display.",
@@ -1027,6 +1050,12 @@
     "resultsFound": "Found {count} result{count, plural, =1 {} other {s}} for \"{query}\"",
     "noResultsTitle": "No articles found!",
     "noResultsDescription": "Try searching with different keywords than..."
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "heroImageAlt": "404 Not Found",
+    "returnHome": "Return Home"
   },
   "comments": {
     "toasts": {

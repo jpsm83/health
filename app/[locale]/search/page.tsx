@@ -1,13 +1,14 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import Search from "@/components/Search";
-import { ISerializedArticle } from "@/types/article";
+import { getTranslations } from "next-intl/server";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 import ProductsBanner from "@/components/ProductsBanner";
-import { SearchSkeleton } from "@/components/skeletons/SearchSkeleton";
+import HeroSection from "@/components/server/HeroSection";
+import SearchResultsWithPagination from "@/components/server/SearchResultsWithPagination";
+import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 export async function generateMetadata({
   params,
@@ -57,66 +58,47 @@ export default async function SearchPage({
     redirect(`/${locale}`);
   }
 
-  const currentPage = Math.max(1, parseInt(page as string, 10) || 1);
+  const t = await getTranslations({ locale, namespace: "search" });
 
-  // Configuration - easily adjustable
-  // Change these values to customize the number of articles displayed
-  const ARTICLES_PER_PAGE = 10; // Number of articles per page
-
-  let searchResults: ISerializedArticle[] = []; // Search results
-  let paginationData = {
-    currentPage: 1,
-    totalPages: 1,
-    totalArticles: 0,
-  };
-
-  try {
-    // Get search results with pagination
-    const searchResult = await searchArticlesPaginated({
-      query: query.trim(),
-      locale,
-      page: currentPage,
-      sort: "createdAt",
-      order: "desc",
-      limit: ARTICLES_PER_PAGE,
-      // No excludeIds needed for search pagination
-    });
-
-    searchResults = searchResult.data || [];
-    const totalArticles = searchResult.totalDocs;
-    const totalPages = searchResult.totalPages;
-
-    // Redirect to page 1 if current page is greater than total pages
-    if (currentPage > totalPages && totalPages > 0) {
-      redirect(`/${locale}/search?q=${encodeURIComponent(query)}&page=1`);
-    }
-
-    paginationData = {
-      currentPage,
-      totalPages,
-      totalArticles,
-    };
-  } catch (error) {
-    console.error("Error searching articles:", error);
-  }
+  // Static hero text - section will handle results display
+  const heroTitle = t("resultsTitle");
+  const heroDescription = t("resultsFound", {
+    count: 0,
+    query: query,
+  });
+  const heroImageKey = "search-results";
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Search page"}>
-        {/* Products Banner - Client Component, can be direct */}
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
         <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-        <Suspense fallback={<SearchSkeleton />}>
-          <Search
+          {/* Hero Section */}
+          <HeroSection
             locale={locale}
-            searchResults={searchResults}
-            query={query}
-            paginationData={paginationData}
+            title={heroTitle}
+            description={heroDescription}
+            alt={t("heroImageAlt")}
+            imageKey={heroImageKey}
           />
-        </Suspense>
 
-        {/* Products Banner - Client Component, can be direct */}
+          {/* Search Results Section with Pagination */}
+          <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+            <SearchResultsWithPagination
+              query={query}
+              locale={locale}
+              page={page as string}
+            />
+          </Suspense>
+
+          {/* Newsletter Signup Section */}
+          <NewsletterSignup />
+
+          {/* Products Banner */}
         <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

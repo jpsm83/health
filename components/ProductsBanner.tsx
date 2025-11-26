@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { banners, affiliateCompanies } from "@/lib/constants";
+import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
 
 type BannerSize = "970x90" | "970x240" | "240x390" | "240x240" | "390x240";
 
@@ -45,17 +46,19 @@ export default function ProductsBanner({
   return (
     <div className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
       <div
-        className={`relative ${sizeClass} overflow-hidden`}
-        style={{ boxShadow: "4px 4px 12px 1px rgba(40, 40, 40)" }}
+        className={`relative ${sizeClass} overflow-hidden shadow-md hover:shadow-lg transition-all duration-300`}
       >
         <Image
-          src={bannerUrl}
+          src={optimizeCloudinaryUrl(
+            bannerUrl,
+            size === "970x90" || size === "970x240" ? 85 : 75
+          )}
           alt={`${product || category} banner`}
           fill
           className="object-cover object-right"
           sizes={
             size === "970x90" || size === "970x240"
-              ? "100vw"
+              ? "(max-width: 970px) 100vw, 970px"
               : size === "240x390" || size === "240x240"
               ? "(max-width: 768px) 100vw, 300px"
               : "(max-width: 768px) 100vw, 400px"

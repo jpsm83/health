@@ -11,9 +11,9 @@ import {
   XCircle,
   Trash2,
   Camera,
-  Loader2,
   ChevronsUpDown,
 } from "lucide-react";
+import Spinner from "@/components/ui/spinner";
 import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -191,13 +191,17 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
 
   // Validate subscription frequency when it changes
   useEffect(() => {
-    const frequency = watchedValues.subscriptionPreferences?.subscriptionFrequencies;
+    const frequency =
+      watchedValues.subscriptionPreferences?.subscriptionFrequencies;
     if (!frequency) {
       setValue("subscriptionPreferences.subscriptionFrequencies", "weekly", {
         shouldValidate: true,
       });
     }
-  }, [watchedValues.subscriptionPreferences?.subscriptionFrequencies, setValue]);
+  }, [
+    watchedValues.subscriptionPreferences?.subscriptionFrequencies,
+    setValue,
+  ]);
 
   // Load user data and set form values when user data changes
   useEffect(() => {
@@ -447,10 +451,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       };
 
       // Use server action directly - this works in client components!
-      const result = await updateUserProfile(
-        session.user.id,
-        updateData
-      );
+      const result = await updateUserProfile(session.user.id, updateData);
 
       if (result?.success) {
         // Update local user state with the updated data
@@ -485,66 +486,74 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
   };
 
   return (
-    <div className="flex items-start justify-center py-8 md:py-16 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-start justify-center px-4 md:px-8 relative">
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
+          <Spinner size="xl" text={t("messages.saving") || "Saving..."} />
+        </div>
+      )}
+
       <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
           {/* Profile Image Section - Centered on mobile, left on desktop */}
-          <div className="flex-shrink-0">
-            <div className="relative">
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
-                {imagePreview ? (
-                  <Image
-                    src={imagePreview}
-                    alt="Profile Preview"
-                    width={128}
-                    height={128}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
-                ) : user?.imageUrl ? (
-                  <Image
-                    width={128}
-                    height={128}
-                    priority
-                    src={user?.imageUrl}
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gray-300">
-                    <User className="w-12 h-12 md:w-16 md:h-16 text-gray-500" />
-                  </div>
-                )}
-              </div>
-
-              {/* Image Upload Overlay */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 transition-all duration-300 rounded-full text-white opacity-0 hover:opacity-100">
-                <Input
-                  type="file"
-                  id="image"
-                  accept="image/*"
-                  disabled={isLoading}
-                  onChange={handleImageChange}
-                  className="hidden"
+          <div className="relative">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
+              {imagePreview ? (
+                <Image
+                  src={imagePreview}
+                  alt="Profile Preview"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                  priority
                 />
-                <label htmlFor="image" className="cursor-pointer flex flex-col items-center justify-center w-full h-full">
-                  <Camera size={36} />
-                  <span className="text-xs">{t("actions.changeImage")}</span>
-                </label>
-              </div>
-
-              {/* Remove Image Button - Only show when there's a preview */}
-              {imagePreview && (
-                <Button
-                  type="button"
-                  onClick={removeImage}
-                  className="absolute bottom-0 left-0 bg-red-600 hover:bg-red-500 text-white rounded-full border-1 border-white h-8 w-8"
-                  title={t("actions.removeImage")}
-                  >
-                    <Trash2 />
-                </Button>
+              ) : user?.imageUrl ? (
+                <Image
+                  width={128}
+                  height={128}
+                  priority
+                  src={user?.imageUrl}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-300">
+                  <User className="w-12 h-12 md:w-16 md:h-16 text-gray-500" />
+                </div>
               )}
             </div>
+
+            {/* Image Upload Overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 transition-all duration-300 rounded-full text-white opacity-0 hover:opacity-100">
+              <Input
+                type="file"
+                id="image"
+                accept="image/*"
+                disabled={isLoading}
+                onChange={handleImageChange}
+                className="hidden"
+              />
+              <label
+                htmlFor="image"
+                className="cursor-pointer flex flex-col items-center justify-center w-full h-full"
+              >
+                <Camera size={36} />
+                <span className="text-xs">{t("actions.changeImage")}</span>
+              </label>
+            </div>
+
+            {/* Remove Image Button - Only show when there's a preview */}
+            {imagePreview && (
+              <Button
+                type="button"
+                onClick={removeImage}
+                className="absolute bottom-0 left-0 bg-red-600 hover:bg-red-500 text-white rounded-full border-1 border-white h-8 w-8"
+                title={t("actions.removeImage")}
+              >
+                <Trash2 />
+              </Button>
+            )}
           </div>
 
           {/* Header Info */}
@@ -663,7 +672,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
         >
           <div className="space-y-6 md:space-y-8">
             {/* Personal Information Section */}
-            <div>
+            <section>
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
                 <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600" />
                 {t("sections.personal")}
@@ -699,7 +708,9 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                       setValue("username", e.target.value);
                       handleInputChange("username");
                     }}
-                    className={ errors.username ? "input-error" : "input-standard" }
+                    className={
+                      errors.username ? "input-error" : "input-standard"
+                    }
                     placeholder={t("fields.enterUsername")}
                   />
                   {errors.username && (
@@ -727,7 +738,9 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                       setValue("birthDate", e.target.value);
                       handleInputChange("birthDate");
                     }}
-                    className={ errors.birthDate ? "input-error" : "input-standard" }
+                    className={
+                      errors.birthDate ? "input-error" : "input-standard"
+                    }
                   />
                   {errors.birthDate && (
                     <p className="mt-1 text-sm text-red-600">
@@ -736,10 +749,10 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                   )}
                 </div>
               </div>
-            </div>
+            </section>
 
             {/* Category Interests Section */}
-            <div>
+            <section>
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
                 <BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600" />
                 {t("sections.categoryInterests")}
@@ -760,22 +773,32 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                           className="w-full justify-between focus:border-purple-400 focus:ring-purple-400/50 focus:ring-[3px]"
                           disabled={isLoading}
                         >
-                          {watchedValues.subscriptionPreferences?.subscriptionFrequencies
-                            ? t(`frequencies.${watchedValues.subscriptionPreferences.subscriptionFrequencies}`)
+                          {watchedValues.subscriptionPreferences
+                            ?.subscriptionFrequencies
+                            ? t(
+                                `frequencies.${watchedValues.subscriptionPreferences.subscriptionFrequencies}`
+                              )
                             : t("fields.selectFrequency")}
                           <ChevronsUpDown className="h-4 w-4 opacity-50" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="w-full" align="start">
                         {newsletterFrequencies.map((frequency) => {
-                          const isSelected = watchedValues.subscriptionPreferences?.subscriptionFrequencies === frequency;
+                          const isSelected =
+                            watchedValues.subscriptionPreferences
+                              ?.subscriptionFrequencies === frequency;
                           return (
                             <DropdownMenuItem
                               key={frequency}
                               onSelect={(e) => {
                                 e.preventDefault();
-                                setValue("subscriptionPreferences.subscriptionFrequencies", frequency);
-                                trigger("subscriptionPreferences.subscriptionFrequencies");
+                                setValue(
+                                  "subscriptionPreferences.subscriptionFrequencies",
+                                  frequency
+                                );
+                                trigger(
+                                  "subscriptionPreferences.subscriptionFrequencies"
+                                );
                               }}
                               className="cursor-pointer"
                             >
@@ -784,9 +807,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                                   checked={isSelected}
                                   className="pointer-events-none"
                                 />
-                                <span>
-                                  {t(`frequencies.${frequency}`)}
-                                </span>
+                                <span>{t(`frequencies.${frequency}`)}</span>
                               </div>
                             </DropdownMenuItem>
                           );
@@ -800,41 +821,55 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                     <Label className="block text-sm font-medium text-gray-700 mb-1">
                       {t("fields.categoryInterests")}
                     </Label>
-                    <DropdownMenu open={categoriesDropdownOpen} onOpenChange={setCategoriesDropdownOpen}>
+                    <DropdownMenu
+                      open={categoriesDropdownOpen}
+                      onOpenChange={setCategoriesDropdownOpen}
+                    >
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="outline"
                           className="w-full justify-between focus:border-purple-400 focus:ring-purple-400/50 focus:ring-[3px]"
                           disabled={isLoading}
                         >
-                          {watchedValues.subscriptionPreferences?.categories?.length > 0
+                          {watchedValues.subscriptionPreferences?.categories
+                            ?.length > 0
                             ? `${watchedValues.subscriptionPreferences.categories.length} categories selected`
                             : t("fields.selectCategories")}
                           <ChevronsUpDown className="h-4 w-4 opacity-50" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent 
-                        className="w-full" 
-                        align="start"
-                      >
+                      <DropdownMenuContent className="w-full" align="start">
                         {mainCategories.map((category) => {
-                          const isSelected = watchedValues.subscriptionPreferences?.categories?.includes(category);
+                          const isSelected =
+                            watchedValues.subscriptionPreferences?.categories?.includes(
+                              category
+                            );
                           return (
                             <DropdownMenuItem
                               key={category}
                               onSelect={(e) => {
                                 // Prevent default closing behavior for multiselect
                                 e.preventDefault();
-                                const currentCategories = watchedValues.subscriptionPreferences?.categories || [];
+                                const currentCategories =
+                                  watchedValues.subscriptionPreferences
+                                    ?.categories || [];
                                 let newCategories: string[];
 
                                 if (isSelected) {
-                                  newCategories = currentCategories.filter((cat) => cat !== category);
+                                  newCategories = currentCategories.filter(
+                                    (cat) => cat !== category
+                                  );
                                 } else {
-                                  newCategories = [...currentCategories, category];
+                                  newCategories = [
+                                    ...currentCategories,
+                                    category,
+                                  ];
                                 }
 
-                                setValue("subscriptionPreferences.categories", newCategories);
+                                setValue(
+                                  "subscriptionPreferences.categories",
+                                  newCategories
+                                );
                                 trigger("subscriptionPreferences.categories");
                                 // Keep dropdown open for multiselect
                                 setCategoriesDropdownOpen(true);
@@ -858,9 +893,9 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            <div>
+            <section>
               {/* Security Section */}
               <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center">
                 <Lock className="w-4 h-4 md:w-5 md:h-5 mr-2 text-red-600" />
@@ -883,21 +918,24 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                   </p>
                 </div>
               </div>
-            </div>
-
+            </section>
 
             {/* Save Button - Inline with Security Section */}
             <div className="flex flex-col items-center md:items-end space-y-2">
               <Button
                 type="submit"
                 disabled={isLoading || !hasChanges}
-                className="w-40"
+                className="w-40 flex items-center justify-center gap-2"
                 variant="customDefault"
               >
                 {isLoading ? (
-                  <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
-                ) : null}
-                {t("actions.save")}
+                  <>
+                    <Spinner size="sm" className="text-white" />
+                    <span>{t("actions.save")}</span>
+                  </>
+                ) : (
+                  t("actions.save")
+                )}
               </Button>
 
               {/* Help text when save button is disabled */}

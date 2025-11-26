@@ -523,6 +523,11 @@
       "description": "Visualize e gerencie seus artigos favoritos de saúde e bem-estar. Acesse sua coleção personalizada de conteúdo salvo.",
       "keywords": "favoritos, artigos salvos, conteúdo marcado, coleção pessoal, artigos de saúde, conteúdo de bem-estar"
     },
+    "search": {
+      "title": "Pesquisar - Women's Spot",
+      "description": "Pesquise artigos de saúde e bem-estar, dicas e guias. Encontre as informações que você precisa para melhorar seu bem-estar.",
+      "keywords": "pesquisar, artigos de saúde, conteúdo de bem-estar, pesquisar artigos, encontrar dicas de saúde, pesquisa de bem-estar, pesquisa de artigos"
+    },
     "health": {
       "title": "Artigos de Saúde",
       "description": "Nossos melhores insights sobre saúde, uma coleção abrangente de artigos de saúde, dicas e guias para ajudá-la a viver uma vida mais saudável e gratificante.",
@@ -572,6 +577,11 @@
       "title": "Cancelar Inscrição no Newsletter - Women's Spot",
       "description": "Cancele sua inscrição no newsletter Women's Spot. Digite seu endereço de email para parar de receber nossas atualizações de saúde e bem-estar.",
       "keywords": "cancelar inscrição, newsletter, preferências de email, parar emails, newsletter Women's Spot"
+    },
+    "notFound": {
+      "title": "404 - Página Não Encontrada | Women's Spot",
+      "description": "A página que você está procurando não existe ou foi movida.",
+      "keywords": "404, página não encontrada, erro, Women's Spot"
     }
   },
   "about": {
@@ -646,6 +656,10 @@
     }
   },
   "privacyPolicy": {
+    "hero": {
+      "title": "Política de Privacidade",
+      "subtitle": "Respeitamos sua privacidade e nos comprometemos a proteger suas informações pessoais. Saiba como coletamos, usamos e protegemos seus dados."
+    },
     "title": "Aviso de Privacidade",
     "lastUpdated": "Última Atualização:",
     "highlights": {
@@ -737,6 +751,10 @@
     }
   },
   "cookiePolicy": {
+    "hero": {
+      "title": "Política de Cookies",
+      "subtitle": "Usamos cookies e tecnologias similares para melhorar sua experiência em nossa plataforma. Saiba como usamos cookies e como você pode gerenciar suas preferências."
+    },
     "title": "Política de Cookies",
     "introduction": {
       "paragraph1": "Esta Política de Cookies aplica-se ao Serviço Digital que liga a esta Política de Cookies e faz parte do Aviso de Privacidade, que descreve as nossas práticas de tratamento de dados e está disponível aqui. Nos Serviços Digitais, Women's Spot ('nós', 'nosso' ou 'Women's Spot') e terceiros, incluindo os nossos fornecedores de serviços publicitários e de marketing e parceiros, utilizam uma variedade de tecnologias incluindo cookies ('Cookies e Tecnologias Similares').",
@@ -791,6 +809,10 @@
     }
   },
   "termsConditions": {
+    "hero": {
+      "title": "Termos e Condições",
+      "subtitle": "Por favor, leia estes termos e condições cuidadosamente antes de usar nossa plataforma. Ao acessar ou usar Women's Spot, você concorda em estar vinculado a estes termos."
+    },
     "title": "Termos e Condições",
     "termsOfUse": {
       "title": "Termos de uso",
@@ -984,6 +1006,7 @@
     },
     "imageAlt": " - Seção ",
     "exploreMore": "Artigos selecionados apenas para você",
+    "exploreMoreDescription": "Descubra mais artigos nesta categoria que possam interessar você",
     "error": {
       "insufficientContent": "Conteúdo Insuficiente",
       "insufficientContentMessage": "Este artigo não atende aos requisitos mínimos de conteúdo para exibição.",
@@ -1060,6 +1083,12 @@
     "resultsFound": "Encontrado {count} resultado{count, plural, =1 {} other {s}} para \"{query}\"",
     "noResultsTitle": "Nenhum artigo encontrado!",
     "noResultsDescription": "Tente pesquisar com palavras-chave diferentes de..."
+  },
+  "notFound": {
+    "title": "404 - Página Não Encontrada",
+    "description": "A página que você está procurando não existe ou foi movida.",
+    "heroImageAlt": "404 Página Não Encontrada",
+    "returnHome": "Voltar para o Início"
   },
   "newsletterConfirmation": {
     "title": "Confirmação da Newsletter",

@@ -184,8 +184,7 @@ export default function CategoryCarousel({
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
 
   return (
-    <div className="mb-12 cv-auto">
-      <hr className="my-4 border-1 border-gray-200" />
+    <>
       {/* Category Header */}
       <div className="flex items-center justify-between mb-6 px-6">
         <a
@@ -278,6 +277,6 @@ export default function CategoryCarousel({
           />
         </Carousel>
       </div>
-    </div>
+    </>
   );
 }

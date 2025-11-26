@@ -427,6 +427,11 @@
       "description": "Visualisez et gérez vos articles favoris de santé et bien-être. Accédez à votre collection personnalisée de contenu sauvegardé.",
       "keywords": "favoris, articles sauvegardés, contenu marqué, collection personnelle, articles de santé, contenu de bien-être"
     },
+    "search": {
+      "title": "Rechercher - Women's Spot",
+      "description": "Recherchez des articles de santé et de bien-être, des conseils et des guides. Trouvez les informations dont vous avez besoin pour améliorer votre bien-être.",
+      "keywords": "rechercher, articles de santé, contenu de bien-être, rechercher des articles, trouver des conseils de santé, recherche de bien-être, recherche d'articles"
+    },
     "health": {
       "title": "Articles de Santé",
       "description": "Nos meilleurs insights sur la santé, une collection complète d'articles de santé, conseils et guides pour vous aider à vivre une vie plus saine et épanouie.",
@@ -476,6 +481,11 @@
       "title": "Se Désabonner du Newsletter - Women's Spot",
       "description": "Désabonnez-vous du newsletter Women's Spot. Entrez votre adresse email pour arrêter de recevoir nos mises à jour de santé et de bien-être.",
       "keywords": "se désabonner, newsletter, préférences d'email, arrêter les emails, newsletter Women's Spot"
+    },
+    "notFound": {
+      "title": "404 - Page Non Trouvée | Women's Spot",
+      "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+      "keywords": "404, page non trouvée, erreur, Women's Spot"
     }
   },
   "about": {
@@ -550,7 +560,11 @@
     }
   },
   "privacyPolicy": {
-    "title": "Avis de Intimite",
+    "hero": {
+      "title": "Politique de Confidentialité",
+      "subtitle": "Nous respectons votre vie privée et nous nous engageons à protéger vos informations personnelles. Découvrez comment nous collectons, utilisons et protégeons vos données."
+    },
+    "title": "Avis de Confidentialité",
     "lastUpdated": "Dernière Mise à Jour :",
     "highlights": {
       "title": "Avis de Intimite – Points Clés",
@@ -641,6 +655,10 @@
     }
   },
   "cookiePolicy": {
+    "hero": {
+      "title": "Politique des Cookies",
+      "subtitle": "Nous utilisons des cookies et des technologies similaires pour améliorer votre expérience sur notre plateforme. Découvrez comment nous utilisons les cookies et comment vous pouvez gérer vos préférences."
+    },
     "title": "Politique des Cookies",
     "introduction": {
       "paragraph1": "Cette Politique des Cookies s'applique au Service Numérique qui lie à cette Politique des Cookies et fait partie de l'Avis de Intimite, qui décrit nos pratiques de gestion des données et est disponible ici. Sur les Services Numériques, Women's Spot ('nous', 'notre' ou 'Women's Spot') et des tiers, y compris nos fournisseurs de services publicitaires et marketing et partenaires, utilisent une variété de technologies incluant les cookies ('Cookies et Technologies Similaires').",
@@ -695,6 +713,10 @@
     }
   },
   "termsConditions": {
+    "hero": {
+      "title": "Termes et Conditions",
+      "subtitle": "Veuillez lire attentivement ces termes et conditions avant d'utiliser notre plateforme. En accédant ou en utilisant Women's Spot, vous acceptez d'être lié par ces termes."
+    },
     "title": "Termes et Conditions",
     "termsOfUse": {
       "title": "Conditions d'utilisation",
@@ -888,6 +910,7 @@
     },
     "imageAlt": " - Section ",
     "exploreMore": "Articles sélectionnés rien que pour vous",
+    "exploreMoreDescription": "Découvrez plus d'articles dans cette catégorie qui pourraient vous intéresser",
     "error": {
       "insufficientContent": "Contenu Insuffisant",
       "insufficientContentMessage": "Cet article ne répond pas aux exigences minimales de contenu pour l'affichage.",
@@ -1060,6 +1083,12 @@
     "resultsFound": "Trouvé {count} résultat{count, plural, =1 {} other {s}} pour \"{query}\"",
     "noResultsTitle": "Aucun article trouvé !",
     "noResultsDescription": "Essayez de rechercher avec des mots-clés différents que..."
+  },
+  "notFound": {
+    "title": "404 - Page Non Trouvée",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "heroImageAlt": "404 Page Non Trouvée",
+    "returnHome": "Retour à l'Accueil"
   },
   "newsletterConfirmation": {
     "title": "Confirmation de Newsletter",

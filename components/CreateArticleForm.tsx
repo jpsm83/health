@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { mainCategories } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
 
 interface CreateArticleFormProps {
   locale: string;
@@ -40,22 +42,30 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    
+
     // Validate file types
     const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-    const invalidFiles = files.filter(file => !validTypes.includes(file.type));
-    
+    const invalidFiles = files.filter(
+      (file) => !validTypes.includes(file.type)
+    );
+
     if (invalidFiles.length > 0) {
-      setError(t("form.validation.imageType") || "Please select only image files (JPEG, PNG, or WebP)");
+      setError(
+        t("form.validation.imageType") ||
+          "Please select only image files (JPEG, PNG, or WebP)"
+      );
       return;
     }
 
     // Validate file sizes (max 5MB per file)
     const maxSize = 5 * 1024 * 1024; // 5MB
-    const oversizedFiles = files.filter(file => file.size > maxSize);
-    
+    const oversizedFiles = files.filter((file) => file.size > maxSize);
+
     if (oversizedFiles.length > 0) {
-      setError(t("form.validation.imageSize") || "Image files must be less than 5MB each");
+      setError(
+        t("form.validation.imageSize") ||
+          "Image files must be less than 5MB each"
+      );
       return;
     }
 
@@ -63,17 +73,17 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
     setError(null);
 
     // Create previews
-    const previews = files.map(file => URL.createObjectURL(file));
+    const previews = files.map((file) => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
 
   const removeImage = (index: number) => {
     const newImages = selectedImages.filter((_, i) => i !== index);
     const newPreviews = imagePreviews.filter((_, i) => i !== index);
-    
+
     // Revoke object URLs to prevent memory leaks
     URL.revokeObjectURL(imagePreviews[index]);
-    
+
     setSelectedImages(newImages);
     setImagePreviews(newPreviews);
   };
@@ -100,7 +110,9 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
       const category = formData.get("category") as string;
 
       if (!title || !content || !category) {
-        setError(t("form.validation.required") || "Please fill in all required fields");
+        setError(
+          t("form.validation.required") || "Please fill in all required fields"
+        );
         setIsSubmitting(false);
         return;
       }
@@ -121,17 +133,18 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
       ];
 
       // Create imagesContext based on uploaded images or default
-      const imagesContext: ImageContext[] = selectedImages.length > 0
-        ? selectedImages.map((_, index) => ({
-            alt: `${title.trim()} - Image ${index + 1}`,
-            caption: `${title.trim()} - Image ${index + 1}`,
-          }))
-        : [
-            {
-              alt: title.trim(),
-              caption: title.trim(),
-            },
-          ];
+      const imagesContext: ImageContext[] =
+        selectedImages.length > 0
+          ? selectedImages.map((_, index) => ({
+              alt: `${title.trim()} - Image ${index + 1}`,
+              caption: `${title.trim()} - Image ${index + 1}`,
+            }))
+          : [
+              {
+                alt: title.trim(),
+                caption: title.trim(),
+              },
+            ];
 
       const formDataToSend = new FormData();
       formDataToSend.append("category", category);
@@ -156,18 +169,27 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
       const result: ApiResponse = await response.json();
 
       if (!response.ok) {
-        setError(result.message || t("form.error.submit") || "Failed to create article. Please try again.");
+        setError(
+          result.message ||
+            t("form.error.submit") ||
+            "Failed to create article. Please try again."
+        );
         setIsSubmitting(false);
         return;
       }
 
-      setSuccess(t("form.success") || "Article created successfully! Redirecting...");
+      setSuccess(
+        t("form.success") || "Article created successfully! Redirecting..."
+      );
       // Redirect to article or dashboard after a short delay
       setTimeout(() => {
         router.push(`/${locale}/articles`);
       }, 2000);
     } catch {
-      setError(t("form.error.network") || "Network error. Please check your connection and try again.");
+      setError(
+        t("form.error.network") ||
+          "Network error. Please check your connection and try again."
+      );
       setIsSubmitting(false);
     }
   };
@@ -175,7 +197,14 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
   return (
     <>
       {/* Article Creation Form */}
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white rounded-lg shadow-md p-6 relative">
+        {/* Loading Overlay */}
+        {isSubmitting && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-lg">
+            <Spinner size="lg" text={t("form.submitting") || "Creating article..."} />
+          </div>
+        )}
+
         <form className="space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
@@ -222,7 +251,8 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
               placeholder={t("form.content")}
             />
             <p className="mt-1 text-sm text-gray-500">
-              {t("form.contentHint") || "Write the main content of your article"}
+              {t("form.contentHint") ||
+                "Write the main content of your article"}
             </p>
           </div>
 
@@ -284,7 +314,8 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
               className="input-standard w-full focus:ring-blue-500 focus:border-transparent"
             />
             <p className="mt-1 text-sm text-gray-500">
-              {t("form.imagesHint") || "Upload images (JPEG, PNG, or WebP). Max 5MB per file. Optional."}
+              {t("form.imagesHint") ||
+                "Upload images (JPEG, PNG, or WebP). Max 5MB per file. Optional."}
             </p>
 
             {/* Image Previews */}
@@ -314,24 +345,32 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
           </div>
 
           <div className="flex space-x-4">
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              variant="customDefault"
+              className="w-auto flex items-center justify-center gap-2"
             >
-              {isSubmitting ? (t("form.submitting") || "Creating...") : t("form.submit")}
-            </button>
-            <button
+              {isSubmitting ? (
+                <>
+                  <Spinner size="sm" className="text-white" />
+                  <span>{t("form.submitting") || "Creating..."}</span>
+                </>
+              ) : (
+                t("form.submit")
+              )}
+            </Button>
+            <Button
               type="button"
               onClick={() => router.back()}
-              className="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              variant="outline"
+              className="w-auto"
             >
               {t("form.cancel")}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
     </>
   );
 }
-

@@ -1,14 +1,16 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
-import { ISerializedArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import Favorites from "@/components/Favorites";
-import { FavoritesSkeleton } from "@/components/skeletons/FavoritesSkeleton";
-import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ProductsBanner from "@/components/ProductsBanner";
+import HeroSection from "@/components/server/HeroSection";
+import FavoritesWithPagination from "@/components/server/FavoritesWithPagination";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
+import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 
 export async function generateMetadata({
   params,
@@ -38,68 +40,46 @@ export default async function FavoritesPage({
 
   // Server-side auth check
   const session = await auth();
-  
+
   if (!session?.user?.id) {
     redirect(`/${locale}/signin`);
   }
 
-  const currentPage = Math.max(1, parseInt(page as string, 10) || 1);
+  const t = await getTranslations({ locale, namespace: "favorites" });
 
-  // Configuration - easily adjustable
-  const ARTICLES_PER_PAGE = 10; // Number of articles per page
-
-  let favoriteArticles: ISerializedArticle[] = [];
-  let paginationData = {
-    currentPage: 1,
-    totalPages: 1,
-    totalArticles: 0,
-  };
-
-  try {
-    // Get user's liked articles with pagination
-    const result = await getUserLikedArticles(
-      session.user.id,
-      currentPage,
-      ARTICLES_PER_PAGE,
-      locale
-    );
-
-    if (result.success && result.data) {
-      favoriteArticles = result.data;
-      paginationData = {
-        currentPage: result.currentPage || currentPage,
-        totalPages: result.totalPages || 1,
-        totalArticles: result.totalDocs || 0,
-      };
-
-      // Redirect to page 1 if current page is greater than total pages
-      if (
-        currentPage > paginationData.totalPages &&
-        paginationData.totalPages > 0
-      ) {
-        redirect(`/${locale}/favorites?page=1`);
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching favorite articles:", error);
-  }
+  // Static hero text - section will handle results display
+  const heroTitle = t("title");
+  const heroDescription = t("subtitle", { count: 0 });
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Favorites page"}>
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x90" affiliateCompany="amazon" />
-        
-        <Suspense fallback={<FavoritesSkeleton />}>
-        <Favorites
-            locale={locale}
-          favoriteArticles={favoriteArticles}
-          paginationData={paginationData}
-        />
-        </Suspense>
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          {/* Hero Section */}
+          <Suspense fallback={<HeroSkeleton />}>
+            <HeroSection
+              locale={locale}
+              title={heroTitle}
+              description={heroDescription}
+              alt={t("heroImageAlt")}
+              imageKey="favorites"
+            />
+          </Suspense>
+
+          {/* Favorites Section with Pagination */}
+          <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+            <FavoritesWithPagination locale={locale} page={page as string} />
+          </Suspense>
+
+          {/* Newsletter Signup Section */}
+          <NewsletterSignup />
+
+          {/* Products Banner */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

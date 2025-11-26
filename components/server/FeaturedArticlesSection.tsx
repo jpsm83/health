@@ -37,8 +37,6 @@ export default async function FeaturedArticlesSection({
   return (
     <FeaturedArticles
       articles={articles}
-      title={t("featuredArticles.title")}
-      description={t("featuredArticles.description")}
     />
   );
 }

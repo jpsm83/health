@@ -1,17 +1,17 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { Metadata } from "next";
+import { getTranslations, getMessages } from "next-intl/server";
 import { headers } from "next/headers";
 import { routing } from "@/i18n/routing";
+import { NextIntlClientProvider } from "next-intl";
+import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import Navigation from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import HeroSection from "@/components/server/HeroSection";
+import ProductsBanner from "@/components/ProductsBanner";
 
-export default async function NotFound() {
-  // Detect locale from Accept-Language header, fallback to default
+// Helper function to detect locale
+async function detectLocale(): Promise<string> {
   const headersList = await headers();
   const acceptLanguage = headersList.get("accept-language") || "";
 
@@ -29,66 +29,45 @@ export default async function NotFound() {
     }
   }
 
-  // Get messages for detected locale
+  return locale;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await detectLocale();
+  return generatePublicMetadata(locale, "/404", "metadata.notFound.title");
+}
+
+export default async function NotFound() {
+  const locale = await detectLocale();
   const messages = await getMessages({ locale });
+  const t = await getTranslations({ locale, namespace: "notFound" });
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen flex flex-col">
+      <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
         <Navigation />
-        <ErrorBoundary context={"Not Found page"}>
-          <main className="flex-1 flex flex-col items-center justify-center my-8 md:my-16 mx-3">
-            {/* Full-screen centered content */}
-            <div className="relative w-full h-[60vh] min-h-[360px] md:h-screen">
-              <div className="absolute inset-0">
-                <Image
-                  src="https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg"
-                  alt="404 Not Found"
-                  className="w-full h-full object-cover"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  quality={85}
-                  priority
-                />
-              {/* Dark overlay for better text readability */}
-              <div className="absolute inset-0 bg-black/60" />
+        <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden container my-7 md:my-14">
+          <ErrorBoundary context={"Not Found page"}>
+            <div className="flex-1 flex flex-col h-full gap-8 md:gap-16">
+              {/* Products Banner */}
+              <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+              {/* Hero Section */}
+              <HeroSection
+                locale={locale}
+                title={t("title")}
+                description={t("description")}
+                alt={t("heroImageAlt")}
+                imageKey="search-no-results"
+              />
+
+              {/* Bottom banner - lazy loaded */}
+              <ProductsBanner size="970x240" affiliateCompany="amazon" />
             </div>
-
-            {/* Centered Content */}
-            <div className="relative z-10 flex items-center justify-center h-full">
-              <div className="text-center text-white max-w-4xl mx-auto px-6">
-                {/* App Logo */}
-                <div className="flex items-center justify-center space-x-2 mb-8 md:mb-16">
-                  <Heart size={64} className="text-white" />
-                  <span className="text-2xl md:text-6xl font-bold text-white">
-                    Women&apos;s Spot
-                  </span>
-                </div>
-
-                <h1 className="text-5xl md:text-6xl font-bold mb-6">404</h1>
-                <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-200">
-                  Page Not Found!
-                </h2>
-                <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-                  The page you&apos;re looking for doesn&apos;t exist or has
-                  been moved.
-                </p>
-
-                {/* Single Action Button with App Colors */}
-                <Button
-                  asChild
-                  variant="customDefault"
-                  className="max-w-xs mx-auto"
-                >
-                  <Link href="/">Return Home</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </main>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </div>
         <Footer />
-      </div>
+      </main>
     </NextIntlClientProvider>
   );
 }

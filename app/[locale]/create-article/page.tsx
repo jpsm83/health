@@ -1,12 +1,9 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import CreateArticleHeaderSection from "@/components/server/CreateArticleHeaderSection";
 import CreateArticleForm from "@/components/CreateArticleForm";
-import { CreateArticleSkeleton } from "@/components/skeletons/CreateArticleSkeleton";
 
 export async function generateMetadata({
   params,
@@ -38,12 +35,12 @@ export default async function CreateArticlePage({
   }
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Create Article page"}>
-        <Suspense fallback={<CreateArticleSkeleton />}>
-          <CreateArticleHeaderSection locale={locale} />
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Form Section */}
           <CreateArticleForm locale={locale} />
-        </Suspense>
+        </div>
       </ErrorBoundary>
     </main>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -9,6 +9,7 @@ import { createComment } from "@/app/actions/comment/createComment";
 import { deleteComment } from "@/app/actions/comment/deleteComment";
 import { toggleCommentLike } from "@/app/actions/comment/toggleCommentLike";
 import { reportComment } from "@/app/actions/comment/reportComment";
+import { getComments } from "@/app/actions/comment/getComments";
 import { Heart, Trash2, User, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/components/Toasts";
@@ -17,22 +18,16 @@ import { Textarea } from "./ui/textarea";
 
 interface CommentsSectionProps {
   articleId: string;
-  comments: ISerializedComment[];
-  setComments: React.Dispatch<React.SetStateAction<ISerializedComment[]>>;
-  hasUserCommented: boolean;
-  setHasUserCommented?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function CommentsSection({
   articleId,
-  comments,
-  setComments,
-  hasUserCommented,
-  setHasUserCommented,
 }: CommentsSectionProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const t = useTranslations();
+  const [comments, setComments] = useState<ISerializedComment[]>([]);
+  const [hasUserCommented, setHasUserCommented] = useState<boolean>(false);
   const [newComment, setNewComment] = useState<string | undefined>(undefined);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [reportModal, setReportModal] = useState<{
@@ -41,6 +36,45 @@ export default function CommentsSection({
   }>({ isOpen: false, commentId: null });
   const [selectedReason, setSelectedReason] = useState<string>("");
   const [isReporting, setIsReporting] = useState<boolean>(false);
+
+  // Load comments when component mounts
+  useEffect(() => {
+    const loadComments = async () => {
+      if (!articleId) return;
+
+      try {
+        const result = await getComments({
+          articleId,
+          page: 1,
+          limit: 50,
+          sort: "createdAt",
+          order: "desc",
+        });
+
+        if (result && result.success && result.comments) {
+          setComments(result.comments);
+          // Check if current user has commented
+          const userHasCommented = result.comments.some((comment) => {
+            const commentUserId =
+              typeof comment.userId === "object" &&
+              comment.userId !== null &&
+              "_id" in comment.userId
+                ? (comment.userId as { _id: string })._id
+                : (comment.userId as string);
+            return commentUserId === session?.user?.id;
+          });
+          setHasUserCommented(userHasCommented);
+        } else {
+          setComments([]);
+        }
+      } catch (error) {
+        console.error("Error loading comments:", error);
+        setComments([]);
+      }
+    };
+
+    loadComments();
+  }, [articleId, session?.user?.id]);
 
   // Helper function to format dates consistently
   const formatDate = (dateString: string | Date | undefined) => {
@@ -75,9 +109,7 @@ export default function CommentsSection({
         setComments((prev) => [...prev, result.comment!]);
         setNewComment("");
         // Update hasUserCommented state to hide the input form
-        if (setHasUserCommented) {
-          setHasUserCommented(true);
-        }
+        setHasUserCommented(true);
         showToast(
           "success",
           t("comments.toasts.createdSuccess"),
@@ -166,9 +198,7 @@ export default function CommentsSection({
           prev.filter((comment) => comment._id?.toString() !== commentId)
         );
         // Show comment form again after deletion
-        if (setHasUserCommented) {
-          setHasUserCommented(false);
-        }
+        setHasUserCommented(false);
         showToast(
           "success",
           t("comments.toasts.deletedSuccess"),

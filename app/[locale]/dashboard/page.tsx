@@ -1,11 +1,9 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Dashboard from "@/components/Dashboard";
-import { DashboardSkeleton } from "@/components/skeletons/DashboardSkeleton";
 import { getAllArticlesForDashboard } from "@/app/actions/article/getAllArticlesForDashboard";
 import { getWeeklyStats } from "@/app/actions/article/getWeeklyStats";
 
@@ -45,15 +43,16 @@ export default async function DashboardPage({
   ]);
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Dashboard page"}>
-        <Suspense fallback={<DashboardSkeleton />}>
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Dashboard Section */}
           <Dashboard
             articles={articles}
             weeklyStats={weeklyStats}
             locale={locale}
           />
-        </Suspense>
+        </div>
       </ErrorBoundary>
     </main>
   );

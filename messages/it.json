@@ -523,6 +523,11 @@
       "description": "Visualizza e gestisci i tuoi articoli preferiti su salute e benessere. Accedi alla tua collezione personalizzata di contenuti salvati.",
       "keywords": "preferiti, articoli salvati, contenuti segnati, collezione personale, articoli di salute, contenuti di benessere"
     },
+    "search": {
+      "title": "Cerca - Women's Spot",
+      "description": "Cerca articoli su salute e benessere, consigli e guide. Trova le informazioni di cui hai bisogno per migliorare il tuo benessere.",
+      "keywords": "cercare, articoli di salute, contenuti di benessere, cercare articoli, trovare consigli di salute, ricerca benessere, ricerca articoli"
+    },
     "health": {
       "title": "Articoli di Salute",
       "description": "I nostri migliori approfondimenti sulla salute, una collezione completa di articoli di salute, consigli e guide per aiutarti a vivere una vita più sana e appagante.",
@@ -572,6 +577,11 @@
       "title": "Annulla Iscrizione Newsletter - Women's Spot",
       "description": "Annulla la tua iscrizione alla newsletter Women's Spot. Inserisci il tuo indirizzo email per smettere di ricevere i nostri aggiornamenti su salute e benessere.",
       "keywords": "annulla iscrizione, newsletter, preferenze email, ferma email, newsletter Women's Spot"
+    },
+    "notFound": {
+      "title": "404 - Pagina Non Trovata | Women's Spot",
+      "description": "La pagina che stai cercando non esiste o è stata spostata.",
+      "keywords": "404, pagina non trovata, errore, Women's Spot"
     }
   },
   "about": {
@@ -646,6 +656,10 @@
     }
   },
   "privacyPolicy": {
+    "hero": {
+      "title": "Informativa sulla Privacy",
+      "subtitle": "Rispettiamo la tua privacy e ci impegniamo a proteggere le tue informazioni personali. Scopri come raccogliamo, utilizziamo e proteggiamo i tuoi dati."
+    },
     "title": "Informativa sulla Privacy",
     "lastUpdated": "Ultimo Aggiornamento:",
     "highlights": {
@@ -737,6 +751,10 @@
     }
   },
   "cookiePolicy": {
+    "hero": {
+      "title": "Politica sui Cookie",
+      "subtitle": "Utilizziamo cookie e tecnologie simili per migliorare la tua esperienza sulla nostra piattaforma. Scopri come utilizziamo i cookie e come puoi gestire le tue preferenze."
+    },
     "title": "Politica sui Cookie",
     "introduction": {
       "paragraph1": "Questa Politica sui Cookie si applica al Servizio Digitale che collega a questa Politica sui Cookie e fa parte dell'Informativa sulla Privacy, che descrive le nostre pratiche di gestione dei dati ed è disponibile qui. Sui Servizi Digitali, Women's Spot ('noi', 'nostro' o 'Women's Spot') e terze parti, inclusi i nostri fornitori di servizi pubblicitari e di marketing e partner, utilizzano una varietà di tecnologie inclusi i cookie ('Cookie e Tecnologie Simili').",
@@ -791,6 +809,10 @@
     }
   },
   "termsConditions": {
+    "hero": {
+      "title": "Termini e Condizioni",
+      "subtitle": "Si prega di leggere attentamente questi termini e condizioni prima di utilizzare la nostra piattaforma. Accedendo o utilizzando Women's Spot, accetti di essere vincolato da questi termini."
+    },
     "title": "Termini e Condizioni",
     "termsOfUse": {
       "title": "Termini di utilizzo",
@@ -984,6 +1006,7 @@
     },
     "imageAlt": " - Sezione ",
     "exploreMore": "Articoli selezionati solo per te",
+    "exploreMoreDescription": "Scopri altri articoli in questa categoria che potrebbero interessarti",
     "error": {
       "insufficientContent": "Contenuto Insufficiente",
       "insufficientContentMessage": "Questo articolo non soddisfa i requisiti minimi di contenuto per la visualizzazione.",
@@ -1060,6 +1083,12 @@
     "resultsFound": "Trovato {count} risultato{count, plural, =1 {} other {s}} per \"{query}\"",
     "noResultsTitle": "Nessun articolo trovato!",
     "noResultsDescription": "Prova a cercare con parole chiave diverse da..."
+  },
+  "notFound": {
+    "title": "404 - Pagina Non Trovata",
+    "description": "La pagina che stai cercando non esiste o è stata spostata.",
+    "heroImageAlt": "404 Pagina Non Trovata",
+    "returnHome": "Torna alla Home"
   },
   "newsletterConfirmation": {
     "title": "Grazie per esserti iscritto!",
