@@ -52,7 +52,7 @@ export default async function HomePage({
           </Suspense>
 
           {/* Featured Articles Section */}
-          <section>
+          <section className="space-y-6 md:space-y-12">
             <SectionHeader
               title={t("featuredArticles.title")}
               description={t("featuredArticles.description")}

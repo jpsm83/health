@@ -27,7 +27,7 @@ export default function ResetPassword({ locale, token: tokenProp }: ResetPasswor
   const [token, setToken] = useState(tokenProp || "");
   const t = useTranslations("ResetPassword");
 
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   const {

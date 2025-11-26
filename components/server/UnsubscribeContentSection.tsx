@@ -13,9 +13,7 @@ interface UnsubscribeContentSectionProps {
 export default async function UnsubscribeContentSection({
   locale,
   email,
-  token,
   result,
-  hasUserAccount,
 }: UnsubscribeContentSectionProps) {
   const t = await getTranslations({ locale, namespace: "unsubscribe" });
 
