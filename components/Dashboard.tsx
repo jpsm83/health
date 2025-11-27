@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   ArrowUpDown,
@@ -282,7 +283,13 @@ export default function Dashboard({
     const category = article.category;
 
     if (slug && category) {
-      router.push(`/${locale}/${category}/${slug}`);
+      // Use canonical URL if available, otherwise construct with translated category
+      const canonicalUrl = article.languages[0]?.seo?.canonicalUrl;
+      if (canonicalUrl) {
+        router.push(new URL(canonicalUrl).pathname);
+      } else {
+        router.push(`/${locale}/${translateCategoryToLocale(category, locale)}/${slug}`);
+      }
     }
   };
 

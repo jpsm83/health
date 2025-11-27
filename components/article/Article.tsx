@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -26,6 +26,8 @@ export default function Article({
   const [likes, setLikes] = useState<number>(articleData?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const isTogglingLike = useRef<boolean>(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const { data: session } = useSession();
   const locale = useLocale();
@@ -62,13 +64,34 @@ export default function Article({
     if (!articleData?._id || session?.user?.id === "68e6a79afb1932c067f96e30")
       return;
 
+    // Create abort controller for this effect
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+    let isMounted = true;
+
     const sessionKey = `viewed_article_${articleData._id}`;
-    if (sessionStorage.getItem(sessionKey)) return; // Already viewed in this session
+    if (sessionStorage.getItem(sessionKey)) {
+      // Already viewed in this session, just return cleanup
+      return () => {
+        isMounted = false;
+        abortController.abort();
+        abortControllerRef.current = null;
+      };
+    }
 
     // Increment view and mark as viewed
     incrementArticleViews(articleData._id).then((result) => {
+      // Only update if component is still mounted and not aborted
+      if (abortController.signal.aborted || !isMounted) return;
       if (result.success) sessionStorage.setItem(sessionKey, "true");
     });
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      abortController.abort();
+      abortControllerRef.current = null;
+    };
   }, [articleData?._id, session?.user?.id]);
 
   // toggle article like
@@ -77,6 +100,10 @@ export default function Article({
       router.push("/signin");
       return;
     }
+
+    // Prevent rapid clicks - guard against concurrent calls
+    if (isTogglingLike.current) return;
+    isTogglingLike.current = true;
 
     try {
       const result = await toggleArticleLike(
@@ -108,6 +135,11 @@ export default function Article({
         t("article.toasts.likeError"),
         t("article.toasts.likeErrorMessage")
       );
+    } finally {
+      // Reset the guard after a short delay to prevent rapid clicks
+      setTimeout(() => {
+        isTogglingLike.current = false;
+      }, 500);
     }
   };
 

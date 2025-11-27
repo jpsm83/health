@@ -30,10 +30,9 @@ export default function ConfirmEmailUI({
   translations,
 }: ConfirmEmailUIProps) {
   return (
-    <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {initialStatus === "success" && (
+    <div className="max-w-md mx-auto">
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        {initialStatus === "success" && (
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
                 <svg
@@ -60,9 +59,9 @@ export default function ConfirmEmailUI({
                 </Button>
               </div>
             </div>
-          )}
+        )}
 
-          {initialStatus === "error" && (
+        {initialStatus === "error" && (
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
                 <svg
@@ -93,8 +92,7 @@ export default function ConfirmEmailUI({
                 </Button>
               </div>
             </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

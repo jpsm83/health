@@ -258,6 +258,10 @@
   },
   "SignUp": {
     "createAccount": "Créez votre compte",
+    "section": {
+      "title": "S'inscrire",
+      "description": "Créez votre compte pour commencer avec du contenu santé personnalisé"
+    },
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "signUp": "S'inscrire",
     "signIn": "Se connecter",
@@ -288,6 +292,10 @@
   },
   "SignIn": {
     "signInToAccount": "Connectez-vous à votre compte",
+    "section": {
+      "title": "Se Connecter",
+      "description": "Connectez-vous à votre compte pour accéder à votre tableau de bord santé personnalisé"
+    },
     "createAccount": "Créez votre compte",
     "dontHaveAccount": "Vous n'avez pas de compte ?",
     "signUp": "S'inscrire",
@@ -307,6 +315,10 @@
   },
   "ForgotPassword": {
     "forgotPassword": "Mot de passe oublié ?",
+    "section": {
+      "title": "Mot de passe oublié",
+      "description": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe"
+    },
     "enterEmailForReset": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
     "emailAddress": "Adresse e-mail",
     "enterEmail": "Entrez votre e-mail",
@@ -329,6 +341,10 @@
   },
   "ResetPassword": {
     "resetYourPassword": "Réinitialiser votre mot de passe",
+    "section": {
+      "title": "Réinitialiser le Mot de Passe",
+      "description": "Entrez votre nouveau mot de passe ci-dessous pour réinitialiser le mot de passe de votre compte"
+    },
     "enterNewPasswordBelow": "Entrez votre nouveau mot de passe ci-dessous.",
     "newPassword": "Nouveau Mot de Passe",
     "enterNewPassword": "Entrez votre nouveau mot de passe",
@@ -834,6 +850,10 @@
   "confirmEmail": {
     "title": "Confirmation d'Email",
     "loading": "Confirmation de votre email...",
+    "section": {
+      "title": "Confirmez votre Email",
+      "description": "Veuillez vérifier votre adresse email pour compléter votre inscription"
+    },
     "success": {
       "title": "Email Confirmé !",
       "signInButton": "Se Connecter"
@@ -1092,17 +1112,31 @@
   },
   "newsletterConfirmation": {
     "title": "Confirmation de Newsletter",
-    "confirming": "Confirmation de l'abonnement...",
-    "success": "Abonnement confirmé !",
-    "error": "Échec de la confirmation",
-    "welcomeMessage": "Bienvenue dans notre newsletter ! Vous commencerez bientôt à recevoir notre dernier contenu de santé et bien-être.",
-    "errorMessage": "Il y a eu une erreur lors de la confirmation de votre abonnement. Veuillez réessayer de vous abonner.",
-    "processingMessage": "Veuillez patienter pendant que nous confirmons votre abonnement à la newsletter.",
-    "goHome": "Aller à la page d'accueil"
+    "section": {
+      "title": "Confirmez votre Abonnement à la Newsletter",
+      "description": "Veuillez confirmer votre abonnement pour commencer à recevoir notre contenu le plus récent sur la santé et le bien-être"
+    },
+    "success": {
+      "title": "Abonnement confirmé !",
+      "goHomeButton": "Aller à la page d'accueil"
+    },
+    "error": {
+      "title": "Échec de la confirmation",
+      "backToHomeButton": "Retour à l'accueil"
+    },
+    "messages": {
+      "missingParameters": "Le token et l'email sont requis pour confirmer votre abonnement.",
+      "confirmationFailed": "Il y a eu une erreur lors de la confirmation de votre abonnement. Veuillez réessayer de vous abonner.",
+      "unexpectedError": "Une erreur inattendue s'est produite. Veuillez réessayer plus tard."
+    }
   },
   "unsubscribe": {
     "title": "Se désabonner de la Newsletter",
     "description": "Nous sommes désolés de vous voir partir ! Cette page traite les demandes de désabonnement des liens email.",
+    "section": {
+      "title": "Se désabonner de la Newsletter",
+      "description": "Gérez vos préférences d'abonnement à la newsletter"
+    },
     "processing": "Traitement en cours...",
     "processingMessage": "Veuillez patienter pendant que nous traitons votre demande de désabonnement.",
     "successTitle": "Désabonnement réussi",

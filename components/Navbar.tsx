@@ -25,6 +25,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 
 import { mainCategories } from "@/lib/constants";
+import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 
@@ -593,7 +594,7 @@ export default function Navbar() {
               className="text-gray-200 hover:bg-white/20 hover:text-white text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
             >
               <Link
-                href={`/${locale}/${category}`}
+                href={`/${locale}/${translateCategoryToLocale(category, locale)}`}
                 prefetch={false}
                 style={{
                   textShadow:

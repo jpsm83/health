@@ -1,12 +1,17 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
+import { getTranslations } from "next-intl/server";
+
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
-import ResetPassword from "@/components/ResetPassword";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import ProductsBanner from "@/components/ProductsBanner";
-import { ResetPasswordSkeleton } from "@/components/skeletons/ResetPasswordSkeleton";
+import ResetPassword from "@/components/ResetPassword";
+import SectionHeader from "@/components/server/SectionHeader";
+import NewsletterSection from "@/components/server/NewsletterSection";
+
+// Lazy load below-fold banners (they're not critical for initial render)
+const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
 
 export async function generateMetadata({
   params,
@@ -44,18 +49,33 @@ export default async function ResetPasswordPage({
     }
   }
 
+  const t = await getTranslations({ locale, namespace: "ResetPassword" });
+
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Reset Password page"}>
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-        <Suspense fallback={<ResetPasswordSkeleton />}>
-          <ResetPassword locale={locale} token={token as string | undefined} />
-        </Suspense>
+          {/* Reset Password Section */}
+          <section className="space-y-6 md:space-y-12">
+            <SectionHeader
+              title={t("section.title")}
+              description={t("section.description")}
+            />
+            <ResetPassword locale={locale} token={token as string | undefined} />
+          </section>
 
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          {/* Newsletter Section */}
+          <NewsletterSection />
+
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+          {/* Bottom banner - lazy loaded */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

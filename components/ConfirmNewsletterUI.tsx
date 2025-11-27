@@ -1,18 +1,26 @@
 "use client";
 
-import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { NewsletterConfirmResult } from "@/app/actions/subscribers/confirmNewsletterSubscription";
 
 interface ConfirmNewsletterUIProps {
   result: NewsletterConfirmResult;
-  initialStatus: "loading" | "success" | "error";
+  initialStatus: "success" | "error";
   translations: {
-    confirming: string;
-    success: string;
-    error: string;
-    welcomeMessage: string;
-    errorMessage: string;
-    processingMessage: string;
+    success: {
+      title: string;
+      goHomeButton: string;
+    };
+    error: {
+      title: string;
+      backToHomeButton: string;
+    };
+    messages: {
+      missingParameters: string;
+      confirmationFailed: string;
+      unexpectedError: string;
+    };
   };
 }
 
@@ -22,40 +30,68 @@ export default function ConfirmNewsletterUI({
   translations,
 }: ConfirmNewsletterUIProps) {
   return (
-    <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-        {initialStatus === "loading" && (
-          <>
-            <Loader2 className="w-16 h-16 text-orange-600 mx-auto mb-4 animate-spin" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              {translations.confirming}
-            </h1>
-            <p className="text-gray-600">{translations.processingMessage}</p>
-          </>
-        )}
-
+    <div className="max-w-md mx-auto">
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         {initialStatus === "success" && (
-          <>
-            <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              {translations.success}
-            </h1>
-            <p className="text-gray-600 mb-6">
-              {result.message || translations.welcomeMessage}
-            </p>
-          </>
+          <div className="text-center">
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+              <svg
+                className="h-6 w-6 text-green-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-lg font-medium text-gray-900">
+              {translations.success.title}
+            </h3>
+            <p className="mt-2 text-sm text-gray-600">{result.message}</p>
+            <div className="mt-6">
+              <Button asChild variant="customDefault">
+                <Link href="/">{translations.success.goHomeButton}</Link>
+              </Button>
+            </div>
+          </div>
         )}
 
         {initialStatus === "error" && (
-          <>
-            <XCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              {translations.error}
-            </h1>
-            <p className="text-gray-600 mb-6">
-              {result.message || translations.errorMessage}
+          <div className="text-center">
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+              <svg
+                className="h-6 w-6 text-red-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-lg font-medium text-gray-900">
+              {translations.error.title}
+            </h3>
+            <p className="mt-2 text-sm text-gray-600">
+              {result.message || translations.messages.confirmationFailed}
             </p>
-          </>
+            <div className="mt-6">
+              <Button asChild variant="customDefault">
+                <Link href="/">
+                  {translations.error.backToHomeButton}
+                </Link>
+              </Button>
+            </div>
+          </div>
         )}
       </div>
     </div>

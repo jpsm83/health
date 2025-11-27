@@ -354,6 +354,10 @@
   },
   "SignUp": {
     "createAccount": "Crea il tuo account",
+    "section": {
+      "title": "Registrati",
+      "description": "Crea il tuo account per iniziare con contenuti sanitari personalizzati"
+    },
     "alreadyHaveAccount": "Hai già un account?",
     "signUp": "Registrati",
     "signIn": "Accedi",
@@ -384,6 +388,10 @@
   },
   "SignIn": {
     "signInToAccount": "Accedi al tuo account",
+    "section": {
+      "title": "Accedi",
+      "description": "Accedi al tuo account per accedere alla tua dashboard sanitaria personalizzata"
+    },
     "createAccount": "Crea il tuo account",
     "dontHaveAccount": "Non hai un account?",
     "signUp": "Registrati",
@@ -403,6 +411,10 @@
   },
   "ForgotPassword": {
     "forgotPassword": "Password dimenticata?",
+    "section": {
+      "title": "Password Dimenticata",
+      "description": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la tua password"
+    },
     "enterEmailForReset": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la tua password.",
     "emailAddress": "Indirizzo email",
     "enterEmail": "Inserisci la tua email",
@@ -425,6 +437,10 @@
   },
   "ResetPassword": {
     "resetYourPassword": "Reimposta la tua password",
+    "section": {
+      "title": "Reimposta Password",
+      "description": "Inserisci la tua nuova password qui sotto per reimpostare la password del tuo account"
+    },
     "enterNewPasswordBelow": "Inserisci la tua nuova password qui sotto.",
     "newPassword": "Nuova Password",
     "enterNewPassword": "Inserisci la tua nuova password",
@@ -930,6 +946,10 @@
   "confirmEmail": {
     "title": "Conferma Email",
     "loading": "Confermando la tua email...",
+    "section": {
+      "title": "Conferma la tua Email",
+      "description": "Si prega di verificare il tuo indirizzo email per completare la registrazione"
+    },
     "success": {
       "title": "Email Confermata!",
       "signInButton": "Accedi"
@@ -1092,12 +1112,31 @@
   },
   "newsletterConfirmation": {
     "title": "Grazie per esserti iscritto!",
-    "message": "La tua email è stata confermata con successo. Ora riceverai i nostri aggiornamenti più recenti.",
-    "backToHome": "Torna alla home"
+    "section": {
+      "title": "Conferma la tua Iscrizione alla Newsletter",
+      "description": "Si prega di confermare la tua iscrizione per iniziare a ricevere i nostri contenuti più recenti su salute e benessere"
+    },
+    "success": {
+      "title": "Iscrizione Confermata!",
+      "goHomeButton": "Torna alla Home"
+    },
+    "error": {
+      "title": "Conferma Fallita",
+      "backToHomeButton": "Torna alla Home"
+    },
+    "messages": {
+      "missingParameters": "Token ed email sono richiesti per confermare la tua iscrizione.",
+      "confirmationFailed": "Si è verificato un errore durante la conferma della tua iscrizione. Riprova a iscriverti.",
+      "unexpectedError": "Si è verificato un errore inaspettato. Riprova più tardi."
+    }
   },
   "unsubscribe": {
     "title": "Disiscriviti dalla Newsletter",
     "description": "Ci dispiace vederti andare! Questa pagina elabora le richieste di disiscrizione dai link email.",
+    "section": {
+      "title": "Disiscriviti dalla Newsletter",
+      "description": "Gestisci le tue preferenze di abbonamento alla newsletter"
+    },
     "processing": "Elaborazione in corso...",
     "processingMessage": "Attendere mentre elaboriamo la tua richiesta di disiscrizione.",
     "successTitle": "Disiscrizione completata con successo",

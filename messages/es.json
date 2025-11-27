@@ -259,14 +259,18 @@
   "search": {
     "title": "Buscar artículos",
     "subtitle": "Encuentra los artículos que te interesan",
-    "heroImageAlt": "Buscar artículos",
+    "heroImageAlt": "Resultados de búsqueda",
     "searchPlaceholder": "Buscar artículos...",
     "loading": "Buscando...",
     "errorLoading": "Error al buscar:",
     "resultsCount": "{count} artículos encontrados",
     "searchSuggestions": "Sugerencias de búsqueda",
     "popularSearches": "Búsquedas populares",
-    "recentSearches": "Búsquedas recientes"
+    "recentSearches": "Búsquedas recientes",
+    "resultsTitle": "Resultados de búsqueda",
+    "resultsFound": "Se encontró {count} resultado{count, plural, =1 {} other {s}} para \"{query}\"",
+    "noResultsTitle": "¡No se encontraron artículos!",
+    "noResultsDescription": "Intenta buscar con palabras clave diferentes a..."
   },
   "pagination": {
     "previous": "Anterior",
@@ -277,6 +281,10 @@
   },
   "SignUp": {
     "createAccount": "Crea tu cuenta",
+    "section": {
+      "title": "Registrarse",
+      "description": "Crea tu cuenta para comenzar con contenido de salud personalizado"
+    },
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "signUp": "Registrarse",
     "signIn": "Iniciar Sesión",
@@ -307,6 +315,10 @@
   },
   "SignIn": {
     "signInToAccount": "Inicia sesión en tu cuenta",
+    "section": {
+      "title": "Iniciar Sesión",
+      "description": "Inicia sesión en tu cuenta para acceder a tu panel de salud personalizado"
+    },
     "createAccount": "Crea tu cuenta",
     "dontHaveAccount": "¿No tienes una cuenta?",
     "signUp": "Registrarse",
@@ -326,6 +338,10 @@
   },
   "ForgotPassword": {
     "forgotPassword": "¿Olvidaste tu contraseña?",
+    "section": {
+      "title": "Olvidé mi Contraseña",
+      "description": "Ingresa tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña"
+    },
     "enterEmailForReset": "Ingresa tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
     "emailAddress": "Dirección de correo electrónico",
     "enterEmail": "Ingresa tu correo electrónico",
@@ -348,6 +364,10 @@
   },
   "ResetPassword": {
     "resetYourPassword": "Restablecer tu contraseña",
+    "section": {
+      "title": "Restablecer Contraseña",
+      "description": "Ingresa tu nueva contraseña a continuación para restablecer la contraseña de tu cuenta"
+    },
     "enterNewPasswordBelow": "Ingresa tu nueva contraseña a continuación.",
     "newPassword": "Nueva Contraseña",
     "enterNewPassword": "Ingresa tu nueva contraseña",
@@ -853,6 +873,10 @@
   "confirmEmail": {
     "title": "Confirmación de Email",
     "loading": "Confirmando tu email...",
+    "section": {
+      "title": "Confirma tu Email",
+      "description": "Por favor verifica tu dirección de email para completar tu registro"
+    },
     "success": {
       "title": "¡Email Confirmado!",
       "signInButton": "Iniciar Sesión"
@@ -1091,17 +1115,31 @@
   },
   "newsletterConfirmation": {
     "title": "Confirmación del Boletín",
-    "confirming": "Confirmando Suscripción...",
-    "success": "¡Suscripción Confirmada!",
-    "error": "Fallo en la Confirmación",
-    "welcomeMessage": "¡Bienvenido a nuestro boletín! Pronto comenzarás a recibir nuestro contenido más reciente sobre salud y bienestar.",
-    "errorMessage": "Hubo un error al confirmar tu suscripción. Intenta suscribirte de nuevo.",
-    "processingMessage": "Espera mientras confirmamos tu suscripción al boletín.",
-    "goHome": "Ir a la Página Principal"
+    "section": {
+      "title": "Confirma tu Suscripción al Boletín",
+      "description": "Por favor confirma tu suscripción para comenzar a recibir nuestro contenido más reciente sobre salud y bienestar"
+    },
+    "success": {
+      "title": "¡Suscripción Confirmada!",
+      "goHomeButton": "Ir a la Página Principal"
+    },
+    "error": {
+      "title": "Fallo en la Confirmación",
+      "backToHomeButton": "Volver al Inicio"
+    },
+    "messages": {
+      "missingParameters": "Se requieren token y email para confirmar tu suscripción.",
+      "confirmationFailed": "Hubo un error al confirmar tu suscripción. Intenta suscribirte de nuevo.",
+      "unexpectedError": "Ocurrió un error inesperado. Por favor intenta de nuevo más tarde."
+    }
   },
   "unsubscribe": {
     "title": "Cancelar Suscripción al Boletín",
     "description": "¡Lamentamos verte partir! Ingresa tu dirección de email para cancelar la suscripción a nuestro boletín.",
+    "section": {
+      "title": "Cancelar Suscripción al Boletín",
+      "description": "Gestiona tus preferencias de suscripción al boletín"
+    },
     "processing": "Procesando...",
     "processingMessage": "Espera mientras procesamos tu solicitud de cancelación.",
     "successTitle": "Suscripción Cancelada Exitosamente",

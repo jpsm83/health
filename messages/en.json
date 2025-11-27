@@ -376,6 +376,10 @@
   },
   "SignUp": {
     "createAccount": "Create your account",
+    "section": {
+      "title": "Sign Up",
+      "description": "Create your account to get started with personalized health content"
+    },
     "alreadyHaveAccount": "Already have an account?",
     "signUp": "Sign up",
     "signIn": "Sign in",
@@ -406,6 +410,10 @@
   },
   "SignIn": {
     "signInToAccount": "Sign in to your account",
+    "section": {
+      "title": "Sign In",
+      "description": "Sign in to your account to access your personalized health dashboard"
+    },
     "createAccount": "Create your account",
     "dontHaveAccount": "Don't have an account?",
     "signUp": "Sign up",
@@ -427,6 +435,10 @@
   },
   "ForgotPassword": {
     "forgotPassword": "Forgot your password?",
+    "section": {
+      "title": "Forgot Password",
+      "description": "Enter your email address and we'll send you a link to reset your password"
+    },
     "enterEmailForReset": "Enter your email address and we'll send you a link to reset your password.",
     "emailAddress": "Email address",
     "enterEmail": "Enter your email",
@@ -449,6 +461,10 @@
   },
   "ResetPassword": {
     "resetYourPassword": "Reset your password",
+    "section": {
+      "title": "Reset Password",
+      "description": "Enter your new password below to reset your account password"
+    },
     "enterNewPasswordBelow": "Enter your new password below.",
     "newPassword": "New Password",
     "enterNewPassword": "Enter your new password",
@@ -954,6 +970,10 @@
   "confirmEmail": {
     "title": "Email Confirmation",
     "loading": "Confirming your email...",
+    "section": {
+      "title": "Confirm Your Email",
+      "description": "Please verify your email address to complete your registration"
+    },
     "success": {
       "title": "Email Confirmed!",
       "signInButton": "Sign In"
@@ -1116,17 +1136,31 @@
   },
   "newsletterConfirmation": {
     "title": "Newsletter Confirmation",
-    "confirming": "Confirming Subscription...",
-    "success": "Subscription Confirmed!",
-    "error": "Confirmation Failed",
-    "welcomeMessage": "Welcome to our newsletter! You'll start receiving our latest health and wellness content soon.",
-    "errorMessage": "There was an error confirming your subscription. Please try subscribing again.",
-    "processingMessage": "Please wait while we confirm your newsletter subscription.",
-    "goHome": "Go to Homepage"
+    "section": {
+      "title": "Confirm Newsletter Subscription",
+      "description": "Please confirm your subscription to start receiving our latest health and wellness content"
+    },
+    "success": {
+      "title": "Subscription Confirmed!",
+      "goHomeButton": "Go to Homepage"
+    },
+    "error": {
+      "title": "Confirmation Failed",
+      "backToHomeButton": "Back to Home"
+    },
+    "messages": {
+      "missingParameters": "Token and email are required to confirm your subscription.",
+      "confirmationFailed": "There was an error confirming your subscription. Please try subscribing again.",
+      "unexpectedError": "An unexpected error occurred. Please try again later."
+    }
   },
   "unsubscribe": {
     "title": "Unsubscribe from Newsletter",
     "description": "We're sorry to see you go! This page processes unsubscribe requests from email links.",
+    "section": {
+      "title": "Unsubscribe from Newsletter",
+      "description": "Manage your newsletter subscription preferences"
+    },
     "processing": "Processing...",
     "processingMessage": "Please wait while we process your unsubscribe request.",
     "successTitle": "Successfully Unsubscribed",

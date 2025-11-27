@@ -2,16 +2,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ForgotPasswordSkeleton() {
   return (
-    <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
-        {/* Title and Subtitle */}
-        <div>
-          <Skeleton className="h-9 w-64 mx-auto mb-2" />
-          <Skeleton className="h-4 w-80 mx-auto" />
-        </div>
-
+    <div className="max-w-md mx-auto">
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         {/* Form Container */}
-        <div className="mt-8 space-y-6">
+        <div className="space-y-6">
           {/* Email Input Field */}
           <div>
             <Skeleton className="h-4 w-24 mb-1" />
@@ -26,12 +20,12 @@ export function ForgotPasswordSkeleton() {
         </div>
 
         {/* Navigation Links */}
-        <div className="text-center space-y-2">
+        <div className="mt-6 text-center space-y-2">
           <Skeleton className="h-4 w-32 mx-auto" />
           <Skeleton className="h-4 w-40 mx-auto" />
         </div>
 
-        <div className="text-center">
+        <div className="mt-4 text-center">
           <Skeleton className="h-4 w-24 mx-auto" />
         </div>
       </div>

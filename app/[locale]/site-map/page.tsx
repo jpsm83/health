@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
 import Link from "next/link";
 import { mainCategories } from "@/lib/constants";
+import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
 import {
   Home,
   User,
@@ -114,7 +115,7 @@ export default async function SiteMapPage({
                   {mainCategories.map((category) => (
                     <li key={category}>
                       <Link
-                        href={`/${locale}/${category}`}
+                        href={`/${locale}/${translateCategoryToLocale(category, locale)}`}
                         className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
                       >
                         {t(`sections.articleCategories.${category}`)}

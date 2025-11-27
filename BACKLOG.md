@@ -7,7 +7,7 @@
     signup
     unsubscribe
 
-- check if pagesClient is necessary
+- review all the skeletons to match the component
 
 - organize components folder
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -36,11 +36,17 @@ export default function CommentsSection({
   }>({ isOpen: false, commentId: null });
   const [selectedReason, setSelectedReason] = useState<string>("");
   const [isReporting, setIsReporting] = useState<boolean>(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // Load comments when component mounts
   useEffect(() => {
+    // Create abort controller for this effect
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+    let isMounted = true;
+
     const loadComments = async () => {
-      if (!articleId) return;
+      if (!articleId || abortController.signal.aborted || !isMounted) return;
 
       try {
         const result = await getComments({
@@ -50,6 +56,9 @@ export default function CommentsSection({
           sort: "createdAt",
           order: "desc",
         });
+
+        // Check if component is still mounted and not aborted
+        if (abortController.signal.aborted || !isMounted) return;
 
         if (result && result.success && result.comments) {
           setComments(result.comments);
@@ -68,12 +77,21 @@ export default function CommentsSection({
           setComments([]);
         }
       } catch (error) {
+        // Only log/update if component is still mounted
+        if (abortController.signal.aborted || !isMounted) return;
         console.error("Error loading comments:", error);
         setComments([]);
       }
     };
 
     loadComments();
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      abortController.abort();
+      abortControllerRef.current = null;
+    };
   }, [articleId, session?.user?.id]);
 
   // Helper function to format dates consistently

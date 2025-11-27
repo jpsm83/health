@@ -79,59 +79,80 @@ export interface GetCommentsResult {
 export async function getCommentsService(
   params: IGetCommentsParams
 ): Promise<GetCommentsResult> {
-  const {
-    articleId,
-    userId,
-    page = 1,
-    limit = 10,
-    sort = "createdAt",
-    order = "desc",
-  } = params;
+  try {
+    const {
+      articleId,
+      userId,
+      page = 1,
+      limit = 10,
+      sort = "createdAt",
+      order = "desc",
+    } = params;
 
-  await connectDb();
+    await connectDb();
 
-  const query: Record<string, unknown> = {};
+    const query: Record<string, unknown> = {};
 
-  if (articleId) {
-    query.articleId = new Types.ObjectId(articleId);
+    if (articleId) {
+      query.articleId = new Types.ObjectId(articleId);
+    }
+
+    if (userId) {
+      query.userId = new Types.ObjectId(userId);
+    }
+
+    const sortObj: Record<string, 1 | -1> = {};
+    sortObj[sort] = order === "asc" ? 1 : -1;
+
+    const skip = (page - 1) * limit;
+
+    const [comments, totalCount] = await Promise.all([
+      Comment.find(query)
+        .populate({
+          path: "userId",
+          select: "username imageUrl",
+          model: "User",
+        })
+        .sort(sortObj)
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      Comment.countDocuments(query),
+    ]);
+
+    const serializedComments = comments.map((comment) =>
+      serializeComment(comment as Record<string, unknown>)
+    );
+
+    const hasMore = skip + limit < totalCount;
+
+    return {
+      comments: serializedComments,
+      totalCount,
+      hasMore,
+      page,
+      limit,
+    };
+  } catch (error) {
+    // Log the error but return a serializable empty response
+    console.error("Error in getCommentsService:", {
+      error,
+      articleId: params.articleId,
+      userId: params.userId,
+      errorMessage: error instanceof Error ? error.message : String(error),
+      errorName: error instanceof Error ? error.name : typeof error,
+    });
+    
+    // Return empty serializable response instead of throwing
+    // This prevents Next.js 15 serialization errors
+    return {
+      comments: [],
+      totalCount: 0,
+      hasMore: false,
+      page: params.page || 1,
+      limit: params.limit || 10,
+    };
   }
-
-  if (userId) {
-    query.userId = new Types.ObjectId(userId);
-  }
-
-  const sortObj: Record<string, 1 | -1> = {};
-  sortObj[sort] = order === "asc" ? 1 : -1;
-
-  const skip = (page - 1) * limit;
-
-  const [comments, totalCount] = await Promise.all([
-    Comment.find(query)
-      .populate({
-        path: "userId",
-        select: "username imageUrl",
-        model: "User",
-      })
-      .sort(sortObj)
-      .skip(skip)
-      .limit(limit)
-      .lean(),
-    Comment.countDocuments(query),
-  ]);
-
-  const serializedComments = comments.map((comment) =>
-    serializeComment(comment as Record<string, unknown>)
-  );
-
-  const hasMore = skip + limit < totalCount;
-
-  return {
-    comments: serializedComments,
-    totalCount,
-    hasMore,
-    page,
-    limit,
-  };
 }
 
 export async function createCommentService(

@@ -283,11 +283,7 @@ export async function getArticleBySlugService(
     .populate({ path: "createdBy", select: "username", model: User })
     .lean()) as IArticleLean | null;
 
-  if (!article) {
-    return null;
-  }
-
-  const languages = article.languages as ILanguageSpecific[];
+  const languages = article?.languages as ILanguageSpecific[];
   let languageSpecific: ILanguageSpecific | undefined;
 
   // Try to find content for the requested slug first
@@ -314,8 +310,15 @@ export async function getArticleBySlugService(
     languageSpecific = languages[0];
   }
 
+
   // If still no content found, return null
   if (!languageSpecific) {
+    console.error("DEBUG [getArticleBySlugService] No language content found:", {
+      slug,
+      locale,
+      availableLocales: languages.map(l => l.hreflang),
+      availableSlugs: languages.map(l => l.seo?.slug)
+    });
     return null;
   }
 

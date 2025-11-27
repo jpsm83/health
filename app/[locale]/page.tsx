@@ -7,10 +7,11 @@ import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { mainCategories } from "@/lib/constants";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HeroSection from "@/components/server/HeroSection";
-import FeaturedArticlesSection from "@/components/server/FeaturedArticlesSection";
+import FeaturedArticles from "@/components/FeaturedArticles";
 import NewsletterSection from "@/components/server/NewsletterSection";
 import CategoryCarouselSection from "@/components/server/CategoryCarouselSection";
 import SectionHeader from "@/components/server/SectionHeader";
+import { getArticles } from "@/app/actions/article/getArticles";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
@@ -29,6 +30,35 @@ export async function generateMetadata({
 }
 
 export const revalidate = 3600;
+
+// Featured Articles Content Component
+async function FeaturedArticlesContent({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "home" });
+
+  const featuredArticlesResponse = await getArticles({
+    locale,
+    limit: 10,
+    skipCount: true,
+    fields: "featured",
+  });
+
+  const articles = featuredArticlesResponse.data;
+
+  if (!articles.length) {
+    return (
+      <div className="cv-auto px-3 py-8 text-center bg-white border rounded shadow-sm">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          {t("featuredArticles.title")}
+        </h2>
+        <p className="text-gray-500">
+          {t("description")}
+        </p>
+      </div>
+    );
+  }
+
+  return <FeaturedArticles articles={articles} />;
+}
 
 // Server Component - handles metadata generation
 export default async function HomePage({
@@ -58,7 +88,7 @@ export default async function HomePage({
               description={t("featuredArticles.description")}
             />
             <Suspense fallback={<FeaturedArticlesSkeleton />}>
-              <FeaturedArticlesSection locale={locale} />
+              <FeaturedArticlesContent locale={locale} />
             </Suspense>
           </section>
 

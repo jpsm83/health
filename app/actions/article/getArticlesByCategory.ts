@@ -18,9 +18,22 @@ export async function getArticlesByCategory(
 
     return await getArticlesService(serviceParams);
   } catch (error) {
-    console.error("Error fetching articles by category:", error);
-    throw new Error(
-      `Failed to fetch articles by category: ${error instanceof Error ? error.message : "Unknown error"}`
-    );
+    // Log full error details for debugging
+    console.error("Error fetching articles by category:", {
+      error,
+      category: params.category,
+      locale: params.locale,
+      errorMessage: error instanceof Error ? error.message : String(error),
+    });
+    
+    // Return empty serializable response instead of throwing
+    // This prevents Next.js 15 serialization errors
+    return {
+      page: params.page || 1,
+      limit: params.limit || 9,
+      totalDocs: 0,
+      totalPages: 0,
+      data: [],
+    };
   }
 }

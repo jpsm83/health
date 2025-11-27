@@ -9,13 +9,13 @@
       "description": "Entdecken Sie Experten-Einblicke und praktische Tipps in allen Bereichen von umfassender Gesundheit und Wohlbefinden auf unserer Plattform."
     },
     "features": {
-      "articles": "Gesundheitsartikel",
+      "articles": "Gesundheit",
       "dashboard": "Persönliches Dashboard",
       "profile": "Benutzerprofil",
       "createArticle": "Inhalt erstellen"
     },
     "featureDescriptions": {
-      "articles": "Greifen Sie auf umfassende Gesundheitsartikel und Forschung zu",
+      "articles": "Greifen Sie auf umfassende Gesundheit und Forschung zu",
       "dashboard": "Verfolgen Sie Ihre Gesundheitsziele und Fortschritte",
       "profile": "Verwalten Sie Ihre persönlichen Gesundheitsinformationen",
       "createArticle": "Teilen Sie Ihr Gesundheitswissen mit anderen"
@@ -259,14 +259,18 @@
   "search": {
     "title": "Artikel suchen",
     "subtitle": "Finden Sie die Artikel, die Sie interessieren",
-    "heroImageAlt": "Artikel suchen",
+    "heroImageAlt": "Suchergebnisse",
     "searchPlaceholder": "Artikel durchsuchen...",
     "loading": "Suche läuft...",
     "errorLoading": "Fehler beim Suchen:",
     "resultsCount": "{count} Artikel gefunden",
     "searchSuggestions": "Suchvorschläge",
     "popularSearches": "Beliebte Suchbegriffe",
-    "recentSearches": "Letzte Suchen"
+    "recentSearches": "Letzte Suchen",
+    "resultsTitle": "Suchergebnisse",
+    "resultsFound": "{count} Ergebnis{count, plural, =1 {} other {e}} für \"{query}\" gefunden",
+    "noResultsTitle": "Keine Artikel gefunden!",
+    "noResultsDescription": "Versuchen Sie mit anderen Stichwörtern zu suchen als..."
   },
   "pagination": {
     "previous": "Vorherige",
@@ -277,6 +281,10 @@
   },
   "SignUp": {
     "createAccount": "Erstellen Sie Ihr Konto",
+    "section": {
+      "title": "Registrieren",
+      "description": "Erstellen Sie Ihr Konto, um mit personalisierten Gesundheitsinhalten zu beginnen"
+    },
     "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
     "signUp": "Registrieren",
     "signIn": "Anmelden",
@@ -307,6 +315,10 @@
   },
   "SignIn": {
     "signInToAccount": "Melden Sie sich in Ihrem Konto an",
+    "section": {
+      "title": "Anmelden",
+      "description": "Melden Sie sich in Ihrem Konto an, um auf Ihr personalisiertes Gesundheits-Dashboard zuzugreifen"
+    },
     "createAccount": "Erstellen Sie Ihr Konto",
     "dontHaveAccount": "Haben Sie kein Konto?",
     "signUp": "Registrieren",
@@ -326,6 +338,10 @@
   },
   "ForgotPassword": {
     "forgotPassword": "Passwort vergessen?",
+    "section": {
+      "title": "Passwort vergessen",
+      "description": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts"
+    },
     "enterEmailForReset": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
     "emailAddress": "E-Mail-Adresse",
     "enterEmail": "Geben Sie Ihre E-Mail ein",
@@ -348,6 +364,10 @@
   },
   "ResetPassword": {
     "resetYourPassword": "Passwort zurücksetzen",
+    "section": {
+      "title": "Passwort zurücksetzen",
+      "description": "Geben Sie Ihr neues Passwort unten ein, um Ihr Kontopasswort zurückzusetzen"
+    },
     "enterNewPasswordBelow": "Geben Sie Ihr neues Passwort unten ein.",
     "newPassword": "Neues Passwort",
     "enterNewPassword": "Geben Sie Ihr neues Passwort ein",
@@ -393,7 +413,7 @@
     },
     "dashboard": {
       "title": "Dashboard - Women's Spot",
-      "description": "Ihr personalisierter Gesundheitsüberblick und Einblicke. Verfolgen Sie Ihre Gesundheitsziele, Fortschritte und greifen Sie auf Ihre Gesundheitsartikel und -ressourcen zu.",
+      "description": "Ihr personalisierter Gesundheitsüberblick und Einblicke. Verfolgen Sie Ihre Gesundheitsziele, Fortschritte und greifen Sie auf Ihre Gesundheit und -ressourcen zu.",
       "keywords": "Gesundheits-Dashboard, Gesundheitsziele, Fortschrittsverfolgung, Gesundheitseinblicke, persönliche Gesundheit, Wellness-Verfolgung"
     },
     "profile": {
@@ -403,7 +423,7 @@
     },
     "createArticle": {
       "title": "Artikel erstellen - Women's Spot",
-      "description": "Teilen Sie Ihr Gesundheitswissen mit der Community. Erstellen und veröffentlichen Sie Gesundheitsartikel, Tipps und Wellness-Inhalte in mehreren Sprachen.",
+      "description": "Teilen Sie Ihr Gesundheitswissen mit der Community. Erstellen und veröffentlichen Sie Gesundheit, Tipps und Wellness-Inhalte in mehreren Sprachen.",
       "keywords": "Artikel erstellen, Gesundheitsinhalte schreiben, Gesundheitstipps veröffentlichen, Wellness-Artikel, Gesundheitswissen teilen, Inhaltserstellung"
     },
     "forgotPassword": {
@@ -444,30 +464,30 @@
     "favorites": {
       "title": "Meine Favoriten - Women's Spot",
       "description": "Sehen und verwalten Sie Ihre Lieblingsartikel zu Gesundheit und Wellness. Greifen Sie auf Ihre personalisierte Sammlung gespeicherter Inhalte zu.",
-      "keywords": "favoriten, gespeicherte artikel, markierte inhalte, persönliche sammlung, gesundheitsartikel, wellness-inhalte"
+      "keywords": "favoriten, gespeicherte artikel, markierte inhalte, persönliche sammlung, gesundheit, wellness-inhalte"
     },
     "search": {
       "title": "Suchen - Women's Spot",
       "description": "Suchen Sie nach Gesundheits- und Wellness-Artikeln, Tipps und Leitfäden. Finden Sie die Informationen, die Sie benötigen, um Ihr Wohlbefinden zu verbessern.",
-      "keywords": "suchen, gesundheitsartikel, wellness-inhalte, artikel suchen, gesundheitstipps finden, wellness-suche, artikelsuche"
+      "keywords": "suchen, gesundheit, wellness-inhalte, artikel suchen, gesundheitstipps finden, wellness-suche, artikelsuche"
     },
     "health": {
-      "title": "Gesundheitsartikel",
-      "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheitsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
-      "keywords": "gesundheitsartikel, wellness-inhalte, gesundheitstipps, medizinische beratung, wellness-artikel, gesundheitsressourcen"
+      "title": "Gesundheit",
+      "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheit, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "gesundheit, wellness-inhalte, gesundheitstipps, medizinische beratung, wellness-artikel, gesundheitsressourcen"
     },
     "fitness": {
-      "title": "Fitness-Artikel",
-      "description": "Unsere besten Einblicke in Fitness, eine umfassende Sammlung von Fitness-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
-      "keywords": "fitness-artikel, workout-tipps, trainigsleitfäden, fitness-routinen, gesundheit und fitness, wellness"
+      "title": "Fitness",
+      "description": "Unsere besten Einblicke in Fitness, eine umfassende Sammlung von Fitness, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "fitness, workout-tipps, trainigsleitfäden, fitness-routinen, gesundheit und fitness, wellness"
     },
     "nutrition": {
-      "title": "Ernährungsartikel",
-      "description": "Unsere besten Einblicke in die Ernährung, eine umfassende Sammlung von Ernährungsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
-      "keywords": "ernährungsartikel, gesunde ernährung, diättipps, lebensmittelführer, ernährungsberatung, wellness-ernährung"
+      "title": "Ernahrung",
+      "description": "Unsere besten Einblicke in die Ernährung, eine umfassende Sammlung von Ernahrung, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "keywords": "ernahrung, gesunde ernährung, diättipps, lebensmittelführer, ernährungsberatung, wellness-ernährung"
     },
     "intimacy": {
-      "title": "Intimitätsartikel",
+      "title": "Intimität",
       "description": "Unsere besten Einblicke in Intimität, eine umfassende Sammlung von Intimitätsartikeln, Tipps und Leitfäden, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "keywords": "intimitätsartikel, sexuelle gesundheit, beziehungen, intimität, sexuelles wohlbefinden, beziehungsberatung"
     },
@@ -477,14 +497,14 @@
       "keywords": "beauty-artikel, beauty-tipps, hautpflege, makeup, beauty-routinen, beauty-beratung"
     },
     "weight-loss": {
-      "title": "Gewichtsverlust-Artikel",
-      "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps und Leitfäden, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
-      "keywords": "gewichtsverlust-artikel, gewichtsverlust-tipps, gesundes gewichtsmanagement, diät-tipps, fitness für gewichtsverlust, gewichtsverlust-strategien"
+      "title": "Gewichtsverlust",
+      "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust, Tipps und Leitfäden, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
+      "keywords": "gewichtsverlust, gewichtsverlust-tipps, gesundes gewichtsmanagement, diät-tipps, fitness für gewichtsverlust, gewichtsverlust-strategien"
     },
     "life": {
-      "title": "Lebensartikel",
-      "description": "Unsere besten Einblicke ins Leben, eine umfassende Sammlung von Lebensartikeln, Tipps und Leitfäden, um Ihnen zu helfen, Ihr bestes Leben zu leben.",
-      "keywords": "lebensartikel, lebens-tipps, lebensstil-beratung, persönlichkeitsentwicklung, lebensbalance, lebensziele, lebens-inspiration"
+      "title": "Leben",
+      "description": "Unsere besten Einblicke ins Leben, eine umfassende Sammlung von Lebenn, Tipps und Leitfäden, um Ihnen zu helfen, Ihr bestes Leben zu leben.",
+      "keywords": "leben, lebens-tipps, lebensstil-beratung, persönlichkeitsentwicklung, lebensbalance, lebensziele, lebens-inspiration"
     },
     "confirmEmail": {
       "title": "E-Mail bestätigen - Women's Spot",
@@ -853,6 +873,10 @@
   "confirmEmail": {
     "title": "E-Mail-Bestätigung",
     "loading": "Bestätigung Ihrer E-Mail...",
+    "section": {
+      "title": "Bestätigen Sie Ihre E-Mail",
+      "description": "Bitte bestätigen Sie Ihre E-Mail-Adresse, um Ihre Registrierung abzuschließen"
+    },
     "success": {
       "title": "E-Mail bestätigt!",
       "signInButton": "Anmelden"
@@ -941,47 +965,47 @@
     "noArticlesFound": "Keine Artikel gefunden",
     "noArticlesAvailable": "Es sind derzeit keine Artikel in dieser Kategorie verfügbar.",
     "health": {
-      "heroImageAlt": "Gesundheitsartikel Hero-Bild",
-      "title": "Gesundheitsartikel",
-      "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheitsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "heroImageAlt": "Gesundheit Hero-Bild",
+      "title": "Gesundheit",
+      "description": "Unsere besten Einblicke in die Gesundheit, eine umfassende Sammlung von Gesundheit, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "featuredArticles": {
-        "title": " Ausgewählte Gesundheitsartikel",
+        "title": " Ausgewählte Gesundheit",
         "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Gesundheit und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Gesundheitsartikel erkunden",
-        "description": "Unsere umfassende Sammlung von Gesundheitsartikeln, Tipps, alles was Sie über Gesundheit und Wellness wissen müssen."
+        "title": "Gesundheit erkunden",
+        "description": "Unsere umfassende Sammlung von Gesundheit, Tipps, alles was Sie über Gesundheit und Wellness wissen müssen."
       }
     },
     "fitness": {
-      "heroImageAlt": "Fitness-Artikel Hero-Bild",
-      "title": "Fitness-Artikel",
-      "description": "Unsere besten Einblicke in Fitness, eine umfassende Sammlung von Fitness-Artikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "heroImageAlt": "Fitness Hero-Bild",
+      "title": "Fitness",
+      "description": "Unsere besten Einblicke in Fitness, eine umfassende Sammlung von Fitness, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "featuredArticles": {
-        "title": " Ausgewählte Fitness-Artikel",
+        "title": " Ausgewählte Fitness",
         "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Fitness und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Fitness-Artikel erkunden",
-        "description": "Unsere umfassende Sammlung von Fitness-Artikeln, Tipps, alles was Sie über Fitness und Wellness wissen müssen."
+        "title": "Fitness erkunden",
+        "description": "Unsere umfassende Sammlung von Fitness, Tipps, alles was Sie über Fitness und Wellness wissen müssen."
       }
     },
     "nutrition": {
-      "heroImageAlt": "Ernährungsartikel Hero-Bild",
-      "title": "Ernährungsartikel",
-      "description": "Unsere besten Einblicke in die Ernährung, eine umfassende Sammlung von Ernährungsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "heroImageAlt": "Ernahrung Hero-Bild",
+      "title": "Ernahrung",
+      "description": "Unsere besten Einblicke in die Ernährung, eine umfassende Sammlung von Ernahrung, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "featuredArticles": {
-        "title": " Ausgewählte Ernährungsartikel",
+        "title": " Ausgewählte Ernahrung",
         "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Ernährung und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Ernährungsartikel erkunden",
-        "description": "Unsere umfassende Sammlung von Ernährungsartikeln, Tipps, alles was Sie über Ernährung und Wellness wissen müssen."
+        "title": "Ernahrung erkunden",
+        "description": "Unsere umfassende Sammlung von Ernahrung, Tipps, alles was Sie über Ernährung und Wellness wissen müssen."
       }
     },
     "intimacy": {
       "heroImageAlt": "Intimitätsartikel Hero-Bild",
-      "title": "Intimitätsartikel",
+      "title": "Intimität",
       "description": "Unsere besten Einblicke in Intimität, eine umfassende Sammlung von Intimitätsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "featuredArticles": {
         "title": " Ausgewählte Intimitätsartikel",
@@ -993,42 +1017,42 @@
       }
     },
     "beauty": {
-      "heroImageAlt": "Schönheitsartikel Hero-Bild",
-      "title": "Schönheitsartikel",
-      "description": "Unsere besten Einblicke in Schönheit, eine umfassende Sammlung von Schönheitsartikeln, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
+      "heroImageAlt": "Schönheit Hero-Bild",
+      "title": "Schönheit",
+      "description": "Unsere besten Einblicke in Schönheit, eine umfassende Sammlung von Schönheit, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes, erfüllteres Leben zu führen.",
       "featuredArticles": {
-        "title": " Ausgewählte Schönheitsartikel",
+        "title": " Ausgewählte Schönheit",
         "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Schönheit und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Schönheitsartikel erkunden",
-        "description": "Unsere umfassende Sammlung von Schönheitsartikeln, Tipps, alles was Sie über Schönheit und Wellness wissen müssen."
+        "title": "Schönheit erkunden",
+        "description": "Unsere umfassende Sammlung von Schönheit, Tipps, alles was Sie über Schönheit und Wellness wissen müssen."
       }
     },
     "weight-loss": {
-      "heroImageAlt": "Gewichtsverlust-Artikel Hero-Bild",
-      "title": "Gewichtsverlust-Artikel",
-      "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps und Anleitungen, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
+      "heroImageAlt": "Gewichtsverlust Hero-Bild",
+      "title": "Gewichtsverlust",
+      "description": "Unsere besten Einblicke in Gewichtsverlust, eine umfassende Sammlung von Gewichtsverlust, Tipps und Anleitungen, um Ihnen zu helfen, Ihre Gesundheitsziele zu erreichen.",
       "featuredArticles": {
-        "title": " Ausgewählte Gewichtsverlust-Artikel",
+        "title": " Ausgewählte Gewichtsverlust",
         "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends in Gewichtsverlust und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Gewichtsverlust-Artikel erkunden",
-        "description": "Unsere umfassende Sammlung von Gewichtsverlust-Artikeln, Tipps, alles was Sie über gesundes Gewichtsmanagement wissen müssen."
+        "title": "Gewichtsverlust erkunden",
+        "description": "Unsere umfassende Sammlung von Gewichtsverlust, Tipps, alles was Sie über gesundes Gewichtsmanagement wissen müssen."
       }
     },
     "life": {
-      "heroImageAlt": "Lebensartikel Hero-Bild",
-      "title": "Lebensartikel",
-      "description": "Unsere besten Einblicke ins Leben, eine umfassende Sammlung von Lebensartikeln, Tipps und Anleitungen, um Ihnen zu helfen, Ihr bestes Leben zu leben.",
+      "heroImageAlt": "Leben Hero-Bild",
+      "title": "Leben",
+      "description": "Unsere besten Einblicke ins Leben, eine umfassende Sammlung von Lebenn, Tipps und Anleitungen, um Ihnen zu helfen, Ihr bestes Leben zu leben.",
       "featuredArticles": {
-        "title": " Ausgewählte Lebensartikel",
+        "title": " Ausgewählte Leben",
         "description": "Entdecken Sie unsere neuesten Nachrichten, Tipps und Anleitungen, die Sie über die neuesten Trends im Leben und Wellness auf dem Laufenden halten."
       },
       "explore": {
-        "title": "Lebensartikel erkunden",
-        "description": "Unsere umfassende Sammlung von Lebensartikeln, Tipps, alles was Sie über ein erfülltes Leben wissen müssen."
+        "title": "Leben erkunden",
+        "description": "Unsere umfassende Sammlung von Lebenn, Tipps, alles was Sie über ein erfülltes Leben wissen müssen."
       }
     }
   },
@@ -1091,17 +1115,31 @@
   },
   "newsletterConfirmation": {
     "title": "Newsletter-Bestätigung",
-    "confirming": "Bestätigung läuft...",
-    "success": "Anmeldung bestätigt!",
-    "error": "Bestätigung fehlgeschlagen",
-    "welcomeMessage": "Willkommen bei unserem Newsletter! Sie erhalten bald unsere neuesten Gesundheits- und Wellness-Inhalte.",
-    "errorMessage": "Bei der Bestätigung Ihrer Anmeldung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-    "processingMessage": "Bitte warten Sie, während wir Ihre Newsletter-Anmeldung bestätigen.",
-    "goHome": "Zur Startseite"
+    "section": {
+      "title": "Newsletter-Anmeldung bestätigen",
+      "description": "Bitte bestätigen Sie Ihre Anmeldung, um unsere neuesten Gesundheits- und Wellness-Inhalte zu erhalten"
+    },
+    "success": {
+      "title": "Anmeldung bestätigt!",
+      "goHomeButton": "Zur Startseite"
+    },
+    "error": {
+      "title": "Bestätigung fehlgeschlagen",
+      "backToHomeButton": "Zurück zur Startseite"
+    },
+    "messages": {
+      "missingParameters": "Token und E-Mail sind erforderlich, um Ihre Anmeldung zu bestätigen.",
+      "confirmationFailed": "Bei der Bestätigung Ihrer Anmeldung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+    }
   },
   "unsubscribe": {
     "title": "Newsletter abbestellen",
     "description": "Schade, dass Sie gehen! Geben Sie Ihre E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden.",
+    "section": {
+      "title": "Newsletter abbestellen",
+      "description": "Verwalten Sie Ihre Newsletter-Abonnement-Einstellungen"
+    },
     "processing": "Verarbeitung läuft...",
     "processingMessage": "Bitte warten Sie, während wir Ihre Abbestellungsanfrage bearbeiten.",
     "successTitle": "Erfolgreich abbestellt",
@@ -1127,7 +1165,7 @@
   },
   "siteMap": {
     "title": "Sitemap",
-    "description": "Navigieren Sie durch alle verfügbaren Seiten und Funktionen auf Women's Spot. Finden Sie alles von Gesundheitsartikeln bis hin zu Benutzerverwaltungstools.",
+    "description": "Navigieren Sie durch alle verfügbaren Seiten und Funktionen auf Women's Spot. Finden Sie alles von Gesundheit bis hin zu Benutzerverwaltungstools.",
     "sections": {
       "corePages": {
         "title": "Hauptseiten",
@@ -1141,19 +1179,19 @@
       "articleCategories": {
         "title": "Artikelkategorien",
         "health": "Gesundheit",
-        "healthDescription": "Gesundheitsartikel",
+        "healthDescription": "Gesundheit",
         "fitness": "Fitness",
-        "fitnessDescription": "Fitness-Artikel",
+        "fitnessDescription": "Fitness",
         "nutrition": "Ernährung",
-        "nutritionDescription": "Ernährungsartikel",
+        "nutritionDescription": "Ernahrung",
         "intimacy": "Intimität",
         "intimacyDescription": "Intimitätsartikel",
         "beauty": "Schönheit",
-        "beautyDescription": "Schönheitsartikel",
+        "beautyDescription": "Schönheit",
         "weight-loss": "Gewichtsverlust",
-        "weight-lossDescription": "Gewichtsverlust-Artikel",
+        "weight-lossDescription": "Gewichtsverlust",
         "life": "Leben",
-        "lifeDescription": "Lebensartikel"
+        "lifeDescription": "Leben"
       },
       "userAccount": {
         "title": "Benutzerkonto",

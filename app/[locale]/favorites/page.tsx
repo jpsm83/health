@@ -7,8 +7,10 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ProductsBanner from "@/components/ProductsBanner";
 import HeroSection from "@/components/server/HeroSection";
-import FavoritesWithPagination from "@/components/server/FavoritesWithPagination";
+import FeaturedArticles from "@/components/FeaturedArticles";
+import PaginationSection from "@/components/server/PaginationSection";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 
@@ -71,7 +73,7 @@ export default async function FavoritesPage({
 
           {/* Favorites Section with Pagination */}
           <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
-            <FavoritesWithPagination locale={locale} page={page as string} />
+            <FavoritesContent locale={locale} page={page as string} />
           </Suspense>
 
           {/* Newsletter Signup Section */}
@@ -83,4 +85,57 @@ export default async function FavoritesPage({
       </ErrorBoundary>
     </main>
   );
+}
+
+// Favorites Content Component
+async function FavoritesContent({
+  locale,
+  page,
+}: {
+  locale: string;
+  page: string;
+}) {
+  const ARTICLES_PER_PAGE = 10;
+  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+
+  // Check auth inside component
+  const session = await auth();
+  if (!session?.user?.id) {
+    return null;
+  }
+
+  try {
+    const result = await getUserLikedArticles(
+      session.user.id,
+      currentPage,
+      ARTICLES_PER_PAGE,
+      locale
+    );
+
+    if (!result.success) {
+      return null;
+    }
+
+    const articles = result.data || [];
+    const totalPages = result.totalPages || 1;
+
+    return (
+      <>
+        {articles && articles.length > 0 && (
+          <FeaturedArticles articles={articles} />
+        )}
+        {totalPages > 1 && (
+          <PaginationSection
+            type="favorites"
+            locale={locale}
+            page={page}
+            totalPages={totalPages}
+          />
+        )}
+      </>
+    );
+  } catch (error) {
+    console.error("Error fetching favorite articles:", error);
+    return null;
+  }
 }

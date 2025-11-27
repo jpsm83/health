@@ -1,10 +1,17 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { getTranslations } from "next-intl/server";
+
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
-import ConfirmNewsletterSection from "@/components/server/ConfirmNewsletterSection";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import ConfirmNewsletterUI from "@/components/ConfirmNewsletterUI";
 import { ConfirmNewsletterSkeleton } from "@/components/skeletons/ConfirmNewsletterSkeleton";
+import SectionHeader from "@/components/server/SectionHeader";
+import NewsletterSection from "@/components/server/NewsletterSection";
+import confirmNewsletterSubscriptionAction, {
+  NewsletterConfirmResult,
+} from "@/app/actions/subscribers/confirmNewsletterSubscription";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -23,7 +30,7 @@ export async function generateMetadata({
   );
 }
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 3600;
 
 export default async function ConfirmNewsletterPage({
   params,
@@ -34,20 +41,79 @@ export default async function ConfirmNewsletterPage({
 }) {
   const { locale } = await params;
   const { token, email } = await searchParams;
+  const t = await getTranslations({ locale, namespace: "newsletterConfirmation" });
+
+  // Handle missing token or email
+  let result: NewsletterConfirmResult;
+  let initialStatus: "success" | "error" = "error";
+
+  if (!token || !email) {
+    result = {
+      success: false,
+      message: t("messages.missingParameters"),
+      error: "MISSING_PARAMETERS",
+    };
+  } else {
+    try {
+      // Call server action to confirm subscription
+      result = await confirmNewsletterSubscriptionAction(token, email);
+      initialStatus = result.success ? "success" : "error";
+    } catch (error) {
+      console.error("Error confirming newsletter subscription:", error);
+      result = {
+        success: false,
+        message: t("messages.unexpectedError"),
+        error: "CONFIRMATION_FAILED",
+      };
+    }
+  }
 
   return (
-    <main className="container mx-auto mt-4 mb-8 md:mt-8 md:mb-16">
-      {/* Products Banner */}
-      <ProductsBanner size="970x90" affiliateCompany="amazon" />
-
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"ConfirmNewsletter component"}>
-        <Suspense fallback={<ConfirmNewsletterSkeleton />}>
-          <ConfirmNewsletterSection locale={locale} token={token} email={email} />
-        </Suspense>
-      </ErrorBoundary>
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-      {/* Products Banner */}
-      <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          {/* Confirm Newsletter Section */}
+          <section className="space-y-6 md:space-y-12">
+            <SectionHeader
+              title={t("section.title")}
+              description={t("section.description")}
+            />
+            <Suspense fallback={<ConfirmNewsletterSkeleton />}>
+              <ConfirmNewsletterUI
+                result={result}
+                initialStatus={initialStatus}
+                translations={{
+                  success: {
+                    title: t("success.title"),
+                    goHomeButton: t("success.goHomeButton"),
+                  },
+                  error: {
+                    title: t("error.title"),
+                    backToHomeButton: t("error.backToHomeButton"),
+                  },
+                  messages: {
+                    missingParameters: t("messages.missingParameters"),
+                    confirmationFailed: t("messages.confirmationFailed"),
+                    unexpectedError: t("messages.unexpectedError"),
+                  },
+                }}
+              />
+            </Suspense>
+          </section>
+
+          {/* Newsletter Section */}
+          <NewsletterSection />
+
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+          {/* Bottom banner - lazy loaded */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
+      </ErrorBoundary>
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { Calendar, Clock, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
+import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
 import { ISerializedArticle } from "@/types/article";
 import {
   calculateReadTime,
@@ -39,10 +40,18 @@ export default function ArticleCard({
   const readTime = t("readTime", { time: readTimeMinutes });
   const excerpt = generateExcerpt(article, t);
 
+  // Generate article URL - use canonical URL if available, otherwise construct with translated category
+  const canonicalUrl = article.languages[0]?.seo?.canonicalUrl;
+  const articleUrl = canonicalUrl
+    ? new URL(canonicalUrl).pathname
+    : `/${locale}/${translateCategoryToLocale(article.category, locale)}/${article.languages[0].seo.slug}`;
+
   // Generate share URL and title
   const shareUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}/${article.category}/${article.languages[0].seo.slug}`
+      ? canonicalUrl
+        ? canonicalUrl
+        : `${window.location.origin}/${locale}/${translateCategoryToLocale(article.category, locale)}/${article.languages[0].seo.slug}`
       : "";
   const shareTitle = article.languages[0].content.mainTitle;
   const shareMedia =
@@ -68,7 +77,7 @@ export default function ArticleCard({
       onClick={handleCardClick}
     >
       <Link
-        href={`/${article.category}/${article.languages[0].seo.slug}`}
+        href={articleUrl}
         className="flex flex-col h-full cursor-pointer"
         prefetch={false}
       >

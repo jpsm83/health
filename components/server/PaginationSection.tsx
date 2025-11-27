@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { getArticlesCount } from "@/app/actions/article/getArticlesCount";
+import { translateCategoryToEnglish } from "@/lib/utils/categoryTranslation";
 import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import {
@@ -47,7 +48,9 @@ export default async function PaginationSection({
       if (!category) {
         return null;
       }
-      const totalArticles = await getArticlesCount({ category, locale });
+      // Translate category to English for database query
+      const englishCategory = translateCategoryToEnglish(category);
+      const totalArticles = await getArticlesCount({ category: englishCategory, locale });
       totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
     } else if (type === "search") {
       if (!query) {

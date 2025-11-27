@@ -175,7 +175,7 @@ export default function SignUp({ locale }: SignUpProps) {
   };
 
   return (
-    <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8 relative">
+    <div className="max-w-md mx-auto relative">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
@@ -183,24 +183,13 @@ export default function SignUp({ locale }: SignUpProps) {
         </div>
       )}
 
-      <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
-        <div>
-          <h2
-            className="mt-6 text-center text-3xl font-extrabold text-white"
-            style={{
-              textShadow:
-                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)",
-            }}
-          >
-            {t("createAccount")}
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            {t("alreadyHaveAccount")}{" "}
-            <Link href={`/${locale}/signin`} className="main-link">
-              {t("signIn")}
-            </Link>
-          </p>
-        </div>
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <p className="text-center text-sm text-gray-600 mb-6">
+          {t("alreadyHaveAccount")}{" "}
+          <Link href={`/${locale}/signin`} className="main-link">
+            {t("signIn")}
+          </Link>
+        </p>
 
         {/* Google Signup Button */}
         <div className="mt-6">
@@ -555,7 +544,7 @@ export default function SignUp({ locale }: SignUpProps) {
           </Button>
         </form>
 
-        <div className="text-center">
+        <div className="mt-6 text-center">
           <Link
             href={`/${locale}`}
             className={`main-link ${

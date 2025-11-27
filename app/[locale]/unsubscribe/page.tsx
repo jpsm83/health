@@ -1,14 +1,21 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
+import { getTranslations } from "next-intl/server";
+
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import ProductsBanner from "@/components/ProductsBanner";
-import UnsubscribeContentSection from "@/components/server/UnsubscribeContentSection";
+import UnsubscribeUI from "@/components/UnsubscribeUI";
 import { UnsubscribeSkeleton } from "@/components/skeletons/UnsubscribeSkeleton";
+import SectionHeader from "@/components/server/SectionHeader";
+import NewsletterSection from "@/components/server/NewsletterSection";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
+
+// Lazy load below-fold banners (they're not critical for initial render)
+const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
 
 export async function generateMetadata({
   params,
@@ -35,82 +42,87 @@ export default async function UnsubscribePage({
 }) {
   const { locale } = await params;
   const searchParamsData = await searchParams;
+  const t = await getTranslations({ locale, namespace: "unsubscribe" });
 
   // Get email and token from URL parameters
   const email = searchParamsData.email as string;
   const token = searchParamsData.token as string;
 
-  // If no email parameter, show invalid link error
-  if (!email) {
-    return (
-      <main className="container mx-auto">
-        <ErrorBoundary context={"Unsubscribe page"}>
-          {/* Products Banner - Client Component, can be direct */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
-
-          <Suspense fallback={<UnsubscribeSkeleton />}>
-            <UnsubscribeContentSection
-              locale={locale}
-              email={undefined}
-              token={undefined}
-              result={undefined}
-              hasUserAccount={false}
-            />
-          </Suspense>
-
-          {/* Products Banner - Client Component, can be direct */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" />
-        </ErrorBoundary>
-      </main>
-    );
-  }
-
-  // Process unsubscribe request first
+  // Process unsubscribe request if email is provided
   let result;
-  try {
-    result = await unsubscribeFromNewsletterAction(email, token);
-  } catch (error) {
-    console.error("Unsubscribe error:", error);
-    result = {
-      success: false,
-      message: "Something went wrong. Please try again.",
-    };
-  }
+  let initialStatus: "success" | "error" | "no-email" = "no-email";
 
-  // Check if user has account AFTER processing unsubscribe
-  let hasUserAccount = false;
-  try {
-    await connectDb();
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
-    hasUserAccount = !!existingUser;
-  } catch (error) {
-    console.error("Error checking for user account:", error);
-    // Continue with showing result if there's an error checking user accounts
-  }
+  if (email) {
+    try {
+      result = await unsubscribeFromNewsletterAction(email, token);
+      initialStatus = result.success ? "success" : "error";
+    } catch (error) {
+      console.error("Unsubscribe error:", error);
+      result = {
+        success: false,
+        message: "Something went wrong. Please try again.",
+      };
+      initialStatus = "error";
+    }
 
-  // If user has account and unsubscribe was successful, redirect to profile
-  if (hasUserAccount && result.success) {
-    redirect(`/${locale}/profile`);
+    // Check if user has account AFTER processing unsubscribe
+    let hasUserAccount = false;
+    try {
+      await connectDb();
+      const existingUser = await User.findOne({ email: email.toLowerCase() });
+      hasUserAccount = !!existingUser;
+    } catch (error) {
+      console.error("Error checking for user account:", error);
+      // Continue with showing result if there's an error checking user accounts
+    }
+
+    // If user has account and unsubscribe was successful, redirect to profile
+    if (hasUserAccount && result.success) {
+      redirect(`/${locale}/profile`);
+    }
   }
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Unsubscribe page"}>
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-        <Suspense fallback={<UnsubscribeSkeleton />}>
-          <UnsubscribeContentSection
-            locale={locale}
-            email={email}
-            token={token}
-            result={result}
-            hasUserAccount={hasUserAccount}
-          />
-        </Suspense>
+          {/* Unsubscribe Section */}
+          <section className="space-y-6 md:space-y-12">
+            <SectionHeader
+              title={t("section.title")}
+              description={t("section.description")}
+            />
+            <Suspense fallback={<UnsubscribeSkeleton />}>
+              <UnsubscribeUI
+                result={result}
+                hasEmail={!!email}
+                initialStatus={initialStatus}
+                translations={{
+                  title: t("title"),
+                  description: t("description"),
+                  successTitle: t("successTitle"),
+                  successMessage: t("successMessage"),
+                  errorTitle: t("errorTitle"),
+                  errorMessage: t("errorMessage"),
+                  invalidLinkTitle: t("invalidLinkTitle"),
+                  invalidLinkMessage: t("invalidLinkMessage"),
+                }}
+              />
+            </Suspense>
+          </section>
 
-        {/* Products Banner - Client Component, can be direct */}
-        <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          {/* Newsletter Section */}
+          <NewsletterSection />
+
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+          {/* Bottom banner - lazy loaded */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
       </ErrorBoundary>
     </main>
   );

@@ -20,6 +20,7 @@ import { getTranslations } from "next-intl/server";
 import SocialShare from "@/components/SocialShare";
 import SectionHeader from "@/components/server/SectionHeader";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
+import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
 
 export async function generateMetadata({
   params,
@@ -28,8 +29,30 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug, locale, category } = await params;
 
+  // Translate category from URL to English for validation
+  const englishCategory = translateCategoryToEnglish(category);
+
+  // If locale is not English, reject English category names ONLY if they differ from the locale translation
+  // This allows categories like "fitness" that are the same in multiple languages
+  if (locale !== "en" && isEnglishCategory(category)) {
+    const expectedLocaleCategory = translateCategoryToLocale(englishCategory, locale);
+    // Only reject if the English category is different from what's expected in this locale
+    if (category.toLowerCase() !== expectedLocaleCategory.toLowerCase()) {
+      console.error("DEBUG [generateMetadata] Category validation failed - English category rejected:", {
+        category,
+        locale,
+        expectedLocaleCategory
+      });
+      return generateArticleNotFoundMetadata();
+    }
+  }
+
   // Validate category exists
-  if (!mainCategories.includes(category)) {
+  if (!mainCategories.includes(englishCategory)) {
+    console.error("DEBUG [generateMetadata] Category validation failed - category not in mainCategories:", {
+      englishCategory,
+      mainCategories
+    });
     return generateArticleNotFoundMetadata();
   }
 
@@ -37,11 +60,18 @@ export async function generateMetadata({
     const articleData = await getArticleBySlug(slug, locale);
 
     if (!articleData) {
+      console.error("DEBUG [generateMetadata] Article not found - returning 404 metadata");
       return generateArticleNotFoundMetadata();
     }
 
-    // Validate article category matches URL category
-    if (articleData.category !== category) {
+    // Validate article category matches URL category (using English)
+    if (articleData.category !== englishCategory) {
+      console.error("DEBUG [generateMetadata] Category mismatch:", {
+        articleCategory: articleData.category,
+        expectedCategory: englishCategory,
+        urlCategory: category,
+        locale
+      });
       return generateArticleNotFoundMetadata();
     }
 
@@ -51,7 +81,7 @@ export async function generateMetadata({
       process.env.VERCEL_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
       "https://womensspot.com";
-    const canonicalUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
+    const canonicalUrl = `${baseUrl}/${locale}/${category}/${slug}`;
 
     const metaContent: IMetaDataArticle = {
       slug: slug,
@@ -114,7 +144,7 @@ export async function generateMetadata({
       process.env.VERCEL_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
       "https://womensspot.com";
-    const fallbackCanonicalUrl = `${baseUrl}/${locale}/${slug}`;
+    const fallbackCanonicalUrl = `${baseUrl}/${locale}/${category}/${slug}`;
 
     const fallbackMetaContent: IMetaDataArticle = {
       slug: slug,
@@ -174,8 +204,30 @@ export default async function ArticlePage({
   const { slug, locale, category } = await params;
   const t = await getTranslations({ locale, namespace: "article" });
 
+  // Translate category from URL to English for validation
+  const englishCategory = translateCategoryToEnglish(category);
+
+  // If locale is not English, reject English category names ONLY if they differ from the locale translation
+  // This allows categories like "fitness" that are the same in multiple languages
+  if (locale !== "en" && isEnglishCategory(category)) {
+    const expectedLocaleCategory = translateCategoryToLocale(englishCategory, locale);
+    // Only reject if the English category is different from what's expected in this locale
+    if (category.toLowerCase() !== expectedLocaleCategory.toLowerCase()) {
+      console.error("DEBUG [ArticlePage] Category validation failed - English category rejected:", {
+        category,
+        locale,
+        expectedLocaleCategory
+      });
+      notFound();
+    }
+  }
+
   // Validate category exists
-  if (!mainCategories.includes(category)) {
+  if (!mainCategories.includes(englishCategory)) {
+    console.error("DEBUG [ArticlePage] Category validation failed - category not in mainCategories:", {
+      englishCategory,
+      mainCategories
+    });
     notFound();
   }
 
@@ -183,19 +235,27 @@ export default async function ArticlePage({
   let articleData;
   try {
     const result = await getArticleBySlug(slug, locale);
+
     articleData = result ?? undefined;
   } catch (error) {
-    console.error("Error fetching article:", error);
+    console.error("DEBUG [ArticlePage] Error fetching article:", error);
     articleData = undefined;
   }
 
   // If article doesn't exist, trigger not-found page
   if (!articleData) {
+    console.error("DEBUG [ArticlePage] Article not found - triggering 404");
     notFound();
   }
 
-  // Validate article category matches URL category
-  if (articleData.category !== category) {
+  // Validate article category matches URL category (using English)
+  if (articleData.category !== englishCategory) {
+    console.error("DEBUG [ArticlePage] Category mismatch:", {
+      articleCategory: articleData.category,
+      expectedCategory: englishCategory,
+      urlCategory: category,
+      locale
+    });
     notFound();
   }
 
@@ -205,7 +265,7 @@ export default async function ArticlePage({
     process.env.VERCEL_URL ||
     process.env.NEXT_PUBLIC_APP_URL ||
     "https://womensspot.com";
-  const shareUrl = `${baseUrl}/${locale}/${articleData.category}/${slug}`;
+  const shareUrl = `${baseUrl}/${locale}/${category}/${slug}`;
 
   // Get share data
   const languageData = articleData.languages[0];

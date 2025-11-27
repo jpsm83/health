@@ -228,7 +228,24 @@ export const serializeMongoObject = (obj: unknown): unknown => {
     const serialized: Record<string, unknown> = {};
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        serialized[key] = serializeMongoObject((obj as Record<string, unknown>)[key]);
+        const value = (obj as Record<string, unknown>)[key];
+        
+        // Handle populated Mongoose fields: if it's an object with _id, extract the _id
+        // This handles cases like createdBy: { _id: ObjectId, username: "..." }
+        // which should be serialized to just the _id string for ISerializedArticle
+        if (
+          key === 'createdBy' && 
+          value && 
+          typeof value === 'object' && 
+          '_id' in value
+        ) {
+          const populatedField = value as { _id: unknown };
+          serialized[key] = typeof populatedField._id === 'string' 
+            ? populatedField._id 
+            : (populatedField._id as { toString: () => string }).toString();
+        } else {
+          serialized[key] = serializeMongoObject(value);
+        }
       }
     }
     return serialized;

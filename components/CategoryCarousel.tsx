@@ -17,6 +17,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useTranslations, useLocale } from "next-intl";
+import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
@@ -42,20 +43,30 @@ export default function CategoryCarousel({
   const limit = 6;
   const [api, setApi] = useState<CarouselApi>();
   const initialized = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // Initialize with pre-fetched articles or fetch if not provided
   useEffect(() => {
     if (initialized.current) return;
 
+    // Create abort controller for this effect
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+    let isMounted = true;
+
     if (initialArticles !== undefined && initialArticles.length > 0) {
       // Use pre-fetched articles (only if not empty)
-      setArticles(initialArticles);
-      setLoading(false);
-      setHasMore(initialArticles.length >= limit);
-      initialized.current = true;
+      if (!abortController.signal.aborted && isMounted) {
+        setArticles(initialArticles);
+        setLoading(false);
+        setHasMore(initialArticles.length >= limit);
+        initialized.current = true;
+      }
     } else {
       // Fetch articles if not provided (fallback for backward compatibility)
       const fetchArticles = async () => {
+        if (abortController.signal.aborted || !isMounted) return;
+
         setLoading(true);
         setError(null);
 
@@ -71,11 +82,16 @@ export default function CategoryCarousel({
             skipCount: true,    // Skip expensive countDocuments
           });
 
+          // Check if component is still mounted and not aborted
+          if (abortController.signal.aborted || !isMounted) return;
+
           // Check if fetchedArticles is valid and has data property
           if (!fetchedArticles || !fetchedArticles.data) {
             console.warn(`No data returned for category: ${category}`);
-            setArticles([]);
-            setHasMore(false);
+            if (!abortController.signal.aborted && isMounted) {
+              setArticles([]);
+              setHasMore(false);
+            }
             return;
           }
 
@@ -88,9 +104,14 @@ export default function CategoryCarousel({
               )
           );
 
-          setArticles(uniqueArticles);
-          setHasMore(uniqueArticles.length >= limit);
+          if (!abortController.signal.aborted && isMounted) {
+            setArticles(uniqueArticles);
+            setHasMore(uniqueArticles.length >= limit);
+          }
         } catch (err) {
+          // Only update state if component is still mounted and not aborted
+          if (abortController.signal.aborted || !isMounted) return;
+
           const message =
             err instanceof Error ? err.message : t("failedToFetchArticles");
           setError(message);
@@ -105,18 +126,31 @@ export default function CategoryCarousel({
             error: err instanceof Error ? err.message : "Unknown error",
           });
         } finally {
-          setLoading(false);
-          initialized.current = true;
+          if (!abortController.signal.aborted && isMounted) {
+            setLoading(false);
+            initialized.current = true;
+          }
         }
       };
 
       fetchArticles();
     }
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      abortController.abort();
+      abortControllerRef.current = null;
+    };
   }, [category, limit, locale, t, initialArticles]);
 
   // Load more articles
   const loadMore = useCallback(async () => {
     if (loadingMore || !hasMore) return;
+
+    // Create abort controller for this loadMore call
+    const abortController = new AbortController();
+    const isMounted = true;
 
     setLoadingMore(true);
     setError(null);
@@ -136,27 +170,39 @@ export default function CategoryCarousel({
         fields: "featured", // Only fetch fields needed for ArticleCard
       });
 
+      // Check if component is still mounted and not aborted
+      if (abortController.signal.aborted || !isMounted) return;
+
       if (newArticles.data.length === 0) {
-        setHasMore(false);
+        if (!abortController.signal.aborted && isMounted) {
+          setHasMore(false);
+        }
       } else {
         // Filter out any duplicate articles by ID
-        setArticles((prev) => {
-          const existingIds = new Set(
-            prev.map((article) => article._id?.toString())
-          );
-          const uniqueNewArticles = newArticles.data.filter(
-            (article) => !existingIds.has(article._id?.toString())
-          );
+        if (!abortController.signal.aborted && isMounted) {
+          setArticles((prev) => {
+            const existingIds = new Set(
+              prev.map((article) => article._id?.toString())
+            );
+            const uniqueNewArticles = newArticles.data.filter(
+              (article) => !existingIds.has(article._id?.toString())
+            );
 
-          return [...prev, ...uniqueNewArticles];
-        });
+            return [...prev, ...uniqueNewArticles];
+          });
+        }
       }
     } catch (err) {
+      // Only update state if component is still mounted and not aborted
+      if (abortController.signal.aborted || !isMounted) return;
+
       setError(
         err instanceof Error ? err.message : t("failedToFetchMoreArticles")
       );
     } finally {
-      setLoadingMore(false);
+      if (!abortController.signal.aborted && isMounted) {
+        setLoadingMore(false);
+      }
     }
   }, [category, articles, limit, loadingMore, hasMore, locale, t]);
 
@@ -188,7 +234,7 @@ export default function CategoryCarousel({
       {/* Category Header */}
       <div className="flex items-center justify-between mb-6 px-6">
         <a
-          href={`/${category}`}
+          href={`/${locale}/${translateCategoryToLocale(category, locale)}`}
           className="text-2xl font-bold text-white capitalize transition-colors duration-200 cursor-pointer"
           style={{
             textShadow: "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
@@ -198,7 +244,7 @@ export default function CategoryCarousel({
         </a>
         <div className="flex items-center gap-4">
           <a
-            href={`/${category}`}
+            href={`/${locale}/${translateCategoryToLocale(category, locale)}`}
             className="text-gray-600 hover:text-gray-800 font-medium text-sm transition-colors duration-200"
           >
             {t("viewAll")} →

@@ -63,18 +63,9 @@ export default function ForgotPassword({ locale }: ForgotPasswordProps) {
   };
 
   return (
-    <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t("forgotPassword")}
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            {t("formInstructions")}
-          </p>
-        </div>
-
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <div className="max-w-md mx-auto">
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {error && (
             <div className="rounded-md bg-red-50 p-4">
               <div className="text-sm text-red-700">
@@ -147,7 +138,7 @@ export default function ForgotPassword({ locale }: ForgotPasswordProps) {
           </div>
         </form>
 
-        <div className="text-center space-y-2">
+        <div className="mt-6 text-center space-y-2">
           <Link
             href={`/${locale}/signin`}
             className={`block font-medium text-orange-600 hover:text-orange-500 ${
@@ -166,7 +157,7 @@ export default function ForgotPassword({ locale }: ForgotPasswordProps) {
           </Link>
         </div>
 
-        <div className="text-center">
+        <div className="mt-4 text-center">
           <Link
             href={`/${locale}`}
             className={`font-medium text-orange-600 hover:text-orange-500 ${

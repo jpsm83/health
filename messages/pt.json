@@ -354,6 +354,10 @@
   },
   "SignUp": {
     "createAccount": "Crie sua conta",
+    "section": {
+      "title": "Cadastrar",
+      "description": "Crie sua conta para começar com conteúdo de saúde personalizado"
+    },
     "alreadyHaveAccount": "Já tem uma conta?",
     "signUp": "Cadastrar",
     "signIn": "Entrar",
@@ -384,6 +388,10 @@
   },
   "SignIn": {
     "signInToAccount": "Entre na sua conta",
+    "section": {
+      "title": "Entrar",
+      "description": "Entre na sua conta para acessar seu painel de saúde personalizado"
+    },
     "createAccount": "Crie sua conta",
     "dontHaveAccount": "Não tem uma conta?",
     "signUp": "Cadastrar",
@@ -403,6 +411,10 @@
   },
   "ForgotPassword": {
     "forgotPassword": "Esqueceu sua senha?",
+    "section": {
+      "title": "Esqueceu a Senha",
+      "description": "Digite seu endereço de email e enviaremos um link para redefinir sua senha"
+    },
     "enterEmailForReset": "Digite seu endereço de email e enviaremos um link para redefinir sua senha.",
     "emailAddress": "Endereço de email",
     "enterEmail": "Digite seu email",
@@ -425,6 +437,10 @@
   },
   "ResetPassword": {
     "resetYourPassword": "Redefinir sua senha",
+    "section": {
+      "title": "Redefinir Senha",
+      "description": "Digite sua nova senha abaixo para redefinir a senha da sua conta"
+    },
     "enterNewPasswordBelow": "Digite sua nova senha abaixo.",
     "newPassword": "Nova Senha",
     "enterNewPassword": "Digite sua nova senha",
@@ -930,6 +946,10 @@
   "confirmEmail": {
     "title": "Confirmação de Email",
     "loading": "Confirmando seu email...",
+    "section": {
+      "title": "Confirme seu Email",
+      "description": "Por favor verifique seu endereço de email para completar seu registro"
+    },
     "success": {
       "title": "Email Confirmado!",
       "signInButton": "Entrar"
@@ -1092,17 +1112,31 @@
   },
   "newsletterConfirmation": {
     "title": "Confirmação da Newsletter",
-    "confirming": "Confirmando Inscrição...",
-    "success": "Inscrição Confirmada!",
-    "error": "Falha na Confirmação",
-    "welcomeMessage": "Bem-vindo à nossa newsletter! Você começará a receber nosso conteúdo mais recente sobre saúde e bem-estar em breve.",
-    "errorMessage": "Houve um erro ao confirmar sua inscrição. Tente se inscrever novamente.",
-    "processingMessage": "Aguarde enquanto confirmamos sua inscrição na newsletter.",
-    "goHome": "Ir para a Página Inicial"
+    "section": {
+      "title": "Confirme sua Inscrição na Newsletter",
+      "description": "Por favor confirme sua inscrição para começar a receber nosso conteúdo mais recente sobre saúde e bem-estar"
+    },
+    "success": {
+      "title": "Inscrição Confirmada!",
+      "goHomeButton": "Ir para a Página Inicial"
+    },
+    "error": {
+      "title": "Falha na Confirmação",
+      "backToHomeButton": "Voltar ao Início"
+    },
+    "messages": {
+      "missingParameters": "Token e email são necessários para confirmar sua inscrição.",
+      "confirmationFailed": "Houve um erro ao confirmar sua inscrição. Tente se inscrever novamente.",
+      "unexpectedError": "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde."
+    }
   },
   "unsubscribe": {
     "title": "Cancelar Inscrição na Newsletter",
     "description": "Lamentamos vê-la partir! Digite seu endereço de email para cancelar a inscrição na nossa newsletter.",
+    "section": {
+      "title": "Cancelar Inscrição na Newsletter",
+      "description": "Gerencie suas preferências de inscrição na newsletter"
+    },
     "processing": "Processando...",
     "processingMessage": "Aguarde enquanto processamos sua solicitação de cancelamento.",
     "successTitle": "Inscrição Cancelada com Sucesso",

@@ -2,11 +2,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ConfirmNewsletterSkeleton() {
   return (
-    <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-        <Skeleton className="w-16 h-16 mx-auto mb-4 rounded-full" />
-        <Skeleton className="h-8 w-48 mx-auto mb-2" />
-        <Skeleton className="h-4 w-64 mx-auto" />
+    <div className="max-w-md mx-auto">
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="text-center">
+          <Skeleton className="h-12 w-12 mx-auto rounded-full" />
+          <Skeleton className="h-6 w-48 mx-auto mt-4" />
+          <Skeleton className="h-4 w-64 mx-auto mt-2" />
+          <Skeleton className="h-10 w-32 mx-auto mt-6" />
+        </div>
       </div>
     </div>
   );

@@ -120,12 +120,9 @@ export default function ResetPassword({ locale, token: tokenProp }: ResetPasswor
 
   if (!token) {
     return (
-      <div className="flex-1 bg-gray-50 flex items-center justify-center px-4 py-8">
-        <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg text-center">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t("invalidResetLink")}
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+      <div className="max-w-md mx-auto">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 text-center">
+          <p className="text-sm text-gray-600 mb-4">
             {t("resetLinkInvalidOrExpired")}
           </p>
           <Link
@@ -140,18 +137,9 @@ export default function ResetPassword({ locale, token: tokenProp }: ResetPasswor
   }
 
   return (
-    <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 md:bg-white p-8 md:rounded-lg md:shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t("resetYourPassword")}
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            {t("formInstructions")}
-          </p>
-        </div>
-
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <div className="max-w-md mx-auto">
+      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {error && (
             <div className="rounded-md bg-orange-50 p-4">
               <div className="text-sm text-red-700">
@@ -264,7 +252,7 @@ export default function ResetPassword({ locale, token: tokenProp }: ResetPasswor
           </div>
         </form>
 
-        <div className="text-center space-y-2">
+        <div className="mt-6 text-center space-y-2">
           <Link
             href={`/${locale}/signin`}
             className={`block font-medium text-orange-600 hover:text-orange-500 ${
@@ -283,7 +271,7 @@ export default function ResetPassword({ locale, token: tokenProp }: ResetPasswor
           </Link>
         </div>
 
-        <div className="text-center">
+        <div className="mt-4 text-center">
           <Link
             href={`/${locale}`}
             className={`font-medium text-orange-600 hover:text-orange-500 ${
