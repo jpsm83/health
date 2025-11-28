@@ -12,7 +12,6 @@ import PaginationSection from "@/components/server/PaginationSection";
 import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
 import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
-import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 // Lazy load below-fold banners (they're not critical for initial render)
@@ -93,9 +92,7 @@ export default async function CategoryPage({
             />
 
           {/* Hero Section */}
-          <Suspense fallback={<HeroSkeleton />}>
-            <HeroSection category={englishCategory} locale={locale} />
-          </Suspense>
+          <HeroSection category={englishCategory} locale={locale} />
 
           {/* Paginated Articles Section with Pagination */}
           <Suspense fallback={<ArticlesWithPaginationSkeleton />}>

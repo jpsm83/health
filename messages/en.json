@@ -407,6 +407,7 @@
     "signUpWithGoogle": "Sign up with Google",
     "signingUpWithGoogle": "Signing up with Google...",
     "googleSignUpFailed": "Failed to sign up with Google",
+    "tryAgainOrUseEmail": "Please try again or use email/password",
     "or": "or"
   },
   "SignIn": {
@@ -419,8 +420,11 @@
     "dontHaveAccount": "Don't have an account?",
     "signUp": "Sign up",
     "signIn": "Sign in",
+    "signingIn": "Signing in...",
     "signInWithGoogle": "Sign in with Google",
     "signingInWithGoogle": "Signing in with Google...",
+    "signInSuccessful": "Sign in successful",
+    "redirecting": "Redirecting...",
     "or": "or",
     "emailAddress": "Email address",
     "enterEmail": "Enter your email",

@@ -44,13 +44,15 @@ export default function UnsubscribeUI({
               <h2 className="text-xl font-semibold text-gray-900 mb-2">
                 {translations.invalidLinkTitle}
               </h2>
-              <p className="text-gray-600 mb-6">{translations.invalidLinkMessage}</p>
+              <p className="text-gray-600 mb-6">
+                {translations.invalidLinkMessage}
+              </p>
             </div>
           </>
         ) : (
           <>
             <div className="text-center mb-6">
-              <Mail className="w-16 h-16 text-orange-600 mx-auto mb-4" />
+              <Mail className="w-16 h-16 text-red-600 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 {translations.title}
               </h1>
@@ -63,7 +65,9 @@ export default function UnsubscribeUI({
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">
                   {translations.successTitle}
                 </h2>
-                <p className="text-gray-600 mb-6">{translations.successMessage}</p>
+                <p className="text-gray-600 mb-6">
+                  {translations.successMessage}
+                </p>
               </div>
             ) : (
               <div className="text-center">
@@ -82,4 +86,3 @@ export default function UnsubscribeUI({
     </div>
   );
 }
-

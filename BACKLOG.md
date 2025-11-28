@@ -1,10 +1,3 @@
-- missing pages to review
-    reset-password
-    forgot-password
-    signin
-    signup
-    unsubscribe
-
 - review all the skeletons to match the component
 
 - updating profile not working
@@ -31,6 +24,12 @@ Use SWR/TanStack Query to fetch and cache pages
 Cache key: category-${category}-page-${page}-locale-${locale}
 Instant navigation for cached pages
 Implementation complexity: Medium (requires client component wrapper)
+
+- reset password logic need review
+
+- forgot password logic need review
+
+- unsubscirbe logic need review
 
 - unsubscribe page an logic need review
 

@@ -385,6 +385,7 @@
     "signUpWithGoogle": "Registrati con Google",
     "signingUpWithGoogle": "Registrazione con Google...",
     "googleSignUpFailed": "Registrazione con Google fallita",
+    "tryAgainOrUseEmail": "Si prega di riprovare o utilizzare email/password",
     "or": "o"
   },
   "SignIn": {
@@ -397,15 +398,20 @@
     "dontHaveAccount": "Non hai un account?",
     "signUp": "Registrati",
     "signIn": "Accedi",
+    "signingIn": "Accesso...",
     "signInWithGoogle": "Accedi con Google",
     "signingInWithGoogle": "Accesso con Google...",
+    "signInSuccessful": "Accesso riuscito",
+    "redirecting": "Reindirizzamento...",
     "or": "o",
     "emailAddress": "Indirizzo email",
     "enterEmail": "Inserisci la tua email",
     "password": "Password",
     "enterPassword": "Inserisci la tua password",
     "authenticationFailed": "Autenticazione fallita",
+    "checkCredentials": "Si prega di controllare la posta elettronica e la password",
     "googleSignInFailed": "Accesso con Google fallito",
+    "tryAgainOrUseEmail": "Si prega di riprovare o utilizzare email/password",
     "unexpectedError": "Si è verificato un errore imprevisto",
     "forgotPassword": "Password dimenticata?",
     "backToHome": "Torna alla Home"

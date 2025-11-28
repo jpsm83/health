@@ -55,7 +55,10 @@ export default async function ResetPasswordPage({
 
           {/* Reset Password Section */}
           <section className="space-y-6 md:space-y-12">
-            <ResetPassword locale={locale} token={token as string | undefined} />
+            <ResetPassword
+              locale={locale}
+              token={token as string | undefined}
+            />
           </section>
 
           {/* Bottom banner - lazy loaded */}

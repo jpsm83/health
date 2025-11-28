@@ -12,7 +12,6 @@ import PaginationSection from "@/components/server/PaginationSection";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
-import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 
 export async function generateMetadata({
   params,
@@ -75,15 +74,13 @@ export default async function FavoritesPage({
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Hero Section */}
-          <Suspense fallback={<HeroSkeleton />}>
-            <HeroSection
-              locale={locale}
-              title={heroTitle}
-              description={heroDescription}
-              alt={t("heroImageAlt")}
-              imageKey="favorites"
-            />
-          </Suspense>
+          <HeroSection
+            locale={locale}
+            title={heroTitle}
+            description={heroDescription}
+            alt={t("heroImageAlt")}
+            imageKey="favorites"
+          />
 
           {/* Favorites Section with Pagination */}
           <Suspense fallback={<ArticlesWithPaginationSkeleton />}>

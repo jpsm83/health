@@ -12,7 +12,6 @@ import NewsletterSection from "@/components/server/NewsletterSection";
 import CategoryCarouselSection from "@/components/server/CategoryCarouselSection";
 import SectionHeader from "@/components/server/SectionHeader";
 import { getArticles } from "@/app/actions/article/getArticles";
-import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
 
@@ -77,9 +76,7 @@ export default async function HomePage({
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Hero Section */}
-          <Suspense fallback={<HeroSkeleton />}>
-            <HeroSection locale={locale} />
-          </Suspense>
+          <HeroSection locale={locale} />
 
           {/* Featured Articles Section */}
           <section className="space-y-6 md:space-y-12">

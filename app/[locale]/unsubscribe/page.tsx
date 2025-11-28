@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
@@ -7,7 +6,6 @@ import { getTranslations } from "next-intl/server";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import UnsubscribeUI from "@/components/UnsubscribeUI";
-import { UnsubscribeSkeleton } from "@/components/skeletons/UnsubscribeSkeleton";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
@@ -89,23 +87,21 @@ export default async function UnsubscribePage({
 
           {/* Unsubscribe Section */}
           <section className="space-y-6 md:space-y-12">
-            <Suspense fallback={<UnsubscribeSkeleton />}>
-              <UnsubscribeUI
-                result={result}
-                hasEmail={!!email}
-                initialStatus={initialStatus}
-                translations={{
-                  title: t("title"),
-                  description: t("description"),
-                  successTitle: t("successTitle"),
-                  successMessage: t("successMessage"),
-                  errorTitle: t("errorTitle"),
-                  errorMessage: t("errorMessage"),
-                  invalidLinkTitle: t("invalidLinkTitle"),
-                  invalidLinkMessage: t("invalidLinkMessage"),
-                }}
-              />
-            </Suspense>
+            <UnsubscribeUI
+              result={result}
+              hasEmail={!!email}
+              initialStatus={initialStatus}
+              translations={{
+                title: t("title"),
+                description: t("description"),
+                successTitle: t("successTitle"),
+                successMessage: t("successMessage"),
+                errorTitle: t("errorTitle"),
+                errorMessage: t("errorMessage"),
+                invalidLinkTitle: t("invalidLinkTitle"),
+                invalidLinkMessage: t("invalidLinkMessage"),
+              }}
+            />
           </section>
 
           {/* Bottom banner - lazy loaded */}

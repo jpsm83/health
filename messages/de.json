@@ -312,6 +312,7 @@
     "signUpWithGoogle": "Mit Google registrieren",
     "signingUpWithGoogle": "Registrierung mit Google...",
     "googleSignUpFailed": "Registrierung mit Google fehlgeschlagen",
+    "tryAgainOrUseEmail": "Bitte versuchen Sie es erneut oder verwenden Sie E-Mail/Passwort",
     "or": "oder"
   },
   "SignIn": {
@@ -324,15 +325,20 @@
     "dontHaveAccount": "Haben Sie kein Konto?",
     "signUp": "Registrieren",
     "signIn": "Anmelden",
+    "signingIn": "Anmeldung...",
     "signInWithGoogle": "Mit Google anmelden",
     "signingInWithGoogle": "Anmeldung mit Google...",
+    "signInSuccessful": "Anmeldung erfolgreich",
+    "redirecting": "Weiterleitung...",
     "or": "oder",
     "emailAddress": "E-Mail-Adresse",
     "enterEmail": "Geben Sie Ihre E-Mail ein",
     "password": "Passwort",
     "enterPassword": "Geben Sie Ihr Passwort ein",
     "authenticationFailed": "Authentifizierung fehlgeschlagen",
+    "checkCredentials": "Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort",
     "googleSignInFailed": "Google-Anmeldung fehlgeschlagen",
+    "tryAgainOrUseEmail": "Bitte versuchen Sie es erneut oder verwenden Sie E-Mail/Passwort",
     "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
     "forgotPassword": "Passwort vergessen?",
     "backToHome": "Zurück zur Startseite"
