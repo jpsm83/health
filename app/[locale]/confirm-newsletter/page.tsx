@@ -7,8 +7,6 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ConfirmNewsletterUI from "@/components/ConfirmNewsletterUI";
 import { ConfirmNewsletterSkeleton } from "@/components/skeletons/ConfirmNewsletterSkeleton";
-import SectionHeader from "@/components/server/SectionHeader";
-import NewsletterSection from "@/components/server/NewsletterSection";
 import confirmNewsletterSubscriptionAction, {
   NewsletterConfirmResult,
 } from "@/app/actions/subscribers/confirmNewsletterSubscription";
@@ -41,7 +39,10 @@ export default async function ConfirmNewsletterPage({
 }) {
   const { locale } = await params;
   const { token, email } = await searchParams;
-  const t = await getTranslations({ locale, namespace: "newsletterConfirmation" });
+  const t = await getTranslations({
+    locale,
+    namespace: "newsletterConfirmation",
+  });
 
   // Handle missing token or email
   let result: NewsletterConfirmResult;
@@ -77,10 +78,6 @@ export default async function ConfirmNewsletterPage({
 
           {/* Confirm Newsletter Section */}
           <section className="space-y-6 md:space-y-12">
-            <SectionHeader
-              title={t("section.title")}
-              description={t("section.description")}
-            />
             <Suspense fallback={<ConfirmNewsletterSkeleton />}>
               <ConfirmNewsletterUI
                 result={result}
@@ -103,12 +100,6 @@ export default async function ConfirmNewsletterPage({
               />
             </Suspense>
           </section>
-
-          {/* Newsletter Section */}
-          <NewsletterSection />
-
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />

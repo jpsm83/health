@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   ArrowUpDown,

@@ -8,8 +8,6 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import UnsubscribeUI from "@/components/UnsubscribeUI";
 import { UnsubscribeSkeleton } from "@/components/skeletons/UnsubscribeSkeleton";
-import SectionHeader from "@/components/server/SectionHeader";
-import NewsletterSection from "@/components/server/NewsletterSection";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
@@ -91,10 +89,6 @@ export default async function UnsubscribePage({
 
           {/* Unsubscribe Section */}
           <section className="space-y-6 md:space-y-12">
-            <SectionHeader
-              title={t("section.title")}
-              description={t("section.description")}
-            />
             <Suspense fallback={<UnsubscribeSkeleton />}>
               <UnsubscribeUI
                 result={result}
@@ -113,12 +107,6 @@ export default async function UnsubscribePage({
               />
             </Suspense>
           </section>
-
-          {/* Newsletter Section */}
-          <NewsletterSection />
-
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />

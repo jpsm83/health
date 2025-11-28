@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import Profile from "@/components/Profile";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -6,6 +7,7 @@ import { getUserById } from "@/app/actions/user/getUserById";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { redirect } from "next/navigation";
 import ProductsBanner from "@/components/ProductsBanner";
+import { ProfileSkeleton } from "@/components/skeletons/ProfileSkeleton";
 
 export async function generateMetadata({
   params,
@@ -34,8 +36,36 @@ export default async function ProfilePage({
     redirect(`/${locale}/signin`);
   }
 
+  return (
+    <main className="container mx-auto my-7 md:my-14">
+      <ErrorBoundary context={"Profile page"}>
+        <div className="flex flex-col h-full gap-8 md:gap-16">
+          {/* Products Banner */}
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+          {/* Profile Form Section */}
+          <Suspense fallback={<ProfileSkeleton />}>
+            <ProfileContent locale={locale} userId={session.user.id} />
+          </Suspense>
+
+          {/* Products Banner */}
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+        </div>
+      </ErrorBoundary>
+    </main>
+  );
+}
+
+// Profile Content Component
+async function ProfileContent({
+  locale,
+  userId,
+}: {
+  locale: string;
+  userId: string;
+}) {
   // Fetch user data on server
-  const userResult = await getUserById(session.user.id);
+  const userResult = await getUserById(userId);
 
   if (!userResult.success || !userResult.data) {
     redirect(`/${locale}/signin`);
@@ -46,20 +76,5 @@ export default async function ProfilePage({
     ? userResult.data[0]
     : userResult.data;
 
-  return (
-    <main className="container mx-auto my-7 md:my-14">
-      <ErrorBoundary context={"Profile page"}>
-        <div className="flex flex-col h-full gap-8 md:gap-16">
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
-
-          {/* Profile Form Section */}
-          <Profile locale={locale} initialUser={userData} />
-
-          {/* Products Banner */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" />
-        </div>
-      </ErrorBoundary>
-    </main>
-  );
+  return <Profile locale={locale} initialUser={userData} />;
 }

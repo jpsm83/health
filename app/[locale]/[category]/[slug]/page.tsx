@@ -20,7 +20,7 @@ import { getTranslations } from "next-intl/server";
 import SocialShare from "@/components/SocialShare";
 import SectionHeader from "@/components/server/SectionHeader";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
-import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 export async function generateMetadata({
   params,

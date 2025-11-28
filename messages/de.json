@@ -196,7 +196,8 @@
       "success": "Erfolg",
       "makeChangesToSave": "Nehmen Sie Änderungen vor, um den Speichern-Button zu aktivieren",
       "unexpectedErrorSendingEmailConfirmation": "Fehler beim Senden der E-Mail-Bestätigung",
-      "successSendingEmailConfirmation": "E-Mail-Bestätigung erfolgreich gesendet"
+      "successSendingEmailConfirmation": "E-Mail-Bestätigung erfolgreich gesendet",
+      "saving": "Wird gespeichert..."
     },
     "errors": {
       "loadingUserData": "Fehler beim Laden der Benutzerdaten"
@@ -392,7 +393,8 @@
     "backToHome": "Zurück zum Start",
     "loading": "Wird geladen...",
     "formInstructions": "Erstellen Sie ein sicheres Passwort für Ihr Konto.",
-    "passwordRequirements": "Passwort muss mindestens 6 Zeichen lang sein",
+    "passwordRequirements": "Muss mindestens 6 Zeichen mit 1 Großbuchstaben, 1 Kleinbuchstaben, 1 Zahl und 1 Symbol enthalten",
+    "passwordValidationError": "Das Passwort muss mindestens einen Kleinbuchstaben, einen Großbuchstaben, eine Ziffer, ein Symbol enthalten und mindestens 6 Zeichen lang sein",
     "confirmPasswordInstructions": "Bitte bestätigen Sie Ihr neues Passwort"
   },
   "metadata": {

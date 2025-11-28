@@ -17,7 +17,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useTranslations, useLocale } from "next-intl";
-import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";

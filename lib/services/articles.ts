@@ -89,7 +89,7 @@ const selectLanguage = (
   return article.languages[0];
 };
 
-const applyLocaleFilter = (
+export const applyLocaleFilter = (
   articles: IArticleLean[],
   locale: string,
   slug?: string

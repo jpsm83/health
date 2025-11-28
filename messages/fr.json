@@ -196,7 +196,8 @@
       "success": "Succès",
       "makeChangesToSave": "Apportez des modifications pour activer le bouton de sauvegarde",
       "unexpectedErrorSendingEmailConfirmation": "Erreur lors de l'envoi de la confirmation par email",
-      "successSendingEmailConfirmation": "Confirmation par email envoyée avec succès"
+      "successSendingEmailConfirmation": "Confirmation par email envoyée avec succès",
+      "saving": "Enregistrement..."
     },
     "errors": {
       "loadingUserData": "Erreur lors du chargement des données utilisateur"
@@ -369,7 +370,8 @@
     "backToHome": "Retour à l'Accueil",
     "loading": "Chargement...",
     "formInstructions": "Créez un mot de passe sécurisé pour votre compte.",
-    "passwordRequirements": "Le mot de passe doit contenir au moins 6 caractères",
+    "passwordRequirements": "Doit contenir au moins 6 caractères avec 1 majuscule, 1 minuscule, 1 chiffre et 1 symbole",
+    "passwordValidationError": "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre, un symbole et avoir au moins 6 caractères",
     "confirmPasswordInstructions": "Veuillez confirmer votre nouveau mot de passe"
   },
   "metadata": {

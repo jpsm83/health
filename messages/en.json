@@ -198,7 +198,8 @@
       "success": "Success",
       "makeChangesToSave": "Make changes to enable save button",
       "unexpectedErrorSendingEmailConfirmation": "Error sending email confirmation",
-      "successSendingEmailConfirmation": "Email confirmation sent successfully"
+      "successSendingEmailConfirmation": "Email confirmation sent successfully",
+      "saving": "Saving..."
     },
     "errors": {
       "loadingUserData": "Error loading user data"
@@ -489,7 +490,8 @@
     "backToHome": "Back to Home",
     "loading": "Loading...",
     "formInstructions": "Create a strong password for your account.",
-    "passwordRequirements": "Password must be at least 6 characters long",
+    "passwordRequirements": "Must be at least 6 characters with 1 uppercase, 1 lowercase, 1 number, and 1 symbol",
+    "passwordValidationError": "Password must contain at least one lowercase letter, one uppercase letter, one digit, one symbol, and be at least 6 characters long",
     "confirmPasswordInstructions": "Please confirm your new password"
   },
   "metadata": {

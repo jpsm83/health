@@ -25,6 +25,7 @@ import requestPasswordResetAction from "@/app/actions/auth/requestPasswordReset"
 import { Button } from "@/components/ui/button";
 import { routing } from "@/i18n/routing";
 import { showToast } from "@/components/Toasts";
+import { translateRouteToLocale, translateRouteToEnglish } from "@/lib/utils/routeTranslation";
 
 // Import country flag components
 import { US, BR, ES, FR, DE, IT } from "country-flag-icons/react/1x1";
@@ -61,7 +62,9 @@ interface ProfileProps {
 
 export default function Profile({ locale, initialUser }: ProfileProps) {
   const t = useTranslations("profile");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [isRequestingEmailConfirmation, setIsRequestingEmailConfirmation] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [originalValues, setOriginalValues] = useState<FormData | null>(null);
@@ -94,9 +97,22 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
     setValue("preferences.region", newRegion);
 
     // Get current path without language prefix
-    const pathWithoutLang =
-      pathname?.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, "") || "";
-    const newPath = `/${newLanguage}${pathWithoutLang || ""}`;
+    // Only match actual locale codes, not any two letters (fixes /ptofile bug)
+    const validLocales = ['en', 'pt', 'es', 'fr', 'de', 'it'];
+    const localePattern = `^\\/(${validLocales.join('|')})(-[A-Z]{2})?`;
+    const pathWithoutLang = pathname?.replace(new RegExp(localePattern), "") || "";
+    
+    // Translate route names (e.g., "profile" -> "perfil" for Portuguese)
+    const pathSegments = pathWithoutLang.split('/').filter(Boolean);
+    if (pathSegments.length > 0) {
+      const firstSegment = pathSegments[0];
+      const englishRoute = translateRouteToEnglish(firstSegment);
+      const translatedRoute = translateRouteToLocale(englishRoute, newLanguage);
+      pathSegments[0] = translatedRoute;
+    }
+    
+    const translatedPath = pathSegments.length > 0 ? `/${pathSegments.join('/')}` : "";
+    const newPath = `/${newLanguage}${translatedPath}`;
 
     // Use replace to avoid adding to browser history and ensure proper refresh
     router.replace(newPath);
@@ -326,7 +342,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       return;
     }
 
-    setIsLoading(true);
+    setIsResettingPassword(true);
 
     try {
       const result = await requestPasswordResetAction(user.email);
@@ -340,7 +356,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       console.error("Password reset error:", error);
       showToast("error", t("unexpectedError"), "");
     } finally {
-      setIsLoading(false);
+      setIsResettingPassword(false);
     }
   };
 
@@ -351,7 +367,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       return;
     }
 
-    setIsLoading(true);
+    setIsRequestingEmailConfirmation(true);
 
     try {
       // Use server action instead of fetch
@@ -378,7 +394,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
         "Failed to request email confirmation"
       );
     } finally {
-      setIsLoading(false);
+      setIsRequestingEmailConfirmation(false);
     }
   };
 
@@ -429,7 +445,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       return;
     }
 
-    setIsLoading(true);
+    setIsSavingProfile(true);
 
     try {
       const updateData = {
@@ -474,7 +490,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       console.error("Profile update error:", error);
       showToast("error", t("updateFailed"), "Failed to update profile");
     } finally {
-      setIsLoading(false);
+      setIsSavingProfile(false);
     }
   };
 
@@ -485,12 +501,22 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
     }
   };
 
+  // Determine loading state and message
+  const isLoading = isSavingProfile || isResettingPassword || isRequestingEmailConfirmation;
+  const loadingMessage = isSavingProfile
+    ? t("messages.saving") || "Saving..."
+    : isResettingPassword
+    ? "Sending password reset email..."
+    : isRequestingEmailConfirmation
+    ? "Sending email confirmation..."
+    : "";
+
   return (
     <div className="flex items-start justify-center px-4 md:px-8 relative">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-          <Spinner size="xl" text={t("messages.saving") || "Saving..."} />
+          <Spinner size="xl" text={loadingMessage} />
         </div>
       )}
 
@@ -908,7 +934,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                     onClick={handleResetPassword}
                     disabled={isLoading}
                     variant="customDefault"
-                    className="w-40"
+                    className="w-auto min-w-fit px-4"
                   >
                     <Lock className="w-4 h-4 mr-2" />
                     {t("actions.resetPassword")}
@@ -925,7 +951,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
               <Button
                 type="submit"
                 disabled={isLoading || !hasChanges}
-                className="w-40 flex items-center justify-center gap-2"
+                className="w-auto min-w-fit px-4 flex items-center justify-center gap-2"
                 variant="customDefault"
               >
                 {isLoading ? (

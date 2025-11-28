@@ -49,9 +49,23 @@ export default async function FavoritesPage({
 
   const t = await getTranslations({ locale, namespace: "favorites" });
 
-  // Static hero text - section will handle results display
+  // Fetch favorites count for hero description (similar to search page)
+  let totalCount = 0;
+  try {
+    const result = await getUserLikedArticles(
+      session.user.id,
+      1, // page 1 just to get count
+      10, // limit doesn't matter for count
+      locale
+    );
+    totalCount = result.totalDocs || 0;
+  } catch (error) {
+    console.error("Error fetching favorites count:", error);
+  }
+
+  // Hero text with actual count
   const heroTitle = t("title");
-  const heroDescription = t("subtitle", { count: 0 });
+  const heroDescription = t("subtitle", { count: totalCount });
 
   return (
     <main className="container mx-auto my-7 md:my-14">

@@ -3,6 +3,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import User from "@/app/api/models/user";
 import * as nodemailer from "nodemailer";
 import { requestEmailConfirmationService } from "@/lib/services/auth";
+import { generateEmailLink } from "@/lib/utils/emailLinkGenerator";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -216,8 +217,15 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Create confirmation link
-    const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-email?token=${result.verificationToken}`;
+    // Get user's preferred locale
+    const userLocale = result.user.preferences?.language || "en";
+
+    // Create confirmation link with locale and translated route
+    const confirmLink = generateEmailLink(
+      "confirm-email",
+      { token: result.verificationToken },
+      userLocale
+    );
 
     // Send confirmation email
     try {
@@ -226,7 +234,7 @@ export const POST = async (req: NextRequest) => {
       const emailContent = emailConfirmationTemplate(
         confirmLink, 
         result.user.username, 
-        result.user.preferences?.language || "en"
+        userLocale
       );
 
       const mailOptions = {

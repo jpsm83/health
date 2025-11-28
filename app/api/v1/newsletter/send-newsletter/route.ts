@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import * as nodemailer from "nodemailer";
 import { getSubscribersForNewsletterService } from "@/lib/services/newsletter";
+import { generateEmailLink } from "@/lib/utils/emailLinkGenerator";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -61,7 +62,18 @@ export const POST = async () => {
     // Send newsletter to each subscriber
     for (const subscriber of subscribers) {
       try {
-        const unsubscribeLink = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(subscriber.email)}&token=${subscriber.unsubscribeToken}`;
+        // Note: Newsletter subscribers may not have a user account, so default to "en"
+        // TODO: Consider storing language preference in subscriber model in the future
+        const subscriberLocale = "en";
+        
+        const unsubscribeLink = generateEmailLink(
+          "unsubscribe",
+          {
+            email: subscriber.email,
+            token: subscriber.unsubscribeToken,
+          },
+          subscriberLocale
+        );
         
         const emailContent = {
           subject: "Women's Spot Newsletter - Health & Wellness Update",

@@ -7,6 +7,7 @@ import {
   subscribeToNewsletterService,
   unsubscribeFromNewsletterService,
 } from "@/lib/services/subscribers";
+import { generateEmailLink } from "@/lib/utils/emailLinkGenerator";
 
 // @desc    Get all subscribers
 // @route   GET /subscribers
@@ -193,8 +194,27 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Send confirmation email
-    const confirmLink = `${process.env.NEXTAUTH_URL}/confirm-newsletter?token=${subscriberWithToken.verificationToken}&email=${encodeURIComponent(subscriber.email)}`;
-    const unsubscribeLink = `${process.env.NEXTAUTH_URL}/unsubscribe?email=${encodeURIComponent(subscriber.email)}&token=${subscriberWithToken.unsubscribeToken}`;
+    // Note: Newsletter subscribers may not have a user account, so default to "en"
+    // TODO: Consider storing language preference in subscriber model in the future
+    const subscriberLocale = "en";
+    
+    const confirmLink = generateEmailLink(
+      "confirm-newsletter",
+      {
+        token: subscriberWithToken.verificationToken,
+        email: subscriber.email,
+      },
+      subscriberLocale
+    );
+    
+    const unsubscribeLink = generateEmailLink(
+      "unsubscribe",
+      {
+        email: subscriber.email,
+        token: subscriberWithToken.unsubscribeToken,
+      },
+      subscriberLocale
+    );
     
     try {
       validateEmailConfig();

@@ -196,7 +196,8 @@
       "success": "Successo",
       "makeChangesToSave": "Apporta modifiche per abilitare il pulsante salva",
       "unexpectedErrorSendingEmailConfirmation": "Errore nell'invio della conferma email",
-      "successSendingEmailConfirmation": "Conferma email inviata con successo"
+      "successSendingEmailConfirmation": "Conferma email inviata con successo",
+      "saving": "Salvataggio..."
     },
     "errors": {
       "loadingUserData": "Errore nel caricamento dei dati utente"
@@ -465,7 +466,8 @@
     "backToHome": "Torna alla Home",
     "loading": "Caricamento...",
     "formInstructions": "Crea una password sicura per il tuo account.",
-    "passwordRequirements": "La password deve essere di almeno 6 caratteri",
+    "passwordRequirements": "Deve essere di almeno 6 caratteri con 1 maiuscola, 1 minuscola, 1 numero e 1 simbolo",
+    "passwordValidationError": "La password deve contenere almeno una lettera minuscola, una lettera maiuscola, una cifra, un simbolo ed essere di almeno 6 caratteri",
     "confirmPasswordInstructions": "Per favore conferma la tua nuova password"
   },
   "metadata": {
@@ -1149,10 +1151,14 @@
   },
   "favorites": {
     "title": "I miei articoli preferiti",
+    "subtitle": "Hai {count} articolo preferito{count, plural, =1 {} other {i}}",
+    "heroImageAlt": "I miei articoli preferiti",
     "noFavorites": "Non hai ancora articoli preferiti",
     "noFavoritesMessage": "Metti mi piace a un articolo, apparirà qui",
     "removeFromFavorites": "Rimuovi dai preferiti",
-    "addToFavorites": "Aggiungi ai preferiti"
+    "addToFavorites": "Aggiungi ai preferiti",
+    "noFavoritesTitle": "Nessun Preferito Ancora",
+    "noFavoritesDescription": "Inizia a mettere mi piace agli articoli per costruire la tua collezione personale di contenuti preferiti su salute e benessere."
   },
   "siteMap": {
     "title": "Mappa del Sito",

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { getArticlesCount } from "@/app/actions/article/getArticlesCount";
-import { translateCategoryToEnglish } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToEnglish } from "@/lib/utils/routeTranslation";
 import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import {

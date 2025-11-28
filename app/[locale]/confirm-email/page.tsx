@@ -7,8 +7,6 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ConfirmEmailUI from "@/components/ConfirmEmailUI";
 import { ConfirmEmailSkeleton } from "@/components/skeletons/ConfirmEmailSkeleton";
-import SectionHeader from "@/components/server/SectionHeader";
-import NewsletterSection from "@/components/server/NewsletterSection";
 import confirmEmailAction, {
   ConfirmEmailResult,
 } from "@/app/actions/auth/confirmEmail";
@@ -77,10 +75,6 @@ export default async function ConfirmEmailPage({
 
           {/* Confirm Email Section */}
           <section className="space-y-6 md:space-y-12">
-            <SectionHeader
-              title={t("section.title")}
-              description={t("section.description")}
-            />
             <Suspense fallback={<ConfirmEmailSkeleton />}>
               <ConfirmEmailUI
                 result={result}
@@ -103,12 +97,6 @@ export default async function ConfirmEmailPage({
               />
             </Suspense>
           </section>
-
-          {/* Newsletter Section */}
-          <NewsletterSection />
-
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />

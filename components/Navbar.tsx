@@ -25,7 +25,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 
 import { mainCategories } from "@/lib/constants";
-import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 

@@ -4,7 +4,7 @@ import { Calendar, Clock, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import { ISerializedArticle } from "@/types/article";
 import {
   calculateReadTime,

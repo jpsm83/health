@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
 import Link from "next/link";
 import { mainCategories } from "@/lib/constants";
-import { translateCategoryToLocale } from "@/lib/utils/categoryTranslation";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import {
   Home,
   User,

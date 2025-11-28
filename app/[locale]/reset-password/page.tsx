@@ -1,14 +1,11 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import dynamic from "next/dynamic";
-import { getTranslations } from "next-intl/server";
 
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ResetPassword from "@/components/ResetPassword";
-import SectionHeader from "@/components/server/SectionHeader";
-import NewsletterSection from "@/components/server/NewsletterSection";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -49,8 +46,6 @@ export default async function ResetPasswordPage({
     }
   }
 
-  const t = await getTranslations({ locale, namespace: "ResetPassword" });
-
   return (
     <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Reset Password page"}>
@@ -60,18 +55,8 @@ export default async function ResetPasswordPage({
 
           {/* Reset Password Section */}
           <section className="space-y-6 md:space-y-12">
-            <SectionHeader
-              title={t("section.title")}
-              description={t("section.description")}
-            />
             <ResetPassword locale={locale} token={token as string | undefined} />
           </section>
-
-          {/* Newsletter Section */}
-          <NewsletterSection />
-
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />

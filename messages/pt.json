@@ -196,7 +196,8 @@
       "success": "Sucesso",
       "makeChangesToSave": "Faça alterações para habilitar o botão salvar",
       "unexpectedErrorSendingEmailConfirmation": "Erro ao enviar confirmação de email",
-      "successSendingEmailConfirmation": "Confirmação de email enviada com sucesso"
+      "successSendingEmailConfirmation": "Confirmação de email enviada com sucesso",
+      "saving": "Salvando..."
     },
     "errors": {
       "loadingUserData": "Erro ao carregar dados do usuário"
@@ -465,7 +466,8 @@
     "backToHome": "Voltar ao Início",
     "loading": "Carregando...",
     "formInstructions": "Crie uma senha segura para sua conta.",
-    "passwordRequirements": "A senha deve ter pelo menos 6 caracteres",
+    "passwordRequirements": "Deve ter pelo menos 6 caracteres com 1 maiúscula, 1 minúscula, 1 número e 1 símbolo",
+    "passwordValidationError": "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula, um dígito, um símbolo e ter pelo menos 6 caracteres",
     "confirmPasswordInstructions": "Por favor confirme sua nova senha"
   },
   "metadata": {

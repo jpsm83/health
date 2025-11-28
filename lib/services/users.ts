@@ -3,11 +3,12 @@ import User from "@/app/api/models/user";
 import Subscriber from "@/app/api/models/subscriber";
 import Article from "@/app/api/models/article";
 import { ISerializedUser, IUserPreferences, IUser } from "@/types/user";
-import { ISerializedArticle, serializeMongoObject } from "@/types/article";
+import { IArticleLean, ISerializedArticle, serializeMongoObject } from "@/types/article";
 import { mainCategories } from "@/lib/constants";
 import { hash } from "bcrypt";
 import crypto from "crypto";
 import mongoose from "mongoose";
+import { applyLocaleFilter } from "./articles";
 
 // Helper function to serialize MongoDB user object
 function serializeUser(user: unknown, subscriptionPreferences?: unknown): ISerializedUser {
@@ -191,8 +192,11 @@ export async function getUserLikedArticlesService(
     .sort({ createdAt: -1 })
     .lean();
 
+  // Apply locale filter to ensure only matching locale content is included
+  const filteredArticles = applyLocaleFilter(articles as IArticleLean[], locale);
+
   // Serialize the articles
-  const serializedArticles = articles.map((article) =>
+  const serializedArticles = filteredArticles.map((article) =>
     serializeMongoObject(article)
   ) as ISerializedArticle[];
 
