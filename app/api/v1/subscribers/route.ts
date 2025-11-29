@@ -8,6 +8,7 @@ import {
   unsubscribeFromNewsletterService,
 } from "@/lib/services/subscribers";
 import { generateEmailLink } from "@/lib/utils/emailLinkGenerator";
+import { getBaseUrlFromRequest } from "@/lib/utils/getBaseUrl";
 
 // @desc    Get all subscribers
 // @route   GET /subscribers
@@ -198,22 +199,27 @@ export const POST = async (req: NextRequest) => {
     // TODO: Consider storing language preference in subscriber model in the future
     const subscriberLocale = "en";
     
-    const confirmLink = generateEmailLink(
+    // Get base URL from request
+    const baseUrl = getBaseUrlFromRequest(req);
+    
+    const confirmLink = await generateEmailLink(
       "confirm-newsletter",
       {
         token: subscriberWithToken.verificationToken,
         email: subscriber.email,
       },
-      subscriberLocale
+      subscriberLocale,
+      baseUrl
     );
     
-    const unsubscribeLink = generateEmailLink(
+    const unsubscribeLink = await generateEmailLink(
       "unsubscribe",
       {
         email: subscriber.email,
         token: subscriberWithToken.unsubscribeToken,
       },
-      subscriberLocale
+      subscriberLocale,
+      baseUrl
     );
     
     try {

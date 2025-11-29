@@ -1,14 +1,10 @@
 'use server';
 
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+
 // Note: This action calls the API route because the route handles
 // the unsubscribe flow. The service handles DB operations, but the route
 // orchestrates the response messages based on whether user has account.
-
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ||
-  (process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "http://localhost:3000");
 
 export interface NewsletterUnsubscribeResult {
   success: boolean;
@@ -29,6 +25,7 @@ export default async function unsubscribeFromNewsletterAction(
       };
     }
 
+    const baseUrl = await getBaseUrl();
     const response = await fetch(`${baseUrl}/api/v1/subscribers`, {
       method: "DELETE",
       headers: {

@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
 import * as nodemailer from "nodemailer";
 import { getSubscribersForNewsletterService } from "@/lib/services/newsletter";
 import { generateEmailLink } from "@/lib/utils/emailLinkGenerator";
+import { getBaseUrlFromRequest } from "@/lib/utils/getBaseUrl";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -38,7 +39,7 @@ const sendEmailWithTransporter = async (mailOptions: {
 // @desc    Send newsletter to all subscribers
 // @route   POST /api/v1/newsletter/send-newsletter
 // @access  Private (Admin only)
-export const POST = async () => {
+export const POST = async (req: NextRequest) => {
   try {
     const subscribers = await getSubscribersForNewsletterService();
 
@@ -56,6 +57,9 @@ export const POST = async () => {
 
     validateEmailConfig();
 
+    // Get base URL from request
+    const baseUrl = getBaseUrlFromRequest(req);
+
     let sentCount = 0;
     const errors: string[] = [];
 
@@ -66,13 +70,14 @@ export const POST = async () => {
         // TODO: Consider storing language preference in subscriber model in the future
         const subscriberLocale = "en";
         
-        const unsubscribeLink = generateEmailLink(
+        const unsubscribeLink = await generateEmailLink(
           "unsubscribe",
           {
             email: subscriber.email,
             token: subscriber.unsubscribeToken,
           },
-          subscriberLocale
+          subscriberLocale,
+          baseUrl
         );
         
         const emailContent = {
@@ -101,7 +106,7 @@ export const POST = async () => {
                 </div>
 
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${process.env.NEXTAUTH_URL}" style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
+                  <a href="${baseUrl}" style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
                     Read Latest Articles
                   </a>
                 </div>
@@ -126,7 +131,7 @@ export const POST = async () => {
               </div>
             </div>
           `,
-          text: `Women's Spot Newsletter - Health & Wellness Update\n\nHello from Women's Spot!\n\nWelcome to our weekly health and wellness newsletter! We're excited to share the latest insights, tips, and articles to help you live your best life.\n\nThis Week's Featured Articles:\n- 5 Simple Morning Routines for Better Energy\n- Understanding Your Hormonal Health\n- Healthy Meal Prep Ideas for Busy Women's\n- The Importance of Mental Health Self-Care\n\nRead our latest articles: ${process.env.NEXTAUTH_URL}\n\nThank you for being part of our community! We're committed to providing you with valuable, evidence-based content to support your health and wellness journey.\n\nQuick Tip: Did you know that staying hydrated can boost your energy levels by up to 25%? Try starting your day with a glass of water before your morning coffee!\n\n© 2025 Women's Spot. All rights reserved.\n\nIf you no longer wish to receive our newsletter, you can unsubscribe here: ${unsubscribeLink}`
+          text: `Women's Spot Newsletter - Health & Wellness Update\n\nHello from Women's Spot!\n\nWelcome to our weekly health and wellness newsletter! We're excited to share the latest insights, tips, and articles to help you live your best life.\n\nThis Week's Featured Articles:\n- 5 Simple Morning Routines for Better Energy\n- Understanding Your Hormonal Health\n- Healthy Meal Prep Ideas for Busy Women's\n- The Importance of Mental Health Self-Care\n\nRead our latest articles: ${baseUrl}\n\nThank you for being part of our community! We're committed to providing you with valuable, evidence-based content to support your health and wellness journey.\n\nQuick Tip: Did you know that staying hydrated can boost your energy levels by up to 25%? Try starting your day with a glass of water before your morning coffee!\n\n© 2025 Women's Spot. All rights reserved.\n\nIf you no longer wish to receive our newsletter, you can unsubscribe here: ${unsubscribeLink}`
         };
 
         const mailOptions = {

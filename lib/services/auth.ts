@@ -209,7 +209,7 @@ export async function sendPasswordResetEmail(
   const userLocale = result.user.preferences?.language || "en";
 
   // Create reset link with locale and translated route
-  const resetLink = generateEmailLink(
+  const resetLink = await generateEmailLink(
     "reset-password",
     { token: result.resetToken },
     userLocale

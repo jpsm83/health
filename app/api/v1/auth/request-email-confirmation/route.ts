@@ -4,6 +4,7 @@ import User from "@/app/api/models/user";
 import * as nodemailer from "nodemailer";
 import { requestEmailConfirmationService } from "@/lib/services/auth";
 import { generateEmailLink } from "@/lib/utils/emailLinkGenerator";
+import { getBaseUrlFromRequest } from "@/lib/utils/getBaseUrl";
 
 // Shared email utilities
 const createTransporter = () => {
@@ -220,11 +221,15 @@ export const POST = async (req: NextRequest) => {
     // Get user's preferred locale
     const userLocale = result.user.preferences?.language || "en";
 
+    // Get base URL from request
+    const baseUrl = getBaseUrlFromRequest(req);
+
     // Create confirmation link with locale and translated route
-    const confirmLink = generateEmailLink(
+    const confirmLink = await generateEmailLink(
       "confirm-email",
       { token: result.verificationToken },
-      userLocale
+      userLocale,
+      baseUrl
     );
 
     // Send confirmation email

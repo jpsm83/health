@@ -3,21 +3,10 @@
 import { IUpdateProfileData, ISerializedUser } from "@/types/user";
 import { IApiResponse } from "@/types/api";
 import { cookies } from "next/headers";
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 // Note: We use the API route instead of calling the service directly
 // because file uploads require Cloudinary handling which is done in the route
-const getBaseUrl = (): string => {
-  if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3000";
-  }
-  if (
-    typeof process.env.NEXT_PUBLIC_BASE_URL === "string" &&
-    process.env.NEXT_PUBLIC_BASE_URL.length > 0
-  ) {
-    return process.env.NEXT_PUBLIC_BASE_URL;
-  }
-  throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
-};
 
 const buildFormData = (profileData: IUpdateProfileData): FormData => {
   const formData = new FormData();
@@ -52,7 +41,7 @@ export async function updateUserProfile(
     const userIdStr = typeof userId === "string" ? userId : userId.toString();
     const formData = buildFormData(profileData);
     const cookieHeader = await getCookieHeader();
-    const baseUrl = getBaseUrl();
+    const baseUrl = await getBaseUrl();
 
     const response = await fetch(`${baseUrl}/api/v1/users/${userIdStr}`, {
       method: "PATCH",

@@ -1,15 +1,10 @@
 "use server";
 
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { ISerializedArticle } from "@/types/article";
+
 // Note: This action calls the API route because the route handles
 // FormData parsing, file uploads, and validation before calling the service.
-
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ||
-  (process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "http://localhost:3000");
-
-import { ISerializedArticle } from "@/types/article";
 
 interface UpdateArticleParams {
   articleId: string;
@@ -59,6 +54,7 @@ export async function updateArticle(
       }
     }
 
+    const baseUrl = await getBaseUrl();
     const response = await fetch(`${baseUrl}/api/v1/articles/by-id/${params.articleId}`, {
       method: "PATCH",
       body: formData,

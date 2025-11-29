@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleApiError } from "@/app/api/utils/handleApiError";
+import { getBaseUrlFromRequest } from "@/lib/utils/getBaseUrl";
 
 // @desc    Unsubscribe from newsletter
 // @route   POST /api/v1/subscribers/newsletter-unsubscribe
@@ -20,8 +21,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Forward to main subscribers route
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "http://localhost:3000");
+    const baseUrl = getBaseUrlFromRequest(req);
     
     const response = await fetch(`${baseUrl}/api/v1/subscribers`, {
       method: "DELETE",

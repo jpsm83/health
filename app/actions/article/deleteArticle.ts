@@ -1,5 +1,7 @@
 "use server";
 
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+
 export interface IDeleteArticleResponse {
   success: boolean;
   message?: string;
@@ -12,12 +14,7 @@ export async function deleteArticle(
   try {
     // Note: This action calls the API route because the route handles
     // Cloudinary image deletion before calling the service.
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      (process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : "http://localhost:3000");
-
+    const baseUrl = await getBaseUrl();
     const response = await fetch(`${baseUrl}/api/v1/articles/by-id/${articleId}`, {
       method: "DELETE",
       headers: {
