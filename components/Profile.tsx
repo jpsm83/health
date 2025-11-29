@@ -18,6 +18,7 @@ import { mainCategories, newsletterFrequencies } from "@/lib/constants";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { updateUserProfile } from "@/app/actions/user/updateUserProfile";
+import { updateSubscriberPreferences } from "@/app/actions/subscribers/updateSubscriberPreferences";
 import requestEmailConfirmation from "@/app/actions/auth/requestEmailConfirmation";
 import { ISerializedUser } from "@/types/user";
 import { useRouter, usePathname } from "next/navigation";
@@ -439,7 +440,6 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
       return;
     }
 
-    // Validate subscription frequency
     if (!data.subscriptionPreferences?.subscriptionFrequencies) {
       showToast("error", t("validation.newsletterFrequencyRequired"), "");
       return;
@@ -454,41 +454,59 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
         role: data.role,
         birthDate: data.birthDate,
         preferences: {
-          language: data.preferences.language, // Use form value to ensure consistency
+          language: data.preferences.language,
           region: data.preferences.region,
         },
         subscriptionPreferences: {
           categories: data.subscriptionPreferences.categories,
-          subscriptionFrequencies:
-            data.subscriptionPreferences.subscriptionFrequencies,
+          subscriptionFrequencies: data.subscriptionPreferences.subscriptionFrequencies,
         },
-        subscriptionId: user?.subscriptionId, // Pass subscriptionId for subscription updates
+        subscriptionId: user?.subscriptionId,
         imageFile: selectedImage || undefined,
       };
 
-      // Use server action directly - this works in client components!
       const result = await updateUserProfile(session.user.id, updateData);
 
-      if (result?.success) {
-        // Update local user state with the updated data
-        if (result.data) {
-          const updatedUser = Array.isArray(result.data)
-            ? result.data[0]
-            : result.data;
-          setUser(updatedUser);
-        }
-
-        // Update original values after successful save
-        setOriginalValues(data);
-        setSelectedImage(null);
-        setImagePreview(null);
-        showToast("success", t("updateSuccess"), "");
-      } else {
-        showToast("error", t("updateFailed"), result?.message || "");
+      if (!result?.success) {
+        showToast("error", t("updateFailed"), result?.message || "Unknown error occurred");
+        return;
       }
+
+      // Update local user state with the updated data
+      const updatedUser = result.data;
+      if (updatedUser) {
+        setUser(updatedUser);
+      }
+
+      // Update subscription preferences if subscriptionId exists
+      if (updatedUser?.subscriptionId && updateData.subscriptionPreferences) {
+        try {
+          const subResult = await updateSubscriberPreferences(
+            updatedUser.subscriptionId,
+            { subscriptionPreferences: updateData.subscriptionPreferences }
+          );
+
+          if (subResult.success && subResult.data?.subscriptionPreferences) {
+            setUser(prev => ({
+              ...prev,
+              subscriptionPreferences: subResult.data!.subscriptionPreferences
+            }));
+          }
+        } catch (error) {
+          // Log error but don't fail the whole update
+          console.error("[Profile] Subscription preferences update error:", error);
+        }
+      }
+
+      // Reset form state after successful save
+      setOriginalValues(data);
+      setSelectedImage(null);
+      setImagePreview(null);
+      showToast("success", t("updateSuccess"), "");
     } catch (error) {
-      console.error("Profile update error:", error);
-      showToast("error", t("updateFailed"), "Failed to update profile");
+      console.error("[Profile] Profile update error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to update profile";
+      showToast("error", t("updateFailed"), errorMessage);
     } finally {
       setIsSavingProfile(false);
     }
@@ -501,24 +519,13 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
     }
   };
 
-  // Determine loading state and message
+  // Determine loading state
   const isLoading = isSavingProfile || isResettingPassword || isRequestingEmailConfirmation;
-  const loadingMessage = isSavingProfile
-    ? t("messages.saving") || "Saving..."
-    : isResettingPassword
-    ? "Sending password reset email..."
-    : isRequestingEmailConfirmation
-    ? "Sending email confirmation..."
-    : "";
 
   return (
     <div className="flex items-start justify-center px-4 md:px-8 relative">
       {/* Loading Overlay */}
-      {isLoading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-          <Spinner size="xl" text={loadingMessage} />
-        </div>
-      )}
+      {isLoading && <Spinner size="xl" fullScreen />}
 
       <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">

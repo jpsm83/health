@@ -1,6 +1,4 @@
-- updating profile not working
-
-- subscribe login not working
+- subscribe logic not working
 
 - reset password logic need review
 

@@ -8,7 +8,11 @@ import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import { IUser, IUserPreferences } from "@/types/user";
 import { roles } from "@/lib/constants";
-import { getUserByIdService, deactivateUserService, updateUserService } from "@/lib/services/users";
+import {
+  getUserByIdService,
+  deactivateUserService,
+  updateUserService,
+} from "@/lib/services/users";
 
 // @desc    Get user by userId
 // @route   GET /users/[userId]
@@ -92,14 +96,7 @@ export const PATCH = async (
     }
 
     // Validate required fields
-    if (
-      !username ||
-      !email ||
-      !role ||
-      !birthDate ||
-      !language ||
-      !region
-    ) {
+    if (!username || !email || !role || !birthDate || !language || !region) {
       return NextResponse.json(
         {
           message:
@@ -258,20 +255,34 @@ export const PATCH = async (
         updateData,
       });
 
+      // Fetch updated user to return in response
+      const updatedUser = await getUserByIdService(userId);
+
+      if (!updatedUser) {
+        return NextResponse.json(
+          { message: "User not found after update" },
+          { status: 404 }
+        );
+      }
+
       return NextResponse.json(
-        { message: "User updated successfully" },
+        {
+          message: "User updated successfully",
+          data: updatedUser,
+        },
         { status: 200 }
       );
     } catch (serviceError) {
-      const errorMessage = serviceError instanceof Error ? serviceError.message : "Unknown error";
-      
+      const errorMessage =
+        serviceError instanceof Error ? serviceError.message : "Unknown error";
+
       if (errorMessage.includes("not found")) {
         return NextResponse.json(
           { message: "User not found" },
           { status: 404 }
         );
       }
-      
+
       throw serviceError;
     }
   } catch (error) {
@@ -318,7 +329,7 @@ export const DELETE = async (
     // Check authorization first
     await connectDb();
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return NextResponse.json({ message: "User not found!" }, { status: 404 });
     }

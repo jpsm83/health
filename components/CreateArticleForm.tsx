@@ -199,11 +199,7 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
       {/* Article Creation Form */}
       <div className="bg-white rounded-lg shadow-md p-6 relative">
         {/* Loading Overlay */}
-        {isSubmitting && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-lg">
-            <Spinner size="lg" text={t("form.submitting") || "Creating article..."} />
-          </div>
-        )}
+        {isSubmitting && <Spinner size="lg" overlay text={t("form.submitting") || "Creating article..."} />}
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           {error && (

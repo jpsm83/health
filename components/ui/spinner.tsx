@@ -33,19 +33,26 @@ export default function Spinner({
         className
       )}
     >
-      <Loader2
-        className={cn(
-          "animate-spin",
-          sizeClasses[size],
-          className
-        )}
-        style={{
-          background: "linear-gradient(to right, #7537fa, #ff006a)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          color: "transparent",
-        }}
-      />
+      <div className={cn("relative inline-flex items-center justify-center", sizeClasses[size])}>
+        <div
+          className="absolute inset-0 animate-spin"
+          style={{
+            background: "linear-gradient(to right, #7537fa, #ff006a)",
+            maskImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-6.219-8.56'/%3E%3C/svg%3E\")",
+            WebkitMaskImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-6.219-8.56'/%3E%3C/svg%3E\")",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            maskSize: "100%",
+            WebkitMaskSize: "100%",
+          }}
+        />
+        <Loader2
+          className={cn(sizeClasses[size], "opacity-0")}
+          aria-hidden="true"
+        />
+      </div>
       {text && (
         <p className="text-sm text-gray-600 dark:text-gray-400">{text}</p>
       )}
@@ -54,7 +61,7 @@ export default function Spinner({
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
         {spinner}
       </div>
     );

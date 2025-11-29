@@ -71,7 +71,9 @@ export default function Navbar() {
       const base = locale === "en" ? "" : `/${locale}`;
       // Close popup immediately, navigate immediately
       setIsSearchPopupOpen(false);
-      router.push(`${base}/search?q=${encodeURIComponent(localSearchTerm.trim())}`);
+      router.push(
+        `${base}/search?q=${encodeURIComponent(localSearchTerm.trim())}`
+      );
     } else {
       setIsSearchPopupOpen(false);
       router.push(homeHref);
@@ -106,7 +108,7 @@ export default function Navbar() {
       suppressHydrationWarning
     >
       {/* Top navigation */}
-      <div className="relative flex justify-between items-center h-16 px-2 sm:px-6 lg:px-8">
+      <div className="relative flex justify-between items-center h-16 md:h-20 px-2 sm:px-6 lg:px-8">
         {/* Left: User Menu */}
         <div className="flex items-center gap-2 md:gap-4">
           <div className="md:hidden">
@@ -138,7 +140,7 @@ export default function Navbar() {
         >
           <Heart size={24} />
           <span
-            className="text-xl font-bold"
+            className="text-2xl font-bold"
             style={{
               textShadow:
                 "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
@@ -161,7 +163,10 @@ export default function Navbar() {
               className="text-gray-200 hover:bg-white/20 hover:text-white text-xs sm:text-sm whitespace-nowrap shrink-0"
             >
               <Link
-                href={`/${locale}/${translateCategoryToLocale(category, locale)}`}
+                href={`/${locale}/${translateCategoryToLocale(
+                  category,
+                  locale
+                )}`}
                 prefetch={false}
                 style={{
                   textShadow:

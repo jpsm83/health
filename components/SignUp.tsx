@@ -214,14 +214,7 @@ export default function SignUp({ locale }: SignUpProps) {
   return (
     <div className="max-w-md mx-auto">
       {/* Loading Overlay */}
-      {isLoading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-          <Spinner
-            size="xl"
-            text={t("creatingAccount") || "Creating account..."}
-          />
-        </div>
-      )}
+      {isLoading && <Spinner size="xl" fullScreen text={t("creatingAccount") || "Creating account..."} />}
 
       <div className="bg-white py-8 px-4 shadow sm:px-10 space-y-6">
         <p className="text-center text-sm text-gray-600 mb-6">

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/carousel";
 import { useTranslations, useLocale } from "next-intl";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
+import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
@@ -225,6 +226,11 @@ export default function CategoryCarousel({
 
   if (articles.length === 0 && !loading) {
     return null;
+  }
+
+  // Show skeleton while loading
+  if (loading && articles.length === 0) {
+    return <CategoryCarouselSkeleton />;
   }
 
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);

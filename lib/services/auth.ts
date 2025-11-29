@@ -78,7 +78,9 @@ export async function confirmEmailService(token: string): Promise<void> {
   });
 
   if (!user) {
-    throw new Error("Invalid verification token. Please request a new confirmation link.");
+    throw new Error(
+      "Invalid verification token. Please request a new confirmation link."
+    );
   }
 
   // Check if email is already verified
@@ -198,7 +200,8 @@ export async function sendPasswordResetEmail(
   if (!result.user) {
     return {
       success: true,
-      message: "If an account with that email exists, a password reset link has been sent.",
+      message:
+        "If an account with that email exists, a password reset link has been sent.",
     };
   }
 
@@ -229,12 +232,16 @@ export async function sendPasswordResetEmail(
       html: emailContent.html,
       text: emailContent.text,
     });
-    
-    console.log("Password reset email sent successfully:", emailResult.messageId);
+
+    console.log(
+      "Password reset email sent successfully:",
+      emailResult.messageId
+    );
 
     return {
       success: true,
-      message: "If an account with that email exists, a password reset link has been sent.",
+      message:
+        "If an account with that email exists, a password reset link has been sent.",
     };
   } catch (emailError) {
     console.error("Failed to send password reset email:", emailError);
@@ -276,7 +283,9 @@ export async function resetPasswordService(
   });
 
   if (!user) {
-    throw new Error("Invalid or expired reset token. Please request a new password reset link.");
+    throw new Error(
+      "Invalid or expired reset token. Please request a new password reset link."
+    );
   }
 
   // Hash new password
@@ -289,4 +298,3 @@ export async function resetPasswordService(
     resetPasswordExpires: undefined,
   });
 }
-

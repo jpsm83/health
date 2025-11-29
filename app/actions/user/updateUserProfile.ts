@@ -2,42 +2,63 @@
 
 import { IUpdateProfileData, ISerializedUser } from "@/types/user";
 import { IApiResponse } from "@/types/api";
+import { cookies } from "next/headers";
 
-// Note: This action calls the API route because the route handles
-// FormData parsing, file uploads, and Cloudinary cleanup.
-// For file uploads, call the route directly with FormData from the frontend.
+// Note: We use the API route instead of calling the service directly
+// because file uploads require Cloudinary handling which is done in the route
+const getBaseUrl = (): string => {
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
+  }
+  if (
+    typeof process.env.NEXT_PUBLIC_BASE_URL === "string" &&
+    process.env.NEXT_PUBLIC_BASE_URL.length > 0
+  ) {
+    return process.env.NEXT_PUBLIC_BASE_URL;
+  }
+  throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
+};
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ||
-  (process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "http://localhost:3000");
+const buildFormData = (profileData: IUpdateProfileData): FormData => {
+  const formData = new FormData();
+
+  if (profileData.username) formData.append("username", profileData.username);
+  if (profileData.email) formData.append("email", profileData.email);
+  if (profileData.role) formData.append("role", profileData.role);
+  if (profileData.birthDate)
+    formData.append("birthDate", profileData.birthDate);
+  if (profileData.preferences) {
+    formData.append("language", profileData.preferences.language);
+    formData.append("region", profileData.preferences.region);
+  }
+  if (profileData.imageFile) {
+    formData.append("imageFile", profileData.imageFile);
+  }
+
+  return formData;
+};
+
+const getCookieHeader = async (): Promise<string> => {
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll();
+  return allCookies.map((c) => `${c.name}=${c.value}`).join("; ");
+};
 
 export async function updateUserProfile(
   userId: string | { toString(): string },
   profileData: IUpdateProfileData
 ): Promise<IApiResponse<ISerializedUser>> {
   try {
-    // Convert userId to string if it's an object
-    const userIdStr = typeof userId === 'string' ? userId : userId.toString();
-
-    // Note: The route expects FormData for file uploads
-    // For JSON-only updates, we can send JSON, but for file uploads use FormData
-    const formData = new FormData();
-    if (profileData.username) formData.append("username", profileData.username);
-    if (profileData.email) formData.append("email", profileData.email);
-    if (profileData.role) formData.append("role", profileData.role);
-    if (profileData.birthDate) formData.append("birthDate", profileData.birthDate);
-    if (profileData.preferences) {
-      formData.append("language", profileData.preferences.language);
-      formData.append("region", profileData.preferences.region);
-    }
-    if (profileData.imageFile) {
-      formData.append("imageFile", profileData.imageFile);
-    }
+    const userIdStr = typeof userId === "string" ? userId : userId.toString();
+    const formData = buildFormData(profileData);
+    const cookieHeader = await getCookieHeader();
+    const baseUrl = getBaseUrl();
 
     const response = await fetch(`${baseUrl}/api/v1/users/${userIdStr}`, {
       method: "PATCH",
+      headers: {
+        ...(cookieHeader && { Cookie: cookieHeader }),
+      },
       body: formData,
     });
 
@@ -53,35 +74,16 @@ export async function updateUserProfile(
     return {
       success: true,
       message: result.message || "User profile updated successfully",
+      data: result.data,
     };
   } catch (error) {
-    console.error("Error updating user profile:", error);
-    const errorMessage = error instanceof Error ? error.message : "Failed to update user profile";
-    
-    if (errorMessage.includes("Invalid user ID format")) {
-      return {
-        success: false,
-        message: "Invalid user ID format",
-      };
-    }
-    
-    if (errorMessage.includes("not found")) {
-      return {
-        success: false,
-        message: "User not found",
-      };
-    }
-    
-    if (errorMessage.includes("not authorized")) {
-      return {
-        success: false,
-        message: "You are not authorized to update this user!",
-      };
-    }
-
+    console.error("[updateUserProfile] Error:", error);
     return {
       success: false,
-      message: errorMessage,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Failed to update user profile",
     };
   }
 }

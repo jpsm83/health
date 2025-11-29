@@ -66,11 +66,7 @@ export default function NewsletterSignup() {
   return (
     <section className="w-full max-w-[970px] mx-auto px-3 bg-gradient-left-right p-8 md:p-12 text-center text-white shadow-xl relative">
       {/* Loading Overlay */}
-      {isLoading && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 backdrop-blur-sm rounded-lg">
-          <Spinner size="lg" text="Subscribing..." className="text-white" />
-        </div>
-      )}
+      {isLoading && <Spinner size="lg" overlay text="Subscribing..." />}
 
       {/* Icon */}
       <div className="mb-6 flex justify-center">

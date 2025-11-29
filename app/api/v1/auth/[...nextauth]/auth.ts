@@ -42,6 +42,8 @@ declare module "next-auth" {
 
   interface JWT {
     id: string;
+    email?: string;
+    name?: string;
     role: string;
     imageUrl?: string;
   }
@@ -263,13 +265,17 @@ const authOptions: NextAuthConfig = {
     },
 
     async jwt({ token, user }) {
+      // Initial sign-in: persist user data to token
       if (user) {
         token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
         token.role = user.role;
         token.imageUrl = user.imageUrl;
+        return token;
       }
 
-      // If Google, make sure we sync with DB
+      // Subsequent requests: sync with DB for Google OAuth users
       if (token.email) {
         await connectDb();
         const dbUser = (await User.findOne({ email: token.email })
