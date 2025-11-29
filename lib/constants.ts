@@ -43,25 +43,68 @@ export const categoryHeroImages = {
   "weight-loss":
     "https://res.cloudinary.com/jpsm83/image/upload/v1760860863/health/cxcinavpch40pcxxfooo.jpg",
   life: "https://res.cloudinary.com/jpsm83/image/upload/v1760860888/health/oymcvrxmvggo547lsqau.jpg",
-  "search-results": "https://res.cloudinary.com/jpsm83/image/upload/v1760170369/health/krxqbddm7g2xegyjzdhj.jpg",
-  "search-no-results": "https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg",
-  favorites: "https://res.cloudinary.com/jpsm83/image/upload/v1762840769/health/lctiqsxlb9szuuzphb99.jpg",
+  "search-results":
+    "https://res.cloudinary.com/jpsm83/image/upload/v1760170369/health/krxqbddm7g2xegyjzdhj.jpg",
+  "search-no-results":
+    "https://res.cloudinary.com/jpsm83/image/upload/v1760168603/health/bszqgxauhdetbqrpdzw8.jpg",
+  favorites:
+    "https://res.cloudinary.com/jpsm83/image/upload/v1762840769/health/lctiqsxlb9szuuzphb99.jpg",
 } as const;
 
+// https://www.amazon.[TLD]/s?k=[SEARCH_TERM]&tag=[YOUR_AFFILIATE_ID]
+// https://www.amazon.es/s?k=book+life&tag=womensspotorg-21
+// [TLD] → country domain (co.uk, com, es, de…)
+// [SEARCH_TERM] → URL-encoded search query (e.g., creatine+powder)
+// tag=[YOUR_AFFILIATE_ID] → your affiliate tag
 export const affiliateCompanies = {
   amazon: {
     logo: "https://res.cloudinary.com/jpsm83/image/upload/v1763812333/health/banner/av1g80lt4qcbhdu4jdv7.png",
-    baseUrl: "https://www.amazon.com",
-    affiliateId: {
-      US: "yourtag-us-20",
-      CA: "yourtag-ca-20",
-      GB: "yourtag-uk-20",
-      IE: "yourtag-uk-20",
-      FR: "yourtag-fr-20",
-      ES: "yourtag-es-20",
-      PT: "yourtag-es-20",
-      IT: "yourtag-it-20",
-      DE: "yourtag-de-20",
+    baseUrl: "https://www.amazon.",
+    country: {
+      us: {
+        domain: "com",
+        affiliateId: "womensspotorg-20",
+      },
+      uk: {
+        domain: "co.uk",
+        affiliateId: "womensspoto05-21",
+      },
+      ca: {
+        domain: "ca",
+        affiliateId: "womensspoto0f-20",
+      },
+      au: {
+        domain: "com.au",
+        affiliateId: "womensspotorg-22",
+      },
+      ie: {
+        domain: "ie",
+        affiliateId: "womensspoto06-21",
+      },
+      br: {
+        domain: "com.br",
+        affiliateId: "womensspoto08-20",
+      },
+      es: {
+        domain: "es",
+        affiliateId: "womensspotorg-21",
+      },
+      it: {
+        domain: "it",
+        affiliateId: "womensspoto04-21",
+      },
+      fr: {
+        domain: "fr",
+        affiliateId: "womensspoto02-21",
+      },
+      de: {
+        domain: "de",
+        affiliateId: "womensspoto0f-21",
+      },
+      nl: {
+        domain: "nl",
+        affiliateId: "womensspoto03-21",
+      },
     },
   },
 } as const;

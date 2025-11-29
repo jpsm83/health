@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useState, useEffect } from "react";
 import { banners, affiliateCompanies } from "@/lib/constants";
 import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
+import { buildAffiliateUrl } from "@/lib/utils/buildAffiliateUrl";
+import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
 
 type BannerSize = "970x90" | "970x240" | "240x390" | "240x240" | "390x240";
 
@@ -12,6 +15,7 @@ interface ProductsBannerProps {
   product?: string;
   category?: string;
   affiliateCompany: keyof typeof affiliateCompanies;
+  region?: string; // Optional - server can pass it for better performance
 }
 
 export default function ProductsBanner({
@@ -19,9 +23,41 @@ export default function ProductsBanner({
   product,
   category,
   affiliateCompany,
+  region: regionProp,
 }: ProductsBannerProps) {
   const t = useTranslations("productsBanner");
   
+  // Use server-provided region or fallback to client detection
+  const [region, setRegion] = useState<string>(regionProp || "US");
+
+  // Only detect on client if server didn't provide region
+  useEffect(() => {
+    if (!regionProp && typeof window !== "undefined") {
+      getUserRegion()
+        .then((country) => {
+          if (country && typeof country === "string" && country.length === 2) {
+            setRegion(country.toUpperCase());
+          }
+        })
+        .catch((error) => {
+          console.error("Region detection failed:", error);
+          
+          // Fallback to browser language
+          try {
+            const browserLanguage = navigator.language || "en-US";
+            const browserRegion = browserLanguage.split("-")[1] || "US";
+            setRegion(browserRegion.toUpperCase());
+          } catch (fallbackError) {
+            console.error("Browser language fallback failed:", fallbackError);
+            // Keep default "US"
+          }
+        });
+    }
+  }, [regionProp]);
+
+  // Build affiliate URL
+  const affiliateUrl = buildAffiliateUrl(affiliateCompany, region, product, category);
+    
   // Get banner URL with type safety
   // All categories have all banner sizes defined in constants, so URL will always exist
   const bannerCategory = category ? category : "life";
@@ -43,7 +79,7 @@ export default function ProductsBanner({
       ? "w-full h-full"
       : "h-[240px] w-full md:h-full";
 
-  return (
+  const BannerContent = (
     <div className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
       <div
         className={`relative ${sizeClass} overflow-hidden shadow-md hover:shadow-lg transition-all duration-300`}
@@ -237,5 +273,17 @@ export default function ProductsBanner({
         )}
       </div>
     </div>
+  );
+
+  // Wrap in anchor tag (always has URL now, even without product)
+  return (
+    <a
+      href={affiliateUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full h-full"
+    >
+      {BannerContent}
+    </a>
   );
 }
