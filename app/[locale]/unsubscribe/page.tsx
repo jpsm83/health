@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import UnsubscribeUI from "@/components/UnsubscribeUI";
+import UnsubscribeUI from "@/components/server/UnsubscribeUI";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";

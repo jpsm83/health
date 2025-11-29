@@ -1,14 +1,18 @@
-- review all the skeletons to match the component
-
 - updating profile not working
 
-- organize components folder
+- subscribe login not working
 
-- filter shows a icon, not input
+- reset password logic need review
+
+- forgot password logic need review
+
+- unsubscirbe logic need review
+
+- unsubscribe page an logic need review
+
+- implement create article
 
 - update documentation
-
-- subscribe login not working
 
 - slow page navigation with pagination (fetch cache issues)
 Option 2: SWR or TanStack Query (recommended)
@@ -24,13 +28,3 @@ Use SWR/TanStack Query to fetch and cache pages
 Cache key: category-${category}-page-${page}-locale-${locale}
 Instant navigation for cached pages
 Implementation complexity: Medium (requires client component wrapper)
-
-- reset password logic need review
-
-- forgot password logic need review
-
-- unsubscirbe logic need review
-
-- unsubscribe page an logic need review
-
-- implement create article

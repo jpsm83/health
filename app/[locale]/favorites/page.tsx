@@ -12,6 +12,8 @@ import PaginationSection from "@/components/server/PaginationSection";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
+import HeroCountUpdater from "@/components/HeroCountUpdater";
+import { HeroDescriptionProvider } from "@/components/HeroDescriptionContext";
 
 export async function generateMetadata({
   params,
@@ -37,7 +39,6 @@ export default async function FavoritesPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { locale } = await params;
-  const { page = "1" } = await searchParams;
 
   // Server-side auth check
   const session = await auth();
@@ -48,76 +49,68 @@ export default async function FavoritesPage({
 
   const t = await getTranslations({ locale, namespace: "favorites" });
 
-  // Fetch favorites count for hero description (similar to search page)
-  let totalCount = 0;
-  try {
-    const result = await getUserLikedArticles(
-      session.user.id,
-      1, // page 1 just to get count
-      10, // limit doesn't matter for count
-      locale
-    );
-    totalCount = result.totalDocs || 0;
-  } catch (error) {
-    console.error("Error fetching favorites count:", error);
-  }
+  // Render immediately - no blocking data fetch
+  // Static components render right away, Suspense handles data loading
 
-  // Hero text with actual count
-  const heroTitle = t("title");
-  const heroDescription = t("subtitle", { count: totalCount });
+  const initialDescription = t("subtitle", { count: 0 });
 
   return (
     <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Favorites page"}>
-        <div className="flex flex-col h-full gap-8 md:gap-16">
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        <HeroDescriptionProvider initialDescription={initialDescription}>
+          <div className="flex flex-col h-full gap-8 md:gap-16">
+            {/* Products Banner - renders immediately */}
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-          {/* Hero Section */}
-          <HeroSection
-            locale={locale}
-            title={heroTitle}
-            description={heroDescription}
-            alt={t("heroImageAlt")}
-            imageKey="favorites"
-          />
+            {/* Hero Section - renders immediately with placeholder count */}
+            <HeroSection
+              locale={locale}
+              title={t("title")}
+              description={initialDescription}
+              alt={t("heroImageAlt")}
+              imageKey="favorites"
+            />
 
-          {/* Favorites Section with Pagination */}
-          <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
-            <FavoritesContent locale={locale} page={page as string} />
-          </Suspense>
+            {/* Favorites Section - Suspense shows skeleton while loading */}
+            <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+              <FavoritesContent
+                locale={locale}
+                searchParams={searchParams}
+                userId={session.user.id}
+              />
+            </Suspense>
 
-          {/* Newsletter Signup Section */}
-          <NewsletterSignup />
+            {/* Newsletter Signup Section */}
+            <NewsletterSignup />
 
-          {/* Products Banner */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" />
-        </div>
+            {/* Products Banner */}
+            <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          </div>
+        </HeroDescriptionProvider>
       </ErrorBoundary>
     </main>
   );
 }
 
-// Favorites Content Component
+// Favorites Content Component - handles ALL data fetching
 async function FavoritesContent({
   locale,
-  page,
+  searchParams,
+  userId,
 }: {
   locale: string;
-  page: string;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  userId: string;
 }) {
   const ARTICLES_PER_PAGE = 10;
-  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+  const resolvedParams = await searchParams;
+  const pageParam = resolvedParams.page || "1";
+  const currentPage = Math.max(1, parseInt(pageParam as string, 10) || 1);
 
-  // Check auth inside component
-  const session = await auth();
-  if (!session?.user?.id) {
-    return null;
-  }
-
+  // Fetch data here - this is what Suspense waits for
   try {
     const result = await getUserLikedArticles(
-      session.user.id,
+      userId,
       currentPage,
       ARTICLES_PER_PAGE,
       locale
@@ -129,9 +122,20 @@ async function FavoritesContent({
 
     const articles = result.data || [];
     const totalPages = result.totalPages || 1;
+    const totalDocs = result.totalDocs || 0;
+
+    // Get translations for updated description
+    const { getTranslations } = await import("next-intl/server");
+    const t = await getTranslations({ locale, namespace: "favorites" });
+
+    // Create updated description with actual count
+    const updatedDescription = t("subtitle", {
+      count: totalDocs,
+    });
 
     return (
       <>
+        <HeroCountUpdater descriptionText={updatedDescription} />
         {articles && articles.length > 0 && (
           <FeaturedArticles articles={articles} />
         )}
@@ -139,7 +143,7 @@ async function FavoritesContent({
           <PaginationSection
             type="favorites"
             locale={locale}
-            page={page}
+            page={pageParam as string}
             totalPages={totalPages}
           />
         )}

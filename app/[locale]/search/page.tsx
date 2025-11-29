@@ -11,6 +11,8 @@ import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPag
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import HeroCountUpdater from "@/components/HeroCountUpdater";
+import { HeroDescriptionProvider } from "@/components/HeroDescriptionContext";
 
 export async function generateMetadata({
   params,
@@ -52,7 +54,7 @@ export default async function SearchPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { locale } = await params;
-  const { page = "1", q } = await searchParams;
+  const { q } = await searchParams;
   const query = q as string;
 
   // Redirect to home if no search query
@@ -62,79 +64,68 @@ export default async function SearchPage({
 
   const t = await getTranslations({ locale, namespace: "search" });
 
-  // Fetch search count for hero description
-  let totalCount = 0;
-  try {
-    const searchResult = await searchArticlesPaginated({
-      query: query.trim(),
-      locale,
-      page: 1,
-      sort: "createdAt",
-      order: "desc",
-      limit: 10,
-    });
-    totalCount = searchResult.totalDocs || 0;
-  } catch (error) {
-    console.error("Error fetching search count:", error);
-  }
+  // Render immediately - no blocking data fetch
+  // Static components render right away, Suspense handles data loading
 
-  // Hero text with actual count
-  const heroTitle = t("resultsTitle");
-  const heroDescription = t("resultsFound", {
-    count: totalCount,
+  const initialDescription = t("resultsFound", {
+    count: 0,
     query: query,
   });
-  const heroImageKey = "search-results";
 
   return (
     <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Search page"}>
-        <div className="flex flex-col h-full gap-8 md:gap-16">
-          {/* Products Banner */}
-        <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        <HeroDescriptionProvider initialDescription={initialDescription}>
+          <div className="flex flex-col h-full gap-8 md:gap-16">
+            {/* Products Banner - renders immediately */}
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-          {/* Hero Section */}
-          <HeroSection
-            locale={locale}
-            title={heroTitle}
-            description={heroDescription}
-            alt={t("heroImageAlt")}
-            imageKey={heroImageKey}
-          />
-
-          {/* Search Results Section with Pagination */}
-          <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
-            <SearchResultsContent
-              query={query}
+            {/* Hero Section - renders immediately with placeholder count */}
+            <HeroSection
               locale={locale}
-              page={page as string}
+              title={t("resultsTitle")}
+              description={initialDescription}
+              alt={t("heroImageAlt")}
+              imageKey="search-results"
             />
-          </Suspense>
 
-          {/* Newsletter Signup Section */}
-          <NewsletterSignup />
+            {/* Search Results Section - Suspense shows skeleton while loading */}
+            <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+              <SearchResultsContent
+                query={query}
+                locale={locale}
+                searchParams={searchParams}
+              />
+            </Suspense>
 
-          {/* Products Banner */}
-        <ProductsBanner size="970x240" affiliateCompany="amazon" />
-        </div>
+            {/* Newsletter Signup Section - renders immediately */}
+            <NewsletterSignup />
+
+            {/* Products Banner - renders immediately */}
+            <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          </div>
+        </HeroDescriptionProvider>
       </ErrorBoundary>
     </main>
   );
 }
 
-// Search Results Content Component
+// Search Results Content Component - handles ALL data fetching
 async function SearchResultsContent({
   query,
   locale,
-  page,
+  searchParams,
 }: {
   query: string;
   locale: string;
-  page: string;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const ARTICLES_PER_PAGE = 10;
-  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+  const resolvedParams = await searchParams;
+  const pageParam = resolvedParams.page || "1";
+  const currentPage = Math.max(1, parseInt(pageParam as string, 10) || 1);
 
+  // Fetch data here - this is what Suspense waits for
   try {
     const searchResult = await searchArticlesPaginated({
       query: query.trim(),
@@ -147,9 +138,21 @@ async function SearchResultsContent({
 
     const searchResults = searchResult.data || [];
     const totalPages = searchResult.totalPages || 1;
+    const totalDocs = searchResult.totalDocs || 0;
+
+    // Get translations for updated description
+    const { getTranslations } = await import("next-intl/server");
+    const t = await getTranslations({ locale, namespace: "search" });
+
+    // Create updated description with actual count
+    const updatedDescription = t("resultsFound", {
+      count: totalDocs,
+      query: query,
+    });
 
     return (
       <>
+        <HeroCountUpdater descriptionText={updatedDescription} />
         {searchResults && searchResults.length > 0 && (
           <FeaturedArticles articles={searchResults} />
         )}
@@ -158,7 +161,7 @@ async function SearchResultsContent({
             type="search"
             locale={locale}
             query={query}
-            page={page}
+            page={pageParam as string}
             totalPages={totalPages}
           />
         )}

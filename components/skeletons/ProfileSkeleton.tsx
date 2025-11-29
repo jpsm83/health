@@ -5,12 +5,10 @@ export function ProfileSkeleton() {
     <div className="flex items-start justify-center px-4 md:px-8">
       <div className="max-w-6xl w-full space-y-6 md:space-y-8 md:bg-white p-4 md:p-8 md:rounded-lg md:shadow-lg">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-          {/* Profile Image Section Skeleton */}
-          <div className="relative">
+          {/* Profile Image */}
             <Skeleton className="w-24 h-24 md:w-32 md:h-32 rounded-full" />
-          </div>
 
-          {/* Header Info Skeleton */}
+          {/* Header Info */}
           <div className="flex-1 w-full text-center md:text-left">
             <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between space-y-4 md:space-y-0">
               <div className="flex-1">
@@ -18,21 +16,13 @@ export function ProfileSkeleton() {
                 <Skeleton className="h-4 w-64 mx-auto md:mx-0 mb-2" />
                 <Skeleton className="h-5 w-32 mx-auto md:mx-0" />
               </div>
-
-              {/* Language Selector Skeleton */}
-              <div className="relative flex items-center space-x-2">
-                <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-8 w-8 rounded-full" />
-              </div>
             </div>
 
-            {/* Quick Stats Skeleton */}
+            {/* Quick Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-4">
               {Array.from({ length: 3 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-2 md:space-x-3 p-2 md:p-3 bg-gray-50 rounded-lg"
-                >
+                <div key={index} className="flex items-center space-x-2 p-2 md:p-3 rounded-lg">
                   <Skeleton className="w-4 h-4 md:w-5 md:h-5 rounded-full" />
                   <div className="min-w-0">
                     <Skeleton className="h-4 w-20 mb-1" />
@@ -44,20 +34,17 @@ export function ProfileSkeleton() {
           </div>
         </div>
 
-        {/* Email Confirmation Request Skeleton */}
+        {/* Email Confirmation */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
           <Skeleton className="h-10 w-48 rounded" />
           <Skeleton className="h-4 w-64" />
         </div>
 
-        {/* Form Skeleton */}
+        {/* Form Sections */}
         <div className="space-y-6 md:space-y-8">
-          {/* Personal Information Section Skeleton */}
+          {/* Personal Information */}
           <div>
-            <div className="flex items-center mb-3 md:mb-4">
-              <Skeleton className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <Skeleton className="h-6 w-32" />
-            </div>
+            <Skeleton className="h-6 w-32 mb-4" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div>
                 <Skeleton className="h-4 w-20 mb-2" />
@@ -70,52 +57,28 @@ export function ProfileSkeleton() {
             </div>
           </div>
 
-          {/* Category Interests Section Skeleton */}
+          {/* Category Interests */}
           <div>
-            <div className="flex items-center mb-3 md:mb-4">
-              <Skeleton className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <Skeleton className="h-6 w-40" />
-            </div>
-
-            {/* Newsletter Frequency Skeleton */}
-            <div className="mb-4 md:mb-6">
+            <Skeleton className="h-6 w-40 mb-4" />
               <Skeleton className="h-4 w-36 mb-2" />
-              <Skeleton className="h-10 w-full rounded" />
-            </div>
-
-            {/* Categories Grid Skeleton */}
-            <div className="mb-4 md:mb-6">
+            <Skeleton className="h-10 w-full rounded mb-4" />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {Array.from({ length: 8 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="border border-gray-50 rounded-lg p-2 md:p-3 bg-gray-50"
-                  >
-                    <div className="flex items-center justify-between">
-                      <Skeleton className="h-4 w-20 flex-1" />
-                      <Skeleton className="h-4 w-4 rounded flex-shrink-0 ml-2" />
-                    </div>
-                  </div>
+                <Skeleton key={index} className="h-12 w-full rounded-lg" />
                 ))}
-              </div>
             </div>
           </div>
 
-          {/* Security Section Skeleton */}
+          {/* Security */}
           <div>
-            <div className="flex items-center mb-3 md:mb-4">
-              <Skeleton className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <Skeleton className="h-6 w-20" />
-            </div>
-            <div className="space-y-4">
+            <Skeleton className="h-6 w-20 mb-4" />
               <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                 <Skeleton className="h-10 w-32 rounded" />
                 <Skeleton className="h-4 w-64" />
-              </div>
             </div>
           </div>
 
-          {/* Save Button Skeleton */}
+          {/* Save Button */}
           <div className="flex flex-col items-center md:items-end space-y-2">
             <Skeleton className="h-10 w-24 rounded" />
             <Skeleton className="h-4 w-48" />

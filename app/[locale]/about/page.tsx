@@ -4,8 +4,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
-import AboutCategoriesSection from "@/components/about/AboutCategoriesSection";
-import AboutCallToActionSection from "@/components/about/AboutCallToActionSection";
+import AboutCategoriesSection from "@/components/AboutCategoriesSection";
+import AboutCallToActionSection from "@/components/AboutCallToActionSection";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));

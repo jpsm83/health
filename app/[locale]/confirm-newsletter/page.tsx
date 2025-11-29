@@ -1,12 +1,10 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import ConfirmNewsletterUI from "@/components/ConfirmNewsletterUI";
-import { ConfirmNewsletterSkeleton } from "@/components/skeletons/ConfirmNewsletterSkeleton";
+import ConfirmNewsletterUI from "@/components/server/ConfirmNewsletterUI";
 import confirmNewsletterSubscriptionAction, {
   NewsletterConfirmResult,
 } from "@/app/actions/subscribers/confirmNewsletterSubscription";
@@ -78,7 +76,6 @@ export default async function ConfirmNewsletterPage({
 
           {/* Confirm Newsletter Section */}
           <section className="space-y-6 md:space-y-12">
-            <Suspense fallback={<ConfirmNewsletterSkeleton />}>
               <ConfirmNewsletterUI
                 result={result}
                 initialStatus={initialStatus}
@@ -98,7 +95,6 @@ export default async function ConfirmNewsletterPage({
                   },
                 }}
               />
-            </Suspense>
           </section>
 
           {/* Bottom banner - lazy loaded */}

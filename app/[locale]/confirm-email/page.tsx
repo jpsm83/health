@@ -1,12 +1,10 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import ConfirmEmailUI from "@/components/ConfirmEmailUI";
-import { ConfirmEmailSkeleton } from "@/components/skeletons/ConfirmEmailSkeleton";
+import ConfirmEmailUI from "@/components/server/ConfirmEmailUI";
 import confirmEmailAction, {
   ConfirmEmailResult,
 } from "@/app/actions/auth/confirmEmail";
@@ -75,7 +73,6 @@ export default async function ConfirmEmailPage({
 
           {/* Confirm Email Section */}
           <section className="space-y-6 md:space-y-12">
-            <Suspense fallback={<ConfirmEmailSkeleton />}>
               <ConfirmEmailUI
                 result={result}
                 initialStatus={initialStatus}
@@ -95,7 +92,6 @@ export default async function ConfirmEmailPage({
                   },
                 }}
               />
-            </Suspense>
           </section>
 
           {/* Bottom banner - lazy loaded */}

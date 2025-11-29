@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import {
   generateArticleMetadata,
   generateArticleNotFoundMetadata,
@@ -8,8 +7,7 @@ import { languageMap } from "@/lib/utils/genericMetadata";
 import { IMetaDataArticle } from "@/types/article";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { getArticleBySlug } from "@/app/actions/article/getArticleBySlug";
-import ArticleWithDeleteModal from "@/components/article/ArticleWithDeleteModal";
-import { ArticleDetailSkeleton } from "@/components/skeletons/ArticleDetailSkeleton";
+import ArticleWithDeleteModal from "@/components/ArticleWithDeleteModal";
 import { Metadata, Viewport } from "next";
 import { mainCategories } from "@/lib/constants";
 import { notFound } from "next/navigation";
@@ -19,7 +17,6 @@ import CategoryCarousel from "@/components/CategoryCarousel";
 import { getTranslations } from "next-intl/server";
 import SocialShare from "@/components/SocialShare";
 import SectionHeader from "@/components/server/SectionHeader";
-import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
 import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 export async function generateMetadata({
@@ -286,9 +283,7 @@ export default async function ArticlePage({
           />
 
           {/* Article Detail Section */}
-          <Suspense fallback={<ArticleDetailSkeleton />}>
-            <ArticleWithDeleteModal articleData={articleData} />
-          </Suspense>
+          <ArticleWithDeleteModal articleData={articleData} />
 
           {/* Social Share Section */}
           <div className="text-center">
@@ -311,9 +306,7 @@ export default async function ArticlePage({
             />
 
             {/* Category Carousel Section */}
-            <Suspense fallback={<CategoryCarouselSkeleton />}>
-              <CategoryCarousel category={articleData.category} />
-            </Suspense>
+            <CategoryCarousel category={articleData.category} />
           </section>
 
           {/* Bottom banner - lazy loaded */}

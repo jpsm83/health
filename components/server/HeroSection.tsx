@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { categoryHeroImages } from "@/lib/constants";
 import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
+import HeroDescription from "@/components/HeroDescription";
 
 interface HeroSectionProps {
   locale: string;
@@ -63,15 +64,7 @@ export default async function HeroSection({
           >
             {titleText}
           </h1>
-          <p
-            className="text-lg md:text-xl text-white max-w-2xl mx-auto drop-shadow-lg"
-            style={{
-              textShadow:
-                "1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)",
-            }}
-          >
-            {descriptionText}
-          </p>
+          <HeroDescription fallbackDescription={descriptionText} />
         </div>
       </div>
     </section>

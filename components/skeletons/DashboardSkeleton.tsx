@@ -1,29 +1,23 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { BookOpen, Eye, Heart, MessageCircle } from "lucide-react";
 
 export function DashboardSkeleton() {
   return (
     <div className="space-y-2 m-2 md:m-4">
-      {/* Stats Grid Skeleton */}
+      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-2">
         {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
             className="bg-white shadow-md p-2 flex flex-col items-center justify-center"
           >
-            <div className="text-xl mb-1 text-gray-300">
-              {index === 0 && <BookOpen className="opacity-30" />}
-              {index === 1 && <Eye className="opacity-30" />}
-              {index === 2 && <Heart className="opacity-30" />}
-              {index === 3 && <MessageCircle className="opacity-30" />}
-            </div>
+            <Skeleton className="w-6 h-6 mb-1 rounded" />
             <Skeleton className="h-3 w-16 mb-0.5" />
             <Skeleton className="h-6 w-12" />
           </div>
         ))}
       </div>
 
-      {/* Table Skeleton */}
+      {/* Table */}
       <div className="bg-white shadow-md p-4">
         {/* Filter Controls */}
         <div className="flex gap-4 py-2 mb-4">
@@ -31,12 +25,12 @@ export function DashboardSkeleton() {
           <Skeleton className="h-10 w-32" />
         </div>
 
-        {/* Table Skeleton */}
+        {/* Table */}
         <div className="hidden md:block">
           <Skeleton className="h-96 w-full" />
         </div>
 
-        {/* Mobile Cards Skeleton */}
+        {/* Mobile Cards */}
         <div className="md:hidden space-y-3">
           {Array.from({ length: 5 }).map((_, index) => (
             <Skeleton key={index} className="h-20 w-full" />

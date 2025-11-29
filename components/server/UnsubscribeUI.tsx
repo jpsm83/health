@@ -1,5 +1,3 @@
-"use client";
-
 import { CheckCircle, XCircle, Mail } from "lucide-react";
 import { NewsletterUnsubscribeResult } from "@/app/actions/subscribers/newsletterUnsubscribe";
 
@@ -86,3 +84,4 @@ export default function UnsubscribeUI({
     </div>
   );
 }
+
