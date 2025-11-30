@@ -14,7 +14,6 @@ import SectionHeader from "@/components/server/SectionHeader";
 import { getArticles } from "@/app/actions/article/getArticles";
 import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
-import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -66,14 +65,13 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "home" });
-  const region = await getUserRegion(); // Detect region once on server
 
   return (
     <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Home component"}>
         <div className="flex flex-col h-full gap-8 md:gap-16">
           {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" region={region} />
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Hero Section */}
           <HeroSection locale={locale} />
@@ -93,7 +91,7 @@ export default async function HomePage({
           <NewsletterSection />
 
           {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" region={region} />
+          <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Explore by Category Section */}
           <section className="space-y-6 md:space-y-12">
@@ -121,7 +119,7 @@ export default async function HomePage({
           </section>
 
           {/* Bottom banner - lazy loaded */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" region={region} />
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
         </div>
       </ErrorBoundary>
     </main>

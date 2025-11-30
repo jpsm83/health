@@ -15,6 +15,7 @@ import { showToast } from "@/components/Toasts";
 import { Button } from "@/components/ui/button";
 import SocialShare from "@/components/SocialShare";
 import ProductsBanner from "@/components/ProductsBanner";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 export default function Article({
   articleData,
@@ -411,7 +412,7 @@ export default function Article({
                       <ProductsBanner
                         size="970x240"
                         affiliateCompany="amazon"
-                        category={articleData?.category || ""}
+                        category={articleData?.category ? translateCategoryToLocale(articleData.category, locale) : undefined}
                         product={
                           articleData?.languages?.[0]?.salesProducts?.[
                             globalSectionIndex
@@ -454,4 +455,3 @@ export default function Article({
     </div>
   );
 }
-

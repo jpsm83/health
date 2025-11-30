@@ -13,7 +13,6 @@ import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticle
 import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
-import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -80,8 +79,6 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const region = await getUserRegion(); // Detect region once on server
-
   return (
     <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={`Articles component for category ${category}`}>
@@ -90,8 +87,7 @@ export default async function CategoryPage({
             <ProductsBanner
               size="970x90"
               affiliateCompany="amazon"
-              category={englishCategory}
-              region={region}
+              category={category}
             />
 
           {/* Hero Section */}
@@ -111,7 +107,7 @@ export default async function CategoryPage({
           <NewsletterSection />
 
           {/* Bottom banner - lazy loaded */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" region={region} />
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
         </div>
       </ErrorBoundary>
     </main>

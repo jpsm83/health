@@ -4,6 +4,8 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
+import { RegionProvider } from "@/contexts/RegionContext";
 import Navigation from "@/components/Navbar";
 import Footer from "../../components/Footer";
 
@@ -42,14 +44,19 @@ export default async function LocaleLayout({
 
   // Get messages for the current locale
   const messages = await getMessages();
+  
+  // Detect region once on server - shared across all pages in this locale
+  const region = await getUserRegion();
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
-        <Navigation />
-        <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">{children}</div>
-        <Footer />
-      </main>
+      <RegionProvider initialRegion={region}>
+        <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
+          <Navigation />
+          <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">{children}</div>
+          <Footer />
+        </main>
+      </RegionProvider>
     </NextIntlClientProvider>
   );
 }

@@ -13,7 +13,6 @@ import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import HeroCountUpdater from "@/components/HeroCountUpdater";
 import { HeroDescriptionProvider } from "@/components/HeroDescriptionContext";
-import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
 
 export async function generateMetadata({
   params,
@@ -64,7 +63,6 @@ export default async function SearchPage({
   }
 
   const t = await getTranslations({ locale, namespace: "search" });
-  const region = await getUserRegion(); // Detect region once on server
 
   // Render immediately - no blocking data fetch
   // Static components render right away, Suspense handles data loading
@@ -80,7 +78,7 @@ export default async function SearchPage({
         <HeroDescriptionProvider initialDescription={initialDescription}>
           <div className="flex flex-col h-full gap-8 md:gap-16">
             {/* Products Banner - renders immediately */}
-            <ProductsBanner size="970x90" affiliateCompany="amazon" region={region} />
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
             {/* Hero Section - renders immediately with placeholder count */}
             <HeroSection
@@ -104,7 +102,7 @@ export default async function SearchPage({
             <NewsletterSignup />
 
             {/* Products Banner - renders immediately */}
-            <ProductsBanner size="970x240" affiliateCompany="amazon" region={region} />
+            <ProductsBanner size="970x240" affiliateCompany="amazon" />
           </div>
         </HeroDescriptionProvider>
       </ErrorBoundary>

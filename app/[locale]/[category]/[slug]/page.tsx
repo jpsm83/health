@@ -15,7 +15,6 @@ import ProductsBanner from "@/components/ProductsBanner";
 import CommentsSection from "@/components/CommentsSection";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import { getTranslations } from "next-intl/server";
-import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
 import SocialShare from "@/components/SocialShare";
 import SectionHeader from "@/components/server/SectionHeader";
 import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
@@ -272,8 +271,6 @@ export default async function ArticlePage({
     languageData?.content?.articleContents?.[0]?.articleParagraphs?.[0] || "";
   const shareMedia = articleData.articleImages?.[0] || "";
 
-  const region = await getUserRegion(); // Detect region once on server
-
   return (
     <main className="container mx-auto my-7 md:my-14">
       <ErrorBoundary context={"Article component"}>
@@ -282,8 +279,7 @@ export default async function ArticlePage({
           <ProductsBanner
             size="970x90"
             affiliateCompany="amazon"
-            category={articleData?.category || ""}
-            region={region}
+            category={category}
           />
 
           {/* Article Detail Section */}
@@ -314,7 +310,7 @@ export default async function ArticlePage({
           </section>
 
           {/* Bottom banner - lazy loaded */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" region={region} />
+          <ProductsBanner size="970x240" affiliateCompany="amazon" />
         </div>
       </ErrorBoundary>
     </main>

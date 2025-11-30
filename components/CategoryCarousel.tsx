@@ -288,7 +288,7 @@ export default function CategoryCarousel({
                     key={`article-${
                       article._id?.toString() || "unknown"
                     }-${index}`}
-                    className="pl-2 md:pl-4 basis-64 flex-shrink-0"
+                    className="pl-2 md:pl-4 basis-64 shrink-0"
                   >
                     <ArticleCard article={article} />
                   </CarouselItem>
@@ -299,12 +299,12 @@ export default function CategoryCarousel({
                   items.push(
                     <CarouselItem
                       key={`banner-${index}`}
-                      className="pl-2 md:pl-4 basis-64 flex-shrink-0"
+                      className="pl-2 md:pl-4 basis-64 shrink-0"
                     >
                       <div className="h-full">
                         <ProductsBanner
                           size="240x390"
-                          category={category}
+                          category={translateCategoryToLocale(category, locale)}
                           affiliateCompany="amazon"
                         />
                       </div>

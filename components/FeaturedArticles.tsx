@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic";
 import ArticleCard from "./ArticleCard";
 import { ISerializedArticle } from "@/types/article";
+import { useLocale } from "next-intl";
+import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 const ProductsBanner = dynamic(
   () => import("./ProductsBanner"),
@@ -37,6 +39,8 @@ export default function FeaturedArticles({
   articles,
   isLoading = false,
 }: FeaturedArticlesProps) {
+  const locale = useLocale();
+
   // Show loading state for mobile when loading
   if (isLoading) {
     return (
@@ -50,7 +54,7 @@ export default function FeaturedArticles({
   if (!articles || articles.length === 0) {
     return null;
   }
-
+  
   return (
     <section className="cv-auto">
       {/* Featured Articles Grid */}
@@ -64,7 +68,7 @@ export default function FeaturedArticles({
           <ProductsBanner
             size="390x240"
             affiliateCompany="amazon"
-            category={articles[0].category}
+            category={translateCategoryToLocale(articles[0].category, locale)}
           />
         </div>
         {articles.slice(2, 8).map((article: ISerializedArticle) => (
@@ -76,7 +80,7 @@ export default function FeaturedArticles({
           <ProductsBanner
             size="390x240"
             affiliateCompany="amazon"
-            category={articles[9]?.category}
+            category={articles[9]?.category ? translateCategoryToLocale(articles[9].category, locale) : undefined}
           />
         </div>
         {articles.slice(8).map((article: ISerializedArticle) => (
