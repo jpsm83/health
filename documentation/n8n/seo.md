@@ -134,7 +134,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
   "slug": "slug-from-article-title",
   "hreflang": "en",
-  "canonicalUrl": "https://womensspot.org/en/intimacy/seo-friendly-slug-from-article-title"
+  "canonicalUrl": "https://womensspot.org/intimacy/seo-friendly-slug-from-article-title"
 }
 
 **JSON FORMAT VALIDATION RULES:**
@@ -147,9 +147,9 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 7. **MUST be valid JSON that can be parsed by a JSON parser**
 
 **ABSOLUTELY FORBIDDEN:**
-- **Do NOT use invalid URL patterns - MUST be one of: "articles", "artigos", "articulos", "artikel", "articoli", "artikelen"**
-- **Do NOT create custom URL patterns - use only the exact patterns listed above**
-- **Do NOT use category names as URL patterns - use the language-specific patterns**
+- **NEVER use "articles" or its translations (artigos, articulos, artikel, articoli, artikelen) in canonical URLs**
+- **NEVER use generic URL patterns - MUST use the actual category name translated to the target language**
+- **NEVER use "articles" as a category replacement - always use the specific category (health, nutrition, intimacy, etc.)**
 - Do NOT create meta titles longer than 500 characters
 - Do NOT create meta descriptions longer than 1000 characters
 - Do NOT include fewer than 5 keywords
@@ -188,15 +188,24 @@ You must return ONLY a valid JSON object with these exact properties:
 - keywords: Array of exactly 5 relevant keywords
 - slug: SEO-friendly slug from the article title
 - hreflang: Language code (MUST ALWAYS BE "en" - ENGLISH ONLY)
-- canonicalUrl: Full canonical URL following the format https://womensspot.org/[locale]/[category]/[slug]
+- canonicalUrl: Full canonical URL following the format https://womensspot.org/[category]/[slug]
+  - **IMPORTANT:** This prompt generates SEO metadata for ENGLISH articles only (hreflang is always "en")
+  - **Category Variable:** The category "{{ $('Get URL row').item.json.Type }}" is always in English
+  - **For This Prompt (English Only):** Use the category variable value directly in English (DO NOT translate)
+  - **Format:** https://womensspot.org/[category]/[slug] (locale omitted for English)
+  - **Example:** If category variable is "intimacy", canonicalUrl = "https://womensspot.org/intimacy/article-slug"
+  - **Note:** Category translation to other languages happens in articleTranslation.md prompt, not here
 
-**CRITICAL URL PATTERN RULES:**
-- ENGLISH ONLY: "articles" (NO OTHER LANGUAGES ALLOWED)
+**CRITICAL CANONICAL URL RULES:**
+- canonicalUrl MUST use the category name (NOT "articles" or its translations)
+- **Category is always in English for this prompt** - use the category variable value as-is (no translation needed)
+- Example categories (all in English): health, nutrition, intimacy, fitness, beauty, weight-loss, life
+- NEVER use "articles", "artigos", "articulos", "artikel", "articoli", or "artikelen" in canonical URLs
 
 CRITICAL: Return ONLY the JSON object, no additional text, explanations, or markdown formatting.
 ```
 
-The category type of the article is "{{ $('Get URL row').item.json.Type }}" and that will be add on the url
+**IMPORTANT:** The category type of the article is "{{ $('Get URL row').item.json.Type }}" - this value is ALWAYS in English. You MUST use this exact English category name in the canonical URL. DO NOT translate it - use it as-is. Replace [category] in the URL format with this English category value.
 ---
 
 # DETAILED DOCUMENTATION
@@ -331,7 +340,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
   "slug": "slug-from-article-title",
   "hreflang": "en",
-  "canonicalUrl": "https://womensspot.org/en/intimacy/seo-friendly-slug-from-article-title"
+  "canonicalUrl": "https://womensspot.org/intimacy/seo-friendly-slug-from-article-title"
 }
 
 **JSON FORMAT VALIDATION RULES:**
@@ -373,19 +382,24 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - NO OTHER LANGUAGES ALLOWED
 - This is MANDATORY - no exceptions
 
-**URL PATTERN:**
-- MUST ALWAYS BE "articles" (ENGLISH ONLY)
-- NO OTHER LANGUAGES ALLOWED
-- This is MANDATORY - no exceptions
-
-**LANGUAGE MAPPINGS (URL PATTERN):**
-- ENGLISH ONLY: "articles" (NO OTHER LANGUAGES ALLOWED)
-
 **CANONICAL URL:**
-- Must follow the format: "https://womensspot.org/en/[category]/[slug]"
-- MUST ALWAYS use "en" as the locale (ENGLISH ONLY)
+- Must follow the format: "https://womensspot.org/[category]/[slug]" (English - locale omitted)
+- **This prompt is for ENGLISH articles only** - locale is always omitted
+- **Category Variable:** The category "{{ $('Get URL row').item.json.Type }}" is in English - use it directly (DO NOT translate)
+- Category must be the English category name (e.g., "health", "nutrition", "intimacy", "fitness", "beauty", "weight-loss", "life")
 - Must match the slug exactly
 - Should be the definitive URL for the content
+- **CRITICAL: NEVER use "articles" or its translations in canonical URLs - always use the actual category name**
+- **Note:** Category translation to other languages (pt, es, fr, de, it) happens in the articleTranslation.md prompt, not in this SEO prompt
+
+**CATEGORY MAPPINGS (for canonical URLs):**
+- Health: "health"
+- Fitness: "fitness"
+- Nutrition: "nutrition"
+- Intimacy: "intimacy"
+- Beauty: "beauty"
+- Weight Loss: "weight-loss"
+- Life: "life"
 
 ## 3. PROCESSING INSTRUCTIONS
 
@@ -397,8 +411,8 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 4. **FOURTH: Create compelling meta description (IN ENGLISH ONLY)**
 5. **FIFTH: Extract 5 relevant keywords (IN ENGLISH ONLY)**
 6. **SIXTH: Generate slug from article title (IN ENGLISH ONLY)**
-7. **SEVENTH: Set locale to "en" and URL pattern to "articles" (ENGLISH ONLY)**
-8. **EIGHTH: Create canonical URL with "en" locale (ENGLISH ONLY)**
+7. **SEVENTH: Set locale to "en" (ENGLISH ONLY)**
+8. **EIGHTH: Create canonical URL using the English category name from the variable (NOT "articles") - format: https://womensspot.org/[category]/[slug] (locale omitted for English, category in English)**
 9. **NINTH: Structure the content into the required JSON format (ENGLISH ONLY)**
 10. **TENTH: Return the JSON output (ENGLISH ONLY)**
 
@@ -467,7 +481,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
   "keywords": ["intimate wellness", "personal wellness", "wellness education", "women's health", "wellness products"],
   "slug": "intimate-wellness-education-complete-guide",
   "hreflang": "en",
-  "canonicalUrl": "https://womensspot.org/en/intimacy/intimate-wellness-education-complete-guide"
+  "canonicalUrl": "https://womensspot.org/intimacy/intimate-wellness-education-complete-guide"
 }
 
 **WRONG OUTPUT FORMATS (WILL CAUSE ERRORS):**
@@ -478,16 +492,17 @@ Any text before or after the JSON
 Comments or explanations outside the JSON
 Single quotes instead of double quotes
 
-## CRITICAL URL PATTERN VALIDATION CHECKLIST
+## CRITICAL CANONICAL URL VALIDATION CHECKLIST
 
 **MANDATORY VALIDATION CHECKLIST:**
 Before outputting the final JSON, verify EVERY field meets its requirements:
 
-**URL PATTERN VALIDATION:**
-- **MUST ALWAYS BE "articles" (ENGLISH ONLY)**
-- **NO OTHER LANGUAGES ALLOWED**
-- **MUST NOT be a category name (like "intimacy", "health", etc.)**
-- **MUST NOT be a custom pattern**
+**CANONICAL URL VALIDATION:**
+- **MUST use the actual category name (health, nutrition, intimacy, fitness, beauty, weight-loss, or life)**
+- **MUST NOT contain "articles" or its translations (artigos, articulos, artikel, articoli, artikelen)**
+- **MUST follow format: https://womensspot.org/[category]/[slug] (English - locale omitted)**
+- **MUST match the slug exactly**
+- **Category must be one of: health, fitness, nutrition, intimacy, beauty, weight-loss, life**
 
 **OTHER VALIDATION:**
 - Meta title ≤ 500 characters
@@ -499,12 +514,13 @@ Before outputting the final JSON, verify EVERY field meets its requirements:
 
 **CRITICAL ENFORCEMENT RULES:**
 - **If ANY field is invalid, you MUST fix that specific value**
-- **URL pattern validation is MANDATORY - no exceptions**
-- **Use only the exact patterns listed above**
+- **Canonical URL validation is MANDATORY - no exceptions**
+- **MUST use category name, NEVER "articles" or its translations**
 - **This will cause API errors if not followed exactly**
 
 **FINAL LANGUAGE ENFORCEMENT:**
 - **ALL OUTPUT MUST BE IN ENGLISH ONLY**
 - **hreflang MUST ALWAYS be "en"**
-- **canonicalUrl MUST ALWAYS use "/en/" in the path**
+- **canonicalUrl MUST use category name (NOT "articles") and omit locale for English**
+- **Format: https://womensspot.org/[category]/[slug] (English articles)**
 - **NO OTHER LANGUAGES ARE ALLOWED - NO EXCEPTIONS**

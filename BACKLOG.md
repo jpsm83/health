@@ -1,3 +1,5 @@
+- page not found not working
+
 - subscribe logic not working
 
 - reset password logic need review

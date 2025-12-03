@@ -1,6 +1,7 @@
 // Library Shared constants
 // App Constants
 
+// all the main category translations are on the routeTranslation.ts file
 export const mainCategories = [
   "health",
   "fitness",

@@ -6,8 +6,9 @@ import { mainCategories } from "@/lib/constants";
  * Single source of truth for all route translations
  */
 
-// Category translations (same as categoryTranslation.ts)
-const categoryTranslations: Record<string, Record<string, string>> = {
+// Category translations - exported for use in canonical URLs and other utilities
+// Single source of truth for all category translations
+export const categoryTranslations = {
   health: { en: "health", pt: "saude", es: "salud", fr: "sante", de: "gesundheit", it: "salute" },
   fitness: { en: "fitness", pt: "fitness", es: "fitness", fr: "fitness", de: "fitness", it: "fitness" },
   nutrition: { en: "nutrition", pt: "nutricao", es: "nutricion", fr: "nutrition", de: "ernahrung", it: "nutrizione" },
@@ -15,7 +16,19 @@ const categoryTranslations: Record<string, Record<string, string>> = {
   beauty: { en: "beauty", pt: "beleza", es: "belleza", fr: "beaute", de: "schonheit", it: "bellezza" },
   "weight-loss": { en: "weight-loss", pt: "perda-de-peso", es: "perdida-de-peso", fr: "perte-de-poids", de: "gewichtsverlust", it: "perdita-di-peso" },
   life: { en: "life", pt: "vida", es: "vida", fr: "vie", de: "leben", it: "vita" },
-};
+} as const;
+
+// Helper function to get category translation
+// Exported for use in canonical URLs and other utilities
+export function getCategoryTranslation(category: string, locale: string): string {
+  const normalizedCategory = category.toLowerCase();
+  const translations = categoryTranslations[normalizedCategory as keyof typeof categoryTranslations];
+  if (!translations) {
+    console.warn(`Category "${category}" not found in translations, using original`);
+    return category;
+  }
+  return translations[locale as keyof typeof translations] || translations.en;
+}
 
 // Route translations for all other pages
 const routeTranslations: Record<string, Record<string, string>> = {
@@ -116,12 +129,15 @@ export function isCategoryRoute(route: string): boolean {
 export function translateCategoryToEnglish(category: string): string {
   const lowerCategory = category.toLowerCase();
   
-  if (categoryTranslations[lowerCategory]?.en === lowerCategory) {
+  // Check if it's already English
+  const translations = categoryTranslations[lowerCategory as keyof typeof categoryTranslations];
+  if (translations && translations.en === lowerCategory) {
     return lowerCategory;
   }
   
-  for (const [english, translations] of Object.entries(categoryTranslations)) {
-    if (Object.values(translations).includes(lowerCategory)) {
+  // Search through all translations to find the English equivalent
+  for (const [english, trans] of Object.entries(categoryTranslations)) {
+    if ((Object.values(trans) as string[]).includes(lowerCategory)) {
       return english;
     }
   }
@@ -131,13 +147,18 @@ export function translateCategoryToEnglish(category: string): string {
 
 export function translateCategoryToLocale(englishCategory: string, locale: string): string {
   if (locale === "en") return englishCategory;
-  return categoryTranslations[englishCategory]?.[locale] || englishCategory;
+  const normalizedCategory = englishCategory.toLowerCase();
+  const translations = categoryTranslations[normalizedCategory as keyof typeof categoryTranslations];
+  if (!translations) {
+    return englishCategory;
+  }
+  return translations[locale as keyof typeof translations] || englishCategory;
 }
 
 export function getAllValidCategories(): string[] {
   const allCategories: string[] = [];
-  Object.values(categoryTranslations).forEach(translations => {
-    allCategories.push(...Object.values(translations));
+  Object.values(categoryTranslations).forEach(trans => {
+    allCategories.push(...(Object.values(trans) as string[]));
   });
   return [...new Set(allCategories)];
 }

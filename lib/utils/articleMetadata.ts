@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { IMetaDataArticle } from '@/types/article';
 import { languageMap } from './genericMetadata';
+import { generateCanonicalUrl } from './canonicalUrl';
 
 // Simple fallback metadata that doesn't require database access
 export function generateSimpleFallbackMetadata(slug: string, locale: string, category?: string): Metadata {
@@ -10,7 +11,11 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
     process.env.NEXT_PUBLIC_APP_URL ||
     'https://womensspot.com';
 
-  const canonicalUrl = `${baseUrl}/${locale}/${category || 'health'}/${slug}`;
+  // Only generate canonical URL with category if category is provided
+  // If no category, this is not an article page and shouldn't use article-style URLs
+  const canonicalUrl = category 
+    ? generateCanonicalUrl(category, slug, locale)
+    : `${baseUrl}${locale === 'en' ? '' : `/${locale}`}/${slug}`;
 
   return {
     title: `${category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Health'} Article - Women's Spot`,
@@ -68,7 +73,15 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
   const title = metaContent.seo.metaTitle || 'Article - Women\'s Spot';
   const description = metaContent.seo.metaDescription || 'Read this article on Women\'s Spot';
   const keywords = metaContent.seo.keywords?.length ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
-  const canonicalUrl = metaContent.seo.canonicalUrl || `${baseUrl}/${metaContent.slug}`;
+  
+  // For article metadata, category should always exist (articles always have categories)
+  // If canonicalUrl is missing, generate it using the article's category
+  const canonicalUrl = metaContent.seo.canonicalUrl || 
+    generateCanonicalUrl(
+      metaContent.category, // No fallback - articles always have categories
+      metaContent.slug,
+      hreflang || 'en'
+    );
   const author = metaContent.createdBy || "Women's Spot Team";
 
   // Main image (use the same for all social networks)

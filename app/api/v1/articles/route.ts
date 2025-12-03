@@ -10,6 +10,7 @@ import { handleApiError } from "@/app/api/utils/handleApiError";
 import { checkAuthWithApiKey } from "@/lib/utils/apiKeyAuth";
 import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import { getArticlesService } from "@/lib/services/articles";
+import { validateCanonicalUrl } from "@/lib/utils/canonicalUrl";
 
 // imported models
 import Article from "@/app/api/models/article";
@@ -375,6 +376,55 @@ export const POST = async (req: Request) => {
               message: `Unsupported hreflang: ${
                 language.seo.hreflang
               }. Supported values: ${supportedLocales.join(", ")}`,
+            },
+            { status: 400 }
+          );
+        }
+      }
+
+      // Ensure canonical URL is set and valid
+      if (language.seo) {
+        // Get locale from seo.hreflang or language.hreflang, default to "en"
+        const hreflang = language.seo.hreflang || language.hreflang || "en";
+        
+        // Ensure slug exists
+        if (!language.seo.slug) {
+          return NextResponse.json(
+            {
+              message: "SEO slug is required",
+            },
+            { status: 400 }
+          );
+        }
+
+        // Canonical URL is REQUIRED (must be provided by n8n/OpenAI)
+        if (!language.seo.canonicalUrl) {
+          return NextResponse.json(
+            {
+              message: "Canonical URL is required. It must be provided by the article creation process (n8n/OpenAI).",
+            },
+            { status: 400 }
+          );
+        }
+
+        // Validate the canonical URL provided by n8n/OpenAI
+        const validation = validateCanonicalUrl(
+          language.seo.canonicalUrl,
+          category,
+          language.seo.slug,
+          hreflang
+        );
+
+        if (!validation.isValid) {
+          // Generate expected URL for error message
+          const { generateCanonicalUrl } = await import("@/lib/utils/canonicalUrl");
+          const expectedUrl = generateCanonicalUrl(category, language.seo.slug, hreflang);
+          
+          return NextResponse.json(
+            {
+              message: `Invalid canonical URL: ${validation.error}`,
+              details: `Expected format: ${expectedUrl}`,
+              received: language.seo.canonicalUrl,
             },
             { status: 400 }
           );

@@ -13,6 +13,7 @@ import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
 import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { getArticleByIdService, updateArticleService, deleteArticleService } from "@/lib/services/articles";
+import { validateCanonicalUrl } from "@/lib/utils/canonicalUrl";
 
 
 // @desc    Get article by ID
@@ -294,6 +295,61 @@ export const PATCH = async (
                 },
                 { status: 400 }
               );
+            }
+          }
+
+          // Ensure canonical URL is set and valid
+          if (language.seo) {
+            // Get locale from seo.hreflang or language.hreflang, default to "en"
+            const hreflang = language.seo.hreflang || language.hreflang || "en";
+            
+            // Ensure slug exists
+            if (!language.seo.slug) {
+              return NextResponse.json(
+                {
+                  message: "SEO slug is required for canonical URL generation",
+                },
+                { status: 400 }
+              );
+            }
+
+            // Use category from update or existing article
+            const articleCategory = updateData.category || existingArticle.category;
+
+            // Ensure slug exists
+            if (!language.seo.slug) {
+              return NextResponse.json(
+                {
+                  message: "SEO slug is required",
+                },
+                { status: 400 }
+              );
+            }
+
+            // Canonical URL is REQUIRED when updating SEO (must be provided by n8n/OpenAI if updating)
+            if (language.seo.canonicalUrl) {
+              // Validate the canonical URL provided
+              const validation = validateCanonicalUrl(
+                language.seo.canonicalUrl,
+                articleCategory,
+                language.seo.slug,
+                hreflang
+              );
+
+              if (!validation.isValid) {
+                // Generate expected URL for error message
+                const { generateCanonicalUrl } = await import("@/lib/utils/canonicalUrl");
+                const expectedUrl = generateCanonicalUrl(articleCategory, language.seo.slug, hreflang);
+                
+                return NextResponse.json(
+                  {
+                    message: `Invalid canonical URL: ${validation.error}`,
+                    details: `Expected format: ${expectedUrl}`,
+                    received: language.seo.canonicalUrl,
+                  },
+                  { status: 400 }
+                );
+              }
             }
           }
 
