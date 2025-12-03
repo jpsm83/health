@@ -14,10 +14,7 @@ export function buildAffiliateUrl(
 
   // Map region codes (uppercase) to country keys (lowercase)
   // Handles various region code formats
-  const regionToCountry: Record<
-    string,
-    keyof typeof company.country
-  > = {
+  const regionToCountry: Record<string, keyof typeof company.country> = {
     US: "us",
     BR: "br",
     ES: "es",
@@ -33,21 +30,21 @@ export function buildAffiliateUrl(
   };
 
   const wordTranslations: Record<string, string> = {
-      "en": "woman",
-      "pt": "mulher",
-      "es": "mujer",
-      "it": "donna",
-      "fr": "femme",
-      "de": "Frau"
-    }
-  
+    en: "woman",
+    pt: "mulher",
+    es: "mujer",
+    it: "donna",
+    fr: "femme",
+    de: "Frau",
+  };
+
   // Normalize region to uppercase for lookup
   const normalizedRegion = region.toUpperCase();
-  
+
   // Get country code for domain selection (based on IP/region), default to "us" if region doesn't match
   const country =
     regionToCountry[normalizedRegion] || ("us" as keyof typeof company.country);
-  
+
   // Extract language code from locale (e.g., "en" from "en-US" or "en")
   const languageCode = locale.split("-")[0]?.toLowerCase() || "en";
 
@@ -55,11 +52,14 @@ export function buildAffiliateUrl(
 
   // CRITICAL: Ensure countryConfig exists and has both domain and affiliateId
   if (!countryConfig || !countryConfig.domain || !countryConfig.affiliateId) {
-    console.warn(`⚠️ MISSING CONFIG: ${affiliateCompany} in region ${country}, Using US config as fallback for region ${country}`, {
-      countryConfig,
-      region,
-      normalizedRegion
-    });
+    console.warn(
+      `⚠️ MISSING CONFIG: ${affiliateCompany} in region ${country}, Using US config as fallback for region ${country}`,
+      {
+        countryConfig,
+        region,
+        normalizedRegion,
+      }
+    );
     // Fallback to US config if missing
     const fallbackConfig = company.country.us;
     countryConfig = fallbackConfig;
@@ -71,7 +71,8 @@ export function buildAffiliateUrl(
   if (product) {
     searchTerm = product;
   } else if (category) {
-    const wordTranslation = wordTranslations[languageCode] || wordTranslations["en"];
+    const wordTranslation =
+      wordTranslations[languageCode] || wordTranslations["en"];
     searchTerm = `${wordTranslation} ${category}`;
   }
 
@@ -83,12 +84,14 @@ export function buildAffiliateUrl(
   if (searchTerm) {
     // Encode search term: replace spaces with + (Amazon format)
     // Then encode special characters, but keep + as + (not %2B)
-    const encodedSearchTerm = encodeURIComponent(searchTerm.replace(/\s+/g, "+")).replace(/%2B/g, "+");
-    
+    const encodedSearchTerm = encodeURIComponent(
+      searchTerm.replace(/\s+/g, "+")
+    ).replace(/%2B/g, "+");
+
     // Build URL: https://www.amazon.[domain]/s?k=[searchTerm]&tag=[affiliateId]
     const url = `${company.baseUrl}${domain}/s?k=${encodedSearchTerm}&tag=${affiliateId}`;
-    
-    console.log("url", url);
+
+    // console.log("url", url);
 
     return url;
   }
@@ -96,11 +99,11 @@ export function buildAffiliateUrl(
   // If no search term, build homepage URL with just affiliate tag
   // Format: https://www.amazon.[domain]/s?k=[wordTranslations]&tag=[affiliateId]
   // Use locale (user's language preference) for search term language
-  const wordTranslation = wordTranslations[languageCode] || wordTranslations["en"];
+  const wordTranslation =
+    wordTranslations[languageCode] || wordTranslations["en"];
   const url = `${company.baseUrl}${domain}/s?k=${wordTranslation}&tag=${affiliateId}`;
 
-  console.log("url", url);
+  // console.log("url", url);
 
   return url;
 }
-

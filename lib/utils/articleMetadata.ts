@@ -4,15 +4,16 @@ import { languageMap } from './genericMetadata';
 import { generateCanonicalUrl } from './canonicalUrl';
 
 // Simple fallback metadata that doesn't require database access
+// ⚠️ IMPORTANT: This is ONLY for metadata display (HTML tags), NOT for saving to database
+// Canonical URLs in the database come from n8n/OpenAI, not from this function
 export function generateSimpleFallbackMetadata(slug: string, locale: string, category?: string): Metadata {
-  const baseUrl =
-    process.env.NEXTAUTH_URL ||
-    process.env.VERCEL_URL ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    'https://womensspot.com';
+  // Always use production domain for metadata (consistent with canonical URLs)
+  // Even when running locally, metadata should point to production
+  const baseUrl = process.env.CANONICAL_BASE_URL || 'https://womensspot.org';
 
   // Only generate canonical URL with category if category is provided
   // If no category, this is not an article page and shouldn't use article-style URLs
+  // This is ONLY for metadata display, NOT for database storage
   const canonicalUrl = category 
     ? generateCanonicalUrl(category, slug, locale)
     : `${baseUrl}${locale === 'en' ? '' : `/${locale}`}/${slug}`;
@@ -61,7 +62,9 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
 // Generate dynamic metadata for an article page
 // Supports OpenGraph, Twitter Cards, Pinterest Rich Pins, etc.
 export async function generateArticleMetadata(metaContent: IMetaDataArticle): Promise<Metadata> {
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  // Always use production domain for metadata (consistent with canonical URLs)
+  // Even when running locally, metadata should point to production
+  const baseUrl = 'https://womensspot.org';
 
   // Language
   const hreflang = metaContent.seo.hreflang;
@@ -75,7 +78,9 @@ export async function generateArticleMetadata(metaContent: IMetaDataArticle): Pr
   const keywords = metaContent.seo.keywords?.length ? metaContent.seo.keywords.join(', ') : 'health, women, wellness';
   
   // For article metadata, category should always exist (articles always have categories)
-  // If canonicalUrl is missing, generate it using the article's category
+  // ⚠️ IMPORTANT: canonicalUrl should come from the database (from n8n/OpenAI)
+  // If missing, we generate a fallback ONLY for metadata display purposes (HTML tags)
+  // This fallback is NOT saved to the database - it's only for rendering metadata
   const canonicalUrl = metaContent.seo.canonicalUrl || 
     generateCanonicalUrl(
       metaContent.category, // No fallback - articles always have categories

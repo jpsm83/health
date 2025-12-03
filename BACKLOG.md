@@ -1,4 +1,6 @@
-- page not found not working
+- anyword womens health replace for womens spot
+
+- shoud use no accents on the letter at canonicalUrl
 
 - subscribe logic not working
 

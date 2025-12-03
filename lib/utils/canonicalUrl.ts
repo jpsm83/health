@@ -1,13 +1,22 @@
 import { getCategoryTranslation } from "@/lib/utils/routeTranslation";
 
-const BASE_URL = process.env.NEXTAUTH_URL || 
-                 process.env.VERCEL_URL || 
-                 process.env.NEXT_PUBLIC_APP_URL || 
-                 "https://womensspot.com";
+// CRITICAL: Canonical URLs must always use production domain
+// Even when running locally, canonical URLs point to production since we're working with production data
+// This ensures canonical URLs in the database always use the correct production domain
+const BASE_URL = process.env.CANONICAL_BASE_URL || "https://womensspot.org";
 
 /**
  * Generates a canonical URL for an article
  * Format: [baseUrl]/[locale-if-not-en]/[translated-category]/[slug]
+ * 
+ * ⚠️ IMPORTANT: This function is ONLY used for:
+ * 1. Fix script: Generating correct URLs when fixing invalid canonical URLs in the database
+ * 2. Error messages: Showing expected format when validation fails
+ * 3. Metadata fallback: Display purposes only (HTML metadata tags)
+ * 
+ * ❌ NOT used for: Generating canonical URLs for new articles
+ *    - New articles get canonical URLs from n8n/OpenAI (hardcoded in the article data)
+ *    - The API only VALIDATES canonical URLs, it does NOT generate them for new articles
  * 
  * @param category - English category name (e.g., "health", "nutrition")
  * @param slug - Article slug
@@ -142,11 +151,15 @@ export function validateCanonicalUrl(
 /**
  * Normalizes and fixes a canonical URL if invalid
  * 
+ * ⚠️ IMPORTANT: This function is ONLY used for metadata display fallbacks.
+ * It should NOT be used to save canonical URLs to the database.
+ * Canonical URLs in the database come from n8n/OpenAI.
+ * 
  * @param canonicalUrl - URL to normalize
  * @param category - English category name
  * @param slug - Article slug
  * @param locale - Language code
- * @returns Normalized canonical URL
+ * @returns Normalized canonical URL (for display/metadata purposes only)
  */
 export function normalizeCanonicalUrl(
   canonicalUrl: string | undefined,

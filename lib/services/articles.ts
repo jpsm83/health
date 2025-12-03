@@ -18,8 +18,7 @@ import {
 } from "@/types/article";
 import { IMongoFilter, IPaginatedResponse } from "@/types/api";
 
-export interface GetArticlesServiceParams
-  extends IGetArticlesParams {
+export interface GetArticlesServiceParams extends IGetArticlesParams {
   skipCount?: boolean;
   fields?: FieldProjectionType;
 }
@@ -63,9 +62,7 @@ const selectLanguage = (
   slug?: string
 ): ILanguageSpecific | undefined => {
   if (slug) {
-    return article.languages.find(
-      (language) => language.seo.slug === slug
-    );
+    return article.languages.find((language) => language.seo.slug === slug);
   }
 
   const byLocale = article.languages.find(
@@ -153,9 +150,7 @@ export async function getArticlesService(
   const filteredArticles = applyLocaleFilter(articles, locale, slug);
 
   const totalDocs = skipCount ? 0 : await Article.countDocuments(filter);
-  const totalPages = skipCount
-    ? 0
-    : Math.ceil(totalDocs / Math.max(limit, 1));
+  const totalPages = skipCount ? 0 : Math.ceil(totalDocs / Math.max(limit, 1));
 
   return {
     page,
@@ -189,7 +184,9 @@ export async function getArticlesPaginatedService(
   }
 
   if (!query && !category) {
-    throw new Error("Either 'query' or 'category' parameter is required for paginated articles endpoint.");
+    throw new Error(
+      "Either 'query' or 'category' parameter is required for paginated articles endpoint."
+    );
   }
 
   const filter = buildFilter({ ...params, query });
@@ -275,61 +272,41 @@ export async function getArticleBySlugService(
   const projection = fieldProjections[fields] || {};
 
   const article = (await Article.findOne(
-    {
-      "languages.seo.slug": slug,
-    },
+    { "languages.seo.slug": slug },
     projection
   )
     .populate({ path: "createdBy", select: "username", model: User })
     .lean()) as IArticleLean | null;
 
-  const languages = article?.languages as ILanguageSpecific[];
-  let languageSpecific: ILanguageSpecific | undefined;
-
-  // Try to find content for the requested slug first
-  languageSpecific = languages.find(
-    (lang: ILanguageSpecific) => lang.seo.slug === slug
-  );
-
-  // If not found by slug, try by locale
-  if (!languageSpecific) {
-    languageSpecific = languages.find(
-      (lang: ILanguageSpecific) => lang.hreflang === locale
-    );
-  }
-
-  // Fallback to English if locale not found
-  if (!languageSpecific && locale !== DEFAULT_LOCALE) {
-    languageSpecific = languages.find(
-      (lang: ILanguageSpecific) => lang.hreflang === DEFAULT_LOCALE
-    );
-  }
-
-  // Final fallback: first available
-  if (!languageSpecific && languages.length > 0) {
-    languageSpecific = languages[0];
-  }
-
-
-  // If still no content found, return null
-  if (!languageSpecific) {
-    console.error("DEBUG [getArticleBySlugService] No language content found:", {
-      slug,
-      locale,
-      availableLocales: languages.map(l => l.hreflang),
-      availableSlugs: languages.map(l => l.seo?.slug)
-    });
+  if (!article || !article.languages?.length) {
     return null;
   }
 
-  const articleWithFilteredContent = {
+  const languages = article.languages as ILanguageSpecific[];
+  let languageSpecific = languages.find((lang) => lang.seo?.slug === slug);
+
+  if (!languageSpecific) {
+    languageSpecific = languages.find((lang) => lang.hreflang === locale);
+  }
+
+  if (!languageSpecific && locale !== DEFAULT_LOCALE) {
+    languageSpecific = languages.find(
+      (lang) => lang.hreflang === DEFAULT_LOCALE
+    );
+  }
+
+  if (!languageSpecific) {
+    languageSpecific = languages[0];
+  }
+
+  if (!languageSpecific) {
+    return null;
+  }
+
+  return serializeMongoObject({
     ...article,
     languages: [languageSpecific],
-  };
-
-  return serializeMongoObject(
-    articleWithFilteredContent
-  ) as ISerializedArticle;
+  }) as ISerializedArticle;
 }
 
 export async function getArticleByIdService(
@@ -355,7 +332,9 @@ export async function getArticleByIdService(
   return serializeMongoObject(article) as ISerializedArticle;
 }
 
-export async function getAllArticlesForDashboardService(): Promise<ISerializedArticle[]> {
+export async function getAllArticlesForDashboardService(): Promise<
+  ISerializedArticle[]
+> {
   await connectDb();
 
   const articles = (await Article.find({}, fieldProjections.dashboard)
@@ -380,7 +359,9 @@ export async function getArticleStatsService(): Promise<ArticleStats> {
 
   const totalArticles = await Article.countDocuments({});
 
-  const allArticles = await Article.find({}).select("views likes commentsCount");
+  const allArticles = await Article.find({}).select(
+    "views likes commentsCount"
+  );
 
   const totalViews = allArticles.reduce(
     (sum, article) => sum + (article.views || 0),
@@ -407,24 +388,24 @@ export async function getArticlesCountService(
   params: { category?: string; locale?: string } = {}
 ): Promise<number> {
   const { category, locale = DEFAULT_LOCALE } = params;
-  
+
   // Use Next.js cache for expensive count operations
   const getCachedCount = unstable_cache(
     async () => {
       const filter: IMongoFilter = {};
-      
+
       if (category) {
         filter.category = category;
       }
-      
+
       await connectDb();
-      
+
       // Use countDocuments for better performance (approximation for locale filtering)
       // This is much faster than fetching all articles
       // Note: This is an approximation since locale filtering happens post-fetch
       // For exact counts, use getArticlesPaginatedService with skipCount: false
       const count = await Article.countDocuments(filter);
-      
+
       return count;
     },
     [`articles-count-${category || "all"}-${locale}`],
@@ -433,7 +414,7 @@ export async function getArticlesCountService(
       tags: [`articles-count-${category || "all"}-${locale}`],
     }
   );
-  
+
   return await getCachedCount();
 }
 
@@ -489,9 +470,7 @@ export async function toggleArticleLikeService(
   // Toggle like status using atomic operation
   const updatedArticle = await Article.findByIdAndUpdate(
     articleId,
-    userLiked
-      ? { $pull: { likes: userId } }
-      : { $addToSet: { likes: userId } },
+    userLiked ? { $pull: { likes: userId } } : { $addToSet: { likes: userId } },
     { new: true }
   );
 
@@ -592,4 +571,3 @@ export async function deleteArticleService(articleId: string): Promise<void> {
   // Delete the article
   await Article.findByIdAndDelete(articleId);
 }
-

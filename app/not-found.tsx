@@ -4,18 +4,45 @@ import { headers } from "next/headers";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
+import { RegionProvider } from "@/contexts/RegionContext";
 import Navigation from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HeroSection from "@/components/server/HeroSection";
 import ProductsBanner from "@/components/ProductsBanner";
 
-// Helper function to detect locale
-async function detectLocale(): Promise<string> {
+// Helper function to detect locale from URL pathname
+async function detectLocale(): Promise<(typeof routing.locales)[number]> {
   const headersList = await headers();
-  const acceptLanguage = headersList.get("accept-language") || "";
 
-  let locale = routing.defaultLocale;
+  // Try to get pathname from headers (Next.js may set this)
+  const pathname =
+    headersList.get("x-pathname") ||
+    headersList.get("x-invoke-path") ||
+    headersList.get("referer")?.split("?")[0] ||
+    "";
+
+  // Extract locale from pathname if available
+  if (pathname) {
+    const urlPath = pathname.startsWith("http")
+      ? new URL(pathname).pathname
+      : pathname;
+
+    const pathSegments = urlPath.split("/").filter(Boolean);
+    const firstSegment = pathSegments[0];
+
+    // Check if first segment is a valid locale
+    if (
+      firstSegment &&
+      routing.locales.includes(firstSegment as (typeof routing.locales)[number])
+    ) {
+      return firstSegment as (typeof routing.locales)[number];
+    }
+  }
+
+  // Fallback: try Accept-Language header
+  const acceptLanguage = headersList.get("accept-language") || "";
   if (acceptLanguage) {
     const languages = acceptLanguage
       .split(",")
@@ -25,11 +52,11 @@ async function detectLocale(): Promise<string> {
       );
 
     if (languages.length > 0) {
-      locale = languages[0] as typeof routing.defaultLocale;
+      return languages[0] as typeof routing.defaultLocale;
     }
   }
 
-  return locale;
+  return routing.defaultLocale;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -42,32 +69,39 @@ export default async function NotFound() {
   const messages = await getMessages({ locale });
   const t = await getTranslations({ locale, namespace: "notFound" });
 
+  // Get region for RegionProvider (required by ProductsBanner)
+  const region = await getUserRegion();
+
   return (
     <NextIntlClientProvider messages={messages}>
-      <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
-        <Navigation />
-        <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden container my-7 md:my-14">
-          <ErrorBoundary context={"Not Found page"}>
-            <div className="flex-1 flex flex-col h-full gap-8 md:gap-16">
-              {/* Products Banner */}
-              <ProductsBanner size="970x90" affiliateCompany="amazon" />
+      <RegionProvider initialRegion={region}>
+        <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
+          <Navigation />
+          <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">
+            <main className="container mx-auto my-7 md:my-14">
+              <ErrorBoundary context={"Not Found page"}>
+                <div className="flex flex-col h-full gap-8 md:gap-16">
+                  {/* Products Banner */}
+                  <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-              {/* Hero Section */}
-              <HeroSection
-                locale={locale}
-                title={t("title")}
-                description={t("description")}
-                alt={t("heroImageAlt")}
-                imageKey="search-no-results"
-              />
+                  {/* Hero Section */}
+                  <HeroSection
+                    locale={locale}
+                    title={t("title")}
+                    description={t("description")}
+                    alt={t("heroImageAlt")}
+                    imageKey="search-no-results"
+                  />
 
-              {/* Bottom banner - lazy loaded */}
-              <ProductsBanner size="970x240" affiliateCompany="amazon" />
-            </div>
-          </ErrorBoundary>
-        </div>
-        <Footer />
-      </main>
+                  {/* Bottom banner - lazy loaded */}
+                  <ProductsBanner size="970x240" affiliateCompany="amazon" />
+                </div>
+              </ErrorBoundary>
+            </main>
+          </div>
+          <Footer />
+        </main>
+      </RegionProvider>
     </NextIntlClientProvider>
   );
 }

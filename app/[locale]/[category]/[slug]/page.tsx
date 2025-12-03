@@ -17,7 +17,11 @@ import CategoryCarousel from "@/components/CategoryCarousel";
 import { getTranslations } from "next-intl/server";
 import SocialShare from "@/components/SocialShare";
 import SectionHeader from "@/components/server/SectionHeader";
-import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
+import {
+  translateCategoryToEnglish,
+  isEnglishCategory,
+  translateCategoryToLocale,
+} from "@/lib/utils/routeTranslation";
 
 export async function generateMetadata({
   params,
@@ -32,24 +36,18 @@ export async function generateMetadata({
   // If locale is not English, reject English category names ONLY if they differ from the locale translation
   // This allows categories like "fitness" that are the same in multiple languages
   if (locale !== "en" && isEnglishCategory(category)) {
-    const expectedLocaleCategory = translateCategoryToLocale(englishCategory, locale);
+    const expectedLocaleCategory = translateCategoryToLocale(
+      englishCategory,
+      locale
+    );
     // Only reject if the English category is different from what's expected in this locale
     if (category.toLowerCase() !== expectedLocaleCategory.toLowerCase()) {
-      console.error("DEBUG [generateMetadata] Category validation failed - English category rejected:", {
-        category,
-        locale,
-        expectedLocaleCategory
-      });
       return generateArticleNotFoundMetadata();
     }
   }
 
   // Validate category exists
   if (!mainCategories.includes(englishCategory)) {
-    console.error("DEBUG [generateMetadata] Category validation failed - category not in mainCategories:", {
-      englishCategory,
-      mainCategories
-    });
     return generateArticleNotFoundMetadata();
   }
 
@@ -57,18 +55,11 @@ export async function generateMetadata({
     const articleData = await getArticleBySlug(slug, locale);
 
     if (!articleData) {
-      console.error("DEBUG [generateMetadata] Article not found - returning 404 metadata");
       return generateArticleNotFoundMetadata();
     }
 
     // Validate article category matches URL category (using English)
     if (articleData.category !== englishCategory) {
-      console.error("DEBUG [generateMetadata] Category mismatch:", {
-        articleCategory: articleData.category,
-        expectedCategory: englishCategory,
-        urlCategory: category,
-        locale
-      });
       return generateArticleNotFoundMetadata();
     }
 
@@ -128,13 +119,11 @@ export async function generateMetadata({
     const metadata = await generateArticleMetadata(metaContent);
     return metadata;
   } catch (error) {
-    console.error("Error generating article metadata:", error);
-    console.error("Error details:", {
-      slug,
-      locale,
-      error: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
-    });
+    // Only log unexpected errors (database failures, etc.)
+    // Not logging expected "article not found" cases
+    if (error instanceof Error && !error.message.includes("not found")) {
+      console.error("Unexpected error generating article metadata:", error);
+    }
 
     const baseUrl =
       process.env.NEXTAUTH_URL ||
@@ -176,7 +165,13 @@ export async function generateMetadata({
       );
       return fallbackMetadata;
     } catch (fallbackError) {
-      console.error("Error generating fallback metadata:", fallbackError);
+      // Only log if it's an unexpected error
+      if (
+        fallbackError instanceof Error &&
+        !fallbackError.message.includes("not found")
+      ) {
+        console.error("Error generating fallback metadata:", fallbackError);
+      }
       return generateSimpleFallbackMetadata(slug, locale, "health");
     }
   }
@@ -207,52 +202,40 @@ export default async function ArticlePage({
   // If locale is not English, reject English category names ONLY if they differ from the locale translation
   // This allows categories like "fitness" that are the same in multiple languages
   if (locale !== "en" && isEnglishCategory(category)) {
-    const expectedLocaleCategory = translateCategoryToLocale(englishCategory, locale);
+    const expectedLocaleCategory = translateCategoryToLocale(
+      englishCategory,
+      locale
+    );
     // Only reject if the English category is different from what's expected in this locale
     if (category.toLowerCase() !== expectedLocaleCategory.toLowerCase()) {
-      console.error("DEBUG [ArticlePage] Category validation failed - English category rejected:", {
-        category,
-        locale,
-        expectedLocaleCategory
-      });
       notFound();
     }
   }
 
   // Validate category exists
   if (!mainCategories.includes(englishCategory)) {
-    console.error("DEBUG [ArticlePage] Category validation failed - category not in mainCategories:", {
-      englishCategory,
-      mainCategories
-    });
     notFound();
   }
 
-  // Fetch article data
+  // Fetch article data with graceful error handling
   let articleData;
   try {
-    const result = await getArticleBySlug(slug, locale);
-
-    articleData = result ?? undefined;
+    articleData = await getArticleBySlug(slug, locale);
   } catch (error) {
-    console.error("DEBUG [ArticlePage] Error fetching article:", error);
-    articleData = undefined;
+    // Only log unexpected errors (database connection failures, etc.)
+    if (error instanceof Error && !error.message.includes("not found")) {
+      console.error("Unexpected error fetching article:", error);
+    }
+    articleData = null;
   }
 
-  // If article doesn't exist, trigger not-found page
+  // If article doesn't exist, trigger not-found page (no logging needed)
   if (!articleData) {
-    console.error("DEBUG [ArticlePage] Article not found - triggering 404");
     notFound();
   }
 
   // Validate article category matches URL category (using English)
   if (articleData.category !== englishCategory) {
-    console.error("DEBUG [ArticlePage] Category mismatch:", {
-      articleCategory: articleData.category,
-      expectedCategory: englishCategory,
-      urlCategory: category,
-      locale
-    });
     notFound();
   }
 
