@@ -37,7 +37,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Meta title will be the article title (max 500 characters)
 - Create a compelling meta description (max 1000 characters)
 - Extract at least 5 relevant keywords from the article content
-- Slug will be the article title in lowercases separate by hyphens
+- Slug will be the article title converted to URL-safe format (lowercase, hyphens, NO accents, NO special characters, browser-compatible)
 - Determine the appropriate locale and URL pattern
 - Create the canonical URL following the specified format
 
@@ -119,7 +119,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Meta title will be the article title (max 500 characters)
 - Meta description must be compelling and encourage clicks (max 1000 characters)
 - Keywords must be relevant to the article content (at least 5 keywords)
-- Slug will be the article title in lowercases separate by hyphens
+- Slug will be the article title converted to URL-safe format (lowercase, hyphens, NO accents, NO special characters, browser-compatible)
 - Locale must be appropriate for the target audience
 - URL pattern must match the content type
 - Canonical URL must follow the specified format
@@ -132,9 +132,9 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
   "metaTitle": "Meta title will be the article title (max 500 characters) - MAX 500 characters",
   "metaDescription": "Compelling meta description that encourages clicks and summarizes the article content - MAX 1000 characters",
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
-  "slug": "slug-from-article-title",
+  "slug": "intimate-wellness-guide",
   "hreflang": "en",
-  "canonicalUrl": "https://womensspot.org/intimacy/seo-friendly-slug-from-article-title"
+  "canonicalUrl": "https://womensspot.org/intimacy/intimate-wellness-guide"
 }
 
 **JSON FORMAT VALIDATION RULES:**
@@ -186,14 +186,16 @@ You must return ONLY a valid JSON object with these exact properties:
 - metaTitle: Engaging title with keywords (max 500 characters)
 - metaDescription: Compelling description that encourages clicks (max 1000 characters)
 - keywords: Array of exactly 5 relevant keywords
-- slug: SEO-friendly slug from the article title
+- slug: SEO-friendly, URL-safe slug from the article title (lowercase, hyphens, NO accents, NO special characters, browser-compatible)
 - hreflang: Language code (MUST ALWAYS BE "en" - ENGLISH ONLY)
 - canonicalUrl: Full canonical URL following the format https://womensspot.org/[category]/[slug]
+  - **CRITICAL: You MUST use the EXACT slug value from the `slug` field you created above**
+  - **The slug in canonicalUrl MUST be IDENTICAL to the `slug` field value - no differences allowed**
   - **IMPORTANT:** This prompt generates SEO metadata for ENGLISH articles only (hreflang is always "en")
   - **Category Variable:** The category "{{ $('Get URL row').item.json.Type }}" is always in English
   - **For This Prompt (English Only):** Use the category variable value directly in English (DO NOT translate)
-  - **Format:** https://womensspot.org/[category]/[slug] (locale omitted for English)
-  - **Example:** If category variable is "intimacy", canonicalUrl = "https://womensspot.org/intimacy/article-slug"
+  - **Format:** https://womensspot.org/[category]/[slug] where [slug] is the EXACT value from the `slug` field
+  - **Example:** If slug = "intimate-wellness-guide" and category = "intimacy", then canonicalUrl = "https://womensspot.org/intimacy/intimate-wellness-guide"
   - **Note:** Category translation to other languages happens in articleTranslation.md prompt, not here
 
 **CRITICAL CANONICAL URL RULES:**
@@ -243,7 +245,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Meta title will be the article title (max 500 characters)
 - Create a compelling meta description (max 1000 characters)
 - Extract at least 5 relevant keywords from the article content
-- Slug will be the article title in lowercases separate by hyphens
+- Slug will be the article title converted to URL-safe format (lowercase, hyphens, NO accents, NO special characters, browser-compatible)
 - Determine the appropriate locale and URL pattern
 - Create the canonical URL following the specified format
 
@@ -325,7 +327,7 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Meta title will be the article title (max 500 characters)
 - Meta description must be compelling and encourage clicks (max 1000 characters)
 - Keywords must be relevant to the article content (at least 5 keywords)
-- Slug will be the article title in lowercases separate by hyphens
+- Slug will be the article title converted to URL-safe format (lowercase, hyphens, NO accents, NO special characters, browser-compatible)
 - Locale must be appropriate for the target audience
 - URL pattern must match the content type
 - Canonical URL must follow the specified format
@@ -338,9 +340,9 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
   "metaTitle": "Meta title will be the article title (max 500 characters) - MAX 500 characters",
   "metaDescription": "Compelling meta description that encourages clicks and summarizes the article content - MAX 1000 characters",
   "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
-  "slug": "slug-from-article-title",
+  "slug": "intimate-wellness-guide",
   "hreflang": "en",
-  "canonicalUrl": "https://womensspot.org/intimacy/seo-friendly-slug-from-article-title"
+  "canonicalUrl": "https://womensspot.org/intimacy/intimate-wellness-guide"
 }
 
 **JSON FORMAT VALIDATION RULES:**
@@ -373,9 +375,24 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Should reflect the educational and wellness nature of the content
 
 **SLUG:**
-- Slug will be the article title in lowercases separate by hyphens
-- Must use lowercase letters and hyphens
-- Must avoid special characters and spaces
+- Slug will be the article title converted to URL-safe format
+- **CRITICAL: Must be browser-compatible - NO accents, NO special characters, NO non-ASCII characters**
+- **MANDATORY RULES:**
+  - Convert to lowercase
+  - Replace spaces with hyphens
+  - Remove ALL accents and diacritical marks (é → e, ñ → n, ü → u, ç → c, á → a, í → i, ó → o, ú → u, etc.)
+  - Remove ALL special characters (!, @, #, $, %, &, *, ?, etc.)
+  - Remove ALL non-ASCII characters - normalize to ASCII only
+  - Replace multiple consecutive hyphens with single hyphen
+  - Remove leading/trailing hyphens
+  - **Only allow: lowercase letters (a-z), numbers (0-9), and hyphens (-)**
+- **Examples:**
+  - "Café & Wellness" → "cafe-wellness"
+  - "São Paulo Health" → "sao-paulo-health"
+  - "Intimität & Beziehung" → "intimitat-beziehung"
+  - "Salud y Bienestar" → "salud-y-bienestar"
+  - "Santé & Beauté" → "sante-beaute"
+  - "Salute e Bellezza" → "salute-e-bellezza"
 
 **HREFLANG:**
 - MUST ALWAYS BE "en" (ENGLISH ONLY)
@@ -410,9 +427,9 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 3. **THIRD: Use article title as meta title (IN ENGLISH ONLY)**
 4. **FOURTH: Create compelling meta description (IN ENGLISH ONLY)**
 5. **FIFTH: Extract 5 relevant keywords (IN ENGLISH ONLY)**
-6. **SIXTH: Generate slug from article title (IN ENGLISH ONLY)**
+6. **SIXTH: Generate URL-safe slug from article title (IN ENGLISH ONLY) - NO accents, NO special characters, browser-compatible**
 7. **SEVENTH: Set locale to "en" (ENGLISH ONLY)**
-8. **EIGHTH: Create canonical URL using the English category name from the variable (NOT "articles") - format: https://womensspot.org/[category]/[slug] (locale omitted for English, category in English)**
+8. **EIGHTH: Create canonical URL using the English category name from the variable (NOT "articles") - format: https://womensspot.org/[category]/[slug] where [slug] is the EXACT value from the slug field you created in step 6 (locale omitted for English, category in English)**
 9. **NINTH: Structure the content into the required JSON format (ENGLISH ONLY)**
 10. **TENTH: Return the JSON output (ENGLISH ONLY)**
 
@@ -466,8 +483,8 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Use article title as meta title
 - Create compelling meta descriptions
 - Extract relevant keywords
-- Generate slugs from article titles
-- Create appropriate canonical URLs
+- Generate URL-safe slugs from article titles (NO accents, NO special characters, browser-compatible)
+- Create canonical URLs using the EXACT slug value from the slug field (slug and canonicalUrl slug part MUST be identical)
 - Structure content into the required JSON format
 
 ## 4. FINAL OUTPUT REQUIREMENTS
@@ -508,7 +525,7 @@ Before outputting the final JSON, verify EVERY field meets its requirements:
 - Meta title ≤ 500 characters
 - Meta description ≤ 1000 characters
 - Keywords = exactly 5 items
-- Slug = lowercase with hyphens
+- Slug = URL-safe format (lowercase, hyphens, NO accents, NO special characters, browser-compatible)
 - Hreflang = valid language code
 - Canonical URL = correct format
 

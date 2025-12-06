@@ -233,17 +233,39 @@ export const POST = async (req: Request) => {
       }
     }
 
+    // Helper function to clean JSON string (remove markdown code blocks and fix common issues)
+    const cleanJsonString = (jsonString: string): string => {
+      let cleaned = jsonString.trim();
+      
+      // Remove markdown code blocks (```json ... ``` or ``` ... ```)
+      cleaned = cleaned.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
+      
+      // Fix trailing commas in arrays and objects
+      cleaned = cleaned.replace(/,\s*]/g, "]").replace(/,\s*}/g, "}");
+      
+      // Normalize whitespace
+      cleaned = cleaned.replace(/\s+/g, " ").trim();
+      
+      return cleaned;
+    };
+
     // Parse languages from formData
-    const languages: ILanguageSpecific[] = JSON.parse(
-      languagesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-    ) as ILanguageSpecific[];
+    let languages: ILanguageSpecific[];
+    try {
+      languages = JSON.parse(cleanJsonString(languagesRaw)) as ILanguageSpecific[];
+    } catch (error) {
+      return NextResponse.json(
+        {
+          message: `Invalid languages format: ${error}`,
+        },
+        { status: 400 }
+      );
+    }
 
     let imagesContext;
 
     try {
-      imagesContext = JSON.parse(
-        imagesContextRaw.replace(/,\s*}/g, "}").replace(/\s+/g, " ").trim()
-      ) as {
+      imagesContext = JSON.parse(cleanJsonString(imagesContextRaw)) as {
         imageOne: string;
         imageTwo: string;
         imageThree: string;
@@ -285,21 +307,20 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Validate languages (no required fields)
+    // Validate languages
     for (const language of languages) {
-      // Validate articleContext structure if provided
-      if (language.articleContext !== undefined) {
-        if (
-          typeof language.articleContext !== "string" ||
-          language.articleContext.trim().length === 0
-        ) {
-          return NextResponse.json(
-            {
-              message: "ArticleContext must be a non-empty string!",
-            },
-            { status: 400 }
-          );
-        }
+      // Validate articleContext - REQUIRED field
+      if (
+        language.articleContext === undefined ||
+        typeof language.articleContext !== "string" ||
+        language.articleContext.trim().length === 0
+      ) {
+        return NextResponse.json(
+          {
+            message: "ArticleContext is required and must be a non-empty string!",
+          },
+          { status: 400 }
+        );
       }
 
       // Validate postImage structure if provided

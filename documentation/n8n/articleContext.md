@@ -81,10 +81,10 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 **CRITICAL: You must output the result in the exact JSON format specified below. No other format is acceptable.**
 
 ** MANDATORY JSON STRUCTURE AND VALUES - NO EXCEPTIONS **
-- **The `articleContext` field is OBLIGATORY**
+- **The `articleContext` field is REQUIRED (MANDATORY) - NOT OPTIONAL**
 - **The value MUST be a non-empty string - NO undefined, null, or empty values accepted**
-- **The value MUST be between 170 and 200 characters (including spaces)**
-- **Validation will FAIL if the field is missing, undefined, null, empty, or outside the character range**
+- **The value SHOULD be between 170 and 200 characters (including spaces)**
+- **Validation will FAIL if the field is missing, undefined, null, empty, or outside the character range****
 
 **MANDATORY JSON STRUCTURE**
 ```json
@@ -106,11 +106,12 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 
 **ARTICLE CONTEXT:**
 - Must create exactly 1 article context string
-- **CRITICAL: Must be MINIMUM 170 characters and MAXIMUM 200 characters (including spaces)**
+- **CRITICAL: This field is REQUIRED (MANDATORY) - NOT OPTIONAL**
+- **CRITICAL: Should be between 170 and 200 characters (including spaces)**
 - Must capture the essence and main purpose of the article
 - Use clear, concise language that describes what the article is about
 - Focus on the key benefits or information the article provides
-- Be precise and meaningful within the character limit
+- Be precise and meaningful
 - Ensure the context string accurately represents the article content
 
 **REQUIREMENTS:**
@@ -198,13 +199,14 @@ and create 1 article context string following the specified JSON format:
 
 Remember to:
 1. Create 1 article context string that summarizes the article
-2. Ensure the context string is between 170 and 200 characters (inclusive)
-3. Use only safe, educational language suitable for women's wellness content
-4. Focus on educational, empowering, and wellness-related content
-5. Avoid any explicit or inappropriate terminology
-6. **ABSOLUTELY NO EMOJIS** - Do not add any emojis, symbols, or special characters
-7. Output ONLY the JSON object with no additional text or explanations
-8. Ensure the articleContext field is present with a non-empty string value between 170-200 characters
+2. **CRITICAL: articleContext is REQUIRED (MANDATORY, NOT OPTIONAL)** - must always be present
+3. **CRITICAL: Should be around 170-200 characters**
+4. Use only safe, educational language suitable for women's wellness content
+5. Focus on educational, empowering, and wellness-related content
+6. Avoid any explicit or inappropriate terminology
+7. **ABSOLUTELY NO EMOJIS** - Do not add any emojis, symbols, or special characters
+8. Output ONLY the JSON object with no additional text or explanations
+9. Ensure the articleContext field is present with a non-empty string value between 170-200 characters
 ```
 
 ---
@@ -229,4 +231,3 @@ Remember to:
 - Undefined, null, or empty string values
 - Context string shorter than 170 characters
 - Context string longer than 200 characters
-

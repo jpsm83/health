@@ -186,12 +186,26 @@ export const PATCH = async (
       updateData.category = category;
     }
 
+    // Helper function to clean JSON string (remove markdown code blocks and fix common issues)
+    const cleanJsonString = (jsonString: string): string => {
+      let cleaned = jsonString.trim();
+      
+      // Remove markdown code blocks (```json ... ``` or ``` ... ```)
+      cleaned = cleaned.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
+      
+      // Fix trailing commas in arrays and objects
+      cleaned = cleaned.replace(/,\s*]/g, "]").replace(/,\s*}/g, "}");
+      
+      // Normalize whitespace
+      cleaned = cleaned.replace(/\s+/g, " ").trim();
+      
+      return cleaned;
+    };
+
     // Update languages if provided
     if (languagesRaw) {
       try {
-        const languages = JSON.parse(
-          languagesRaw.replace(/,\s*]/g, "]").replace(/\s+/g, " ").trim()
-        ) as ILanguageSpecific[];
+        const languages = JSON.parse(cleanJsonString(languagesRaw)) as ILanguageSpecific[];
 
         // Validate languages structure
         if (!Array.isArray(languages) || languages.length === 0) {
@@ -205,19 +219,18 @@ export const PATCH = async (
 
         // Validate each language
         for (const language of languages) {
-          // Validate articleContext structure if provided
-          if (language.articleContext !== undefined) {
-            if (
-              typeof language.articleContext !== "string" ||
-              language.articleContext.trim().length === 0
-            ) {
-              return NextResponse.json(
-                {
-                  message: "ArticleContext must be a non-empty string",
-                },
-                { status: 400 }
-              );
-            }
+          // Validate articleContext - REQUIRED field
+          if (
+            language.articleContext === undefined ||
+            typeof language.articleContext !== "string" ||
+            language.articleContext.trim().length === 0
+          ) {
+            return NextResponse.json(
+              {
+                message: "ArticleContext is required and must be a non-empty string",
+              },
+              { status: 400 }
+            );
           }
 
           // Validate postImage structure if provided
@@ -389,9 +402,7 @@ export const PATCH = async (
     // Update imagesContext if provided
     if (imagesContextRaw) {
       try {
-        const imagesContext = JSON.parse(
-          imagesContextRaw.replace(/,\s*}/g, "}").replace(/\s+/g, " ").trim()
-        );
+        const imagesContext = JSON.parse(cleanJsonString(imagesContextRaw));
 
         if (
           !imagesContext ||

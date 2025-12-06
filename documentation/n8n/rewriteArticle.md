@@ -42,6 +42,12 @@ Rewrite the article to make it look different while preserving the same context:
 - Use different examples, analogies, and explanations where possible
 - Ensure the rewritten content is unique but conveys the same information
 - **PRESERVE EXACT PRODUCT NAMES** - Do not change names of products, brands, merchandise, or purchasable items so users can find them for purchase
+- **CRITICAL BRAND REPLACEMENT: Replace ALL mentions of the original source brand/website with "Women's Spot"**
+  - If the article mentions "Women's Health", "Healthline", "WebMD", "Mayo Clinic", or any other source publication, replace it with "Women's Spot"
+  - If the article says "according to Women's Health" → change to "according to Women's Spot"
+  - If the article references "our research" or "our studies" from the original source → change to "Women's Spot research" or "Women's Spot studies"
+  - Any brand name, publication name, or website name that appears in the article content must be replaced with "Women's Spot"
+  - This is CRITICAL for branding consistency - the rewritten article must appear as if it originated from Women's Spot
 
 **LENGTH REQUIREMENTS - ABSOLUTELY CRITICAL:**
 - **MANDATORY: The rewritten article must be longer than the original**
@@ -202,6 +208,10 @@ Return the rewritten content in this exact JSON format:
 - Do NOT change the core meaning or context
 - Do NOT output in any format other than the specified JSON
 - Do NOT create articles shorter than the original - this is absolutely forbidden
+- **Do NOT leave any mentions of the original source brand/website** - ALL must be replaced with "Women's Spot"
+- **Do NOT preserve original publication names** - they must be replaced with "Women's Spot"
+- **Do NOT leave any mentions of the original source brand/website** - ALL must be replaced with "Women's Spot"
+- **Do NOT preserve original publication names** - they must be replaced with "Women's Spot"
 
 **CRITICAL: Your response must be ONLY the JSON object, nothing else.**
 ```
@@ -210,7 +220,7 @@ Return the rewritten content in this exact JSON format:
 ```
 Please analyze and rewrite the following article content:
 
-{{ JSON.stringify($json) }}
+{{ $('Sanitize data').item.json.data }}
 
 ```
 
@@ -254,6 +264,12 @@ Rewrite the article to make it look different while preserving the same context:
 - Use different examples, analogies, and explanations where possible
 - Ensure the rewritten content is unique but conveys the same information
 - **PRESERVE EXACT PRODUCT NAMES** - Do not change names of products, brands, merchandise, or purchasable items so users can find them for purchase
+- **CRITICAL BRAND REPLACEMENT: Replace ALL mentions of the original source brand/website with "Women's Spot"**
+  - If the article mentions "Women's Health", "Healthline", "WebMD", "Mayo Clinic", or any other source publication, replace it with "Women's Spot"
+  - If the article says "according to Women's Health" → change to "according to Women's Spot"
+  - If the article references "our research" or "our studies" from the original source → change to "Women's Spot research" or "Women's Spot studies"
+  - Any brand name, publication name, or website name that appears in the article content must be replaced with "Women's Spot"
+  - This is CRITICAL for branding consistency - the rewritten article must appear as if it originated from Women's Spot
 
 **LENGTH REQUIREMENTS - ABSOLUTELY CRITICAL:**
 - **MANDATORY & CRITICAL: The rewritten article must be longer than the original**
@@ -314,6 +330,26 @@ Exclude all unrelated content such as:
 - Any mention of "this website," "our site," or similar references
 
 **The rewritten article must be completely standalone and contain ONLY the article content itself.**
+
+### 2.2 CRITICAL BRAND REPLACEMENT
+**ABSOLUTELY CRITICAL: Replace ALL mentions of the original source brand/website with "Women's Spot":**
+
+- **If the article mentions any source publication name** (e.g., "Women's Health", "Healthline", "WebMD", "Mayo Clinic", "Verywell Health", "Health.com", "Prevention", "Shape", "Self", "Cosmopolitan", "Glamour", or any other publication), **REPLACE it with "Women's Spot"**
+- **Examples of replacements:**
+  - "According to Women's Health" → "According to Women's Spot"
+  - "Women's Health reports" → "Women's Spot reports"
+  - "As Healthline explains" → "As Women's Spot explains"
+  - "WebMD suggests" → "Women's Spot suggests"
+  - "Our research at [Original Source]" → "Women's Spot research"
+  - "Studies from [Original Source]" → "Women's Spot studies"
+  - Any reference to the original publication's name → "Women's Spot"
+- **This applies to ALL mentions throughout the article content**, including:
+  - In-text citations and references
+  - Study attributions
+  - Expert quotes that mention the source
+  - Any brand name or publication name that appears in the article
+- **CRITICAL: The rewritten article must appear as if it originated from Women's Spot - no traces of the original source brand should remain**
+- **This is a branding requirement - failure to replace source brands will result in incorrect attribution**
 
 ## 3. CONTENT FILTERING RULES
 
@@ -421,12 +457,13 @@ Single quotes instead of double quotes
 3. **THIRD: Calculate minimum required length (longer than original)**
 4. **FOURTH: Apply noise filtering**
 5. **FIFTH: Apply personal information anonymization if needed**
-6. **SIXTH: Rewrite the content to make it look different while preserving context (IN ENGLISH ONLY)**
-7. **SEVENTH: Count the characters of the rewritten content**
-8. **EIGHTH: CRITICAL - Verify the rewritten content is longer than the original AND in English only**
-9. **NINTH: If rewritten content is shorter than required, ADD MORE CONTENT immediately (IN ENGLISH ONLY)**
-10. **TENTH: Structure the rewritten content into the required JSON format (IN ENGLISH ONLY)**
-11. **ELEVENTH: Return the JSON output (IN ENGLISH ONLY)**
+6. **SIXTH: CRITICAL - Replace ALL mentions of original source brands/websites with "Women's Spot"**
+7. **SEVENTH: Rewrite the content to make it look different while preserving context (IN ENGLISH ONLY)**
+8. **EIGHTH: Count the characters of the rewritten content**
+9. **NINTH: CRITICAL - Verify the rewritten content is longer than the original AND in English only**
+10. **TENTH: If rewritten content is shorter than required, ADD MORE CONTENT immediately (IN ENGLISH ONLY)**
+11. **ELEVENTH: Structure the rewritten content into the required JSON format (IN ENGLISH ONLY)**
+12. **TWELFTH: Return the JSON output (IN ENGLISH ONLY)**
 
 **LENGTH VERIFICATION IS MANDATORY - DO NOT SKIP THIS STEP**
 
@@ -438,3 +475,9 @@ Single quotes instead of double quotes
 - Do NOT create articles shorter than the original - this is absolutely forbidden
 - Do NOT output content in any language other than English - this is absolutely forbidden
 - Do NOT use non-English characters, words, or phrases in any part of the output
+- **Do NOT leave any mentions of the original source brand/website** - ALL must be replaced with "Women's Spot"
+- **Do NOT preserve original publication names** - they must be replaced with "Women's Spot"
+- **Do NOT skip brand replacement** - this is CRITICAL for branding consistency
+- **Do NOT leave any mentions of the original source brand/website** - ALL must be replaced with "Women's Spot"
+- **Do NOT preserve original publication names** - they must be replaced with "Women's Spot"
+- **Do NOT skip brand replacement** - this is CRITICAL for branding consistency

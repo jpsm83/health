@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { getTranslations, getLocale } from "next-intl/server";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HeroSection from "@/components/server/HeroSection";
@@ -11,7 +10,7 @@ export async function generateMetadata({
 }: {
   params?: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const locale = params ? (await params).locale : routing.defaultLocale;
+  const locale = params ? (await params).locale : await getLocale();
   return generatePublicMetadata(locale, "/404", "metadata.notFound.title");
 }
 
@@ -20,7 +19,7 @@ export default async function NotFound({
 }: {
   params?: Promise<{ locale: string }>;
 }) {
-  const locale = params ? (await params).locale : routing.defaultLocale;
+  const locale = params ? (await params).locale : await getLocale();
   const t = await getTranslations({ locale, namespace: "notFound" });
 
   return (
