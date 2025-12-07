@@ -47,7 +47,8 @@
     "salesNow": "Sales On NOW... Don't Miss Out on Our Best Deals on {category}!",
     "salesNowNoCategory": "Sales On NOW... Don't Miss Out on Our Best Deals!",
     "grabDealsProduct": "Grab These Deals on {product} Before They're Gone!",
-    "grabDealsCategory": "Grab Best Deals on {category} Before They're Gone!"
+    "grabDealsCategory": "Grab Best Deals on {category} Before They're Gone!",
+    "affiliateReminder": "Buying through our links helps support our app at no extra cost to you"
   },
   "articleCard": {
     "readTime": "{time} min read",

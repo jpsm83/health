@@ -45,7 +45,8 @@
     "salesNow": "Promoções AGORA... Não Perca Nossas Melhores Ofertas em {category}!",
     "salesNowNoCategory": "Promoções AGORA... Não Perca Nossas Melhores Ofertas!",
     "grabDealsProduct": "Aproveite Essas Ofertas em {product} Antes que Acabem!",
-    "grabDealsCategory": "Aproveite as Melhores Ofertas em {category} Antes que Acabem!"
+    "grabDealsCategory": "Aproveite as Melhores Ofertas em {category} Antes que Acabem!",
+    "affiliateReminder": "Comprar através dos nossos links ajuda a manter nosso app sem custo adicional para você"
   },
   "articleCard": {
     "readTime": "{time} min de leitura",
