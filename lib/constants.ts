@@ -106,6 +106,14 @@ export const affiliateCompanies = {
         domain: "nl",
         affiliateId: "womensspoto03-21",
       },
+      se: {
+        domain: "se",
+        affiliateId: "womensspot-21",
+      },
+      pl: {
+        domain: "pl",
+        affiliateId: "womensspot09-21",
+      }
     },
   },
 } as const;

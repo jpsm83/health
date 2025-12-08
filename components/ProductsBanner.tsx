@@ -260,7 +260,7 @@ export default function ProductsBanner({
       {showReminder ? (
         <div className="flex flex-col items-center w-full">
           {bannerImage}
-          <p className="text-xs md:text-sm text-center w-full mt-1 px-2 opacity-40">
+          <p className="text-[10px] md:text-xs text-center w-full mt-1 px-2 opacity-40">
             🖤&nbsp;&nbsp;{t("affiliateReminder")}&nbsp;&nbsp;🖤
           </p>
         </div>
