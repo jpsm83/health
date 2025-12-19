@@ -10,7 +10,7 @@ import Article from "@/app/api/models/article";
 import { mainCategories } from "@/lib/constants";
 import objDefaultValidation from "@/lib/utils/objDefaultValidation";
 import uploadFilesCloudinary from "@/lib/cloudinary/uploadFilesCloudinary";
-import deleteFilesCloudinary from "@/lib/cloudinary/deleteFilesCloudinary";
+import deleteFolderCloudinary from "@/lib/cloudinary/deleteFolderCloudinary";
 import isObjectIdValid from "@/app/api/utils/isObjectIdValid";
 import { getArticleByIdService, updateArticleService, deleteArticleService } from "@/lib/services/articles";
 import { validateCanonicalUrl } from "@/lib/utils/canonicalUrl";
@@ -562,8 +562,8 @@ export const DELETE = async (
 
     await connectDb();
 
-    // Find the article (for authorization and image cleanup)
-    const article = await Article.findById(articleId).select("articleImages");
+    // Find the article (for authorization check only - we don't need articleImages anymore)
+    const article = await Article.findById(articleId).select("_id");
 
     if (!article) {
       return NextResponse.json(
@@ -584,19 +584,24 @@ export const DELETE = async (
       );
     }
 
-    // Delete images from Cloudinary (before DB deletion)
-    if (article.articleImages && article.articleImages.length > 0) {
-      for (const imageUrl of article.articleImages) {
-        try {
-          await deleteFilesCloudinary(imageUrl);
-        } catch (error) {
-          console.warn(`Failed to delete image from Cloudinary: ${imageUrl}`, error);
-          // Continue with article deletion even if image deletion fails
-        }
-      }
+    // Delete entire folder from Cloudinary (before DB deletion)
+    // CRITICAL: Path is exactly "health/articles/{articleId}" - articleId is validated as ObjectId above
+    // This ensures we only delete the specific article's folder and nothing else
+    try {
+      // Construct the exact folder path - articleId is already validated as ObjectId
+      const folderPath = `health/articles/${articleId}`;
+      
+      // Delete the entire folder (all files and the folder itself)
+      await deleteFolderCloudinary(folderPath);
+    } catch (error) {
+      console.warn(`Failed to delete folder from Cloudinary: health/articles/${articleId}`, error);
+      // Continue with article deletion even if folder deletion fails
+      // This prevents a Cloudinary error from blocking database cleanup
     }
 
     // Delete the article using service (includes comment deletion)
+    // CRITICAL: findByIdAndDelete only deletes the document with the exact ID
+    // Comment.deleteMany only deletes comments with the exact articleId
     await deleteArticleService(articleId);
 
     return NextResponse.json(

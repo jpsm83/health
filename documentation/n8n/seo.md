@@ -51,6 +51,16 @@ Create comprehensive SEO metadata that optimizes the article for search engines:
 - Ensure all metadata is suitable for search engines and content filters
 - Use only the most general, educational language that cannot be misinterpreted while still being relevant to women's wellness topics
 
+**CRITICAL YEAR REFERENCE REQUIREMENTS:**
+- **DO NOT include generic year references** in SEO metadata (metaTitle, metaDescription, keywords) - e.g., "in 2026", "this year", "last year", "as of 2024", "studies from 2023"
+- **All SEO content must be reusable across any year** - it should not become outdated due to year references
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
+- **Remove or rephrase any generic time references** that include years:
+  - "A study from 2022" → "Recent studies show" or "Studies indicate"
+  - "This year's trends" → "Current trends" or "Latest trends"
+  - "In 2024, experts recommend" → "Experts recommend" or "Current recommendations"
+- **Use timeless language** that remains relevant regardless of when the content is used
+
 **SEO SAFETY COMPLIANCE REQUIREMENTS:**
 - **NEVER include explicit sexual terminology in meta titles or descriptions**
 - **NEVER include content that could be flagged by search engines**
@@ -206,6 +216,18 @@ Search engines and content filters may flag content with sexual terminology, eve
 6. **MUST NOT include any comments or explanations outside the JSON**
 7. **MUST be valid JSON that can be parsed by a JSON parser**
 
+**CRITICAL JSON QUOTE RULES - ABSOLUTELY MANDATORY:**
+- **ALL double quotes (") within content MUST be replaced with single quotes (')**
+- **This is CRITICAL - double quotes break JSON parsing in n8n when data is treated as string**
+- **Examples of CORRECT usage:**
+  - Title: "Understanding 'Popcorn Brain': Signs" → JSON: `"metaTitle": "Understanding 'Popcorn Brain': Signs"`
+  - Description: "The term 'popcorn brain'" → JSON: `"metaDescription": "The term 'popcorn brain'"`
+- **Examples of INCORRECT (WILL CAUSE ERRORS):**
+  - WRONG: `"metaTitle": "Understanding "Popcorn Brain": Signs"` (double quotes break JSON)
+  - WRONG: `"metaDescription": "The term "popcorn brain""` (double quotes break JSON)
+- **VERIFICATION: Before outputting, replace ALL double quotes within content with single quotes (apostrophes)**
+- **If your content needs quotes, use single quotes (') instead of double quotes (") - this is not optional**
+
 **ABSOLUTELY FORBIDDEN:**
 - **NEVER use "articles" or its translations (artigos, articulos, artikel, articoli, artikelen) in canonical URLs**
 - **NEVER use generic URL patterns - MUST use the actual category name**
@@ -220,6 +242,8 @@ Search engines and content filters may flag content with sexual terminology, eve
 - Do NOT include explicit, suggestive, or inappropriate terminology
 - Do NOT create metadata that would violate search engine guidelines
 - Do NOT include content that could be flagged by content filters
+- **Do NOT include generic year references** - remove all generic year references and replace with timeless language (e.g., "in 2026" → remove or use "currently", "nowadays", "in recent times")
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
 - Do NOT add any text before or after the JSON object
 - Do NOT use single quotes instead of double quotes
 - Do NOT add trailing commas after the last item in objects or arrays

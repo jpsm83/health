@@ -1,6 +1,7 @@
 "use server";
 
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { cookies } from "next/headers";
 
 export interface IDeleteArticleResponse {
   success: boolean;
@@ -15,10 +16,19 @@ export async function deleteArticle(
     // Note: This action calls the API route because the route handles
     // Cloudinary image deletion before calling the service.
     const baseUrl = await getBaseUrl();
+    
+    // Get cookies to include in the request for session authentication
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore
+      .getAll()
+      .map((c) => `${c.name}=${c.value}`)
+      .join("; ");
+
     const response = await fetch(`${baseUrl}/api/v1/articles/by-id/${articleId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Cookie: cookieHeader,
       },
     });
 

@@ -137,17 +137,33 @@ Exclude all unrelated content such as:
 - **CRITICAL: The rewritten article must appear as if it originated from Women's Spot - no traces of the original source brand should remain**
 - **This is a branding requirement - failure to replace source brands will result in incorrect attribution**
 
-**CRITICAL YEAR REFERENCE UPDATES: Update generic year references to 2026, but preserve historically specific years**
-- **UPDATE generic year references to 2026:**
-  - If the article mentions a year in a generic context (e.g., "in 2022", "during 2023", "as of 2024"), update it to 2026
-  - Examples: "A study from 2022" → "A study from 2026", "Research conducted in 2023" → "Research conducted in 2026"
-  - Generic time references like "last year" or "this year" should be updated to reflect 2026 context
+**CRITICAL YEAR REFERENCE UPDATES: Remove generic year references and use timeless language, but preserve historically specific years**
+- **REMOVE generic year references and use timeless alternatives:**
+  - If the article mentions a year in a generic context (e.g., "in 2022", "during 2023", "as of 2024", "in 2025", "in 2026"), remove the year reference and use timeless language
+  - **Examples of CORRECT timeless replacements:**
+    - "A study from 2022" → "Recent studies show" or "Studies indicate" or "Research shows"
+    - "Research conducted in 2023" → "Research shows" or "Current research indicates" or "Studies have found"
+    - "Discover how Adidas' 2026 fragrance line..." → "Discover how Adidas' fragrance line..." or "Discover how Adidas' latest fragrance line..."
+    - "Now on 2026 experts think..." → "Nowadays experts think..." or "Currently experts think..." or "In recent times experts think..."
+    - "This year's trends" → "Current trends" or "Latest trends" or "Modern trends"
+    - "Last year's research" → "Recent research" or "Latest research" or "Current research"
+    - "In 2024, studies found" → "Studies have found" or "Recent studies found" or "Research indicates"
+    - "During 2023, experts noted" → "Experts have noted" or "Recently, experts noted"
+    - "As of 2025, the data shows" → "Current data shows" or "The data shows" or "Recent data indicates"
+  - **Generic time references should be replaced with timeless alternatives:**
+    - "this year" → "currently", "nowadays", "in recent times", "today", "in the present day"
+    - "last year" → "recently", "in recent times", "lately", "in the past"
+    - "next year" → "in the future", "upcoming", "forthcoming", "in coming times"
+    - "in 202X" (generic) → remove year or use "currently", "nowadays", "in recent times"
+  - **Product launches and releases: Remove year references unless the year is part of the product name**
+    - "Adidas' 2026 collection" → "Adidas' collection" or "Adidas' latest collection"
+    - "iPhone 15 Pro from 2023" → Keep "iPhone 15 Pro" (year is part of product identification if needed for product search)
 - **PRESERVE historically specific year references:**
   - Do NOT change years that are tied to specific historical events (e.g., "World Cup Football 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
   - Do NOT change years in historical contexts (e.g., "the 2016 election", "the 2008 financial crisis")
   - Do NOT change years that are part of product names or model numbers (e.g., "iPhone 15 Pro from 2023" - keep the year if it's part of the product identification)
   - Do NOT change years in study citations if the year is crucial for identifying the specific study
-- **When in doubt:** If a year is tied to a specific, identifiable event or historical moment, preserve it. If it's just a generic time reference, update to 2026
+- **When in doubt:** If a year is tied to a specific, identifiable event or historical moment, preserve it. If it's just a generic time reference, remove it and use timeless language
 
 **PERSONAL INFORMATION ANONYMIZATION:**
 If the article contains specific information about individual people (names, personal details, specific cases), anonymize them while preserving the informational value:
@@ -241,6 +257,18 @@ Return the rewritten content in this exact JSON format:
 6. **MUST NOT include any comments or explanations outside the JSON**
 7. **MUST be valid JSON that can be parsed by a JSON parser**
 
+**CRITICAL JSON QUOTE RULES - ABSOLUTELY MANDATORY:**
+- **ALL double quotes (") within content MUST be replaced with single quotes (')**
+- **This is CRITICAL - double quotes break JSON parsing in n8n when data is treated as string**
+- **Examples of CORRECT usage:**
+  - Title: "Understanding 'Popcorn Brain': Signs, Causes..." → JSON: `"mainTitle": "Understanding 'Popcorn Brain': Signs, Causes..."`
+  - Text: "The term 'popcorn brain'" → JSON: `"articleParagraphs": ["The term 'popcorn brain'"]`
+- **Examples of INCORRECT (WILL CAUSE ERRORS):**
+  - WRONG: `"mainTitle": "Understanding "Popcorn Brain""` (double quotes break JSON)
+  - WRONG: `"articleParagraphs": ["The term "popcorn brain""]` (double quotes break JSON)
+- **VERIFICATION: Before outputting, replace ALL double quotes within content with single quotes (apostrophes)**
+- **If your content needs quotes, use single quotes (') instead of double quotes (") - this is not optional**
+
 **ABSOLUTELY FORBIDDEN:**
 - Do NOT copy exact text from the original
 - Do NOT add any emojis, symbols, or special characters in any content
@@ -253,7 +281,7 @@ Return the rewritten content in this exact JSON format:
 - **Do NOT leave any mentions of the original source brand/website** - ALL must be replaced with "Women's Spot"
 - **Do NOT preserve original publication names** - they must be replaced with "Women's Spot"
 - **Do NOT change historically specific year references** - preserve years tied to specific events (e.g., "World Cup 2022", "Olympic Games 2020")
-- **Do NOT skip year reference updates** - generic year references must be updated to 2026
+- **Do NOT include generic year references** - remove all generic year references and replace with timeless language (e.g., "in 2026" → remove or use "currently", "nowadays", "in recent times")
 - Do NOT add any text before or after the JSON object
 - Do NOT use single quotes instead of double quotes
 - Do NOT add trailing commas after the last item in objects or arrays

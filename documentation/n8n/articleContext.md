@@ -63,6 +63,24 @@ Create 1 article context string that captures the essence of the article content
 - Do NOT make up false information
 - Do NOT change the core meaning or context
 
+**CRITICAL YEAR REFERENCE REQUIREMENTS:**
+- **DO NOT include generic year references** in the article context string (e.g., "in 2026", "this year", "last year", "as of 2024", "studies from 2023")
+- **The article context string must be reusable across any year** - it should not become outdated due to year references
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
+- **Remove or rephrase any generic time references** that include years (e.g., "A study from 2022" → "Recent studies show", "Research conducted in 2023" → "Research shows")
+- **Use timeless language** that remains relevant regardless of when the content is used
+- **Examples of CORRECT usage (no year references):**
+  - "Discover practical tips for improving your wellness"
+  - "Learn how to enhance your intimate relationships"
+  - "Explore the benefits of personal wellness practices"
+- **Examples of INCORRECT usage (generic year references):**
+  - WRONG: "Discover wellness tips for 2026"
+  - WRONG: "Learn about this year's best practices"
+  - WRONG: "A study from 2024 shows..."
+- **Examples of CORRECT usage (date-specific events only):**
+  - "Understanding the impact of the COVID-19 pandemic in 2020 on women's health"
+  - "Lessons from the Olympic Games 2020"
+
 **ABSOLUTELY NO EMOJIS** - Do not add any emojis, symbols, or special characters
 
 ## SAFETY AND TERMINOLOGY
@@ -134,6 +152,16 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 - **The value MUST be between 170 and 200 characters (including spaces)**
 - **Validation will FAIL if the field is missing, undefined, null, empty, or outside the character range**
 
+**CRITICAL JSON QUOTE RULES - ABSOLUTELY MANDATORY:**
+- **ALL double quotes (") within content MUST be replaced with single quotes (')**
+- **This is CRITICAL - double quotes break JSON parsing in n8n when data is treated as string**
+- **Examples of CORRECT usage:**
+  - Text: "Discover 'Popcorn Brain' signs" → JSON: `"articleContext": "Discover 'Popcorn Brain' signs"`
+- **Examples of INCORRECT (WILL CAUSE ERRORS):**
+  - WRONG: `"articleContext": "Discover "Popcorn Brain" signs"` (double quotes break JSON)
+- **VERIFICATION: Before outputting, replace ALL double quotes within content with single quotes (apostrophes)**
+- **If your content needs quotes, use single quotes (') instead of double quotes (") - this is not optional**
+
 **ABSOLUTELY FORBIDDEN:**
 - Do NOT output undefined, null, or empty values for the field
 - Do NOT omit the required JSON key or use empty strings
@@ -145,6 +173,8 @@ OpenAI's safety filters block ANY sexual terminology, even in educational contex
 - Do NOT output in any format other than the specified JSON
 - Do NOT start with "This article...", "This content...", "The article...", or any meta-references
 - Do NOT write about the article itself - write directly about the topic/content
+- **Do NOT include generic year references** (e.g., "in 2026", "this year", "last year", "as of 2024", "studies from 2023") - the context string must be reusable across any year
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
 - Do NOT add any text before or after the JSON object
 - Do NOT use single quotes instead of double quotes
 - Do NOT add trailing commas after the last item in objects or arrays
@@ -188,3 +218,4 @@ and create 1 article context string following the specified JSON format.
 - Undefined, null, or empty string values
 - Context string shorter than 170 characters
 - Context string longer than 200 characters
+- Generic year references (e.g., "in 2026", "this year", "last year")

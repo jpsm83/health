@@ -41,6 +41,12 @@ Create 4 detailed image descriptions that reflect the article content:
 - Do NOT make up false information
 - Do NOT change the core meaning or context
 
+**CRITICAL YEAR REFERENCE REQUIREMENTS:**
+- **DO NOT include generic year references** in image descriptions (e.g., "in 2026", "this year", "last year", "as of 2024")
+- **Image descriptions must be reusable across any year** - they should not become outdated due to year references
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
+- **Use timeless language** in descriptions - focus on the visual elements and concepts rather than time-specific references
+
 **FOR WOMEN'S WELLNESS TOPICS (intimate life, intimate wellness, relationships, personal wellness):**
 - Create appropriate, educational, and empowering images suitable for a women's spot app
 - Focus on education, empowerment, and wellness, NOT explicit content
@@ -243,6 +249,16 @@ Before generating any image description, verify that your prompt:
 - **ALL values MUST be non-empty strings - NO undefined, null, or empty values accepted**
 - **Validation will FAIL if any field is missing, undefined, null, or empty**
 
+**CRITICAL JSON QUOTE RULES - ABSOLUTELY MANDATORY:**
+- **ALL double quotes (") within content MUST be replaced with single quotes (')**
+- **This is CRITICAL - double quotes break JSON parsing in n8n when data is treated as string**
+- **Examples of CORRECT usage:**
+  - Description: "A woman reading 'Wellness Guide' book" → JSON: `"imageOne": "A woman reading 'Wellness Guide' book"`
+- **Examples of INCORRECT (WILL CAUSE ERRORS):**
+  - WRONG: `"imageOne": "A woman reading "Wellness Guide" book"` (double quotes break JSON)
+- **VERIFICATION: Before outputting, replace ALL double quotes within content with single quotes (apostrophes)**
+- **If your content needs quotes, use single quotes (') instead of double quotes (") - this is not optional**
+
 **ABSOLUTELY FORBIDDEN:**
 - Do NOT output undefined, null, or empty values for any field
 - Do NOT omit any required JSON keys or use empty strings
@@ -254,6 +270,8 @@ Before generating any image description, verify that your prompt:
 - Do NOT create explicit, suggestive, or inappropriate image descriptions for sensitive topics
 - Do NOT include nudity, sexual acts, or inappropriate content in image descriptions
 - Do NOT create images that would violate social media community guidelines
+- **Do NOT include generic year references** - remove all generic year references and use timeless language in descriptions
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
 - Do NOT add any text before or after the JSON object
 - Do NOT use single quotes instead of double quotes
 - Do NOT add trailing commas after the last item in objects or arrays

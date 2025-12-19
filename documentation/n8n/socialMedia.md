@@ -50,6 +50,20 @@ Create comprehensive social media content that optimizes engagement across all p
 - All content must reflect the educational and wellness nature of the content
 - **CRITICAL: For women's intimacy topics (intimate life, intimate wellness, relationships, personal wellness), create appropriate, educational, and empowering social media content suitable for a women's spot app. These topics are about sharing experiences, articles and information about women's - focus on education, empowerment, and wellness, NOT explicit content.**
 
+**CRITICAL YEAR REFERENCE REQUIREMENTS:**
+- **DO NOT include generic year references** in any social media content (e.g., "in 2026", "this year", "last year", "as of 2024", "studies from 2023")
+- **All social media content must be reusable across any year** - it should not become outdated due to year references
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
+- **Remove or rephrase any generic time references** that include years:
+  - "This year's trends" → "Current trends" or "Latest trends"
+  - "Last year's research" → "Recent research" or "Latest research"
+  - "In 2024, experts say" → "Experts say" or "Currently, experts say"
+- **Generic time references should be replaced with timeless alternatives:**
+  - "this year" → "currently", "nowadays", "in recent times", "today"
+  - "last year" → "recently", "in recent times", "lately"
+  - "next year" → "in the future", "upcoming", "forthcoming"
+- **Use timeless language** that remains relevant regardless of when the content is used
+
 **SOCIAL MEDIA SAFETY COMPLIANCE REQUIREMENTS:**
 - **NEVER include explicit sexual terminology in any social media content**
 - **NEVER include content that could be flagged by social media platforms**
@@ -229,6 +243,18 @@ Social media platforms and content filters may flag content with sexual terminol
 - **Count characters for every single field before outputting**
 - **If ANY field exceeds its limit, you MUST rewrite that specific value to fit**
 
+**CRITICAL JSON QUOTE RULES - ABSOLUTELY MANDATORY:**
+- **ALL double quotes (") within content MUST be replaced with single quotes (')**
+- **This is CRITICAL - double quotes break JSON parsing in n8n when data is treated as string**
+- **Examples of CORRECT usage:**
+  - Caption: "Discover 'Popcorn Brain' signs" → JSON: `"caption": "Discover 'Popcorn Brain' signs"`
+  - Text: "The term 'popcorn brain'" → JSON: `"text": "The term 'popcorn brain'"`
+- **Examples of INCORRECT (WILL CAUSE ERRORS):**
+  - WRONG: `"caption": "Discover "Popcorn Brain" signs"` (double quotes break JSON)
+  - WRONG: `"text": "The term "popcorn brain""` (double quotes break JSON)
+- **VERIFICATION: Before outputting, replace ALL double quotes within content with single quotes (apostrophes)**
+- **If your content needs quotes, use single quotes (') instead of double quotes (") - this is not optional**
+
 **ABSOLUTELY FORBIDDEN:**
 - **Do NOT create content longer than specified character limits - this will cause API errors**
 - **Do NOT include more hashtags than allowed per platform - this will cause API errors**
@@ -246,6 +272,8 @@ Social media platforms and content filters may flag content with sexual terminol
 - Do NOT include explicit, suggestive, or inappropriate terminology
 - Do NOT create content that would violate social media guidelines
 - Do NOT include content that could be flagged by content filters
+- **Do NOT include generic year references** - remove all generic year references and replace with timeless language (e.g., "in 2026" → remove or use "currently", "nowadays", "in recent times")
+- **ONLY include years if they are tied to date-specific historical events** (e.g., "World Cup 2022", "Olympic Games 2020", "COVID-19 pandemic in 2020")
 
 **JSON FORMATTING ERRORS TO AVOID:**
 - Do NOT add any text before or after the JSON object
