@@ -81,7 +81,7 @@ export default async function HomePage({
           buttonText={t("buttonText")}
         />
         
-        <div className="container mx-auto my-7 md:my-14">
+        <div className="container mx-auto my-8 md:my-16">
           <div className="flex flex-col h-full gap-8 md:gap-16">
 
           {/* Products Banner */}

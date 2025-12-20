@@ -34,7 +34,7 @@ export default async function NotFound({
           alt={t("heroImageAlt")}
         />
 
-        <div className="container mx-auto my-7 md:my-14">
+        <div className="container mx-auto my-8 md:my-16">
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
         </div>

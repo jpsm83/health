@@ -29,21 +29,21 @@
       "description": "Descubra nossos últimos insights, dicas e guias para ajudá-lo a viver uma vida mais saudável e gratificante."
     },
     "featureCards": {
-      "healthFocused": {
-        "title": "Conteúdo Focado em Saúde",
-        "description": "Artigos são revisados para precisão médica"
+      "everydayHealthBalance": {
+        "title": "Saúde e Equilíbrio Diário",
+        "description": "Conteúdo cuidadoso para apoiar seu corpo, mente e bem-estar diário"
       },
-      "realLifeWellness": {
-        "title": "Bem-estar da Vida Real",
-        "description": "Dicas práticas diárias para mulheres reais e ocupadas"
+      "realLifeRealWomen": {
+        "title": "Vida Real, Mulheres Reais",
+        "description": "Ideias práticas e inspiração projetadas para rotinas e vidas reais"
       },
-      "allLifeStages": {
-        "title": "Todas as Fases da Vida",
-        "description": "Orientação para cada idade e fase da feminilidade"
+      "everyChapterOfWomanhood": {
+        "title": "Cada Capítulo da Mulher",
+        "description": "Orientação e encorajamento para cada idade, estágio e temporada"
       },
-      "latestTech": {
-        "title": "Precisão Alimentada por IA",
-        "description": "Tecnologia e IA de última geração garantem que nossos artigos sejam precisos e próximos da perfeição"
+      "smartTrustedContent": {
+        "title": "Conteúdo Inteligente e Confiável",
+        "description": "Artigos cuidadosamente elaborados usando ferramentas modernas para oferecer insights confiáveis"
       }
     }
   },

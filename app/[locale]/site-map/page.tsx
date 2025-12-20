@@ -47,7 +47,7 @@ export default async function SiteMapPage({
   const t = await getTranslations({ locale, namespace: "siteMap" });
 
   return (
-    <main className="container mx-auto my-7 md:my-14">
+    <main className="container mx-auto my-8 md:my-16">
       <ErrorBoundary context={"Site Map component"}>
         <div className="flex flex-col h-full gap-8 md:gap-16">
           {/* Products Banner */}

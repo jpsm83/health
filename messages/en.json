@@ -29,21 +29,21 @@
       "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
     },
     "featureCards": {
-      "healthFocused": {
-        "title": "Health Focused Content",
-        "description": "Articles are reviewed for medical accuracy"
+      "everydayHealthBalance": {
+        "title": "Everyday Health & Balance",
+        "description": "Thoughtful content to support your body, mind, and daily wellbeing"
       },
-      "realLifeWellness": {
-        "title": "Real-Life Wellness",
-        "description": "Practical daily tips for busy, real women"
+      "realLifeRealWomen": {
+        "title": "Real Life, Real Women",
+        "description": "Practical ideas and inspiration designed for real routines and real lives"
       },
-      "allLifeStages": {
-        "title": "All Life Stages",
-        "description": "Guidance for every age and phase of womanhood"
+      "everyChapterOfWomanhood": {
+        "title": "Every Chapter of Womanhood",
+        "description": "Guidance and encouragement for every age, stage, and season"
       },
-      "latestTech": {
-        "title": "AI-Powered Accuracy",
-        "description": "Latest technology and AI ensure our articles are accurate and close to perfection"
+      "smartTrustedContent": {
+        "title": "Smart, Trusted Content",
+        "description": "Carefully crafted articles using modern tools to deliver reliable insights"
       }
     }
   },

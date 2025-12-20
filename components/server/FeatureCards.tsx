@@ -23,23 +23,23 @@ export default async function FeatureCards({ locale }: FeatureCardsProps) {
   const features: FeatureCard[] = [
     {
       icon: ShieldCheck,
-      mainTextKey: "healthFocused.title",
-      subTextKey: "healthFocused.description",
+      mainTextKey: "everydayHealthBalance.title",
+      subTextKey: "everydayHealthBalance.description",
     },
     {
       icon: Sparkles,
-      mainTextKey: "realLifeWellness.title",
-      subTextKey: "realLifeWellness.description",
+      mainTextKey: "realLifeRealWomen.title",
+      subTextKey: "realLifeRealWomen.description",
     },
     {
       icon: HeartHandshake,
-      mainTextKey: "allLifeStages.title",
-      subTextKey: "allLifeStages.description",
+      mainTextKey: "everyChapterOfWomanhood.title",
+      subTextKey: "everyChapterOfWomanhood.description",
     },
     {
       icon: Brain,
-      mainTextKey: "latestTech.title",
-      subTextKey: "latestTech.description",
+      mainTextKey: "smartTrustedContent.title",
+      subTextKey: "smartTrustedContent.description",
     },
   ];
 

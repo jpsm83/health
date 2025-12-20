@@ -29,21 +29,21 @@
       "description": "Entdecken Sie unsere neuesten Einblicke, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes und erfüllteres Leben zu führen."
     },
     "featureCards": {
-      "healthFocused": {
-        "title": "Gesundheitsorientierte Inhalte",
-        "description": "Artikel werden auf medizinische Genauigkeit überprüft"
+      "everydayHealthBalance": {
+        "title": "Tägliche Gesundheit & Balance",
+        "description": "Durchdachte Inhalte zur Unterstützung von Körper, Geist und täglichem Wohlbefinden"
       },
-      "realLifeWellness": {
-        "title": "Wohlbefinden im echten Leben",
-        "description": "Praktische tägliche Tipps für beschäftigte, echte Frauen"
+      "realLifeRealWomen": {
+        "title": "Echtes Leben, Echte Frauen",
+        "description": "Praktische Ideen und Inspiration für echte Routinen und echte Leben"
       },
-      "allLifeStages": {
-        "title": "Alle Lebensphasen",
-        "description": "Anleitung für jedes Alter und jede Phase der Weiblichkeit"
+      "everyChapterOfWomanhood": {
+        "title": "Jedes Kapitel der Weiblichkeit",
+        "description": "Anleitung und Ermutigung für jedes Alter, jede Phase und jede Jahreszeit"
       },
-      "latestTech": {
-        "title": "KI-gestützte Genauigkeit",
-        "description": "Neueste Technologie und KI stellen sicher, dass unsere Artikel genau und nahezu perfekt sind"
+      "smartTrustedContent": {
+        "title": "Intelligente, Vertrauenswürdige Inhalte",
+        "description": "Sorgfältig erstellte Artikel mit modernen Tools für zuverlässige Erkenntnisse"
       }
     }
   },

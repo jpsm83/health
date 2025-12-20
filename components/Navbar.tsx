@@ -140,7 +140,7 @@ export default function Navbar() {
       suppressHydrationWarning
     >
       {/* Single navbar container */}
-      <div className="flex justify-between items-center h-14 md:h-16 px-6 sm:px-12 lg:px-8 border-b-2 border-white">
+      <div className="flex justify-between items-center h-16 px-6 sm:px-12 lg:px-8 border-b-2 border-gray-200">
         {/* Left: Logo */}
         <Link
           href={homeHref}
@@ -148,7 +148,7 @@ export default function Navbar() {
         >
           <Heart size={24} />
           <span
-            className="text-2xl font-bold"
+            className="text-lg md:text-2xl font-bold"
             style={{
               textShadow:
                 "1px 1px 2px rgba(0,0,0,0.6), 0 0 6px rgba(0,0,0,0.4)",

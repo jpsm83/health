@@ -239,7 +239,7 @@ export default function Article({
           {containerIndex === 3 && <NewsletterSignup />}
           <div className="overflow-hidden text-justify space-y-8 md:space-y-16">
             {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
-            <div className="relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] flex">
+            <div className="relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] flex mb-20">
               {/* First Image - Always visible */}
               <div className="relative w-full lg:w-1/2 h-full">
                 {container.firstImage && container.firstImage.trim() !== "" ? (
@@ -357,9 +357,8 @@ export default function Article({
                       </div>
                     </div>
                   </div>
-
                   {/* Social Share Buttons - Inside Hero Image at Bottom */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-xs shadow-2xl p-2 w-full">
+                  <div className="absolute bottom-[-60px] left-1/2 transform -translate-x-1/2 p-1 w-full">
                     <SocialShare
                       url={shareUrl}
                       title={shareTitle}
@@ -412,7 +411,14 @@ export default function Article({
                       <ProductsBanner
                         size="970x240"
                         affiliateCompany="amazon"
-                        category={articleData?.category ? translateCategoryToLocale(articleData.category, locale) : undefined}
+                        category={
+                          articleData?.category
+                            ? translateCategoryToLocale(
+                                articleData.category,
+                                locale
+                              )
+                            : undefined
+                        }
                         product={
                           articleData?.languages?.[0]?.salesProducts?.[
                             globalSectionIndex
