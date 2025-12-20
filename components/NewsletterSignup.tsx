@@ -105,7 +105,6 @@ export default function NewsletterSignup() {
           onClick={handleSubmit}
           type="submit"
           disabled={isLoading}
-          variant="customSecondary"
           className={`${session?.user ? "w-full" : "sm:w-1/3"} flex items-center justify-center gap-2`}
         >
           {isLoading ? (

@@ -4,9 +4,11 @@ import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
-import { mainCategories } from "@/lib/constants";
+import { mainCategories, categoryHeroImages } from "@/lib/constants";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HeroSection from "@/components/server/HeroSection";
+import FeatureCards from "@/components/server/FeatureCards";
+import CategoryCards from "@/components/server/CategoryCards";
 import FeaturedArticles from "@/components/FeaturedArticles";
 import NewsletterSection from "@/components/server/NewsletterSection";
 import CategoryCarouselSection from "@/components/server/CategoryCarouselSection";
@@ -67,17 +69,38 @@ export default async function HomePage({
   const t = await getTranslations({ locale, namespace: "home" });
 
   return (
-    <main className="container mx-auto my-7 md:my-14">
+    <main>
       <ErrorBoundary context={"Home component"}>
-        <div className="flex flex-col h-full gap-8 md:gap-16">
+        {/* Hero Section - Full width, positioned below navbar */}
+        <HeroSection
+          title={t("title")}
+          description={t("subtitle")}
+          imageUrl={categoryHeroImages.home}
+          alt={t("heroImageAlt")}
+          buttonHref="#featured-articles"
+          buttonText={t("buttonText")}
+        />
+        
+        <div className="container mx-auto my-7 md:my-14">
+          <div className="flex flex-col h-full gap-8 md:gap-16">
+
           {/* Products Banner */}
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-          {/* Hero Section */}
-          <HeroSection locale={locale} />
+          {/* Feature Cards Section */}
+          <FeatureCards locale={locale} />
+
+          {/* Explore by Category */}
+          <section className="space-y-6 md:space-y-12">
+            <SectionHeader
+              title={t("exploreByCategory.title")}
+              description={t("exploreByCategory.description")}
+            />
+            <CategoryCards locale={locale} />
+          </section>
 
           {/* Featured Articles Section */}
-          <section className="space-y-6 md:space-y-12">
+          <section id="featured-articles" className="space-y-6 md:space-y-12">
             <SectionHeader
               title={t("featuredArticles.title")}
               description={t("featuredArticles.description")}
@@ -120,6 +143,7 @@ export default async function HomePage({
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

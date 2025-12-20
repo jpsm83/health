@@ -10,6 +10,7 @@ import PaginationSection from "@/components/server/PaginationSection";
 import { searchArticlesPaginated } from "@/app/actions/article/searchArticlesPaginated";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import { categoryHeroImages } from "@/lib/constants";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import HeroCountUpdater from "@/components/HeroCountUpdater";
 import { HeroDescriptionProvider } from "@/components/HeroDescriptionContext";
@@ -73,21 +74,21 @@ export default async function SearchPage({
   });
 
   return (
-    <main className="container mx-auto my-7 md:my-14">
+    <main>
       <ErrorBoundary context={"Search page"}>
         <HeroDescriptionProvider initialDescription={initialDescription}>
-          <div className="flex flex-col h-full gap-8 md:gap-16">
-            {/* Products Banner - renders immediately */}
-            <ProductsBanner size="970x90" affiliateCompany="amazon" />
-
-            {/* Hero Section - renders immediately with placeholder count */}
-            <HeroSection
-              locale={locale}
-              title={t("resultsTitle")}
-              description={initialDescription}
-              alt={t("heroImageAlt")}
-              imageKey="search-results"
-            />
+          {/* Hero Section - Full width, positioned below navbar */}
+          <HeroSection
+            title={t("resultsTitle")}
+            description={initialDescription}
+            imageUrl={categoryHeroImages["search-results"]}
+            alt={t("heroImageAlt")}
+          />
+          
+          <div className="container mx-auto my-7 md:my-14">
+            <div className="flex flex-col h-full gap-8 md:gap-16">
+              {/* Products Banner - renders immediately */}
+              <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
             {/* Search Results Section - Suspense shows skeleton while loading */}
             <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
@@ -98,11 +99,12 @@ export default async function SearchPage({
               />
             </Suspense>
 
-            {/* Newsletter Signup Section - renders immediately */}
-            <NewsletterSignup />
+              {/* Newsletter Signup Section - renders immediately */}
+              <NewsletterSignup />
 
-            {/* Products Banner - renders immediately */}
-            <ProductsBanner size="970x240" affiliateCompany="amazon" />
+              {/* Products Banner - renders immediately */}
+              <ProductsBanner size="970x240" affiliateCompany="amazon" />
+            </div>
           </div>
         </HeroDescriptionProvider>
       </ErrorBoundary>

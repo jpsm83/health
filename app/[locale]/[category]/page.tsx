@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { mainCategories } from "@/lib/constants";
+import { getTranslations } from "next-intl/server";
+import { mainCategories, categoryHeroImages } from "@/lib/constants";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HeroSection from "@/components/server/HeroSection";
@@ -79,19 +80,30 @@ export default async function CategoryPage({
     notFound();
   }
 
+  const t = await getTranslations({ locale, namespace: "articles" });
+  const heroImage =
+    categoryHeroImages[englishCategory as keyof typeof categoryHeroImages] ||
+    categoryHeroImages.health;
+
   return (
-    <main className="container mx-auto my-7 md:my-14">
+    <main>
       <ErrorBoundary context={`Articles component for category ${category}`}>
-        <div className="flex flex-col h-full gap-8 md:gap-16">
+        {/* Hero Section - Full width, positioned below navbar */}
+        <HeroSection
+          title={t(`${englishCategory}.title`)}
+          description={t(`${englishCategory}.description`)}
+          imageUrl={heroImage}
+          alt={t(`${englishCategory}.heroImageAlt`)}
+        />
+        
+        <div className="container mx-auto my-7 md:my-14">
+          <div className="flex flex-col h-full gap-8 md:gap-16">
             {/* Products Banner */}
             <ProductsBanner
               size="970x90"
               affiliateCompany="amazon"
               category={category}
             />
-
-          {/* Hero Section */}
-          <HeroSection category={englishCategory} locale={locale} />
 
           {/* Paginated Articles Section with Pagination */}
           <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
@@ -108,6 +120,7 @@ export default async function CategoryPage({
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

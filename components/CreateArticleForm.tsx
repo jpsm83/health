@@ -344,7 +344,6 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
             <Button
               type="submit"
               disabled={isSubmitting}
-              variant="customDefault"
               className="w-auto flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
@@ -359,7 +358,6 @@ export default function CreateArticleForm({ locale }: CreateArticleFormProps) {
             <Button
               type="button"
               onClick={() => router.back()}
-              variant="outline"
               className="w-auto"
             >
               {t("form.cancel")}

@@ -1,7 +1,8 @@
 {
   "home": {
-    "title": "Benvenuta nel tuo spazio",
-    "subtitle": "La Tua Piattaforma Completa di Salute e Benessere per Donne",
+    "title": "La Tua Guida Affidabile alla Salute, Fitness e Benessere Quotidiano delle Donne",
+    "subtitle": "Consigli di esperti e ispirazione quotidiana su salute, fitness, nutrizione, intimità e benessere - basati sulla vita reale.",
+    "buttonText": "Articoli in Evidenza",
     "description": "Scopri una piattaforma completa fatta per le donne che abbracciano benessere, stile e gioia quotidiana. Dove fitness, salute, bellezza, cibo, viaggi e casa si uniscono in una destinazione quotidiana ispirante. Questo è il tuo spazio per risorse complete di salute e benessere.",
     "heroImageAlt": "Salute e Benessere",
     "exploreByCategory": {
@@ -26,6 +27,24 @@
     "featuredArticles": {
       "title": "Articoli in Evidenza",
       "description": "Scopri i nostri ultimi approfondimenti, consigli e guide per aiutarti a vivere una vita più sana e appagante."
+    },
+    "featureCards": {
+      "healthFocused": {
+        "title": "Contenuto Orientato alla Salute",
+        "description": "Gli articoli sono revisionati per accuratezza medica"
+      },
+      "realLifeWellness": {
+        "title": "Benessere della Vita Reale",
+        "description": "Consigli pratici quotidiani per donne reali e impegnate"
+      },
+      "allLifeStages": {
+        "title": "Tutte le Fasi della Vita",
+        "description": "Guida per ogni età e fase della femminilità"
+      },
+      "latestTech": {
+        "title": "Precisione Alimentata dall'IA",
+        "description": "Tecnologia e IA all'avanguardia garantiscono che i nostri articoli siano accurati e vicini alla perfezione"
+      }
     }
   },
   "newsletterSignup": {

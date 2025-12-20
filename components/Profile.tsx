@@ -612,8 +612,8 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
-                      variant="ghost"
                       size="icon"
+                      variant="ghost"
                       className="cursor-pointer"
                     >
                       {getCountryFlag(locale, "md")}
@@ -802,7 +802,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
-                          variant="outline"
+                          variant="secondary"
                           className="w-full justify-between focus:border-purple-400 focus:ring-purple-400/50 focus:ring-[3px]"
                           disabled={isLoading}
                         >
@@ -860,7 +860,7 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                     >
                       <DropdownMenuTrigger asChild>
                         <Button
-                          variant="outline"
+                          variant="secondary"
                           className="w-full justify-between focus:border-purple-400 focus:ring-purple-400/50 focus:ring-[3px]"
                           disabled={isLoading}
                         >
@@ -940,7 +940,6 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                     type="button"
                     onClick={handleResetPassword}
                     disabled={isLoading}
-                    variant="customDefault"
                     className="w-auto min-w-fit px-4"
                   >
                     <Lock className="w-4 h-4 mr-2" />
@@ -959,7 +958,6 @@ export default function Profile({ locale, initialUser }: ProfileProps) {
                 type="submit"
                 disabled={isLoading || !hasChanges}
                 className="w-auto min-w-fit px-4 flex items-center justify-center gap-2"
-                variant="customDefault"
               >
                 {isLoading ? (
                   <>

@@ -115,9 +115,8 @@ export default function Dashboard({
     }
   ) => (
     <Button
-      variant="ghost"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      className="h-8 px-2 text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+      className="h-8 px-2 text-xs font-medium"
     >
       {title}
       <ArrowUpDown className="ml-1 h-3 w-3" />

@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
+import { categoryHeroImages } from "@/lib/constants";
 import { getUserRegion } from "@/app/actions/geolocation/getUserRegion";
 import { RegionProvider } from "@/contexts/RegionContext";
 import Navigation from "@/components/Navbar";
@@ -77,27 +78,26 @@ export default async function NotFound() {
       <RegionProvider initialRegion={region}>
         <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
           <Navigation />
-          <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">
-            <main className="container mx-auto my-7 md:my-14">
-              <ErrorBoundary context={"Not Found page"}>
+          <div className="flex-1 flex flex-col pt-14 md:pt-16 w-full max-w-full overflow-x-hidden">
+            <ErrorBoundary context={"Not Found page"}>
+              {/* Hero Section - Full width, positioned below navbar */}
+              <HeroSection
+                title={t("title")}
+                description={t("description")}
+                imageUrl={categoryHeroImages["search-no-results"]}
+                alt={t("heroImageAlt")}
+              />
+              
+              <div className="container mx-auto my-7 md:my-14">
                 <div className="flex flex-col h-full gap-8 md:gap-16">
                   {/* Products Banner */}
                   <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-                  {/* Hero Section */}
-                  <HeroSection
-                    locale={locale}
-                    title={t("title")}
-                    description={t("description")}
-                    alt={t("heroImageAlt")}
-                    imageKey="search-no-results"
-                  />
-
                   {/* Bottom banner - lazy loaded */}
                   <ProductsBanner size="970x240" affiliateCompany="amazon" />
                 </div>
-              </ErrorBoundary>
-            </main>
+              </div>
+            </ErrorBoundary>
           </div>
           <Footer />
         </main>

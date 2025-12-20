@@ -15,7 +15,7 @@ export default function HeroDescription({
 
   return (
     <p
-      className="text-lg md:text-xl text-white max-w-2xl mx-auto drop-shadow-lg"
+      className="text-lg md:text-xl lg:text-2xl text-white drop-shadow-lg"
       style={{
         textShadow: "1px 1px 2px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.4)",
       }}

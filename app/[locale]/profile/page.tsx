@@ -37,19 +37,21 @@ export default async function ProfilePage({
   }
 
   return (
-    <main className="container mx-auto my-7 md:my-14">
+    <main>
       <ErrorBoundary context={"Profile page"}>
-        <div className="flex flex-col h-full gap-8 md:gap-16">
-          {/* Products Banner */}
-          <ProductsBanner size="970x90" affiliateCompany="amazon" />
+        <div className="container mx-auto my-7 md:my-14">
+          <div className="flex flex-col h-full gap-8 md:gap-16">
+            {/* Products Banner */}
+            <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-          {/* Profile Form Section */}
-          <Suspense fallback={<ProfileSkeleton />}>
-            <ProfileContent locale={locale} userId={session.user.id} />
-          </Suspense>
+            {/* Profile Form Section */}
+            <Suspense fallback={<ProfileSkeleton />}>
+              <ProfileContent locale={locale} userId={session.user.id} />
+            </Suspense>
 
-          {/* Products Banner */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+            {/* Products Banner */}
+            <ProductsBanner size="970x240" affiliateCompany="amazon" />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

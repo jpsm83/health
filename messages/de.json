@@ -1,7 +1,8 @@
 {
   "home": {
-    "title": "Willkommen zu deinem Platz",
-    "subtitle": "Ihre umfassende Gesundheits- und Wellness-Plattform für Frauen",
+    "title": "Ihr vertrauenswürdiger Leitfaden für Frauengesundheit, Fitness & tägliches Wohlbefinden",
+    "subtitle": "Expertenrat und tägliche Inspiration zu Gesundheit, Fitness, Ernährung, Intimität und Wohlbefinden - basierend auf dem echten Leben.",
+    "buttonText": "Ausgewählte Artikel",
     "description": "Entdecken Sie eine umfassende Plattform für Frauen, die Wellness, Stil und alltägliche Freude umarmen. Wo Fitness, Gesundheit, Schönheit, Essen, Reisen und Zuhause an einem inspirierenden täglichen Ziel zusammenkommen. Dies ist Ihr Platz für umfassende Gesundheits- und Wellness-Ressourcen.",
     "heroImageAlt": "Gesundheit und Wohlbefinden",
     "exploreByCategory": {
@@ -26,6 +27,24 @@
     "featuredArticles": {
       "title": "Empfohlene Artikel",
       "description": "Entdecken Sie unsere neuesten Einblicke, Tipps und Anleitungen, um Ihnen zu helfen, ein gesünderes und erfüllteres Leben zu führen."
+    },
+    "featureCards": {
+      "healthFocused": {
+        "title": "Gesundheitsorientierte Inhalte",
+        "description": "Artikel werden auf medizinische Genauigkeit überprüft"
+      },
+      "realLifeWellness": {
+        "title": "Wohlbefinden im echten Leben",
+        "description": "Praktische tägliche Tipps für beschäftigte, echte Frauen"
+      },
+      "allLifeStages": {
+        "title": "Alle Lebensphasen",
+        "description": "Anleitung für jedes Alter und jede Phase der Weiblichkeit"
+      },
+      "latestTech": {
+        "title": "KI-gestützte Genauigkeit",
+        "description": "Neueste Technologie und KI stellen sicher, dass unsere Artikel genau und nahezu perfekt sind"
+      }
     }
   },
   "newsletterSignup": {

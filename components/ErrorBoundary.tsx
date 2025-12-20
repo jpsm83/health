@@ -51,7 +51,6 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
             <Button
               onClick={resetErrorBoundary}
               size="sm"
-              variant="customDefault"
               className="w-50"
             >
               {buttonText}

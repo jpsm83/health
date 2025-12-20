@@ -1,7 +1,8 @@
 {
   "home": {
-    "title": "Bienvenida a tu lugar",
-    "subtitle": "Tu Plataforma Integral de Salud y Bienestar para Mujeres",
+    "title": "Tu Guía de Confianza para la Salud, Fitness y Bienestar Cotidiano de las Mujeres",
+    "subtitle": "Consejos de expertos e inspiración diaria sobre salud, fitness, nutrición, intimidad y bienestar - basados en la vida real.",
+    "buttonText": "Artículos Destacados",
     "description": "Descubre una plataforma integral hecha para mujeres que abrazan el bienestar, el estilo y la alegría cotidiana. Donde fitness, salud, belleza, comida, viajes y hogar se unen en un destino diario inspirador. Este es tu lugar para recursos integrales de salud y bienestar.",
     "heroImageAlt": "Salud y Bienestar",
     "exploreByCategory": {
@@ -26,6 +27,24 @@
     "featuredArticles": {
       "title": "Artículos Destacados",
       "description": "Descubre nuestros últimos insights, consejos y guías para ayudarte a vivir una vida más saludable y plena."
+    },
+    "featureCards": {
+      "healthFocused": {
+        "title": "Contenido Enfocado en la Salud",
+        "description": "Los artículos son revisados para precisión médica"
+      },
+      "realLifeWellness": {
+        "title": "Bienestar de la Vida Real",
+        "description": "Consejos prácticos diarios para mujeres reales y ocupadas"
+      },
+      "allLifeStages": {
+        "title": "Todas las Etapas de la Vida",
+        "description": "Orientación para cada edad y fase de la feminidad"
+      },
+      "latestTech": {
+        "title": "Precisión Alimentada por IA",
+        "description": "La última tecnología e IA garantizan que nuestros artículos sean precisos y cercanos a la perfección"
+      }
     }
   },
   "newsletterSignup": {

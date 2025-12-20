@@ -99,7 +99,7 @@ export default function ForgotPassword({ locale }: ForgotPasswordProps) {
             <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
           )}
 
-          <Button type="submit" disabled={isLoading} variant="customDefault">
+          <Button type="submit" disabled={isLoading}>
             {isLoading ? (
               <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
             ) : null}

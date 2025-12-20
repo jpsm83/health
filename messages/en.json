@@ -1,7 +1,8 @@
 {
   "home": {
-    "title": "Welcome to your spot",
-    "subtitle": "Your Comprehensive Health and Wellness Platform for Women",
+    "title": "Your Trusted Guide to Women's Health, Fitness & Everyday Wellness",
+    "subtitle": "Expert advice and daily inspiration on health, fitness, nutrition, intimacy, and well-being - made from real life.",
+    "buttonText": "Feature Articles",
     "description": "Discover a comprehensive platform made for women who embrace wellness, style, and everyday joy. Where fitness, health, beauty, and nutrition all come together in one inspiring daily destination. This is your spot for comprehensive health and wellness resources.",
     "heroImageAlt": "Health and Wellness",
     "exploreByCategory": {
@@ -26,6 +27,24 @@
     "featuredArticles": {
       "title": "Featured Articles",
       "description": "Discover our latest insights, tips, and guides to help you live a healthier, more fulfilling life."
+    },
+    "featureCards": {
+      "healthFocused": {
+        "title": "Health Focused Content",
+        "description": "Articles are reviewed for medical accuracy"
+      },
+      "realLifeWellness": {
+        "title": "Real-Life Wellness",
+        "description": "Practical daily tips for busy, real women"
+      },
+      "allLifeStages": {
+        "title": "All Life Stages",
+        "description": "Guidance for every age and phase of womanhood"
+      },
+      "latestTech": {
+        "title": "AI-Powered Accuracy",
+        "description": "Latest technology and AI ensure our articles are accurate and close to perfection"
+      }
     }
   },
   "newsletterSignup": {

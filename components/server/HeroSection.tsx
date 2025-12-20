@@ -1,70 +1,79 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
-import { categoryHeroImages } from "@/lib/constants";
+import Link from "next/link";
 import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
 import HeroDescription from "@/components/HeroDescription";
+import { Button } from "@/components/ui/button";
+import ScrollToButton from "@/components/ScrollToButton";
 
 interface HeroSectionProps {
-  locale: string;
-  category?: string; // Optional - if not provided, it's the home page
-  title?: string; // Optional - custom title text
-  description?: string; // Optional - custom description text
-  alt?: string; // Optional - custom alt text
-  imageKey?: keyof typeof categoryHeroImages; // Optional - custom image key
+  title: string;
+  description: string;
+  imageUrl: string;
+  alt: string;
+  buttonHref?: string;
+  buttonText?: string;
 }
 
-export default async function HeroSection({
-  locale,
-  category,
+export default function HeroSection({
   title,
   description,
+  imageUrl,
   alt,
-  imageKey,
+  buttonHref,
+  buttonText,
 }: HeroSectionProps) {
-  // Determine namespace and translation key prefix
-  const namespace = category ? "articles" : "home";
-  const t = await getTranslations({ locale, namespace });
-
-  // Get image - use imageKey if provided, otherwise category or "home"
-  const finalImageKey =
-    imageKey || ((category || "home") as keyof typeof categoryHeroImages);
-  const heroImage =
-    categoryHeroImages[finalImageKey] || categoryHeroImages.health;
-
-  // Get text - use custom text if provided, otherwise from translations
-  const titleText = title || (category ? t(`${category}.title`) : t("title"));
-  const descriptionText =
-    description || (category ? t(`${category}.description`) : t("subtitle"));
-  const altText =
-    alt || (category ? t(`${category}.heroImageAlt`) : t("heroImageAlt"));
 
   return (
-    <section className="relative w-full h-[55vh] min-h-[360px] md:h-[70vh] md:min-h-[500px] cv-auto">
+    <section className="relative w-full h-[55vh] min-h-[360px] md:h-[70vh] md:min-h-[500px]">
+      {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={optimizeCloudinaryUrl(heroImage, 85)}
-          alt={altText}
+          src={optimizeCloudinaryUrl(imageUrl, 85)}
+          alt={alt}
           className="w-full h-full object-cover"
           fill
-          sizes="(max-width: 1280px) 100vw, 1280px"
+          sizes="100vw"
           fetchPriority="high"
           priority
           quality={85}
         />
       </div>
 
-      <div className="relative z-10 flex items-center justify-center h-full mx-3">
-        <div className="flex flex-col gap-4 md:gap-8 text-center text-white max-w-4xl mx-auto px-4 md:px-6 bg-black/50 shadow-2xl py-4 md:py-8">
+      {/* Gradient Overlay - 50% #f53b80 to transparent at 2/3 */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background:
+            "linear-gradient(to right, rgb(0,0,0, 0.9) 0%, rgb(0,0,0, 0.8) 20%, transparent 90%)",
+        }}
+      />
+
+      {/* Content - aligned to left */}
+      <div className="relative z-20 flex items-center h-full px-6 sm:px-12 lg:px-16">
+        <div className="flex flex-col gap-4 md:gap-6 text-left text-white max-w-2xl">
           <h1
-            className="text-5xl md:text-6xl font-bolddrop-shadow-2xl"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[Open_Sans]"
             style={{
               textShadow:
-                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)",
+                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
             }}
           >
-            {titleText}
+            {title}
           </h1>
-          <HeroDescription fallbackDescription={descriptionText} />
+          <HeroDescription fallbackDescription={description} />
+          {buttonHref && buttonText && (
+            <div className="pt-2">
+              {buttonHref.startsWith("#") ? (
+                <ScrollToButton targetId={buttonHref.slice(1)}>
+                  {buttonText}
+                </ScrollToButton>
+              ) : (
+                <Button asChild size="lg" className="w-auto">
+                  <Link href={buttonHref}>{buttonText}</Link>
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

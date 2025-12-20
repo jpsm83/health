@@ -84,7 +84,7 @@ export const POST = async (req: NextRequest) => {
           subject: "Women's Spot Newsletter - Health & Wellness Update",
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-              <div style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+              <div style="background: linear-gradient(to right, #b040b2, #f53b80); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
                 <h1 style="margin: 0; font-size: 24px; color: white;">
                   <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot Newsletter
                 </h1>
@@ -106,7 +106,7 @@ export const POST = async (req: NextRequest) => {
                 </div>
 
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${baseUrl}" style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
+                  <a href="${baseUrl}" style="background: linear-gradient(to right, #b040b2, #f53b80); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600;">
                     Read Latest Articles
                   </a>
                 </div>

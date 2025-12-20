@@ -24,7 +24,7 @@ export default function AboutCallToActionSection({
       <p className="text-md md:text-lg text-white max-w-2xl mx-auto">
         {description}
       </p>
-      <Button variant="customSecondary" className="w-3/4 md:w-1/3 mx-auto">
+      <Button className="w-3/4 md:w-1/3 mx-auto">
         <Link href={`/${locale}`}>{button}</Link>
       </Button>
     </div>

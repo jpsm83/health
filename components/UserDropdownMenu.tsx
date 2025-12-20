@@ -8,7 +8,6 @@ import {
   LayoutDashboard,
   LogOut,
   Heart,
-  Search,
   FileText,
 } from "lucide-react";
 import {
@@ -19,7 +18,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 interface UserDropdownMenuProps {
-  variant: "mobile" | "desktop";
   session: {
     user?: {
       name?: string | null;
@@ -29,7 +27,6 @@ interface UserDropdownMenuProps {
     } | null;
   } | null;
   locale: string;
-  onSearchClick: () => void;
   onLogout: () => void;
   translations: {
     search: string;
@@ -43,56 +40,42 @@ interface UserDropdownMenuProps {
   };
 }
 
+const AVATAR_BUTTON_CLASSNAME =
+  "text-white rounded-full bg-transparent border-none shadow-none hover:bg-white/20 cursor-pointer focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0";
+
 export default function UserDropdownMenu({
-  variant,
   session,
   locale,
-  onSearchClick,
   onLogout,
   translations,
 }: UserDropdownMenuProps) {
-  const isMobile = variant === "mobile";
+  const userImageUrl = session?.user?.imageUrl?.trim();
+  const hasUserImage = Boolean(userImageUrl);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        {session?.user ? (
-          <Button
-            variant={isMobile ? "ghost" : undefined}
-            size={isMobile ? "icon" : "sm"}
-            className={
-              isMobile
-                ? "text-white rounded-full shadow-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
-                : "h-10 bg-transparent hover:bg-transparent text-white cursor-pointer rounded-full px-3 gap-2 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
-            }
-            aria-label="Open profile menu"
-          >
-            {session.user.imageUrl && session.user.imageUrl.trim() !== "" ? (
-              <Image
-                src={session.user.imageUrl}
-                alt="User"
-                width={isMobile ? 32 : 30}
-                height={isMobile ? 32 : 30}
-                className="rounded-full"
-              />
-            ) : (
-              <UserRound size={isMobile ? 16 : 20} />
-            )}
-          </Button>
-        ) : (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-white rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
-            aria-label="Open user menu"
-          >
+        <Button
+          size="icon"
+          className={AVATAR_BUTTON_CLASSNAME}
+          aria-label={session?.user ? "Open profile menu" : "Open user menu"}
+        >
+          {hasUserImage && userImageUrl ? (
+            <Image
+              src={userImageUrl}
+              alt="User"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+          ) : (
             <UserRound size={20} />
-          </Button>
-        )}
+          )}
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-[200px] bg-white shadow-lg border border-gray-200"
-        align="start"
+        align="end"
         side="bottom"
         sideOffset={4}
       >
@@ -105,9 +88,6 @@ export default function UserDropdownMenu({
               </p>
               <p className="text-xs text-gray-500">{session?.user?.email}</p>
             </div>
-            <DropdownMenuItem onClick={onSearchClick} className="cursor-pointer">
-              <Search size={16} className="text-red-600" /> {translations.search}
-            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href={`/${locale}/profile`} className="cursor-pointer">
                 <UserRoundPen size={16} className="text-red-600" />{" "}
@@ -146,9 +126,6 @@ export default function UserDropdownMenu({
           </>
         ) : (
           <>
-            <DropdownMenuItem onClick={onSearchClick} className="cursor-pointer">
-              <Search size={16} className="text-red-600" /> {translations.search}
-            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href={`/${locale}/signin`} className="cursor-pointer">
                 <UserRound size={16} className="text-red-600" />{" "}

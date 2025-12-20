@@ -5,9 +5,9 @@
 
 /* Define reusable Tailwind styles */
 @layer components {
-  /* Orange to yellow gradient background */
+  /* Global gradient background - left to right */
   .bg-gradient-left-right {
-    @apply bg-gradient-to-r from-[#7537fa] to-[#ff006a];
+    @apply bg-gradient-to-r from-[#b040b2] to-[#f53b80];
   }
 
   /* Standard input with purple focus ring */

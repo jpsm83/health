@@ -1,7 +1,8 @@
 {
   "home": {
-    "title": "Bienvenue dans votre espace",
-    "subtitle": "Votre Plateforme Complète de Santé et de Bien-être pour les Femmes",
+    "title": "Votre Guide de Confiance pour la Santé, le Fitness et le Bien-être Quotidien des Femmes",
+    "subtitle": "Conseils d'experts et inspiration quotidienne sur la santé, le fitness, la nutrition, l'intimité et le bien-être - basés sur la vraie vie.",
+    "buttonText": "Articles en Vedette",
     "description": "Découvrez une plateforme complète faite pour les femmes qui embrassent le bien-être, le style et la joie quotidienne. Où fitness, santé, beauté, nourriture, voyage et maison se réunissent dans une destination quotidienne inspirante. C'est votre espace pour des ressources complètes de santé et de bien-être.",
     "heroImageAlt": "Santé et Bien-être",
     "exploreByCategory": {
@@ -26,6 +27,24 @@
     "featuredArticles": {
       "title": "Articles en Vedette",
       "description": "Découvrez nos derniers insights, conseils et guides pour vous aider à vivre une vie plus saine et épanouie."
+    },
+    "featureCards": {
+      "healthFocused": {
+        "title": "Contenu Axé sur la Santé",
+        "description": "Les articles sont révisés pour l'exactitude médicale"
+      },
+      "realLifeWellness": {
+        "title": "Bien-être de la Vie Réelle",
+        "description": "Conseils pratiques quotidiens pour des femmes réelles et occupées"
+      },
+      "allLifeStages": {
+        "title": "Toutes les Étapes de la Vie",
+        "description": "Conseils pour chaque âge et phase de la féminité"
+      },
+      "latestTech": {
+        "title": "Précision Alimentée par l'IA",
+        "description": "Les dernières technologies et l'IA garantissent que nos articles sont précis et proches de la perfection"
+      }
     }
   },
   "newsletterSignup": {

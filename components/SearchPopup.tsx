@@ -29,26 +29,24 @@ export default function SearchPopup({
     if (!isOpen) return;
 
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (popupRef.current && !popupRef.current.contains(target)) {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     };
 
     const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
+      if (event.key === "Escape") onClose();
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscapeKey);
-    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscapeKey);
-      document.body.style.overflow = "";
     };
   }, [isOpen, onClose]);
 

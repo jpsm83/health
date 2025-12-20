@@ -555,7 +555,6 @@ export default function SignUp({ locale }: SignUpProps) {
           <Button
             type="submit"
             disabled={isLoading}
-            variant="customDefault"
             className="mt-6 flex items-center justify-center gap-2"
           >
             {isLoading ? (

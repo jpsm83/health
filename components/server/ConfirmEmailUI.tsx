@@ -52,7 +52,7 @@ export default function ConfirmEmailUI({
               </h3>
               <p className="mt-2 text-sm text-gray-600">{result.message}</p>
               <div className="mt-6">
-                <Button asChild variant="customDefault">
+                <Button asChild>
                   <Link href="/signin">{translations.success.signInButton}</Link>
                 </Button>
               </div>
@@ -83,7 +83,7 @@ export default function ConfirmEmailUI({
                 {result.message || translations.messages.confirmationFailed}
               </p>
               <div className="mt-6">
-                <Button asChild variant="customDefault">
+                <Button asChild>
                   <Link href="/signin">
                     {translations.error.backToSignInButton}
                   </Link>

@@ -1,16 +1,33 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import {
+  Heart,
+  Menu,
+  Activity,
+  Dumbbell,
+  Apple,
+  Palette,
+  TrendingDown,
+  Coffee,
+  Search,
+} from "lucide-react";
 import { mainCategories } from "@/lib/constants";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import { useSession, signOut } from "next-auth/react";
 import UserDropdownMenu from "./UserDropdownMenu";
 import SearchPopup from "./SearchPopup";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const [isSearchPopupOpen, setIsSearchPopupOpen] = useState(false);
@@ -100,83 +117,135 @@ export default function Navbar() {
     signUp: t("signUp"),
   };
 
+  // Category icons mapping
+  const categoryIcons: Record<string, React.ReactNode> = {
+    health: <Activity size={16} className="text-red-600" />,
+    fitness: <Dumbbell size={16} className="text-red-600" />,
+    nutrition: <Apple size={16} className="text-red-600" />,
+    intimacy: <Heart size={16} className="text-red-600" />,
+    beauty: <Palette size={16} className="text-red-600" />,
+    "weight-loss": <TrendingDown size={16} className="text-red-600" />,
+    life: <Coffee size={16} className="text-red-600" />,
+  };
+
+  // Helper to generate category URL
+  const getCategoryUrl = (category: string) =>
+    `/${locale}/${translateCategoryToLocale(category, locale)}`;
+
   return (
     <nav
-      className={`bg-gradient-left-right text-white shadow-lg text-base fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out md:translate-y-0 ${
+      className={`bg-gradient-left-right text-white shadow-lg fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
       suppressHydrationWarning
     >
-      {/* Top navigation */}
-      <div className="relative flex justify-between items-center h-16 md:h-20 px-2 sm:px-6 lg:px-8">
-        {/* Left: User Menu */}
-        <div className="flex items-center gap-2 md:gap-4">
-          <div className="md:hidden">
-            <UserDropdownMenu
-              variant="mobile"
-              session={session}
-              locale={locale}
-              onSearchClick={() => setIsSearchPopupOpen(true)}
-              onLogout={handleLogout}
-              translations={translations}
-            />
-          </div>
-          <div className="hidden md:flex">
-            <UserDropdownMenu
-              variant="desktop"
-              session={session}
-              locale={locale}
-              onSearchClick={() => setIsSearchPopupOpen(true)}
-              onLogout={handleLogout}
-              translations={translations}
-            />
-          </div>
-        </div>
-
-        {/* Center: Logo/Brand */}
+      {/* Single navbar container */}
+      <div className="flex justify-between items-center h-14 md:h-16 px-6 sm:px-12 lg:px-8 border-b-2 border-white">
+        {/* Left: Logo */}
         <Link
           href={homeHref}
-          className="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-2"
+          className="flex items-center space-x-2"
         >
           <Heart size={24} />
           <span
             className="text-2xl font-bold"
             style={{
               textShadow:
-                "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
+                "1px 1px 2px rgba(0,0,0,0.6), 0 0 6px rgba(0,0,0,0.4)",
             }}
           >
             {t("brandName")}
           </span>
         </Link>
-      </div>
 
-      {/* Bottom navigation */}
-      <div className="bg-black/20 border-t border-white">
-        <div className="flex overflow-x-auto px-3 sm:px-6 lg:px-8 gap-1 sm:gap-2 py-2 scrollbar-hide justify-start md:justify-center">
-          {mainCategories.map((category) => (
-            <Button
-              key={category}
-              variant="ghost"
-              size="sm"
-              asChild
-              className="text-gray-200 hover:bg-white/20 hover:text-white text-xs sm:text-sm whitespace-nowrap shrink-0"
-            >
-              <Link
-                href={`/${locale}/${translateCategoryToLocale(
-                  category,
-                  locale
-                )}`}
-                prefetch={false}
-                style={{
-                  textShadow:
-                    "2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4)",
-                }}
+        {/* Right: Categories + Search + Avatar */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Desktop: Category buttons */}
+          <div className="hidden md:flex items-center gap-1 sm:gap-2">
+            {mainCategories.map((category) => (
+              <Button
+                key={category}
+                size="sm"
+                asChild
+                className="text-white bg-transparent border-none shadow-none text-sm whitespace-nowrap hover:bg-transparent hover:scale-110 transition-all duration-200"
               >
-                {t(`categories.${category}`)}
-              </Link>
+                <Link
+                  href={getCategoryUrl(category)}
+                  prefetch={false}
+                  style={{
+                    textShadow:
+                      "2px 2px 4px rgba(0,0,0,0.4), 0 0 8px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  {t(`categories.${category}`)}
+                </Link>
+              </Button>
+            ))}
+          </div>
+
+          {/* Desktop: Search icon */}
+          <div className="hidden md:block">
+            <Button
+              size="icon"
+              onClick={() => setIsSearchPopupOpen(true)}
+              className="text-white bg-transparent border-none shadow-none hover:bg-white/20 rounded-full cursor-pointer"
+              aria-label="Search"
+            >
+              <Search size={20} />
             </Button>
-          ))}
+          </div>
+
+          {/* Mobile: Burger menu with categories */}
+          <div className="md:hidden">
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  size="icon"
+                  className="text-white bg-transparent border-none shadow-none hover:bg-white/20 rounded-full cursor-pointer"
+                  aria-label="Open categories menu"
+                >
+                  <Menu size={20} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="w-[200px] bg-white shadow-lg border border-gray-200"
+                align="end"
+                side="bottom"
+                sideOffset={4}
+              >
+                {/* Search at the top */}
+                <DropdownMenuItem
+                  onClick={() => setIsSearchPopupOpen(true)}
+                  className="cursor-pointer"
+                >
+                  <Search size={16} className="text-red-600" />{" "}
+                  {translations.search}
+                </DropdownMenuItem>
+                {/* Separator */}
+                <DropdownMenuSeparator />
+                {/* Categories */}
+                {mainCategories.map((category) => (
+                  <DropdownMenuItem key={category} asChild>
+                    <Link
+                      href={getCategoryUrl(category)}
+                      className="cursor-pointer"
+                      prefetch={false}
+                    >
+                      {categoryIcons[category]} {t(`categories.${category}`)}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* Avatar button (both mobile and desktop) */}
+          <UserDropdownMenu
+            session={session}
+            locale={locale}
+            onLogout={handleLogout}
+            translations={translations}
+          />
         </div>
       </div>
 

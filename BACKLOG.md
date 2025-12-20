@@ -1,3 +1,5 @@
+- add facebook link
+
 - subscribe logic not working
 
 - reset password logic need review

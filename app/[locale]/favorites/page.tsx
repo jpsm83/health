@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
+import { categoryHeroImages } from "@/lib/constants";
 import ProductsBanner from "@/components/ProductsBanner";
 import HeroSection from "@/components/server/HeroSection";
 import FeaturedArticles from "@/components/FeaturedArticles";
@@ -55,36 +56,37 @@ export default async function FavoritesPage({
   const initialDescription = t("subtitle", { count: 0 });
 
   return (
-    <main className="container mx-auto my-7 md:my-14">
+    <main>
       <ErrorBoundary context={"Favorites page"}>
         <HeroDescriptionProvider initialDescription={initialDescription}>
-          <div className="flex flex-col h-full gap-8 md:gap-16">
-            {/* Products Banner - renders immediately */}
-            <ProductsBanner size="970x90" affiliateCompany="amazon" />
+          {/* Hero Section - Full width, positioned below navbar */}
+          <HeroSection
+            title={t("title")}
+            description={initialDescription}
+            imageUrl={categoryHeroImages.favorites}
+            alt={t("heroImageAlt")}
+          />
+          
+          <div className="container mx-auto my-7 md:my-14">
+            <div className="flex flex-col h-full gap-8 md:gap-16">
+              {/* Products Banner - renders immediately */}
+              <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-            {/* Hero Section - renders immediately with placeholder count */}
-            <HeroSection
-              locale={locale}
-              title={t("title")}
-              description={initialDescription}
-              alt={t("heroImageAlt")}
-              imageKey="favorites"
-            />
+              {/* Favorites Section - Suspense shows skeleton while loading */}
+              <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+                <FavoritesContent
+                  locale={locale}
+                  searchParams={searchParams}
+                  userId={session.user.id}
+                />
+              </Suspense>
 
-            {/* Favorites Section - Suspense shows skeleton while loading */}
-            <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
-              <FavoritesContent
-                locale={locale}
-                searchParams={searchParams}
-                userId={session.user.id}
-              />
-            </Suspense>
+              {/* Newsletter Signup Section */}
+              <NewsletterSignup />
 
-            {/* Newsletter Signup Section */}
-            <NewsletterSignup />
-
-            {/* Products Banner */}
-            <ProductsBanner size="970x240" affiliateCompany="amazon" />
+              {/* Products Banner */}
+              <ProductsBanner size="970x240" affiliateCompany="amazon" />
+            </div>
           </div>
         </HeroDescriptionProvider>
       </ErrorBoundary>

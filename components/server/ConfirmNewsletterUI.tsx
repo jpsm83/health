@@ -52,7 +52,7 @@ export default function ConfirmNewsletterUI({
             </h3>
             <p className="mt-2 text-sm text-gray-600">{result.message}</p>
             <div className="mt-6">
-              <Button asChild variant="customDefault">
+              <Button asChild>
                 <Link href="/">{translations.success.goHomeButton}</Link>
               </Button>
             </div>
@@ -83,7 +83,7 @@ export default function ConfirmNewsletterUI({
               {result.message || translations.messages.confirmationFailed}
             </p>
             <div className="mt-6">
-              <Button asChild variant="customDefault">
+              <Button asChild>
                 <Link href="/">
                   {translations.error.backToHomeButton}
                 </Link>

@@ -37,7 +37,7 @@ export default function Spinner({
         <div
           className="absolute inset-0 animate-spin"
           style={{
-            background: "linear-gradient(to right, #7537fa, #ff006a)",
+            background: "linear-gradient(to right, #b040b2, #f53b80)",
             maskImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-6.219-8.56'/%3E%3C/svg%3E\")",
             WebkitMaskImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-6.219-8.56'/%3E%3C/svg%3E\")",
             maskRepeat: "no-repeat",

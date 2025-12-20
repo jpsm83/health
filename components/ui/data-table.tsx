@@ -107,8 +107,7 @@ export function DataTable<TData, TValue>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                variant="outline"
-                className="w-full sm:w-auto border-gray-300 hover:bg-gray-50"
+                className="w-full sm:w-auto"
               >
                 {translations?.columns || "Columns"} <ChevronDown />
               </Button>
@@ -274,20 +273,18 @@ export function DataTable<TData, TValue>({
             </div>
             <div className="flex justify-center sm:justify-start space-x-2">
               <Button
-                variant="outline"
                 size="sm"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
-                className="flex-1 sm:flex-none border-gray-300 hover:bg-gray-50 text-gray-700 min-w-[80px]"
+                className="flex-1 sm:flex-none min-w-[80px]"
               >
                 {translations?.previous || "Previous"}
               </Button>
               <Button
-                variant="outline"
                 size="sm"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
-                className="flex-1 sm:flex-none border-gray-300 hover:bg-gray-50 text-gray-700 min-w-[80px]"
+                className="flex-1 sm:flex-none min-w-[80px]"
               >
                 {translations?.next || "Next"}
               </Button>
@@ -299,8 +296,7 @@ export function DataTable<TData, TValue>({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="w-full sm:w-auto border-gray-300 hover:bg-gray-50"
+                  className="w-full sm:w-auto"
                 >
                   {translations?.rowsPerPage || "Rows per page"}: {table.getState().pagination.pageSize}{" "}
                   <ChevronDown />

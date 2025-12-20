@@ -53,7 +53,7 @@ export default async function LocaleLayout({
       <RegionProvider initialRegion={region}>
         <main className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
           <Navigation />
-          <div className="flex-1 flex flex-col pt-[120px] w-full max-w-full overflow-x-hidden">{children}</div>
+          <div className="flex-1 flex flex-col pt-14 md:pt-16 w-full max-w-full overflow-x-hidden">{children}</div>
           <Footer />
         </main>
       </RegionProvider>

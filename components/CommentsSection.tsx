@@ -332,7 +332,6 @@ export default function CommentsSection({
               <Button
                 type="submit"
                 disabled={!newComment?.trim() || isSubmitting}
-                variant="customDefault"
                 className="w-auto"
               >
                 {isSubmitting ? t("comments.form.submitting") : t("comments.form.submit")}

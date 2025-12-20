@@ -125,7 +125,7 @@ const commentReportTemplate = (commentText: string, reason: string, articleTitle
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          <div style="background: linear-gradient(to right, #7537fa, #ff006a); color: white; padding: 20px; text-align: center;">
+          <div style="background: linear-gradient(to right, #b040b2, #f53b80); color: white; padding: 20px; text-align: center;">
             <h1 style="margin: 0; font-size: 24px; color: white;">
               <span style="margin-right: 0.5em;">🤍</span>Women&apos;s Spot
             </h1>
