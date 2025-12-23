@@ -106,12 +106,11 @@ export default function RootLayout({
         {/* Pinterest Rich Pins Verification */}
         <meta name="p:domain_verify" content="93396404f1ccaaec8211f816a7deda73"/>
 
-        {/* Google AdSense */}
-        <Script
+        {/* Google AdSense - Raw script tag for crawler verification */}
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4895395148287261"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
 
         {/* Google tag (gtag.js) */}
