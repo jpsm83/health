@@ -1039,6 +1039,10 @@
     "termsAndConditions": "Terms and Conditions",
     "cookiesPolicy": "Cookies Policy"
   },
+  "socialMedia": {
+    "followUs": "Follow Us",
+    "catchMessage": "Help our community grow by following us on social media"
+  },
   "article": {
     "toasts": {
       "likedSuccess": "Article liked successfully",

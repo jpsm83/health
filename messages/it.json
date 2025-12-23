@@ -1010,6 +1010,10 @@
     "termsAndConditions": "Termini e Condizioni",
     "cookiesPolicy": "Politica sui Cookie"
   },
+  "socialMedia": {
+    "followUs": "Seguici",
+    "catchMessage": "Aiuta la nostra comunità a crescere seguendoci sui social media"
+  },
   "article": {
     "toasts": {
       "likedSuccess": "Articolo piaciuto con successo",

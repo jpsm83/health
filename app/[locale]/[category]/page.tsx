@@ -14,6 +14,7 @@ import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticle
 import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
+import SocialMedia from "@/components/SocialMedia";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -104,6 +105,9 @@ export default async function CategoryPage({
               affiliateCompany="amazon"
               category={category}
             />
+
+          {/* Social Media Section - After users see value */}
+          <SocialMedia />
 
           {/* Paginated Articles Section with Pagination */}
           <Suspense fallback={<ArticlesWithPaginationSkeleton />}>

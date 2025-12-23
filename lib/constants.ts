@@ -205,3 +205,53 @@ export const banners = {
       "https://res.cloudinary.com/jpsm83/image/upload/v1763897639/health/banner/Nutritiun/ndsvopb5e0mri86ircee.png",
   },
 } as const;
+
+export const socialMedia = {
+  language: {
+    en: {
+      pinterest: "https://es.pinterest.com/womens_spot_org/",
+      instagram: "https://www.instagram.com/womens_spot_org/",
+      threads: "https://www.threads.com/@womens_spot_org",
+      facebook: "https://www.facebook.com/profile.php?id=61583217620986",
+      twitter: "https://x.com/Womens_Spot",
+      tiktok: "https://www.tiktok.com/@womensspot",
+    },
+    pt: {
+      pinterest: "https://es.pinterest.com/womens_spot_org_pt/",
+      instagram: "https://www.instagram.com/womens_spot_org_pt/",
+      threads: "https://www.threads.com/@womens_spot_org_pt",
+      facebook: "https://www.facebook.com/profile.php?id=61582918719099",
+      twitter: "https://x.com/Womens_Spot_PT",
+      tiktok: "https://www.tiktok.com/@womens_spot_pt",
+    },
+    es: {
+      pinterest: "https://es.pinterest.com/womens_spot_org_es/",
+      instagram: "https://www.instagram.com/womens_spot_org_es/",
+      facebook: "https://www.facebook.com/profile.php?id=61582730597914",
+      twitter: "https://x.com/Womens_Spot_ES",
+      tiktok: "https://www.tiktok.com/@womens_spot_es",
+    },
+    it: {
+      pinterest: "https://es.pinterest.com/womens_spot_org_it/",
+      instagram: "https://www.instagram.com/womens_spot_org_it/",
+      facebook: "https://www.facebook.com/profile.php?id=61583489394975",
+      twitter: "https://x.com/Womens_Spot_IT",
+      tiktok: "https://www.tiktok.com/@womens_spot_it",
+    },
+    fr: {
+      pinterest: "https://es.pinterest.com/womens_spot_org_fr/",
+      instagram: "https://www.instagram.com/womens_spot_org_fr/",
+      facebook: "https://www.facebook.com/profile.php?id=61583282082756",
+      twitter: "https://x.com/Womens_Spot_FR",
+      tiktok: "https://www.tiktok.com/@womens_spot_fr",
+    },
+    de: {
+      pinterest: "https://es.pinterest.com/womens_spot_org_de/",
+      instagram: "https://www.instagram.com/womens_spot_org_de/",
+      threads: "https://www.threads.com/@womens_spot_org_de",
+      facebook: "https://www.facebook.com/profile.php?id=61583825361241",
+      twitter: "https://x.com/Womens_Spot_DE",
+      tiktok: "https://www.tiktok.com/@womens_spot_de",
+    },
+  },
+} as const;

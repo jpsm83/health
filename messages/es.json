@@ -937,6 +937,10 @@
     "termsAndConditions": "Términos y Condiciones",
     "cookiesPolicy": "Política de Cookies"
   },
+  "socialMedia": {
+    "followUs": "Síguenos",
+    "catchMessage": "Ayuda a nuestra comunidad a crecer siguiéndonos en redes sociales"
+  },
   "article": {
     "toasts": {
       "likedSuccess": "Artículo marcado como me gusta exitosamente",

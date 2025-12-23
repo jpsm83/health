@@ -15,6 +15,7 @@ import { showToast } from "@/components/Toasts";
 import { Button } from "@/components/ui/button";
 import SocialShare from "@/components/SocialShare";
 import ProductsBanner from "@/components/ProductsBanner";
+import SocialMedia from "@/components/SocialMedia";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 
 export default function Article({
@@ -239,7 +240,11 @@ export default function Article({
           {containerIndex === 3 && <NewsletterSignup />}
           <div className="overflow-hidden text-justify space-y-8 md:space-y-16">
             {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
-            <div className="relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] flex mb-20">
+            <div
+              className={`relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] flex ${
+                containerIndex === 0 ? "mb-24" : ""
+              }`}
+            >
               {/* First Image - Always visible */}
               <div className="relative w-full lg:w-1/2 h-full">
                 {container.firstImage && container.firstImage.trim() !== "" ? (
@@ -437,6 +442,8 @@ export default function Article({
               )}
             </div>
           </div>
+          {/* Social Media Section at the end of the second container */}
+          {containerIndex === 1 && <SocialMedia />}
         </div>
       ))}
 
