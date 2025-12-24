@@ -19,7 +19,7 @@ export async function generateMetadata({
   // Base metadata for the locale - individual pages will override this with their own SEO data
   return {
     ...(await generatePublicMetadata(locale, "", "metadata.home.title")),
-    metadataBase: new URL(process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com'),
+    metadataBase: new URL(process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.org'),
   };
 }
 

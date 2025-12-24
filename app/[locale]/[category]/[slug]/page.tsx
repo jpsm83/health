@@ -68,7 +68,7 @@ export async function generateMetadata({
       process.env.NEXTAUTH_URL ||
       process.env.VERCEL_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      "https://womensspot.com";
+      "https://womensspot.org";
     const canonicalUrl = `${baseUrl}/${locale}/${category}/${slug}`;
 
     const metaContent: IMetaDataArticle = {
@@ -129,7 +129,7 @@ export async function generateMetadata({
       process.env.NEXTAUTH_URL ||
       process.env.VERCEL_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      "https://womensspot.com";
+      "https://womensspot.org";
     const fallbackCanonicalUrl = `${baseUrl}/${locale}/${category}/${slug}`;
 
     const fallbackMetaContent: IMetaDataArticle = {
@@ -244,7 +244,7 @@ export default async function ArticlePage({
     process.env.NEXTAUTH_URL ||
     process.env.VERCEL_URL ||
     process.env.NEXT_PUBLIC_APP_URL ||
-    "https://womensspot.com";
+    "https://womensspot.org";
   const shareUrl = `${baseUrl}/${locale}/${category}/${slug}`;
 
   // Get share data

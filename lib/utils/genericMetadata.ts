@@ -7,7 +7,7 @@ export function generateSimpleFallbackMetadata(slug: string, locale: string, cat
     process.env.NEXTAUTH_URL ||
     process.env.VERCEL_URL ||
     process.env.NEXT_PUBLIC_APP_URL ||
-    'https://womensspot.com';
+    'https://womensspot.org';
 
   const canonicalUrl = `${baseUrl}/${locale}/${category || 'health'}/${slug}`;
 
@@ -137,7 +137,7 @@ export async function generatePublicMetadata(
   titleKey: string,
   postImage?: string
 ): Promise<Metadata> {
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.org';
 
   // Load translations using next-intl
   const t = await getTranslations({ locale, namespace: "metadata" });
@@ -247,7 +247,7 @@ export async function generatePrivateMetadata(
   titleKey: string,
   postImage?: string
 ): Promise<Metadata> {
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.com';
+  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://womensspot.org';
 
   // Load translations using next-intl
   const t = await getTranslations({ locale, namespace: "metadata" });

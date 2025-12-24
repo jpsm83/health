@@ -42,7 +42,7 @@ async function getBaseUrlForEmail(baseUrl?: string): Promise<string> {
   }
 
   // Last resort
-  return "https://womensspot.com";
+  return "https://womensspot.org";
 }
 
 /**

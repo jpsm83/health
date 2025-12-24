@@ -1,5 +1,5 @@
 # robots.txt for Women's Spot
-# https://womensspot.com/robots.txt
+# https://womensspot.org/robots.txt
 
 User-agent: *
 Allow: /

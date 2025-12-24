@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     process.env.NEXTAUTH_URL ||
       process.env.VERCEL_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      "https://womensspot.com"
+      "https://womensspot.org"
   ),
   robots:
     "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       process.env.NEXTAUTH_URL ||
       process.env.VERCEL_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      "https://womensspot.com",
+      "https://womensspot.org",
     siteName: "Women's Spot",
     title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
     description:
@@ -140,8 +140,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Women's Spot",
-              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com",
-              "logo": `${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com"}/womens-spot-logo.png`,
+              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.org",
+              "logo": `${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.org"}/womens-spot-logo.png`,
               "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
               "sameAs": [
                 "https://twitter.com/womensspot"
@@ -157,7 +157,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Women's Spot",
-              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.com",
+              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.org",
               "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
               "publisher": {
                 "@type": "Organization",
