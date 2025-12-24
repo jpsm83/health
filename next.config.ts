@@ -15,16 +15,6 @@ const nextConfig: NextConfig = {
 			},
 		},
 	},
-	// Redirect /ads.txt to external URL
-	async redirects() {
-		return [
-			{
-				source: '/ads.txt',
-				destination: 'https://srv.adstxtmanager.com/19390/womensspot.org',
-				permanent: true,
-			},
-		];
-	},
 	// Skip static optimization during build
 	trailingSlash: false,
 	// Use stable build ID for consistent metadata generation
@@ -96,6 +86,13 @@ const nextConfig: NextConfig = {
         source: '/fonts/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
+        source: '/ads.txt',
+        headers: [
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600' },
         ],
       },
     ];
