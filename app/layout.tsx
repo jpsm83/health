@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/womens-spot-logo.png",
         width: 630,
         height: 630,
-          alt: "Women's Spot - Your Comprehensive Health and Wellness Platform",
+        alt: "Women's Spot - Your Comprehensive Health and Wellness Platform",
       },
     ],
   },
@@ -96,21 +96,47 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://res.cloudinary.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        <link rel="preconnect" href="https://lh3.googleusercontent.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://lh3.googleusercontent.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
-        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://images.unsplash.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
         {/* Pinterest Rich Pins Verification */}
-        <meta name="p:domain_verify" content="93396404f1ccaaec8211f816a7deda73"/>
+        <meta
+          name="p:domain_verify"
+          content="93396404f1ccaaec8211f816a7deda73"
+        />
 
         {/* Google AdSense - Raw script tag for crawler verification */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4895395148287261"
           crossOrigin="anonymous"
+        />
+
+        {/* Canonical link for page discovery - helps AdSense and search engines */}
+        <link
+          rel="canonical"
+          href={
+            process.env.NEXTAUTH_URL ||
+            process.env.VERCEL_URL ||
+            process.env.NEXT_PUBLIC_APP_URL ||
+            "https://womensspot.org"
+          }
         />
 
         {/* Google tag (gtag.js) */}
@@ -139,13 +165,21 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Women's Spot",
-              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.org",
-              "logo": `${process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.org"}/womens-spot-logo.png`,
-              "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
-              "sameAs": [
-                "https://twitter.com/womensspot"
-              ]
+              name: "Women's Spot",
+              url:
+                process.env.NEXTAUTH_URL ||
+                process.env.VERCEL_URL ||
+                process.env.NEXT_PUBLIC_APP_URL ||
+                "https://womensspot.org",
+              logo: `${
+                process.env.NEXTAUTH_URL ||
+                process.env.VERCEL_URL ||
+                process.env.NEXT_PUBLIC_APP_URL ||
+                "https://womensspot.org"
+              }/womens-spot-logo.png`,
+              description:
+                "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
+              sameAs: ["https://twitter.com/womensspot"],
             }),
           }}
         />
@@ -156,13 +190,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "Women's Spot",
-              "url": process.env.NEXTAUTH_URL || process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL || "https://womensspot.org",
-              "description": "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
-              "publisher": {
+              name: "Women's Spot",
+              url:
+                process.env.NEXTAUTH_URL ||
+                process.env.VERCEL_URL ||
+                process.env.NEXT_PUBLIC_APP_URL ||
+                "https://womensspot.org",
+              description:
+                "Discover a comprehensive health and wellness platform designed for women. Access valuable health insights, wellness tips, and expert advice on nutrition, fitness, mental health, and lifestyle.",
+              publisher: {
                 "@type": "Organization",
-                "name": "Women's Spot"
-              }
+                name: "Women's Spot",
+              },
             }),
           }}
         />
@@ -177,12 +216,12 @@ export default function RootLayout({
           <Toaster />
         </SessionProvider>
 
-        {/* CookieYes Banner (defer as much as possible) */}
+        {/* CookieYes Banner (defer as much as possible)
         <Script
           id="cookieyes"
           src="https://cdn-cookieyes.com/client_data/51a7b20bfcdfbe3a78df8a60/script.js"
           strategy="lazyOnload"
-        />
+        /> */}
 
         <Script
           id="sw-register"
