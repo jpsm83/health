@@ -33,6 +33,7 @@ export default function CategoryCarousel({
   initialArticles = [],
 }: CategoryCarouselProps) {
   const t = useTranslations("categoryCarousel");
+  const tArticleCard = useTranslations("articleCard");
   const locale = useLocale();
 
   const [articles, setArticles] = useState<ISerializedArticle[]>([]);
@@ -233,7 +234,7 @@ export default function CategoryCarousel({
     return <CategoryCarouselSkeleton />;
   }
 
-  const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
+  const categoryTitle = tArticleCard(`categories.${category}`);
 
   return (
     <>

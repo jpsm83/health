@@ -8,7 +8,7 @@ export default function SectionHeader({
   description,
 }: SectionHeaderProps) {
   return (
-    <div className="text-center bg-gradient-left-right p-4 md:p-8">
+    <div className="text-center p-4">
       <h2
         className="text-3xl font-bold text-white mb-2 md:mb-4 font-[Open_Sans]"
         style={{
@@ -17,8 +17,11 @@ export default function SectionHeader({
       >
         {title}
       </h2>
+      <div className="bg-gradient-left-right min-h-1 w-full md:w-2/3 mx-auto"></div>
       {description && (
-        <p className="text-lg text-white max-w-2xl mx-auto">{description}</p>
+        <p className="text-md md:text-lg text-gray-500 w-full md:w-2/3 mx-auto">
+          {description}
+        </p>
       )}
     </div>
   );

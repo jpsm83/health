@@ -91,7 +91,7 @@ export default async function HomePage({
             <FeatureCards locale={locale} />
 
             {/* Explore by Category */}
-            <section className="space-y-6 md:space-y-12">
+            <section className="space-y-6 md:space-y-12 bg-gray-100 py-3 md:py-6">
               <SectionHeader
                 title={t("exploreByCategory.title")}
                 description={t("exploreByCategory.description")}
