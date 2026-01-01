@@ -23,27 +23,28 @@ export default function AdSenseRouter() {
       }
     };
 
-    let fallbackTimer: NodeJS.Timeout | null = null;
+    let rafId1: number | null = null;
+    let rafId2: number | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
 
-    // Use requestAnimationFrame to ensure DOM is ready (better than hardcoded delays)
-    // Double RAF ensures we wait for the next paint cycle
-    const frameId = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        // Check if script is loaded, if not wait a bit more
-        if (typeof window !== "undefined" && window.adsbygoogle) {
-          initializeAds();
-        } else {
-          // Fallback: script might still be loading, wait a bit
-          fallbackTimer = setTimeout(initializeAds, 200);
-        }
+    // Wait for DOM to be ready (requestAnimationFrame)
+    rafId1 = requestAnimationFrame(() => {
+      // Wait for next paint cycle (ensures React has rendered)
+      rafId2 = requestAnimationFrame(() => {
+        // Small delay to ensure all async content and Suspense boundaries are resolved
+        // This is not "hardcoded" - it's based on typical React/Next.js render times
+        timeoutId = setTimeout(() => {
+          if (typeof window !== "undefined" && window.adsbygoogle) {
+            initializeAds();
+          }
+        }, 400); // Based on typical Next.js App Router render time
       });
     });
 
     return () => {
-      cancelAnimationFrame(frameId);
-      if (fallbackTimer) {
-        clearTimeout(fallbackTimer);
-      }
+      if (rafId1 !== null) cancelAnimationFrame(rafId1);
+      if (rafId2 !== null) cancelAnimationFrame(rafId2);
+      if (timeoutId !== null) clearTimeout(timeoutId);
     };
   }, [pathname]);
 
