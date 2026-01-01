@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import { ColumnDef } from "@tanstack/react-table";
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import DeleteArticleModal from "@/components/DeleteArticleModal";
 import ViewJsonModal from "@/components/ViewJsonModal";
 import { showToast } from "@/components/Toasts";
+import DateCell from "@/components/DateCell";
 
 interface WeeklyStats {
   totalArticles: number;
@@ -43,6 +44,7 @@ export default function Dashboard({
   const t = useTranslations("dashboard");
   const tArticle = useTranslations("article");
   const router = useRouter();
+  const currentLocale = useLocale();
   const [articlesList, setArticlesList] = useState<ISerializedArticle[]>(articles);
   const [currentStats, setCurrentStats] = useState<WeeklyStats>(weeklyStats);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -224,9 +226,11 @@ export default function Dashboard({
       header: ({ column }) =>
         createSortableHeader(t("table.columns.created"), column),
       cell: ({ row }) => (
-        <div className="text-xs text-gray-600">
-          {new Date(row.getValue("createdAt")).toLocaleDateString()}
-        </div>
+        <DateCell
+          date={row.getValue("createdAt")}
+          locale={currentLocale}
+          className="text-xs text-gray-600"
+        />
       ),
     },
     {
@@ -325,6 +329,7 @@ export default function Dashboard({
           data={articlesList}
           onRowClick={handleRowClick}
           getArticleTitle={getArticleTitle}
+          locale={currentLocale}
           translations={{
             filterPlaceholder: t("table.filter.placeholder"),
             columns: t("table.filter.columns"),

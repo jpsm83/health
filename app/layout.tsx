@@ -5,6 +5,7 @@ import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import SessionTracker from "@/components/SessionTracker";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
+import AdSenseProvider from "@/components/AdSenseProvider";
 
 export const metadata: Metadata = {
   title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
@@ -114,18 +115,23 @@ export default function RootLayout({
           crossOrigin=""
         />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link
+          rel="preconnect"
+          href="https://googleads.g.doubleclick.net"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
         {/* Pinterest Rich Pins Verification */}
         <meta
           name="p:domain_verify"
           content="93396404f1ccaaec8211f816a7deda73"
-        />
-
-        {/* Google AdSense - Raw script tag for crawler verification */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4895395148287261"
-          crossOrigin="anonymous"
         />
 
         {/* Canonical link for page discovery - helps AdSense and search engines */}
@@ -212,6 +218,7 @@ export default function RootLayout({
         <SessionProvider basePath="/api/v1/auth">
           <SessionTracker />
           <PerformanceMonitor />
+          <AdSenseProvider />
           {children}
           <Toaster />
         </SessionProvider>

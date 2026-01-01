@@ -32,12 +32,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import DateCell from "@/components/DateCell";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   onRowClick?: (row: TData) => void;
   getArticleTitle?: (article: TData) => string;
+  locale?: string;
   translations?: {
     filterPlaceholder: string;
     columns: string;
@@ -55,6 +57,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   getArticleTitle,
+  locale = "en-US",
   translations,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -242,7 +245,10 @@ export function DataTable<TData, TValue>({
                 {/* Date */}
                 <div className="flex justify-between items-center text-xs text-gray-500">
                   <span className="bg-gray-100 px-2 py-1">
-                    {new Date(row.getValue("createdAt")).toLocaleDateString()}
+                    <DateCell
+                      date={row.getValue("createdAt")}
+                      locale={locale}
+                    />
                   </span>
                 </div>
               </div>

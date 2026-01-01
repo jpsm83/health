@@ -4,6 +4,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
+import ClientDate from "@/components/ClientDate";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -48,7 +49,7 @@ export default async function PrivacyPolicyPage({
           {/* Introduction Section */}
           <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-4 md:space-y-8">
             <p className="text-sm text-gray-600">
-              {t("lastUpdated")} {new Date().toLocaleDateString()}
+              {t("lastUpdated")} <ClientDate locale={locale} />
             </p>
 
             <div className="bg-purple-50 p-6 rounded-lg shadow-md">
