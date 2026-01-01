@@ -16,6 +16,7 @@ const SocialShare = dynamic(() => import("./SocialShare"), { ssr: false });
 import { Button } from "./ui/button";
 import { ImageOff } from "lucide-react";
 import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
+import { useClientDateFormatter } from "@/lib/hooks/useClientDateFormatter";
 
 export default function ArticleCard({
   article,
@@ -26,14 +27,16 @@ export default function ArticleCard({
   const t = useTranslations("articleCard");
   const locale = useLocale();
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(locale, {
+  // Use client-side date formatter to prevent hydration mismatches
+  const formattedDate = useClientDateFormatter(
+    article.updatedAt,
+    locale,
+    {
       month: "short",
       day: "numeric",
       year: "numeric",
-    });
-  };
+    }
+  );
 
   // Calculate read time and generate excerpt
   const readTimeMinutes = calculateReadTime(article);
@@ -175,7 +178,7 @@ export default function ArticleCard({
           <div className="flex items-center justify-between text-xs text-gray-500">
             <div className="flex items-center space-x-1">
               <Calendar className="w-3 h-3" />
-              <span>{formatDate(article.updatedAt?.toString() || "")}</span>
+              <span>{formattedDate || ""}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Clock className="w-3 h-3" />

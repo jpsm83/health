@@ -203,6 +203,7 @@ export default function Navbar() {
                   size="icon"
                   className="text-white bg-transparent border-none shadow-none hover:bg-white/20 rounded-full cursor-pointer"
                   aria-label="Open categories menu"
+                  suppressHydrationWarning
                 >
                   <Menu size={20} />
                 </Button>

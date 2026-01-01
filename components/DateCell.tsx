@@ -19,6 +19,6 @@ export default function DateCell({
 }: DateCellProps) {
   const formattedDate = useClientDateFormatter(date, locale);
 
-  return <div className={className}>{formattedDate || ""}</div>;
+  return <span className={className}>{formattedDate || ""}</span>;
 }
 

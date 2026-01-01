@@ -59,6 +59,7 @@ export default function UserDropdownMenu({
           size="icon"
           className={AVATAR_BUTTON_CLASSNAME}
           aria-label={session?.user ? "Open profile menu" : "Open user menu"}
+          suppressHydrationWarning
         >
           {hasUserImage && userImageUrl ? (
             <Image

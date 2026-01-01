@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { showToast } from "@/components/Toasts";
 import Image from "next/image";
 import { Textarea } from "./ui/textarea";
+import DateCell from "./DateCell";
 
 interface CommentsSectionProps {
   articleId: string;
@@ -94,16 +95,6 @@ export default function CommentsSection({
     };
   }, [articleId, session?.user?.id]);
 
-  // Helper function to format dates consistently
-  const formatDate = (dateString: string | Date | undefined) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-  };
 
   // Handle comment submission
   const handleComment = async (e: React.FormEvent) => {
@@ -409,9 +400,11 @@ export default function CommentsSection({
                         <span className="font-semibold text-gray-800 text-sm">
                           {commentAuthorName}
                         </span>
-                        <span className="text-xs text-gray-500">
-                          {formatDate(comment.createdAt)}
-                        </span>
+                        <DateCell
+                          date={comment.createdAt}
+                          locale="en-US"
+                          className="text-xs text-gray-500"
+                        />
                       </div>
 
                       {/* Action Buttons */}
