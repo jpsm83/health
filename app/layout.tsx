@@ -128,9 +128,12 @@ export default function RootLayout({
         />
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
-        {/* Google AdSense - Regular script tag in head (as per Google's official documentation) */}
-        <script
-          async
+        {/* Google AdSense - Using Next.js Script component with afterInteractive strategy */}
+        {/* This ensures script is in <head> while benefiting from Next.js optimizations */}
+        {/* Script persists across client-side navigations, AdSenseRouter handles re-scanning */}
+        <Script
+          id="adsbygoogle-init"
+          strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4895395148287261"
           crossOrigin="anonymous"
         />
