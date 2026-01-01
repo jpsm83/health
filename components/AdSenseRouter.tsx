@@ -20,7 +20,7 @@ export default function AdSenseRouter() {
         if (typeof window !== "undefined" && window.adsbygoogle) {
           window.adsbygoogle.push({});
         }
-      } catch (err) {
+      } catch {
         // Silently fail - AdSense handles errors internally
         // Don't log to avoid console spam
       }
