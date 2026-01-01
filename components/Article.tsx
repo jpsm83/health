@@ -392,7 +392,7 @@ export default function Article({
                       key={sectionIndex}
                       className="flex flex-col gap-8 md:gap-16"
                     >
-                      <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">
+                      <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 text-center">
                         {section?.subTitle || "Untitled Section"}
                       </h2>
                       <div className="space-y-4 md:space-y-8">
