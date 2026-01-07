@@ -5,7 +5,6 @@ import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import SessionTracker from "@/components/SessionTracker";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
-// import AdSenseRouter from "@/components/AdSenseRouter";
 import AdSense from "@/components/adSence/AdSense";
 
 export const metadata: Metadata = {
@@ -221,7 +220,6 @@ export default function RootLayout({
         <SessionProvider basePath="/api/v1/auth">
           <SessionTracker />
           <PerformanceMonitor />
-          {/* <AdSenseRouter /> */}
           <AdSense />
           {children}
           <Toaster />

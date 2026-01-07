@@ -92,7 +92,7 @@ export default async function HomePage({
             <FeatureCards locale={locale} />
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-1" />
+            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-1" />
 
             {/* Explore by Category */}
             <section className="space-y-6 md:space-y-12 bg-gray-100 py-3 md:py-6">
@@ -104,7 +104,7 @@ export default async function HomePage({
             </section>
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-2" />
+            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-2" />
 
             {/* Featured Articles Section */}
             <section id="featured-articles" className="space-y-6 md:space-y-12">
@@ -118,7 +118,7 @@ export default async function HomePage({
             </section>
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-3" />
+            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-3" />
 
             {/* Newsletter Section */}
             <NewsletterSection />
@@ -132,7 +132,7 @@ export default async function HomePage({
               <SocialMedia />
 
               {/* AdBanner - On top of the home */}
-              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-4" />
+              <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-4" />
 
               <div className="flex flex-col gap-3 md:gap-6">
                 {mainCategories.map((category, index) => (
@@ -156,7 +156,7 @@ export default async function HomePage({
             <ProductsBanner size="970x240" affiliateCompany="amazon" />
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-5" />
+            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-5" />
           </div>
         </div>
       </ErrorBoundary>

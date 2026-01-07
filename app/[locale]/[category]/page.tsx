@@ -118,7 +118,7 @@ export default async function CategoryPage({
             <SocialMedia />
 
             {/* AdBanner - On top of the category */}
-            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-category-1" />
+            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-category-1" />
 
             {/* Paginated Articles Section with Pagination */}
             <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
@@ -131,7 +131,7 @@ export default async function CategoryPage({
             </Suspense>
 
             {/* AdBanner - On top of the category */}
-            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-category-2" />
+            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-category-2" />
 
             {/* Newsletter Section */}
             <NewsletterSection />

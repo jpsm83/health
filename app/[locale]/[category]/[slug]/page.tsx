@@ -283,7 +283,7 @@ export default async function ArticlePage({
           <CommentsSection articleId={articleData._id.toString()} />
 
           {/* AdBanner - On top of the article */}
-          <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-article-1" />
+          <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-article-1" />
 
           {/* Explore by Category Section */}
           <section className="space-y-6 md:space-y-12">
@@ -300,7 +300,7 @@ export default async function ArticlePage({
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
 
           {/* AdBanner - On top of the article */}
-          <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-article-2" />
+          <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-article-2" />
         </div>
       </ErrorBoundary>
     </main>

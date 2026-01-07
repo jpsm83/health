@@ -4,7 +4,6 @@ import React from "react";
 const AdSense = () => {
   // Google AdSense - Using Next.js Script component with afterInteractive strategy
   // This ensures script is in <head> while benefiting from Next.js optimizations
-  // Script persists across client-side navigations, AdSenseRouter handles re-scanning
   return (
     <Script
       async

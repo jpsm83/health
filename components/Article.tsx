@@ -244,7 +244,7 @@ export default function Article({
             {/* AdBanner - On top of images for containers 1, 2, 3 */}
             {containerIndex !== 0 && (
               <AdBanner
-                dataAdSlot="5459821520"
+                dataAdSlot="7165437828"
                 uniqueId={`adbanner-container-${containerIndex}`}
               />
             )}
@@ -388,7 +388,7 @@ export default function Article({
             {/* AdBanner - Under image for first container only */}
             {containerIndex === 0 && (
                 <AdBanner
-                  dataAdSlot="5459821520"
+                  dataAdSlot="7165437828"
                   uniqueId="adbanner-container-0"
                 />
             )}

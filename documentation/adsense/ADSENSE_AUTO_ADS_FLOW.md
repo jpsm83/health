@@ -11,7 +11,8 @@ Google AdSense Auto Ads is an automated advertising system that uses machine lea
 3. [Ad Placement Process](#ad-placement-process)
 4. [Client-Side Navigation Challenges](#client-side-navigation-challenges)
 5. [Manual Re-scanning with push()](#manual-re-scanning-with-push)
-6. [Best Practices](#best-practices)
+6. [Specific Ad Units (AdBanner Component)](#specific-ad-units-adbanner-component)
+7. [Best Practices](#best-practices)
 
 ---
 
@@ -32,14 +33,17 @@ Google AdSense Auto Ads is an automated advertising system that uses machine lea
 ```tsx
 import Script from "next/script";
 
-// In your root layout.tsx <head> section:
+// In your root layout.tsx <body> section:
 <Script
+  async
   id="adsbygoogle-init"
   strategy="afterInteractive"
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4895395148287261"
   crossOrigin="anonymous"
 />
 ```
+
+**Note:** While Google recommends placing the script in `<head>`, Next.js `Script` component with `strategy="afterInteractive"` will inject it into `<head>` automatically, even if the component is placed in `<body>`. This is the current implementation approach.
 
 **Key Points:**
 - Script must be in `<head>` section (Google's official requirement)
@@ -357,6 +361,160 @@ window.adsbygoogle.push({});
 
 ---
 
+## Specific Ad Units (AdBanner Component)
+
+### Overview
+
+While Auto Ads automatically place ads throughout your site, you can also use **specific ad units** (AdBanner component) to place ads in exact locations you control. This is useful when you want ads in specific positions like between article sections or above/below images.
+
+### Implementation
+
+**AdBanner Component:**
+```tsx
+"use client";
+
+import React, { useEffect, useRef, useMemo } from "react";
+
+interface AdBannerProps {
+  dataAdSlot: string;
+  dataAdFormat?: string;
+  dataFullWidthResponsive?: boolean;
+  uniqueId?: string;
+}
+
+const AdBanner = ({
+  dataAdSlot,
+  dataAdFormat = "auto",
+  dataFullWidthResponsive = true,
+  uniqueId,
+}: AdBannerProps) => {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const elementId = useMemo(
+    () => uniqueId || `adbanner-${Math.random().toString(36).substr(2, 9)}`,
+    [uniqueId]
+  );
+
+  useEffect(() => {
+    const getAdElement = () => {
+      return document.getElementById(elementId) as HTMLElement | null;
+    };
+
+    const hasAdsInitialized = () => {
+      const element = getAdElement();
+      return element?.getAttribute("data-adsbygoogle-status") !== null;
+    };
+
+    const initializeAd = () => {
+      if (hasAdsInitialized()) return;
+
+      const element = getAdElement();
+      if (!element) return;
+
+      if (window.adsbygoogle && document.readyState === "complete") {
+        try {
+          window.adsbygoogle.push({});
+        } catch {
+          // AdSense handles errors
+        }
+      }
+    };
+
+    const tryInitialize = () => {
+      if (document.readyState === "complete") {
+        timeoutRef.current = setTimeout(initializeAd, 300);
+      } else {
+        timeoutRef.current = setTimeout(tryInitialize, 100);
+      }
+    };
+
+    timeoutRef.current = setTimeout(tryInitialize, 200);
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [dataAdSlot, elementId]);
+
+  return (
+    <div className="flex justify-center">
+      <ins
+        id={elementId}
+        className="adsbygoogle"
+        style={{ display: "block", minWidth: "320px", minHeight: "100px" }}
+        data-ad-client="ca-pub-4895395148287261"
+        data-ad-slot={dataAdSlot}
+        data-ad-format={dataAdFormat}
+        data-full-width-responsive={dataFullWidthResponsive}
+        suppressHydrationWarning
+      />
+    </div>
+  );
+};
+
+export default AdBanner;
+```
+
+### Key Features
+
+1. **Unique ID Requirement**
+   - Each AdBanner instance **must** have a unique ID
+   - Prevents conflicts when multiple ad units are on the same page
+   - Use `uniqueId` prop to provide explicit IDs: `uniqueId="adbanner-container-0"`
+
+2. **Minimum Dimensions**
+   - Uses `minWidth: "320px"` and `minHeight: "100px"` to ensure element has dimensions
+   - Prevents "No slot size for availableWidth=0" errors
+   - AdSense will adapt to actual dimensions once loaded
+
+3. **Initialization Check**
+   - Checks `data-adsbygoogle-status` attribute to prevent duplicate initialization
+   - Only calls `push({})` once per ad unit
+
+4. **Simple Timing**
+   - Waits for `document.readyState === "complete"`
+   - Small delay (300ms) to ensure element is in DOM
+   - No complex retry logic needed due to minimum dimensions
+
+### Usage Example
+
+```tsx
+// In Article component or any page component
+{containerIndex !== 0 && (
+  <AdBanner
+    dataAdSlot="7165437828"
+    uniqueId={`adbanner-container-${containerIndex}`}
+  />
+)}
+
+{containerIndex === 0 && (
+  <AdBanner
+    dataAdSlot="7165437828"
+    uniqueId="adbanner-container-0"
+  />
+)}
+```
+
+### Important Notes
+
+- **Placement**: AdBanner should be placed **outside** flex containers or complex layouts to ensure proper dimensions
+- **Unique IDs**: Always provide unique IDs when using multiple AdBanner instances on the same page
+- **Ad Slot**: Each ad unit needs its own `dataAdSlot` value from your AdSense account
+- **Not Auto Ads**: AdBanner is for specific ad units, not Auto Ads. Auto Ads still work independently if enabled
+
+### Differences from Auto Ads
+
+| Feature | Auto Ads | AdBanner (Specific Units) |
+|---------|----------|---------------------------|
+| Placement | Automatic | Manual (you control) |
+| Initialization | Auto-scan on load | Manual `push({})` call |
+| Navigation | Needs `push({})` on route change | Needs `push({})` on mount |
+| Control | Google decides placement | You decide exact location |
+| Use Case | Site-wide ads | Specific positions in content |
+
+---
+
 ## Best Practices
 
 ### 1. Script Placement
@@ -369,11 +527,13 @@ window.adsbygoogle.push({});
 
 ✅ **Correct for Next.js 15 (Recommended):**
 - Use Next.js `Script` component in root `layout.tsx`
-- Place in `<head>` section (meets Google's requirement)
+- Can be placed in `<body>` section (Next.js injects to `<head>` automatically)
 - Use `strategy="afterInteractive"` for optimal performance
-- Include `id` prop (required for Next.js Script component)
+- Include `async` attribute
+- Include `id="adsbygoogle-init"` prop (required for Next.js Script component)
 - Include `crossOrigin="anonymous"` for CORS
-- Add `?client=ca-pub-XXX` parameter to enable Auto Ads
+- Add `?client=ca-pub-4895395148287261` parameter to enable Auto Ads
+- Current implementation: Component in `<body>`, script injected to `<head>` by Next.js
 
 **Why `afterInteractive` for Next.js 15:**
 - Still places script in `<head>` (meets Google's requirement)
@@ -541,9 +701,20 @@ try {
 
 ### Issue 4: "All 'ins' elements already have ads" error
 
-**Cause:** Calling `push({})` multiple times on same page
+**Cause:** Calling `push({})` multiple times on same page or same ad unit
 
-**Solution:** Ensure `push({})` is only called once per route change
+**Solution:** 
+- For Auto Ads: Ensure `push({})` is only called once per route change
+- For AdBanner: Check `data-adsbygoogle-status` attribute before calling `push({})`
+
+### Issue 5: "No slot size for availableWidth=0" error
+
+**Cause:** AdSense trying to initialize ad unit before element has dimensions
+
+**Solution:** 
+- Add `minWidth` and `minHeight` styles to the `<ins>` element
+- Ensure AdBanner is placed outside flex containers or complex layouts
+- Wait for `document.readyState === "complete"` before initializing
 
 ---
 
@@ -629,22 +800,77 @@ try {
 ## Key Takeaways
 
 1. **Auto Ads only auto-scan on initial page load** - not on client-side navigation
-2. **Script must be in `<head>`** - this is a Google requirement
-3. **`push({})` triggers manual re-scan** - needed for client-side navigation
+2. **Script placement** - Next.js `Script` component with `afterInteractive` injects to `<head>` automatically, even if component is in `<body>`
+3. **`push({})` triggers manual re-scan** - needed for client-side navigation (Auto Ads) and ad unit initialization (AdBanner)
 4. **Timing is critical** - must wait for content to be fully rendered
 5. **Mobile needs more time** - viewport detection happens after rendering
 6. **Use reactive checks + reasonable buffer** - Use `requestAnimationFrame` and `document.readyState` checks first (reactive), then add a reasonable buffer delay (500ms) to account for Suspense boundaries and async content that can't be detected programmatically
-7. **One `push({})` per route change** - avoid multiple calls
+7. **One `push({})` per route change** - avoid multiple calls for Auto Ads
+8. **Unique IDs required** - Each AdBanner instance must have a unique ID to prevent conflicts
+9. **Minimum dimensions** - Use `minWidth` and `minHeight` on AdBanner elements to prevent "availableWidth=0" errors
+10. **Placement matters** - Place AdBanner outside flex containers to ensure proper dimensions
 
 ---
+
+## Current Implementation Details
+
+### Files Structure
+
+**`app/layout.tsx`:**
+- Imports `AdSense` component
+- Places `<AdSense />` in `<body>` section (line 223)
+- Next.js automatically injects script to `<head>` due to `strategy="afterInteractive"`
+
+**`components/adSence/AdSense.tsx`:**
+- Next.js `Script` component with `strategy="afterInteractive"`
+- Includes `async` attribute
+- Script ID: `"adsbygoogle-init"`
+- Publisher ID: `ca-pub-4895395148287261`
+
+**`components/adSence/AdBanner.tsx`:**
+- Client component for specific ad units
+- Requires `uniqueId` prop for multiple instances
+- Uses `minWidth: "320px"` and `minHeight: "100px"` to ensure dimensions
+- Checks `data-adsbygoogle-status` before initializing
+- Simple initialization: waits for document ready, then calls `push({})`
+
+**`public/ads.txt`:**
+```
+google.com, pub-4895395148287261, DIRECT, f08c47fec0942fa0
+```
+
+### Ad Slot Configuration
+
+- **Auto Ads**: Enabled via script parameter `?client=ca-pub-4895395148287261`
+- **AdBanner Units**: Using ad slot `7165437828` (as of current implementation)
+
+### Component Usage Pattern
+
+```tsx
+// In Article component or page components
+{containerIndex !== 0 && (
+  <AdBanner
+    dataAdSlot="7165437828"
+    uniqueId={`adbanner-container-${containerIndex}`}
+  />
+)}
+
+{containerIndex === 0 && (
+  <AdBanner
+    dataAdSlot="7165437828"
+    uniqueId="adbanner-container-0"
+  />
+)}
+```
 
 ## References
 
 - [Google AdSense Help Center](https://support.google.com/adsense/)
 - [AdSense Auto Ads Documentation](https://support.google.com/adsense/answer/9261309)
 - [AdSense Program Policies](https://support.google.com/adsense/answer/48182)
+- [Next.js Script Component](https://nextjs.org/docs/app/api-reference/components/script)
 
 ---
 
-*Last Updated: Based on current AdSense implementation and Next.js 15 App Router patterns*
+*Last Updated: Based on current AdSense implementation (AdSense.tsx, AdBanner.tsx) and Next.js 15 App Router patterns*
 
