@@ -73,8 +73,6 @@ export default async function HomePage({
   return (
     <main>
       <ErrorBoundary context={"Home component"}>
-        <AdBanner dataAdSlot="5459821520" />
-
         {/* Hero Section - Full width, positioned below navbar */}
         <HeroSection
           title={t("title")}
@@ -93,6 +91,9 @@ export default async function HomePage({
             {/* Feature Cards Section */}
             <FeatureCards locale={locale} />
 
+            {/* AdBanner - On top of the home */}
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-1" />
+
             {/* Explore by Category */}
             <section className="space-y-6 md:space-y-12 bg-gray-100 py-3 md:py-6">
               <SectionHeader
@@ -101,6 +102,9 @@ export default async function HomePage({
               />
               <CategoryCards locale={locale} />
             </section>
+
+            {/* AdBanner - On top of the home */}
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-2" />
 
             {/* Featured Articles Section */}
             <section id="featured-articles" className="space-y-6 md:space-y-12">
@@ -113,6 +117,9 @@ export default async function HomePage({
               </Suspense>
             </section>
 
+            {/* AdBanner - On top of the home */}
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-3" />
+
             {/* Newsletter Section */}
             <NewsletterSection />
 
@@ -123,6 +130,9 @@ export default async function HomePage({
             <section className="space-y-6 md:space-y-12">
               {/* Social Media Section - After users see value */}
               <SocialMedia />
+
+              {/* AdBanner - On top of the home */}
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-4" />
 
               <div className="flex flex-col gap-3 md:gap-6">
                 {mainCategories.map((category, index) => (
@@ -144,6 +154,9 @@ export default async function HomePage({
 
             {/* Bottom banner - lazy loaded */}
             <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+            {/* AdBanner - On top of the home */}
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-5" />
           </div>
         </div>
       </ErrorBoundary>

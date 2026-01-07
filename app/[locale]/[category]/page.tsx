@@ -106,8 +106,6 @@ export default async function CategoryPage({
         />
 
         <div className="container mx-auto my-8 md:my-16">
-          <AdBanner dataAdSlot="5459821520" />
-
           <div className="flex flex-col h-full gap-8 md:gap-16">
             {/* Products Banner */}
             <ProductsBanner
@@ -119,6 +117,9 @@ export default async function CategoryPage({
             {/* Social Media Section - After users see value */}
             <SocialMedia />
 
+            {/* AdBanner - On top of the category */}
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-category-1" />
+
             {/* Paginated Articles Section with Pagination */}
             <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
               <CategoryArticlesContent
@@ -128,6 +129,9 @@ export default async function CategoryPage({
                 originalCategory={category}
               />
             </Suspense>
+
+            {/* AdBanner - On top of the category */}
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-category-2" />
 
             {/* Newsletter Section */}
             <NewsletterSection />

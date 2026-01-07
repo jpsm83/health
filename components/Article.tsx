@@ -18,6 +18,7 @@ import ProductsBanner from "@/components/ProductsBanner";
 import SocialMedia from "@/components/SocialMedia";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
 import { useClientDateFormatter } from "@/lib/hooks/useClientDateFormatter";
+import AdBanner from "./adSence/AdBanner";
 
 export default function Article({
   articleData,
@@ -240,6 +241,14 @@ export default function Article({
           {/* Newsletter Signup in the 4th container (index 3) */}
           {containerIndex === 3 && <NewsletterSignup />}
           <div className="overflow-hidden text-justify space-y-8 md:space-y-16">
+            {/* AdBanner - On top of images for containers 1, 2, 3 */}
+            {containerIndex !== 0 && (
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId={`adbanner-container-${containerIndex}`}
+              />
+            )}
+
             {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
             <div
               className={`relative w-full h-[55vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] flex ${
@@ -375,6 +384,14 @@ export default function Article({
                 </div>
               )}
             </div>
+
+            {/* AdBanner - Under image for first container only */}
+            {containerIndex === 0 && (
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-container-0"
+                />
+            )}
 
             {/* Container Content */}
             <div className="px-8 md:px-16 space-y-8 md:space-y-16">
