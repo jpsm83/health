@@ -5,7 +5,8 @@ import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import SessionTracker from "@/components/SessionTracker";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
-import AdSenseRouter from "@/components/AdSenseRouter";
+// import AdSenseRouter from "@/components/AdSenseRouter";
+import AdSense from "@/components/adSence/AdSense";
 
 export const metadata: Metadata = {
   title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
@@ -128,16 +129,6 @@ export default function RootLayout({
         />
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
-        {/* Google AdSense - Using Next.js Script component with afterInteractive strategy */}
-        {/* This ensures script is in <head> while benefiting from Next.js optimizations */}
-        {/* Script persists across client-side navigations, AdSenseRouter handles re-scanning */}
-        <Script
-          id="adsbygoogle-init"
-          strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4895395148287261"
-          crossOrigin="anonymous"
-        />
-
         {/* Pinterest Rich Pins Verification */}
         <meta
           name="p:domain_verify"
@@ -160,6 +151,8 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=G-06RKTZLN2X"
           strategy="afterInteractive"
         />
+
+        {/* Google Analytics */}
         <Script
           id="google-analytics"
           strategy="afterInteractive"
@@ -228,7 +221,8 @@ export default function RootLayout({
         <SessionProvider basePath="/api/v1/auth">
           <SessionTracker />
           <PerformanceMonitor />
-          <AdSenseRouter />
+          {/* <AdSenseRouter /> */}
+          <AdSense />
           {children}
           <Toaster />
         </SessionProvider>

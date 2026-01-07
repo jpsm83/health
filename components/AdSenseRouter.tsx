@@ -1,3 +1,9 @@
+// ====================
+// SUPOSE TO RECONIZE NAVIGATION AND TRIGGER ADS RE-SCAN
+// I AM NOT SURE IF IT WORKS, DELETE IF WORKS ON PRODUCTION
+// IT IS USED ON LAYOUT.TSX BUT ITS COMMENTED OUT
+// =================================================
+
 "use client";
 
 import { useEffect, useRef } from "react";

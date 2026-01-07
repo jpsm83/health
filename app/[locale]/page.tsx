@@ -17,6 +17,7 @@ import { getArticles } from "@/app/actions/article/getArticles";
 import { FeaturedArticlesSkeleton } from "@/components/skeletons/FeaturedArticlesSkeleton";
 import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouselSkeleton";
 import SocialMedia from "@/components/SocialMedia";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -72,6 +73,8 @@ export default async function HomePage({
   return (
     <main>
       <ErrorBoundary context={"Home component"}>
+        <AdBanner dataAdSlot="5459821520" />
+
         {/* Hero Section - Full width, positioned below navbar */}
         <HeroSection
           title={t("title")}
