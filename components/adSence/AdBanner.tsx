@@ -25,14 +25,16 @@ const AdBanner = ({
   }, []);
 
   return (
-    <ins
-      className="adsbygoogle bg-yellow-500"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-4895395148287261"
-      data-ad-slot={dataAdSlot}
-      data-ad-format={dataAdFormat}
-      data-full-width-responsive={dataFullWidthResponsive}
-    />
+    <div className="flex justify-center m-4 md:m-8">
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-4895395148287261"
+        data-ad-slot={dataAdSlot}
+        data-ad-format={dataAdFormat}
+        data-full-width-responsive={dataFullWidthResponsive}
+      />
+    </div>
   );
 };
 

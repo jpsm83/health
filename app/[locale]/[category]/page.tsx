@@ -13,8 +13,13 @@ import PaginationSection from "@/components/server/PaginationSection";
 import { getArticlesByCategoryPaginated } from "@/app/actions/article/getArticlesByCategoryPaginated";
 import { FieldProjectionType } from "@/app/api/utils/fieldProjections";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
-import { translateCategoryToEnglish, isEnglishCategory, translateCategoryToLocale } from "@/lib/utils/routeTranslation";
+import {
+  translateCategoryToEnglish,
+  isEnglishCategory,
+  translateCategoryToLocale,
+} from "@/lib/utils/routeTranslation";
 import SocialMedia from "@/components/SocialMedia";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -69,7 +74,10 @@ export default async function CategoryPage({
   // If locale is not English, reject English category names ONLY if they differ from the locale translation
   // This allows categories like "fitness" that are the same in multiple languages
   if (locale !== "en" && isEnglishCategory(category)) {
-    const expectedLocaleCategory = translateCategoryToLocale(englishCategory, locale);
+    const expectedLocaleCategory = translateCategoryToLocale(
+      englishCategory,
+      locale
+    );
     // Only reject if the English category is different from what's expected in this locale
     if (category.toLowerCase() !== expectedLocaleCategory.toLowerCase()) {
       notFound();
@@ -96,8 +104,10 @@ export default async function CategoryPage({
           imageUrl={heroImage}
           alt={t(`${englishCategory}.heroImageAlt`)}
         />
-        
+
         <div className="container mx-auto my-8 md:my-16">
+          <AdBanner dataAdSlot="5459821520" />
+
           <div className="flex flex-col h-full gap-8 md:gap-16">
             {/* Products Banner */}
             <ProductsBanner
@@ -106,24 +116,24 @@ export default async function CategoryPage({
               category={category}
             />
 
-          {/* Social Media Section - After users see value */}
-          <SocialMedia />
+            {/* Social Media Section - After users see value */}
+            <SocialMedia />
 
-          {/* Paginated Articles Section with Pagination */}
-          <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
-            <CategoryArticlesContent
-              category={englishCategory}
-              locale={locale}
-              page={page as string}
-              originalCategory={category}
-            />
-          </Suspense>
+            {/* Paginated Articles Section with Pagination */}
+            <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+              <CategoryArticlesContent
+                category={englishCategory}
+                locale={locale}
+                page={page as string}
+                originalCategory={category}
+              />
+            </Suspense>
 
-          {/* Newsletter Section */}
-          <NewsletterSection />
+            {/* Newsletter Section */}
+            <NewsletterSection />
 
-          {/* Bottom banner - lazy loaded */}
-          <ProductsBanner size="970x240" affiliateCompany="amazon" />
+            {/* Bottom banner - lazy loaded */}
+            <ProductsBanner size="970x240" affiliateCompany="amazon" />
           </div>
         </div>
       </ErrorBoundary>

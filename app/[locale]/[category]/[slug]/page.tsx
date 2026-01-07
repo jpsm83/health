@@ -22,6 +22,7 @@ import {
   isEnglishCategory,
   translateCategoryToLocale,
 } from "@/lib/utils/routeTranslation";
+import AdBanner from "@/components/adSence/AdBanner";
 
 export async function generateMetadata({
   params,
@@ -258,6 +259,8 @@ export default async function ArticlePage({
     <main className="container mx-auto my-8 md:my-16">
       <ErrorBoundary context={"Article component"}>
         <div className="flex flex-col h-full gap-8 md:gap-16">
+          <AdBanner dataAdSlot="5459821520" />
+
           {/* Products Banner */}
           <ProductsBanner
             size="970x90"
