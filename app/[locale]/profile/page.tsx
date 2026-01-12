@@ -8,6 +8,7 @@ import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import { redirect } from "next/navigation";
 import ProductsBanner from "@/components/ProductsBanner";
 import { ProfileSkeleton } from "@/components/skeletons/ProfileSkeleton";
+import AdBanner from "@/components/adSence/AdBanner";
 
 export async function generateMetadata({
   params,
@@ -44,6 +45,13 @@ export default async function ProfilePage({
             {/* Products Banner */}
             <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
+            {/* AdBanner */}
+            <AdBanner
+              dataAdSlot="4003409246"
+              uniqueId="adbanner-profile-1"
+              className="hidden lg:block"
+            />
+
             {/* Profile Form Section */}
             <Suspense fallback={<ProfileSkeleton />}>
               <ProfileContent locale={locale} userId={session.user.id} />
@@ -51,6 +59,26 @@ export default async function ProfilePage({
 
             {/* Products Banner */}
             <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+            {/* AdBanner */}
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-profile-2" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-profile-3"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-profile-4"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-profile-5"
+                className="hidden lg:block"
+              />
+            </div>
           </div>
         </div>
       </ErrorBoundary>

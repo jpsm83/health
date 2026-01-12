@@ -241,12 +241,29 @@ export default function Article({
           {/* Newsletter Signup in the 4th container (index 3) */}
           {containerIndex === 3 && <NewsletterSignup />}
           <div className="overflow-hidden text-justify space-y-8 md:space-y-16">
-            {/* AdBanner - On top of images for containers 1, 2, 3 */}
+            {/* AdBanner */}
             {containerIndex !== 0 && (
-              <AdBanner
-                dataAdSlot="7165437828"
-                uniqueId={`adbanner-container-${containerIndex}`}
-              />
+              <div className="flex justify-center gap-6">
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 1}`}
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 2}`}
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 3}`}
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 4}`}
+                  className="hidden lg:block"
+                />
+              </div>
             )}
 
             {/* Container Images - 2 images side by side on lg+, 1 image on smaller screens */}
@@ -385,12 +402,29 @@ export default function Article({
               )}
             </div>
 
-            {/* AdBanner - Under image for first container only */}
+            {/* AdBanner */}
             {containerIndex === 0 && (
+              <div className="flex justify-center gap-6">
                 <AdBanner
-                  dataAdSlot="7165437828"
-                  uniqueId="adbanner-container-0"
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 5}`}
                 />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 6}`}
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 7}`}
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId={`adbanner-article-${containerIndex + 8}`}
+                  className="hidden lg:block"
+                />
+              </div>
             )}
 
             {/* Container Content */}
@@ -447,6 +481,13 @@ export default function Article({
                             globalSectionIndex
                           ] || ""
                         }
+                      />
+
+                      {/* AdBanner */}
+                      <AdBanner
+                        dataAdSlot="4003409246"
+                        uniqueId="adbanner-article-999"
+                        className="hidden lg:block"
                       />
                     </section>
                   );

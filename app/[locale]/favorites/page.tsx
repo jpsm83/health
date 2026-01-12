@@ -15,6 +15,7 @@ import { getUserLikedArticles } from "@/app/actions/user/getUserLikedArticles";
 import { ArticlesWithPaginationSkeleton } from "@/components/skeletons/ArticlesWithPaginationSkeleton";
 import HeroCountUpdater from "@/components/HeroCountUpdater";
 import { HeroDescriptionProvider } from "@/components/HeroDescriptionContext";
+import AdBanner from "@/components/adSence/AdBanner";
 
 export async function generateMetadata({
   params,
@@ -66,11 +67,18 @@ export default async function FavoritesPage({
             imageUrl={categoryHeroImages.favorites}
             alt={t("heroImageAlt")}
           />
-          
+
           <div className="container mx-auto my-8 md:my-16">
             <div className="flex flex-col h-full gap-8 md:gap-16">
               {/* Products Banner - renders immediately */}
               <ProductsBanner size="970x90" affiliateCompany="amazon" />
+
+              {/* AdBanner */}
+              <AdBanner
+                dataAdSlot="4003409246"
+                uniqueId="adbanner-favorites-1"
+                className="hidden lg:block"
+              />
 
               {/* Favorites Section - Suspense shows skeleton while loading */}
               <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
@@ -81,11 +89,57 @@ export default async function FavoritesPage({
                 />
               </Suspense>
 
+              {/* AdBanner */}
+              <div className="flex justify-center gap-6">
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-2"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-3"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-4"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-5"
+                  className="hidden lg:block"
+                />
+              </div>
+
               {/* Newsletter Signup Section */}
               <NewsletterSignup />
 
               {/* Products Banner */}
               <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+              {/* AdBanner */}
+              <div className="flex justify-center gap-6">
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-6"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-7"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-8"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-favorites-9"
+                  className="hidden lg:block"
+                />
+              </div>
             </div>
           </div>
         </HeroDescriptionProvider>

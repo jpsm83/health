@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
 import AboutCategoriesSection from "@/components/AboutCategoriesSection";
 import AboutCallToActionSection from "@/components/AboutCallToActionSection";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -71,12 +72,28 @@ export default async function AboutPage({
             <h2 className="text-3xl font-bold text-gray-900">
               {t("mission.title")}
             </h2>
-            <p className="text-lg text-gray-700">
-              {t("mission.description1")}
-            </p>
-            <p className="text-lg text-gray-700">
-              {t("mission.description2")}
-            </p>
+            <p className="text-lg text-gray-700">{t("mission.description1")}</p>
+            <p className="text-lg text-gray-700">{t("mission.description2")}</p>
+          </div>
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-about-1" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-about-2"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-about-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-about-4"
+              className="hidden lg:block"
+            />
           </div>
 
           {/* What We Do Section */}
@@ -112,16 +129,17 @@ export default async function AboutPage({
             <h2 className="text-3xl font-bold text-gray-900">
               {t("team.title")}
             </h2>
-            <p className="text-lg text-gray-700">
-              {t("team.description1")}
-            </p>
-            <p className="text-lg text-gray-700">
-              {t("team.description2")}
-            </p>
-            <p className="text-lg text-gray-700">
-              {t("team.description3")}
-            </p>
+            <p className="text-lg text-gray-700">{t("team.description1")}</p>
+            <p className="text-lg text-gray-700">{t("team.description2")}</p>
+            <p className="text-lg text-gray-700">{t("team.description3")}</p>
           </div>
+
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-about-5"
+            className="hidden lg:block"
+          />
 
           {/* Categories Section */}
           <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-4 md:space-y-8">
@@ -167,6 +185,13 @@ export default async function AboutPage({
             </div>
           </div>
 
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-about-6"
+            className="hidden lg:block"
+          />
+
           {/* Call to Action Section */}
           <AboutCallToActionSection
             locale={locale}
@@ -177,6 +202,26 @@ export default async function AboutPage({
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-about-7" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-about-8"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-about-9"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-about-10"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

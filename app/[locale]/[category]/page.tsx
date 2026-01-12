@@ -118,7 +118,27 @@ export default async function CategoryPage({
             <SocialMedia />
 
             {/* AdBanner - On top of the category */}
-            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-category-1" />
+            <div className="flex justify-center gap-6">
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-1"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-2"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-3"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-4"
+                className="hidden lg:block"
+              />
+            </div>
 
             {/* Paginated Articles Section with Pagination */}
             <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
@@ -131,13 +151,56 @@ export default async function CategoryPage({
             </Suspense>
 
             {/* AdBanner - On top of the category */}
-            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-category-2" />
+            <div className="flex justify-center gap-6">
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-5"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-6"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-7"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-8"
+                className="hidden lg:block"
+              />
+            </div>
 
             {/* Newsletter Section */}
             <NewsletterSection />
 
             {/* Bottom banner - lazy loaded */}
             <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+            {/* AdBanner - On top of the category */}
+            <div className="flex justify-center gap-6">
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-9"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-10"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-11"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-category-12"
+                className="hidden lg:block"
+              />
+            </div>
           </div>
         </div>
       </ErrorBoundary>
@@ -157,8 +220,8 @@ async function CategoryArticlesContent({
   page: string;
   originalCategory: string;
 }) {
-  const ARTICLES_PER_PAGE = 10;
-  const currentPage = Math.max(1, parseInt(page, 10) || 1);
+  const ARTICLES_PER_PAGE = 9;
+  const currentPage = Math.max(1, parseInt(page, 9) || 1);
 
   try {
     const paginatedResult = await getArticlesByCategoryPaginated({

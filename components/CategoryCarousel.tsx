@@ -4,10 +4,9 @@ import dynamic from "next/dynamic";
 import { ISerializedArticle } from "@/types/article";
 import ArticleCard from "./ArticleCard";
 
-const ProductsBanner = dynamic(
-  () => import("./ProductsBanner"),
-  { ssr: false }
-);
+const ProductsBanner = dynamic(() => import("./ProductsBanner"), {
+  ssr: false,
+});
 import {
   Carousel,
   CarouselContent,
@@ -22,6 +21,7 @@ import { CategoryCarouselSkeleton } from "@/components/skeletons/CategoryCarouse
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getArticlesByCategory } from "@/app/actions/article/getArticlesByCategory";
+import AdBanner from "./adSence/AdBanner";
 
 interface CategoryCarouselProps {
   category: string;
@@ -81,7 +81,7 @@ export default function CategoryCarousel({
             order: "desc",
             locale,
             fields: "featured", // Only fetch fields needed for ArticleCard
-            skipCount: true,    // Skip expensive countDocuments
+            skipCount: true, // Skip expensive countDocuments
           });
 
           // Check if component is still mounted and not aborted
@@ -309,6 +309,21 @@ export default function CategoryCarousel({
                           affiliateCompany="amazon"
                         />
                       </div>
+                    </CarouselItem>
+                  );
+                }
+
+                // Add AdBanner after every 3 articles (after index 3, 6, 9, etc.)
+                if ((index + 1) % 3 === 0 && index < articles.length - 1) {
+                  items.push(
+                    <CarouselItem
+                      key={`banner-${index}`}
+                      className="flex basis-64 shrink-0 items-center justify-center"
+                    >
+                      <AdBanner
+                        dataAdSlot="7165437828"
+                        uniqueId={`adbanner-categoryCarousel-${index}`}
+                      />
                     </CarouselItem>
                   );
                 }

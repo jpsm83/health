@@ -18,6 +18,7 @@ import {
   Globe,
   HelpCircle,
 } from "lucide-react";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -29,11 +30,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  return generatePublicMetadata(
-    locale,
-    "/site-map",
-    "metadata.siteMap.title"
-  );
+  return generatePublicMetadata(locale, "/site-map", "metadata.siteMap.title");
 }
 
 export const revalidate = 3600; // 1 hour
@@ -54,9 +51,13 @@ export default async function SiteMapPage({
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
           {/* Hero Section */}
-          <SectionHeader
-            title={t("title")}
-            description={t("description")}
+          <SectionHeader title={t("title")} description={t("description")} />
+
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-site-1"
+            className="hidden lg:block"
           />
 
           {/* Main Navigation Grid */}
@@ -115,13 +116,17 @@ export default async function SiteMapPage({
                   {mainCategories.map((category) => (
                     <li key={category}>
                       <Link
-                        href={`/${locale}/${translateCategoryToLocale(category, locale)}`}
+                        href={`/${locale}/${translateCategoryToLocale(
+                          category,
+                          locale
+                        )}`}
                         className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
                       >
                         {t(`sections.articleCategories.${category}`)}
                       </Link>
                       <span className="text-gray-500 text-sm ml-2">
-                        - {t(`sections.articleCategories.${category}Description`)}
+                        -{" "}
+                        {t(`sections.articleCategories.${category}Description`)}
                       </span>
                     </li>
                   ))}
@@ -395,6 +400,26 @@ export default async function SiteMapPage({
 
           {/* Bottom banner */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-site-2" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-site-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-site-4"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-site-5"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

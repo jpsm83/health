@@ -283,7 +283,24 @@ export default async function ArticlePage({
           <CommentsSection articleId={articleData._id.toString()} />
 
           {/* AdBanner - On top of the article */}
-          <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-article-1" />
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-slug-1" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-slug-2"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-slug-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-slug-4"
+              className="hidden lg:block"
+            />
+          </div>
 
           {/* Explore by Category Section */}
           <section className="space-y-6 md:space-y-12">
@@ -300,7 +317,24 @@ export default async function ArticlePage({
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
 
           {/* AdBanner - On top of the article */}
-          <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-article-2" />
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-slug-5" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-slug-6"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-slug-7"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-slug-8"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

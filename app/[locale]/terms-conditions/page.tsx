@@ -4,6 +4,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -43,6 +44,13 @@ export default async function TermsConditionsPage({
           <SectionHeader
             title={t("hero.title")}
             description={t("hero.subtitle")}
+          />
+
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-conditions-1"
+            className="hidden lg:block"
           />
 
           {/* Terms of Use Section */}
@@ -109,6 +117,29 @@ export default async function TermsConditionsPage({
               </ol>
             </section>
 
+            {/* AdBanner */}
+            <div className="flex justify-center gap-6">
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-2"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-3"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-4"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-5"
+                className="hidden lg:block"
+              />
+            </div>
+
             <section>
               <h2 className="text-2xl font-semibold mb-4 md:mb-8">
                 {t("sections.ageLimit.title")}
@@ -161,6 +192,29 @@ export default async function TermsConditionsPage({
               <p>{t("sections.safety.description")}</p>
             </section>
 
+            {/* AdBanner */}
+            <div className="flex justify-center gap-6">
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-6"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-7"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-8"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-conditions-9"
+                className="hidden lg:block"
+              />
+            </div>
+
             <section>
               <h2 className="text-2xl font-semibold mb-4 md:mb-8">
                 {t("sections.informationAndAvailability.title")}
@@ -182,6 +236,13 @@ export default async function TermsConditionsPage({
                 <li>{t("sections.links.items.3")}</li>
               </ol>
             </section>
+
+            {/* AdBanner */}
+            <AdBanner
+              dataAdSlot="4003409246"
+              uniqueId="adbanner-conditions-10"
+              className="hidden lg:block"
+            />
 
             <section>
               <h2 className="text-2xl font-semibold mb-4 md:mb-8">
@@ -207,6 +268,29 @@ export default async function TermsConditionsPage({
 
           {/* Bottom banner */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-conditions-11"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-conditions-12"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-conditions-13"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-conditions-14"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

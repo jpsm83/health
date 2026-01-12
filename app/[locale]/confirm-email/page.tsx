@@ -8,6 +8,7 @@ import ConfirmEmailUI from "@/components/server/ConfirmEmailUI";
 import confirmEmailAction, {
   ConfirmEmailResult,
 } from "@/app/actions/auth/confirmEmail";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -71,31 +72,58 @@ export default async function ConfirmEmailPage({
           {/* Products Banner */}
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-confirmEmail-1"
+            className="hidden lg:block"
+          />
+
           {/* Confirm Email Section */}
           <section className="space-y-6 md:space-y-12">
-              <ConfirmEmailUI
-                result={result}
-                initialStatus={initialStatus}
-                translations={{
-                  success: {
-                    title: t("success.title"),
-                    signInButton: t("success.signInButton"),
-                  },
-                  error: {
-                    title: t("error.title"),
-                    backToSignInButton: t("error.backToSignInButton"),
-                  },
-                  messages: {
-                    noToken: t("messages.noToken"),
-                    confirmationFailed: t("messages.confirmationFailed"),
-                    unexpectedError: t("messages.unexpectedError"),
-                  },
-                }}
-              />
+            <ConfirmEmailUI
+              result={result}
+              initialStatus={initialStatus}
+              translations={{
+                success: {
+                  title: t("success.title"),
+                  signInButton: t("success.signInButton"),
+                },
+                error: {
+                  title: t("error.title"),
+                  backToSignInButton: t("error.backToSignInButton"),
+                },
+                messages: {
+                  noToken: t("messages.noToken"),
+                  confirmationFailed: t("messages.confirmationFailed"),
+                  unexpectedError: t("messages.unexpectedError"),
+                },
+              }}
+            />
           </section>
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-confirmEmail-2" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-confirmEmail-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-confirmEmail-4"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-confirmEmail-5"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

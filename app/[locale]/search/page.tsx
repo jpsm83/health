@@ -14,6 +14,7 @@ import { categoryHeroImages } from "@/lib/constants";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import HeroCountUpdater from "@/components/HeroCountUpdater";
 import { HeroDescriptionProvider } from "@/components/HeroDescriptionContext";
+import AdBanner from "@/components/adSence/AdBanner";
 
 export async function generateMetadata({
   params,
@@ -84,26 +85,79 @@ export default async function SearchPage({
             imageUrl={categoryHeroImages["search-results"]}
             alt={t("heroImageAlt")}
           />
-          
+
           <div className="container mx-auto my-8 md:my-16">
             <div className="flex flex-col h-full gap-8 md:gap-16">
               {/* Products Banner - renders immediately */}
               <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
-            {/* Search Results Section - Suspense shows skeleton while loading */}
-            <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
-              <SearchResultsContent
-                query={query}
-                locale={locale}
-                searchParams={searchParams}
+              {/* AdBanner */}
+              <div className="flex justify-center gap-6">
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-1"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-2"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-3"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-4"
+                  className="hidden lg:block"
+                />
+              </div>
+
+              {/* Search Results Section - Suspense shows skeleton while loading */}
+              <Suspense fallback={<ArticlesWithPaginationSkeleton />}>
+                <SearchResultsContent
+                  query={query}
+                  locale={locale}
+                  searchParams={searchParams}
+                />
+              </Suspense>
+
+              {/* AdBanner */}
+              <AdBanner
+                dataAdSlot="4003409246"
+                uniqueId="adbanner-search-5"
+                className="hidden lg:block"
               />
-            </Suspense>
 
               {/* Newsletter Signup Section - renders immediately */}
               <NewsletterSignup />
 
               {/* Products Banner - renders immediately */}
               <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+              {/* AdBanner */}
+              <div className="flex justify-center gap-6">
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-6"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-7"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-8"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-search-9"
+                  className="hidden lg:block"
+                />
+              </div>
             </div>
           </div>
         </HeroDescriptionProvider>

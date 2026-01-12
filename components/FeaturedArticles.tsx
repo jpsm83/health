@@ -5,11 +5,11 @@ import ArticleCard from "./ArticleCard";
 import { ISerializedArticle } from "@/types/article";
 import { useLocale } from "next-intl";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
+import AdBanner from "./adSence/AdBanner";
 
-const ProductsBanner = dynamic(
-  () => import("./ProductsBanner"),
-  { ssr: false }
-);
+const ProductsBanner = dynamic(() => import("./ProductsBanner"), {
+  ssr: false,
+});
 
 // Simple loading skeleton for mobile
 const LoadingSkeleton = () => (
@@ -54,12 +54,22 @@ export default function FeaturedArticles({
   if (!articles || articles.length === 0) {
     return null;
   }
-  
+
   return (
     <section className="cv-auto">
       {/* Featured Articles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cv-auto px-3 pb-4">
         {articles.slice(0, 2).map((article: ISerializedArticle) => (
+          <div key={article._id?.toString() || ""}>
+            <ArticleCard article={article} />
+          </div>
+        ))}
+        <AdBanner
+          dataAdSlot="5459821520"
+          uniqueId="adbanner-featureArticles-1"
+        />
+
+        {articles.slice(2, 5).map((article: ISerializedArticle) => (
           <div key={article._id?.toString() || ""}>
             <ArticleCard article={article} />
           </div>
@@ -71,19 +81,16 @@ export default function FeaturedArticles({
             category={translateCategoryToLocale(articles[0].category, locale)}
           />
         </div>
-        {articles.slice(2, 8).map((article: ISerializedArticle) => (
+        {articles.slice(5, 8).map((article: ISerializedArticle) => (
           <div key={article._id?.toString() || ""}>
             <ArticleCard article={article} />
           </div>
         ))}
-        <div className="h-full flex items-stretch">
-          <ProductsBanner
-            size="390x240"
-            affiliateCompany="amazon"
-            category={articles[9]?.category ? translateCategoryToLocale(articles[9].category, locale) : undefined}
-          />
-        </div>
-        {articles.slice(8).map((article: ISerializedArticle) => (
+        <AdBanner
+          dataAdSlot="5459821520"
+          uniqueId="adbanner-featureArticles-2"
+        />
+        {articles.slice(8, 9).map((article: ISerializedArticle) => (
           <div key={article._id?.toString() || ""}>
             <ArticleCard article={article} />
           </div>
@@ -92,4 +99,3 @@ export default function FeaturedArticles({
     </section>
   );
 }
-

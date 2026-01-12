@@ -4,6 +4,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -43,6 +44,13 @@ export default async function CookiePolicyPage({
           <SectionHeader
             title={t("hero.title")}
             description={t("hero.subtitle")}
+          />
+
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-cookie-1"
+            className="hidden lg:block"
           />
 
           {/* Introduction Section */}
@@ -89,6 +97,29 @@ export default async function CookiePolicyPage({
               </h2>
               <p className="mb-4">{t("sections.yourChoices.paragraphs.0")}</p>
               <p className="mb-4">{t("sections.yourChoices.paragraphs.1")}</p>
+
+              {/* AdBanner */}
+              <div className="flex justify-center gap-6 my-6 md:my-12">
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-cookie-2"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-cookie-3"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-cookie-4"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-cookie-5"
+                  className="hidden lg:block"
+                />
+              </div>
 
               <div className="space-y-4 md:space-y-8">
                 <div>
@@ -166,6 +197,26 @@ export default async function CookiePolicyPage({
 
           {/* Bottom banner */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-cookie-6" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-cookie-7"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-cookie-8"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-cookie-9"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

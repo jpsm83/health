@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useMemo } from "react";
+import React, { useEffect, useRef, useMemo, useState } from "react";
 
 interface AdBannerProps {
   dataAdSlot: string;
@@ -23,6 +23,7 @@ const AdBanner = ({
   uniqueId,
   className,
 }: AdBannerProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const elementId = useMemo(
@@ -31,6 +32,11 @@ const AdBanner = ({
   );
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
     const getAdElement = () => {
       return document.getElementById(elementId) as HTMLElement | null;
     };
@@ -70,10 +76,26 @@ const AdBanner = ({
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [dataAdSlot, elementId]);
+  }, [dataAdSlot, elementId, isMounted]);
+
+  // Render placeholder with exact same dimensions during SSR
+  if (!isMounted) {
+    return (
+      <div className={`flex justify-center ${className || ""}`}>
+        <div 
+          style={{ 
+            minWidth: "320px", 
+            minHeight: "100px",
+            display: "block"
+          }} 
+          aria-hidden="true"
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className={`flex justify-center bg-blue-500 ${className}`}>
+    <div className={`flex justify-center ${className || ""}`}>
       <ins
         id={elementId}
         className="adsbygoogle"
@@ -82,7 +104,6 @@ const AdBanner = ({
         data-ad-slot={dataAdSlot}
         data-ad-format={dataAdFormat}
         data-full-width-responsive={dataFullWidthResponsive}
-        suppressHydrationWarning
       />
     </div>
   );

@@ -5,6 +5,7 @@ import { generatePublicMetadata } from "@/lib/utils/genericMetadata";
 import { getTranslations } from "next-intl/server";
 import SectionHeader from "@/components/server/SectionHeader";
 import ClientDate from "@/components/ClientDate";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -44,6 +45,13 @@ export default async function PrivacyPolicyPage({
           <SectionHeader
             title={t("hero.title")}
             description={t("hero.subtitle")}
+          />
+
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-privacy-1"
+            className="hidden lg:block"
           />
 
           {/* Introduction Section */}
@@ -92,6 +100,26 @@ export default async function PrivacyPolicyPage({
                 <li>{t("sections.howWeUseInformation.items.5")}</li>
               </ul>
             </section>
+
+            {/* AdBanner */}
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-privacy-2" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-privacy-3"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-privacy-4"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-privacy-5"
+                className="hidden lg:block"
+              />
+            </div>
 
             <section>
               <h2 className="text-2xl font-semibold mb-4 md:mb-8">
@@ -151,6 +179,26 @@ export default async function PrivacyPolicyPage({
               </ul>
             </section>
 
+            {/* AdBanner */}
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-privacy-6" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-privacy-7"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-privacy-8"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-privacy-9"
+                className="hidden lg:block"
+              />
+            </div>
+
             <section>
               <h2 className="text-2xl font-semibold mb-4 md:mb-8">
                 {t("sections.internationalDataTransfer.title")}
@@ -181,6 +229,13 @@ export default async function PrivacyPolicyPage({
               <p>{t("sections.linksToThirdParty.description3")}</p>
             </section>
 
+            {/* AdBanner */}
+            <AdBanner
+              dataAdSlot="4003409246"
+              uniqueId="adbanner-privacy-10"
+              className="hidden lg:block"
+            />
+
             <section>
               <h2 className="text-2xl font-semibold mb-4 md:mb-8">
                 {t("sections.changesToPrivacyNotice.title")}
@@ -194,6 +249,26 @@ export default async function PrivacyPolicyPage({
 
           {/* Bottom banner */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-privacy-11" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-privacy-12"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-privacy-13"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-privacy-14"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

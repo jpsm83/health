@@ -6,6 +6,7 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ResetPassword from "@/components/ResetPassword";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -53,6 +54,13 @@ export default async function ResetPasswordPage({
           {/* Products Banner */}
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-reset-1"
+            className="hidden lg:block"
+          />
+
           {/* Reset Password Section */}
           <section className="space-y-6 md:space-y-12">
             <ResetPassword
@@ -63,6 +71,26 @@ export default async function ResetPasswordPage({
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-reset-2" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-reset-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-reset-4"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-reset-5"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

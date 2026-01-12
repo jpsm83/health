@@ -6,6 +6,7 @@ import { generatePrivateMetadata } from "@/lib/utils/genericMetadata";
 import { auth } from "@/app/api/v1/auth/[...nextauth]/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import SignUp from "@/components/SignUp";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -46,6 +47,13 @@ export default async function SignUpPage({
           {/* Products Banner */}
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-signup-1"
+            className="hidden lg:block"
+          />
+
           {/* Sign Up Section */}
           <section className="space-y-6 md:space-y-12">
             <SignUp locale={locale} />
@@ -53,6 +61,26 @@ export default async function SignUpPage({
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-signup-2" />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-signup-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-signup-4"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-signup-5"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

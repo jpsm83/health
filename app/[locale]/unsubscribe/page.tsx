@@ -9,6 +9,7 @@ import UnsubscribeUI from "@/components/server/UnsubscribeUI";
 import unsubscribeFromNewsletterAction from "@/app/actions/subscribers/newsletterUnsubscribe";
 import connectDb from "@/app/api/db/connectDb";
 import User from "@/app/api/models/user";
+import AdBanner from "@/components/adSence/AdBanner";
 
 // Lazy load below-fold banners (they're not critical for initial render)
 const ProductsBanner = dynamic(() => import("@/components/ProductsBanner"));
@@ -85,6 +86,13 @@ export default async function UnsubscribePage({
           {/* Products Banner */}
           <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
+          {/* AdBanner */}
+          <AdBanner
+            dataAdSlot="4003409246"
+            uniqueId="adbanner-unsubscribe-1"
+            className="hidden lg:block"
+          />
+
           {/* Unsubscribe Section */}
           <section className="space-y-6 md:space-y-12">
             <UnsubscribeUI
@@ -106,6 +114,29 @@ export default async function UnsubscribePage({
 
           {/* Bottom banner - lazy loaded */}
           <ProductsBanner size="970x240" affiliateCompany="amazon" />
+
+          {/* AdBanner */}
+          <div className="flex justify-center gap-6">
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-unsubscribe-2"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-unsubscribe-3"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-unsubscribe-4"
+              className="hidden md:block"
+            />
+            <AdBanner
+              dataAdSlot="5459821520"
+              uniqueId="adbanner-unsubscribe-5"
+              className="hidden lg:block"
+            />
+          </div>
         </div>
       </ErrorBoundary>
     </main>

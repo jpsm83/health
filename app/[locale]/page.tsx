@@ -40,7 +40,7 @@ async function FeaturedArticlesContent({ locale }: { locale: string }) {
 
   const featuredArticlesResponse = await getArticles({
     locale,
-    limit: 10,
+    limit: 9,
     skipCount: true,
     fields: "featured",
   });
