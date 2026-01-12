@@ -92,7 +92,24 @@ export default async function HomePage({
             <FeatureCards locale={locale} />
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-1" />
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-1" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-2"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-3"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-4"
+                className="hidden lg:block"
+              />
+            </div>
 
             {/* Explore by Category */}
             <section className="space-y-6 md:space-y-12 bg-gray-100 py-3 md:py-6">
@@ -104,7 +121,24 @@ export default async function HomePage({
             </section>
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-2" />
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-5" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-6"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-7"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-8"
+                className="hidden lg:block"
+              />
+            </div>
 
             {/* Featured Articles Section */}
             <section id="featured-articles" className="space-y-6 md:space-y-12">
@@ -118,7 +152,24 @@ export default async function HomePage({
             </section>
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-3" />
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-9" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-10"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-11"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-12"
+                className="hidden lg:block"
+              />
+            </div>
 
             {/* Newsletter Section */}
             <NewsletterSection />
@@ -132,7 +183,24 @@ export default async function HomePage({
               <SocialMedia />
 
               {/* AdBanner - On top of the home */}
-              <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-4" />
+              <div className="flex justify-center gap-6">
+                <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-13" />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-home-14"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-home-15"
+                  className="hidden md:block"
+                />
+                <AdBanner
+                  dataAdSlot="5459821520"
+                  uniqueId="adbanner-home-16"
+                  className="hidden lg:block"
+                />
+              </div>
 
               <div className="flex flex-col gap-3 md:gap-6">
                 {mainCategories.map((category, index) => (
@@ -156,7 +224,24 @@ export default async function HomePage({
             <ProductsBanner size="970x240" affiliateCompany="amazon" />
 
             {/* AdBanner - On top of the home */}
-            <AdBanner dataAdSlot="7165437828" uniqueId="adbanner-home-5" />
+            <div className="flex justify-center gap-6">
+              <AdBanner dataAdSlot="5459821520" uniqueId="adbanner-home-17" />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-18"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-19"
+                className="hidden md:block"
+              />
+              <AdBanner
+                dataAdSlot="5459821520"
+                uniqueId="adbanner-home-20"
+                className="hidden lg:block"
+              />
+            </div>
           </div>
         </div>
       </ErrorBoundary>

@@ -7,6 +7,7 @@ interface AdBannerProps {
   dataAdFormat?: string;
   dataFullWidthResponsive?: boolean;
   uniqueId?: string;
+  className?: string;
 }
 
 declare global {
@@ -20,6 +21,7 @@ const AdBanner = ({
   dataAdFormat = "auto",
   dataFullWidthResponsive = true,
   uniqueId,
+  className,
 }: AdBannerProps) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   
@@ -71,7 +73,7 @@ const AdBanner = ({
   }, [dataAdSlot, elementId]);
 
   return (
-    <div className="flex justify-center">
+    <div className={`flex justify-center bg-blue-500 ${className}`}>
       <ins
         id={elementId}
         className="adsbygoogle"
