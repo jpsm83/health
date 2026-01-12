@@ -88,6 +88,13 @@ export default async function HomePage({
             {/* Products Banner */}
             <ProductsBanner size="970x90" affiliateCompany="amazon" />
 
+            {/* AdBanner */}
+            <AdBanner
+              dataAdSlot="4003409246"
+              uniqueId="adbanner-article-999"
+              className="hidden lg:block"
+            />
+
             {/* Feature Cards Section */}
             <FeatureCards locale={locale} />
 
