@@ -295,7 +295,7 @@ export default function CategoryCarousel({
                 );
 
                 // Add banner after every 5 articles (after index 4, 9, 14, etc.)
-                if ((index + 1) % 5 === 0 && index < articles.length - 1) {
+                if ((index + 1) % 4 === 0 && index < articles.length - 1) {
                   items.push(
                     <CarouselItem
                       key={`banner-${index}`}

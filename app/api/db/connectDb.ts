@@ -2,12 +2,14 @@ import mongoose from "mongoose";
 
 // Connection options for mongoose
 
-const MONGODB_URI: string | undefined = process.env.MONGODB_URI;
-
 // Simple connection state tracking to prevent spam
 let isConnecting = false;
 
 const connectDb = async (retries: number = 3): Promise<void> => {
+  // Read MONGODB_URI at function call time (not module load time)
+  // This allows env vars to be loaded before the function is called
+  const MONGODB_URI: string | undefined = process.env.MONGODB_URI;
+  
   // Check if URI is defined
   if (!MONGODB_URI) {
     const error = "MONGODB_URI is not defined in environment variables";
