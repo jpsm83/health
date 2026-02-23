@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, MoreHorizontal } from "lucide-react";
+import { Clock, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
@@ -16,8 +16,6 @@ const SocialShare = dynamic(() => import("./SocialShare"), { ssr: false });
 import { Button } from "./ui/button";
 import { ImageOff } from "lucide-react";
 import { optimizeCloudinaryUrl } from "@/lib/utils/optimizeCloudinaryUrl";
-import { useClientDateFormatter } from "@/lib/hooks/useClientDateFormatter";
-
 export default function ArticleCard({
   article,
 }: {
@@ -26,17 +24,6 @@ export default function ArticleCard({
   const [showShareDropdown, setShowShareDropdown] = useState(false);
   const t = useTranslations("articleCard");
   const locale = useLocale();
-
-  // Use client-side date formatter to prevent hydration mismatches
-  const formattedDate = useClientDateFormatter(
-    article.updatedAt,
-    locale,
-    {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }
-  );
 
   // Calculate read time and generate excerpt
   const readTimeMinutes = calculateReadTime(article);
@@ -174,12 +161,8 @@ export default function ArticleCard({
           {/* Excerpt - Smaller minimum height */}
           <p className="text-gray-600 text-xs">{excerpt}</p>
 
-          {/* Meta Information - Smaller spacing */}
-          <div className="flex items-center justify-between text-xs text-gray-500">
-            <div className="flex items-center space-x-1">
-              <Calendar className="w-3 h-3" />
-              <span>{formattedDate || ""}</span>
-            </div>
+          {/* Meta Information - Read time only */}
+          <div className="flex items-center justify-end text-xs text-gray-500">
             <div className="flex items-center space-x-1">
               <Clock className="w-3 h-3" />
               <span>{readTime}</span>

@@ -228,11 +228,12 @@ async function CategoryArticlesContent({
       category,
       locale,
       page: currentPage,
-      sort: "createdAt",
-      order: "desc",
       limit: ARTICLES_PER_PAGE,
       fields: "featured" as FieldProjectionType,
       skipCount: false, // Get totalPages for pagination
+      ...(currentPage === 1
+        ? { random: true }
+        : { sort: "createdAt", order: "desc" }),
     });
 
     const articles = paginatedResult.data || [];

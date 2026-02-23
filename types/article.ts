@@ -11,6 +11,7 @@ export interface IGetArticlesParams {
   slug?: string;
   query?: string;
   excludeIds?: string[];
+  random?: boolean;
 }
 
 export interface IArticleCardProps {

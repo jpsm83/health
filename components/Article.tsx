@@ -17,7 +17,6 @@ import SocialShare from "@/components/SocialShare";
 import ProductsBanner from "@/components/ProductsBanner";
 import SocialMedia from "@/components/SocialMedia";
 import { translateCategoryToLocale } from "@/lib/utils/routeTranslation";
-import { useClientDateFormatter } from "@/lib/hooks/useClientDateFormatter";
 import AdBanner from "./adSence/AdBanner";
 
 export default function Article({
@@ -42,17 +41,6 @@ export default function Article({
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  // Use client-side date formatter to prevent hydration mismatches
-  const formattedCreatedDate = useClientDateFormatter(
-    articleData?.createdAt,
-    locale,
-    {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }
-  );
 
   // Check if user has liked the article
   useEffect(() => {
@@ -358,10 +346,6 @@ export default function Article({
                     >
                       <span>
                         {t("article.info.category")} {articleData?.category}
-                      </span>
-                      <span>
-                        {t("article.info.published")}{" "}
-                        {formattedCreatedDate || ""}
                       </span>
                       <span>
                         {t("article.info.views")}{" "}

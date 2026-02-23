@@ -43,6 +43,7 @@ async function FeaturedArticlesContent({ locale }: { locale: string }) {
     limit: 9,
     skipCount: true,
     fields: "featured",
+    random: true,
   });
 
   const articles = featuredArticlesResponse.data;

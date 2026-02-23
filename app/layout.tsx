@@ -3,9 +3,11 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import SessionTracker from "@/components/SessionTracker";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import AdSense from "@/components/adSence/AdSense";
+import AdSenseRouter from "@/components/adSence/AdSenseRouter";
 
 export const metadata: Metadata = {
   title: "Women's Spot - Your Comprehensive Health and Wellness Platform",
@@ -221,6 +223,9 @@ export default function RootLayout({
           <SessionTracker />
           <PerformanceMonitor />
           <AdSense />
+          <Suspense fallback={null}>
+            <AdSenseRouter />
+          </Suspense>
           {children}
           <Toaster />
         </SessionProvider>

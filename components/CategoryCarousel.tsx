@@ -76,11 +76,10 @@ export default function CategoryCarousel({
             category,
             page: 1,
             limit,
-            sort: "createdAt",
-            order: "desc",
             locale,
             fields: "featured", // Only fetch fields needed for ArticleCard
             skipCount: true, // Skip expensive countDocuments
+            random: true,
           });
 
           // Check if component is still mounted and not aborted
@@ -164,11 +163,10 @@ export default function CategoryCarousel({
       const newArticles = await getArticlesByCategory({
         category,
         limit,
-        sort: "createdAt",
-        order: "desc",
         excludeIds,
         locale,
         fields: "featured", // Only fetch fields needed for ArticleCard
+        random: true,
       });
 
       // Check if component is still mounted and not aborted

@@ -119,9 +119,10 @@ export async function getArticlesService(
     slug,
     skipCount = false,
     fields = "full",
+    random = false,
   } = params;
 
-  if (!["asc", "desc"].includes(order)) {
+  if (!random && !["asc", "desc"].includes(order)) {
     throw new Error("Invalid order parameter. Use 'asc' or 'desc'.");
   }
 
@@ -129,6 +130,50 @@ export async function getArticlesService(
   const projection = fieldProjections[fields] || {};
 
   await connectDb();
+
+  if (random) {
+    const sampled = await Article.aggregate([
+      { $match: filter },
+      { $sample: { size: limit } },
+      { $project: { _id: 1 } },
+    ]);
+    const ids = sampled.map((d) => d._id);
+    if (ids.length === 0) {
+      return {
+        page,
+        limit,
+        totalDocs: skipCount ? 0 : 0,
+        totalPages: skipCount ? 0 : 0,
+        data: [],
+      };
+    }
+    const rawArticles = (await Article.find(
+      { _id: { $in: ids } },
+      projection
+    )
+      .populate({ path: "createdBy", select: "username" })
+      .lean()) as IArticleLean[];
+    const orderMap = new Map(
+      ids.map((id, i) => [id.toString(), i])
+    );
+    rawArticles.sort(
+      (a, b) =>
+        (orderMap.get(a._id?.toString() ?? "") ?? 0) -
+        (orderMap.get(b._id?.toString() ?? "") ?? 0)
+    );
+    const filteredArticles = applyLocaleFilter(rawArticles, locale, slug);
+    const totalDocs = skipCount ? 0 : await Article.countDocuments(filter);
+    const totalPages = skipCount ? 0 : Math.ceil(totalDocs / Math.max(limit, 1));
+    return {
+      page,
+      limit,
+      totalDocs,
+      totalPages,
+      data: filteredArticles.map(
+        (article) => serializeMongoObject(article) as ISerializedArticle
+      ),
+    };
+  }
 
   const articles = (await Article.find(filter, projection)
     .populate({ path: "createdBy", select: "username" })
@@ -177,9 +222,11 @@ export async function getArticlesPaginatedService(
     query,
     skipCount = false,
     fields = "full",
+    random = false,
   } = params;
 
-  if (!["asc", "desc"].includes(order)) {
+  const useRandomFirstPage = Boolean(random && page === 1 && category);
+  if (!useRandomFirstPage && !["asc", "desc"].includes(order)) {
     throw new Error("Invalid order parameter. Use 'asc' or 'desc'.");
   }
 
@@ -221,20 +268,55 @@ export async function getArticlesPaginatedService(
     totalDocs = skipCount ? 0 : allArticlesWithLocaleFilter.length;
     totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
   } else {
-    // For category: use database-level pagination
-    const skip = (page - 1) * limit;
-    const rawArticles = (await Article.find(filter, projection)
-      .populate({ path: "createdBy", select: "username" })
-      .sort({ [sort]: order === "asc" ? 1 : -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean()) as IArticleLean[];
+    // For category: random first page or database-level pagination
+    if (useRandomFirstPage) {
+      const sampled = await Article.aggregate([
+        { $match: filter },
+        { $sample: { size: limit } },
+        { $project: { _id: 1 } },
+      ]);
+      const ids = sampled.map((d) => d._id);
+      if (ids.length === 0) {
+        const total = skipCount ? 0 : await Article.countDocuments(filter);
+        return {
+          page,
+          limit,
+          totalDocs: total,
+          totalPages: skipCount ? 0 : Math.ceil(total / limit),
+          data: [],
+        };
+      } else {
+        const rawArticles = (await Article.find(
+          { _id: { $in: ids } },
+          projection
+        )
+          .populate({ path: "createdBy", select: "username" })
+          .lean()) as IArticleLean[];
+        const orderMap = new Map(
+          ids.map((id, i) => [id.toString(), i])
+        );
+        rawArticles.sort(
+          (a, b) =>
+            (orderMap.get(a._id?.toString() ?? "") ?? 0) -
+            (orderMap.get(b._id?.toString() ?? "") ?? 0)
+        );
+        articles = applyLocaleFilter(rawArticles, locale, slug);
+        totalDocs = skipCount ? 0 : await Article.countDocuments(filter);
+        totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
+      }
+    } else {
+      const skip = (page - 1) * limit;
+      const rawArticles = (await Article.find(filter, projection)
+        .populate({ path: "createdBy", select: "username" })
+        .sort({ [sort]: order === "asc" ? 1 : -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean()) as IArticleLean[];
 
-    articles = applyLocaleFilter(rawArticles, locale, slug);
-
-    // Count documents (before locale filtering for category queries)
-    totalDocs = skipCount ? 0 : await Article.countDocuments(filter);
-    totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
+      articles = applyLocaleFilter(rawArticles, locale, slug);
+      totalDocs = skipCount ? 0 : await Article.countDocuments(filter);
+      totalPages = skipCount ? 0 : Math.ceil(totalDocs / limit);
+    }
   }
 
   if (!articles || articles.length === 0) {
